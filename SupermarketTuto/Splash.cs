@@ -30,9 +30,7 @@ namespace SupermarketTuto
                 WelcomeForm log = new WelcomeForm();
                 this.Hide();
                 log.Show();
-
             }
-
         }
 
         private void Splash_Load(object sender, EventArgs e)
