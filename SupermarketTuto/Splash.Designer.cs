@@ -73,19 +73,19 @@
             // 
             // Myprogress
             // 
-            this.Myprogress.Location = new System.Drawing.Point(-3, 479);
-            this.Myprogress.Margin = new System.Windows.Forms.Padding(2);
+            this.Myprogress.Location = new System.Drawing.Point(-1, 677);
+            this.Myprogress.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Myprogress.Name = "Myprogress";
-            this.Myprogress.Size = new System.Drawing.Size(832, 10);
+            this.Myprogress.Size = new System.Drawing.Size(832, 16);
             this.Myprogress.TabIndex = 13;
             // 
             // pictureBox1
             // 
             this.pictureBox1.Image = global::SupermarketTuto.Properties.Resources.αρχείο_λήψης;
-            this.pictureBox1.Location = new System.Drawing.Point(291, 176);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureBox1.Location = new System.Drawing.Point(307, 269);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(265, 184);
+            this.pictureBox1.Size = new System.Drawing.Size(231, 138);
             this.pictureBox1.TabIndex = 14;
             this.pictureBox1.TabStop = false;
             // 
@@ -97,16 +97,15 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(832, 488);
+            this.ClientSize = new System.Drawing.Size(832, 695);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.Myprogress);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.exitLabel);
             this.Controls.Add(this.loginLabel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "Splash";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Splash";
             this.Load += new System.EventHandler(this.Splash_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
