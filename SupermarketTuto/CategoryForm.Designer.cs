@@ -36,9 +36,9 @@
             this.descriptionLabel = new System.Windows.Forms.Label();
             this.name3Label = new System.Windows.Forms.Label();
             this.id3label = new System.Windows.Forms.Label();
-            this.descriptionTextBox = new System.Windows.Forms.TextBox();
-            this.name3TextBox = new System.Windows.Forms.TextBox();
-            this.id3TextBox = new System.Windows.Forms.TextBox();
+            this.CatDescTb = new System.Windows.Forms.TextBox();
+            this.CatNameTb = new System.Windows.Forms.TextBox();
+            this.CatIdTb = new System.Windows.Forms.TextBox();
             this.manageCategoriesLabel = new System.Windows.Forms.Label();
             this.manageCategoriesPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.manageCategoriesDataGridView)).BeginInit();
@@ -54,9 +54,9 @@
             this.manageCategoriesPanel.Controls.Add(this.descriptionLabel);
             this.manageCategoriesPanel.Controls.Add(this.name3Label);
             this.manageCategoriesPanel.Controls.Add(this.id3label);
-            this.manageCategoriesPanel.Controls.Add(this.descriptionTextBox);
-            this.manageCategoriesPanel.Controls.Add(this.name3TextBox);
-            this.manageCategoriesPanel.Controls.Add(this.id3TextBox);
+            this.manageCategoriesPanel.Controls.Add(this.CatDescTb);
+            this.manageCategoriesPanel.Controls.Add(this.CatNameTb);
+            this.manageCategoriesPanel.Controls.Add(this.CatIdTb);
             this.manageCategoriesPanel.Controls.Add(this.manageCategoriesLabel);
             this.manageCategoriesPanel.Location = new System.Drawing.Point(48, 49);
             this.manageCategoriesPanel.Name = "manageCategoriesPanel";
@@ -98,6 +98,7 @@
             this.add3Button.TabIndex = 10;
             this.add3Button.Text = "Add";
             this.add3Button.UseVisualStyleBackColor = true;
+            this.add3Button.Click += new System.EventHandler(this.add3Button_Click);
             // 
             // descriptionLabel
             // 
@@ -126,26 +127,26 @@
             this.id3label.TabIndex = 6;
             this.id3label.Text = "ID";
             // 
-            // descriptionTextBox
+            // CatDescTb
             // 
-            this.descriptionTextBox.Location = new System.Drawing.Point(191, 180);
-            this.descriptionTextBox.Name = "descriptionTextBox";
-            this.descriptionTextBox.Size = new System.Drawing.Size(100, 23);
-            this.descriptionTextBox.TabIndex = 4;
+            this.CatDescTb.Location = new System.Drawing.Point(191, 180);
+            this.CatDescTb.Name = "CatDescTb";
+            this.CatDescTb.Size = new System.Drawing.Size(100, 23);
+            this.CatDescTb.TabIndex = 4;
             // 
-            // name3TextBox
+            // CatNameTb
             // 
-            this.name3TextBox.Location = new System.Drawing.Point(191, 141);
-            this.name3TextBox.Name = "name3TextBox";
-            this.name3TextBox.Size = new System.Drawing.Size(100, 23);
-            this.name3TextBox.TabIndex = 3;
+            this.CatNameTb.Location = new System.Drawing.Point(191, 141);
+            this.CatNameTb.Name = "CatNameTb";
+            this.CatNameTb.Size = new System.Drawing.Size(100, 23);
+            this.CatNameTb.TabIndex = 3;
             // 
-            // id3TextBox
+            // CatIdTb
             // 
-            this.id3TextBox.Location = new System.Drawing.Point(191, 98);
-            this.id3TextBox.Name = "id3TextBox";
-            this.id3TextBox.Size = new System.Drawing.Size(100, 23);
-            this.id3TextBox.TabIndex = 2;
+            this.CatIdTb.Location = new System.Drawing.Point(191, 98);
+            this.CatIdTb.Name = "CatIdTb";
+            this.CatIdTb.Size = new System.Drawing.Size(100, 23);
+            this.CatIdTb.TabIndex = 2;
             // 
             // manageCategoriesLabel
             // 
@@ -183,9 +184,9 @@
         private Label descriptionLabel;
         private Label name3Label;
         private Label id3label;
-        private TextBox descriptionTextBox;
-        private TextBox name3TextBox;
-        private TextBox id3TextBox;
+        private TextBox CatDescTb;
+        private TextBox CatNameTb;
+        private TextBox CatIdTb;
         private Label manageCategoriesLabel;
     }
 }
