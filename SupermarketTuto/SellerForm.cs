@@ -10,18 +10,11 @@ using System.Windows.Forms;
 
 namespace SupermarketTuto
 {
-    public partial class ProductsForm : Form
+    public partial class SellerForm : Form
     {
-        public ProductsForm()
+        public SellerForm()
         {
             InitializeComponent();
-        }
-
-
-
-        private void exitButton_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
         }
     }
 }

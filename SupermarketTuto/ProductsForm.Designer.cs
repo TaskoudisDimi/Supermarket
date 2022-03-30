@@ -28,111 +28,303 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button = new System.Windows.Forms.Button();
-            this.panel1.SuspendLayout();
+            this.manageProductsPanel = new System.Windows.Forms.Panel();
+            this.categoriesLabel = new System.Windows.Forms.Label();
+            this.priceLabel = new System.Windows.Forms.Label();
+            this.quantityLabel = new System.Windows.Forms.Label();
+            this.nameLabel = new System.Windows.Forms.Label();
+            this.deleteButton = new System.Windows.Forms.Button();
+            this.editButton = new System.Windows.Forms.Button();
+            this.addButton = new System.Windows.Forms.Button();
+            this.idLabel = new System.Windows.Forms.Label();
+            this.categoriesComboBox = new System.Windows.Forms.ComboBox();
+            this.priceTextBox = new System.Windows.Forms.TextBox();
+            this.quantityTextBox = new System.Windows.Forms.TextBox();
+            this.nameTextBox = new System.Windows.Forms.TextBox();
+            this.idTextBox = new System.Windows.Forms.TextBox();
+            this.manageProductsLabel = new System.Windows.Forms.Label();
+            this.sellerButton = new System.Windows.Forms.Button();
+            this.categoriesButton = new System.Windows.Forms.Button();
+            this.sellingButton = new System.Windows.Forms.Button();
+            this.exitButton = new System.Windows.Forms.Button();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.selectCategory2ComboBox = new System.Windows.Forms.ComboBox();
+            this.refreshButton = new System.Windows.Forms.Button();
+            this.manageProductsPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
-            // panel1
+            // manageProductsPanel
             // 
-            this.panel1.BackColor = System.Drawing.Color.LightGray;
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Location = new System.Drawing.Point(125, 42);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(927, 571);
-            this.panel1.TabIndex = 0;
+            this.manageProductsPanel.BackColor = System.Drawing.Color.LightGray;
+            this.manageProductsPanel.Controls.Add(this.refreshButton);
+            this.manageProductsPanel.Controls.Add(this.selectCategory2ComboBox);
+            this.manageProductsPanel.Controls.Add(this.dataGridView1);
+            this.manageProductsPanel.Controls.Add(this.categoriesLabel);
+            this.manageProductsPanel.Controls.Add(this.priceLabel);
+            this.manageProductsPanel.Controls.Add(this.quantityLabel);
+            this.manageProductsPanel.Controls.Add(this.nameLabel);
+            this.manageProductsPanel.Controls.Add(this.deleteButton);
+            this.manageProductsPanel.Controls.Add(this.editButton);
+            this.manageProductsPanel.Controls.Add(this.addButton);
+            this.manageProductsPanel.Controls.Add(this.idLabel);
+            this.manageProductsPanel.Controls.Add(this.categoriesComboBox);
+            this.manageProductsPanel.Controls.Add(this.priceTextBox);
+            this.manageProductsPanel.Controls.Add(this.quantityTextBox);
+            this.manageProductsPanel.Controls.Add(this.nameTextBox);
+            this.manageProductsPanel.Controls.Add(this.idTextBox);
+            this.manageProductsPanel.Controls.Add(this.manageProductsLabel);
+            this.manageProductsPanel.Location = new System.Drawing.Point(125, 42);
+            this.manageProductsPanel.Name = "manageProductsPanel";
+            this.manageProductsPanel.Size = new System.Drawing.Size(927, 571);
+            this.manageProductsPanel.TabIndex = 0;
             // 
-            // label1
+            // categoriesLabel
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(348, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(215, 32);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Manage Products";
+            this.categoriesLabel.AutoSize = true;
+            this.categoriesLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.categoriesLabel.Location = new System.Drawing.Point(20, 278);
+            this.categoriesLabel.Name = "categoriesLabel";
+            this.categoriesLabel.Size = new System.Drawing.Size(91, 21);
+            this.categoriesLabel.TabIndex = 13;
+            this.categoriesLabel.Text = "Categories";
             // 
-            // button1
+            // priceLabel
             // 
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.button1.Location = new System.Drawing.Point(12, 84);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(93, 53);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Seller";
-            this.button1.UseVisualStyleBackColor = true;
+            this.priceLabel.AutoSize = true;
+            this.priceLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.priceLabel.Location = new System.Drawing.Point(12, 228);
+            this.priceLabel.Name = "priceLabel";
+            this.priceLabel.Size = new System.Drawing.Size(48, 21);
+            this.priceLabel.TabIndex = 12;
+            this.priceLabel.Text = "Price";
             // 
-            // button2
+            // quantityLabel
             // 
-            this.button2.FlatAppearance.BorderSize = 0;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.button2.Location = new System.Drawing.Point(2, 156);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(117, 53);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "Categories";
-            this.button2.UseVisualStyleBackColor = true;
+            this.quantityLabel.AutoSize = true;
+            this.quantityLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.quantityLabel.Location = new System.Drawing.Point(12, 183);
+            this.quantityLabel.Name = "quantityLabel";
+            this.quantityLabel.Size = new System.Drawing.Size(77, 21);
+            this.quantityLabel.TabIndex = 11;
+            this.quantityLabel.Text = "Quantity";
             // 
-            // button3
+            // nameLabel
             // 
-            this.button3.FlatAppearance.BorderSize = 0;
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.button3.Location = new System.Drawing.Point(2, 225);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(117, 53);
-            this.button3.TabIndex = 3;
-            this.button3.Text = "Selling";
-            this.button3.UseVisualStyleBackColor = true;
+            this.nameLabel.AutoSize = true;
+            this.nameLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.nameLabel.Location = new System.Drawing.Point(12, 142);
+            this.nameLabel.Name = "nameLabel";
+            this.nameLabel.Size = new System.Drawing.Size(56, 21);
+            this.nameLabel.TabIndex = 10;
+            this.nameLabel.Text = "Name";
             // 
-            // button
+            // deleteButton
             // 
-            this.button.AccessibleRole = System.Windows.Forms.AccessibleRole.WhiteSpace;
-            this.button.FlatAppearance.BorderSize = 0;
-            this.button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.button.Location = new System.Drawing.Point(1016, 3);
-            this.button.Name = "button";
-            this.button.Size = new System.Drawing.Size(47, 33);
-            this.button.TabIndex = 4;
-            this.button.Text = "X";
-            this.button.UseVisualStyleBackColor = true;
-            this.button.Click += new System.EventHandler(this.button_Click);
+            this.deleteButton.Location = new System.Drawing.Point(252, 365);
+            this.deleteButton.Name = "deleteButton";
+            this.deleteButton.Size = new System.Drawing.Size(75, 23);
+            this.deleteButton.TabIndex = 9;
+            this.deleteButton.Text = "Delete";
+            this.deleteButton.UseVisualStyleBackColor = true;
+            // 
+            // editButton
+            // 
+            this.editButton.Location = new System.Drawing.Point(138, 365);
+            this.editButton.Name = "editButton";
+            this.editButton.Size = new System.Drawing.Size(75, 23);
+            this.editButton.TabIndex = 8;
+            this.editButton.Text = "Edit";
+            this.editButton.UseVisualStyleBackColor = true;
+            // 
+            // addButton
+            // 
+            this.addButton.Location = new System.Drawing.Point(33, 365);
+            this.addButton.Name = "addButton";
+            this.addButton.Size = new System.Drawing.Size(75, 23);
+            this.addButton.TabIndex = 7;
+            this.addButton.Text = "Add";
+            this.addButton.UseVisualStyleBackColor = true;
+            // 
+            // idLabel
+            // 
+            this.idLabel.AutoSize = true;
+            this.idLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.idLabel.Location = new System.Drawing.Point(12, 101);
+            this.idLabel.Name = "idLabel";
+            this.idLabel.Size = new System.Drawing.Size(27, 21);
+            this.idLabel.TabIndex = 6;
+            this.idLabel.Text = "ID";
+            // 
+            // categoriesComboBox
+            // 
+            this.categoriesComboBox.FormattingEnabled = true;
+            this.categoriesComboBox.Location = new System.Drawing.Point(206, 276);
+            this.categoriesComboBox.Name = "categoriesComboBox";
+            this.categoriesComboBox.Size = new System.Drawing.Size(107, 23);
+            this.categoriesComboBox.TabIndex = 5;
+            this.categoriesComboBox.Text = "Select Category";
+            // 
+            // priceTextBox
+            // 
+            this.priceTextBox.Location = new System.Drawing.Point(203, 226);
+            this.priceTextBox.Name = "priceTextBox";
+            this.priceTextBox.Size = new System.Drawing.Size(100, 23);
+            this.priceTextBox.TabIndex = 4;
+            // 
+            // quantityTextBox
+            // 
+            this.quantityTextBox.Location = new System.Drawing.Point(203, 183);
+            this.quantityTextBox.Name = "quantityTextBox";
+            this.quantityTextBox.Size = new System.Drawing.Size(100, 23);
+            this.quantityTextBox.TabIndex = 3;
+            // 
+            // nameTextBox
+            // 
+            this.nameTextBox.BackColor = System.Drawing.Color.White;
+            this.nameTextBox.Location = new System.Drawing.Point(203, 144);
+            this.nameTextBox.Name = "nameTextBox";
+            this.nameTextBox.Size = new System.Drawing.Size(100, 23);
+            this.nameTextBox.TabIndex = 2;
+            // 
+            // idTextBox
+            // 
+            this.idTextBox.Location = new System.Drawing.Point(203, 99);
+            this.idTextBox.Name = "idTextBox";
+            this.idTextBox.Size = new System.Drawing.Size(100, 23);
+            this.idTextBox.TabIndex = 1;
+            // 
+            // manageProductsLabel
+            // 
+            this.manageProductsLabel.AutoSize = true;
+            this.manageProductsLabel.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.manageProductsLabel.Location = new System.Drawing.Point(348, 9);
+            this.manageProductsLabel.Name = "manageProductsLabel";
+            this.manageProductsLabel.Size = new System.Drawing.Size(215, 32);
+            this.manageProductsLabel.TabIndex = 0;
+            this.manageProductsLabel.Text = "Manage Products";
+            // 
+            // sellerButton
+            // 
+            this.sellerButton.FlatAppearance.BorderSize = 0;
+            this.sellerButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.sellerButton.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.sellerButton.Location = new System.Drawing.Point(12, 84);
+            this.sellerButton.Name = "sellerButton";
+            this.sellerButton.Size = new System.Drawing.Size(93, 53);
+            this.sellerButton.TabIndex = 1;
+            this.sellerButton.Text = "Seller";
+            this.sellerButton.UseVisualStyleBackColor = true;
+            // 
+            // categoriesButton
+            // 
+            this.categoriesButton.FlatAppearance.BorderSize = 0;
+            this.categoriesButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.categoriesButton.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.categoriesButton.Location = new System.Drawing.Point(2, 156);
+            this.categoriesButton.Name = "categoriesButton";
+            this.categoriesButton.Size = new System.Drawing.Size(117, 53);
+            this.categoriesButton.TabIndex = 2;
+            this.categoriesButton.Text = "Categories";
+            this.categoriesButton.UseVisualStyleBackColor = true;
+            // 
+            // sellingButton
+            // 
+            this.sellingButton.FlatAppearance.BorderSize = 0;
+            this.sellingButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.sellingButton.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.sellingButton.Location = new System.Drawing.Point(2, 225);
+            this.sellingButton.Name = "sellingButton";
+            this.sellingButton.Size = new System.Drawing.Size(117, 53);
+            this.sellingButton.TabIndex = 3;
+            this.sellingButton.Text = "Selling";
+            this.sellingButton.UseVisualStyleBackColor = true;
+            // 
+            // exitButton
+            // 
+            this.exitButton.AccessibleRole = System.Windows.Forms.AccessibleRole.WhiteSpace;
+            this.exitButton.FlatAppearance.BorderSize = 0;
+            this.exitButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.exitButton.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.exitButton.Location = new System.Drawing.Point(1016, 3);
+            this.exitButton.Name = "exitButton";
+            this.exitButton.Size = new System.Drawing.Size(47, 33);
+            this.exitButton.TabIndex = 4;
+            this.exitButton.Text = "X";
+            this.exitButton.UseVisualStyleBackColor = true;
+            this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(333, 69);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowTemplate.Height = 25;
+            this.dataGridView1.Size = new System.Drawing.Size(591, 499);
+            this.dataGridView1.TabIndex = 14;
+            // 
+            // selectCategory2ComboBox
+            // 
+            this.selectCategory2ComboBox.FormattingEnabled = true;
+            this.selectCategory2ComboBox.Location = new System.Drawing.Point(575, 42);
+            this.selectCategory2ComboBox.Name = "selectCategory2ComboBox";
+            this.selectCategory2ComboBox.Size = new System.Drawing.Size(107, 23);
+            this.selectCategory2ComboBox.TabIndex = 15;
+            this.selectCategory2ComboBox.Text = "Select Category";
+            // 
+            // refreshButton
+            // 
+            this.refreshButton.Location = new System.Drawing.Point(714, 41);
+            this.refreshButton.Name = "refreshButton";
+            this.refreshButton.Size = new System.Drawing.Size(75, 23);
+            this.refreshButton.TabIndex = 16;
+            this.refreshButton.Text = "Refresh";
+            this.refreshButton.UseVisualStyleBackColor = true;
             // 
             // ProductsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1064, 635);
-            this.Controls.Add(this.button);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.exitButton);
+            this.Controls.Add(this.sellingButton);
+            this.Controls.Add(this.categoriesButton);
+            this.Controls.Add(this.sellerButton);
+            this.Controls.Add(this.manageProductsPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "ProductsForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ProductsForm";
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.manageProductsPanel.ResumeLayout(false);
+            this.manageProductsPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private Panel panel1;
-        private Button button1;
-        private Button button2;
-        private Button button3;
-        private Button button;
-        private Label label1;
+        private Panel manageProductsPanel;
+        private Button sellerButton;
+        private Button categoriesButton;
+        private Button sellingButton;
+        private Button exitButton;
+        private Label manageProductsLabel;
+        private TextBox priceTextBox;
+        private TextBox quantityTextBox;
+        private TextBox nameTextBox;
+        private TextBox idTextBox;
+        private Button deleteButton;
+        private Button editButton;
+        private Button addButton;
+        private Label idLabel;
+        private ComboBox categoriesComboBox;
+        private Label nameLabel;
+        private Label quantityLabel;
+        private Label priceLabel;
+        private Label categoriesLabel;
+        private DataGridView dataGridView1;
+        private Button refreshButton;
+        private ComboBox selectCategory2ComboBox;
     }
 }
