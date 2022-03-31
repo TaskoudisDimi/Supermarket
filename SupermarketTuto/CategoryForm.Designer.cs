@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.manageCategoriesPanel = new System.Windows.Forms.Panel();
-            this.manageCategoriesDataGridView = new System.Windows.Forms.DataGridView();
+            this.CatDGV = new System.Windows.Forms.DataGridView();
             this.delete3Button = new System.Windows.Forms.Button();
             this.edit3Button = new System.Windows.Forms.Button();
             this.add3Button = new System.Windows.Forms.Button();
@@ -40,14 +40,18 @@
             this.CatNameTb = new System.Windows.Forms.TextBox();
             this.CatIdTb = new System.Windows.Forms.TextBox();
             this.manageCategoriesLabel = new System.Windows.Forms.Label();
+            this.exit2Button = new System.Windows.Forms.Button();
+            this.selling2Button = new System.Windows.Forms.Button();
+            this.productsButton = new System.Windows.Forms.Button();
+            this.sellersButton = new System.Windows.Forms.Button();
             this.manageCategoriesPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.manageCategoriesDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CatDGV)).BeginInit();
             this.SuspendLayout();
             // 
             // manageCategoriesPanel
             // 
             this.manageCategoriesPanel.BackColor = System.Drawing.Color.Silver;
-            this.manageCategoriesPanel.Controls.Add(this.manageCategoriesDataGridView);
+            this.manageCategoriesPanel.Controls.Add(this.CatDGV);
             this.manageCategoriesPanel.Controls.Add(this.delete3Button);
             this.manageCategoriesPanel.Controls.Add(this.edit3Button);
             this.manageCategoriesPanel.Controls.Add(this.add3Button);
@@ -58,41 +62,47 @@
             this.manageCategoriesPanel.Controls.Add(this.CatNameTb);
             this.manageCategoriesPanel.Controls.Add(this.CatIdTb);
             this.manageCategoriesPanel.Controls.Add(this.manageCategoriesLabel);
-            this.manageCategoriesPanel.Location = new System.Drawing.Point(48, 49);
+            this.manageCategoriesPanel.Location = new System.Drawing.Point(136, 40);
             this.manageCategoriesPanel.Name = "manageCategoriesPanel";
             this.manageCategoriesPanel.Size = new System.Drawing.Size(659, 500);
             this.manageCategoriesPanel.TabIndex = 1;
             // 
-            // manageCategoriesDataGridView
+            // CatDGV
             // 
-            this.manageCategoriesDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.manageCategoriesDataGridView.Location = new System.Drawing.Point(343, 92);
-            this.manageCategoriesDataGridView.Name = "manageCategoriesDataGridView";
-            this.manageCategoriesDataGridView.RowTemplate.Height = 25;
-            this.manageCategoriesDataGridView.Size = new System.Drawing.Size(313, 405);
-            this.manageCategoriesDataGridView.TabIndex = 15;
+            this.CatDGV.BackgroundColor = System.Drawing.Color.WhiteSmoke;
+            this.CatDGV.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.CatDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.CatDGV.Location = new System.Drawing.Point(247, 92);
+            this.CatDGV.Name = "CatDGV";
+            this.CatDGV.RowTemplate.Height = 30;
+            this.CatDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.CatDGV.Size = new System.Drawing.Size(401, 405);
+            this.CatDGV.TabIndex = 15;
+            this.CatDGV.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.CatDGV_CellContentClick);
             // 
             // delete3Button
             // 
-            this.delete3Button.Location = new System.Drawing.Point(244, 296);
+            this.delete3Button.Location = new System.Drawing.Point(166, 251);
             this.delete3Button.Name = "delete3Button";
             this.delete3Button.Size = new System.Drawing.Size(75, 23);
             this.delete3Button.TabIndex = 12;
             this.delete3Button.Text = "Delete";
             this.delete3Button.UseVisualStyleBackColor = true;
+            this.delete3Button.Click += new System.EventHandler(this.delete3Button_Click);
             // 
             // edit3Button
             // 
-            this.edit3Button.Location = new System.Drawing.Point(141, 296);
+            this.edit3Button.Location = new System.Drawing.Point(85, 251);
             this.edit3Button.Name = "edit3Button";
             this.edit3Button.Size = new System.Drawing.Size(75, 23);
             this.edit3Button.TabIndex = 11;
             this.edit3Button.Text = "Edit";
             this.edit3Button.UseVisualStyleBackColor = true;
+            this.edit3Button.Click += new System.EventHandler(this.edit3Button_Click);
             // 
             // add3Button
             // 
-            this.add3Button.Location = new System.Drawing.Point(43, 296);
+            this.add3Button.Location = new System.Drawing.Point(4, 251);
             this.add3Button.Name = "add3Button";
             this.add3Button.Size = new System.Drawing.Size(75, 23);
             this.add3Button.TabIndex = 10;
@@ -103,7 +113,7 @@
             // descriptionLabel
             // 
             this.descriptionLabel.AutoSize = true;
-            this.descriptionLabel.Location = new System.Drawing.Point(30, 188);
+            this.descriptionLabel.Location = new System.Drawing.Point(12, 183);
             this.descriptionLabel.Name = "descriptionLabel";
             this.descriptionLabel.Size = new System.Drawing.Size(67, 15);
             this.descriptionLabel.TabIndex = 8;
@@ -129,21 +139,21 @@
             // 
             // CatDescTb
             // 
-            this.CatDescTb.Location = new System.Drawing.Point(191, 180);
+            this.CatDescTb.Location = new System.Drawing.Point(95, 175);
             this.CatDescTb.Name = "CatDescTb";
             this.CatDescTb.Size = new System.Drawing.Size(100, 23);
             this.CatDescTb.TabIndex = 4;
             // 
             // CatNameTb
             // 
-            this.CatNameTb.Location = new System.Drawing.Point(191, 141);
+            this.CatNameTb.Location = new System.Drawing.Point(95, 133);
             this.CatNameTb.Name = "CatNameTb";
             this.CatNameTb.Size = new System.Drawing.Size(100, 23);
             this.CatNameTb.TabIndex = 3;
             // 
             // CatIdTb
             // 
-            this.CatIdTb.Location = new System.Drawing.Point(191, 98);
+            this.CatIdTb.Location = new System.Drawing.Point(95, 94);
             this.CatIdTb.Name = "CatIdTb";
             this.CatIdTb.Size = new System.Drawing.Size(100, 23);
             this.CatIdTb.TabIndex = 2;
@@ -158,18 +168,73 @@
             this.manageCategoriesLabel.TabIndex = 1;
             this.manageCategoriesLabel.Text = "Manage Categories";
             // 
+            // exit2Button
+            // 
+            this.exit2Button.AccessibleRole = System.Windows.Forms.AccessibleRole.WhiteSpace;
+            this.exit2Button.FlatAppearance.BorderSize = 0;
+            this.exit2Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.exit2Button.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.exit2Button.Location = new System.Drawing.Point(748, 1);
+            this.exit2Button.Name = "exit2Button";
+            this.exit2Button.Size = new System.Drawing.Size(47, 33);
+            this.exit2Button.TabIndex = 5;
+            this.exit2Button.Text = "X";
+            this.exit2Button.UseVisualStyleBackColor = true;
+            this.exit2Button.Click += new System.EventHandler(this.exit2Button_Click);
+            // 
+            // selling2Button
+            // 
+            this.selling2Button.FlatAppearance.BorderSize = 0;
+            this.selling2Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.selling2Button.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.selling2Button.Location = new System.Drawing.Point(14, 273);
+            this.selling2Button.Name = "selling2Button";
+            this.selling2Button.Size = new System.Drawing.Size(117, 53);
+            this.selling2Button.TabIndex = 8;
+            this.selling2Button.Text = "Selling";
+            this.selling2Button.UseVisualStyleBackColor = true;
+            // 
+            // productsButton
+            // 
+            this.productsButton.FlatAppearance.BorderSize = 0;
+            this.productsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.productsButton.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.productsButton.Location = new System.Drawing.Point(12, 201);
+            this.productsButton.Name = "productsButton";
+            this.productsButton.Size = new System.Drawing.Size(117, 53);
+            this.productsButton.TabIndex = 7;
+            this.productsButton.Text = "Products";
+            this.productsButton.UseVisualStyleBackColor = true;
+            // 
+            // sellersButton
+            // 
+            this.sellersButton.FlatAppearance.BorderSize = 0;
+            this.sellersButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.sellersButton.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.sellersButton.Location = new System.Drawing.Point(24, 132);
+            this.sellersButton.Name = "sellersButton";
+            this.sellersButton.Size = new System.Drawing.Size(93, 53);
+            this.sellersButton.TabIndex = 6;
+            this.sellersButton.Text = "Sellers";
+            this.sellersButton.UseVisualStyleBackColor = true;
+            // 
             // CategoryForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(755, 599);
+            this.ClientSize = new System.Drawing.Size(796, 550);
+            this.Controls.Add(this.selling2Button);
+            this.Controls.Add(this.productsButton);
+            this.Controls.Add(this.sellersButton);
+            this.Controls.Add(this.exit2Button);
             this.Controls.Add(this.manageCategoriesPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "CategoryForm";
             this.Text = "CategoryForm";
+            this.Load += new System.EventHandler(this.CategoryForm_Load);
             this.manageCategoriesPanel.ResumeLayout(false);
             this.manageCategoriesPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.manageCategoriesDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CatDGV)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -177,7 +242,7 @@
         #endregion
 
         private Panel manageCategoriesPanel;
-        private DataGridView manageCategoriesDataGridView;
+        private DataGridView CatDGV;
         private Button delete3Button;
         private Button edit3Button;
         private Button add3Button;
@@ -188,5 +253,9 @@
         private TextBox CatNameTb;
         private TextBox CatIdTb;
         private Label manageCategoriesLabel;
+        private Button exit2Button;
+        private Button selling2Button;
+        private Button productsButton;
+        private Button sellersButton;
     }
 }

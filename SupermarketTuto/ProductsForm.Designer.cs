@@ -29,6 +29,9 @@
         private void InitializeComponent()
         {
             this.manageProductsPanel = new System.Windows.Forms.Panel();
+            this.refreshButton = new System.Windows.Forms.Button();
+            this.selectCategory2ComboBox = new System.Windows.Forms.ComboBox();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.categoriesLabel = new System.Windows.Forms.Label();
             this.priceLabel = new System.Windows.Forms.Label();
             this.quantityLabel = new System.Windows.Forms.Label();
@@ -37,7 +40,7 @@
             this.editButton = new System.Windows.Forms.Button();
             this.addButton = new System.Windows.Forms.Button();
             this.idLabel = new System.Windows.Forms.Label();
-            this.categoriesComboBox = new System.Windows.Forms.ComboBox();
+            this.CatCb = new System.Windows.Forms.ComboBox();
             this.priceTextBox = new System.Windows.Forms.TextBox();
             this.quantityTextBox = new System.Windows.Forms.TextBox();
             this.nameTextBox = new System.Windows.Forms.TextBox();
@@ -47,9 +50,6 @@
             this.categoriesButton = new System.Windows.Forms.Button();
             this.sellingButton = new System.Windows.Forms.Button();
             this.exitButton = new System.Windows.Forms.Button();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.selectCategory2ComboBox = new System.Windows.Forms.ComboBox();
-            this.refreshButton = new System.Windows.Forms.Button();
             this.manageProductsPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -68,7 +68,7 @@
             this.manageProductsPanel.Controls.Add(this.editButton);
             this.manageProductsPanel.Controls.Add(this.addButton);
             this.manageProductsPanel.Controls.Add(this.idLabel);
-            this.manageProductsPanel.Controls.Add(this.categoriesComboBox);
+            this.manageProductsPanel.Controls.Add(this.CatCb);
             this.manageProductsPanel.Controls.Add(this.priceTextBox);
             this.manageProductsPanel.Controls.Add(this.quantityTextBox);
             this.manageProductsPanel.Controls.Add(this.nameTextBox);
@@ -78,6 +78,33 @@
             this.manageProductsPanel.Name = "manageProductsPanel";
             this.manageProductsPanel.Size = new System.Drawing.Size(927, 571);
             this.manageProductsPanel.TabIndex = 0;
+            // 
+            // refreshButton
+            // 
+            this.refreshButton.Location = new System.Drawing.Point(714, 41);
+            this.refreshButton.Name = "refreshButton";
+            this.refreshButton.Size = new System.Drawing.Size(75, 23);
+            this.refreshButton.TabIndex = 16;
+            this.refreshButton.Text = "Refresh";
+            this.refreshButton.UseVisualStyleBackColor = true;
+            // 
+            // selectCategory2ComboBox
+            // 
+            this.selectCategory2ComboBox.FormattingEnabled = true;
+            this.selectCategory2ComboBox.Location = new System.Drawing.Point(575, 42);
+            this.selectCategory2ComboBox.Name = "selectCategory2ComboBox";
+            this.selectCategory2ComboBox.Size = new System.Drawing.Size(107, 23);
+            this.selectCategory2ComboBox.TabIndex = 15;
+            this.selectCategory2ComboBox.Text = "Select Category";
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(333, 69);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowTemplate.Height = 25;
+            this.dataGridView1.Size = new System.Drawing.Size(591, 499);
+            this.dataGridView1.TabIndex = 14;
             // 
             // categoriesLabel
             // 
@@ -156,14 +183,14 @@
             this.idLabel.TabIndex = 6;
             this.idLabel.Text = "ID";
             // 
-            // categoriesComboBox
+            // CatCb
             // 
-            this.categoriesComboBox.FormattingEnabled = true;
-            this.categoriesComboBox.Location = new System.Drawing.Point(206, 276);
-            this.categoriesComboBox.Name = "categoriesComboBox";
-            this.categoriesComboBox.Size = new System.Drawing.Size(107, 23);
-            this.categoriesComboBox.TabIndex = 5;
-            this.categoriesComboBox.Text = "Select Category";
+            this.CatCb.FormattingEnabled = true;
+            this.CatCb.Location = new System.Drawing.Point(206, 276);
+            this.CatCb.Name = "CatCb";
+            this.CatCb.Size = new System.Drawing.Size(107, 23);
+            this.CatCb.TabIndex = 5;
+            this.CatCb.Text = "Select Category";
             // 
             // priceTextBox
             // 
@@ -254,33 +281,6 @@
             this.exitButton.UseVisualStyleBackColor = true;
             this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
             // 
-            // dataGridView1
-            // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(333, 69);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowTemplate.Height = 25;
-            this.dataGridView1.Size = new System.Drawing.Size(591, 499);
-            this.dataGridView1.TabIndex = 14;
-            // 
-            // selectCategory2ComboBox
-            // 
-            this.selectCategory2ComboBox.FormattingEnabled = true;
-            this.selectCategory2ComboBox.Location = new System.Drawing.Point(575, 42);
-            this.selectCategory2ComboBox.Name = "selectCategory2ComboBox";
-            this.selectCategory2ComboBox.Size = new System.Drawing.Size(107, 23);
-            this.selectCategory2ComboBox.TabIndex = 15;
-            this.selectCategory2ComboBox.Text = "Select Category";
-            // 
-            // refreshButton
-            // 
-            this.refreshButton.Location = new System.Drawing.Point(714, 41);
-            this.refreshButton.Name = "refreshButton";
-            this.refreshButton.Size = new System.Drawing.Size(75, 23);
-            this.refreshButton.TabIndex = 16;
-            this.refreshButton.Text = "Refresh";
-            this.refreshButton.UseVisualStyleBackColor = true;
-            // 
             // ProductsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -295,6 +295,7 @@
             this.Name = "ProductsForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ProductsForm";
+            this.Load += new System.EventHandler(this.ProductsForm_Load);
             this.manageProductsPanel.ResumeLayout(false);
             this.manageProductsPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
@@ -318,7 +319,7 @@
         private Button editButton;
         private Button addButton;
         private Label idLabel;
-        private ComboBox categoriesComboBox;
+        private ComboBox CatCb;
         private Label nameLabel;
         private Label quantityLabel;
         private Label priceLabel;
