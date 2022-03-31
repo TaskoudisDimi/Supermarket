@@ -26,8 +26,8 @@ namespace SupermarketTuto
             Application.Exit();
         }
 
-        //SqlConnection Con = new SqlConnection(@"Data Source=DIMITRISTASKOUD\DIMITRIS_TASKOUD;Initial Catalog=smarketdb;Integrated Security=True");
-        SqlConnection Con = new SqlConnection(@"Data Source=DESKTOP-FF268DF\SQLEXPRESS;Initial Catalog=smarketdb;Integrated Security=True");
+        SqlConnection Con = new SqlConnection(@"Data Source=DIMITRISTASKOUD\DIMITRIS_TASKOUD;Initial Catalog=smarketdb;Integrated Security=True");
+        //SqlConnection Con = new SqlConnection(@"Data Source=DESKTOP-FF268DF\SQLEXPRESS;Initial Catalog=smarketdb;Integrated Security=True");
         private void add3Button_Click(object sender, EventArgs e)
         {
             try
@@ -38,6 +38,7 @@ namespace SupermarketTuto
                 cmd.BeginExecuteNonQuery();
                 MessageBox.Show("Category added successfuly");
                 Con.Close();
+                display();
             }
             catch (Exception ex)
             {
@@ -121,6 +122,13 @@ namespace SupermarketTuto
                 MessageBox.Show(ex.Message);
             }
 
+        }
+
+        private void productsButton_Click(object sender, EventArgs e)
+        {
+            ProductsForm productForm = new ProductsForm();
+            productForm.Show();
+            this.Hide();
         }
     }
 }

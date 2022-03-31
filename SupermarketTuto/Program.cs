@@ -10,6 +10,7 @@ namespace SupermarketTuto
         {
             ApplicationConfiguration.Initialize();
             Application.Run(new CategoryForm());
+
         }
     }
 }
