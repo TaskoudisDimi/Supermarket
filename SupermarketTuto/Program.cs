@@ -9,7 +9,7 @@ namespace SupermarketTuto
         static void Main()
         {
             ApplicationConfiguration.Initialize();
-            Application.Run(new CategoryForm());
+            Application.Run(new SellingForm());
 
         }
     }

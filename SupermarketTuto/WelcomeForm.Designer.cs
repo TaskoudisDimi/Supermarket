@@ -31,7 +31,7 @@
             this.loginLabel = new System.Windows.Forms.Label();
             this.usernameLabel = new System.Windows.Forms.Label();
             this.passwordLabel = new System.Windows.Forms.Label();
-            this.selectroleComboBox = new System.Windows.Forms.ComboBox();
+            this.RoleCb = new System.Windows.Forms.ComboBox();
             this.loginButton = new System.Windows.Forms.Button();
             this.tittleLabel = new System.Windows.Forms.Label();
             this.clearLabel = new System.Windows.Forms.Label();
@@ -73,18 +73,18 @@
             this.passwordLabel.TabIndex = 3;
             this.passwordLabel.Text = "PASSWORD";
             // 
-            // selectroleComboBox
+            // RoleCb
             // 
-            this.selectroleComboBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.selectroleComboBox.FormattingEnabled = true;
-            this.selectroleComboBox.Items.AddRange(new object[] {
+            this.RoleCb.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.RoleCb.FormattingEnabled = true;
+            this.RoleCb.Items.AddRange(new object[] {
             "ADMIN",
             "SELLER"});
-            this.selectroleComboBox.Location = new System.Drawing.Point(442, 225);
-            this.selectroleComboBox.Name = "selectroleComboBox";
-            this.selectroleComboBox.Size = new System.Drawing.Size(121, 29);
-            this.selectroleComboBox.TabIndex = 4;
-            this.selectroleComboBox.Text = "Select Role";
+            this.RoleCb.Location = new System.Drawing.Point(442, 225);
+            this.RoleCb.Name = "RoleCb";
+            this.RoleCb.Size = new System.Drawing.Size(121, 29);
+            this.RoleCb.TabIndex = 4;
+            this.RoleCb.Text = "Select Role";
             // 
             // loginButton
             // 
@@ -94,6 +94,7 @@
             this.loginButton.TabIndex = 5;
             this.loginButton.Text = "Login";
             this.loginButton.UseVisualStyleBackColor = true;
+            this.loginButton.Click += new System.EventHandler(this.loginButton_Click);
             // 
             // tittleLabel
             // 
@@ -105,7 +106,6 @@
             this.tittleLabel.Size = new System.Drawing.Size(140, 30);
             this.tittleLabel.TabIndex = 6;
             this.tittleLabel.Text = "SuperMarket";
-            //this.tittleLabel.Click += new System.EventHandler(this.tittleLabel_Click);
             // 
             // clearLabel
             // 
@@ -117,11 +117,12 @@
             this.clearLabel.Size = new System.Drawing.Size(62, 30);
             this.clearLabel.TabIndex = 7;
             this.clearLabel.Text = "Clear";
+            this.clearLabel.Click += new System.EventHandler(this.clearLabel_Click);
             // 
             // usernameTextBox
             // 
             this.usernameTextBox.Location = new System.Drawing.Point(449, 267);
-            this.usernameTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.usernameTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.usernameTextBox.Name = "usernameTextBox";
             this.usernameTextBox.Size = new System.Drawing.Size(106, 23);
             this.usernameTextBox.TabIndex = 8;
@@ -129,7 +130,7 @@
             // passwordTextBox
             // 
             this.passwordTextBox.Location = new System.Drawing.Point(449, 305);
-            this.passwordTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.passwordTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.passwordTextBox.Name = "passwordTextBox";
             this.passwordTextBox.Size = new System.Drawing.Size(106, 23);
             this.passwordTextBox.TabIndex = 9;
@@ -157,7 +158,7 @@
             this.Controls.Add(this.clearLabel);
             this.Controls.Add(this.tittleLabel);
             this.Controls.Add(this.loginButton);
-            this.Controls.Add(this.selectroleComboBox);
+            this.Controls.Add(this.RoleCb);
             this.Controls.Add(this.passwordLabel);
             this.Controls.Add(this.usernameLabel);
             this.Controls.Add(this.loginLabel);
@@ -165,7 +166,6 @@
             this.Name = "WelcomeForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Welcome Form";
-            //this.Load += new System.EventHandler(this.WelcomeForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -175,7 +175,7 @@
         private Label loginLabel;
         private Label usernameLabel;
         private Label passwordLabel;
-        private ComboBox selectroleComboBox;
+        private ComboBox RoleCb;
         private Button loginButton;
         private Label tittleLabel;
         private Label clearLabel;
