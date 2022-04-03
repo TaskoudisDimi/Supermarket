@@ -69,5 +69,10 @@ namespace SupermarketTuto
 
             }
         }
+
+        private void WelcomeForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

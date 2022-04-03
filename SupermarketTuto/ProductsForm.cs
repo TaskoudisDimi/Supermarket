@@ -19,8 +19,8 @@ namespace SupermarketTuto
             InitializeComponent();
         }
 
-        //SqlConnection Con = new SqlConnection(@"Data Source=DIMITRISTASKOUD\DIMITRIS_TASKOUD;Initial Catalog=smarketdb;Integrated Security=True");
-        SqlConnection Con = new SqlConnection(@"Data Source=DESKTOP-FF268DF\SQLEXPRESS;Initial Catalog=smarketdb;Integrated Security=True");
+        SqlConnection Con = new SqlConnection(@"Data Source=DIMITRISTASKOUD\DIMITRIS_TASKOUD;Initial Catalog=smarketdb;Integrated Security=True");
+        //SqlConnection Con = new SqlConnection(@"Data Source=DESKTOP-FF268DF\SQLEXPRESS;Initial Catalog=smarketdb;Integrated Security=True");
 
         private void exitButton_Click(object sender, EventArgs e)
         {
@@ -183,6 +183,35 @@ namespace SupermarketTuto
         private void sellingButton_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void CatCb_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void selectCategory2ComboBox_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            Con.Open();
+            string query = "Select * from ProductTbl Where ProdCat='" + selectCategory2ComboBox.SelectedValue.ToString();
+            SqlDataAdapter adapter = new SqlDataAdapter(query, Con);
+            SqlCommandBuilder builder = new SqlCommandBuilder(adapter);
+            var table = new DataSet();
+            adapter.Fill(table);
+            ProdDGV.DataSource = table.Tables[0];
+            Con.Close();
+        }
+
+        private void CatCb_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            Con.Open();
+            string query = "Select * from ProductTbl Where ProdCat='" + CatCb.SelectedValue.ToString() + "'";
+            SqlDataAdapter adapter = new SqlDataAdapter(query, Con);
+            SqlCommandBuilder builder = new SqlCommandBuilder(adapter);
+            var table = new DataSet();
+            adapter.Fill(table);
+            ProdDGV.DataSource = table.Tables[0];
+            Con.Close();
         }
     }
 }

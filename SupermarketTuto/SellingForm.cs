@@ -25,8 +25,8 @@ namespace SupermarketTuto
         }
 
 
-        //SqlConnection Con = new SqlConnection(@"Data Source=DIMITRISTASKOUD\DIMITRIS_TASKOUD;Initial Catalog=smarketdb;Integrated Security=True");
-        SqlConnection Con = new SqlConnection(@"Data Source=DESKTOP-FF268DF\SQLEXPRESS;Initial Catalog=smarketdb;Integrated Security=True");
+        SqlConnection Con = new SqlConnection(@"Data Source=DIMITRISTASKOUD\DIMITRIS_TASKOUD;Initial Catalog=smarketdb;Integrated Security=True");
+        //SqlConnection Con = new SqlConnection(@"Data Source=DESKTOP-FF268DF\SQLEXPRESS;Initial Catalog=smarketdb;Integrated Security=True");
 
         private void display()
         {
@@ -40,20 +40,35 @@ namespace SupermarketTuto
             Con.Close();
         }
 
+        private void displayBills()
+        {
+            Con.Open();
+            string query = "Select * From BillTbl;";
+            SqlDataAdapter adapter = new SqlDataAdapter(query, Con);
+            SqlCommandBuilder builder = new SqlCommandBuilder(adapter);
+            var table = new DataSet();
+            adapter.Fill(table);
+            BillsDGV.DataSource = table.Tables[0];
+            Con.Close();
+        }
+
         private void SellingForm_Load(object sender, EventArgs e)
         {
             display();
+            displayBills();
         }
 
         private void SellingDGV1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             SellingProdName.Text = SellingDGV.SelectedRows[0].Cells[0].Value.ToString();
             SellingPrice.Text = SellingDGV.SelectedRows[0].Cells[1].Value.ToString();
+            display();
         }
 
         private void SellingPanel_Paint(object sender, PaintEventArgs e)
         {
             DateLabel.Text = DateTime.Today.Day.ToString() + "/" + DateTime.Today.Month.ToString() + "/" + DateTime.Today.Year.ToString();
+
         }
 
         private void AddProductbutton_Click(object sender, EventArgs e)
@@ -76,8 +91,66 @@ namespace SupermarketTuto
                 OrderDGV.Rows.Add(newRow);
                 n++;
                 GrdTotal = GrdTotal + total;
-                RsLabel.Text = "Rs " + GrdTotal;
+                AmtLabel.Text = "" + GrdTotal;
             }
+
+        }
+
+        private void addButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+
+                Con.Open();
+                string query = "Insert Into BillTbl values(" + BillId.Text + ",'" + SellerNameLabel.Text + "','" + DateLabel.Text + "'," + AmtLabel.Text + ")";
+                SqlCommand cmd = new SqlCommand(query, Con);
+                cmd.BeginExecuteNonQuery();
+                MessageBox.Show("Order added successfuly");
+                Con.Close();
+                displayBills();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+}
+
+        private void PrintButton_Click(object sender, EventArgs e)
+        {
+            if (printPreviewDialog1.ShowDialog() == DialogResult.OK)
+            {
+                printDocument1.Print();
+            }
+        }
+
+        int flag = 0;
+        private void BillsDGV_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            flag = 1;
+        }
+
+        private void printDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        {
+            e.Graphics.DrawString("FamilySuperMarket", new Font("Century Gothic", 25, FontStyle.Bold), Brushes.Red, new Point(230));
+            e.Graphics.DrawString("Bill ID: " + BillsDGV.SelectedRows[0].Cells[0].Value.ToString(), new Font("Century Gothic", 15, FontStyle.Bold), Brushes.Blue, new Point(100,70));
+            e.Graphics.DrawString("Seller Name: " + BillsDGV.SelectedRows[0].Cells[1].Value.ToString(), new Font("Century Gothic", 15, FontStyle.Bold), Brushes.Blue, new Point(100, 100));
+            e.Graphics.DrawString("Date: " + BillsDGV.SelectedRows[0].Cells[2].Value.ToString(), new Font("Century Gothic", 15, FontStyle.Bold), Brushes.Blue, new Point(100, 130));
+            e.Graphics.DrawString("Total Amount: " + BillsDGV.SelectedRows[0].Cells[3].Value.ToString(), new Font("Century Gothic", 15, FontStyle.Bold), Brushes.Blue, new Point(100, 160));
+            e.Graphics.DrawString("Code Space", new Font("Century Gothic", 20, FontStyle.Italic), Brushes.Blue, new Point(230, 230));
+
+
+
+
+        }
+
+        private void refreshButton_Click(object sender, EventArgs e)
+        {
+            displayBills();
+        }
+
+        private void comboBox1_SelectionChangeCommitted(object sender, EventArgs e)
+        {
 
         }
     }

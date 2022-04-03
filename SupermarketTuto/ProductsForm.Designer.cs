@@ -111,6 +111,7 @@
             this.selectCategory2ComboBox.TabIndex = 15;
             this.selectCategory2ComboBox.Text = "Select Category";
             this.selectCategory2ComboBox.SelectedIndexChanged += new System.EventHandler(this.selectCategory2ComboBox_SelectedIndexChanged);
+            this.selectCategory2ComboBox.SelectionChangeCommitted += new System.EventHandler(this.selectCategory2ComboBox_SelectionChangeCommitted);
             // 
             // categoriesLabel
             // 
@@ -200,6 +201,8 @@
             this.CatCb.Size = new System.Drawing.Size(107, 23);
             this.CatCb.TabIndex = 5;
             this.CatCb.Text = "Select Category";
+            this.CatCb.SelectedIndexChanged += new System.EventHandler(this.CatCb_SelectedIndexChanged);
+            this.CatCb.SelectionChangeCommitted += new System.EventHandler(this.CatCb_SelectionChangeCommitted);
             // 
             // ProdPrice
             // 

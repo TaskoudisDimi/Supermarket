@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SellingForm));
             this.exitButton = new System.Windows.Forms.Button();
             this.DateLabel = new System.Windows.Forms.Label();
             this.SellingLabel = new System.Windows.Forms.Label();
@@ -38,7 +39,7 @@
             this.SellingQuantity = new System.Windows.Forms.TextBox();
             this.SellingPrice = new System.Windows.Forms.TextBox();
             this.SellingProdName = new System.Windows.Forms.TextBox();
-            this.SellingBuild = new System.Windows.Forms.TextBox();
+            this.BillId = new System.Windows.Forms.TextBox();
             this.deleteButton = new System.Windows.Forms.Button();
             this.PrintButton = new System.Windows.Forms.Button();
             this.addButton = new System.Windows.Forms.Button();
@@ -47,17 +48,19 @@
             this.SellingDGV = new System.Windows.Forms.DataGridView();
             this.BillsDGV = new System.Windows.Forms.DataGridView();
             this.SellingPanel = new System.Windows.Forms.Panel();
-            this.SellerName = new System.Windows.Forms.Label();
-            this.AddProductbutton = new System.Windows.Forms.Button();
-            this.AmountLabel = new System.Windows.Forms.Label();
-            this.RsLabel = new System.Windows.Forms.Label();
-            this.OrderDGV = new System.Windows.Forms.DataGridView();
             this.SellsListLabel = new System.Windows.Forms.Label();
+            this.OrderDGV = new System.Windows.Forms.DataGridView();
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ProdName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Quantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Total = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AmtLabel = new System.Windows.Forms.Label();
+            this.AmountLabel = new System.Windows.Forms.Label();
+            this.AddProductbutton = new System.Windows.Forms.Button();
+            this.SellerNameLabel = new System.Windows.Forms.Label();
+            this.printPreviewDialog1 = new System.Windows.Forms.PrintPreviewDialog();
+            this.printDocument1 = new System.Drawing.Printing.PrintDocument();
             ((System.ComponentModel.ISupportInitialize)(this.SellingDGV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BillsDGV)).BeginInit();
             this.SellingPanel.SuspendLayout();
@@ -70,7 +73,7 @@
             this.exitButton.FlatAppearance.BorderSize = 0;
             this.exitButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.exitButton.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.exitButton.Location = new System.Drawing.Point(703, 1);
+            this.exitButton.Location = new System.Drawing.Point(849, 1);
             this.exitButton.Name = "exitButton";
             this.exitButton.Size = new System.Drawing.Size(35, 37);
             this.exitButton.TabIndex = 5;
@@ -162,12 +165,12 @@
             this.SellingProdName.Size = new System.Drawing.Size(100, 23);
             this.SellingProdName.TabIndex = 22;
             // 
-            // SellingBuild
+            // BillId
             // 
-            this.SellingBuild.Location = new System.Drawing.Point(103, 94);
-            this.SellingBuild.Name = "SellingBuild";
-            this.SellingBuild.Size = new System.Drawing.Size(100, 23);
-            this.SellingBuild.TabIndex = 21;
+            this.BillId.Location = new System.Drawing.Point(103, 94);
+            this.BillId.Name = "BillId";
+            this.BillId.Size = new System.Drawing.Size(100, 23);
+            this.BillId.TabIndex = 21;
             // 
             // deleteButton
             // 
@@ -186,6 +189,7 @@
             this.PrintButton.TabIndex = 27;
             this.PrintButton.Text = "Print";
             this.PrintButton.UseVisualStyleBackColor = true;
+            this.PrintButton.Click += new System.EventHandler(this.PrintButton_Click);
             // 
             // addButton
             // 
@@ -195,6 +199,7 @@
             this.addButton.TabIndex = 26;
             this.addButton.Text = "Add";
             this.addButton.UseVisualStyleBackColor = true;
+            this.addButton.Click += new System.EventHandler(this.addButton_Click);
             // 
             // comboBox1
             // 
@@ -204,6 +209,7 @@
             this.comboBox1.Size = new System.Drawing.Size(107, 23);
             this.comboBox1.TabIndex = 29;
             this.comboBox1.Text = "Select Category";
+            this.comboBox1.SelectionChangeCommitted += new System.EventHandler(this.comboBox1_SelectionChangeCommitted);
             // 
             // refreshButton
             // 
@@ -213,6 +219,7 @@
             this.refreshButton.TabIndex = 30;
             this.refreshButton.Text = "Refresh";
             this.refreshButton.UseVisualStyleBackColor = true;
+            this.refreshButton.Click += new System.EventHandler(this.refreshButton_Click);
             // 
             // SellingDGV
             // 
@@ -240,16 +247,17 @@
             this.BillsDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.BillsDGV.Size = new System.Drawing.Size(398, 139);
             this.BillsDGV.TabIndex = 32;
+            this.BillsDGV.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.BillsDGV_CellContentClick);
             // 
             // SellingPanel
             // 
             this.SellingPanel.BackColor = System.Drawing.Color.LightGray;
             this.SellingPanel.Controls.Add(this.SellsListLabel);
             this.SellingPanel.Controls.Add(this.OrderDGV);
-            this.SellingPanel.Controls.Add(this.RsLabel);
+            this.SellingPanel.Controls.Add(this.AmtLabel);
             this.SellingPanel.Controls.Add(this.AmountLabel);
             this.SellingPanel.Controls.Add(this.AddProductbutton);
-            this.SellingPanel.Controls.Add(this.SellerName);
+            this.SellingPanel.Controls.Add(this.SellerNameLabel);
             this.SellingPanel.Controls.Add(this.SellingLabel);
             this.SellingPanel.Controls.Add(this.DateLabel);
             this.SellingPanel.Controls.Add(this.BillsDGV);
@@ -264,54 +272,24 @@
             this.SellingPanel.Controls.Add(this.label2);
             this.SellingPanel.Controls.Add(this.label3);
             this.SellingPanel.Controls.Add(this.label4);
-            this.SellingPanel.Controls.Add(this.SellingBuild);
+            this.SellingPanel.Controls.Add(this.BillId);
             this.SellingPanel.Controls.Add(this.SellingPrice);
             this.SellingPanel.Controls.Add(this.SellingQuantity);
-            this.SellingPanel.Location = new System.Drawing.Point(5, 44);
+            this.SellingPanel.Location = new System.Drawing.Point(29, 44);
             this.SellingPanel.Name = "SellingPanel";
-            this.SellingPanel.Size = new System.Drawing.Size(733, 554);
+            this.SellingPanel.Size = new System.Drawing.Size(855, 556);
             this.SellingPanel.TabIndex = 33;
             this.SellingPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.SellingPanel_Paint);
             // 
-            // SellerName
+            // SellsListLabel
             // 
-            this.SellerName.AutoSize = true;
-            this.SellerName.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.SellerName.Location = new System.Drawing.Point(10, 15);
-            this.SellerName.Name = "SellerName";
-            this.SellerName.Size = new System.Drawing.Size(53, 21);
-            this.SellerName.TabIndex = 33;
-            this.SellerName.Text = "Seller";
-            // 
-            // AddProductbutton
-            // 
-            this.AddProductbutton.Location = new System.Drawing.Point(82, 276);
-            this.AddProductbutton.Name = "AddProductbutton";
-            this.AddProductbutton.Size = new System.Drawing.Size(121, 23);
-            this.AddProductbutton.TabIndex = 34;
-            this.AddProductbutton.Text = "Add Product";
-            this.AddProductbutton.UseVisualStyleBackColor = true;
-            this.AddProductbutton.Click += new System.EventHandler(this.AddProductbutton_Click);
-            // 
-            // AmountLabel
-            // 
-            this.AmountLabel.AutoSize = true;
-            this.AmountLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.AmountLabel.Location = new System.Drawing.Point(451, 237);
-            this.AmountLabel.Name = "AmountLabel";
-            this.AmountLabel.Size = new System.Drawing.Size(72, 21);
-            this.AmountLabel.TabIndex = 35;
-            this.AmountLabel.Text = "Amount";
-            // 
-            // RsLabel
-            // 
-            this.RsLabel.AutoSize = true;
-            this.RsLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.RsLabel.Location = new System.Drawing.Point(579, 237);
-            this.RsLabel.Name = "RsLabel";
-            this.RsLabel.Size = new System.Drawing.Size(27, 21);
-            this.RsLabel.TabIndex = 36;
-            this.RsLabel.Text = "Rs";
+            this.SellsListLabel.AutoSize = true;
+            this.SellsListLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.SellsListLabel.Location = new System.Drawing.Point(497, 328);
+            this.SellsListLabel.Name = "SellsListLabel";
+            this.SellsListLabel.Size = new System.Drawing.Size(75, 21);
+            this.SellsListLabel.TabIndex = 38;
+            this.SellsListLabel.Text = "Sells List";
             // 
             // OrderDGV
             // 
@@ -324,55 +302,110 @@
             this.Price,
             this.Quantity,
             this.Total});
-            this.OrderDGV.Location = new System.Drawing.Point(209, 119);
+            this.OrderDGV.Location = new System.Drawing.Point(270, 119);
             this.OrderDGV.Name = "OrderDGV";
             this.OrderDGV.RowHeadersWidth = 62;
             this.OrderDGV.RowTemplate.Height = 30;
             this.OrderDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.OrderDGV.Size = new System.Drawing.Size(524, 115);
+            this.OrderDGV.Size = new System.Drawing.Size(574, 115);
             this.OrderDGV.TabIndex = 37;
-            // 
-            // SellsListLabel
-            // 
-            this.SellsListLabel.AutoSize = true;
-            this.SellsListLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.SellsListLabel.Location = new System.Drawing.Point(497, 328);
-            this.SellsListLabel.Name = "SellsListLabel";
-            this.SellsListLabel.Size = new System.Drawing.Size(75, 21);
-            this.SellsListLabel.TabIndex = 38;
-            this.SellsListLabel.Text = "Sells List";
             // 
             // Id
             // 
             this.Id.HeaderText = "SellingId";
+            this.Id.MinimumWidth = 8;
             this.Id.Name = "Id";
+            this.Id.Width = 150;
             // 
             // ProdName
             // 
             this.ProdName.HeaderText = "ProdName";
+            this.ProdName.MinimumWidth = 8;
             this.ProdName.Name = "ProdName";
+            this.ProdName.Width = 150;
             // 
             // Price
             // 
             this.Price.HeaderText = "Price";
+            this.Price.MinimumWidth = 8;
             this.Price.Name = "Price";
+            this.Price.Width = 150;
             // 
             // Quantity
             // 
             this.Quantity.HeaderText = "Quantity";
+            this.Quantity.MinimumWidth = 8;
             this.Quantity.Name = "Quantity";
+            this.Quantity.Width = 150;
             // 
             // Total
             // 
             this.Total.HeaderText = "Total";
+            this.Total.MinimumWidth = 8;
             this.Total.Name = "Total";
+            this.Total.Width = 150;
+            // 
+            // AmtLabel
+            // 
+            this.AmtLabel.AutoSize = true;
+            this.AmtLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.AmtLabel.Location = new System.Drawing.Point(579, 237);
+            this.AmtLabel.Name = "AmtLabel";
+            this.AmtLabel.Size = new System.Drawing.Size(27, 21);
+            this.AmtLabel.TabIndex = 36;
+            this.AmtLabel.Text = "Rs";
+            // 
+            // AmountLabel
+            // 
+            this.AmountLabel.AutoSize = true;
+            this.AmountLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.AmountLabel.Location = new System.Drawing.Point(451, 237);
+            this.AmountLabel.Name = "AmountLabel";
+            this.AmountLabel.Size = new System.Drawing.Size(93, 21);
+            this.AmountLabel.TabIndex = 35;
+            this.AmountLabel.Text = "Amount Rs";
+            // 
+            // AddProductbutton
+            // 
+            this.AddProductbutton.Location = new System.Drawing.Point(82, 276);
+            this.AddProductbutton.Name = "AddProductbutton";
+            this.AddProductbutton.Size = new System.Drawing.Size(121, 23);
+            this.AddProductbutton.TabIndex = 34;
+            this.AddProductbutton.Text = "Add Product";
+            this.AddProductbutton.UseVisualStyleBackColor = true;
+            this.AddProductbutton.Click += new System.EventHandler(this.AddProductbutton_Click);
+            // 
+            // SellerNameLabel
+            // 
+            this.SellerNameLabel.AutoSize = true;
+            this.SellerNameLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.SellerNameLabel.Location = new System.Drawing.Point(10, 15);
+            this.SellerNameLabel.Name = "SellerNameLabel";
+            this.SellerNameLabel.Size = new System.Drawing.Size(53, 21);
+            this.SellerNameLabel.TabIndex = 33;
+            this.SellerNameLabel.Text = "Seller";
+            // 
+            // printPreviewDialog1
+            // 
+            this.printPreviewDialog1.AutoScrollMargin = new System.Drawing.Size(0, 0);
+            this.printPreviewDialog1.AutoScrollMinSize = new System.Drawing.Size(0, 0);
+            this.printPreviewDialog1.ClientSize = new System.Drawing.Size(400, 300);
+            this.printPreviewDialog1.Document = this.printDocument1;
+            this.printPreviewDialog1.Enabled = true;
+            this.printPreviewDialog1.Icon = ((System.Drawing.Icon)(resources.GetObject("printPreviewDialog1.Icon")));
+            this.printPreviewDialog1.Name = "printPreviewDialog1";
+            this.printPreviewDialog1.Visible = false;
+            // 
+            // printDocument1
+            // 
+            this.printDocument1.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument1_PrintPage);
             // 
             // SellingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.ClientSize = new System.Drawing.Size(739, 610);
+            this.ClientSize = new System.Drawing.Size(893, 610);
             this.Controls.Add(this.SellingPanel);
             this.Controls.Add(this.exitButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -400,7 +433,7 @@
         private TextBox SellingQuantity;
         private TextBox SellingPrice;
         private TextBox SellingProdName;
-        private TextBox SellingBuild;
+        private TextBox BillId;
         private Button deleteButton;
         private Button PrintButton;
         private Button addButton;
@@ -409,10 +442,10 @@
         private DataGridView SellingDGV;
         private DataGridView BillsDGV;
         private Panel SellingPanel;
-        private Label SellerName;
+        private Label SellerNameLabel;
         private Button AddProductbutton;
         private Label AmountLabel;
-        private Label RsLabel;
+        private Label AmtLabel;
         private Label SellsListLabel;
         private DataGridView OrderDGV;
         private DataGridViewTextBoxColumn Id;
@@ -420,5 +453,7 @@
         private DataGridViewTextBoxColumn Price;
         private DataGridViewTextBoxColumn Quantity;
         private DataGridViewTextBoxColumn Total;
+        private PrintPreviewDialog printPreviewDialog1;
+        private System.Drawing.Printing.PrintDocument printDocument1;
     }
 }
