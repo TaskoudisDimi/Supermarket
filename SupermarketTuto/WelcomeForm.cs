@@ -1,3 +1,15 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Data.SqlClient;
+
+
 namespace SupermarketTuto
 {
     public partial class WelcomeForm : Form
@@ -6,6 +18,12 @@ namespace SupermarketTuto
         {
             InitializeComponent();
         }
+
+
+        //SqlConnection Con = new SqlConnection(@"Data Source=DIMITRISTASKOUD\DIMITRIS_TASKOUD;Initial Catalog=smarketdb;Integrated Security=True");
+        SqlConnection Con = new SqlConnection(@"Data Source=DESKTOP-FF268DF\SQLEXPRESS;Initial Catalog=smarketdb;Integrated Security=True");
+
+        public static string Sellername = "";
 
         private void exitLabel_Click(object sender, EventArgs e)
         {
@@ -46,19 +64,41 @@ namespace SupermarketTuto
                     }
                     else
                     {
-                        if (usernameTextBox.Text == "test" && passwordTextBox.Text == "test")
+                        Con.Open();
+                        SqlDataAdapter sda = new SqlDataAdapter("Select count (8) From SellerTbl Where SellerName='" + usernameTextBox.Text + "' and SellerPass='" + passwordTextBox.Text + "'", Con);
+                        DataTable dt = new DataTable();
+                        sda.Fill(dt);
+                        if(dt.Rows[0][0].ToString() == "1")
                         {
-                            ProductsForm productForm = new ProductsForm();
-                            productForm.Show();
+                            Sellername = usernameTextBox.Text;
+                            SellingForm sell = new SellingForm();
+                            sell.Show();
                             this.Hide();
-
+                            Con.Close();
                         }
                         else
                         {
-                            MessageBox.Show("If you are the Seller, enter the correct username and password");
-
+                            MessageBox.Show("Wrong Username or Password");
                         }
+                        Con.Close();
+                        
+                        
+                        
+                        
+                        //if (usernameTextBox.Text == "test" && passwordTextBox.Text == "test")
+                        //{
+                        //    ProductsForm productForm = new ProductsForm();
+                        //    productForm.Show();
+                        //    this.Hide();
+
+                        //}
+                        //else
+                        //{
+                        //    MessageBox.Show("If you are the Seller, enter the correct username and password");
+
+                        //}
                     }
+
 
                 }
                 else

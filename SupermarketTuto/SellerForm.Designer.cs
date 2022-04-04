@@ -48,6 +48,7 @@
             this.categories2Button = new System.Windows.Forms.Button();
             this.selling2Button = new System.Windows.Forms.Button();
             this.exitButton = new System.Windows.Forms.Button();
+            this.logOutLabel = new System.Windows.Forms.Label();
             this.manageSellersPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SellDGV)).BeginInit();
             this.SuspendLayout();
@@ -55,6 +56,7 @@
             // manageSellersPanel
             // 
             this.manageSellersPanel.BackColor = System.Drawing.Color.Silver;
+            this.manageSellersPanel.Controls.Add(this.logOutLabel);
             this.manageSellersPanel.Controls.Add(this.SellDGV);
             this.manageSellersPanel.Controls.Add(this.password2Label);
             this.manageSellersPanel.Controls.Add(this.SellPass);
@@ -72,7 +74,7 @@
             this.manageSellersPanel.Controls.Add(this.manageSellersLabel);
             this.manageSellersPanel.Location = new System.Drawing.Point(134, 47);
             this.manageSellersPanel.Name = "manageSellersPanel";
-            this.manageSellersPanel.Size = new System.Drawing.Size(609, 500);
+            this.manageSellersPanel.Size = new System.Drawing.Size(621, 500);
             this.manageSellersPanel.TabIndex = 0;
             // 
             // SellDGV
@@ -262,6 +264,17 @@
             this.exitButton.UseVisualStyleBackColor = true;
             this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
             // 
+            // logOutLabel
+            // 
+            this.logOutLabel.AutoSize = true;
+            this.logOutLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.logOutLabel.Location = new System.Drawing.Point(551, 0);
+            this.logOutLabel.Name = "logOutLabel";
+            this.logOutLabel.Size = new System.Drawing.Size(70, 21);
+            this.logOutLabel.TabIndex = 40;
+            this.logOutLabel.Text = "Log Out";
+            this.logOutLabel.Click += new System.EventHandler(this.logOutLabel_Click);
+            // 
             // SellerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -305,5 +318,6 @@
         private TextBox SellPass;
         private Button exitButton;
         private DataGridView SellDGV;
+        private Label logOutLabel;
     }
 }

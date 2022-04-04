@@ -44,6 +44,7 @@
             this.selling2Button = new System.Windows.Forms.Button();
             this.productsButton = new System.Windows.Forms.Button();
             this.sellersButton = new System.Windows.Forms.Button();
+            this.logOutLabel = new System.Windows.Forms.Label();
             this.manageCategoriesPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CatDGV)).BeginInit();
             this.SuspendLayout();
@@ -51,6 +52,7 @@
             // manageCategoriesPanel
             // 
             this.manageCategoriesPanel.BackColor = System.Drawing.Color.Silver;
+            this.manageCategoriesPanel.Controls.Add(this.logOutLabel);
             this.manageCategoriesPanel.Controls.Add(this.CatDGV);
             this.manageCategoriesPanel.Controls.Add(this.delete3Button);
             this.manageCategoriesPanel.Controls.Add(this.edit3Button);
@@ -222,6 +224,17 @@
             this.sellersButton.UseVisualStyleBackColor = true;
             this.sellersButton.Click += new System.EventHandler(this.sellersButton_Click);
             // 
+            // logOutLabel
+            // 
+            this.logOutLabel.AutoSize = true;
+            this.logOutLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.logOutLabel.Location = new System.Drawing.Point(589, 0);
+            this.logOutLabel.Name = "logOutLabel";
+            this.logOutLabel.Size = new System.Drawing.Size(70, 21);
+            this.logOutLabel.TabIndex = 40;
+            this.logOutLabel.Text = "Log Out";
+            this.logOutLabel.Click += new System.EventHandler(this.logOutLabel_Click);
+            // 
             // CategoryForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -261,5 +274,6 @@
         private Button selling2Button;
         private Button productsButton;
         private Button sellersButton;
+        private Label logOutLabel;
     }
 }

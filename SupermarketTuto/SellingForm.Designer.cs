@@ -43,7 +43,7 @@
             this.deleteButton = new System.Windows.Forms.Button();
             this.PrintButton = new System.Windows.Forms.Button();
             this.addButton = new System.Windows.Forms.Button();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.SearchCb = new System.Windows.Forms.ComboBox();
             this.refreshButton = new System.Windows.Forms.Button();
             this.SellingDGV = new System.Windows.Forms.DataGridView();
             this.BillsDGV = new System.Windows.Forms.DataGridView();
@@ -61,6 +61,7 @@
             this.SellerNameLabel = new System.Windows.Forms.Label();
             this.printPreviewDialog1 = new System.Windows.Forms.PrintPreviewDialog();
             this.printDocument1 = new System.Drawing.Printing.PrintDocument();
+            this.logOutLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.SellingDGV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BillsDGV)).BeginInit();
             this.SellingPanel.SuspendLayout();
@@ -201,15 +202,15 @@
             this.addButton.UseVisualStyleBackColor = true;
             this.addButton.Click += new System.EventHandler(this.addButton_Click);
             // 
-            // comboBox1
+            // SearchCb
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(29, 329);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(107, 23);
-            this.comboBox1.TabIndex = 29;
-            this.comboBox1.Text = "Select Category";
-            this.comboBox1.SelectionChangeCommitted += new System.EventHandler(this.comboBox1_SelectionChangeCommitted);
+            this.SearchCb.FormattingEnabled = true;
+            this.SearchCb.Location = new System.Drawing.Point(29, 329);
+            this.SearchCb.Name = "SearchCb";
+            this.SearchCb.Size = new System.Drawing.Size(107, 23);
+            this.SearchCb.TabIndex = 29;
+            this.SearchCb.Text = "Select Category";
+            this.SearchCb.SelectionChangeCommitted += new System.EventHandler(this.comboBox1_SelectionChangeCommitted);
             // 
             // refreshButton
             // 
@@ -252,6 +253,7 @@
             // SellingPanel
             // 
             this.SellingPanel.BackColor = System.Drawing.Color.LightGray;
+            this.SellingPanel.Controls.Add(this.logOutLabel);
             this.SellingPanel.Controls.Add(this.SellsListLabel);
             this.SellingPanel.Controls.Add(this.OrderDGV);
             this.SellingPanel.Controls.Add(this.AmtLabel);
@@ -268,16 +270,16 @@
             this.SellingPanel.Controls.Add(this.addButton);
             this.SellingPanel.Controls.Add(this.label1);
             this.SellingPanel.Controls.Add(this.refreshButton);
-            this.SellingPanel.Controls.Add(this.comboBox1);
+            this.SellingPanel.Controls.Add(this.SearchCb);
             this.SellingPanel.Controls.Add(this.label2);
             this.SellingPanel.Controls.Add(this.label3);
             this.SellingPanel.Controls.Add(this.label4);
             this.SellingPanel.Controls.Add(this.BillId);
             this.SellingPanel.Controls.Add(this.SellingPrice);
             this.SellingPanel.Controls.Add(this.SellingQuantity);
-            this.SellingPanel.Location = new System.Drawing.Point(29, 44);
+            this.SellingPanel.Location = new System.Drawing.Point(37, 44);
             this.SellingPanel.Name = "SellingPanel";
-            this.SellingPanel.Size = new System.Drawing.Size(855, 556);
+            this.SellingPanel.Size = new System.Drawing.Size(847, 556);
             this.SellingPanel.TabIndex = 33;
             this.SellingPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.SellingPanel_Paint);
             // 
@@ -400,6 +402,17 @@
             // 
             this.printDocument1.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument1_PrintPage);
             // 
+            // logOutLabel
+            // 
+            this.logOutLabel.AutoSize = true;
+            this.logOutLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.logOutLabel.Location = new System.Drawing.Point(777, 0);
+            this.logOutLabel.Name = "logOutLabel";
+            this.logOutLabel.Size = new System.Drawing.Size(70, 21);
+            this.logOutLabel.TabIndex = 39;
+            this.logOutLabel.Text = "Log Out";
+            this.logOutLabel.Click += new System.EventHandler(this.logOutLabel_Click);
+            // 
             // SellingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -437,7 +450,7 @@
         private Button deleteButton;
         private Button PrintButton;
         private Button addButton;
-        private ComboBox comboBox1;
+        private ComboBox SearchCb;
         private Button refreshButton;
         private DataGridView SellingDGV;
         private DataGridView BillsDGV;
@@ -455,5 +468,6 @@
         private DataGridViewTextBoxColumn Total;
         private PrintPreviewDialog printPreviewDialog1;
         private System.Drawing.Printing.PrintDocument printDocument1;
+        private Label logOutLabel;
     }
 }

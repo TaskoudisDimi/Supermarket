@@ -50,6 +50,7 @@
             this.categoriesButton = new System.Windows.Forms.Button();
             this.sellingButton = new System.Windows.Forms.Button();
             this.exitButton = new System.Windows.Forms.Button();
+            this.logOutLabel = new System.Windows.Forms.Label();
             this.manageProductsPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ProdDGV)).BeginInit();
             this.SuspendLayout();
@@ -57,6 +58,7 @@
             // manageProductsPanel
             // 
             this.manageProductsPanel.BackColor = System.Drawing.Color.LightGray;
+            this.manageProductsPanel.Controls.Add(this.logOutLabel);
             this.manageProductsPanel.Controls.Add(this.ProdDGV);
             this.manageProductsPanel.Controls.Add(this.refreshButton);
             this.manageProductsPanel.Controls.Add(this.selectCategory2ComboBox);
@@ -296,6 +298,17 @@
             this.exitButton.UseVisualStyleBackColor = true;
             this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
             // 
+            // logOutLabel
+            // 
+            this.logOutLabel.AutoSize = true;
+            this.logOutLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.logOutLabel.Location = new System.Drawing.Point(845, 0);
+            this.logOutLabel.Name = "logOutLabel";
+            this.logOutLabel.Size = new System.Drawing.Size(70, 21);
+            this.logOutLabel.TabIndex = 40;
+            this.logOutLabel.Text = "Log Out";
+            this.logOutLabel.Click += new System.EventHandler(this.logOutLabel_Click);
+            // 
             // ProductsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -342,5 +355,6 @@
         private Button refreshButton;
         private ComboBox selectCategory2ComboBox;
         private DataGridView ProdDGV;
+        private Label logOutLabel;
     }
 }

@@ -26,8 +26,8 @@ namespace SupermarketTuto
             Application.Exit();
         }
 
-        SqlConnection Con = new SqlConnection(@"Data Source=DIMITRISTASKOUD\DIMITRIS_TASKOUD;Initial Catalog=smarketdb;Integrated Security=True");
-        //SqlConnection Con = new SqlConnection(@"Data Source=DESKTOP-FF268DF\SQLEXPRESS;Initial Catalog=smarketdb;Integrated Security=True");
+        //SqlConnection Con = new SqlConnection(@"Data Source=DIMITRISTASKOUD\DIMITRIS_TASKOUD;Initial Catalog=smarketdb;Integrated Security=True");
+        SqlConnection Con = new SqlConnection(@"Data Source=DESKTOP-FF268DF\SQLEXPRESS;Initial Catalog=smarketdb;Integrated Security=True");
         private void add3Button_Click(object sender, EventArgs e)
         {
             try
@@ -162,6 +162,13 @@ namespace SupermarketTuto
         private void selling2Button_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void logOutLabel_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            WelcomeForm login = new WelcomeForm();
+            login.Show();
         }
     }
 }
