@@ -26,8 +26,12 @@ namespace SupermarketTuto
             Application.Exit();
         }
 
+
+        //Ορίζω το connectrion string
         //SqlConnection Con = new SqlConnection(@"Data Source=DIMITRISTASKOUD\DIMITRIS_TASKOUD;Initial Catalog=smarketdb;Integrated Security=True");
         SqlConnection Con = new SqlConnection(@"Data Source=DESKTOP-FF268DF\SQLEXPRESS;Initial Catalog=smarketdb;Integrated Security=True");
+
+
         private void add3Button_Click(object sender, EventArgs e)
         {
             try
@@ -38,16 +42,21 @@ namespace SupermarketTuto
                 }
                 else
                 {
-                Con.Open();
-                string query = "Insert Into CategoryTbl values(" + CatIdTb.Text + ",'" + CatNameTb.Text + "','" + CatDescTb.Text + "')";
-                SqlCommand cmd = new SqlCommand(query, Con);
-                cmd.BeginExecuteNonQuery();
-                MessageBox.Show("Category added successfuly");
-                Con.Close();
-                //display();
-                CatIdTb.Text = "";
-                CatNameTb.Text = "";
-                CatDescTb.Text = "";
+                    //Open connection
+                    Con.Open();
+                    //Set squery to execute 
+                    string query = "Insert Into CategoryTbl values(" + CatIdTb.Text + ",'" + CatNameTb.Text + "','" + CatDescTb.Text + "')";
+                    //
+                    SqlCommand cmd = new SqlCommand(query, Con);
+                    //
+                    cmd.BeginExecuteNonQuery();
+                    MessageBox.Show("Category added successfuly");
+                    //Close connection
+                    Con.Close();
+                    //display();
+                    CatIdTb.Text = "";
+                    CatNameTb.Text = "";
+                    CatDescTb.Text = "";
                 }
 
             }
@@ -57,14 +66,22 @@ namespace SupermarketTuto
             }
         }
 
+        //Method 
         private void display()
         {
             Con.Open();
             string query = "Select * From CategoryTbl;";
+            //A SqlDataReader is a type that is good for reading data in the most efficient manner possible
             SqlDataAdapter sda = new SqlDataAdapter(query, Con);
+            //The SqlCommandBuilder can be used to build and execute SQL queries based on the select command that you will supply.
+            //It provides the feature of reflecting the changes made to a DataSet or an instance of the SQL server data.
             SqlCommandBuilder builder = new SqlCommandBuilder(sda);
+            //DataSet is a disconnected architecture it represents the data in table structure which means the data into rows and columns.
+            //Dataset is the local copy of your database which exists in the local system and makes the application execute faster and reliable.
             var table = new DataSet();
             sda.Fill(table);
+            //The DataSource property allows data binding on Windows Forms controls. With it we bind an array to a ListBox on the screen—and display all the strings.
+            //As changes are made to the List, we update the control on the screen.
             CatDGV.DataSource = table.Tables[0];
             Con.Close();
 
@@ -94,7 +111,13 @@ namespace SupermarketTuto
                 {
                     Con.Open();
                     string query = "Delete From CategoryTbl Where CatId=" + CatIdTb.Text + "";
+                    //A SqlCommand object allows you to query and send commands to a database.
+                    //It has methods that are specialized for different commands.
+                    //The ExecuteReader method returns a SqlDataReader object for viewing the results of a select query.
+                    //For insert, update, and delete SQL commands, you use the ExecuteNonQuery method.
                     SqlCommand cmd = new SqlCommand(query, Con);
+                    //Use this operation to execute any arbitrary SQL statements in SQL Server if you do not want any result set to be returned.
+                    //You can use this operation to create database objects or change data in a database by executing UPDATE, INSERT, or DELETE statements.
                     cmd.ExecuteNonQuery();
                     MessageBox.Show("Category Deleted Successfully");
                     Con.Close();
@@ -125,7 +148,7 @@ namespace SupermarketTuto
                 else
                 {
                     Con.Open();
-                    string query = "Update CategoryTbl set CatName='"+CatNameTb.Text+"',CatDesc='"+CatDescTb.Text+"' where CatId="+CatIdTb.Text+";";
+                    string query = "Update CategoryTbl set CatName='" + CatNameTb.Text + "',CatDesc='" + CatDescTb.Text + "' where CatId=" + CatIdTb.Text + ";";
                     SqlCommand cmd = new SqlCommand(query, Con);
                     cmd.ExecuteNonQuery();
                     MessageBox.Show("Category Successfully Updated");
@@ -146,6 +169,9 @@ namespace SupermarketTuto
 
         private void productsButton_Click(object sender, EventArgs e)
         {
+            //Show() method shows a windows form in a non-modal state.
+            //ShowDialog() method shows a window in a modal state and stops execution of the calling context
+            //until a result is returned from the windows form open by the method.
             ProductsForm productForm = new ProductsForm();
             productForm.Show();
             this.Hide();
