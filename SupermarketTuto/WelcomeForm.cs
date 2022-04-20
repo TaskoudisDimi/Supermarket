@@ -120,6 +120,8 @@ namespace SupermarketTuto
         {
             //SqlConnect connect = new SqlConnect();
             Con.Open();
+            MessageBox.Show("Connection succed!");
+            Con.Close();
 
         }
     }
