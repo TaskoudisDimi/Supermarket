@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.Drawing.Printing;
 
 
 namespace SupermarketTuto
@@ -132,7 +133,7 @@ namespace SupermarketTuto
             flag = 1;
         }
 
-        private void printDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        private void printDocument1_PrintPage(object sender, PrintPageEventArgs e)
         {
             e.Graphics.DrawString("FamilySuperMarket", new Font("Century Gothic", 25, FontStyle.Bold), Brushes.Red, new Point(230));
             e.Graphics.DrawString("Bill ID: " + BillsDGV.SelectedRows[0].Cells[0].Value.ToString(), new Font("Century Gothic", 15, FontStyle.Bold), Brushes.Blue, new Point(100,70));
@@ -185,6 +186,28 @@ namespace SupermarketTuto
             this.Hide();
             WelcomeForm login = new WelcomeForm();
             login.Show();
+        }
+
+        private void productsButton_Click(object sender, EventArgs e)
+        {
+            ProductsForm products = new ProductsForm();
+            products.Show();
+            this.Hide();
+        }
+
+        private void sellersButton_Click(object sender, EventArgs e)
+        {
+            SellerForm seller = new SellerForm();
+            seller.Show();
+            this.Hide();
+        }
+
+        private void categories2Button_Click(object sender, EventArgs e)
+        {
+            CategoryForm category = new CategoryForm();
+            category.Show();
+            this.Hide();
+
         }
     }
 }

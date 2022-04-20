@@ -182,7 +182,9 @@ namespace SupermarketTuto
 
         private void sellingButton_Click(object sender, EventArgs e)
         {
-
+            SellingForm selling = new SellingForm();
+            selling.Show();
+            this.Hide();
         }
 
         private void CatCb_SelectedIndexChanged(object sender, EventArgs e)

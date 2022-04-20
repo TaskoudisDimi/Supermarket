@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.manageSellersPanel = new System.Windows.Forms.Panel();
+            this.logOutLabel = new System.Windows.Forms.Label();
             this.SellDGV = new System.Windows.Forms.DataGridView();
             this.password2Label = new System.Windows.Forms.Label();
             this.SellPass = new System.Windows.Forms.TextBox();
@@ -48,7 +49,6 @@
             this.categories2Button = new System.Windows.Forms.Button();
             this.selling2Button = new System.Windows.Forms.Button();
             this.exitButton = new System.Windows.Forms.Button();
-            this.logOutLabel = new System.Windows.Forms.Label();
             this.manageSellersPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SellDGV)).BeginInit();
             this.SuspendLayout();
@@ -76,6 +76,17 @@
             this.manageSellersPanel.Name = "manageSellersPanel";
             this.manageSellersPanel.Size = new System.Drawing.Size(621, 500);
             this.manageSellersPanel.TabIndex = 0;
+            // 
+            // logOutLabel
+            // 
+            this.logOutLabel.AutoSize = true;
+            this.logOutLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.logOutLabel.Location = new System.Drawing.Point(548, 9);
+            this.logOutLabel.Name = "logOutLabel";
+            this.logOutLabel.Size = new System.Drawing.Size(70, 21);
+            this.logOutLabel.TabIndex = 40;
+            this.logOutLabel.Text = "Log Out";
+            this.logOutLabel.Click += new System.EventHandler(this.logOutLabel_Click);
             // 
             // SellDGV
             // 
@@ -242,7 +253,7 @@
             this.selling2Button.FlatAppearance.BorderSize = 0;
             this.selling2Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.selling2Button.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.selling2Button.Location = new System.Drawing.Point(3, 239);
+            this.selling2Button.Location = new System.Drawing.Point(12, 239);
             this.selling2Button.Name = "selling2Button";
             this.selling2Button.Size = new System.Drawing.Size(86, 41);
             this.selling2Button.TabIndex = 15;
@@ -264,22 +275,11 @@
             this.exitButton.UseVisualStyleBackColor = true;
             this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
             // 
-            // logOutLabel
-            // 
-            this.logOutLabel.AutoSize = true;
-            this.logOutLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.logOutLabel.Location = new System.Drawing.Point(551, 0);
-            this.logOutLabel.Name = "logOutLabel";
-            this.logOutLabel.Size = new System.Drawing.Size(70, 21);
-            this.logOutLabel.TabIndex = 40;
-            this.logOutLabel.Text = "Log Out";
-            this.logOutLabel.Click += new System.EventHandler(this.logOutLabel_Click);
-            // 
             // SellerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(757, 562);
+            this.ClientSize = new System.Drawing.Size(768, 562);
             this.Controls.Add(this.exitButton);
             this.Controls.Add(this.selling2Button);
             this.Controls.Add(this.categories2Button);

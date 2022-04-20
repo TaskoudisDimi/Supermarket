@@ -48,6 +48,7 @@
             this.SellingDGV = new System.Windows.Forms.DataGridView();
             this.BillsDGV = new System.Windows.Forms.DataGridView();
             this.SellingPanel = new System.Windows.Forms.Panel();
+            this.logOutLabel = new System.Windows.Forms.Label();
             this.SellsListLabel = new System.Windows.Forms.Label();
             this.OrderDGV = new System.Windows.Forms.DataGridView();
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -61,7 +62,9 @@
             this.SellerNameLabel = new System.Windows.Forms.Label();
             this.printPreviewDialog1 = new System.Windows.Forms.PrintPreviewDialog();
             this.printDocument1 = new System.Drawing.Printing.PrintDocument();
-            this.logOutLabel = new System.Windows.Forms.Label();
+            this.productsButton = new System.Windows.Forms.Button();
+            this.sellersButton = new System.Windows.Forms.Button();
+            this.categories2Button = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.SellingDGV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BillsDGV)).BeginInit();
             this.SellingPanel.SuspendLayout();
@@ -74,7 +77,7 @@
             this.exitButton.FlatAppearance.BorderSize = 0;
             this.exitButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.exitButton.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.exitButton.Location = new System.Drawing.Point(849, 1);
+            this.exitButton.Location = new System.Drawing.Point(954, -1);
             this.exitButton.Name = "exitButton";
             this.exitButton.Size = new System.Drawing.Size(35, 37);
             this.exitButton.TabIndex = 5;
@@ -277,11 +280,22 @@
             this.SellingPanel.Controls.Add(this.BillId);
             this.SellingPanel.Controls.Add(this.SellingPrice);
             this.SellingPanel.Controls.Add(this.SellingQuantity);
-            this.SellingPanel.Location = new System.Drawing.Point(37, 44);
+            this.SellingPanel.Location = new System.Drawing.Point(126, 42);
             this.SellingPanel.Name = "SellingPanel";
-            this.SellingPanel.Size = new System.Drawing.Size(847, 556);
+            this.SellingPanel.Size = new System.Drawing.Size(854, 556);
             this.SellingPanel.TabIndex = 33;
             this.SellingPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.SellingPanel_Paint);
+            // 
+            // logOutLabel
+            // 
+            this.logOutLabel.AutoSize = true;
+            this.logOutLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.logOutLabel.Location = new System.Drawing.Point(781, 15);
+            this.logOutLabel.Name = "logOutLabel";
+            this.logOutLabel.Size = new System.Drawing.Size(70, 21);
+            this.logOutLabel.TabIndex = 39;
+            this.logOutLabel.Text = "Log Out";
+            this.logOutLabel.Click += new System.EventHandler(this.logOutLabel_Click);
             // 
             // SellsListLabel
             // 
@@ -402,23 +416,54 @@
             // 
             this.printDocument1.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument1_PrintPage);
             // 
-            // logOutLabel
+            // productsButton
             // 
-            this.logOutLabel.AutoSize = true;
-            this.logOutLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.logOutLabel.Location = new System.Drawing.Point(777, 0);
-            this.logOutLabel.Name = "logOutLabel";
-            this.logOutLabel.Size = new System.Drawing.Size(70, 21);
-            this.logOutLabel.TabIndex = 39;
-            this.logOutLabel.Text = "Log Out";
-            this.logOutLabel.Click += new System.EventHandler(this.logOutLabel_Click);
+            this.productsButton.FlatAppearance.BorderSize = 0;
+            this.productsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.productsButton.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.productsButton.Location = new System.Drawing.Point(2, 136);
+            this.productsButton.Name = "productsButton";
+            this.productsButton.Size = new System.Drawing.Size(97, 41);
+            this.productsButton.TabIndex = 34;
+            this.productsButton.Text = "Products";
+            this.productsButton.UseVisualStyleBackColor = true;
+            this.productsButton.Click += new System.EventHandler(this.productsButton_Click);
+            // 
+            // sellersButton
+            // 
+            this.sellersButton.FlatAppearance.BorderSize = 0;
+            this.sellersButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.sellersButton.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.sellersButton.Location = new System.Drawing.Point(6, 189);
+            this.sellersButton.Name = "sellersButton";
+            this.sellersButton.Size = new System.Drawing.Size(93, 53);
+            this.sellersButton.TabIndex = 35;
+            this.sellersButton.Text = "Sellers";
+            this.sellersButton.UseVisualStyleBackColor = true;
+            this.sellersButton.Click += new System.EventHandler(this.sellersButton_Click);
+            // 
+            // categories2Button
+            // 
+            this.categories2Button.FlatAppearance.BorderSize = 0;
+            this.categories2Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.categories2Button.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.categories2Button.Location = new System.Drawing.Point(2, 251);
+            this.categories2Button.Name = "categories2Button";
+            this.categories2Button.Size = new System.Drawing.Size(118, 37);
+            this.categories2Button.TabIndex = 36;
+            this.categories2Button.Text = "Categories";
+            this.categories2Button.UseVisualStyleBackColor = true;
+            this.categories2Button.Click += new System.EventHandler(this.categories2Button_Click);
             // 
             // SellingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.ClientSize = new System.Drawing.Size(893, 610);
+            this.ClientSize = new System.Drawing.Size(986, 610);
+            this.Controls.Add(this.categories2Button);
+            this.Controls.Add(this.sellersButton);
+            this.Controls.Add(this.productsButton);
             this.Controls.Add(this.SellingPanel);
             this.Controls.Add(this.exitButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -469,5 +514,8 @@
         private PrintPreviewDialog printPreviewDialog1;
         private System.Drawing.Printing.PrintDocument printDocument1;
         private Label logOutLabel;
+        private Button productsButton;
+        private Button sellersButton;
+        private Button categories2Button;
     }
 }

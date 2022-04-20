@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 
 
+
 namespace SupermarketTuto
 {
     public partial class WelcomeForm : Form
@@ -112,6 +113,13 @@ namespace SupermarketTuto
 
         private void WelcomeForm_Load(object sender, EventArgs e)
         {
+
+        }
+
+        private void Connection_Click(object sender, EventArgs e)
+        {
+            //SqlConnect connect = new SqlConnect();
+            Con.Open();
 
         }
     }
