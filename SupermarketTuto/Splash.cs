@@ -27,7 +27,7 @@ namespace SupermarketTuto
             {
                 Myprogress.Value = 0;
                 timer.Stop();
-                WelcomeForm log = new WelcomeForm();
+                LogIn log = new LogIn();
                 this.Hide();
                 log.Show();
             }
