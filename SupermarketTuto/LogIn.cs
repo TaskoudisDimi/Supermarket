@@ -48,7 +48,8 @@ namespace SupermarketTuto
             SqlCommand cmd = new SqlCommand(login, Con);
             SqlDataReader rdr;
             rdr = cmd.ExecuteReader();
-            
+
+
             if (rdr.Read())
             {
                 ProductsForm products = new ProductsForm();

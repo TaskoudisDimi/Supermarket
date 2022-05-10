@@ -8,9 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
-
-
-
+using SupermarketTuto.DataAccess;
 
 namespace SupermarketTuto
 {
@@ -157,6 +155,12 @@ namespace SupermarketTuto
                     CatIdTb.Text = "";
                     CatNameTb.Text = "";
                     CatDescTb.Text = "";
+
+
+                    //2nd way to retrieve data from db
+                    SqlConnect loaddata = new SqlConnect();
+                    loaddata.retrieveData("Update CategoryTbl set CatName='" + CatNameTb.Text + "',CatDesc='" + CatDescTb.Text + "' where CatId=" + CatIdTb.Text + ";");
+                    
 
                 }
             }
