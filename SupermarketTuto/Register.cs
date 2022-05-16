@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using SupermarketTuto.DataAccess;
 
 namespace SupermarketTuto
 {
@@ -17,7 +18,9 @@ namespace SupermarketTuto
         {
             InitializeComponent();
         }
-        SqlConnection Con = new SqlConnection(@"Data Source=DIMITRISTASKOUD\DIMITRIS_TASKOUD;Initial Catalog=smarketdb;Integrated Security=True");
+        //SqlConnection Con = new SqlConnection(@"Data Source=DIMITRISTASKOUD\DIMITRIS_TASKOUD;Initial Catalog=smarketdb;Integrated Security=True");
+        
+        SqlConnection Con = new SqlConnection(@"Data Source=DESKTOP-FF268DF\SQLEXPRESS;Initial Catalog=smarketdb;Integrated Security=True");
 
         private void UsernameTextBox_TextChanged(object sender, EventArgs e)
         {
@@ -43,12 +46,12 @@ namespace SupermarketTuto
             }
             else if(PasswordTextBox.Text == ConfirmPasswordTextBox.Text)
             {
-                Con.Open();
-                string insert = "Insert Into users Values ('" + UsernameTextBox.Text + "','" + PasswordTextBox.Text + "')";
-                SqlCommand cmd = new SqlCommand(insert, Con);
-                SqlDataReader rdr;
-                rdr = cmd.ExecuteReader();
-                Con.Close();
+
+
+                SqlConnect loaddata = new SqlConnect();
+                loaddata.commandExc("Insert Into Users Values ('" + UsernameTextBox.Text + "','" + PasswordTextBox.Text + "')");
+
+
                 MessageBox.Show("Your Account has been Successfully Created", "Registration Success", MessageBoxButtons.OK);
                 UsernameTextBox.Clear();
                 PasswordTextBox.Clear();

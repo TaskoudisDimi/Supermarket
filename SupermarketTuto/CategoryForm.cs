@@ -145,22 +145,20 @@ namespace SupermarketTuto
                 }
                 else
                 {
-                    Con.Open();
-                    string query = "Update CategoryTbl set CatName='" + CatNameTb.Text + "',CatDesc='" + CatDescTb.Text + "' where CatId=" + CatIdTb.Text + ";";
-                    SqlCommand cmd = new SqlCommand(query, Con);
-                    cmd.ExecuteNonQuery();
-                    MessageBox.Show("Category Successfully Updated");
-                    Con.Close();
+                    SqlConnect loaddata = new SqlConnect();
+
+                    loaddata.commandExc("Update CategoryTbl set CatName='" + CatNameTb.Text + "',CatDesc='" + CatDescTb.Text + "' where CatId=" + CatIdTb.Text + ";");
+
+                   
                     display();
                     CatIdTb.Text = "";
                     CatNameTb.Text = "";
                     CatDescTb.Text = "";
 
 
-                    //2nd way to retrieve data from db
-                    SqlConnect loaddata = new SqlConnect();
-                    loaddata.retrieveData("Update CategoryTbl set CatName='" + CatNameTb.Text + "',CatDesc='" + CatDescTb.Text + "' where CatId=" + CatIdTb.Text + ";");
                     
+                   
+
 
                 }
             }

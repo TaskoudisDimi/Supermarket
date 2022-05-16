@@ -6,19 +6,38 @@ using System.Threading.Tasks;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Data;
+using System.Data.Common;
+
 
 namespace SupermarketTuto.DataAccess
 {
     public class SqlConnect
     {
 
+
+
         SqlConnection con = new SqlConnection();
         public DataTable table = new DataTable();
+
+        private DbConnection DatabaseConnection = null;
+        private DbTransaction DatabaseTransaction = null;
+
 
         public SqlConnect()
         {
             con.ConnectionString = ConfigurationManager.ConnectionStrings["Supermarket"].ConnectionString;
+            OpenConnection();
         }
+
+
+        private void OpenConnection()
+        {
+            if (DatabaseConnection == null)
+            {
+
+            }
+        }
+
         public void retrieveData(string command)
         {
             try
