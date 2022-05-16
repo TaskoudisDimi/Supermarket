@@ -8,19 +8,22 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
-
+using SupermarketTuto.DataAccess;
 
 namespace SupermarketTuto
 {
     public partial class ProductsForm : Form
     {
+
+        SqlConnect loaddata = new SqlConnect();
+
         public ProductsForm()
         {
             InitializeComponent();
         }
 
-        //SqlConnection Con = new SqlConnection(@"Data Source=DIMITRISTASKOUD\DIMITRIS_TASKOUD;Initial Catalog=smarketdb;Integrated Security=True");
-        SqlConnection Con = new SqlConnection(@"Data Source=DESKTOP-FF268DF\SQLEXPRESS;Initial Catalog=smarketdb;Integrated Security=True");
+        ////SqlConnection Con = new SqlConnection(@"Data Source=DIMITRISTASKOUD\DIMITRIS_TASKOUD;Initial Catalog=smarketdb;Integrated Security=True");
+        //SqlConnection Con = new SqlConnection(@"Data Source=DESKTOP-FF268DF\SQLEXPRESS;Initial Catalog=smarketdb;Integrated Security=True");
 
         private void exitButton_Click(object sender, EventArgs e)
         {
@@ -30,29 +33,37 @@ namespace SupermarketTuto
         private void fillCombo()
         {
             //This method will bind the Combobox with the Database
-            Con.Open();
-            SqlCommand cmd = new SqlCommand("Select CatName From CategoryTbl", Con);
-            SqlDataReader rdr;
-            rdr = cmd.ExecuteReader();
-            DataTable dt = new DataTable();
-            dt.Columns.Add("CatName", typeof(string));
-            dt.Load(rdr);
+            //Con.Open();
+            //SqlCommand cmd = new SqlCommand("Select CatName From CategoryTbl", Con);
+            //SqlDataReader rdr;
+            //rdr = cmd.ExecuteReader();
+            //DataTable dt = new DataTable();
+            //dt.Columns.Add("CatName", typeof(string));
+            //dt.Load(rdr);
+            //CatCb.ValueMember = "catName";
+            //CatCb.DataSource = dt;
+            //Con.Close();
+            loaddata.retrieveData("Select CatName From CategoryTbl");
+            CatCb.DataSource = loaddata.table;
             CatCb.ValueMember = "catName";
-            CatCb.DataSource = dt;
-            Con.Close();
 
         }
 
         private void display()
         {
-            Con.Open();
-            string query = "Select * from ProductTbl;";
-            SqlDataAdapter adapter = new SqlDataAdapter(query, Con);
-            SqlCommandBuilder builder = new SqlCommandBuilder(adapter);
-            var table = new DataSet();
-            adapter.Fill(table);
-            ProdDGV.DataSource = table.Tables[0];
-            Con.Close();
+            //Con.Open();
+            //string query = "Select * from ProductTbl;";
+            //SqlDataAdapter adapter = new SqlDataAdapter(query, Con);
+            //SqlCommandBuilder builder = new SqlCommandBuilder(adapter);
+            //var table = new DataSet();
+            //adapter.Fill(table);
+            //ProdDGV.DataSource = table.Tables[0];
+            //Con.Close();
+
+            loaddata.retrieveData("Select * From ProductTbl");
+            ProdDGV.DataSource = loaddata.table;
+
+
         }
 
         private void ProductsForm_Load(object sender, EventArgs e)
@@ -78,12 +89,15 @@ namespace SupermarketTuto
                 }
                 else
                 {
-                    Con.Open();
-                    string query = "Insert Into ProductTbl values(" + ProdId.Text + ",'" + ProdName.Text + "'," + ProdQty.Text + "," + ProdPrice.Text + ",'" + CatCb.SelectedValue.ToString() + "')";
-                    SqlCommand cmd = new SqlCommand(query, Con);
-                    cmd.BeginExecuteNonQuery();
-                    MessageBox.Show("Product added successfuly");
-                    Con.Close();
+                    //Con.Open();
+                    //string query = "Insert Into ProductTbl values(" + ProdId.Text + ",'" + ProdName.Text + "'," + ProdQty.Text + "," + ProdPrice.Text + ",'" + CatCb.SelectedValue.ToString() + "')";
+                    //SqlCommand cmd = new SqlCommand(query, Con);
+                    //cmd.BeginExecuteNonQuery();
+                    //MessageBox.Show("Product added successfuly");
+                    //Con.Close();
+
+                    loaddata.commandExc("Insert Into ProductTbl values(" + ProdId.Text + ",'" + ProdName.Text + "'," + ProdQty.Text + "," + ProdPrice.Text + ",'" + CatCb.SelectedValue.ToString() + "')");
+
                     ProdId.Text = "";
                     ProdName.Text = "";
                     ProdQty.Text = "";
@@ -108,12 +122,15 @@ namespace SupermarketTuto
                 }
                 else
                 {
-                    Con.Open();
-                    string query = "Update ProductTbl set ProdName='" + ProdName.Text + "',ProdQty='" + ProdQty.Text + "',ProdPrice='" + ProdPrice.Text + "' where ProdId=" + ProdId.Text + ";";
-                    SqlCommand cmd = new SqlCommand(query, Con);
-                    cmd.ExecuteNonQuery();
-                    MessageBox.Show("Product Successfully Updated");
-                    Con.Close();
+                    //Con.Open();
+                    //string query = "Update ProductTbl set ProdName='" + ProdName.Text + "',ProdQty='" + ProdQty.Text + "',ProdPrice='" + ProdPrice.Text + "' where ProdId=" + ProdId.Text + ";";
+                    //SqlCommand cmd = new SqlCommand(query, Con);
+                    //cmd.ExecuteNonQuery();
+                    //MessageBox.Show("Product Successfully Updated");
+                    //Con.Close();
+
+                    loaddata.commandExc("Update ProductTbl set ProdName='" + ProdName.Text + "',ProdQty='" + ProdQty.Text + "',ProdPrice='" + ProdPrice.Text + "' where ProdId=" + ProdId.Text + ";");
+
                     ProdId.Text = "";
                     ProdName.Text = "";
                     ProdQty.Text = "";
@@ -138,12 +155,15 @@ namespace SupermarketTuto
                 }
                 else
                 {
-                    Con.Open();
-                    string query = "Delete From ProductTbl Where ProdId=" + ProdId.Text + "";
-                    SqlCommand cmd = new SqlCommand(query, Con);
-                    cmd.ExecuteNonQuery();
-                    MessageBox.Show("Product Deleted Successfully");
-                    Con.Close();
+                    //Con.Open();
+                    //string query = "Delete From ProductTbl Where ProdId=" + ProdId.Text + "";
+                    //SqlCommand cmd = new SqlCommand(query, Con);
+                    //cmd.ExecuteNonQuery();
+                    //MessageBox.Show("Product Deleted Successfully");
+                    //Con.Close();
+
+                    loaddata.commandExc("Delete From ProductTbl Where ProdId=" + ProdId.Text + "");
+
                     ProdId.Text = "";
                     ProdName.Text = "";
                     ProdQty.Text = "";
@@ -194,26 +214,36 @@ namespace SupermarketTuto
 
         private void selectCategory2ComboBox_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            Con.Open();
-            string query = "Select * from ProductTbl Where ProdCat='" + selectCategory2ComboBox.SelectedValue.ToString();
-            SqlDataAdapter adapter = new SqlDataAdapter(query, Con);
-            SqlCommandBuilder builder = new SqlCommandBuilder(adapter);
-            var table = new DataSet();
-            adapter.Fill(table);
-            ProdDGV.DataSource = table.Tables[0];
-            Con.Close();
+            //Con.Open();
+            //string query = "Select * from ProductTbl Where ProdCat='" + selectCategory2ComboBox.SelectedValue.ToString();
+            //SqlDataAdapter adapter = new SqlDataAdapter(query, Con);
+            //SqlCommandBuilder builder = new SqlCommandBuilder(adapter);
+            //var table = new DataSet();
+            //adapter.Fill(table);
+            //ProdDGV.DataSource = table.Tables[0];
+            //Con.Close();
+
+            loaddata.retrieveData("Select * from ProductTbl Where ProdCat='" + selectCategory2ComboBox.SelectedValue.ToString());
+            ProdDGV.DataSource = loaddata.table;
+
+
         }
 
         private void CatCb_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            Con.Open();
-            string query = "Select * from ProductTbl Where ProdCat='" + CatCb.SelectedValue.ToString() + "'";
-            SqlDataAdapter adapter = new SqlDataAdapter(query, Con);
-            SqlCommandBuilder builder = new SqlCommandBuilder(adapter);
-            var table = new DataSet();
-            adapter.Fill(table);
-            ProdDGV.DataSource = table.Tables[0];
-            Con.Close();
+            //Con.Open();
+            //string query = "Select * from ProductTbl Where ProdCat='" + CatCb.SelectedValue.ToString() + "'";
+            //SqlDataAdapter adapter = new SqlDataAdapter(query, Con);
+            //SqlCommandBuilder builder = new SqlCommandBuilder(adapter);
+            //var table = new DataSet();
+            //adapter.Fill(table);
+            //ProdDGV.DataSource = table.Tables[0];
+            //Con.Close();
+
+            loaddata.retrieveData("Select * from ProductTbl Where ProdCat='" + CatCb.SelectedValue.ToString() + "'");
+            ProdDGV.DataSource = loaddata.table;
+
+
         }
 
         private void logOutLabel_Click(object sender, EventArgs e)
