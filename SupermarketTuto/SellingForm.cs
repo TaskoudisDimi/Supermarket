@@ -210,7 +210,7 @@ namespace SupermarketTuto
         private void logOutLabel_Click(object sender, EventArgs e)
         {
             this.Hide();
-            WelcomeForm login = new WelcomeForm();
+            LogIn login = new LogIn();
             login.Show();
         }
 

@@ -8,21 +8,25 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
-
+using SupermarketTuto.DataAccess;
 
 namespace SupermarketTuto
 {
     public partial class LogIn : Form
     {
+
+
+        SqlConnect loaddata = new SqlConnect();
+
         
         public LogIn()
         {
             InitializeComponent();
         }
 
-        //SqlConnection Con = new SqlConnection(@"Data Source=DIMITRISTASKOUD\DIMITRIS_TASKOUD;Initial Catalog=smarketdb;Integrated Security=True");
+        ////SqlConnection Con = new SqlConnection(@"Data Source=DIMITRISTASKOUD\DIMITRIS_TASKOUD;Initial Catalog=smarketdb;Integrated Security=True");
 
-        SqlConnection Con = new SqlConnection(@"Data Source=DESKTOP-FF268DF\SQLEXPRESS;Initial Catalog=smarketdb;Integrated Security=True");
+        //SqlConnection Con = new SqlConnection(@"Data Source=DESKTOP-FF268DF\SQLEXPRESS;Initial Catalog=smarketdb;Integrated Security=True");
 
         private void UserNameTextBox_TextChanged(object sender, EventArgs e)
         {
@@ -45,28 +49,31 @@ namespace SupermarketTuto
         private void LogInButton_Click(object sender, EventArgs e)
         {
 
-            Con.Open();
-            string login = "Select * From Users Where Username= '" + UserNameTextBox.Text + "' and Password= '" + PasswordTextBox.Text + "'";
-            SqlCommand cmd = new SqlCommand(login, Con);
-            SqlDataReader rdr;
-            rdr = cmd.ExecuteReader();
+            //Con.Open();
+            //string login = "Select * From Users Where Username= '" + UserNameTextBox.Text + "' and Password= '" + PasswordTextBox.Text + "'";
+            //SqlCommand cmd = new SqlCommand(login, Con);
+            //SqlDataReader rdr;
+            //rdr = cmd.ExecuteReader();
+            loaddata.commandExc("Select * From Users Where Username= '" + UserNameTextBox.Text + "' and Password= '" + PasswordTextBox.Text + "'");
 
 
-            if (rdr.Read())
-            {
-                ProductsForm products = new ProductsForm();
-                products.Show();
-                this.Hide();
-            }
-            else
-            {
-                MessageBox.Show("Invalid Password or Username, Please try again", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                UserNameTextBox.Clear();
-                PasswordTextBox.Clear();
-                UserNameTextBox.Focus();
+            ProductsForm products = new ProductsForm();
+            products.Show();
+            this.Hide();
 
-            }
-            Con.Close();
+            //if (rdr.Read())
+            //{
+               
+            //}
+            //else
+            //{
+            //    MessageBox.Show("Invalid Password or Username, Please try again", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    UserNameTextBox.Clear();
+            //    PasswordTextBox.Clear();
+            //    UserNameTextBox.Focus();
+
+            //}
+           
 
 
 

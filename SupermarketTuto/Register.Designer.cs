@@ -185,6 +185,7 @@
             this.Controls.Add(this.ConfirmPasswordTextBox);
             this.Controls.Add(this.UsernameTextBox);
             this.Name = "Register";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Register";
             this.ResumeLayout(false);
             this.PerformLayout();
