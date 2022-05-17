@@ -8,12 +8,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
-
+using SupermarketTuto.DataAccess;
 
 namespace SupermarketTuto
 {
     public partial class SellerForm : Form
     {
+
+        SqlConnect loaddata = new SqlConnect();
+
+
         public SellerForm()
         {
             InitializeComponent();
@@ -25,19 +29,24 @@ namespace SupermarketTuto
 
         }
 
-        //SqlConnection Con = new SqlConnection(@"Data Source=DIMITRISTASKOUD\DIMITRIS_TASKOUD;Initial Catalog=smarketdb;Integrated Security=True");
-        SqlConnection Con = new SqlConnection(@"Data Source=DESKTOP-FF268DF\SQLEXPRESS;Initial Catalog=smarketdb;Integrated Security=True");
+        ////SqlConnection Con = new SqlConnection(@"Data Source=DIMITRISTASKOUD\DIMITRIS_TASKOUD;Initial Catalog=smarketdb;Integrated Security=True");
+        //SqlConnection Con = new SqlConnection(@"Data Source=DESKTOP-FF268DF\SQLEXPRESS;Initial Catalog=smarketdb;Integrated Security=True");
 
         private void display()
         {
-            Con.Open();
-            string query = "Select * From SellerTbl;";
-            SqlDataAdapter adapter = new SqlDataAdapter(query, Con);
-            SqlCommandBuilder builder = new SqlCommandBuilder(adapter);
-            var table = new DataSet();
-            adapter.Fill(table);
-            SellDGV.DataSource = table.Tables[0];
-            Con.Close();
+            //Con.Open();
+            //string query = "Select * From SellerTbl;";
+            //SqlDataAdapter adapter = new SqlDataAdapter(query, Con);
+            //SqlCommandBuilder builder = new SqlCommandBuilder(adapter);
+            //var table = new DataSet();
+            //adapter.Fill(table);
+            //SellDGV.DataSource = table.Tables[0];
+            //Con.Close();
+
+
+            loaddata.retrieveData("Select * From SellerTbl");
+            SellDGV.DataSource = loaddata.table;
+
 
         }
 
@@ -59,12 +68,16 @@ namespace SupermarketTuto
                 }
                 else
                 {
-                    Con.Open();
-                    string query = "Update SellerTbl set SellerName='" + SellName.Text + "',SellerAge='" + SellAge.Text + "',SellerPhone='" + SellPhone.Text + "',SellerPass='" + SellPass.Text + "' where SellerId=" + SellId.Text + ";";
-                    SqlCommand cmd = new SqlCommand(query, Con);
-                    cmd.ExecuteNonQuery();
+                    //Con.Open();
+                    //string query = "Update SellerTbl set SellerName='" + SellName.Text + "',SellerAge='" + SellAge.Text + "',SellerPhone='" + SellPhone.Text + "',SellerPass='" + SellPass.Text + "' where SellerId=" + SellId.Text + ";";
+                    //SqlCommand cmd = new SqlCommand(query, Con);
+                    //cmd.ExecuteNonQuery();
+                    //MessageBox.Show("Product Successfully Updated");
+                    //Con.Close();
+
+                    loaddata.commandExc("Update SellerTbl set SellerName='" + SellName.Text + "',SellerAge='" + SellAge.Text + "',SellerPhone='" + SellPhone.Text + "',SellerPass='" + SellPass.Text + "' where SellerId=" + SellId.Text + ";");
                     MessageBox.Show("Product Successfully Updated");
-                    Con.Close();
+
                     display();
                     SellId.Text = "";
                     SellName.Text = "";
@@ -88,12 +101,16 @@ namespace SupermarketTuto
                 }
                 else
                 {
-                    Con.Open();
-                    string query = "Delete From SellerTbl Where SellerId=" + SellId.Text + "";
-                    SqlCommand cmd = new SqlCommand(query, Con);
-                    cmd.ExecuteNonQuery();
+                    //Con.Open();
+                    //string query = "Delete From SellerTbl Where SellerId=" + SellId.Text + "";
+                    //SqlCommand cmd = new SqlCommand(query, Con);
+                    //cmd.ExecuteNonQuery();
+                    //MessageBox.Show("Seller Deleted Successfully");
+                    //Con.Close();
+
+                    loaddata.commandExc("Delete From SellerTbl Where SellerId=" + SellId.Text + "");
+
                     MessageBox.Show("Seller Deleted Successfully");
-                    Con.Close();
                     SellId.Text = "";
                     SellName.Text = "";
                     SellAge.Text = "";
@@ -117,12 +134,15 @@ namespace SupermarketTuto
                 }
                 else
                 {
-                    Con.Open();
-                    string query = "Insert Into SellerTbl values(" + SellId.Text + ",'" + SellName.Text + "'," + SellAge.Text + "," + SellPhone.Text + ",'" + SellPass.Text + "')";
-                    SqlCommand cmd = new SqlCommand(query, Con);
-                    cmd.BeginExecuteNonQuery();
+                    //Con.Open();
+                    //string query = "Insert Into SellerTbl values(" + SellId.Text + ",'" + SellName.Text + "'," + SellAge.Text + "," + SellPhone.Text + ",'" + SellPass.Text + "')";
+                    //SqlCommand cmd = new SqlCommand(query, Con);
+                    //cmd.BeginExecuteNonQuery();
+                    //MessageBox.Show("Product added successfuly");
+                    //Con.Close();
+
+                    loaddata.commandExc("Insert Into SellerTbl values(" + SellId.Text + ",'" + SellName.Text + "'," + SellAge.Text + "," + SellPhone.Text + ",'" + SellPass.Text + "')");
                     MessageBox.Show("Product added successfuly");
-                    Con.Close();
                     SellId.Text = "";
                     SellName.Text = "";
                     SellAge.Text = "";
