@@ -28,7 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProductsForm));
             this.manageProductsPanel = new System.Windows.Forms.Panel();
+            this.logOutLabel = new System.Windows.Forms.Label();
             this.ProdDGV = new System.Windows.Forms.DataGridView();
             this.refreshButton = new System.Windows.Forms.Button();
             this.selectCategory2ComboBox = new System.Windows.Forms.ComboBox();
@@ -48,9 +50,7 @@
             this.manageProductsLabel = new System.Windows.Forms.Label();
             this.sellerButton = new System.Windows.Forms.Button();
             this.categoriesButton = new System.Windows.Forms.Button();
-            this.sellingButton = new System.Windows.Forms.Button();
             this.exitButton = new System.Windows.Forms.Button();
-            this.logOutLabel = new System.Windows.Forms.Label();
             this.manageProductsPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ProdDGV)).BeginInit();
             this.SuspendLayout();
@@ -80,6 +80,17 @@
             this.manageProductsPanel.Name = "manageProductsPanel";
             this.manageProductsPanel.Size = new System.Drawing.Size(918, 571);
             this.manageProductsPanel.TabIndex = 0;
+            // 
+            // logOutLabel
+            // 
+            this.logOutLabel.AutoSize = true;
+            this.logOutLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.logOutLabel.Location = new System.Drawing.Point(845, 0);
+            this.logOutLabel.Name = "logOutLabel";
+            this.logOutLabel.Size = new System.Drawing.Size(70, 21);
+            this.logOutLabel.TabIndex = 40;
+            this.logOutLabel.Text = "Log Out";
+            this.logOutLabel.Click += new System.EventHandler(this.logOutLabel_Click);
             // 
             // ProdDGV
             // 
@@ -271,19 +282,6 @@
             this.categoriesButton.UseVisualStyleBackColor = true;
             this.categoriesButton.Click += new System.EventHandler(this.categoriesButton_Click);
             // 
-            // sellingButton
-            // 
-            this.sellingButton.FlatAppearance.BorderSize = 0;
-            this.sellingButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.sellingButton.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.sellingButton.Location = new System.Drawing.Point(2, 225);
-            this.sellingButton.Name = "sellingButton";
-            this.sellingButton.Size = new System.Drawing.Size(117, 53);
-            this.sellingButton.TabIndex = 3;
-            this.sellingButton.Text = "Selling";
-            this.sellingButton.UseVisualStyleBackColor = true;
-            this.sellingButton.Click += new System.EventHandler(this.sellingButton_Click);
-            // 
             // exitButton
             // 
             this.exitButton.AccessibleRole = System.Windows.Forms.AccessibleRole.WhiteSpace;
@@ -298,28 +296,17 @@
             this.exitButton.UseVisualStyleBackColor = true;
             this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
             // 
-            // logOutLabel
-            // 
-            this.logOutLabel.AutoSize = true;
-            this.logOutLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.logOutLabel.Location = new System.Drawing.Point(845, 0);
-            this.logOutLabel.Name = "logOutLabel";
-            this.logOutLabel.Size = new System.Drawing.Size(70, 21);
-            this.logOutLabel.TabIndex = 40;
-            this.logOutLabel.Text = "Log Out";
-            this.logOutLabel.Click += new System.EventHandler(this.logOutLabel_Click);
-            // 
             // ProductsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1064, 635);
             this.Controls.Add(this.exitButton);
-            this.Controls.Add(this.sellingButton);
             this.Controls.Add(this.categoriesButton);
             this.Controls.Add(this.sellerButton);
             this.Controls.Add(this.manageProductsPanel);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ProductsForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ProductsForm";
@@ -336,7 +323,6 @@
         private Panel manageProductsPanel;
         private Button sellerButton;
         private Button categoriesButton;
-        private Button sellingButton;
         private Button exitButton;
         private Label manageProductsLabel;
         private TextBox ProdPrice;

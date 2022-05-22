@@ -43,10 +43,9 @@
             this.loginLabel.AutoSize = true;
             this.loginLabel.BackColor = System.Drawing.Color.White;
             this.loginLabel.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.loginLabel.Location = new System.Drawing.Point(309, 40);
-            this.loginLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.loginLabel.Location = new System.Drawing.Point(216, 24);
             this.loginLabel.Name = "loginLabel";
-            this.loginLabel.Size = new System.Drawing.Size(677, 54);
+            this.loginLabel.Size = new System.Drawing.Size(461, 37);
             this.loginLabel.TabIndex = 2;
             this.loginLabel.Text = "SuperMarket Management System";
             // 
@@ -55,10 +54,9 @@
             this.exitLabel.AutoSize = true;
             this.exitLabel.BackColor = System.Drawing.Color.White;
             this.exitLabel.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.exitLabel.Location = new System.Drawing.Point(1146, 8);
-            this.exitLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.exitLabel.Location = new System.Drawing.Point(802, 5);
             this.exitLabel.Name = "exitLabel";
-            this.exitLabel.Size = new System.Drawing.Size(41, 45);
+            this.exitLabel.Size = new System.Drawing.Size(27, 30);
             this.exitLabel.TabIndex = 11;
             this.exitLabel.Text = "Χ";
             // 
@@ -67,26 +65,27 @@
             this.versionLabel.AutoSize = true;
             this.versionLabel.BackColor = System.Drawing.Color.White;
             this.versionLabel.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.versionLabel.Location = new System.Drawing.Point(561, 113);
-            this.versionLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.versionLabel.Location = new System.Drawing.Point(393, 68);
             this.versionLabel.Name = "versionLabel";
-            this.versionLabel.Size = new System.Drawing.Size(106, 21);
+            this.versionLabel.Size = new System.Drawing.Size(72, 13);
             this.versionLabel.TabIndex = 12;
             this.versionLabel.Text = "Version 1.0.0";
             // 
             // Myprogress
             // 
-            this.Myprogress.Location = new System.Drawing.Point(-1, 1128);
+            this.Myprogress.Location = new System.Drawing.Point(-1, 677);
+            this.Myprogress.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Myprogress.Name = "Myprogress";
-            this.Myprogress.Size = new System.Drawing.Size(1189, 27);
+            this.Myprogress.Size = new System.Drawing.Size(832, 16);
             this.Myprogress.TabIndex = 13;
             // 
             // pictureBox1
             // 
             this.pictureBox1.Image = global::SupermarketTuto.Properties.Resources.αρχείο_λήψης;
-            this.pictureBox1.Location = new System.Drawing.Point(439, 448);
+            this.pictureBox1.Location = new System.Drawing.Point(294, 221);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(330, 230);
+            this.pictureBox1.Size = new System.Drawing.Size(287, 196);
             this.pictureBox1.TabIndex = 14;
             this.pictureBox1.TabStop = false;
             // 
@@ -96,15 +95,16 @@
             // 
             // Splash
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1189, 1158);
+            this.ClientSize = new System.Drawing.Size(832, 660);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.Myprogress);
             this.Controls.Add(this.versionLabel);
             this.Controls.Add(this.exitLabel);
             this.Controls.Add(this.loginLabel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "Splash";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Splash";

@@ -9,7 +9,7 @@ namespace SupermarketTuto
         static void Main()
         {
             ApplicationConfiguration.Initialize();
-            Application.Run(new Splash());
+            Application.Run(new LogIn());
 
         }
     }

@@ -203,6 +203,8 @@ namespace SupermarketTuto
 
             loaddata.retrieveData("Select CaName From CategoryTbl");
             SearchCb.DataSource = loaddata.table;
+            loaddata.table.Columns.Add("CatName", typeof(string));
+            SearchCb.ValueMember = "CatName";
 
 
         }

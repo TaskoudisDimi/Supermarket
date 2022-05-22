@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Register));
             this.UsernameTextBox = new System.Windows.Forms.TextBox();
             this.ConfirmPasswordTextBox = new System.Windows.Forms.TextBox();
             this.PasswordTextBox = new System.Windows.Forms.TextBox();
@@ -40,43 +41,49 @@
             this.ConfirmPasswordLabel = new System.Windows.Forms.Label();
             this.AllHaveAccountLabel = new System.Windows.Forms.Label();
             this.ShowPasswordCheckBox = new System.Windows.Forms.CheckBox();
+            this.chooseRoleLabel = new System.Windows.Forms.Label();
+            this.chooseRoleCombobox = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // UsernameTextBox
             // 
             this.UsernameTextBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.UsernameTextBox.Location = new System.Drawing.Point(500, 226);
+            this.UsernameTextBox.Location = new System.Drawing.Point(350, 136);
+            this.UsernameTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.UsernameTextBox.Name = "UsernameTextBox";
-            this.UsernameTextBox.Size = new System.Drawing.Size(284, 39);
+            this.UsernameTextBox.Size = new System.Drawing.Size(200, 29);
             this.UsernameTextBox.TabIndex = 0;
             this.UsernameTextBox.TextChanged += new System.EventHandler(this.UsernameTextBox_TextChanged);
             // 
             // ConfirmPasswordTextBox
             // 
             this.ConfirmPasswordTextBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.ConfirmPasswordTextBox.Location = new System.Drawing.Point(500, 423);
+            this.ConfirmPasswordTextBox.Location = new System.Drawing.Point(350, 254);
+            this.ConfirmPasswordTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.ConfirmPasswordTextBox.Name = "ConfirmPasswordTextBox";
             this.ConfirmPasswordTextBox.PasswordChar = '*';
-            this.ConfirmPasswordTextBox.Size = new System.Drawing.Size(284, 39);
+            this.ConfirmPasswordTextBox.Size = new System.Drawing.Size(200, 29);
             this.ConfirmPasswordTextBox.TabIndex = 1;
             this.ConfirmPasswordTextBox.TextChanged += new System.EventHandler(this.ConfirmPasswordTextBox_TextChanged);
             // 
             // PasswordTextBox
             // 
             this.PasswordTextBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.PasswordTextBox.Location = new System.Drawing.Point(500, 327);
+            this.PasswordTextBox.Location = new System.Drawing.Point(350, 196);
+            this.PasswordTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.PasswordTextBox.Name = "PasswordTextBox";
             this.PasswordTextBox.PasswordChar = '*';
-            this.PasswordTextBox.Size = new System.Drawing.Size(284, 39);
+            this.PasswordTextBox.Size = new System.Drawing.Size(200, 29);
             this.PasswordTextBox.TabIndex = 2;
             this.PasswordTextBox.TextChanged += new System.EventHandler(this.PasswordTextBox_TextChanged);
             // 
             // RegisterButton
             // 
             this.RegisterButton.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.RegisterButton.Location = new System.Drawing.Point(500, 531);
+            this.RegisterButton.Location = new System.Drawing.Point(350, 414);
+            this.RegisterButton.Margin = new System.Windows.Forms.Padding(2);
             this.RegisterButton.Name = "RegisterButton";
-            this.RegisterButton.Size = new System.Drawing.Size(235, 82);
+            this.RegisterButton.Size = new System.Drawing.Size(164, 49);
             this.RegisterButton.TabIndex = 3;
             this.RegisterButton.Text = "Register";
             this.RegisterButton.UseVisualStyleBackColor = true;
@@ -85,9 +92,10 @@
             // ClearButton
             // 
             this.ClearButton.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.ClearButton.Location = new System.Drawing.Point(500, 629);
+            this.ClearButton.Location = new System.Drawing.Point(350, 472);
+            this.ClearButton.Margin = new System.Windows.Forms.Padding(2);
             this.ClearButton.Name = "ClearButton";
-            this.ClearButton.Size = new System.Drawing.Size(235, 82);
+            this.ClearButton.Size = new System.Drawing.Size(164, 49);
             this.ClearButton.TabIndex = 4;
             this.ClearButton.Text = "Clear";
             this.ClearButton.UseVisualStyleBackColor = true;
@@ -99,9 +107,10 @@
             this.LogInButton.FlatAppearance.BorderColor = System.Drawing.Color.WhiteSmoke;
             this.LogInButton.FlatAppearance.BorderSize = 0;
             this.LogInButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.LogInButton.Location = new System.Drawing.Point(545, 804);
+            this.LogInButton.Location = new System.Drawing.Point(382, 577);
+            this.LogInButton.Margin = new System.Windows.Forms.Padding(2);
             this.LogInButton.Name = "LogInButton";
-            this.LogInButton.Size = new System.Drawing.Size(166, 57);
+            this.LogInButton.Size = new System.Drawing.Size(116, 34);
             this.LogInButton.TabIndex = 5;
             this.LogInButton.Text = "Back To Login";
             this.LogInButton.UseVisualStyleBackColor = false;
@@ -111,9 +120,10 @@
             // 
             this.GetStartedLabel.AutoSize = true;
             this.GetStartedLabel.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.GetStartedLabel.Location = new System.Drawing.Point(500, 26);
+            this.GetStartedLabel.Location = new System.Drawing.Point(350, 16);
+            this.GetStartedLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.GetStartedLabel.Name = "GetStartedLabel";
-            this.GetStartedLabel.Size = new System.Drawing.Size(211, 48);
+            this.GetStartedLabel.Size = new System.Drawing.Size(142, 32);
             this.GetStartedLabel.TabIndex = 6;
             this.GetStartedLabel.Text = "Get Started";
             // 
@@ -121,9 +131,10 @@
             // 
             this.UsernameLabel.AutoSize = true;
             this.UsernameLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.UsernameLabel.Location = new System.Drawing.Point(500, 175);
+            this.UsernameLabel.Location = new System.Drawing.Point(350, 105);
+            this.UsernameLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.UsernameLabel.Name = "UsernameLabel";
-            this.UsernameLabel.Size = new System.Drawing.Size(128, 32);
+            this.UsernameLabel.Size = new System.Drawing.Size(87, 21);
             this.UsernameLabel.TabIndex = 7;
             this.UsernameLabel.Text = "Username";
             // 
@@ -131,9 +142,10 @@
             // 
             this.PasswardLabel.AutoSize = true;
             this.PasswardLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.PasswardLabel.Location = new System.Drawing.Point(500, 280);
+            this.PasswardLabel.Location = new System.Drawing.Point(350, 168);
+            this.PasswardLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.PasswardLabel.Name = "PasswardLabel";
-            this.PasswardLabel.Size = new System.Drawing.Size(122, 32);
+            this.PasswardLabel.Size = new System.Drawing.Size(82, 21);
             this.PasswardLabel.TabIndex = 8;
             this.PasswardLabel.Text = "Password";
             // 
@@ -141,37 +153,60 @@
             // 
             this.ConfirmPasswordLabel.AutoSize = true;
             this.ConfirmPasswordLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.ConfirmPasswordLabel.Location = new System.Drawing.Point(500, 375);
+            this.ConfirmPasswordLabel.Location = new System.Drawing.Point(350, 225);
+            this.ConfirmPasswordLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.ConfirmPasswordLabel.Name = "ConfirmPasswordLabel";
-            this.ConfirmPasswordLabel.Size = new System.Drawing.Size(222, 32);
+            this.ConfirmPasswordLabel.Size = new System.Drawing.Size(148, 21);
             this.ConfirmPasswordLabel.TabIndex = 9;
             this.ConfirmPasswordLabel.Text = "Confirm Password";
             // 
             // AllHaveAccountLabel
             // 
             this.AllHaveAccountLabel.AutoSize = true;
-            this.AllHaveAccountLabel.Location = new System.Drawing.Point(520, 748);
+            this.AllHaveAccountLabel.Location = new System.Drawing.Point(364, 544);
+            this.AllHaveAccountLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.AllHaveAccountLabel.Name = "AllHaveAccountLabel";
-            this.AllHaveAccountLabel.Size = new System.Drawing.Size(215, 25);
+            this.AllHaveAccountLabel.Size = new System.Drawing.Size(144, 15);
             this.AllHaveAccountLabel.TabIndex = 10;
             this.AllHaveAccountLabel.Text = "Allready Have an Account";
             // 
             // ShowPasswordCheckBox
             // 
             this.ShowPasswordCheckBox.AutoSize = true;
-            this.ShowPasswordCheckBox.Location = new System.Drawing.Point(622, 480);
+            this.ShowPasswordCheckBox.Location = new System.Drawing.Point(435, 383);
+            this.ShowPasswordCheckBox.Margin = new System.Windows.Forms.Padding(2);
             this.ShowPasswordCheckBox.Name = "ShowPasswordCheckBox";
-            this.ShowPasswordCheckBox.Size = new System.Drawing.Size(162, 29);
+            this.ShowPasswordCheckBox.Size = new System.Drawing.Size(108, 19);
             this.ShowPasswordCheckBox.TabIndex = 11;
             this.ShowPasswordCheckBox.Text = "Show Password";
             this.ShowPasswordCheckBox.UseVisualStyleBackColor = true;
             this.ShowPasswordCheckBox.CheckedChanged += new System.EventHandler(this.ShowPasswordCheckBox_CheckedChanged);
             // 
+            // chooseRoleLabel
+            // 
+            this.chooseRoleLabel.AutoSize = true;
+            this.chooseRoleLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.chooseRoleLabel.Location = new System.Drawing.Point(350, 299);
+            this.chooseRoleLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.chooseRoleLabel.Name = "chooseRoleLabel";
+            this.chooseRoleLabel.Size = new System.Drawing.Size(104, 21);
+            this.chooseRoleLabel.TabIndex = 13;
+            this.chooseRoleLabel.Text = "Choose Role";
+            // 
+            // chooseRoleCombobox
+            // 
+            this.chooseRoleCombobox.FormattingEnabled = true;
+            this.chooseRoleCombobox.Location = new System.Drawing.Point(350, 331);
+            this.chooseRoleCombobox.Name = "chooseRoleCombobox";
+            this.chooseRoleCombobox.Size = new System.Drawing.Size(200, 23);
+            this.chooseRoleCombobox.TabIndex = 14;            // 
             // Register
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1244, 1028);
+            this.ClientSize = new System.Drawing.Size(871, 617);
+            this.Controls.Add(this.chooseRoleCombobox);
+            this.Controls.Add(this.chooseRoleLabel);
             this.Controls.Add(this.ShowPasswordCheckBox);
             this.Controls.Add(this.AllHaveAccountLabel);
             this.Controls.Add(this.ConfirmPasswordLabel);
@@ -184,6 +219,9 @@
             this.Controls.Add(this.PasswordTextBox);
             this.Controls.Add(this.ConfirmPasswordTextBox);
             this.Controls.Add(this.UsernameTextBox);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Register";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Register";
@@ -206,5 +244,7 @@
         private Label ConfirmPasswordLabel;
         private Label AllHaveAccountLabel;
         private CheckBox ShowPasswordCheckBox;
+        private Label chooseRoleLabel;
+        private ComboBox chooseRoleCombobox;
     }
 }
