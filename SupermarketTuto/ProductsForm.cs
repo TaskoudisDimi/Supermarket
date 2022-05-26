@@ -250,6 +250,10 @@ namespace SupermarketTuto
             this.Hide();
         }
 
+        //TODO export excel
+        //TODO import txt, excel
+        //TODO right click in datagridview
+
 
     }
 }
