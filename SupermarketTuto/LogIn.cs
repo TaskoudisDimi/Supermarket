@@ -22,11 +22,15 @@ namespace SupermarketTuto
         public LogIn()
         {
             InitializeComponent();
+
+            selectRoleCombobox.Items.AddRange(new string[] { "Admin", "Seller"});
+            selectRoleCombobox.Items.Insert(0, "Select Role");
+            selectRoleCombobox.SelectedIndex = 0;
+
+
         }
+        
 
-        ////SqlConnection Con = new SqlConnection(@"Data Source=DIMITRISTASKOUD\DIMITRIS_TASKOUD;Initial Catalog=smarketdb;Integrated Security=True");
-
-        //SqlConnection Con = new SqlConnection(@"Data Source=DESKTOP-FF268DF\SQLEXPRESS;Initial Catalog=smarketdb;Integrated Security=True");
 
         private void UserNameTextBox_TextChanged(object sender, EventArgs e)
         {
@@ -49,31 +53,35 @@ namespace SupermarketTuto
         private void LogInButton_Click(object sender, EventArgs e)
         {
 
-            //Con.Open();
-            //string login = "Select * From Users Where Username= '" + UserNameTextBox.Text + "' and Password= '" + PasswordTextBox.Text + "'";
-            //SqlCommand cmd = new SqlCommand(login, Con);
-            //SqlDataReader rdr;
-            //rdr = cmd.ExecuteReader();
-            loaddata.commandExc("Select * From Users Where Username= '" + UserNameTextBox.Text + "' and Password= '" + PasswordTextBox.Text + "'");
 
+            loaddata.retrieveData("Select * From [smarketdb].[dbo].[Users] Where Username= '" + UserNameTextBox.Text + "' and Password= '" + PasswordTextBox.Text + "' and Role= '" + selectRoleCombobox.SelectedItem + "'");
+            
+            if (loaddata.table.Rows.Count == 1 && selectRoleCombobox.SelectedItem != "Select Role")
+            {
+                if (selectRoleCombobox.SelectedItem == "Admin")
+                {
 
-            ProductsForm products = new ProductsForm();
-            products.Show();
-            this.Hide();
-
-            //if (rdr.Read())
-            //{
-               
-            //}
-            //else
-            //{
-            //    MessageBox.Show("Invalid Password or Username, Please try again", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    UserNameTextBox.Clear();
-            //    PasswordTextBox.Clear();
-            //    UserNameTextBox.Focus();
-
-            //}
+                    ProductsForm products = new ProductsForm();
+                    products.Show();
+                    this.Hide();
+                }
+                if (selectRoleCombobox.SelectedItem == "Seller")
+                {
+                    SellingForm selling = new SellingForm();
+                    selling.Show();
+                    this.Hide();
+                }
+            }
+            else if (selectRoleCombobox.SelectedItem == "Select Role")
+            {
+                MessageBox.Show("Select Role!");
+            }
+            else
+            {
+                MessageBox.Show("Error!");
+            }
            
+
 
 
 

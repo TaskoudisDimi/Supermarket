@@ -72,12 +72,6 @@ namespace SupermarketTuto
             display();
         }
 
-        private void categoriesButton_Click(object sender, EventArgs e)
-        {
-            CategoryForm categoryForm = new CategoryForm();
-            categoryForm.Show();
-            this.Hide();
-        }
 
         private void addButton_Click(object sender, EventArgs e)
         {
@@ -192,20 +186,7 @@ namespace SupermarketTuto
 
         }
 
-        private void sellerButton_Click(object sender, EventArgs e)
-        {
-            SellerForm sellerForm = new SellerForm();
-            sellerForm.Show();
-            this.Hide();
 
-        }
-
-        private void sellingButton_Click(object sender, EventArgs e)
-        {
-            SellingForm selling = new SellingForm();
-            selling.Show();
-            this.Hide();
-        }
 
         private void CatCb_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -246,12 +227,30 @@ namespace SupermarketTuto
 
         }
 
+        private void sellerButton_Click(object sender, EventArgs e)
+        {
+            SellerForm sellerForm = new SellerForm();
+            sellerForm.Show();
+            this.Hide();
+
+        }
+
+
         private void logOutLabel_Click(object sender, EventArgs e)
         {
             this.Hide();
-            WelcomeForm login = new WelcomeForm();
+            LogIn login = new LogIn();
             login.Show();
         }
+
+        private void categoriesButton_Click(object sender, EventArgs e)
+        {
+            CategoryForm categoryForm = new CategoryForm();
+            categoryForm.Show();
+            this.Hide();
+        }
+
+
     }
 }
 

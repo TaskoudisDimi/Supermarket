@@ -14,13 +14,20 @@ namespace SupermarketTuto
 {
     public partial class Register : Form
     {
+
+        SqlConnect loaddata = new SqlConnect();
+
+
         public Register()
         {
             InitializeComponent();
+
+            chooseRoleCombobox.Items.AddRange(new string[] { "Admin", "Seller" });
+            chooseRoleCombobox.Items.Insert(0, "Select Role");
+            chooseRoleCombobox.SelectedIndex = 0;
+
+
         }
-        //SqlConnection Con = new SqlConnection(@"Data Source=DIMITRISTASKOUD\DIMITRIS_TASKOUD;Initial Catalog=smarketdb;Integrated Security=True");
-        
-        //SqlConnection Con = new SqlConnection(@"Data Source=DESKTOP-FF268DF\SQLEXPRESS;Initial Catalog=smarketdb;Integrated Security=True");
 
         private void UsernameTextBox_TextChanged(object sender, EventArgs e)
         {
@@ -44,12 +51,10 @@ namespace SupermarketTuto
                 MessageBox.Show("Username and/or Password fields are empty", "Registration Failed", MessageBoxButtons.OK);
 
             }
-            else if(PasswordTextBox.Text == ConfirmPasswordTextBox.Text)
+            else if(PasswordTextBox.Text == ConfirmPasswordTextBox.Text && chooseRoleCombobox.SelectedItem != null)
             {
-
-
-                SqlConnect loaddata = new SqlConnect();
-                loaddata.commandExc("Insert Into Users Values ('" + UsernameTextBox.Text + "','" + PasswordTextBox.Text + "')");
+                
+                loaddata.commandExc("Insert Into Users Values ('" + UsernameTextBox.Text + "','" + PasswordTextBox.Text + "','" + chooseRoleCombobox.SelectedItem + "')");
 
 
                 MessageBox.Show("Your Account has been Successfully Created", "Registration Success", MessageBoxButtons.OK);

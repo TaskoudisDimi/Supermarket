@@ -180,12 +180,7 @@ namespace SupermarketTuto
             this.Hide();
         }
 
-        private void selling2Button_Click(object sender, EventArgs e)
-        {
-            SellingForm selling = new SellingForm();
-            selling.Show();
-            this.Hide();
-        }
+
 
         private void logOutLabel_Click(object sender, EventArgs e)
         {

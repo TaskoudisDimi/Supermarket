@@ -29,10 +29,8 @@ namespace SupermarketTuto
         }
 
 
-        ////SqlConnection Con = new SqlConnection(@"Data Source=DIMITRISTASKOUD\DIMITRIS_TASKOUD;Initial Catalog=smarketdb;Integrated Security=True");
-        //SqlConnection Con = new SqlConnection(@"Data Source=DESKTOP-FF268DF\SQLEXPRESS;Initial Catalog=smarketdb;Integrated Security=True");
 
-        private void display()  
+        private void display()
         {
             //Con.Open();
             //string query = "Select ProdName, ProdQty From ProductTbl;";
@@ -62,7 +60,7 @@ namespace SupermarketTuto
             //Con.Close();
 
             loaddata.retrieveData("Select * From BillTbl;");
-            BillsDGV.DataSource= loaddata.table;
+            BillsDGV.DataSource = loaddata.table;
 
 
 
@@ -136,7 +134,7 @@ namespace SupermarketTuto
             {
                 MessageBox.Show(ex.Message);
             }
-}
+        }
 
         private void PrintButton_Click(object sender, EventArgs e)
         {
@@ -155,7 +153,7 @@ namespace SupermarketTuto
         private void printDocument1_PrintPage(object sender, PrintPageEventArgs e)
         {
             e.Graphics.DrawString("FamilySuperMarket", new Font("Century Gothic", 25, FontStyle.Bold), Brushes.Red, new Point(230));
-            e.Graphics.DrawString("Bill ID: " + BillsDGV.SelectedRows[0].Cells[0].Value.ToString(), new Font("Century Gothic", 15, FontStyle.Bold), Brushes.Blue, new Point(100,70));
+            e.Graphics.DrawString("Bill ID: " + BillsDGV.SelectedRows[0].Cells[0].Value.ToString(), new Font("Century Gothic", 15, FontStyle.Bold), Brushes.Blue, new Point(100, 70));
             e.Graphics.DrawString("Seller Name: " + BillsDGV.SelectedRows[0].Cells[1].Value.ToString(), new Font("Century Gothic", 15, FontStyle.Bold), Brushes.Blue, new Point(100, 100));
             e.Graphics.DrawString("Date: " + BillsDGV.SelectedRows[0].Cells[2].Value.ToString(), new Font("Century Gothic", 15, FontStyle.Bold), Brushes.Blue, new Point(100, 130));
             e.Graphics.DrawString("Total Amount: " + BillsDGV.SelectedRows[0].Cells[3].Value.ToString(), new Font("Century Gothic", 15, FontStyle.Bold), Brushes.Blue, new Point(100, 160));
@@ -216,25 +214,12 @@ namespace SupermarketTuto
             login.Show();
         }
 
-        private void productsButton_Click(object sender, EventArgs e)
-        {
-            ProductsForm products = new ProductsForm();
-            products.Show();
-            this.Hide();
-        }
 
-        private void sellersButton_Click(object sender, EventArgs e)
+        private void SellingForm_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            SellerForm seller = new SellerForm();
-            seller.Show();
-            this.Hide();
-        }
 
-        private void categories2Button_Click(object sender, EventArgs e)
-        {
-            CategoryForm category = new CategoryForm();
-            category.Show();
-            this.Hide();
+
+
 
         }
     }
