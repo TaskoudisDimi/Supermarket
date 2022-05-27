@@ -199,6 +199,37 @@ namespace SupermarketTuto
             LogIn login = new LogIn();
             login.Show();
         }
+
+
+        private int rowIndex = 0;
+        private void CatDGV_CellMouseUp(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                this.CatDGV.Rows[e.RowIndex].Selected = true;
+                this.rowIndex = e.RowIndex;
+                this.CatDGV.CurrentCell = this.CatDGV.Rows[e.RowIndex].Cells[1];
+                this.contextMenuStrip1.Show(this.CatDGV, e.Location);
+                contextMenuStrip1.Show(Cursor.Position);
+            }
+        }
+
+        private void contextMenuStrip1_Click(object sender, EventArgs e)
+        {
+            if (!this.CatDGV.Rows[this.rowIndex].IsNewRow)
+            {
+                this.CatDGV.Rows.RemoveAt(this.rowIndex);
+            }
+        }
+
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (!this.CatDGV.Rows[this.rowIndex].IsNewRow)
+            {
+                this.CatDGV.Rows.RemoveAt(this.rowIndex);
+            }
+        }
     }
 }
 

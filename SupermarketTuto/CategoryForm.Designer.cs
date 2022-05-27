@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CategoryForm));
             this.manageCategoriesPanel = new System.Windows.Forms.Panel();
             this.logOutLabel = new System.Windows.Forms.Label();
@@ -44,8 +45,11 @@
             this.manageCategoriesLabel = new System.Windows.Forms.Label();
             this.productsButton = new System.Windows.Forms.Button();
             this.sellersButton = new System.Windows.Forms.Button();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.manageCategoriesPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CatDGV)).BeginInit();
+            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // manageCategoriesPanel
@@ -95,6 +99,7 @@
             this.CatDGV.Size = new System.Drawing.Size(573, 675);
             this.CatDGV.TabIndex = 15;
             this.CatDGV.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.CatDGV_CellContentClick);
+            this.CatDGV.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.CatDGV_CellMouseUp);
             // 
             // delete3Button
             // 
@@ -222,6 +227,21 @@
             this.sellersButton.UseVisualStyleBackColor = true;
             this.sellersButton.Click += new System.EventHandler(this.sellersButton_Click);
             // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem1});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(241, 69);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(240, 32);
+            this.toolStripMenuItem1.Text = "Delete Row";
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
+            // 
             // CategoryForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
@@ -240,6 +260,7 @@
             this.manageCategoriesPanel.ResumeLayout(false);
             this.manageCategoriesPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CatDGV)).EndInit();
+            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -261,5 +282,7 @@
         private Button productsButton;
         private Button sellersButton;
         private Label logOutLabel;
+        private ContextMenuStrip contextMenuStrip1;
+        private ToolStripMenuItem toolStripMenuItem1;
     }
 }
