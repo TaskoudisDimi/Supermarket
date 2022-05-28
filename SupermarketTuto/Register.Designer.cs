@@ -199,7 +199,8 @@
             this.chooseRoleCombobox.Location = new System.Drawing.Point(350, 331);
             this.chooseRoleCombobox.Name = "chooseRoleCombobox";
             this.chooseRoleCombobox.Size = new System.Drawing.Size(200, 23);
-            this.chooseRoleCombobox.TabIndex = 14;            // 
+            this.chooseRoleCombobox.TabIndex = 14;
+            // 
             // Register
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -225,6 +226,7 @@
             this.Name = "Register";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Register";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Register_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 

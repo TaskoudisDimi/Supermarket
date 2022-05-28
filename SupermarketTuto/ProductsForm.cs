@@ -206,6 +206,19 @@ namespace SupermarketTuto
             this.Hide();
         }
 
+        private void ProductsForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            DialogResult confirm = MessageBox.Show("Confirm to close", "Exit", MessageBoxButtons.YesNo);
+            if (confirm == DialogResult.Yes)
+            {
+                Application.Exit();
+            }
+            else if (confirm == DialogResult.No)
+            {
+                e.Cancel = true;
+            }
+        }
+
         //TODO export excel
         //TODO import txt, excel
         //TODO right click in datagridview

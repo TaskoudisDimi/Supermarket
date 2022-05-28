@@ -18,23 +18,23 @@ namespace SupermarketTuto
 
         SqlConnect loaddata = new SqlConnect();
 
-        
+
         public LogIn()
         {
             InitializeComponent();
 
-            selectRoleCombobox.Items.AddRange(new string[] { "Admin", "Seller"});
+            selectRoleCombobox.Items.AddRange(new string[] { "Admin", "Seller" });
             selectRoleCombobox.Items.Insert(0, "Select Role");
             selectRoleCombobox.SelectedIndex = 0;
 
 
         }
-        
+
 
 
         private void UserNameTextBox_TextChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private void PasswordTextBox_TextChanged(object sender, EventArgs e)
@@ -45,7 +45,7 @@ namespace SupermarketTuto
         private void ClearButton_Click(object sender, EventArgs e)
         {
             UserNameTextBox.Clear();
-            PasswordTextBox.Clear(); 
+            PasswordTextBox.Clear();
             UserNameTextBox.Focus();
 
         }
@@ -55,7 +55,7 @@ namespace SupermarketTuto
 
 
             loaddata.retrieveData("Select * From [smarketdb].[dbo].[Users] Where Username= '" + UserNameTextBox.Text + "' and Password= '" + PasswordTextBox.Text + "' and Role= '" + selectRoleCombobox.SelectedItem + "'");
-            
+
             if (loaddata.table.Rows.Count == 1 && selectRoleCombobox.SelectedItem != "Select Role")
             {
                 if (selectRoleCombobox.SelectedItem == "Admin")
@@ -80,7 +80,7 @@ namespace SupermarketTuto
             {
                 MessageBox.Show("Error!");
             }
-           
+
 
 
 
@@ -105,6 +105,20 @@ namespace SupermarketTuto
             else
             {
                 PasswordTextBox.PasswordChar = '*';
+            }
+        }
+
+
+        private void LogIn_FormClosing_1(object sender, FormClosingEventArgs e)
+        {
+            DialogResult confirm = MessageBox.Show("Confirm to close", "Exit", MessageBoxButtons.YesNo);
+            if (confirm == DialogResult.Yes)
+            {
+                Application.Exit();
+            }
+            else if (confirm == DialogResult.No)
+            {
+                e.Cancel = true;
             }
         }
     }
