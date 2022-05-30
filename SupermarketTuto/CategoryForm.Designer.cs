@@ -97,6 +97,8 @@
             this.CatDGV.TabIndex = 15;
             this.CatDGV.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.CatDGV_CellContentClick);
             this.CatDGV.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.CatDGV_CellMouseUp);
+            this.CatDGV.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.CatDGV_CellValidating);
+            this.CatDGV.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.CatDGV_CellValueChanged);
             // 
             // delete3Button
             // 

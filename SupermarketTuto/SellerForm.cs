@@ -124,6 +124,8 @@ namespace SupermarketTuto
             }
         }
 
+
+        //TODO Age = Date in Textbox and db
         private void add2Button_Click(object sender, EventArgs e)
         {
             try

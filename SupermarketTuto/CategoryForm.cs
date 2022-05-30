@@ -64,6 +64,7 @@ namespace SupermarketTuto
         //Method 
         private void display()
         {
+            //COMMENTS//
             //Con.Open();
             //string query = "Select * From CategoryTbl;";
             ////A SqlDataReader is a type that is good for reading data in the most efficient manner possible
@@ -231,6 +232,7 @@ namespace SupermarketTuto
             }
         }
 
+        //Show dialogResult after press X button on Form
         private void CategoryForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             DialogResult confirm = MessageBox.Show("Confirm to close", "Exit", MessageBoxButtons.YesNo);
@@ -242,6 +244,30 @@ namespace SupermarketTuto
             {
                 e.Cancel = true;
             }
+        }
+
+
+        //Εμφανίζεται όταν ένα κελί χάνει την εστίαση εισόδου, επιτρέποντας την επικύρωση περιεχομένου.
+        private void CatDGV_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        {
+            //CatDGV.Rows[e.RowIndex].ErrorText = "";
+            //int newInteger;
+
+            //// Don't try to validate the 'new row' until finished 
+            //// editing since there
+            //// is not any point in validating its initial value.
+            //if (CatDGV.Rows[e.RowIndex].IsNewRow) { return; }
+            //if (!int.TryParse(e.FormattedValue.ToString(),
+            //    out newInteger) || newInteger < 0)
+            //{
+            //    e.Cancel = true;
+            //    CatDGV.Rows[e.RowIndex].ErrorText = "the value must be a non-negative integer";
+            //}
+        }
+
+        private void CatDGV_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }
