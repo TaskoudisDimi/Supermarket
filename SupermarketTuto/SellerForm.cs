@@ -158,15 +158,6 @@ namespace SupermarketTuto
             }
         }
 
-        private void SellDGV_CellContentClicks(object sender, DataGridViewCellEventArgs e)
-        {
-            SellId.Text = SellDGV.SelectedRows[0].Cells[0].Value.ToString();
-            SellName.Text = SellDGV.SelectedRows[0].Cells[1].Value.ToString();
-            SellAge.Text = SellDGV.SelectedRows[0].Cells[2].Value.ToString();
-            SellPhone.Text = SellDGV.SelectedRows[0].Cells[3].Value.ToString();
-            SellPass.Text = SellDGV.SelectedRows[0].Cells[4].Value.ToString();
-        }
-
         private void products2Button_Click(object sender, EventArgs e)
         {
             ProductsForm productsForm = new ProductsForm();
@@ -194,14 +185,19 @@ namespace SupermarketTuto
         private void SellerForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             DialogResult confirm = MessageBox.Show("Confirm to close", "Exit", MessageBoxButtons.YesNo);
-            if (confirm == DialogResult.Yes)
-            {
-                Application.Exit();
-            }
-            else if (confirm == DialogResult.No)
+            if (confirm == DialogResult.No)
             {
                 e.Cancel = true;
             }
+        }
+
+        private void SellDGV_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            SellId.Text = SellDGV.SelectedRows[0].Cells[0].Value.ToString();
+            SellName.Text = SellDGV.SelectedRows[0].Cells[1].Value.ToString();
+            SellAge.Text = SellDGV.SelectedRows[0].Cells[2].Value.ToString();
+            SellPhone.Text = SellDGV.SelectedRows[0].Cells[3].Value.ToString();
+            SellPass.Text = SellDGV.SelectedRows[0].Cells[4].Value.ToString();
         }
     }
 }

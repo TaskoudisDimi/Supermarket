@@ -20,25 +20,25 @@ namespace SupermarketTuto
         public ProductsForm()
         {
             InitializeComponent();
-        }
-
-        ////SqlConnection Con = new SqlConnection(@"Data Source=DIMITRISTASKOUD\DIMITRIS_TASKOUD;Initial Catalog=smarketdb;Integrated Security=True");
-       
-
-        private void exitButton_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
+        }       
 
         private void fillCombo()
         {
-            //This method will bind the Combobox with the Database
-            loaddata.retrieveData("Select CatName From CategoryTbl");
-            CatCb.DataSource = loaddata.table;
-            CatCb.ValueMember = "catName";
+            SqlConnect loaddata2 = new SqlConnect();
 
-            selectCategory2ComboBox.DataSource = loaddata.table;
+            //This method will bind the Combobox with the Database
+            loaddata2.retrieveData("Select CatName From CategoryTbl");
+            CatCb.DataSource = loaddata2.table;
+            CatCb.ValueMember = "catName";
+            CatCb.SelectedItem = null;
+            CatCb.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            CatCb.AutoCompleteSource = AutoCompleteSource.ListItems;
+
+            selectCategory2ComboBox.DataSource = loaddata2.table;
             selectCategory2ComboBox.ValueMember = "catName";
+            selectCategory2ComboBox.SelectedItem = null;
+            selectCategory2ComboBox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            selectCategory2ComboBox.AutoCompleteSource = AutoCompleteSource.ListItems;
 
         }
 
@@ -55,8 +55,25 @@ namespace SupermarketTuto
         {
             fillCombo();
             display();
+
+            ContextMenuStrip mnu = new ContextMenuStrip();
+            ToolStripMenuItem mnuDelete = new ToolStripMenuItem("Delete");
+            //Assign event handlers
+            mnuDelete.Click += new EventHandler(mnuDelete_Click);
+            //Add to main context menu
+            mnu.Items.AddRange(new ToolStripItem[] { mnuDelete});
+            //Assign to datagridview
+            ProdDGV.ContextMenuStrip = mnu;
         }
 
+        private void mnuDelete_Click(object? sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in ProdDGV.SelectedRows)
+            {
+                ProdDGV.Rows.RemoveAt(row.Index);
+                
+            }
+        }
 
         private void addButton_Click(object sender, EventArgs e)
         {
@@ -121,12 +138,6 @@ namespace SupermarketTuto
                 }
                 else
                 {
-                    //Con.Open();
-                    //string query = "Delete From ProductTbl Where ProdId=" + ProdId.Text + "";
-                    //SqlCommand cmd = new SqlCommand(query, Con);
-                    //cmd.ExecuteNonQuery();
-                    //MessageBox.Show("Product Deleted Successfully");
-                    //Con.Close();
 
                     loaddata.commandExc("Delete From ProductTbl Where ProdId=" + ProdId.Text + "");
 
@@ -146,21 +157,10 @@ namespace SupermarketTuto
 
         private void ProdDGV_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            ProdId.Text = ProdDGV.SelectedRows[0].Cells[0].Value.ToString();
-            ProdName.Text = ProdDGV.SelectedRows[0].Cells[1].Value.ToString();
-            ProdQty.Text = ProdDGV.SelectedRows[0].Cells[2].Value.ToString();
-            ProdPrice.Text = ProdDGV.SelectedRows[0].Cells[3].Value.ToString();
-            CatCb.SelectedValue = ProdDGV.SelectedRows[0].Cells[4].Value.ToString();
+
         }
 
         private void selectCategory2ComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-
-
-        private void CatCb_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
@@ -209,14 +209,19 @@ namespace SupermarketTuto
         private void ProductsForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             DialogResult confirm = MessageBox.Show("Confirm to close", "Exit", MessageBoxButtons.YesNo);
-            if (confirm == DialogResult.Yes)
-            {
-                Application.Exit();
-            }
-            else if (confirm == DialogResult.No)
+            if (confirm == DialogResult.No)
             {
                 e.Cancel = true;
             }
+        }
+
+        private void ProdDGV_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            ProdId.Text = ProdDGV.SelectedRows[0].Cells[0].Value.ToString();
+            ProdName.Text = ProdDGV.SelectedRows[0].Cells[1].Value.ToString();
+            ProdQty.Text = ProdDGV.SelectedRows[0].Cells[2].Value.ToString();
+            ProdPrice.Text = ProdDGV.SelectedRows[0].Cells[3].Value.ToString();
+            CatCb.SelectedValue = ProdDGV.SelectedRows[0].Cells[4].Value.ToString();
         }
 
         //TODO export excel

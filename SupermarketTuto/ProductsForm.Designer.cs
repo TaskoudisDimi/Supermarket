@@ -103,6 +103,7 @@
             this.ProdDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.ProdDGV.Size = new System.Drawing.Size(456, 479);
             this.ProdDGV.TabIndex = 17;
+            this.ProdDGV.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ProdDGV_CellClick);
             this.ProdDGV.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ProdDGV_CellContentClick);
             // 
             // refreshButton
@@ -213,7 +214,6 @@
             this.CatCb.Size = new System.Drawing.Size(107, 23);
             this.CatCb.TabIndex = 5;
             this.CatCb.Text = "Select Category";
-            this.CatCb.SelectedIndexChanged += new System.EventHandler(this.CatCb_SelectedIndexChanged);
             this.CatCb.SelectionChangeCommitted += new System.EventHandler(this.CatCb_SelectionChangeCommitted);
             // 
             // ProdPrice

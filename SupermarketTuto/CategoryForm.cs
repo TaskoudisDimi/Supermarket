@@ -32,6 +32,38 @@ namespace SupermarketTuto
         //Ορίζω το connectrion string
         //SqlConnection Con = new SqlConnection(@"Data Source=DIMITRISTASKOUD\DIMITRIS_TASKOUD;Initial Catalog=smarketdb;Integrated Security=True");
 
+        //Method 
+        private void display()
+        {
+            //COMMENTS//
+            //Con.Open();
+            //string query = "Select * From CategoryTbl;";
+            ////A SqlDataReader is a type that is good for reading data in the most efficient manner possible
+            //SqlDataAdapter sda = new SqlDataAdapter(query, Con);
+            ////The SqlCommandBuilder can be used to build and execute SQL queries based on the select command that you will supply.
+            ////It provides the feature of reflecting the changes made to a DataSet or an instance of the SQL server data.
+            //SqlCommandBuilder builder = new SqlCommandBuilder(sda);
+            ////DataSet is a disconnected architecture it represents the data in table structure which means the data into rows and columns.
+            ////Dataset is the local copy of your database which exists in the local system and makes the application execute faster and reliable.
+            //var table = new DataSet();
+            //sda.Fill(table);
+            ////The DataSource property allows data binding on Windows Forms controls. With it we bind an array to a ListBox on the screen—and display all the strings.
+            ////As changes are made to the List, we update the control on the screen.
+            //CatDGV.DataSource = table.Tables[0];
+            //Con.Close();
+
+
+            loaddata.retrieveData("Select * From CategoryTbl");
+            CatDGV.DataSource = loaddata.table;
+
+
+        }
+
+        private void CategoryForm_Load(object sender, EventArgs e)
+        {
+            display();
+
+        }
 
         private void add3Button_Click(object sender, EventArgs e)
         {
@@ -60,47 +92,6 @@ namespace SupermarketTuto
                 MessageBox.Show(ex.Message);
             }
         }
-
-        //Method 
-        private void display()
-        {
-            //COMMENTS//
-            //Con.Open();
-            //string query = "Select * From CategoryTbl;";
-            ////A SqlDataReader is a type that is good for reading data in the most efficient manner possible
-            //SqlDataAdapter sda = new SqlDataAdapter(query, Con);
-            ////The SqlCommandBuilder can be used to build and execute SQL queries based on the select command that you will supply.
-            ////It provides the feature of reflecting the changes made to a DataSet or an instance of the SQL server data.
-            //SqlCommandBuilder builder = new SqlCommandBuilder(sda);
-            ////DataSet is a disconnected architecture it represents the data in table structure which means the data into rows and columns.
-            ////Dataset is the local copy of your database which exists in the local system and makes the application execute faster and reliable.
-            //var table = new DataSet();
-            //sda.Fill(table);
-            ////The DataSource property allows data binding on Windows Forms controls. With it we bind an array to a ListBox on the screen—and display all the strings.
-            ////As changes are made to the List, we update the control on the screen.
-            //CatDGV.DataSource = table.Tables[0];
-            //Con.Close();
-
-
-            loaddata.retrieveData("Select * From CategoryTbl");
-            CatDGV.DataSource = loaddata.table;
-
-
-
-        }
-
-        private void CategoryForm_Load(object sender, EventArgs e)
-        {
-            display();
-        }
-
-        private void CatDGV_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            CatIdTb.Text = CatDGV.SelectedRows[0].Cells[0].Value.ToString();
-            CatNameTb.Text = CatDGV.SelectedRows[0].Cells[1].Value.ToString();
-            CatDescTb.Text = CatDGV.SelectedRows[0].Cells[2].Value.ToString();
-        }
-
         private void delete3Button_Click(object sender, EventArgs e)
         {
             try
@@ -154,19 +145,11 @@ namespace SupermarketTuto
                 {
                     SqlConnect loaddata = new SqlConnect();
 
-                    loaddata.commandExc("Update CategoryTbl set CatName='" + CatNameTb.Text + "',CatDesc='" + CatDescTb.Text + "' where CatId=" + CatIdTb.Text + ";");
-
-                   
+                    loaddata.commandExc("Update CategoryTbl set CatName='" + CatNameTb.Text + "',CatDesc='" + CatDescTb.Text + "' where CatId=" + CatIdTb.Text + ";");    
                     display();
                     CatIdTb.Text = "";
                     CatNameTb.Text = "";
                     CatDescTb.Text = "";
-
-
-                    
-                   
-
-
                 }
             }
             catch (Exception ex)
@@ -185,13 +168,11 @@ namespace SupermarketTuto
             productForm.Show();
             this.Hide();
         }
-
         private void sellersButton_Click(object sender, EventArgs e)
         {
             SellerForm sellerForm = new SellerForm();
             sellerForm.Show();
             this.Hide();
-
         }
 
         private void logOutLabel_Click(object sender, EventArgs e)
@@ -200,7 +181,6 @@ namespace SupermarketTuto
             LogIn login = new LogIn();
             login.Show();
         }
-
 
         private int rowIndex = 0;
         private void CatDGV_CellMouseUp(object sender, DataGridViewCellMouseEventArgs e)
@@ -236,11 +216,7 @@ namespace SupermarketTuto
         private void CategoryForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             DialogResult confirm = MessageBox.Show("Confirm to close", "Exit", MessageBoxButtons.YesNo);
-            if (confirm == DialogResult.Yes)
-            {
-                Application.Exit();
-            }
-            else if (confirm == DialogResult.No)
+            if (confirm == DialogResult.No)
             {
                 e.Cancel = true;
             }
@@ -268,6 +244,18 @@ namespace SupermarketTuto
         private void CatDGV_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void refreshButton_Click(object sender, EventArgs e)
+        {
+            display();
+        }
+
+        private void CatDGV_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            CatIdTb.Text = CatDGV.SelectedRows[0].Cells[0].Value.ToString();
+            CatNameTb.Text = CatDGV.SelectedRows[0].Cells[1].Value.ToString();
+            CatDescTb.Text = CatDGV.SelectedRows[0].Cells[2].Value.ToString();
         }
     }
 }

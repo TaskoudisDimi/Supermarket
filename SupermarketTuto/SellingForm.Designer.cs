@@ -219,7 +219,7 @@
             this.SellingDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.SellingDGV.Size = new System.Drawing.Size(273, 172);
             this.SellingDGV.TabIndex = 31;
-            this.SellingDGV.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.SellingDGV1_CellContentClick);
+            this.SellingDGV.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.SellingDGV_CellClick);
             // 
             // BillsDGV
             // 
@@ -233,7 +233,7 @@
             this.BillsDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.BillsDGV.Size = new System.Drawing.Size(398, 139);
             this.BillsDGV.TabIndex = 32;
-            this.BillsDGV.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.BillsDGV_CellContentClick);
+            this.BillsDGV.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.BillsDGV_CellClick);
             // 
             // SellingPanel
             // 

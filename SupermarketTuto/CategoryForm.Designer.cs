@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CategoryForm));
             this.manageCategoriesPanel = new System.Windows.Forms.Panel();
+            this.refreshButton = new System.Windows.Forms.Button();
             this.logOutLabel = new System.Windows.Forms.Label();
             this.CatDGV = new System.Windows.Forms.DataGridView();
             this.delete3Button = new System.Windows.Forms.Button();
@@ -55,6 +56,7 @@
             // manageCategoriesPanel
             // 
             this.manageCategoriesPanel.BackColor = System.Drawing.Color.Silver;
+            this.manageCategoriesPanel.Controls.Add(this.refreshButton);
             this.manageCategoriesPanel.Controls.Add(this.logOutLabel);
             this.manageCategoriesPanel.Controls.Add(this.CatDGV);
             this.manageCategoriesPanel.Controls.Add(this.delete3Button);
@@ -71,6 +73,16 @@
             this.manageCategoriesPanel.Name = "manageCategoriesPanel";
             this.manageCategoriesPanel.Size = new System.Drawing.Size(659, 500);
             this.manageCategoriesPanel.TabIndex = 1;
+            // 
+            // refreshButton
+            // 
+            this.refreshButton.Location = new System.Drawing.Point(573, 63);
+            this.refreshButton.Name = "refreshButton";
+            this.refreshButton.Size = new System.Drawing.Size(75, 23);
+            this.refreshButton.TabIndex = 41;
+            this.refreshButton.Text = "Refresh";
+            this.refreshButton.UseVisualStyleBackColor = true;
+            this.refreshButton.Click += new System.EventHandler(this.refreshButton_Click);
             // 
             // logOutLabel
             // 
@@ -95,7 +107,7 @@
             this.CatDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.CatDGV.Size = new System.Drawing.Size(401, 405);
             this.CatDGV.TabIndex = 15;
-            this.CatDGV.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.CatDGV_CellContentClick);
+            this.CatDGV.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.CatDGV_CellClick);
             this.CatDGV.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.CatDGV_CellMouseUp);
             this.CatDGV.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.CatDGV_CellValidating);
             this.CatDGV.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.CatDGV_CellValueChanged);
@@ -271,5 +283,6 @@
         private Label logOutLabel;
         private ContextMenuStrip contextMenuStrip1;
         private ToolStripMenuItem toolStripMenuItem1;
+        private Button refreshButton;
     }
 }

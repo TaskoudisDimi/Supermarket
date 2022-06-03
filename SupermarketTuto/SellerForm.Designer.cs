@@ -87,7 +87,7 @@
             this.SellDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.SellDGV.Size = new System.Drawing.Size(334, 387);
             this.SellDGV.TabIndex = 16;
-            this.SellDGV.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.SellDGV_CellContentClicks);
+            this.SellDGV.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.SellDGV_CellClick);
             // 
             // password2Label
             // 

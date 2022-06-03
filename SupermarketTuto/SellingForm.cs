@@ -75,13 +75,6 @@ namespace SupermarketTuto
             SellerNameLabel.Text = WelcomeForm.Sellername;
         }
 
-        private void SellingDGV1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            SellingProdName.Text = SellingDGV.SelectedRows[0].Cells[0].Value.ToString();
-            SellingPrice.Text = SellingDGV.SelectedRows[0].Cells[1].Value.ToString();
-            display();
-        }
-
         private void SellingPanel_Paint(object sender, PaintEventArgs e)
         {
             DateLabel.Text = DateTime.Today.Day.ToString() + "/" + DateTime.Today.Month.ToString() + "/" + DateTime.Today.Year.ToString();
@@ -144,11 +137,8 @@ namespace SupermarketTuto
             }
         }
 
-        int flag = 0;
-        private void BillsDGV_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            flag = 1;
-        }
+       
+
 
         private void printDocument1_PrintPage(object sender, PrintPageEventArgs e)
         {
@@ -226,14 +216,23 @@ namespace SupermarketTuto
         private void SellingForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             DialogResult confirm = MessageBox.Show("Confirm to close", "Exit", MessageBoxButtons.YesNo);
-            if (confirm == DialogResult.Yes)
-            {
-                Application.Exit();
-            }
-            else if (confirm == DialogResult.No)
+            if (confirm == DialogResult.No)
             {
                 e.Cancel = true;
             }
+        }
+
+        private void SellingDGV_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            SellingProdName.Text = SellingDGV.SelectedRows[0].Cells[0].Value.ToString();
+            SellingPrice.Text = SellingDGV.SelectedRows[0].Cells[1].Value.ToString();
+            display();
+        }
+
+        int flag = 0;
+        private void BillsDGV_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            flag = 1;
         }
     }
 }
