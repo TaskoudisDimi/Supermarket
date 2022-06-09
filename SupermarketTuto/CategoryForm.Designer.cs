@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CategoryForm));
             this.manageCategoriesPanel = new System.Windows.Forms.Panel();
             this.refreshButton = new System.Windows.Forms.Button();
@@ -46,11 +45,8 @@
             this.manageCategoriesLabel = new System.Windows.Forms.Label();
             this.productsButton = new System.Windows.Forms.Button();
             this.sellersButton = new System.Windows.Forms.Button();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.manageCategoriesPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CatDGV)).BeginInit();
-            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // manageCategoriesPanel
@@ -226,21 +222,6 @@
             this.sellersButton.UseVisualStyleBackColor = true;
             this.sellersButton.Click += new System.EventHandler(this.sellersButton_Click);
             // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem1});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(134, 26);
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(133, 22);
-            this.toolStripMenuItem1.Text = "Delete Row";
-            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
-            // 
             // CategoryForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -259,7 +240,6 @@
             this.manageCategoriesPanel.ResumeLayout(false);
             this.manageCategoriesPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CatDGV)).EndInit();
-            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -281,8 +261,6 @@
         private Button productsButton;
         private Button sellersButton;
         private Label logOutLabel;
-        private ContextMenuStrip contextMenuStrip1;
-        private ToolStripMenuItem toolStripMenuItem1;
         private Button refreshButton;
     }
 }

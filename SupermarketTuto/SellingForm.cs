@@ -32,14 +32,6 @@ namespace SupermarketTuto
 
         private void display()
         {
-            //Con.Open();
-            //string query = "Select ProdName, ProdQty From ProductTbl;";
-            //SqlDataAdapter adapter = new SqlDataAdapter(query, Con);
-            //SqlCommandBuilder builder = new SqlCommandBuilder(adapter);
-            //var table = new DataSet();
-            //adapter.Fill(table);
-            //SellingDGV.DataSource = table.Tables[0];
-            //Con.Close();
 
             loaddata.retrieveData("Select ProdName, ProdQty From ProductTbl");
             SellingDGV.DataSource = loaddata.table;
@@ -50,15 +42,6 @@ namespace SupermarketTuto
 
         private void displayBills()
         {
-            //Con.Open();
-            //string query = "Select * From BillTbl;";
-            //SqlDataAdapter adapter = new SqlDataAdapter(query, Con);
-            //SqlCommandBuilder builder = new SqlCommandBuilder(adapter);
-            //var table = new DataSet();
-            //adapter.Fill(table);
-            //BillsDGV.DataSource = table.Tables[0];
-            //Con.Close();
-
             loaddata.retrieveData("Select * From BillTbl;");
             BillsDGV.DataSource = loaddata.table;
 
@@ -111,13 +94,6 @@ namespace SupermarketTuto
             try
             {
 
-                //Con.Open();
-                //string query = "Insert Into BillTbl values(" + BillId.Text + ",'" + SellerNameLabel.Text + "','" + DateLabel.Text + "'," + AmtLabel.Text + ")";
-                //SqlCommand cmd = new SqlCommand(query, Con);
-                //cmd.BeginExecuteNonQuery();
-                //MessageBox.Show("Order added successfuly");
-                //Con.Close();
-
                 loaddata.commandExc("Insert Into BillTbl values(" + BillId.Text + ",'" + SellerNameLabel.Text + "','" + DateLabel.Text + "'," + AmtLabel.Text + ")");
 
                 displayBills();
@@ -161,14 +137,6 @@ namespace SupermarketTuto
 
         private void comboBox1_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            //Con.Open();
-            //string query = "Select ProdName, ProdQty From ProductTbl Where ProdCat='" + SearchCb.SelectedValue.ToString() + "'";
-            //SqlDataAdapter adapter = new SqlDataAdapter(query, Con);
-            //SqlCommandBuilder builder = new SqlCommandBuilder(adapter);
-            //var table = new DataSet();
-            //adapter.Fill(table);
-            //SellingDGV.DataSource = table.Tables[0];
-            //Con.Close();
 
             loaddata.retrieveData("Select ProdName, ProdQty From ProductTbl Where ProdCat='" + SearchCb.SelectedValue.ToString() + "'");
             SellingDGV.DataSource = loaddata.table;
@@ -177,18 +145,6 @@ namespace SupermarketTuto
 
         private void fillCombo()
         {
-            //This method will bind the Combobox with the Database
-            //Con.Open();
-            //SqlCommand cmd = new SqlCommand("Select CatName From CategoryTbl", Con);
-            //SqlDataReader rdr;
-            //rdr = cmd.ExecuteReader();
-            //DataTable dt = new DataTable();
-            //dt.Columns.Add("CatName", typeof(string));
-            //dt.Load(rdr);
-            //SearchCb.ValueMember = "catName";
-            //SearchCb.DataSource = dt;
-            //Con.Close();
-
             loaddata.retrieveData("Select CaName From CategoryTbl");
             SearchCb.DataSource = loaddata.table;
             loaddata.table.Columns.Add("CatName", typeof(string));

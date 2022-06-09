@@ -55,7 +55,28 @@ namespace SupermarketTuto
         private void SellerForm_Load(object sender, EventArgs e)
         {
             display();
+            ContextMenuStrip mnu = new ContextMenuStrip();
+            ToolStripMenuItem mnuDelete = new ToolStripMenuItem("Delete");
+            //Assign event handlers
+            mnuDelete.Click += new EventHandler(mnuDelete_Click);
+            //Add to main context menu
+            mnu.Items.AddRange(new ToolStripItem[] { mnuDelete });
+            //Assign to datagridview
+            SellDGV.ContextMenuStrip = mnu;
+
         }
+        private void mnuDelete_Click(object? sender, EventArgs e)
+        {
+
+            loaddata.commandExc("Delete From SellerTbl Where SellerId=" + SellId.Text + "");
+
+            foreach (DataGridViewRow row in SellDGV.SelectedRows)
+            {
+                SellDGV.Rows.RemoveAt(row.Index);
+
+            }
+        }
+
 
         private void edit2Button_Click(object sender, EventArgs e)
         {

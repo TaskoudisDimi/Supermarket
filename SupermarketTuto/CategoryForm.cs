@@ -29,6 +29,8 @@ namespace SupermarketTuto
         }
 
 
+
+
         //Ορίζω το connectrion string
         //SqlConnection Con = new SqlConnection(@"Data Source=DIMITRISTASKOUD\DIMITRIS_TASKOUD;Initial Catalog=smarketdb;Integrated Security=True");
 
@@ -62,7 +64,26 @@ namespace SupermarketTuto
         private void CategoryForm_Load(object sender, EventArgs e)
         {
             display();
+            ContextMenuStrip mnu = new ContextMenuStrip();
+            ToolStripMenuItem mnuDelete = new ToolStripMenuItem("Delete");
+            //Assign event handlers
+            mnuDelete.Click += new EventHandler(mnuDelete_Click);
+            //Add to main context menu
+            mnu.Items.AddRange(new ToolStripItem[] { mnuDelete });
+            //Assign to datagridview
+            CatDGV.ContextMenuStrip = mnu;
 
+        }
+        private void mnuDelete_Click(object? sender, EventArgs e)
+        {
+
+            loaddata.commandExc("Delete From CategoryTbl Where CatId='" + CatIdTb.Text + "'");
+
+            foreach (DataGridViewRow row in CatDGV.SelectedRows)
+            {
+                CatDGV.Rows.RemoveAt(row.Index);
+
+            }
         }
 
         private void add3Button_Click(object sender, EventArgs e)
@@ -185,14 +206,14 @@ namespace SupermarketTuto
         private int rowIndex = 0;
         private void CatDGV_CellMouseUp(object sender, DataGridViewCellMouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right)
-            {
-                this.CatDGV.Rows[e.RowIndex].Selected = true;
-                this.rowIndex = e.RowIndex;
-                this.CatDGV.CurrentCell = this.CatDGV.Rows[e.RowIndex].Cells[1];
-                this.contextMenuStrip1.Show(this.CatDGV, e.Location);
-                contextMenuStrip1.Show(Cursor.Position);
-            }
+            //if (e.Button == MouseButtons.Right)
+            //{
+            //    this.CatDGV.Rows[e.RowIndex].Selected = true;
+            //    this.rowIndex = e.RowIndex;
+            //    this.CatDGV.CurrentCell = this.CatDGV.Rows[e.RowIndex].Cells[1];
+            //    this.contextMenuStrip1.Show(this.CatDGV, e.Location);
+            //    contextMenuStrip1.Show(Cursor.Position);
+            //}
         }
 
         private void contextMenuStrip1_Click(object sender, EventArgs e)

@@ -68,6 +68,9 @@ namespace SupermarketTuto
 
         private void mnuDelete_Click(object? sender, EventArgs e)
         {
+
+            loaddata.commandExc("Delete From ProductTbl Where ProdId=" + ProdId.Text + "");
+
             foreach (DataGridViewRow row in ProdDGV.SelectedRows)
             {
                 ProdDGV.Rows.RemoveAt(row.Index);
@@ -222,6 +225,12 @@ namespace SupermarketTuto
             ProdQty.Text = ProdDGV.SelectedRows[0].Cells[2].Value.ToString();
             ProdPrice.Text = ProdDGV.SelectedRows[0].Cells[3].Value.ToString();
             CatCb.SelectedValue = ProdDGV.SelectedRows[0].Cells[4].Value.ToString();
+        }
+
+        private void refreshButton_Click(object sender, EventArgs e)
+        {
+            loaddata.retrieveData("Select * From ProductTbl");
+
         }
 
         //TODO export excel

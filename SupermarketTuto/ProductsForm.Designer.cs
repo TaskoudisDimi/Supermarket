@@ -114,6 +114,7 @@
             this.refreshButton.TabIndex = 16;
             this.refreshButton.Text = "Refresh";
             this.refreshButton.UseVisualStyleBackColor = true;
+            this.refreshButton.Click += new System.EventHandler(this.refreshButton_Click);
             // 
             // selectCategory2ComboBox
             // 
