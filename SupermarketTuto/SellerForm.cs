@@ -220,5 +220,32 @@ namespace SupermarketTuto
             SellPhone.Text = SellDGV.SelectedRows[0].Cells[3].Value.ToString();
             SellPass.Text = SellDGV.SelectedRows[0].Cells[4].Value.ToString();
         }
+
+        private void SellDGV_MouseDown(object sender, MouseEventArgs e)
+        {
+            ContextMenuStrip menu = new ContextMenuStrip();
+            ToolStripMenuItem sellerDelete = new ToolStripMenuItem("Delete");
+            sellerDelete.Click += new EventHandler(sellerDelete_Click);
+            menu.Items.AddRange(new ToolStripItem[] {sellerDelete });
+            SellDGV.ContextMenuStrip = menu;
+            SellDGV.AllowUserToAddRows = false;
+
+
+        }
+
+        private void sellerDelete_Click(object sender, EventArgs e)
+        {
+            loaddata.commandExc("Delete From Items Where SellerId=" + SellDGV.CurrentRow.Cells[0].Value.ToString() + "");
+
+            foreach (DataGridViewRow row in SellDGV.Rows)
+            {
+                SellDGV.Rows.RemoveAt(row.Index);
+            }
+
+
+        }
+
+
+
     }
 }

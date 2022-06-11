@@ -29,13 +29,14 @@ namespace SupermarketTuto
             //This method will bind the Combobox with the Database
             loaddata2.retrieveData("Select CatName From CategoryTbl");
             CatCb.DataSource = loaddata2.table;
-            CatCb.ValueMember = "catName";
+            CatCb.ValueMember = "CatName";
             CatCb.SelectedItem = null;
             CatCb.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             CatCb.AutoCompleteSource = AutoCompleteSource.ListItems;
 
+
             selectCategory2ComboBox.DataSource = loaddata2.table;
-            selectCategory2ComboBox.ValueMember = "catName";
+            selectCategory2ComboBox.ValueMember = "CatName";
             selectCategory2ComboBox.SelectedItem = null;
             selectCategory2ComboBox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             selectCategory2ComboBox.AutoCompleteSource = AutoCompleteSource.ListItems;
@@ -51,10 +52,20 @@ namespace SupermarketTuto
 
         }
 
+        private void display2()
+        {
+            string sql = "Select * From ProductTbl Where ProdCat='" + selectCategory2ComboBox.SelectedItem + "'";
+            loaddata.retrieveData(sql);
+            ProdDGV.DataSource = loaddata.table;
+        }
+
         private void ProductsForm_Load(object sender, EventArgs e)
         {
             fillCombo();
             display();
+            display2();
+
+
 
             ContextMenuStrip mnu = new ContextMenuStrip();
             ToolStripMenuItem mnuDelete = new ToolStripMenuItem("Delete");
@@ -74,7 +85,7 @@ namespace SupermarketTuto
             foreach (DataGridViewRow row in ProdDGV.SelectedRows)
             {
                 ProdDGV.Rows.RemoveAt(row.Index);
-                
+                                    
             }
         }
 

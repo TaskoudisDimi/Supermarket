@@ -73,6 +73,14 @@ namespace SupermarketTuto
             //Assign to datagridview
             CatDGV.ContextMenuStrip = mnu;
 
+
+            ContextMenuStrip menu = new ContextMenuStrip();
+            ToolStripMenuItem delete = new ToolStripMenuItem("Delete");
+            delete.Click += new EventHandler(delete_Click);
+            menu.Items.AddRange(new ToolStripItem[] { delete });
+            CatDGV.ContextMenuStrip = menu;
+
+
         }
         private void mnuDelete_Click(object? sender, EventArgs e)
         {
