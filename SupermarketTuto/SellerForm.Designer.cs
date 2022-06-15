@@ -88,6 +88,7 @@
             this.SellDGV.Size = new System.Drawing.Size(334, 387);
             this.SellDGV.TabIndex = 16;
             this.SellDGV.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.SellDGV_CellClick);
+            this.SellDGV.MouseDown += new System.Windows.Forms.MouseEventHandler(this.SellDGV_MouseDown);
             // 
             // password2Label
             // 

@@ -104,7 +104,6 @@
             this.CatDGV.Size = new System.Drawing.Size(401, 405);
             this.CatDGV.TabIndex = 15;
             this.CatDGV.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.CatDGV_CellClick);
-            this.CatDGV.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.CatDGV_CellMouseUp);
             this.CatDGV.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.CatDGV_CellValidating);
             this.CatDGV.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.CatDGV_CellValueChanged);
             // 
