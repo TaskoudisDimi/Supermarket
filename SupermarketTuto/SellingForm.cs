@@ -17,7 +17,8 @@ namespace SupermarketTuto
     {
 
         SqlConnect loaddata = new SqlConnect();
-
+        SqlConnect loaddata2 = new SqlConnect();
+        SqlConnect loaddata3 = new SqlConnect();
         public SellingForm()
         {
             InitializeComponent();
@@ -32,21 +33,15 @@ namespace SupermarketTuto
 
         private void display()
         {
-
-            loaddata.retrieveData("Select ProdName, ProdQty From ProductTbl");
+            //loaddata.retrieveData("Select [ProdName], [ProdQty] From [ProductTbl]");
+            loaddata.retrieveData("Select [ProdName], [ProdQty] From [ProductTbl] Where [ProdCat] = '" + Convert.ToString(SearchCb.SelectedValue) + "'");
             SellingDGV.DataSource = loaddata.table;
-
-
-
         }
 
         private void displayBills()
         {
-            loaddata.retrieveData("Select * From BillTbl;");
-            BillsDGV.DataSource = loaddata.table;
-
-
-
+            loaddata2.retrieveData("Select * From BillTbl;");
+            BillsDGV.DataSource = loaddata2.table;
 
         }
 
@@ -96,7 +91,7 @@ namespace SupermarketTuto
 
                 loaddata.commandExc("Insert Into BillTbl values(" + BillId.Text + ",'" + SellerNameLabel.Text + "','" + DateLabel.Text + "'," + AmtLabel.Text + ")");
 
-                displayBills();
+                //displayBills();
 
             }
             catch (Exception ex)
@@ -113,8 +108,7 @@ namespace SupermarketTuto
             }
         }
 
-       
-
+      
 
         private void printDocument1_PrintPage(object sender, PrintPageEventArgs e)
         {
@@ -126,29 +120,20 @@ namespace SupermarketTuto
             e.Graphics.DrawString("Code Space", new Font("Century Gothic", 20, FontStyle.Italic), Brushes.Blue, new Point(230, 230));
 
 
-
-
         }
 
         private void refreshButton_Click(object sender, EventArgs e)
         {
-            displayBills();
+            //displayBills();
         }
-
-        private void comboBox1_SelectionChangeCommitted(object sender, EventArgs e)
-        {
-
-            loaddata.retrieveData("Select ProdName, ProdQty From ProductTbl Where ProdCat='" + SearchCb.SelectedValue.ToString() + "'");
-            SellingDGV.DataSource = loaddata.table;
-        }
-
 
         private void fillCombo()
         {
-            loaddata.retrieveData("Select CaName From CategoryTbl");
-            SearchCb.DataSource = loaddata.table;
-            loaddata.table.Columns.Add("CatName", typeof(string));
+            loaddata3.retrieveData("Select [CatName] From [CategoryTbl]");
+            SearchCb.DataSource = loaddata3.table;
+            //loaddata3.table.Columns.Add("CatName", typeof(string));
             SearchCb.ValueMember = "CatName";
+            SearchCb.SelectedIndex = 0;
 
 
         }
@@ -158,15 +143,6 @@ namespace SupermarketTuto
             this.Hide();
             LogIn login = new LogIn();
             login.Show();
-        }
-
-
-        private void SellingForm_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-
-
-
-
         }
 
         private void SellingForm_FormClosing(object sender, FormClosingEventArgs e)

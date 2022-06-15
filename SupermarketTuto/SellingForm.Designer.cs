@@ -195,7 +195,6 @@
             this.SearchCb.Size = new System.Drawing.Size(107, 23);
             this.SearchCb.TabIndex = 29;
             this.SearchCb.Text = "Select Category";
-            this.SearchCb.SelectionChangeCommitted += new System.EventHandler(this.comboBox1_SelectionChangeCommitted);
             // 
             // refreshButton
             // 
