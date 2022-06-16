@@ -41,6 +41,7 @@
             this.DontHaveAccountLabel = new System.Windows.Forms.Label();
             this.selectRoleLabel = new System.Windows.Forms.Label();
             this.selectRoleCombobox = new System.Windows.Forms.ComboBox();
+            this.versionLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // LogInLabel
@@ -179,12 +180,22 @@
             this.selectRoleCombobox.Size = new System.Drawing.Size(220, 23);
             this.selectRoleCombobox.TabIndex = 11;
             // 
+            // versionLabel
+            // 
+            this.versionLabel.AutoSize = true;
+            this.versionLabel.Location = new System.Drawing.Point(673, 517);
+            this.versionLabel.Name = "versionLabel";
+            this.versionLabel.Size = new System.Drawing.Size(45, 15);
+            this.versionLabel.TabIndex = 12;
+            this.versionLabel.Text = "Version";
+            // 
             // LogIn
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(783, 553);
+            this.Controls.Add(this.versionLabel);
             this.Controls.Add(this.selectRoleCombobox);
             this.Controls.Add(this.selectRoleLabel);
             this.Controls.Add(this.DontHaveAccountLabel);
@@ -223,5 +234,6 @@
         private Label DontHaveAccountLabel;
         private Label selectRoleLabel;
         private ComboBox selectRoleCombobox;
+        private Label versionLabel;
     }
 }

@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using SupermarketTuto.DataAccess;
+using Squirrel;
+using System.Diagnostics;
 
 namespace SupermarketTuto
 {
@@ -27,10 +29,24 @@ namespace SupermarketTuto
             selectRoleCombobox.Items.Insert(0, "Select Role");
             selectRoleCombobox.SelectedIndex = 0;
 
-
+            CheckForUpdates();
+            AddVersionNumber();
         }
 
+        private void AddVersionNumber()
+        {
+            System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
+            FileVersionInfo versionInfo = FileVersionInfo.GetVersionInfo(assembly.Location);
+            versionLabel.Text = $"Version v.{versionInfo.FileVersion}";
+        }
 
+        private async Task CheckForUpdates()
+        {
+            using (var manager = new UpdateManager(@"C:\Temp\Releases"))
+            {
+                await manager.UpdateApp();
+            }
+        }
 
         private void UserNameTextBox_TextChanged(object sender, EventArgs e)
         {
@@ -118,5 +134,8 @@ namespace SupermarketTuto
                 e.Cancel = true;
             }
         }
+
+
+
     }
 }
