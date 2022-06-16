@@ -17,7 +17,7 @@ namespace SupermarketTuto
 
 
         SqlConnect loaddata = new SqlConnect();
-
+        public static string sellerName = "Test";
 
         public LogIn()
         {
@@ -55,6 +55,7 @@ namespace SupermarketTuto
 
 
             loaddata.retrieveData("Select * From [smarketdb].[dbo].[Users] Where Username= '" + UserNameTextBox.Text + "' and Password= '" + PasswordTextBox.Text + "' and Role= '" + selectRoleCombobox.SelectedItem + "'");
+            sellerName = UserNameTextBox.Text;
 
             if (loaddata.table.Rows.Count == 1 && selectRoleCombobox.SelectedItem != "Select Role")
             {
