@@ -42,6 +42,7 @@
             this.selectRoleLabel = new System.Windows.Forms.Label();
             this.selectRoleCombobox = new System.Windows.Forms.ComboBox();
             this.versionLabel = new System.Windows.Forms.Label();
+            this.updateButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // LogInLabel
@@ -189,12 +190,24 @@
             this.versionLabel.TabIndex = 12;
             this.versionLabel.Text = "Version";
             // 
+            // updateButton
+            // 
+            this.updateButton.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.updateButton.Location = new System.Drawing.Point(644, 302);
+            this.updateButton.Margin = new System.Windows.Forms.Padding(2);
+            this.updateButton.Name = "updateButton";
+            this.updateButton.Size = new System.Drawing.Size(111, 35);
+            this.updateButton.TabIndex = 13;
+            this.updateButton.Text = "Update";
+            this.updateButton.UseVisualStyleBackColor = true;
+            // 
             // LogIn
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(783, 553);
+            this.Controls.Add(this.updateButton);
             this.Controls.Add(this.versionLabel);
             this.Controls.Add(this.selectRoleCombobox);
             this.Controls.Add(this.selectRoleLabel);
@@ -235,5 +248,6 @@
         private Label selectRoleLabel;
         private ComboBox selectRoleCombobox;
         private Label versionLabel;
+        private Button updateButton;
     }
 }
