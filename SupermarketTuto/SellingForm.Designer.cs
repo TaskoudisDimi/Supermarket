@@ -47,6 +47,7 @@
             this.SellingDGV = new System.Windows.Forms.DataGridView();
             this.BillsDGV = new System.Windows.Forms.DataGridView();
             this.SellingPanel = new System.Windows.Forms.Panel();
+            this.seller_NameLabel = new System.Windows.Forms.Label();
             this.sumTextBox = new System.Windows.Forms.TextBox();
             this.logOutLabel = new System.Windows.Forms.Label();
             this.SellsListLabel = new System.Windows.Forms.Label();
@@ -160,16 +161,17 @@
             // 
             // deleteButton
             // 
-            this.deleteButton.Location = new System.Drawing.Point(751, 507);
+            this.deleteButton.Location = new System.Drawing.Point(550, 503);
             this.deleteButton.Name = "deleteButton";
             this.deleteButton.Size = new System.Drawing.Size(75, 23);
             this.deleteButton.TabIndex = 28;
             this.deleteButton.Text = "Delete";
             this.deleteButton.UseVisualStyleBackColor = true;
+            this.deleteButton.Click += new System.EventHandler(this.deleteButton_Click);
             // 
             // PrintButton
             // 
-            this.PrintButton.Location = new System.Drawing.Point(658, 507);
+            this.PrintButton.Location = new System.Drawing.Point(469, 503);
             this.PrintButton.Name = "PrintButton";
             this.PrintButton.Size = new System.Drawing.Size(75, 23);
             this.PrintButton.TabIndex = 27;
@@ -179,7 +181,7 @@
             // 
             // addButton
             // 
-            this.addButton.Location = new System.Drawing.Point(560, 507);
+            this.addButton.Location = new System.Drawing.Point(388, 503);
             this.addButton.Name = "addButton";
             this.addButton.Size = new System.Drawing.Size(75, 23);
             this.addButton.TabIndex = 26;
@@ -195,6 +197,7 @@
             this.SearchCb.Size = new System.Drawing.Size(107, 23);
             this.SearchCb.TabIndex = 29;
             this.SearchCb.Text = "Select Category";
+            this.SearchCb.SelectionChangeCommitted += new System.EventHandler(this.SearchCb_SelectionChangeCommitted);
             // 
             // refreshButton
             // 
@@ -239,6 +242,7 @@
             // SellingPanel
             // 
             this.SellingPanel.BackColor = System.Drawing.Color.LightGray;
+            this.SellingPanel.Controls.Add(this.seller_NameLabel);
             this.SellingPanel.Controls.Add(this.sumTextBox);
             this.SellingPanel.Controls.Add(this.logOutLabel);
             this.SellingPanel.Controls.Add(this.SellsListLabel);
@@ -268,6 +272,16 @@
             this.SellingPanel.Size = new System.Drawing.Size(968, 588);
             this.SellingPanel.TabIndex = 33;
             this.SellingPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.SellingPanel_Paint);
+            // 
+            // seller_NameLabel
+            // 
+            this.seller_NameLabel.AutoSize = true;
+            this.seller_NameLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.seller_NameLabel.Location = new System.Drawing.Point(3, 16);
+            this.seller_NameLabel.Name = "seller_NameLabel";
+            this.seller_NameLabel.Size = new System.Drawing.Size(107, 21);
+            this.seller_NameLabel.TabIndex = 41;
+            this.seller_NameLabel.Text = "Seller Name:";
             // 
             // sumTextBox
             // 
@@ -376,7 +390,7 @@
             // 
             this.SellerNameLabel.AutoSize = true;
             this.SellerNameLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.SellerNameLabel.Location = new System.Drawing.Point(10, 15);
+            this.SellerNameLabel.Location = new System.Drawing.Point(112, 16);
             this.SellerNameLabel.Name = "SellerNameLabel";
             this.SellerNameLabel.Size = new System.Drawing.Size(53, 21);
             this.SellerNameLabel.TabIndex = 33;
@@ -453,5 +467,6 @@
         private System.Drawing.Printing.PrintDocument printDocument1;
         private Label logOutLabel;
         private TextBox sumTextBox;
+        private Label seller_NameLabel;
     }
 }

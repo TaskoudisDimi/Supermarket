@@ -231,9 +231,10 @@ namespace SupermarketTuto
 
         }
 
+        private void CatCb_SelectedIndexChanged(object sender, EventArgs e)
+        {
 
-
-
+        }
     }
 }
 

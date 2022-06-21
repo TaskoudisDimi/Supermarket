@@ -203,6 +203,7 @@
             this.CatCb.Size = new System.Drawing.Size(107, 23);
             this.CatCb.TabIndex = 5;
             this.CatCb.Text = "Select Category";
+            this.CatCb.SelectedIndexChanged += new System.EventHandler(this.CatCb_SelectedIndexChanged);
             this.CatCb.SelectionChangeCommitted += new System.EventHandler(this.CatCb_SelectionChangeCommitted);
             // 
             // ProdPrice

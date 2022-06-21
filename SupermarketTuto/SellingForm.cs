@@ -16,7 +16,7 @@ namespace SupermarketTuto
     public partial class SellingForm : Form
     {
 
-        
+
         public SellingForm()
         {
             InitializeComponent();
@@ -93,9 +93,9 @@ namespace SupermarketTuto
                 newRow.Cells[4].Value = Convert.ToInt32(SellingPriceTextBox.Text) * Convert.ToInt32(SellingQuantityTextBox.Text);
                 OrderDGV.Rows.Add(newRow);
                 OrderDGV.AllowUserToAddRows = false;
-                
 
-                for (int i =0; i < OrderDGV.Rows.Count; i++)
+
+                for (int i = 0; i < OrderDGV.Rows.Count; i++)
                 {
                     sum += double.Parse(OrderDGV.Rows[i].Cells[4].Value.ToString());
                     n++;
@@ -133,7 +133,7 @@ namespace SupermarketTuto
             }
         }
 
-      
+
 
         private void printDocument1_PrintPage(object sender, PrintPageEventArgs e)
         {
@@ -149,7 +149,7 @@ namespace SupermarketTuto
 
         private void refreshButton_Click(object sender, EventArgs e)
         {
-            //displayBills();
+            displayBills();
         }
 
         private void logOutLabel_Click(object sender, EventArgs e)
@@ -172,13 +172,32 @@ namespace SupermarketTuto
         {
             SellingProdName.Text = SellingDGV.SelectedRows[0].Cells[0].Value.ToString();
             SellingPriceTextBox.Text = SellingDGV.SelectedRows[0].Cells[1].Value.ToString();
-            display();
+
         }
 
         int flag = 0;
         private void BillsDGV_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             flag = 1;
+        }
+
+        private void SearchCb_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            SqlConnect loaddata5 = new SqlConnect();
+            loaddata5.retrieveData("Select * from ProductTbl Where ProdCat='" + SearchCb.SelectedValue.ToString() + "'");
+            SellingDGV.DataSource = loaddata5.table;
+
+
+        }
+
+        private void deleteButton_Click(object sender, EventArgs e)
+        {
+            SqlConnect loaddata6 = new SqlConnect();
+            loaddata6.commandExc("Delete From BillTbl Where BillId=" + BillsDGV.CurrentRow.Cells[0].Value.ToString() + "");
+            foreach (DataGridViewRow row in BillsDGV.Rows)
+            {
+                BillsDGV.Rows.RemoveAt(row.Index);
+            }
         }
     }
 }
