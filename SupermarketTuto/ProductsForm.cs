@@ -34,38 +34,24 @@ namespace SupermarketTuto
             CatCb.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             CatCb.AutoCompleteSource = AutoCompleteSource.ListItems;
 
-
-            selectCategory2ComboBox.DataSource = loaddata2.table;
-            selectCategory2ComboBox.ValueMember = "CatName";
-            selectCategory2ComboBox.SelectedItem = null;
-            selectCategory2ComboBox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            selectCategory2ComboBox.AutoCompleteSource = AutoCompleteSource.ListItems;
-
         }
 
         private void display()
         {
+            SqlConnect loaddata1 = new SqlConnect();
 
-            loaddata.retrieveData("Select * From ProductTbl");
-            ProdDGV.DataSource = loaddata.table;
+            loaddata1.retrieveData("Select * From ProductTbl");
+            ProdDGV.DataSource = loaddata1.table;
 
 
         }
 
-        private void display2()
-        {
-            string sql = "Select * From ProductTbl Where ProdCat='" + selectCategory2ComboBox.SelectedItem + "'";
-            loaddata.retrieveData(sql);
-            ProdDGV.DataSource = loaddata.table;
-        }
+
 
         private void ProductsForm_Load(object sender, EventArgs e)
         {
             fillCombo();
             display();
-            display2();
-
-
 
             ContextMenuStrip mnu = new ContextMenuStrip();
             ToolStripMenuItem mnuDelete = new ToolStripMenuItem("Delete");
@@ -79,8 +65,9 @@ namespace SupermarketTuto
 
         private void mnuDelete_Click(object? sender, EventArgs e)
         {
+            SqlConnect loaddata4 = new SqlConnect();
 
-            loaddata.commandExc("Delete From ProductTbl Where ProdId=" + ProdId.Text + "");
+            loaddata4.commandExc("Delete From ProductTbl Where ProdId=" + ProdId.Text + "");
 
             foreach (DataGridViewRow row in ProdDGV.SelectedRows)
             {
@@ -91,6 +78,8 @@ namespace SupermarketTuto
 
         private void addButton_Click(object sender, EventArgs e)
         {
+            SqlConnect loaddata5 = new SqlConnect();
+
             try
             {
                 if (ProdId.Text == "" || ProdName.Text == "" || ProdQty.Text == "" || ProdPrice.Text == "")
@@ -99,7 +88,7 @@ namespace SupermarketTuto
                 }
                 else
                 {
-                    loaddata.commandExc("Insert Into ProductTbl values(" + ProdId.Text + ",'" + ProdName.Text + "'," + ProdQty.Text + "," + ProdPrice.Text + ",'" + CatCb.SelectedValue.ToString() + "')");
+                    loaddata5.commandExc("Insert Into ProductTbl values(" + ProdId.Text + ",'" + ProdName.Text + "'," + ProdQty.Text + "," + ProdPrice.Text + ",'" + CatCb.SelectedValue.ToString() + "')");
                     MessageBox.Show("Product Successfully Insert");
                     ProdId.Text = "";
                     ProdName.Text = "";
@@ -117,6 +106,8 @@ namespace SupermarketTuto
 
         private void editButton_Click(object sender, EventArgs e)
         {
+            SqlConnect loaddata6 = new SqlConnect();
+
             try
             {
                 if (ProdId.Text == "" || ProdName.Text == "" || ProdQty.Text == "" || ProdPrice.Text == "")
@@ -126,7 +117,7 @@ namespace SupermarketTuto
                 else
                 {
 
-                    loaddata.commandExc("Update ProductTbl set ProdName='" + ProdName.Text + "',ProdQty='" + ProdQty.Text + "',ProdPrice='" + ProdPrice.Text + "' where ProdId=" + ProdId.Text + ";");
+                    loaddata6.commandExc("Update ProductTbl set ProdName='" + ProdName.Text + "',ProdQty='" + ProdQty.Text + "',ProdPrice='" + ProdPrice.Text + "' where ProdId=" + ProdId.Text + ";");
                     MessageBox.Show("Product Successfully Updated");
                     ProdId.Text = "";
                     ProdName.Text = "";
@@ -144,6 +135,9 @@ namespace SupermarketTuto
 
         private void deleteButton_Click(object sender, EventArgs e)
         {
+            SqlConnect loaddata7 = new SqlConnect();
+
+
             try
             {
                 if (ProdId.Text == "")
@@ -153,7 +147,7 @@ namespace SupermarketTuto
                 else
                 {
 
-                    loaddata.commandExc("Delete From ProductTbl Where ProdId=" + ProdId.Text + "");
+                    loaddata7.commandExc("Delete From ProductTbl Where ProdId=" + ProdId.Text + "");
 
                     ProdId.Text = "";
                     ProdName.Text = "";
@@ -179,20 +173,12 @@ namespace SupermarketTuto
 
         }
 
-        private void selectCategory2ComboBox_SelectionChangeCommitted(object sender, EventArgs e)
-        {
-
-            loaddata.retrieveData("Select * from ProductTbl Where ProdCat='" + selectCategory2ComboBox.SelectedValue.ToString());
-            ProdDGV.DataSource = loaddata.table;
-
-
-        }
-
         private void CatCb_SelectionChangeCommitted(object sender, EventArgs e)
         {
+            SqlConnect loaddata9 = new SqlConnect();
 
-            loaddata.retrieveData("Select * from ProductTbl Where ProdCat='" + CatCb.SelectedValue.ToString() + "'");
-            ProdDGV.DataSource = loaddata.table;
+            loaddata9.retrieveData("Select * from ProductTbl Where ProdCat='" + CatCb.SelectedValue.ToString() + "'");
+            ProdDGV.DataSource = loaddata9.table;
 
 
         }
@@ -240,13 +226,12 @@ namespace SupermarketTuto
 
         private void refreshButton_Click(object sender, EventArgs e)
         {
-            loaddata.retrieveData("Select * From ProductTbl");
+            SqlConnect loaddata10 = new SqlConnect();
+            loaddata10.retrieveData("Select * From ProductTbl");
 
         }
 
-        //TODO export excel
-        //TODO import txt, excel
-        //TODO right click in datagridview
+
 
 
     }

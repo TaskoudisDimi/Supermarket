@@ -93,6 +93,7 @@
             // 
             // CatDGV
             // 
+            this.CatDGV.AllowUserToAddRows = false;
             this.CatDGV.BackgroundColor = System.Drawing.Color.WhiteSmoke;
             this.CatDGV.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.CatDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;

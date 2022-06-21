@@ -15,7 +15,6 @@ namespace SupermarketTuto
     public partial class CategoryForm : Form
     {
 
-        SqlConnect loaddata = new SqlConnect();
 
 
         public CategoryForm()
@@ -54,6 +53,7 @@ namespace SupermarketTuto
             //CatDGV.DataSource = table.Tables[0];
             //Con.Close();
 
+            SqlConnect loaddata = new SqlConnect();
 
             loaddata.retrieveData("Select * From CategoryTbl");
             CatDGV.DataSource = loaddata.table;
@@ -78,8 +78,9 @@ namespace SupermarketTuto
         }
         private void mnuDelete_Click(object? sender, EventArgs e)
         {
+            SqlConnect loaddata2 = new SqlConnect();
 
-            loaddata.commandExc("Delete From CategoryTbl Where CatId='" + CatIdTb.Text + "'");
+            loaddata2.commandExc("Delete From CategoryTbl Where CatId='" + CatIdTb.Text + "'");
 
             foreach (DataGridViewRow row in CatDGV.SelectedRows)
             {
@@ -90,6 +91,8 @@ namespace SupermarketTuto
 
         private void add3Button_Click(object sender, EventArgs e)
         {
+            SqlConnect loaddata3 = new SqlConnect();
+
             try
             {
                 if (CatIdTb.Text == "" || CatNameTb.Text == "" || CatDescTb.Text == "")
@@ -101,7 +104,7 @@ namespace SupermarketTuto
 
 
 
-                    loaddata.commandExc("Insert Into CategoryTbl values(" + CatIdTb.Text + ",'" + CatNameTb.Text + "','" + CatDescTb.Text + "')");
+                    loaddata3.commandExc("Insert Into CategoryTbl values(" + CatIdTb.Text + ",'" + CatNameTb.Text + "','" + CatDescTb.Text + "')");
                     MessageBox.Show("Success!");
                     display();
                     CatIdTb.Text = "";
@@ -117,6 +120,8 @@ namespace SupermarketTuto
         }
         private void delete3Button_Click(object sender, EventArgs e)
         {
+            SqlConnect loaddata5 = new SqlConnect();
+
             try
             {
                 if (CatIdTb.Text == "" || CatNameTb.Text == "" || CatDescTb.Text == "")
@@ -139,7 +144,7 @@ namespace SupermarketTuto
                     //Con.Close();
                     //display();
                     //Con.Close();
-                    loaddata.commandExc("Delete From CategoryTbl Where CatId='" + CatIdTb.Text + "'");
+                    loaddata5.commandExc("Delete From CategoryTbl Where CatId='" + CatIdTb.Text + "'");
 
                     MessageBox.Show("Category Deleted Successfully");
                     display();
@@ -158,6 +163,8 @@ namespace SupermarketTuto
 
         private void edit3Button_Click(object sender, EventArgs e)
         {
+            SqlConnect loaddata6 = new SqlConnect();
+
             try
             {
                 if (CatIdTb.Text == "" || CatNameTb.Text == "" || CatDescTb.Text == "")
@@ -166,13 +173,14 @@ namespace SupermarketTuto
                 }
                 else
                 {
-                    SqlConnect loaddata = new SqlConnect();
 
-                    loaddata.commandExc("Update CategoryTbl set CatName='" + CatNameTb.Text + "',CatDesc='" + CatDescTb.Text + "' where CatId=" + CatIdTb.Text + ";");    
+                    loaddata6.commandExc("Update CategoryTbl set CatName='" + CatNameTb.Text + "',CatDesc='" + CatDescTb.Text + "' where CatId=" + CatIdTb.Text + ";");    
                     display();
                     CatIdTb.Text = "";
                     CatNameTb.Text = "";
                     CatDescTb.Text = "";
+                    MessageBox.Show("Product Successfully Updated");
+
                 }
             }
             catch (Exception ex)

@@ -208,6 +208,7 @@
             // 
             // SellingDGV
             // 
+            this.SellingDGV.AllowUserToAddRows = false;
             this.SellingDGV.BackgroundColor = System.Drawing.Color.WhiteSmoke;
             this.SellingDGV.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.SellingDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -222,6 +223,7 @@
             // 
             // BillsDGV
             // 
+            this.BillsDGV.AllowUserToAddRows = false;
             this.BillsDGV.BackgroundColor = System.Drawing.Color.WhiteSmoke;
             this.BillsDGV.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.BillsDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -297,6 +299,7 @@
             // 
             // OrderDGV
             // 
+            this.OrderDGV.AllowUserToAddRows = false;
             this.OrderDGV.BackgroundColor = System.Drawing.Color.WhiteSmoke;
             this.OrderDGV.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.OrderDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;

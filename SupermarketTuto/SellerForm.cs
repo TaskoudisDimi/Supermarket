@@ -15,7 +15,6 @@ namespace SupermarketTuto
     public partial class SellerForm : Form
     {
 
-        SqlConnect loaddata = new SqlConnect();
 
 
         public SellerForm()
@@ -43,9 +42,10 @@ namespace SupermarketTuto
             //SellDGV.DataSource = table.Tables[0];
             //Con.Close();
 
+            SqlConnect loaddata1 = new SqlConnect();
 
-            loaddata.retrieveData("Select * From SellerTbl");
-            SellDGV.DataSource = loaddata.table;
+            loaddata1.retrieveData("Select * From SellerTbl");
+            SellDGV.DataSource = loaddata1.table;
 
 
         }
@@ -67,8 +67,9 @@ namespace SupermarketTuto
         }
         private void mnuDelete_Click(object? sender, EventArgs e)
         {
+            SqlConnect loaddata2 = new SqlConnect();
 
-            loaddata.commandExc("Delete From SellerTbl Where SellerId=" + SellId.Text + "");
+            loaddata2.commandExc("Delete From SellerTbl Where SellerId=" + SellId.Text + "");
 
             foreach (DataGridViewRow row in SellDGV.SelectedRows)
             {
@@ -80,11 +81,14 @@ namespace SupermarketTuto
 
         private void edit2Button_Click(object sender, EventArgs e)
         {
+            SqlConnect loaddata3 = new SqlConnect();
+
 
             try
             {
                 if (SellId.Text == "" || SellName.Text == "" || SellAge.Text == "" || SellPhone.Text == "" || SellPass.Text == "")
                 {
+                    MessageBox.Show("Missing Information");
 
                 }
                 else
@@ -96,7 +100,7 @@ namespace SupermarketTuto
                     //MessageBox.Show("Product Successfully Updated");
                     //Con.Close();
 
-                    loaddata.commandExc("Update SellerTbl set SellerName='" + SellName.Text + "',SellerAge='" + SellAge.Text + "',SellerPhone='" + SellPhone.Text + "',SellerPass='" + SellPass.Text + "' where SellerId=" + SellId.Text + ";");
+                    loaddata3.commandExc("Update SellerTbl set SellerName='" + SellName.Text + "',SellerAge='" + SellAge.Text + "',SellerPhone='" + SellPhone.Text + "',SellerPass='" + SellPass.Text + "' where SellerId=" + SellId.Text + ";");
                     MessageBox.Show("Product Successfully Updated");
 
                     display();
@@ -114,6 +118,8 @@ namespace SupermarketTuto
         }
         private void delete2Button_Click(object sender, EventArgs e)
         {
+            SqlConnect loaddata4 = new SqlConnect();
+
             try
             {
                 if (SellId.Text == "" || SellName.Text == "" || SellAge.Text == "" || SellPhone.Text == "" || SellPass.Text == "")
@@ -129,7 +135,7 @@ namespace SupermarketTuto
                     //MessageBox.Show("Seller Deleted Successfully");
                     //Con.Close();
 
-                    loaddata.commandExc("Delete From SellerTbl Where SellerId=" + SellId.Text + "");
+                    loaddata4.commandExc("Delete From SellerTbl Where SellerId=" + SellId.Text + "");
 
                     MessageBox.Show("Seller Deleted Successfully");
                     SellId.Text = "";
@@ -149,6 +155,8 @@ namespace SupermarketTuto
         //TODO Age = Date in Textbox and db
         private void add2Button_Click(object sender, EventArgs e)
         {
+            SqlConnect loaddata5 = new SqlConnect();
+
             try
             {
                 if (SellId.Text == "" || SellName.Text == "" || SellAge.Text == "" || SellPhone.Text == "" || SellPass.Text == "")
@@ -164,7 +172,7 @@ namespace SupermarketTuto
                     //MessageBox.Show("Product added successfuly");
                     //Con.Close();
 
-                    loaddata.commandExc("Insert Into SellerTbl values(" + SellId.Text + ",'" + SellName.Text + "'," + SellAge.Text + "," + SellPhone.Text + ",'" + SellPass.Text + "')");
+                    loaddata5.commandExc("Insert Into SellerTbl values(" + SellId.Text + ",'" + SellName.Text + "'," + SellAge.Text + "," + SellPhone.Text + ",'" + SellPass.Text + "')");
                     MessageBox.Show("Product added successfuly");
                     SellId.Text = "";
                     SellName.Text = "";
@@ -235,7 +243,9 @@ namespace SupermarketTuto
 
         private void sellerDelete_Click(object sender, EventArgs e)
         {
-            loaddata.commandExc("Delete From Items Where SellerId=" + SellDGV.CurrentRow.Cells[0].Value.ToString() + "");
+            SqlConnect loaddata6 = new SqlConnect();
+
+            loaddata6.commandExc("Delete From Items Where SellerId=" + SellDGV.CurrentRow.Cells[0].Value.ToString() + "");
 
             foreach (DataGridViewRow row in SellDGV.Rows)
             {

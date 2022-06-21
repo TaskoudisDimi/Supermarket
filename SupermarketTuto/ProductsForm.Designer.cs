@@ -33,7 +33,6 @@
             this.logOutLabel = new System.Windows.Forms.Label();
             this.ProdDGV = new System.Windows.Forms.DataGridView();
             this.refreshButton = new System.Windows.Forms.Button();
-            this.selectCategory2ComboBox = new System.Windows.Forms.ComboBox();
             this.categoriesLabel = new System.Windows.Forms.Label();
             this.priceLabel = new System.Windows.Forms.Label();
             this.quantityLabel = new System.Windows.Forms.Label();
@@ -60,7 +59,6 @@
             this.manageProductsPanel.Controls.Add(this.logOutLabel);
             this.manageProductsPanel.Controls.Add(this.ProdDGV);
             this.manageProductsPanel.Controls.Add(this.refreshButton);
-            this.manageProductsPanel.Controls.Add(this.selectCategory2ComboBox);
             this.manageProductsPanel.Controls.Add(this.categoriesLabel);
             this.manageProductsPanel.Controls.Add(this.priceLabel);
             this.manageProductsPanel.Controls.Add(this.quantityLabel);
@@ -93,6 +91,7 @@
             // 
             // ProdDGV
             // 
+            this.ProdDGV.AllowUserToAddRows = false;
             this.ProdDGV.BackgroundColor = System.Drawing.Color.WhiteSmoke;
             this.ProdDGV.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.ProdDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -115,17 +114,6 @@
             this.refreshButton.Text = "Refresh";
             this.refreshButton.UseVisualStyleBackColor = true;
             this.refreshButton.Click += new System.EventHandler(this.refreshButton_Click);
-            // 
-            // selectCategory2ComboBox
-            // 
-            this.selectCategory2ComboBox.FormattingEnabled = true;
-            this.selectCategory2ComboBox.Location = new System.Drawing.Point(575, 42);
-            this.selectCategory2ComboBox.Name = "selectCategory2ComboBox";
-            this.selectCategory2ComboBox.Size = new System.Drawing.Size(107, 23);
-            this.selectCategory2ComboBox.TabIndex = 15;
-            this.selectCategory2ComboBox.Text = "Select Category";
-            this.selectCategory2ComboBox.SelectedIndexChanged += new System.EventHandler(this.selectCategory2ComboBox_SelectedIndexChanged);
-            this.selectCategory2ComboBox.SelectionChangeCommitted += new System.EventHandler(this.selectCategory2ComboBox_SelectionChangeCommitted);
             // 
             // categoriesLabel
             // 
@@ -324,7 +312,6 @@
         private Label priceLabel;
         private Label categoriesLabel;
         private Button refreshButton;
-        private ComboBox selectCategory2ComboBox;
         private DataGridView ProdDGV;
         private Label logOutLabel;
     }
