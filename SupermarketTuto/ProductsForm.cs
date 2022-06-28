@@ -53,6 +53,12 @@ namespace SupermarketTuto
             fillCombo();
             display();
 
+            DateTimePicker date = new DateTimePicker();
+            this.Controls.Add(date);
+
+
+
+
             ContextMenuStrip mnu = new ContextMenuStrip();
             ToolStripMenuItem mnuDelete = new ToolStripMenuItem("Delete");
             //Assign event handlers
