@@ -15,8 +15,6 @@ namespace SupermarketTuto
 {
     public partial class SellingForm : Form
     {
-
-
         public SellingForm()
         {
             InitializeComponent();

@@ -30,6 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SellerForm));
             this.manageSellersPanel = new System.Windows.Forms.Panel();
+            this.uploadButton = new System.Windows.Forms.Button();
+            this.pictureBox = new System.Windows.Forms.PictureBox();
             this.SellDGV = new System.Windows.Forms.DataGridView();
             this.password2Label = new System.Windows.Forms.Label();
             this.SellPass = new System.Windows.Forms.TextBox();
@@ -49,12 +51,15 @@
             this.products2Button = new System.Windows.Forms.Button();
             this.categories2Button = new System.Windows.Forms.Button();
             this.manageSellersPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SellDGV)).BeginInit();
             this.SuspendLayout();
             // 
             // manageSellersPanel
             // 
             this.manageSellersPanel.BackColor = System.Drawing.Color.Silver;
+            this.manageSellersPanel.Controls.Add(this.uploadButton);
+            this.manageSellersPanel.Controls.Add(this.pictureBox);
             this.manageSellersPanel.Controls.Add(this.SellDGV);
             this.manageSellersPanel.Controls.Add(this.password2Label);
             this.manageSellersPanel.Controls.Add(this.SellPass);
@@ -75,6 +80,25 @@
             this.manageSellersPanel.Size = new System.Drawing.Size(621, 500);
             this.manageSellersPanel.TabIndex = 0;
             // 
+            // uploadButton
+            // 
+            this.uploadButton.Location = new System.Drawing.Point(99, 118);
+            this.uploadButton.Name = "uploadButton";
+            this.uploadButton.Size = new System.Drawing.Size(57, 29);
+            this.uploadButton.TabIndex = 18;
+            this.uploadButton.Text = "Upload";
+            this.uploadButton.UseVisualStyleBackColor = true;
+            this.uploadButton.Click += new System.EventHandler(this.uploadButton_Click);
+            // 
+            // pictureBox
+            // 
+            this.pictureBox.Location = new System.Drawing.Point(99, 24);
+            this.pictureBox.Name = "pictureBox";
+            this.pictureBox.Size = new System.Drawing.Size(124, 88);
+            this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox.TabIndex = 17;
+            this.pictureBox.TabStop = false;
+            // 
             // SellDGV
             // 
             this.SellDGV.AllowUserToAddRows = false;
@@ -94,7 +118,7 @@
             // password2Label
             // 
             this.password2Label.AutoSize = true;
-            this.password2Label.Location = new System.Drawing.Point(19, 271);
+            this.password2Label.Location = new System.Drawing.Point(19, 314);
             this.password2Label.Name = "password2Label";
             this.password2Label.Size = new System.Drawing.Size(57, 15);
             this.password2Label.TabIndex = 14;
@@ -102,14 +126,14 @@
             // 
             // SellPass
             // 
-            this.SellPass.Location = new System.Drawing.Point(116, 268);
+            this.SellPass.Location = new System.Drawing.Point(116, 311);
             this.SellPass.Name = "SellPass";
             this.SellPass.Size = new System.Drawing.Size(100, 23);
             this.SellPass.TabIndex = 13;
             // 
             // delete2Button
             // 
-            this.delete2Button.Location = new System.Drawing.Point(191, 306);
+            this.delete2Button.Location = new System.Drawing.Point(191, 349);
             this.delete2Button.Name = "delete2Button";
             this.delete2Button.Size = new System.Drawing.Size(75, 23);
             this.delete2Button.TabIndex = 12;
@@ -119,7 +143,7 @@
             // 
             // edit2Button
             // 
-            this.edit2Button.Location = new System.Drawing.Point(99, 306);
+            this.edit2Button.Location = new System.Drawing.Point(99, 349);
             this.edit2Button.Name = "edit2Button";
             this.edit2Button.Size = new System.Drawing.Size(75, 23);
             this.edit2Button.TabIndex = 11;
@@ -129,7 +153,7 @@
             // 
             // add2Button
             // 
-            this.add2Button.Location = new System.Drawing.Point(3, 306);
+            this.add2Button.Location = new System.Drawing.Point(3, 349);
             this.add2Button.Name = "add2Button";
             this.add2Button.Size = new System.Drawing.Size(75, 23);
             this.add2Button.TabIndex = 10;
@@ -140,7 +164,7 @@
             // phone2Label
             // 
             this.phone2Label.AutoSize = true;
-            this.phone2Label.Location = new System.Drawing.Point(19, 234);
+            this.phone2Label.Location = new System.Drawing.Point(19, 277);
             this.phone2Label.Name = "phone2Label";
             this.phone2Label.Size = new System.Drawing.Size(41, 15);
             this.phone2Label.TabIndex = 9;
@@ -149,7 +173,7 @@
             // age2Label
             // 
             this.age2Label.AutoSize = true;
-            this.age2Label.Location = new System.Drawing.Point(30, 192);
+            this.age2Label.Location = new System.Drawing.Point(30, 235);
             this.age2Label.Name = "age2Label";
             this.age2Label.Size = new System.Drawing.Size(28, 15);
             this.age2Label.TabIndex = 8;
@@ -158,7 +182,7 @@
             // name2Label
             // 
             this.name2Label.AutoSize = true;
-            this.name2Label.Location = new System.Drawing.Point(19, 156);
+            this.name2Label.Location = new System.Drawing.Point(19, 199);
             this.name2Label.Name = "name2Label";
             this.name2Label.Size = new System.Drawing.Size(39, 15);
             this.name2Label.TabIndex = 7;
@@ -167,7 +191,7 @@
             // id2label
             // 
             this.id2label.AutoSize = true;
-            this.id2label.Location = new System.Drawing.Point(30, 110);
+            this.id2label.Location = new System.Drawing.Point(30, 153);
             this.id2label.Name = "id2label";
             this.id2label.Size = new System.Drawing.Size(18, 15);
             this.id2label.TabIndex = 6;
@@ -175,28 +199,28 @@
             // 
             // SellPhone
             // 
-            this.SellPhone.Location = new System.Drawing.Point(116, 231);
+            this.SellPhone.Location = new System.Drawing.Point(116, 274);
             this.SellPhone.Name = "SellPhone";
             this.SellPhone.Size = new System.Drawing.Size(100, 23);
             this.SellPhone.TabIndex = 5;
             // 
             // SellAge
             // 
-            this.SellAge.Location = new System.Drawing.Point(116, 192);
+            this.SellAge.Location = new System.Drawing.Point(116, 235);
             this.SellAge.Name = "SellAge";
             this.SellAge.Size = new System.Drawing.Size(100, 23);
             this.SellAge.TabIndex = 4;
             // 
             // SellName
             // 
-            this.SellName.Location = new System.Drawing.Point(116, 153);
+            this.SellName.Location = new System.Drawing.Point(116, 196);
             this.SellName.Name = "SellName";
             this.SellName.Size = new System.Drawing.Size(100, 23);
             this.SellName.TabIndex = 3;
             // 
             // SellId
             // 
-            this.SellId.Location = new System.Drawing.Point(116, 110);
+            this.SellId.Location = new System.Drawing.Point(116, 153);
             this.SellId.Name = "SellId";
             this.SellId.Size = new System.Drawing.Size(100, 23);
             this.SellId.TabIndex = 2;
@@ -205,7 +229,7 @@
             // 
             this.manageSellersLabel.AutoSize = true;
             this.manageSellersLabel.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.manageSellersLabel.Location = new System.Drawing.Point(244, 9);
+            this.manageSellersLabel.Location = new System.Drawing.Point(246, 0);
             this.manageSellersLabel.Name = "manageSellersLabel";
             this.manageSellersLabel.Size = new System.Drawing.Size(187, 32);
             this.manageSellersLabel.TabIndex = 1;
@@ -266,6 +290,7 @@
             this.Load += new System.EventHandler(this.SellerForm_Load);
             this.manageSellersPanel.ResumeLayout(false);
             this.manageSellersPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SellDGV)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -293,5 +318,7 @@
         private TextBox SellPass;
         private DataGridView SellDGV;
         private Label logOutLabel;
+        private PictureBox pictureBox;
+        private Button uploadButton;
     }
 }

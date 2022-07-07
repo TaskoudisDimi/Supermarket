@@ -14,8 +14,7 @@ namespace SupermarketTuto
 {
     public partial class SellerForm : Form
     {
-
-
+        Image file;
 
         public SellerForm()
         {
@@ -27,21 +26,8 @@ namespace SupermarketTuto
             Application.Exit();
 
         }
-
-        ////SqlConnection Con = new SqlConnection(@"Data Source=DIMITRISTASKOUD\DIMITRIS_TASKOUD;Initial Catalog=smarketdb;Integrated Security=True");
-        //SqlConnection Con = new SqlConnection(@"Data Source=DESKTOP-FF268DF\SQLEXPRESS;Initial Catalog=smarketdb;Integrated Security=True");
-
         private void display()
         {
-            //Con.Open();
-            //string query = "Select * From SellerTbl;";
-            //SqlDataAdapter adapter = new SqlDataAdapter(query, Con);
-            //SqlCommandBuilder builder = new SqlCommandBuilder(adapter);
-            //var table = new DataSet();
-            //adapter.Fill(table);
-            //SellDGV.DataSource = table.Tables[0];
-            //Con.Close();
-
             SqlConnect loaddata1 = new SqlConnect();
 
             loaddata1.retrieveData("Select * From SellerTbl");
@@ -93,12 +79,6 @@ namespace SupermarketTuto
                 }
                 else
                 {
-                    //Con.Open();
-                    //string query = "Update SellerTbl set SellerName='" + SellName.Text + "',SellerAge='" + SellAge.Text + "',SellerPhone='" + SellPhone.Text + "',SellerPass='" + SellPass.Text + "' where SellerId=" + SellId.Text + ";";
-                    //SqlCommand cmd = new SqlCommand(query, Con);
-                    //cmd.ExecuteNonQuery();
-                    //MessageBox.Show("Product Successfully Updated");
-                    //Con.Close();
 
                     loaddata3.commandExc("Update SellerTbl set SellerName='" + SellName.Text + "',SellerAge='" + SellAge.Text + "',SellerPhone='" + SellPhone.Text + "',SellerPass='" + SellPass.Text + "' where SellerId=" + SellId.Text + ";");
                     MessageBox.Show("Product Successfully Updated");
@@ -128,12 +108,6 @@ namespace SupermarketTuto
                 }
                 else
                 {
-                    //Con.Open();
-                    //string query = "Delete From SellerTbl Where SellerId=" + SellId.Text + "";
-                    //SqlCommand cmd = new SqlCommand(query, Con);
-                    //cmd.ExecuteNonQuery();
-                    //MessageBox.Show("Seller Deleted Successfully");
-                    //Con.Close();
 
                     loaddata4.commandExc("Delete From SellerTbl Where SellerId=" + SellId.Text + "");
 
@@ -165,13 +139,6 @@ namespace SupermarketTuto
                 }
                 else
                 {
-                    //Con.Open();
-                    //string query = "Insert Into SellerTbl values(" + SellId.Text + ",'" + SellName.Text + "'," + SellAge.Text + "," + SellPhone.Text + ",'" + SellPass.Text + "')";
-                    //SqlCommand cmd = new SqlCommand(query, Con);
-                    //cmd.BeginExecuteNonQuery();
-                    //MessageBox.Show("Product added successfuly");
-                    //Con.Close();
-
                     loaddata5.commandExc("Insert Into SellerTbl values(" + SellId.Text + ",'" + SellName.Text + "'," + SellAge.Text + "," + SellPhone.Text + ",'" + SellPass.Text + "')");
                     MessageBox.Show("Product added successfuly");
                     SellId.Text = "";
@@ -255,7 +222,15 @@ namespace SupermarketTuto
 
         }
 
-
-
+        private void uploadButton_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Filter = "JPG (.JPG)|*.jpg";
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                file = Image.FromFile(dialog.FileName);
+                pictureBox.Image = file;
+            }
+        }
     }
 }
