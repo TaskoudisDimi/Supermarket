@@ -129,6 +129,8 @@ namespace SupermarketTuto
         //TODO Age = Date in Textbox and db
         private void add2Button_Click(object sender, EventArgs e)
         {
+            
+
             SqlConnect loaddata5 = new SqlConnect();
 
             try
@@ -139,13 +141,23 @@ namespace SupermarketTuto
                 }
                 else
                 {
-                    loaddata5.commandExc("Insert Into SellerTbl values(" + SellId.Text + ",'" + SellName.Text + "'," + SellAge.Text + "," + SellPhone.Text + ",'" + SellPass.Text + "')");
-                    MessageBox.Show("Product added successfuly");
+                    loaddata5.retrieveData("Insert Into SellerTbl values(" + SellId.Text + ",'" + SellName.Text + "'," + SellAge.Text + "," + SellPhone.Text + ",'" + SellPass.Text + "')");
+
+                    MessageBox.Show("Seller added successfuly");
+                    SqlConnection con = new SqlConnection("Data Source=.; Initial Catalog=smarketdb;Integrated Security=True;");
+                    SqlCommand cmd = new SqlCommand("Insert Into SellerTbl (Photo) Values(@pic)", con);
                     SellId.Text = "";
                     SellName.Text = "";
                     SellAge.Text = "";
                     SellPhone.Text = "";
                     SellPass.Text = "";
+                    MemoryStream stream = new MemoryStream();
+                    pictureBox.Image.Save(stream, System.Drawing.Imaging.ImageFormat.Jpeg);
+                    byte[] pic = stream.ToArray();
+                    cmd.Parameters.AddWithValue("@Pic", pic);
+
+
+
                 }
             }
             catch (Exception ex)
@@ -224,12 +236,34 @@ namespace SupermarketTuto
 
         private void uploadButton_Click(object sender, EventArgs e)
         {
+            Stream myStream = null;
+
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Filter = "JPG (.JPG)|*.jpg";
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                file = Image.FromFile(dialog.FileName);
-                pictureBox.Image = file;
+                try
+                {
+                    if ((myStream = dialog.OpenFile()) != null)
+                    {
+                        //file = Image.FromFile(dialog.FileName);
+                        //pictureBox.Image = file;
+                        string FileName = dialog.FileName;
+                        if (myStream.Length > 512000)
+                        {
+                            MessageBox.Show("File Size limit exceeded");
+                        }
+                        else
+                        {
+                            pictureBox.Load(FileName);
+                        }
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
         }
     }

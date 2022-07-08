@@ -14,8 +14,6 @@ namespace SupermarketTuto.DataAccess
     public class SqlConnect
     {
 
-
-
         SqlConnection con = new SqlConnection();
         public DataTable table = new DataTable();
 
@@ -82,6 +80,8 @@ namespace SupermarketTuto.DataAccess
 
             }
         }
+
+
 
 
     }
