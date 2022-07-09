@@ -50,6 +50,7 @@
             this.logOutLabel = new System.Windows.Forms.Label();
             this.products2Button = new System.Windows.Forms.Button();
             this.categories2Button = new System.Windows.Forms.Button();
+            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.manageSellersPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SellDGV)).BeginInit();
@@ -58,6 +59,7 @@
             // manageSellersPanel
             // 
             this.manageSellersPanel.BackColor = System.Drawing.Color.Silver;
+            this.manageSellersPanel.Controls.Add(this.dateTimePicker1);
             this.manageSellersPanel.Controls.Add(this.uploadButton);
             this.manageSellersPanel.Controls.Add(this.pictureBox);
             this.manageSellersPanel.Controls.Add(this.SellDGV);
@@ -75,16 +77,18 @@
             this.manageSellersPanel.Controls.Add(this.SellName);
             this.manageSellersPanel.Controls.Add(this.SellId);
             this.manageSellersPanel.Controls.Add(this.manageSellersLabel);
-            this.manageSellersPanel.Location = new System.Drawing.Point(134, 47);
+            this.manageSellersPanel.Location = new System.Drawing.Point(191, 78);
+            this.manageSellersPanel.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.manageSellersPanel.Name = "manageSellersPanel";
-            this.manageSellersPanel.Size = new System.Drawing.Size(621, 500);
+            this.manageSellersPanel.Size = new System.Drawing.Size(1402, 833);
             this.manageSellersPanel.TabIndex = 0;
             // 
             // uploadButton
             // 
-            this.uploadButton.Location = new System.Drawing.Point(99, 118);
+            this.uploadButton.Location = new System.Drawing.Point(529, 373);
+            this.uploadButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.uploadButton.Name = "uploadButton";
-            this.uploadButton.Size = new System.Drawing.Size(57, 29);
+            this.uploadButton.Size = new System.Drawing.Size(81, 48);
             this.uploadButton.TabIndex = 18;
             this.uploadButton.Text = "Upload";
             this.uploadButton.UseVisualStyleBackColor = true;
@@ -92,9 +96,10 @@
             // 
             // pictureBox
             // 
-            this.pictureBox.Location = new System.Drawing.Point(99, 24);
+            this.pictureBox.Location = new System.Drawing.Point(489, 197);
+            this.pictureBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(124, 88);
+            this.pictureBox.Size = new System.Drawing.Size(177, 147);
             this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox.TabIndex = 17;
             this.pictureBox.TabStop = false;
@@ -105,12 +110,13 @@
             this.SellDGV.BackgroundColor = System.Drawing.Color.WhiteSmoke;
             this.SellDGV.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.SellDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.SellDGV.Location = new System.Drawing.Point(272, 110);
+            this.SellDGV.Location = new System.Drawing.Point(721, 183);
+            this.SellDGV.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.SellDGV.Name = "SellDGV";
             this.SellDGV.RowHeadersWidth = 62;
             this.SellDGV.RowTemplate.Height = 30;
             this.SellDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.SellDGV.Size = new System.Drawing.Size(334, 387);
+            this.SellDGV.Size = new System.Drawing.Size(663, 645);
             this.SellDGV.TabIndex = 16;
             this.SellDGV.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.SellDGV_CellClick);
             this.SellDGV.MouseDown += new System.Windows.Forms.MouseEventHandler(this.SellDGV_MouseDown);
@@ -118,24 +124,27 @@
             // password2Label
             // 
             this.password2Label.AutoSize = true;
-            this.password2Label.Location = new System.Drawing.Point(19, 314);
+            this.password2Label.Location = new System.Drawing.Point(24, 564);
+            this.password2Label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.password2Label.Name = "password2Label";
-            this.password2Label.Size = new System.Drawing.Size(57, 15);
+            this.password2Label.Size = new System.Drawing.Size(87, 25);
             this.password2Label.TabIndex = 14;
             this.password2Label.Text = "Password";
             // 
             // SellPass
             // 
-            this.SellPass.Location = new System.Drawing.Point(116, 311);
+            this.SellPass.Location = new System.Drawing.Point(163, 559);
+            this.SellPass.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.SellPass.Name = "SellPass";
-            this.SellPass.Size = new System.Drawing.Size(100, 23);
+            this.SellPass.Size = new System.Drawing.Size(141, 31);
             this.SellPass.TabIndex = 13;
             // 
             // delete2Button
             // 
-            this.delete2Button.Location = new System.Drawing.Point(191, 349);
+            this.delete2Button.Location = new System.Drawing.Point(269, 683);
+            this.delete2Button.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.delete2Button.Name = "delete2Button";
-            this.delete2Button.Size = new System.Drawing.Size(75, 23);
+            this.delete2Button.Size = new System.Drawing.Size(107, 38);
             this.delete2Button.TabIndex = 12;
             this.delete2Button.Text = "Delete";
             this.delete2Button.UseVisualStyleBackColor = true;
@@ -143,9 +152,10 @@
             // 
             // edit2Button
             // 
-            this.edit2Button.Location = new System.Drawing.Point(99, 349);
+            this.edit2Button.Location = new System.Drawing.Point(137, 683);
+            this.edit2Button.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.edit2Button.Name = "edit2Button";
-            this.edit2Button.Size = new System.Drawing.Size(75, 23);
+            this.edit2Button.Size = new System.Drawing.Size(107, 38);
             this.edit2Button.TabIndex = 11;
             this.edit2Button.Text = "Edit";
             this.edit2Button.UseVisualStyleBackColor = true;
@@ -153,9 +163,10 @@
             // 
             // add2Button
             // 
-            this.add2Button.Location = new System.Drawing.Point(3, 349);
+            this.add2Button.Location = new System.Drawing.Point(0, 683);
+            this.add2Button.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.add2Button.Name = "add2Button";
-            this.add2Button.Size = new System.Drawing.Size(75, 23);
+            this.add2Button.Size = new System.Drawing.Size(107, 38);
             this.add2Button.TabIndex = 10;
             this.add2Button.Text = "Add";
             this.add2Button.UseVisualStyleBackColor = true;
@@ -164,74 +175,83 @@
             // phone2Label
             // 
             this.phone2Label.AutoSize = true;
-            this.phone2Label.Location = new System.Drawing.Point(19, 277);
+            this.phone2Label.Location = new System.Drawing.Point(24, 503);
+            this.phone2Label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.phone2Label.Name = "phone2Label";
-            this.phone2Label.Size = new System.Drawing.Size(41, 15);
+            this.phone2Label.Size = new System.Drawing.Size(62, 25);
             this.phone2Label.TabIndex = 9;
             this.phone2Label.Text = "Phone";
             // 
             // age2Label
             // 
             this.age2Label.AutoSize = true;
-            this.age2Label.Location = new System.Drawing.Point(30, 235);
+            this.age2Label.Location = new System.Drawing.Point(40, 433);
+            this.age2Label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.age2Label.Name = "age2Label";
-            this.age2Label.Size = new System.Drawing.Size(28, 15);
+            this.age2Label.Size = new System.Drawing.Size(44, 25);
             this.age2Label.TabIndex = 8;
             this.age2Label.Text = "Age";
             // 
             // name2Label
             // 
             this.name2Label.AutoSize = true;
-            this.name2Label.Location = new System.Drawing.Point(19, 199);
+            this.name2Label.Location = new System.Drawing.Point(24, 373);
+            this.name2Label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.name2Label.Name = "name2Label";
-            this.name2Label.Size = new System.Drawing.Size(39, 15);
+            this.name2Label.Size = new System.Drawing.Size(59, 25);
             this.name2Label.TabIndex = 7;
             this.name2Label.Text = "Name";
             // 
             // id2label
             // 
             this.id2label.AutoSize = true;
-            this.id2label.Location = new System.Drawing.Point(30, 153);
+            this.id2label.Location = new System.Drawing.Point(40, 296);
+            this.id2label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.id2label.Name = "id2label";
-            this.id2label.Size = new System.Drawing.Size(18, 15);
+            this.id2label.Size = new System.Drawing.Size(30, 25);
             this.id2label.TabIndex = 6;
             this.id2label.Text = "ID";
             // 
             // SellPhone
             // 
-            this.SellPhone.Location = new System.Drawing.Point(116, 274);
+            this.SellPhone.Location = new System.Drawing.Point(163, 498);
+            this.SellPhone.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.SellPhone.Name = "SellPhone";
-            this.SellPhone.Size = new System.Drawing.Size(100, 23);
+            this.SellPhone.Size = new System.Drawing.Size(141, 31);
             this.SellPhone.TabIndex = 5;
             // 
             // SellAge
             // 
-            this.SellAge.Location = new System.Drawing.Point(116, 235);
+            this.SellAge.Location = new System.Drawing.Point(163, 433);
+            this.SellAge.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.SellAge.Name = "SellAge";
-            this.SellAge.Size = new System.Drawing.Size(100, 23);
+            this.SellAge.Size = new System.Drawing.Size(141, 31);
             this.SellAge.TabIndex = 4;
             // 
             // SellName
             // 
-            this.SellName.Location = new System.Drawing.Point(116, 196);
+            this.SellName.Location = new System.Drawing.Point(163, 368);
+            this.SellName.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.SellName.Name = "SellName";
-            this.SellName.Size = new System.Drawing.Size(100, 23);
+            this.SellName.Size = new System.Drawing.Size(141, 31);
             this.SellName.TabIndex = 3;
             // 
             // SellId
             // 
-            this.SellId.Location = new System.Drawing.Point(116, 153);
+            this.SellId.Location = new System.Drawing.Point(163, 296);
+            this.SellId.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.SellId.Name = "SellId";
-            this.SellId.Size = new System.Drawing.Size(100, 23);
+            this.SellId.Size = new System.Drawing.Size(141, 31);
             this.SellId.TabIndex = 2;
             // 
             // manageSellersLabel
             // 
             this.manageSellersLabel.AutoSize = true;
             this.manageSellersLabel.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.manageSellersLabel.Location = new System.Drawing.Point(246, 0);
+            this.manageSellersLabel.Location = new System.Drawing.Point(351, 0);
+            this.manageSellersLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.manageSellersLabel.Name = "manageSellersLabel";
-            this.manageSellersLabel.Size = new System.Drawing.Size(187, 32);
+            this.manageSellersLabel.Size = new System.Drawing.Size(273, 48);
             this.manageSellersLabel.TabIndex = 1;
             this.manageSellersLabel.Text = "Manage Sellers";
             // 
@@ -239,9 +259,10 @@
             // 
             this.logOutLabel.AutoSize = true;
             this.logOutLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.logOutLabel.Location = new System.Drawing.Point(681, 17);
+            this.logOutLabel.Location = new System.Drawing.Point(973, 28);
+            this.logOutLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.logOutLabel.Name = "logOutLabel";
-            this.logOutLabel.Size = new System.Drawing.Size(70, 21);
+            this.logOutLabel.Size = new System.Drawing.Size(105, 32);
             this.logOutLabel.TabIndex = 40;
             this.logOutLabel.Text = "Log Out";
             this.logOutLabel.Click += new System.EventHandler(this.logOutLabel_Click);
@@ -251,9 +272,10 @@
             this.products2Button.FlatAppearance.BorderSize = 0;
             this.products2Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.products2Button.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.products2Button.Location = new System.Drawing.Point(3, 118);
+            this.products2Button.Location = new System.Drawing.Point(4, 197);
+            this.products2Button.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.products2Button.Name = "products2Button";
-            this.products2Button.Size = new System.Drawing.Size(105, 41);
+            this.products2Button.Size = new System.Drawing.Size(150, 68);
             this.products2Button.TabIndex = 13;
             this.products2Button.Text = "Products";
             this.products2Button.UseVisualStyleBackColor = true;
@@ -264,25 +286,34 @@
             this.categories2Button.FlatAppearance.BorderSize = 0;
             this.categories2Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.categories2Button.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.categories2Button.Location = new System.Drawing.Point(3, 180);
+            this.categories2Button.Location = new System.Drawing.Point(4, 300);
+            this.categories2Button.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.categories2Button.Name = "categories2Button";
-            this.categories2Button.Size = new System.Drawing.Size(125, 43);
+            this.categories2Button.Size = new System.Drawing.Size(179, 72);
             this.categories2Button.TabIndex = 14;
             this.categories2Button.Text = "Categories";
             this.categories2Button.UseVisualStyleBackColor = true;
             this.categories2Button.Click += new System.EventHandler(this.categories2Button_Click);
             // 
+            // dateTimePicker1
+            // 
+            this.dateTimePicker1.Location = new System.Drawing.Point(40, 197);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.Size = new System.Drawing.Size(300, 31);
+            this.dateTimePicker1.TabIndex = 19;
+            // 
             // SellerForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(768, 562);
+            this.ClientSize = new System.Drawing.Size(1606, 937);
             this.Controls.Add(this.logOutLabel);
             this.Controls.Add(this.categories2Button);
             this.Controls.Add(this.products2Button);
             this.Controls.Add(this.manageSellersPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "SellerForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SellerForm";
@@ -320,5 +351,6 @@
         private Label logOutLabel;
         private PictureBox pictureBox;
         private Button uploadButton;
+        private DateTimePicker dateTimePicker1;
     }
 }

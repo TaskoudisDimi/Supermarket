@@ -135,27 +135,34 @@ namespace SupermarketTuto
 
             try
             {
+
+
                 if (SellId.Text == "" || SellName.Text == "" || SellAge.Text == "" || SellPhone.Text == "" || SellPass.Text == "")
                 {
                     MessageBox.Show("Missing Information");
                 }
                 else
                 {
-                    loaddata5.retrieveData("Insert Into SellerTbl values(" + SellId.Text + ",'" + SellName.Text + "'," + SellAge.Text + "," + SellPhone.Text + ",'" + SellPass.Text + "')");
-
+                    loaddata5.commandExc("Insert Into SellerTbl values(" + SellId.Text + ",'" + SellName.Text + "'," + SellAge.Text + "," + SellPhone.Text + ",'" + SellPass.Text + "')");
                     MessageBox.Show("Seller added successfuly");
-                    SqlConnection con = new SqlConnection("Data Source=.; Initial Catalog=smarketdb;Integrated Security=True;");
-                    SqlCommand cmd = new SqlCommand("Insert Into SellerTbl (Photo) Values(@pic)", con);
+
+
+
+                    //SqlConnection con = new SqlConnection("Data Source=.; Initial Catalog=smarketdb;Integrated Security=True;");
+                    //SqlCommand cmd = new SqlCommand("Insert Into Test (Photo) Values(@pic)", con);
+                    //SqlCommand cmd = new SqlCommand("Insert Into SellerTbl values(" + SellId.Text + ",'" + SellName.Text + "'," + SellAge.Text + "," + SellPhone.Text + ",'" + SellPass.Text + "@pic" + "')");
+                    //MemoryStream stream = new MemoryStream();
+                    //pictureBox.Image.Save(stream, System.Drawing.Imaging.ImageFormat.Jpeg);
+                    //byte[] pic = stream.ToArray();
+                    //cmd.Parameters.AddWithValue("@Pic", pic);
+
+
                     SellId.Text = "";
                     SellName.Text = "";
                     SellAge.Text = "";
                     SellPhone.Text = "";
                     SellPass.Text = "";
-                    MemoryStream stream = new MemoryStream();
-                    pictureBox.Image.Save(stream, System.Drawing.Imaging.ImageFormat.Jpeg);
-                    byte[] pic = stream.ToArray();
-                    cmd.Parameters.AddWithValue("@Pic", pic);
-
+                    MessageBox.Show("Seller added successfuly");
 
 
                 }
