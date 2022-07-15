@@ -30,7 +30,9 @@ namespace SupermarketTuto
         {
             SqlConnect loaddata1 = new SqlConnect();
 
-            loaddata1.retrieveData("Select * From SellerTbl");
+            loaddata1.retrieveData("Select * From SellerTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + todateTimePicker.Value.ToString("MM-dd-yyyy") + "'");
+            //loaddata1.retrieveData("Select * from SellerTbl where Date between '2022-07-16' and '2022-07-16'");
+
             SellDGV.DataSource = loaddata1.table;
 
 
@@ -143,7 +145,7 @@ namespace SupermarketTuto
                 }
                 else
                 {
-                    loaddata5.commandExc("Insert Into SellerTbl values(" + SellId.Text + ",'" + SellName.Text + "'," + SellAge.Text + "," + SellPhone.Text + ",'" + SellPass.Text + "')");
+                    loaddata5.commandExc("Insert Into SellerTbl values(" + SellId.Text + ",'" + SellName.Text + "'," + SellAge.Text + "," + SellPhone.Text + ",'" + SellPass.Text + "','" + dateTimePicker.Value.ToString("MM-dd-yyyy") + "')");
                     MessageBox.Show("Seller added successfuly");
 
 
@@ -273,5 +275,33 @@ namespace SupermarketTuto
                 }
             }
         }
+
+        private void dateTimePicker_ValueChanged(object sender, EventArgs e)
+        {
+            DateTime chosenDate = dateTimePicker.Value;
+
+            int day = chosenDate.Day;
+            int month = chosenDate.Month;
+            int year = chosenDate.Year;
+
+            
+
+        }
+
+        private void dataDateTimePicker_ValueChanged(object sender, EventArgs e)
+        {
+            //DateTime chosen = fromDateTimePicker.Value;
+            //int day = chosen.Day;
+            //int month = chosen.Month;
+            //int year = chosen.Year;
+            display();
+        }
+
+        private void todateTimePicker_ValueChanged(object sender, EventArgs e)
+        {
+            display();
+        }
     }
 }
+
+

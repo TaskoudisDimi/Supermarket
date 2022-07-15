@@ -17,24 +17,11 @@ namespace SupermarketTuto.DataAccess
         SqlConnection con = new SqlConnection();
         public DataTable table = new DataTable();
 
-        private DbConnection DatabaseConnection = null;
-        private DbTransaction DatabaseTransaction = null;
-
-
         public SqlConnect()
         {
             con.ConnectionString = ConfigurationManager.ConnectionStrings["Supermarket"].ConnectionString;
-            OpenConnection();
         }
 
-
-        private void OpenConnection()
-        {
-            if (DatabaseConnection == null)
-            {
-
-            }
-        }
 
         public void retrieveData(string command)
         {
@@ -82,7 +69,21 @@ namespace SupermarketTuto.DataAccess
         }
 
 
+        public void backup(string path)
+        {
+            con.Open();
 
+            //string query = "BACKUP DATABASE smarketdb TO DISK = 'E:\\backupfile.bak' WITH FORMAT,MEDIANAME = 'Z_SQLServerBackups',NAME = 'Full Backup of Testdb';";
+            string query = "BACKUP DATABASE smarketdb TO DISK = '" + path + "\\backupfile.bak' WITH FORMAT,MEDIANAME = 'Z_SQLServerBackups',NAME = 'Full Backup of Testdb';";
+
+            SqlCommand cmd = new SqlCommand(query, con);
+            cmd.ExecuteNonQuery();
+            con.Close();
+            MessageBox.Show("BackUp seccess!");
+
+
+
+        }
 
     }
 

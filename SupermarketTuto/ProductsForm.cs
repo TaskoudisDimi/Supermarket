@@ -43,21 +43,68 @@ namespace SupermarketTuto
             loaddata1.retrieveData("Select * From ProductTbl");
             ProdDGV.DataSource = loaddata1.table;
 
+        }
+        
+
+        private void MainMenu()
+        {
+            MenuStrip menu = new MenuStrip();
+
+            this.Controls.Add(menu);
+
+            string[] items = new string[] { "File", "BackUp", "About" };
+            foreach (string Row in items)
+            {
+                ToolStripMenuItem MnuStripItem = new ToolStripMenuItem(Row);
+                menu.Items.Add(MnuStripItem);
+                if (MnuStripItem.Text == "About")
+                {
+                    MnuStripItem.Click += new EventHandler(MnuStripAbout_Click);
+                }
+                else if (MnuStripItem.Text == "BackUp")
+                {
+                    MnuStripItem.Click += new EventHandler(MnuStripDb_Click);
+                }
+                else if (MnuStripItem.Text == "File")
+                {
+
+                }
+
+
+
+            }
 
         }
 
+        private void MnuStripAbout_Click(object sender, EventArgs e)
+        {
+            About about = new About();
+            about.ShowDialog();
+        }
 
+        private void MnuStripDb_Click(object sender, EventArgs e)
+        {
+
+            SqlConnect db = new SqlConnect();
+            string path = "";
+
+            FolderBrowserDialog dialog = new FolderBrowserDialog();
+            DialogResult result = dialog.ShowDialog();
+            if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(dialog.SelectedPath))
+            {
+                path = dialog.SelectedPath;
+            }
+
+
+
+            db.backup(path);
+        }
 
         private void ProductsForm_Load(object sender, EventArgs e)
         {
             fillCombo();
             display();
-
-            DateTimePicker date = new DateTimePicker();
-            this.Controls.Add(date);
-
-
-
+            MainMenu();
 
             ContextMenuStrip mnu = new ContextMenuStrip();
             ToolStripMenuItem mnuDelete = new ToolStripMenuItem("Delete");
