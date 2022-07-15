@@ -31,11 +31,8 @@
             this.components = new System.ComponentModel.Container();
             this.loginLabel = new System.Windows.Forms.Label();
             this.exitLabel = new System.Windows.Forms.Label();
-            this.versionLabel = new System.Windows.Forms.Label();
             this.Myprogress = new System.Windows.Forms.ProgressBar();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.timer = new System.Windows.Forms.Timer(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // loginLabel
@@ -60,34 +57,13 @@
             this.exitLabel.TabIndex = 11;
             this.exitLabel.Text = "Χ";
             // 
-            // versionLabel
-            // 
-            this.versionLabel.AutoSize = true;
-            this.versionLabel.BackColor = System.Drawing.Color.White;
-            this.versionLabel.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.versionLabel.Location = new System.Drawing.Point(393, 68);
-            this.versionLabel.Name = "versionLabel";
-            this.versionLabel.Size = new System.Drawing.Size(72, 13);
-            this.versionLabel.TabIndex = 12;
-            this.versionLabel.Text = "Version 1.0.0";
-            // 
             // Myprogress
             // 
             this.Myprogress.Location = new System.Drawing.Point(-1, 677);
-            this.Myprogress.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Myprogress.Margin = new System.Windows.Forms.Padding(2);
             this.Myprogress.Name = "Myprogress";
             this.Myprogress.Size = new System.Drawing.Size(832, 16);
             this.Myprogress.TabIndex = 13;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::SupermarketTuto.Properties.Resources.αρχείο_λήψης;
-            this.pictureBox1.Location = new System.Drawing.Point(294, 221);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(287, 196);
-            this.pictureBox1.TabIndex = 14;
-            this.pictureBox1.TabStop = false;
             // 
             // timer
             // 
@@ -98,18 +74,15 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(832, 660);
-            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.Myprogress);
-            this.Controls.Add(this.versionLabel);
             this.Controls.Add(this.exitLabel);
             this.Controls.Add(this.loginLabel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Splash";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Splash";
             this.Load += new System.EventHandler(this.Splash_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -119,9 +92,7 @@
 
         private Label loginLabel;
         private Label exitLabel;
-        private Label versionLabel;
         private ProgressBar Myprogress;
-        private PictureBox pictureBox1;
         private System.Windows.Forms.Timer timer;
     }
 }

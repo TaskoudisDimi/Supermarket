@@ -193,7 +193,7 @@
             // updateButton
             // 
             this.updateButton.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.updateButton.Location = new System.Drawing.Point(644, 302);
+            this.updateButton.Location = new System.Drawing.Point(642, 476);
             this.updateButton.Margin = new System.Windows.Forms.Padding(2);
             this.updateButton.Name = "updateButton";
             this.updateButton.Size = new System.Drawing.Size(111, 35);
