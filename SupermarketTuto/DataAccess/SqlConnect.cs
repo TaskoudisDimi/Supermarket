@@ -72,10 +72,7 @@ namespace SupermarketTuto.DataAccess
         public void backup(string path)
         {
             con.Open();
-
-            //string query = "BACKUP DATABASE smarketdb TO DISK = 'E:\\backupfile.bak' WITH FORMAT,MEDIANAME = 'Z_SQLServerBackups',NAME = 'Full Backup of Testdb';";
             string query = "BACKUP DATABASE smarketdb TO DISK = '" + path + "\\backupfile.bak' WITH FORMAT,MEDIANAME = 'Z_SQLServerBackups',NAME = 'Full Backup of Testdb';";
-
             SqlCommand cmd = new SqlCommand(query, con);
             cmd.ExecuteNonQuery();
             con.Close();
