@@ -31,14 +31,10 @@ namespace SupermarketTuto
             SqlConnect loaddata1 = new SqlConnect();
 
             loaddata1.retrieveData("Select * From SellerTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + todateTimePicker.Value.ToString("MM-dd-yyyy") + "'");
-            //loaddata1.retrieveData("Select * from SellerTbl where Date between '2022-07-16' and '2022-07-16'");
-
             SellDGV.DataSource = loaddata1.table;
 
 
         }
-
-
 
         private void SellerForm_Load(object sender, EventArgs e)
         {

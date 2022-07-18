@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using SupermarketTuto.DataAccess;
+using SupermarketTuto.Forms;
 
 namespace SupermarketTuto
 {
     public partial class ProductsForm : Form
     {
-
         SqlConnect loaddata = new SqlConnect();
 
         public ProductsForm()
@@ -44,7 +44,6 @@ namespace SupermarketTuto
             ProdDGV.DataSource = loaddata1.table;
 
         }
-        
 
         private void MainMenu()
         {
@@ -52,28 +51,58 @@ namespace SupermarketTuto
 
             this.Controls.Add(menu);
 
-            string[] items = new string[] { "File", "BackUp", "About" };
+            string[] items = new string[] { "File", "About" };
             foreach (string Row in items)
             {
                 ToolStripMenuItem MnuStripItem = new ToolStripMenuItem(Row);
                 menu.Items.Add(MnuStripItem);
+                SubMenu(MnuStripItem, Row);
+
                 if (MnuStripItem.Text == "About")
                 {
                     MnuStripItem.Click += new EventHandler(MnuStripAbout_Click);
                 }
-                else if (MnuStripItem.Text == "BackUp")
-                {
-                    MnuStripItem.Click += new EventHandler(MnuStripDb_Click);
-                }
-                else if (MnuStripItem.Text == "File")
-                {
-
-                }
-
-
 
             }
 
+        }
+
+        private void SubMenu(ToolStripMenuItem items, string var)
+        {
+            if (var == "File")
+            {
+                string[] subItem = new string[] { "Users", "BackUp", "Exit" };
+                foreach (string Row in subItem)
+                {
+                    ToolStripMenuItem subMenuItem = new ToolStripMenuItem(Row, null);
+                    SubMenu(subMenuItem, Row);
+                    items.DropDownItems.Add(subMenuItem);
+                    if (subMenuItem.Text == "Users")
+                    {
+                        subMenuItem.Click += new EventHandler(MnuStripUsers_Click);
+                    }
+                    else if (subMenuItem.Text == "BackUp")
+                    {
+                        subMenuItem.Click += new EventHandler(MnuStripDb_Click);
+                    }
+                    else if (subMenuItem.Text == "Exit")
+                    {
+                        subMenuItem.Click += new EventHandler(MnuStripExit_Click);
+                    }
+                }
+            }
+
+        }
+
+        private void MnuStripUsers_Click(object sender, EventArgs e)
+        {
+            Users users = new Users();
+            users.Show();
+        }
+
+        private void MnuStripExit_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
 
         private void MnuStripAbout_Click(object sender, EventArgs e)
@@ -93,11 +122,12 @@ namespace SupermarketTuto
             if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(dialog.SelectedPath))
             {
                 path = dialog.SelectedPath;
+                db.backup(path);
             }
-
-
-
-            db.backup(path);
+            else
+            {
+                return;
+            }
         }
 
         private void ProductsForm_Load(object sender, EventArgs e)
@@ -221,11 +251,6 @@ namespace SupermarketTuto
 
         }
 
-        private void selectCategory2ComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void CatCb_SelectionChangeCommitted(object sender, EventArgs e)
         {
             SqlConnect loaddata9 = new SqlConnect();
@@ -287,6 +312,23 @@ namespace SupermarketTuto
         private void CatCb_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void searchButton_Click(object sender, EventArgs e)
+        {
+            SqlConnect db = new SqlConnect();
+            db.search(searchTextBox.Text);
+            ProdDGV.DataSource = db.table;
+            totalLabel.Text = $"Total: {ProdDGV.RowCount}";
+
+        }
+
+        private void searchTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)13)
+            {
+                searchButton.PerformClick();
+            }
         }
     }
 }

@@ -30,6 +30,9 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProductsForm));
             this.manageProductsPanel = new System.Windows.Forms.Panel();
+            this.totalLabel = new System.Windows.Forms.Label();
+            this.searchButton = new System.Windows.Forms.Button();
+            this.searchTextBox = new System.Windows.Forms.TextBox();
             this.logOutLabel = new System.Windows.Forms.Label();
             this.ProdDGV = new System.Windows.Forms.DataGridView();
             this.refreshButton = new System.Windows.Forms.Button();
@@ -56,6 +59,9 @@
             // manageProductsPanel
             // 
             this.manageProductsPanel.BackColor = System.Drawing.Color.LightGray;
+            this.manageProductsPanel.Controls.Add(this.totalLabel);
+            this.manageProductsPanel.Controls.Add(this.searchButton);
+            this.manageProductsPanel.Controls.Add(this.searchTextBox);
             this.manageProductsPanel.Controls.Add(this.logOutLabel);
             this.manageProductsPanel.Controls.Add(this.ProdDGV);
             this.manageProductsPanel.Controls.Add(this.refreshButton);
@@ -73,10 +79,38 @@
             this.manageProductsPanel.Controls.Add(this.ProdName);
             this.manageProductsPanel.Controls.Add(this.ProdId);
             this.manageProductsPanel.Controls.Add(this.manageProductsLabel);
-            this.manageProductsPanel.Location = new System.Drawing.Point(134, 42);
+            this.manageProductsPanel.Location = new System.Drawing.Point(134, 33);
             this.manageProductsPanel.Name = "manageProductsPanel";
-            this.manageProductsPanel.Size = new System.Drawing.Size(918, 571);
+            this.manageProductsPanel.Size = new System.Drawing.Size(918, 604);
             this.manageProductsPanel.TabIndex = 0;
+            // 
+            // totalLabel
+            // 
+            this.totalLabel.AutoSize = true;
+            this.totalLabel.Location = new System.Drawing.Point(333, 571);
+            this.totalLabel.Name = "totalLabel";
+            this.totalLabel.Size = new System.Drawing.Size(35, 15);
+            this.totalLabel.TabIndex = 43;
+            this.totalLabel.Text = "Total:";
+            // 
+            // searchButton
+            // 
+            this.searchButton.Location = new System.Drawing.Point(489, 70);
+            this.searchButton.Name = "searchButton";
+            this.searchButton.Size = new System.Drawing.Size(75, 23);
+            this.searchButton.TabIndex = 42;
+            this.searchButton.Text = "Search";
+            this.searchButton.UseVisualStyleBackColor = true;
+            this.searchButton.Click += new System.EventHandler(this.searchButton_Click);
+            // 
+            // searchTextBox
+            // 
+            this.searchTextBox.Location = new System.Drawing.Point(333, 70);
+            this.searchTextBox.Name = "searchTextBox";
+            this.searchTextBox.Size = new System.Drawing.Size(150, 23);
+            this.searchTextBox.TabIndex = 41;
+            this.searchTextBox.Text = "Search";
+            this.searchTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.searchTextBox_KeyPress);
             // 
             // logOutLabel
             // 
@@ -95,19 +129,19 @@
             this.ProdDGV.BackgroundColor = System.Drawing.Color.WhiteSmoke;
             this.ProdDGV.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.ProdDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.ProdDGV.Location = new System.Drawing.Point(333, 89);
+            this.ProdDGV.Location = new System.Drawing.Point(333, 101);
             this.ProdDGV.Name = "ProdDGV";
             this.ProdDGV.RowHeadersWidth = 62;
             this.ProdDGV.RowTemplate.Height = 30;
             this.ProdDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.ProdDGV.Size = new System.Drawing.Size(456, 479);
+            this.ProdDGV.Size = new System.Drawing.Size(582, 467);
             this.ProdDGV.TabIndex = 17;
             this.ProdDGV.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ProdDGV_CellClick);
             this.ProdDGV.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ProdDGV_CellContentClick);
             // 
             // refreshButton
             // 
-            this.refreshButton.Location = new System.Drawing.Point(714, 41);
+            this.refreshButton.Location = new System.Drawing.Point(843, 69);
             this.refreshButton.Name = "refreshButton";
             this.refreshButton.Size = new System.Drawing.Size(75, 23);
             this.refreshButton.TabIndex = 16;
@@ -275,7 +309,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1064, 635);
+            this.ClientSize = new System.Drawing.Size(1064, 649);
             this.Controls.Add(this.categoriesButton);
             this.Controls.Add(this.sellerButton);
             this.Controls.Add(this.manageProductsPanel);
@@ -315,5 +349,8 @@
         private Button refreshButton;
         private DataGridView ProdDGV;
         private Label logOutLabel;
+        private TextBox searchTextBox;
+        private Button searchButton;
+        private Label totalLabel;
     }
 }

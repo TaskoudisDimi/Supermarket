@@ -77,8 +77,16 @@ namespace SupermarketTuto.DataAccess
             cmd.ExecuteNonQuery();
             con.Close();
             MessageBox.Show("BackUp seccess!");
+        }
 
 
+        public void search(string text)
+        {
+            con.Open();
+            string query = "Select * From ProductTbl where ProdId like '%" + text + "%'" + "or ProdName like '%" + text + "%'" + "or ProdQty like '%" + text + "%'" + "or ProdPrice like '%" + text + "%'" + "or ProdCat like '%" + text + "%'";
+            SqlCommand cmd = new SqlCommand(query,con);
+            SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+            adapter.Fill(table);
 
         }
 
