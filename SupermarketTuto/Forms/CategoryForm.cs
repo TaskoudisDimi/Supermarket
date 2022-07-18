@@ -55,7 +55,7 @@ namespace SupermarketTuto
 
             SqlConnect loaddata = new SqlConnect();
 
-            loaddata.retrieveData("Select * From CategoryTbl");
+            loaddata.retrieveData("Select * From CategoryTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'");
             CatDGV.DataSource = loaddata.table;
 
 

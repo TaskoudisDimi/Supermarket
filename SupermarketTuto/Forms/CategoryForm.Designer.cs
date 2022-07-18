@@ -30,6 +30,10 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CategoryForm));
             this.manageCategoriesPanel = new System.Windows.Forms.Panel();
+            this.searchButton = new System.Windows.Forms.Button();
+            this.searchTextBox = new System.Windows.Forms.TextBox();
+            this.toDateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.fromDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.refreshButton = new System.Windows.Forms.Button();
             this.logOutLabel = new System.Windows.Forms.Label();
             this.CatDGV = new System.Windows.Forms.DataGridView();
@@ -45,6 +49,7 @@
             this.manageCategoriesLabel = new System.Windows.Forms.Label();
             this.productsButton = new System.Windows.Forms.Button();
             this.sellersButton = new System.Windows.Forms.Button();
+            this.totalLabel = new System.Windows.Forms.Label();
             this.manageCategoriesPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CatDGV)).BeginInit();
             this.SuspendLayout();
@@ -52,6 +57,11 @@
             // manageCategoriesPanel
             // 
             this.manageCategoriesPanel.BackColor = System.Drawing.Color.Silver;
+            this.manageCategoriesPanel.Controls.Add(this.totalLabel);
+            this.manageCategoriesPanel.Controls.Add(this.searchButton);
+            this.manageCategoriesPanel.Controls.Add(this.searchTextBox);
+            this.manageCategoriesPanel.Controls.Add(this.toDateTimePicker);
+            this.manageCategoriesPanel.Controls.Add(this.fromDateTimePicker);
             this.manageCategoriesPanel.Controls.Add(this.refreshButton);
             this.manageCategoriesPanel.Controls.Add(this.logOutLabel);
             this.manageCategoriesPanel.Controls.Add(this.CatDGV);
@@ -67,12 +77,44 @@
             this.manageCategoriesPanel.Controls.Add(this.manageCategoriesLabel);
             this.manageCategoriesPanel.Location = new System.Drawing.Point(136, 40);
             this.manageCategoriesPanel.Name = "manageCategoriesPanel";
-            this.manageCategoriesPanel.Size = new System.Drawing.Size(659, 500);
+            this.manageCategoriesPanel.Size = new System.Drawing.Size(786, 526);
             this.manageCategoriesPanel.TabIndex = 1;
+            // 
+            // searchButton
+            // 
+            this.searchButton.Location = new System.Drawing.Point(403, 65);
+            this.searchButton.Name = "searchButton";
+            this.searchButton.Size = new System.Drawing.Size(75, 23);
+            this.searchButton.TabIndex = 48;
+            this.searchButton.Text = "Search";
+            this.searchButton.UseVisualStyleBackColor = true;
+            // 
+            // searchTextBox
+            // 
+            this.searchTextBox.Location = new System.Drawing.Point(247, 65);
+            this.searchTextBox.Name = "searchTextBox";
+            this.searchTextBox.Size = new System.Drawing.Size(150, 23);
+            this.searchTextBox.TabIndex = 47;
+            // 
+            // toDateTimePicker
+            // 
+            this.toDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.toDateTimePicker.Location = new System.Drawing.Point(600, 65);
+            this.toDateTimePicker.Name = "toDateTimePicker";
+            this.toDateTimePicker.Size = new System.Drawing.Size(96, 23);
+            this.toDateTimePicker.TabIndex = 46;
+            // 
+            // fromDateTimePicker
+            // 
+            this.fromDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.fromDateTimePicker.Location = new System.Drawing.Point(498, 65);
+            this.fromDateTimePicker.Name = "fromDateTimePicker";
+            this.fromDateTimePicker.Size = new System.Drawing.Size(96, 23);
+            this.fromDateTimePicker.TabIndex = 45;
             // 
             // refreshButton
             // 
-            this.refreshButton.Location = new System.Drawing.Point(573, 63);
+            this.refreshButton.Location = new System.Drawing.Point(702, 65);
             this.refreshButton.Name = "refreshButton";
             this.refreshButton.Size = new System.Drawing.Size(75, 23);
             this.refreshButton.TabIndex = 41;
@@ -102,7 +144,7 @@
             this.CatDGV.RowHeadersWidth = 62;
             this.CatDGV.RowTemplate.Height = 30;
             this.CatDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.CatDGV.Size = new System.Drawing.Size(401, 405);
+            this.CatDGV.Size = new System.Drawing.Size(530, 405);
             this.CatDGV.TabIndex = 15;
             this.CatDGV.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.CatDGV_CellClick);
             this.CatDGV.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.CatDGV_CellValidating);
@@ -222,11 +264,20 @@
             this.sellersButton.UseVisualStyleBackColor = true;
             this.sellersButton.Click += new System.EventHandler(this.sellersButton_Click);
             // 
+            // totalLabel
+            // 
+            this.totalLabel.AutoSize = true;
+            this.totalLabel.Location = new System.Drawing.Point(247, 500);
+            this.totalLabel.Name = "totalLabel";
+            this.totalLabel.Size = new System.Drawing.Size(35, 15);
+            this.totalLabel.TabIndex = 49;
+            this.totalLabel.Text = "Total:";
+            // 
             // CategoryForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(796, 550);
+            this.ClientSize = new System.Drawing.Size(928, 570);
             this.Controls.Add(this.productsButton);
             this.Controls.Add(this.sellersButton);
             this.Controls.Add(this.manageCategoriesPanel);
@@ -262,5 +313,10 @@
         private Button sellersButton;
         private Label logOutLabel;
         private Button refreshButton;
+        private DateTimePicker toDateTimePicker;
+        private DateTimePicker fromDateTimePicker;
+        private Button searchButton;
+        private TextBox searchTextBox;
+        private Label totalLabel;
     }
 }

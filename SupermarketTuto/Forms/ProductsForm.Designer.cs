@@ -30,6 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProductsForm));
             this.manageProductsPanel = new System.Windows.Forms.Panel();
+            this.toDateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.fromDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.totalLabel = new System.Windows.Forms.Label();
             this.searchButton = new System.Windows.Forms.Button();
             this.searchTextBox = new System.Windows.Forms.TextBox();
@@ -59,6 +61,8 @@
             // manageProductsPanel
             // 
             this.manageProductsPanel.BackColor = System.Drawing.Color.LightGray;
+            this.manageProductsPanel.Controls.Add(this.toDateTimePicker);
+            this.manageProductsPanel.Controls.Add(this.fromDateTimePicker);
             this.manageProductsPanel.Controls.Add(this.totalLabel);
             this.manageProductsPanel.Controls.Add(this.searchButton);
             this.manageProductsPanel.Controls.Add(this.searchTextBox);
@@ -83,6 +87,22 @@
             this.manageProductsPanel.Name = "manageProductsPanel";
             this.manageProductsPanel.Size = new System.Drawing.Size(918, 604);
             this.manageProductsPanel.TabIndex = 0;
+            // 
+            // toDateTimePicker
+            // 
+            this.toDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.toDateTimePicker.Location = new System.Drawing.Point(687, 73);
+            this.toDateTimePicker.Name = "toDateTimePicker";
+            this.toDateTimePicker.Size = new System.Drawing.Size(96, 23);
+            this.toDateTimePicker.TabIndex = 45;
+            // 
+            // fromDateTimePicker
+            // 
+            this.fromDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.fromDateTimePicker.Location = new System.Drawing.Point(585, 73);
+            this.fromDateTimePicker.Name = "fromDateTimePicker";
+            this.fromDateTimePicker.Size = new System.Drawing.Size(96, 23);
+            this.fromDateTimePicker.TabIndex = 44;
             // 
             // totalLabel
             // 
@@ -109,7 +129,6 @@
             this.searchTextBox.Name = "searchTextBox";
             this.searchTextBox.Size = new System.Drawing.Size(150, 23);
             this.searchTextBox.TabIndex = 41;
-            this.searchTextBox.Text = "Search";
             this.searchTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.searchTextBox_KeyPress);
             // 
             // logOutLabel
@@ -141,7 +160,7 @@
             // 
             // refreshButton
             // 
-            this.refreshButton.Location = new System.Drawing.Point(843, 69);
+            this.refreshButton.Location = new System.Drawing.Point(840, 75);
             this.refreshButton.Name = "refreshButton";
             this.refreshButton.Size = new System.Drawing.Size(75, 23);
             this.refreshButton.TabIndex = 16;
@@ -352,5 +371,7 @@
         private TextBox searchTextBox;
         private Button searchButton;
         private Label totalLabel;
+        private DateTimePicker fromDateTimePicker;
+        private DateTimePicker toDateTimePicker;
     }
 }

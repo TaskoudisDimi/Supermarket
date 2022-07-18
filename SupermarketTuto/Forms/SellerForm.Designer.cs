@@ -30,8 +30,10 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SellerForm));
             this.manageSellersPanel = new System.Windows.Forms.Panel();
+            this.searchButton = new System.Windows.Forms.Button();
+            this.searchTextBox = new System.Windows.Forms.TextBox();
             this.dateLabel = new System.Windows.Forms.Label();
-            this.todateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.toDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.fromDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.dateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.uploadButton = new System.Windows.Forms.Button();
@@ -54,6 +56,7 @@
             this.logOutLabel = new System.Windows.Forms.Label();
             this.products2Button = new System.Windows.Forms.Button();
             this.categories2Button = new System.Windows.Forms.Button();
+            this.totalLabel = new System.Windows.Forms.Label();
             this.manageSellersPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SellDGV)).BeginInit();
@@ -62,8 +65,11 @@
             // manageSellersPanel
             // 
             this.manageSellersPanel.BackColor = System.Drawing.Color.Silver;
+            this.manageSellersPanel.Controls.Add(this.totalLabel);
+            this.manageSellersPanel.Controls.Add(this.searchButton);
+            this.manageSellersPanel.Controls.Add(this.searchTextBox);
             this.manageSellersPanel.Controls.Add(this.dateLabel);
-            this.manageSellersPanel.Controls.Add(this.todateTimePicker);
+            this.manageSellersPanel.Controls.Add(this.toDateTimePicker);
             this.manageSellersPanel.Controls.Add(this.fromDateTimePicker);
             this.manageSellersPanel.Controls.Add(this.dateTimePicker);
             this.manageSellersPanel.Controls.Add(this.uploadButton);
@@ -85,8 +91,25 @@
             this.manageSellersPanel.Controls.Add(this.manageSellersLabel);
             this.manageSellersPanel.Location = new System.Drawing.Point(134, 47);
             this.manageSellersPanel.Name = "manageSellersPanel";
-            this.manageSellersPanel.Size = new System.Drawing.Size(981, 500);
+            this.manageSellersPanel.Size = new System.Drawing.Size(981, 520);
             this.manageSellersPanel.TabIndex = 0;
+            // 
+            // searchButton
+            // 
+            this.searchButton.Location = new System.Drawing.Point(661, 81);
+            this.searchButton.Name = "searchButton";
+            this.searchButton.Size = new System.Drawing.Size(75, 23);
+            this.searchButton.TabIndex = 44;
+            this.searchButton.Text = "Search";
+            this.searchButton.UseVisualStyleBackColor = true;
+            this.searchButton.Click += new System.EventHandler(this.searchButton_Click);
+            // 
+            // searchTextBox
+            // 
+            this.searchTextBox.Location = new System.Drawing.Point(505, 81);
+            this.searchTextBox.Name = "searchTextBox";
+            this.searchTextBox.Size = new System.Drawing.Size(150, 23);
+            this.searchTextBox.TabIndex = 43;
             // 
             // dateLabel
             // 
@@ -97,20 +120,20 @@
             this.dateLabel.TabIndex = 25;
             this.dateLabel.Text = "Date of Birth";
             // 
-            // todateTimePicker
+            // toDateTimePicker
             // 
-            this.todateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.todateTimePicker.Location = new System.Drawing.Point(650, 71);
-            this.todateTimePicker.Margin = new System.Windows.Forms.Padding(2);
-            this.todateTimePicker.Name = "todateTimePicker";
-            this.todateTimePicker.Size = new System.Drawing.Size(97, 23);
-            this.todateTimePicker.TabIndex = 24;
-            this.todateTimePicker.ValueChanged += new System.EventHandler(this.todateTimePicker_ValueChanged);
+            this.toDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.toDateTimePicker.Location = new System.Drawing.Point(872, 81);
+            this.toDateTimePicker.Margin = new System.Windows.Forms.Padding(2);
+            this.toDateTimePicker.Name = "toDateTimePicker";
+            this.toDateTimePicker.Size = new System.Drawing.Size(97, 23);
+            this.toDateTimePicker.TabIndex = 24;
+            this.toDateTimePicker.ValueChanged += new System.EventHandler(this.todateTimePicker_ValueChanged);
             // 
             // fromDateTimePicker
             // 
             this.fromDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.fromDateTimePicker.Location = new System.Drawing.Point(521, 71);
+            this.fromDateTimePicker.Location = new System.Drawing.Point(758, 82);
             this.fromDateTimePicker.Margin = new System.Windows.Forms.Padding(2);
             this.fromDateTimePicker.Name = "fromDateTimePicker";
             this.fromDateTimePicker.Size = new System.Drawing.Size(96, 23);
@@ -319,11 +342,20 @@
             this.categories2Button.UseVisualStyleBackColor = true;
             this.categories2Button.Click += new System.EventHandler(this.categories2Button_Click);
             // 
+            // totalLabel
+            // 
+            this.totalLabel.AutoSize = true;
+            this.totalLabel.Location = new System.Drawing.Point(505, 500);
+            this.totalLabel.Name = "totalLabel";
+            this.totalLabel.Size = new System.Drawing.Size(35, 15);
+            this.totalLabel.TabIndex = 45;
+            this.totalLabel.Text = "Total:";
+            // 
             // SellerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1124, 562);
+            this.ClientSize = new System.Drawing.Size(1124, 579);
             this.Controls.Add(this.logOutLabel);
             this.Controls.Add(this.categories2Button);
             this.Controls.Add(this.products2Button);
@@ -369,7 +401,10 @@
         private Button uploadButton;
         private DateTimePicker dateTimePicker;
         private DateTimePicker fromDateTimePicker;
-        private DateTimePicker todateTimePicker;
+        private DateTimePicker toDateTimePicker;
         private Label dateLabel;
+        private Button searchButton;
+        private TextBox searchTextBox;
+        private Label totalLabel;
     }
 }

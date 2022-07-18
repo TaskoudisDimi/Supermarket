@@ -1,3 +1,5 @@
+using SupermarketTuto.Forms;
+
 namespace SupermarketTuto
 {
     internal static class Program
@@ -9,7 +11,7 @@ namespace SupermarketTuto
         static void Main()
         {
             ApplicationConfiguration.Initialize();
-            Application.Run(new ProductsForm());
+            Application.Run(new Main());
 
         }
     }

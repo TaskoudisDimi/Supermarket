@@ -62,6 +62,9 @@
             this.SellerNameLabel = new System.Windows.Forms.Label();
             this.printPreviewDialog1 = new System.Windows.Forms.PrintPreviewDialog();
             this.printDocument1 = new System.Drawing.Printing.PrintDocument();
+            this.totalLabel = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.SellingDGV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BillsDGV)).BeginInit();
             this.SellingPanel.SuspendLayout();
@@ -161,7 +164,7 @@
             // 
             // deleteButton
             // 
-            this.deleteButton.Location = new System.Drawing.Point(550, 503);
+            this.deleteButton.Location = new System.Drawing.Point(748, 503);
             this.deleteButton.Name = "deleteButton";
             this.deleteButton.Size = new System.Drawing.Size(75, 23);
             this.deleteButton.TabIndex = 28;
@@ -171,7 +174,7 @@
             // 
             // PrintButton
             // 
-            this.PrintButton.Location = new System.Drawing.Point(469, 503);
+            this.PrintButton.Location = new System.Drawing.Point(667, 503);
             this.PrintButton.Name = "PrintButton";
             this.PrintButton.Size = new System.Drawing.Size(75, 23);
             this.PrintButton.TabIndex = 27;
@@ -181,7 +184,7 @@
             // 
             // addButton
             // 
-            this.addButton.Location = new System.Drawing.Point(388, 503);
+            this.addButton.Location = new System.Drawing.Point(586, 503);
             this.addButton.Name = "addButton";
             this.addButton.Size = new System.Drawing.Size(75, 23);
             this.addButton.TabIndex = 26;
@@ -242,6 +245,9 @@
             // SellingPanel
             // 
             this.SellingPanel.BackColor = System.Drawing.Color.LightGray;
+            this.SellingPanel.Controls.Add(this.label6);
+            this.SellingPanel.Controls.Add(this.label5);
+            this.SellingPanel.Controls.Add(this.totalLabel);
             this.SellingPanel.Controls.Add(this.seller_NameLabel);
             this.SellingPanel.Controls.Add(this.sumTextBox);
             this.SellingPanel.Controls.Add(this.logOutLabel);
@@ -411,6 +417,33 @@
             // 
             this.printDocument1.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument1_PrintPage);
             // 
+            // totalLabel
+            // 
+            this.totalLabel.AutoSize = true;
+            this.totalLabel.Location = new System.Drawing.Point(388, 231);
+            this.totalLabel.Name = "totalLabel";
+            this.totalLabel.Size = new System.Drawing.Size(35, 15);
+            this.totalLabel.TabIndex = 44;
+            this.totalLabel.Text = "Total:";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(29, 533);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(35, 15);
+            this.label5.TabIndex = 45;
+            this.label5.Text = "Total:";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(388, 503);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(35, 15);
+            this.label6.TabIndex = 46;
+            this.label6.Text = "Total:";
+            // 
             // SellingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -468,5 +501,8 @@
         private Label logOutLabel;
         private TextBox sumTextBox;
         private Label seller_NameLabel;
+        private Label label6;
+        private Label label5;
+        private Label totalLabel;
     }
 }

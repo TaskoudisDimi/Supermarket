@@ -30,7 +30,7 @@ namespace SupermarketTuto
         {
             SqlConnect loaddata1 = new SqlConnect();
 
-            loaddata1.retrieveData("Select * From SellerTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + todateTimePicker.Value.ToString("MM-dd-yyyy") + "'");
+            loaddata1.retrieveData("Select * From SellerTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'");
             SellDGV.DataSource = loaddata1.table;
 
 
@@ -124,7 +124,6 @@ namespace SupermarketTuto
         }
 
 
-        //TODO Age = Date in Textbox and db
         private void add2Button_Click(object sender, EventArgs e)
         {
             
@@ -296,6 +295,11 @@ namespace SupermarketTuto
         private void todateTimePicker_ValueChanged(object sender, EventArgs e)
         {
             display();
+        }
+
+        private void searchButton_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -40,9 +40,9 @@ namespace SupermarketTuto
         {
             SqlConnect loaddata1 = new SqlConnect();
 
-            loaddata1.retrieveData("Select * From ProductTbl");
+            loaddata1.retrieveData("Select * From ProductTbl Where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'");
             ProdDGV.DataSource = loaddata1.table;
-
+            totalLabel.Text = $"Total: {ProdDGV.RowCount}";
         }
 
         private void MainMenu()
