@@ -30,71 +30,14 @@ namespace SupermarketTuto.Forms
 
             closeImage = Properties.Resources.Close;
 
-            //tabControl
-            this.tabControl = new TabControl();
-            this.SuspendLayout();
-            this.tabControl.Location = new System.Drawing.Point(50, 50);
-            this.tabControl.Name = "TestName";
-            this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new Size(900, 500);
-            this.tabControl.TabIndex = 0;
-            this.tabControl.DrawMode = TabDrawMode.OwnerDrawFixed;
-            //Form
-            this.Controls.Add(tabControl);
-
-
-            TabPage sellers = new TabPage("Sellers");
-            tabControl.Controls.Add(sellers);
-            TabPage products = new TabPage("Products");
-            tabControl.Controls.Add(products);
-            TabPage categories = new TabPage("Categories");
-            tabControl.Controls.Add(categories);
-
-            this.tabControl.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.tabControl_DrawItem);
-            //this.tabControl.MouseClick += new System.Windows.Forms.MouseEventHandler(this.tabControl_MouseClick);
+            
 
 
 
 
         }
 
-        private void tabControl_DrawItem(object sender, DrawItemEventArgs e)
-        {
-            Image img;
-            img = new Bitmap(closeImage);
-            Rectangle r = e.Bounds;
-            r = this.tabControl.GetTabRect(e.Index);
-            r.Offset(2, 2);
-            Brush TitleBrush = new SolidBrush(Color.Black);
-            Font f = this.Font;
-            string title = this.tabControl.TabPages[e.Index].Text;
-            e.Graphics.DrawString(title, f, TitleBrush, new PointF(r.X, r.Y));
-            e.Graphics.DrawImage(img, new Point(r.X + (this.tabControl.GetTabRect(e.Index).Width - imagelocation.X), imagelocation.Y));
 
-
-
-        }
-
-        //private void tabControl_MouseClick(object sender, MouseEventArgs e)
-        //{
-        //    TabControl tabControl = (TabControl)sender;
-        //    Point p = e.Location;
-        //    int tabWidth = 0;
-        //    tabWidth = this.tabControl.GetTabRect(tabControl.SelectedIndex).Width - (imageHitArea.X);
-        //    Rectangle r = this.tabControl.GetTabRect(tabControl.SelectedIndex);
-        //    r.Offset(tabWidth, imageHitArea.Y);
-        //    r.Width = 16;
-        //    r.Height = 16;
-        //    if (tabControl.SelectedIndex != this.tabControl.TabCount - 1)
-        //    {
-        //        if (r.Contains(p))
-        //        {
-        //            TabPage tabPage = (TabPage)tabControl.TabPages[tabControl.SelectedIndex];
-        //            tabControl.TabPages.Remove(tabPage);
-
-        //        }
-        //    }
-        //}
 
 
 
@@ -200,14 +143,5 @@ namespace SupermarketTuto.Forms
             }
         }
 
-        private void tabControl1_DrawItem(object sender, DrawItemEventArgs e)
-        {
-
-        }
-
-        private void tabControl1_MouseClick(object sender, MouseEventArgs e)
-        {
-
-        }
     }
 }
