@@ -28,74 +28,120 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.panel1.SuspendLayout();
+            this.sidePanel = new System.Windows.Forms.Panel();
+            this.productsButton = new System.Windows.Forms.Button();
+            this.categoriesButton = new System.Windows.Forms.Button();
+            this.sellersButton = new System.Windows.Forms.Button();
+            this.mainPanel = new System.Windows.Forms.Panel();
+            this.languageLabel = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.sidePanel.SuspendLayout();
+            this.mainPanel.SuspendLayout();
             this.SuspendLayout();
             // 
-            // panel1
+            // sidePanel
             // 
-            this.panel1.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.panel1.Controls.Add(this.button3);
-            this.panel1.Controls.Add(this.button2);
-            this.panel1.Controls.Add(this.button1);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(300, 1222);
-            this.panel1.TabIndex = 0;
+            this.sidePanel.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.sidePanel.Controls.Add(this.productsButton);
+            this.sidePanel.Controls.Add(this.categoriesButton);
+            this.sidePanel.Controls.Add(this.sellersButton);
+            this.sidePanel.Dock = System.Windows.Forms.DockStyle.Left;
+            this.sidePanel.Location = new System.Drawing.Point(0, 0);
+            this.sidePanel.Margin = new System.Windows.Forms.Padding(2);
+            this.sidePanel.Name = "sidePanel";
+            this.sidePanel.Size = new System.Drawing.Size(210, 637);
+            this.sidePanel.TabIndex = 0;
             // 
-            // button1
+            // productsButton
             // 
-            this.button1.Location = new System.Drawing.Point(30, 178);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(209, 84);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
+            this.productsButton.Location = new System.Drawing.Point(21, 241);
+            this.productsButton.Margin = new System.Windows.Forms.Padding(2);
+            this.productsButton.Name = "productsButton";
+            this.productsButton.Size = new System.Drawing.Size(146, 50);
+            this.productsButton.TabIndex = 3;
+            this.productsButton.Text = "Products";
+            this.productsButton.UseVisualStyleBackColor = true;
+            this.productsButton.Click += new System.EventHandler(this.productsButton_Click);
             // 
-            // button2
+            // categoriesButton
             // 
-            this.button2.Location = new System.Drawing.Point(30, 293);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(209, 84);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
+            this.categoriesButton.Location = new System.Drawing.Point(21, 176);
+            this.categoriesButton.Margin = new System.Windows.Forms.Padding(2);
+            this.categoriesButton.Name = "categoriesButton";
+            this.categoriesButton.Size = new System.Drawing.Size(146, 50);
+            this.categoriesButton.TabIndex = 2;
+            this.categoriesButton.Text = "Categories";
+            this.categoriesButton.UseVisualStyleBackColor = true;
+            this.categoriesButton.Click += new System.EventHandler(this.categoriesButton_Click);
             // 
-            // button3
+            // sellersButton
             // 
-            this.button3.Location = new System.Drawing.Point(30, 402);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(209, 84);
-            this.button3.TabIndex = 3;
-            this.button3.Text = "button3";
-            this.button3.UseVisualStyleBackColor = true;
+            this.sellersButton.Location = new System.Drawing.Point(21, 107);
+            this.sellersButton.Margin = new System.Windows.Forms.Padding(2);
+            this.sellersButton.Name = "sellersButton";
+            this.sellersButton.Size = new System.Drawing.Size(146, 50);
+            this.sellersButton.TabIndex = 1;
+            this.sellersButton.Text = "Sellers";
+            this.sellersButton.UseVisualStyleBackColor = true;
+            this.sellersButton.Click += new System.EventHandler(this.sellersButton_Click);
+            // 
+            // mainPanel
+            // 
+            this.mainPanel.Controls.Add(this.languageLabel);
+            this.mainPanel.Controls.Add(this.comboBox1);
+            this.mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mainPanel.Location = new System.Drawing.Point(210, 0);
+            this.mainPanel.Margin = new System.Windows.Forms.Padding(2);
+            this.mainPanel.Name = "mainPanel";
+            this.mainPanel.Size = new System.Drawing.Size(875, 637);
+            this.mainPanel.TabIndex = 4;
+            // 
+            // languageLabel
+            // 
+            this.languageLabel.AutoSize = true;
+            this.languageLabel.Location = new System.Drawing.Point(719, 15);
+            this.languageLabel.Name = "languageLabel";
+            this.languageLabel.Size = new System.Drawing.Size(59, 15);
+            this.languageLabel.TabIndex = 6;
+            this.languageLabel.Text = "Language";
+            this.languageLabel.Click += new System.EventHandler(this.languageLabel_Click);
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(779, 12);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(84, 23);
+            this.comboBox1.TabIndex = 5;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // Main
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1389, 1222);
-            this.Controls.Add(this.panel1);
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.ClientSize = new System.Drawing.Size(1085, 637);
+            this.Controls.Add(this.mainPanel);
+            this.Controls.Add(this.sidePanel);
             this.Name = "Main";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Main";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Main_Load);
-            this.panel1.ResumeLayout(false);
+            this.sidePanel.ResumeLayout(false);
+            this.mainPanel.ResumeLayout(false);
+            this.mainPanel.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private Panel panel1;
-        private Button button3;
-        private Button button2;
-        private Button button1;
+        private Panel sidePanel;
+        private Button productsButton;
+        private Button categoriesButton;
+        private Button sellersButton;
+        private Panel mainPanel;
+        private ComboBox comboBox1;
+        private Label languageLabel;
     }
 }

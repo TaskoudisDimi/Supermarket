@@ -78,7 +78,7 @@ namespace SupermarketTuto
                 if (selectRoleCombobox.SelectedItem == "Admin")
                 {
 
-                    ProductsForm products = new ProductsForm();
+                    Products products = new Products();
                     products.Show();
                     this.Hide();
                 }

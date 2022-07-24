@@ -13,11 +13,11 @@ using SupermarketTuto.Forms;
 
 namespace SupermarketTuto
 {
-    public partial class ProductsForm : Form
+    public partial class Products : Form
     {
         SqlConnect loaddata = new SqlConnect();
 
-        public ProductsForm()
+        public Products()
         {
             InitializeComponent();
         }       

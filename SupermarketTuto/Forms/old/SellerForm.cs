@@ -172,7 +172,7 @@ namespace SupermarketTuto
 
         private void products2Button_Click(object sender, EventArgs e)
         {
-            ProductsForm productsForm = new ProductsForm();
+            Products productsForm = new Products();
             productsForm.Show();
             this.Hide();
 

@@ -195,7 +195,7 @@ namespace SupermarketTuto
             //Show() method shows a windows form in a non-modal state.
             //ShowDialog() method shows a window in a modal state and stops execution of the calling context
             //until a result is returned from the windows form open by the method.
-            ProductsForm productForm = new ProductsForm();
+            Products productForm = new Products();
             productForm.Show();
             this.Hide();
         }

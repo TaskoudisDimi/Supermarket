@@ -52,7 +52,7 @@ namespace SupermarketTuto
                     {
                         if (usernameTextBox.Text == "admin" && passwordTextBox.Text == "admin")
                         {
-                            ProductsForm productForm = new ProductsForm();
+                            Products productForm = new Products();
                             productForm.Show();
                             this.Hide();
 

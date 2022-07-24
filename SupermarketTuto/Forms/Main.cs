@@ -44,9 +44,10 @@ namespace SupermarketTuto.Forms
         private void MainMenu()
         {
             MenuStrip menu = new MenuStrip();
+            menu.Dock = DockStyle.Top;
+            menu.Font = new Font("Segoe UI", 16);
 
             this.Controls.Add(menu);
-
             string[] items = new string[] { "File", "About" };
             foreach (string Row in items)
             {
@@ -143,5 +144,53 @@ namespace SupermarketTuto.Forms
             }
         }
 
+        private void sellersButton_Click(object sender, EventArgs e)
+        {
+            Sellers form = new Sellers();
+            form.TopLevel = false;
+            form.TopMost = true;
+            mainPanel.Controls.Add(form);
+            form.BringToFront();
+            form.Show();
+
+
+        }
+
+        private void categoriesButton_Click(object sender, EventArgs e)
+        {
+
+
+            Categories form = new Categories();
+            form.TopLevel = false;
+            form.TopMost = true;
+            mainPanel.Controls.Add(form);
+            form.BringToFront();
+
+            form.Show();
+        }
+
+        private void productsButton_Click(object sender, EventArgs e)
+        {
+
+            Products form = new Products();
+            form.TopLevel = false;
+            form.TopMost = true;
+            mainPanel.Controls.Add(form);
+            form.BringToFront();
+
+            form.Show();
+
+
+        }
+
+        private void languageLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
