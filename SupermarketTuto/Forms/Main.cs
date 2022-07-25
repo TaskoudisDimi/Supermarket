@@ -37,10 +37,6 @@ namespace SupermarketTuto.Forms
 
         }
 
-
-
-
-
         private void MainMenu()
         {
             MenuStrip menu = new MenuStrip();
@@ -96,7 +92,9 @@ namespace SupermarketTuto.Forms
         }
         private void MnuStripLogOut_Click(object sender, EventArgs e)
         {
-
+            this.Hide();
+            LogIn login = new LogIn();
+            login.Show();
         }
 
         private void MnuStripUsers_Click(object sender, EventArgs e)
@@ -135,15 +133,6 @@ namespace SupermarketTuto.Forms
             }
         }
 
-        private void Main_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            DialogResult confirm = MessageBox.Show("Confirm to close", "Exit", MessageBoxButtons.YesNo);
-            if (confirm == DialogResult.No)
-            {
-                e.Cancel = true;
-            }
-        }
-
         private void sellersButton_Click(object sender, EventArgs e)
         {
             Sellers form = new Sellers();
@@ -158,7 +147,6 @@ namespace SupermarketTuto.Forms
 
         private void categoriesButton_Click(object sender, EventArgs e)
         {
-
 
             Categories form = new Categories();
             form.TopLevel = false;
@@ -191,6 +179,15 @@ namespace SupermarketTuto.Forms
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void Main_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            DialogResult confirm = MessageBox.Show("Confirm to close", "Exit", MessageBoxButtons.YesNo);
+            if (confirm == DialogResult.No)
+            {
+                e.Cancel = true;
+            }
         }
     }
 }
