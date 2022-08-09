@@ -30,7 +30,11 @@ namespace SupermarketTuto.Forms
 
             closeImage = Properties.Resources.Close;
 
-            
+            List<string> language = new List<string>();
+            language.Add("Greek");
+            language.Add("English");
+
+            languageComboBox.DataSource = language;
 
 
 
@@ -188,9 +192,7 @@ namespace SupermarketTuto.Forms
 
         }
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
 
-        }
+
     }
 }
