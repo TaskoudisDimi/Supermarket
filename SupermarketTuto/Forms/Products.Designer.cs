@@ -33,7 +33,6 @@
             this.totalLabel = new System.Windows.Forms.Label();
             this.searchButton = new System.Windows.Forms.Button();
             this.searchTextBox = new System.Windows.Forms.TextBox();
-            this.logOutLabel = new System.Windows.Forms.Label();
             this.ProdDGV = new System.Windows.Forms.DataGridView();
             this.refreshButton = new System.Windows.Forms.Button();
             this.categoriesLabel = new System.Windows.Forms.Label();
@@ -89,6 +88,7 @@
             this.searchButton.TabIndex = 85;
             this.searchButton.Text = "Search";
             this.searchButton.UseVisualStyleBackColor = true;
+            this.searchButton.Click += new System.EventHandler(this.searchButton_Click);
             // 
             // searchTextBox
             // 
@@ -102,10 +102,9 @@
             // 
             this.logOutLabel.AutoSize = true;
             this.logOutLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.logOutLabel.Location = new System.Drawing.Point(2413, 22);
-            this.logOutLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.logOutLabel.Location = new System.Drawing.Point(904, 21);
             this.logOutLabel.Name = "logOutLabel";
-            this.logOutLabel.Size = new System.Drawing.Size(105, 32);
+            this.logOutLabel.Size = new System.Drawing.Size(70, 21);
             this.logOutLabel.TabIndex = 83;
             this.logOutLabel.Text = "Log Out";
             // 
@@ -123,6 +122,7 @@
             this.ProdDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.ProdDGV.Size = new System.Drawing.Size(1427, 778);
             this.ProdDGV.TabIndex = 82;
+            this.ProdDGV.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ProdDGV_CellClick_1);
             // 
             // refreshButton
             // 
@@ -133,6 +133,7 @@
             this.refreshButton.TabIndex = 81;
             this.refreshButton.Text = "Refresh";
             this.refreshButton.UseVisualStyleBackColor = true;
+            this.refreshButton.Click += new System.EventHandler(this.refreshButton_Click);
             // 
             // categoriesLabel
             // 
@@ -187,6 +188,7 @@
             this.deleteButton.TabIndex = 76;
             this.deleteButton.Text = "Delete";
             this.deleteButton.UseVisualStyleBackColor = true;
+            this.deleteButton.Click += new System.EventHandler(this.deleteButton_Click);
             // 
             // editButton
             // 
@@ -197,6 +199,7 @@
             this.editButton.TabIndex = 75;
             this.editButton.Text = "Edit";
             this.editButton.UseVisualStyleBackColor = true;
+            this.editButton.Click += new System.EventHandler(this.editButton_Click);
             // 
             // addButton
             // 
@@ -207,6 +210,7 @@
             this.addButton.TabIndex = 74;
             this.addButton.Text = "Add";
             this.addButton.UseVisualStyleBackColor = true;
+            this.addButton.Click += new System.EventHandler(this.addButton_Click);
             // 
             // idLabel
             // 
@@ -228,6 +232,7 @@
             this.CatCb.Size = new System.Drawing.Size(151, 33);
             this.CatCb.TabIndex = 72;
             this.CatCb.Text = "Select Category";
+            this.CatCb.SelectionChangeCommitted += new System.EventHandler(this.CatCb_SelectionChangeCommitted);
             // 
             // ProdPrice
             // 
@@ -273,7 +278,6 @@
             this.Controls.Add(this.totalLabel);
             this.Controls.Add(this.searchButton);
             this.Controls.Add(this.searchTextBox);
-            this.Controls.Add(this.logOutLabel);
             this.Controls.Add(this.ProdDGV);
             this.Controls.Add(this.refreshButton);
             this.Controls.Add(this.categoriesLabel);
@@ -293,6 +297,7 @@
             this.Name = "Products";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Load += new System.EventHandler(this.Products_Load);
             ((System.ComponentModel.ISupportInitialize)(this.ProdDGV)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -306,7 +311,6 @@
         private Label totalLabel;
         private Button searchButton;
         private TextBox searchTextBox;
-        private Label logOutLabel;
         private DataGridView ProdDGV;
         private Button refreshButton;
         private Label categoriesLabel;

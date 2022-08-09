@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.sidePanel = new System.Windows.Forms.Panel();
             this.productsButton = new System.Windows.Forms.Button();
             this.categoriesButton = new System.Windows.Forms.Button();
@@ -115,14 +116,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(2149, 1062);
+            this.ClientSize = new System.Drawing.Size(1085, 637);
             this.Controls.Add(this.mainPanel);
             this.Controls.Add(this.sidePanel);
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "Main";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Main";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_FormClosing);
             this.Load += new System.EventHandler(this.Main_Load);
             this.sidePanel.ResumeLayout(false);
             this.mainPanel.ResumeLayout(false);
