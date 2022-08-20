@@ -25,7 +25,7 @@ namespace SupermarketTuto.Forms
             //This method will bind the Combobox with the Database
             loaddata2.retrieveData("Select CatName From CategoryTbl");
             CatCb.DataSource = loaddata2.table;
-            CatCb.ValueMember = "CatName";
+            //CatCb.ValueMember = "CatName";
             CatCb.SelectedItem = null;
             CatCb.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             CatCb.AutoCompleteSource = AutoCompleteSource.ListItems;

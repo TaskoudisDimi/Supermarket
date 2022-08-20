@@ -97,16 +97,16 @@
             this.searchTextBox.Name = "searchTextBox";
             this.searchTextBox.Size = new System.Drawing.Size(213, 31);
             this.searchTextBox.TabIndex = 84;
-            // 
-            // logOutLabel
-            // 
-            this.logOutLabel.AutoSize = true;
-            this.logOutLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.logOutLabel.Location = new System.Drawing.Point(904, 21);
-            this.logOutLabel.Name = "logOutLabel";
-            this.logOutLabel.Size = new System.Drawing.Size(70, 21);
-            this.logOutLabel.TabIndex = 83;
-            this.logOutLabel.Text = "Log Out";
+            //// 
+            //// logOutLabel
+            //// 
+            //this.logOutLabel.AutoSize = true;
+            //this.logOutLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            //this.logOutLabel.Location = new System.Drawing.Point(904, 21);
+            //this.logOutLabel.Name = "logOutLabel";
+            //this.logOutLabel.Size = new System.Drawing.Size(70, 21);
+            //this.logOutLabel.TabIndex = 83;
+            //this.logOutLabel.Text = "Log Out";
             // 
             // ProdDGV
             // 

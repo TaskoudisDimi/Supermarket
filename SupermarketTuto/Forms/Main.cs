@@ -15,8 +15,8 @@ namespace SupermarketTuto.Forms
     {
         private System.Windows.Forms.TabControl tabControl;
         Image closeImage;
-        Point imagelocation = new Point(20,4);
-        Point imageHitArea = new Point(20,4);
+        Point imagelocation = new Point(20, 4);
+        Point imageHitArea = new Point(20, 4);
 
         public Main()
         {
@@ -28,7 +28,7 @@ namespace SupermarketTuto.Forms
 
             MainMenu();
 
-            closeImage = Properties.Resources.Close;
+            //closeImage = Properties.Resources.Close;
 
             List<string> language = new List<string>();
             language.Add("Greek");
@@ -182,15 +182,14 @@ namespace SupermarketTuto.Forms
 
 
 
-        }
-
-        private void Main_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            DialogResult confirm = MessageBox.Show("Confirm to close", "Exit", MessageBoxButtons.YesNo);
-            if (confirm == DialogResult.No)
-            {
-                e.Cancel = true;
-            }
-        }
     }
+
+    //private void Main_FormClosing(object sender, FormClosingEventArgs e)
+    //{
+    //    DialogResult confirm = MessageBox.Show("Confirm to close", "Exit", MessageBoxButtons.YesNo);
+    //    if (confirm == DialogResult.No)
+    //    {
+    //        e.Cancel = true;
+    //    }
+    //}
 }

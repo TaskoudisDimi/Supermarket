@@ -121,30 +121,30 @@
             // 
             // delete3Button
             // 
-            this.delete3Button.Location = new System.Drawing.Point(296, 237);
-            this.delete3Button.Name = "delete3Button";
-            this.delete3Button.Size = new System.Drawing.Size(75, 23);
-            this.delete3Button.TabIndex = 58;
-            this.delete3Button.Text = "Delete";
-            this.delete3Button.UseVisualStyleBackColor = true;
+            this.deleteButton.Location = new System.Drawing.Point(296, 237);
+            this.deleteButton.Name = "delete3Button";
+            this.deleteButton.Size = new System.Drawing.Size(75, 23);
+            this.deleteButton.TabIndex = 58;
+            this.deleteButton.Text = "Delete";
+            this.deleteButton.UseVisualStyleBackColor = true;
             // 
             // edit3Button
             // 
-            this.edit3Button.Location = new System.Drawing.Point(215, 237);
-            this.edit3Button.Name = "edit3Button";
-            this.edit3Button.Size = new System.Drawing.Size(75, 23);
-            this.edit3Button.TabIndex = 57;
-            this.edit3Button.Text = "Edit";
-            this.edit3Button.UseVisualStyleBackColor = true;
+            this.editButton.Location = new System.Drawing.Point(215, 237);
+            this.editButton.Name = "edit3Button";
+            this.editButton.Size = new System.Drawing.Size(75, 23);
+            this.editButton.TabIndex = 57;
+            this.editButton.Text = "Edit";
+            this.editButton.UseVisualStyleBackColor = true;
             // 
             // add3Button
             // 
-            this.add3Button.Location = new System.Drawing.Point(134, 237);
-            this.add3Button.Name = "add3Button";
-            this.add3Button.Size = new System.Drawing.Size(75, 23);
-            this.add3Button.TabIndex = 56;
-            this.add3Button.Text = "Add";
-            this.add3Button.UseVisualStyleBackColor = true;
+            this.addButton.Location = new System.Drawing.Point(134, 237);
+            this.addButton.Name = "add3Button";
+            this.addButton.Size = new System.Drawing.Size(75, 23);
+            this.addButton.TabIndex = 56;
+            this.addButton.Text = "Add";
+            this.addButton.UseVisualStyleBackColor = true;
             // 
             // descriptionLabel
             // 
