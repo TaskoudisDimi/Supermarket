@@ -26,9 +26,9 @@ namespace SupermarketTuto.Forms
 
             //closeImage = Properties.Resources.Close;
 
-            List<string> language = new List<string>();
-            language.Add("Greek");
-            language.Add("English");
+            //List<string> language = new List<string>();
+            //language.Add("Greek");
+            //language.Add("English");
 
             //languageComboBox.DataSource = language;
         }

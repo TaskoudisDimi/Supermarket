@@ -58,73 +58,81 @@
             // totalLabel
             // 
             this.totalLabel.AutoSize = true;
-            this.totalLabel.Location = new System.Drawing.Point(13, 888);
+            this.totalLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.totalLabel.Location = new System.Drawing.Point(13, 951);
             this.totalLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.totalLabel.Name = "totalLabel";
-            this.totalLabel.Size = new System.Drawing.Size(48, 20);
+            this.totalLabel.Size = new System.Drawing.Size(74, 29);
             this.totalLabel.TabIndex = 114;
             this.totalLabel.Text = "Total:";
             // 
             // searchButton
             // 
-            this.searchButton.Location = new System.Drawing.Point(290, 313);
+            this.searchButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.searchButton.Location = new System.Drawing.Point(299, 313);
             this.searchButton.Margin = new System.Windows.Forms.Padding(4);
             this.searchButton.Name = "searchButton";
-            this.searchButton.Size = new System.Drawing.Size(96, 31);
+            this.searchButton.Size = new System.Drawing.Size(130, 35);
             this.searchButton.TabIndex = 113;
             this.searchButton.Text = "Search";
             this.searchButton.UseVisualStyleBackColor = true;
             // 
             // searchTextBox
             // 
-            this.searchTextBox.Location = new System.Drawing.Point(2, 315);
+            this.searchTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.searchTextBox.Location = new System.Drawing.Point(11, 315);
             this.searchTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.searchTextBox.Name = "searchTextBox";
-            this.searchTextBox.Size = new System.Drawing.Size(267, 26);
+            this.searchTextBox.Size = new System.Drawing.Size(267, 35);
             this.searchTextBox.TabIndex = 112;
             // 
             // dateLabel
             // 
             this.dateLabel.AutoSize = true;
-            this.dateLabel.Location = new System.Drawing.Point(1258, 667);
+            this.dateLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.dateLabel.Location = new System.Drawing.Point(1395, 677);
             this.dateLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.dateLabel.Name = "dateLabel";
-            this.dateLabel.Size = new System.Drawing.Size(99, 20);
+            this.dateLabel.Size = new System.Drawing.Size(157, 29);
             this.dateLabel.TabIndex = 111;
             this.dateLabel.Text = "Date of Birth";
             // 
             // toDateTimePicker
             // 
+            this.toDateTimePicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.toDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.toDateTimePicker.Location = new System.Drawing.Point(940, 323);
+            this.toDateTimePicker.Location = new System.Drawing.Point(867, 311);
             this.toDateTimePicker.Name = "toDateTimePicker";
-            this.toDateTimePicker.Size = new System.Drawing.Size(145, 26);
+            this.toDateTimePicker.Size = new System.Drawing.Size(174, 35);
             this.toDateTimePicker.TabIndex = 110;
             this.toDateTimePicker.ValueChanged += new System.EventHandler(this.toDateTimePicker_ValueChanged);
             // 
             // fromDateTimePicker
             // 
+            this.fromDateTimePicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.fromDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.fromDateTimePicker.Location = new System.Drawing.Point(743, 323);
+            this.fromDateTimePicker.Location = new System.Drawing.Point(673, 311);
             this.fromDateTimePicker.Name = "fromDateTimePicker";
-            this.fromDateTimePicker.Size = new System.Drawing.Size(151, 26);
+            this.fromDateTimePicker.Size = new System.Drawing.Size(177, 35);
             this.fromDateTimePicker.TabIndex = 109;
             this.fromDateTimePicker.ValueChanged += new System.EventHandler(this.fromDateTimePicker_ValueChanged_1);
             // 
             // dateTimePicker
             // 
+            this.dateTimePicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.dateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePicker.Location = new System.Drawing.Point(1382, 659);
+            this.dateTimePicker.Location = new System.Drawing.Point(1593, 677);
             this.dateTimePicker.Name = "dateTimePicker";
-            this.dateTimePicker.Size = new System.Drawing.Size(121, 26);
+            this.dateTimePicker.Size = new System.Drawing.Size(176, 35);
             this.dateTimePicker.TabIndex = 108;
             // 
             // uploadButton
             // 
-            this.uploadButton.Location = new System.Drawing.Point(1703, 585);
+            this.uploadButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.uploadButton.Location = new System.Drawing.Point(1928, 595);
             this.uploadButton.Margin = new System.Windows.Forms.Padding(4);
             this.uploadButton.Name = "uploadButton";
-            this.uploadButton.Size = new System.Drawing.Size(73, 39);
+            this.uploadButton.Size = new System.Drawing.Size(124, 39);
             this.uploadButton.TabIndex = 107;
             this.uploadButton.Text = "Upload";
             this.uploadButton.UseVisualStyleBackColor = true;
@@ -132,7 +140,7 @@
             // 
             // pictureBox
             // 
-            this.pictureBox.Location = new System.Drawing.Point(1620, 389);
+            this.pictureBox.Location = new System.Drawing.Point(1845, 399);
             this.pictureBox.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox.Name = "pictureBox";
             this.pictureBox.Size = new System.Drawing.Size(247, 187);
@@ -146,13 +154,13 @@
             this.SellDGV.BackgroundColor = System.Drawing.Color.WhiteSmoke;
             this.SellDGV.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.SellDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.SellDGV.Location = new System.Drawing.Point(13, 356);
+            this.SellDGV.Location = new System.Drawing.Point(18, 389);
             this.SellDGV.Margin = new System.Windows.Forms.Padding(4);
             this.SellDGV.Name = "SellDGV";
             this.SellDGV.RowHeadersWidth = 62;
             this.SellDGV.RowTemplate.Height = 30;
             this.SellDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.SellDGV.Size = new System.Drawing.Size(1072, 516);
+            this.SellDGV.Size = new System.Drawing.Size(1233, 516);
             this.SellDGV.TabIndex = 105;
             this.SellDGV.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.SellDGV_CellClick);
             this.SellDGV.MouseDown += new System.Windows.Forms.MouseEventHandler(this.SellDGV_MouseDown);
@@ -160,27 +168,30 @@
             // password2Label
             // 
             this.password2Label.AutoSize = true;
-            this.password2Label.Location = new System.Drawing.Point(1257, 602);
+            this.password2Label.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.password2Label.Location = new System.Drawing.Point(1394, 612);
             this.password2Label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.password2Label.Name = "password2Label";
-            this.password2Label.Size = new System.Drawing.Size(78, 20);
+            this.password2Label.Size = new System.Drawing.Size(128, 29);
             this.password2Label.TabIndex = 104;
             this.password2Label.Text = "Password";
             // 
             // SellPass
             // 
-            this.SellPass.Location = new System.Drawing.Point(1382, 598);
+            this.SellPass.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.SellPass.Location = new System.Drawing.Point(1593, 608);
             this.SellPass.Margin = new System.Windows.Forms.Padding(4);
             this.SellPass.Name = "SellPass";
-            this.SellPass.Size = new System.Drawing.Size(127, 26);
+            this.SellPass.Size = new System.Drawing.Size(176, 35);
             this.SellPass.TabIndex = 103;
             // 
             // delete2Button
             // 
-            this.delete2Button.Location = new System.Drawing.Point(1477, 789);
+            this.delete2Button.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.delete2Button.Location = new System.Drawing.Point(1614, 799);
             this.delete2Button.Margin = new System.Windows.Forms.Padding(4);
             this.delete2Button.Name = "delete2Button";
-            this.delete2Button.Size = new System.Drawing.Size(96, 31);
+            this.delete2Button.Size = new System.Drawing.Size(96, 47);
             this.delete2Button.TabIndex = 102;
             this.delete2Button.Text = "Delete";
             this.delete2Button.UseVisualStyleBackColor = true;
@@ -188,10 +199,11 @@
             // 
             // editButton
             // 
-            this.editButton.Location = new System.Drawing.Point(1359, 789);
+            this.editButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.editButton.Location = new System.Drawing.Point(1496, 799);
             this.editButton.Margin = new System.Windows.Forms.Padding(4);
             this.editButton.Name = "editButton";
-            this.editButton.Size = new System.Drawing.Size(96, 31);
+            this.editButton.Size = new System.Drawing.Size(96, 47);
             this.editButton.TabIndex = 101;
             this.editButton.Text = "Edit";
             this.editButton.UseVisualStyleBackColor = true;
@@ -199,10 +211,11 @@
             // 
             // addButton
             // 
-            this.addButton.Location = new System.Drawing.Point(1235, 789);
+            this.addButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.addButton.Location = new System.Drawing.Point(1372, 799);
             this.addButton.Margin = new System.Windows.Forms.Padding(4);
             this.addButton.Name = "addButton";
-            this.addButton.Size = new System.Drawing.Size(96, 31);
+            this.addButton.Size = new System.Drawing.Size(96, 47);
             this.addButton.TabIndex = 100;
             this.addButton.Text = "Add";
             this.addButton.UseVisualStyleBackColor = true;
@@ -211,73 +224,81 @@
             // phone2Label
             // 
             this.phone2Label.AutoSize = true;
-            this.phone2Label.Location = new System.Drawing.Point(1257, 554);
+            this.phone2Label.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.phone2Label.Location = new System.Drawing.Point(1394, 564);
             this.phone2Label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.phone2Label.Name = "phone2Label";
-            this.phone2Label.Size = new System.Drawing.Size(55, 20);
+            this.phone2Label.Size = new System.Drawing.Size(88, 29);
             this.phone2Label.TabIndex = 99;
             this.phone2Label.Text = "Phone";
             // 
             // age2Label
             // 
             this.age2Label.AutoSize = true;
-            this.age2Label.Location = new System.Drawing.Point(1271, 498);
+            this.age2Label.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.age2Label.Location = new System.Drawing.Point(1408, 508);
             this.age2Label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.age2Label.Name = "age2Label";
-            this.age2Label.Size = new System.Drawing.Size(38, 20);
+            this.age2Label.Size = new System.Drawing.Size(59, 29);
             this.age2Label.TabIndex = 98;
             this.age2Label.Text = "Age";
             // 
             // name2Label
             // 
             this.name2Label.AutoSize = true;
-            this.name2Label.Location = new System.Drawing.Point(1257, 450);
+            this.name2Label.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.name2Label.Location = new System.Drawing.Point(1394, 460);
             this.name2Label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.name2Label.Name = "name2Label";
-            this.name2Label.Size = new System.Drawing.Size(51, 20);
+            this.name2Label.Size = new System.Drawing.Size(82, 29);
             this.name2Label.TabIndex = 97;
             this.name2Label.Text = "Name";
             // 
             // id2label
             // 
             this.id2label.AutoSize = true;
-            this.id2label.Location = new System.Drawing.Point(1271, 389);
+            this.id2label.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.id2label.Location = new System.Drawing.Point(1408, 399);
             this.id2label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.id2label.Name = "id2label";
-            this.id2label.Size = new System.Drawing.Size(26, 20);
+            this.id2label.Size = new System.Drawing.Size(38, 29);
             this.id2label.TabIndex = 96;
             this.id2label.Text = "ID";
             // 
             // SellPhone
             // 
-            this.SellPhone.Location = new System.Drawing.Point(1382, 550);
+            this.SellPhone.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.SellPhone.Location = new System.Drawing.Point(1593, 560);
             this.SellPhone.Margin = new System.Windows.Forms.Padding(4);
             this.SellPhone.Name = "SellPhone";
-            this.SellPhone.Size = new System.Drawing.Size(127, 26);
+            this.SellPhone.Size = new System.Drawing.Size(176, 35);
             this.SellPhone.TabIndex = 95;
             // 
             // SellAge
             // 
-            this.SellAge.Location = new System.Drawing.Point(1382, 498);
+            this.SellAge.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.SellAge.Location = new System.Drawing.Point(1593, 508);
             this.SellAge.Margin = new System.Windows.Forms.Padding(4);
             this.SellAge.Name = "SellAge";
-            this.SellAge.Size = new System.Drawing.Size(127, 26);
+            this.SellAge.Size = new System.Drawing.Size(176, 35);
             this.SellAge.TabIndex = 94;
             // 
             // SellName
             // 
-            this.SellName.Location = new System.Drawing.Point(1382, 446);
+            this.SellName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.SellName.Location = new System.Drawing.Point(1593, 456);
             this.SellName.Margin = new System.Windows.Forms.Padding(4);
             this.SellName.Name = "SellName";
-            this.SellName.Size = new System.Drawing.Size(127, 26);
+            this.SellName.Size = new System.Drawing.Size(176, 35);
             this.SellName.TabIndex = 93;
             // 
             // SellId
             // 
-            this.SellId.Location = new System.Drawing.Point(1382, 389);
+            this.SellId.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.SellId.Location = new System.Drawing.Point(1593, 399);
             this.SellId.Margin = new System.Windows.Forms.Padding(4);
             this.SellId.Name = "SellId";
-            this.SellId.Size = new System.Drawing.Size(127, 26);
+            this.SellId.Size = new System.Drawing.Size(176, 35);
             this.SellId.TabIndex = 92;
             // 
             // Seller

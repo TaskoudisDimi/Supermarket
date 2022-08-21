@@ -32,10 +32,10 @@
             this.productsButton = new System.Windows.Forms.Button();
             this.categoriesButton = new System.Windows.Forms.Button();
             this.sellersButton = new System.Windows.Forms.Button();
-            this.languageLabel = new System.Windows.Forms.Label();
-            this.languageComboBox = new System.Windows.Forms.ComboBox();
             this.mainPanel = new System.Windows.Forms.Panel();
+            this.welcome = new System.Windows.Forms.Label();
             this.sidePanel.SuspendLayout();
+            this.mainPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // sidePanel
@@ -78,6 +78,7 @@
             // sellersButton
             // 
             this.sellersButton.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.sellersButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.sellersButton.Location = new System.Drawing.Point(27, 142);
             this.sellersButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.sellersButton.Name = "sellersButton";
@@ -87,32 +88,24 @@
             this.sellersButton.UseVisualStyleBackColor = false;
             this.sellersButton.Click += new System.EventHandler(this.sellersButton_Click);
             // 
-            // languageLabel
-            // 
-            this.languageLabel.AutoSize = true;
-            this.languageLabel.Location = new System.Drawing.Point(1747, 19);
-            this.languageLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.languageLabel.Name = "languageLabel";
-            this.languageLabel.Size = new System.Drawing.Size(81, 20);
-            this.languageLabel.TabIndex = 8;
-            this.languageLabel.Text = "Language";
-            // 
-            // languageComboBox
-            // 
-            this.languageComboBox.FormattingEnabled = true;
-            this.languageComboBox.Location = new System.Drawing.Point(1868, 13);
-            this.languageComboBox.Margin = new System.Windows.Forms.Padding(4);
-            this.languageComboBox.Name = "languageComboBox";
-            this.languageComboBox.Size = new System.Drawing.Size(107, 28);
-            this.languageComboBox.TabIndex = 7;
-            // 
             // mainPanel
             // 
+            this.mainPanel.Controls.Add(this.welcome);
             this.mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainPanel.Location = new System.Drawing.Point(270, 0);
             this.mainPanel.Name = "mainPanel";
             this.mainPanel.Size = new System.Drawing.Size(2104, 1269);
             this.mainPanel.TabIndex = 9;
+            // 
+            // welcome
+            // 
+            this.welcome.AutoSize = true;
+            this.welcome.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.welcome.Location = new System.Drawing.Point(798, 78);
+            this.welcome.Name = "welcome";
+            this.welcome.Size = new System.Drawing.Size(158, 45);
+            this.welcome.TabIndex = 0;
+            this.welcome.Text = "Welcome";
             // 
             // Main
             // 
@@ -120,8 +113,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(2374, 1269);
             this.Controls.Add(this.mainPanel);
-            this.Controls.Add(this.languageLabel);
-            this.Controls.Add(this.languageComboBox);
             this.Controls.Add(this.sidePanel);
             this.Name = "Main";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -130,6 +121,8 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.sidePanel.ResumeLayout(false);
+            this.mainPanel.ResumeLayout(false);
+            this.mainPanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -141,8 +134,7 @@
         private Button productsButton;
         private Button categoriesButton;
         private Button sellersButton;
-        private Label languageLabel;
-        private ComboBox languageComboBox;
         private Panel mainPanel;
+        private Label welcome;
     }
 }

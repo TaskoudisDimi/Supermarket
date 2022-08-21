@@ -11,6 +11,7 @@ using System.Data.SqlClient;
 using SupermarketTuto.DataAccess;
 using Squirrel;
 using System.Diagnostics;
+using SupermarketTuto.Forms;
 
 namespace SupermarketTuto
 {
@@ -78,7 +79,7 @@ namespace SupermarketTuto
                 if (selectRoleCombobox.SelectedItem == "Admin")
                 {
 
-                    Products products = new Products();
+                    Product products = new Product();
                     products.Show();
                     this.Hide();
                 }
