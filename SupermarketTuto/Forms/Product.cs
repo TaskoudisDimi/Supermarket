@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SupermarketTuto.DataAccess;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,20 +8,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Data.SqlClient;
-using SupermarketTuto.DataAccess;
-using SupermarketTuto.Forms;
 
-namespace SupermarketTuto
+namespace SupermarketTuto.Forms
 {
-    public partial class Products : Form
+    public partial class Product : Form
     {
-        SqlConnect loaddata = new SqlConnect();
-
-        public Products()
+        public Product()
         {
             InitializeComponent();
-        }       
+        }
 
         private void fillCombo()
         {
@@ -29,7 +25,7 @@ namespace SupermarketTuto
             //This method will bind the Combobox with the Database
             loaddata2.retrieveData("Select CatName From CategoryTbl");
             CatCb.DataSource = loaddata2.table;
-            CatCb.ValueMember = "CatName";
+            //CatCb.ValueMember = "CatName";
             CatCb.SelectedItem = null;
             CatCb.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             CatCb.AutoCompleteSource = AutoCompleteSource.ListItems;
@@ -45,107 +41,6 @@ namespace SupermarketTuto
             totalLabel.Text = $"Total: {ProdDGV.RowCount}";
         }
 
-        private void MainMenu()
-        {
-            MenuStrip menu = new MenuStrip();
-
-            this.Controls.Add(menu);
-
-            string[] items = new string[] { "File", "About" };
-            foreach (string Row in items)
-            {
-                ToolStripMenuItem MnuStripItem = new ToolStripMenuItem(Row);
-                menu.Items.Add(MnuStripItem);
-                SubMenu(MnuStripItem, Row);
-
-                if (MnuStripItem.Text == "About")
-                {
-                    MnuStripItem.Click += new EventHandler(MnuStripAbout_Click);
-                }
-
-            }
-
-        }
-
-        private void SubMenu(ToolStripMenuItem items, string var)
-        {
-            if (var == "File")
-            {
-                string[] subItem = new string[] { "Users", "BackUp", "Exit" };
-                foreach (string Row in subItem)
-                {
-                    ToolStripMenuItem subMenuItem = new ToolStripMenuItem(Row, null);
-                    SubMenu(subMenuItem, Row);
-                    items.DropDownItems.Add(subMenuItem);
-                    if (subMenuItem.Text == "Users")
-                    {
-                        subMenuItem.Click += new EventHandler(MnuStripUsers_Click);
-                    }
-                    else if (subMenuItem.Text == "BackUp")
-                    {
-                        subMenuItem.Click += new EventHandler(MnuStripDb_Click);
-                    }
-                    else if (subMenuItem.Text == "Exit")
-                    {
-                        subMenuItem.Click += new EventHandler(MnuStripExit_Click);
-                    }
-                }
-            }
-
-        }
-
-        private void MnuStripUsers_Click(object sender, EventArgs e)
-        {
-            Users users = new Users();
-            users.Show();
-        }
-
-        private void MnuStripExit_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
-
-        private void MnuStripAbout_Click(object sender, EventArgs e)
-        {
-            About about = new About();
-            about.ShowDialog();
-        }
-
-        private void MnuStripDb_Click(object sender, EventArgs e)
-        {
-
-            SqlConnect db = new SqlConnect();
-            string path = "";
-
-            FolderBrowserDialog dialog = new FolderBrowserDialog();
-            DialogResult result = dialog.ShowDialog();
-            if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(dialog.SelectedPath))
-            {
-                path = dialog.SelectedPath;
-                db.backup(path);
-            }
-            else
-            {
-                return;
-            }
-        }
-
-        private void ProductsForm_Load(object sender, EventArgs e)
-        {
-            fillCombo();
-            display();
-            MainMenu();
-
-            ContextMenuStrip mnu = new ContextMenuStrip();
-            ToolStripMenuItem mnuDelete = new ToolStripMenuItem("Delete");
-            //Assign event handlers
-            mnuDelete.Click += new EventHandler(mnuDelete_Click);
-            //Add to main context menu
-            mnu.Items.AddRange(new ToolStripItem[] { mnuDelete});
-            //Assign to datagridview
-            ProdDGV.ContextMenuStrip = mnu;
-        }
-
         private void mnuDelete_Click(object? sender, EventArgs e)
         {
             SqlConnect loaddata4 = new SqlConnect();
@@ -155,8 +50,33 @@ namespace SupermarketTuto
             foreach (DataGridViewRow row in ProdDGV.SelectedRows)
             {
                 ProdDGV.Rows.RemoveAt(row.Index);
-                                    
+
             }
+        }
+
+
+        private void CatCb_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            SqlConnect loaddata9 = new SqlConnect();
+
+            loaddata9.retrieveData("Select * from ProductTbl Where ProdCat='" + CatCb.SelectedValue.ToString() + "'");
+            ProdDGV.DataSource = loaddata9.table;
+        }
+
+        private void Product_Load(object sender, EventArgs e)
+        {
+            fillCombo();
+            display();
+
+
+            ContextMenuStrip mnu = new ContextMenuStrip();
+            ToolStripMenuItem mnuDelete = new ToolStripMenuItem("Delete");
+            //Assign event handlers
+            mnuDelete.Click += new EventHandler(mnuDelete_Click);
+            //Add to main context menu
+            mnu.Items.AddRange(new ToolStripItem[] { mnuDelete });
+            //Assign to datagridview
+            ProdDGV.ContextMenuStrip = mnu;
         }
 
         private void addButton_Click(object sender, EventArgs e)
@@ -219,8 +139,6 @@ namespace SupermarketTuto
         private void deleteButton_Click(object sender, EventArgs e)
         {
             SqlConnect loaddata7 = new SqlConnect();
-
-
             try
             {
                 if (ProdId.Text == "")
@@ -246,53 +164,6 @@ namespace SupermarketTuto
             }
         }
 
-        private void ProdDGV_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void CatCb_SelectionChangeCommitted(object sender, EventArgs e)
-        {
-            SqlConnect loaddata9 = new SqlConnect();
-
-            loaddata9.retrieveData("Select * from ProductTbl Where ProdCat='" + CatCb.SelectedValue.ToString() + "'");
-            ProdDGV.DataSource = loaddata9.table;
-
-
-        }
-
-        private void sellerButton_Click(object sender, EventArgs e)
-        {
-            SellerForm sellerForm = new SellerForm();
-            sellerForm.Show();
-            this.Hide();
-
-        }
-
-
-        private void logOutLabel_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-            LogIn login = new LogIn();
-            login.Show();
-        }
-
-        private void categoriesButton_Click(object sender, EventArgs e)
-        {
-            CategoryForm categoryForm = new CategoryForm();
-            categoryForm.Show();
-            this.Hide();
-        }
-
-        private void ProductsForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            DialogResult confirm = MessageBox.Show("Confirm to close", "Exit", MessageBoxButtons.YesNo);
-            if (confirm == DialogResult.No)
-            {
-                e.Cancel = true;
-            }
-        }
-
         private void ProdDGV_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             ProdId.Text = ProdDGV.SelectedRows[0].Cells[0].Value.ToString();
@@ -306,21 +177,6 @@ namespace SupermarketTuto
         {
             SqlConnect loaddata10 = new SqlConnect();
             loaddata10.retrieveData("Select * From ProductTbl");
-
-        }
-
-        private void CatCb_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void searchButton_Click(object sender, EventArgs e)
-        {
-            SqlConnect db = new SqlConnect();
-            db.search(searchTextBox.Text);
-            ProdDGV.DataSource = db.table;
-            totalLabel.Text = $"Total: {ProdDGV.RowCount}";
-
         }
 
         private void searchTextBox_KeyPress(object sender, KeyPressEventArgs e)
@@ -330,7 +186,13 @@ namespace SupermarketTuto
                 searchButton.PerformClick();
             }
         }
+
+        private void searchButton_Click(object sender, EventArgs e)
+        {
+            SqlConnect db = new SqlConnect();
+            db.search(searchTextBox.Text);
+            ProdDGV.DataSource = db.table;
+            totalLabel.Text = $"Total: {ProdDGV.RowCount}";
+        }
     }
 }
-
-

@@ -13,19 +13,15 @@ namespace SupermarketTuto.Forms
 {
     public partial class Main : Form
     {
-        private System.Windows.Forms.TabControl tabControl;
-        Image closeImage;
-        Point imagelocation = new Point(20, 4);
-        Point imageHitArea = new Point(20, 4);
-
         public Main()
         {
             InitializeComponent();
         }
 
-        private void Main_Load(object sender, EventArgs e)
-        {
 
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
             MainMenu();
 
             //closeImage = Properties.Resources.Close;
@@ -34,12 +30,9 @@ namespace SupermarketTuto.Forms
             language.Add("Greek");
             language.Add("English");
 
-            languageComboBox.DataSource = language;
-
-
-
-
+            //languageComboBox.DataSource = language;
         }
+
 
         private void MainMenu()
         {
@@ -137,22 +130,9 @@ namespace SupermarketTuto.Forms
             }
         }
 
-        private void sellersButton_Click(object sender, EventArgs e)
-        {
-            Sellers form = new Sellers();
-            form.TopLevel = false;
-            form.TopMost = true;
-            mainPanel.Controls.Add(form);
-            form.BringToFront();
-            form.Show();
-
-
-        }
-
         private void categoriesButton_Click(object sender, EventArgs e)
         {
-
-            Categories form = new Categories();
+            Category form = new Category();
             form.TopLevel = false;
             form.TopMost = true;
             mainPanel.Controls.Add(form);
@@ -163,33 +143,32 @@ namespace SupermarketTuto.Forms
 
         private void productsButton_Click(object sender, EventArgs e)
         {
-
-            Products form = new Products();
+            Product form = new Product();
             form.TopLevel = false;
             form.TopMost = true;
             mainPanel.Controls.Add(form);
             form.BringToFront();
 
             form.Show();
-
-
         }
 
-        private void languageLabel_Click(object sender, EventArgs e)
+        private void sellersButton_Click(object sender, EventArgs e)
         {
-
+            Seller form = new Seller();
+            form.TopLevel = false;
+            form.TopMost = true;
+            mainPanel.Controls.Add(form);
+            form.BringToFront();
+            form.Show();
         }
 
-
-
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            DialogResult confirm = MessageBox.Show("Confirm to close", "Exit", MessageBoxButtons.YesNo);
+            if (confirm == DialogResult.No)
+            {
+                e.Cancel = true;
+            }
+        }
     }
-
-    //private void Main_FormClosing(object sender, FormClosingEventArgs e)
-    //{
-    //    DialogResult confirm = MessageBox.Show("Confirm to close", "Exit", MessageBoxButtons.YesNo);
-    //    if (confirm == DialogResult.No)
-    //    {
-    //        e.Cancel = true;
-    //    }
-    //}
 }

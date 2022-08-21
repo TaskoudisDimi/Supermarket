@@ -11,25 +11,28 @@ using System.Windows.Forms;
 
 namespace SupermarketTuto.Forms
 {
-    public partial class Sellers : Form
+    public partial class Seller : Form
     {
-        public Sellers()
+        public Seller()
         {
             InitializeComponent();
             display();
-
         }
+
 
         private void display()
         {
             SqlConnect loaddata1 = new SqlConnect();
 
-            loaddata1.retrieveData("Select * From SellerTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'");
+            //loaddata1.retrieveData("Select * From SellerTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'");
+            loaddata1.retrieveData("Select * From SellerTbl");
+
             SellDGV.DataSource = loaddata1.table;
 
 
         }
-        private void Sellers_Load(object sender, EventArgs e)
+
+        private void Seller_Load(object sender, EventArgs e)
         {
             display();
             ContextMenuStrip mnu = new ContextMenuStrip();
@@ -41,7 +44,6 @@ namespace SupermarketTuto.Forms
             //Assign to datagridview
             SellDGV.ContextMenuStrip = mnu;
         }
-
         private void mnuDelete_Click(object? sender, EventArgs e)
         {
             SqlConnect loaddata2 = new SqlConnect();
@@ -55,20 +57,9 @@ namespace SupermarketTuto.Forms
             }
         }
 
-        private void sellerDelete_Click(object sender, EventArgs e)
+        private void add2Button_Click(object sender, EventArgs e)
         {
-            SqlConnect loaddata6 = new SqlConnect();
 
-            loaddata6.commandExc("Delete From Items Where SellerId=" + SellDGV.CurrentRow.Cells[0].Value.ToString() + "");
-
-            foreach (DataGridViewRow row in SellDGV.Rows)
-            {
-                SellDGV.Rows.RemoveAt(row.Index);
-            }
-        }
-
-        private void addButton_Click(object sender, EventArgs e)
-        {
             SqlConnect loaddata5 = new SqlConnect();
             try
             {
@@ -79,7 +70,6 @@ namespace SupermarketTuto.Forms
                 else
                 {
                     loaddata5.commandExc("Insert Into SellerTbl values(" + SellId.Text + ",'" + SellName.Text + "'," + SellAge.Text + "," + SellPhone.Text + ",'" + SellPass.Text + "','" + dateTimePicker.Value.ToString("MM-dd-yyyy") + "')");
-                    MessageBox.Show("Seller added successfuly");
 
                     //SqlConnection con = new SqlConnection("Data Source=.; Initial Catalog=smarketdb;Integrated Security=True;");
                     //SqlCommand cmd = new SqlCommand("Insert Into Test (Photo) Values(@pic)", con);
@@ -106,7 +96,7 @@ namespace SupermarketTuto.Forms
             }
         }
 
-        private void editButton_Click(object sender, EventArgs e)
+        private void editButton_Click_1(object sender, EventArgs e)
         {
             SqlConnect loaddata3 = new SqlConnect();
             try
@@ -135,7 +125,7 @@ namespace SupermarketTuto.Forms
             }
         }
 
-        private void deleteButton_Click(object sender, EventArgs e)
+        private void delete2Button_Click(object sender, EventArgs e)
         {
             SqlConnect loaddata4 = new SqlConnect();
 
@@ -164,7 +154,19 @@ namespace SupermarketTuto.Forms
             }
         }
 
-        private void uploadButton_Click(object sender, EventArgs e)
+        private void fromDateTimePicker_ValueChanged_1(object sender, EventArgs e)
+        {
+            display();
+        }
+
+        private void toDateTimePicker_ValueChanged(object sender, EventArgs e)
+        {
+            display();
+        }
+
+
+
+        private void uploadButton_Click_1(object sender, EventArgs e)
         {
             Stream myStream = null;
 
@@ -210,20 +212,10 @@ namespace SupermarketTuto.Forms
         {
             ContextMenuStrip menu = new ContextMenuStrip();
             ToolStripMenuItem sellerDelete = new ToolStripMenuItem("Delete");
-            sellerDelete.Click += new EventHandler(sellerDelete_Click);
+            sellerDelete.Click += new EventHandler(mnuDelete_Click);
             menu.Items.AddRange(new ToolStripItem[] { sellerDelete });
             SellDGV.ContextMenuStrip = menu;
             SellDGV.AllowUserToAddRows = false;
-        }
-
-        private void fromDateTimePicker_ValueChanged(object sender, EventArgs e)
-        {
-            display();
-        }
-
-        private void toDateTimePicker_ValueChanged(object sender, EventArgs e)
-        {
-            display();
         }
     }
 }

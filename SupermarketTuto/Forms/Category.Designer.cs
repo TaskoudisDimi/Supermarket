@@ -1,0 +1,282 @@
+﻿namespace SupermarketTuto.Forms
+{
+    partial class Category
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.dateLabel = new System.Windows.Forms.Label();
+            this.dateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.deleteButton = new System.Windows.Forms.Button();
+            this.editButton = new System.Windows.Forms.Button();
+            this.addButton = new System.Windows.Forms.Button();
+            this.totalLabel = new System.Windows.Forms.Label();
+            this.searchButton = new System.Windows.Forms.Button();
+            this.searchTextBox = new System.Windows.Forms.TextBox();
+            this.toDateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.fromDateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.refreshButton = new System.Windows.Forms.Button();
+            this.CatDGV = new System.Windows.Forms.DataGridView();
+            this.descriptionLabel = new System.Windows.Forms.Label();
+            this.name3Label = new System.Windows.Forms.Label();
+            this.id3label = new System.Windows.Forms.Label();
+            this.CatDescTb = new System.Windows.Forms.TextBox();
+            this.CatNameTb = new System.Windows.Forms.TextBox();
+            this.CatIdTb = new System.Windows.Forms.TextBox();
+            ((System.ComponentModel.ISupportInitialize)(this.CatDGV)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // dateLabel
+            // 
+            this.dateLabel.AutoSize = true;
+            this.dateLabel.Location = new System.Drawing.Point(1531, 547);
+            this.dateLabel.Name = "dateLabel";
+            this.dateLabel.Size = new System.Drawing.Size(44, 20);
+            this.dateLabel.TabIndex = 89;
+            this.dateLabel.Text = "Date";
+            // 
+            // dateTimePicker
+            // 
+            this.dateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateTimePicker.Location = new System.Drawing.Point(1682, 541);
+            this.dateTimePicker.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.dateTimePicker.Name = "dateTimePicker";
+            this.dateTimePicker.Size = new System.Drawing.Size(141, 26);
+            this.dateTimePicker.TabIndex = 88;
+            // 
+            // deleteButton
+            // 
+            this.deleteButton.Location = new System.Drawing.Point(1704, 690);
+            this.deleteButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.deleteButton.Name = "deleteButton";
+            this.deleteButton.Size = new System.Drawing.Size(68, 34);
+            this.deleteButton.TabIndex = 87;
+            this.deleteButton.Text = "Delete";
+            this.deleteButton.UseVisualStyleBackColor = true;
+            this.deleteButton.Click += new System.EventHandler(this.deleteButton_Click);
+            // 
+            // editButton
+            // 
+            this.editButton.Location = new System.Drawing.Point(1601, 690);
+            this.editButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.editButton.Name = "editButton";
+            this.editButton.Size = new System.Drawing.Size(68, 34);
+            this.editButton.TabIndex = 86;
+            this.editButton.Text = "Edit";
+            this.editButton.UseVisualStyleBackColor = true;
+            this.editButton.Click += new System.EventHandler(this.editButton_Click);
+            // 
+            // addButton
+            // 
+            this.addButton.Location = new System.Drawing.Point(1507, 690);
+            this.addButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.addButton.Name = "addButton";
+            this.addButton.Size = new System.Drawing.Size(68, 34);
+            this.addButton.TabIndex = 85;
+            this.addButton.Text = "Add";
+            this.addButton.UseVisualStyleBackColor = true;
+            this.addButton.Click += new System.EventHandler(this.addButton_Click);
+            // 
+            // totalLabel
+            // 
+            this.totalLabel.AutoSize = true;
+            this.totalLabel.Location = new System.Drawing.Point(281, 858);
+            this.totalLabel.Name = "totalLabel";
+            this.totalLabel.Size = new System.Drawing.Size(48, 20);
+            this.totalLabel.TabIndex = 84;
+            this.totalLabel.Text = "Total:";
+            // 
+            // searchButton
+            // 
+            this.searchButton.Location = new System.Drawing.Point(484, 272);
+            this.searchButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.searchButton.Name = "searchButton";
+            this.searchButton.Size = new System.Drawing.Size(96, 27);
+            this.searchButton.TabIndex = 83;
+            this.searchButton.Text = "Search";
+            this.searchButton.UseVisualStyleBackColor = true;
+            // 
+            // searchTextBox
+            // 
+            this.searchTextBox.Location = new System.Drawing.Point(274, 272);
+            this.searchTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.searchTextBox.Name = "searchTextBox";
+            this.searchTextBox.Size = new System.Drawing.Size(192, 26);
+            this.searchTextBox.TabIndex = 82;
+            // 
+            // toDateTimePicker
+            // 
+            this.toDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.toDateTimePicker.Location = new System.Drawing.Point(771, 272);
+            this.toDateTimePicker.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.toDateTimePicker.Name = "toDateTimePicker";
+            this.toDateTimePicker.Size = new System.Drawing.Size(122, 26);
+            this.toDateTimePicker.TabIndex = 81;
+            // 
+            // fromDateTimePicker
+            // 
+            this.fromDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.fromDateTimePicker.Location = new System.Drawing.Point(622, 273);
+            this.fromDateTimePicker.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.fromDateTimePicker.Name = "fromDateTimePicker";
+            this.fromDateTimePicker.Size = new System.Drawing.Size(122, 26);
+            this.fromDateTimePicker.TabIndex = 80;
+            // 
+            // refreshButton
+            // 
+            this.refreshButton.Location = new System.Drawing.Point(1253, 268);
+            this.refreshButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.refreshButton.Name = "refreshButton";
+            this.refreshButton.Size = new System.Drawing.Size(96, 30);
+            this.refreshButton.TabIndex = 79;
+            this.refreshButton.Text = "Refresh";
+            this.refreshButton.UseVisualStyleBackColor = true;
+            this.refreshButton.Click += new System.EventHandler(this.refreshButton_Click);
+            // 
+            // CatDGV
+            // 
+            this.CatDGV.AllowUserToAddRows = false;
+            this.CatDGV.BackgroundColor = System.Drawing.Color.WhiteSmoke;
+            this.CatDGV.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.CatDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.CatDGV.Location = new System.Drawing.Point(274, 317);
+            this.CatDGV.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.CatDGV.Name = "CatDGV";
+            this.CatDGV.RowHeadersWidth = 62;
+            this.CatDGV.RowTemplate.Height = 30;
+            this.CatDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.CatDGV.Size = new System.Drawing.Size(1097, 525);
+            this.CatDGV.TabIndex = 78;
+            this.CatDGV.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.CatDGV_CellClick);
+            this.CatDGV.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.CatDGV_CellMouseUp);
+            this.CatDGV.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.CatDGV_CellValidating);
+            // 
+            // descriptionLabel
+            // 
+            this.descriptionLabel.AutoSize = true;
+            this.descriptionLabel.Location = new System.Drawing.Point(1503, 473);
+            this.descriptionLabel.Name = "descriptionLabel";
+            this.descriptionLabel.Size = new System.Drawing.Size(89, 20);
+            this.descriptionLabel.TabIndex = 77;
+            this.descriptionLabel.Text = "Description";
+            // 
+            // name3Label
+            // 
+            this.name3Label.AutoSize = true;
+            this.name3Label.Location = new System.Drawing.Point(1524, 437);
+            this.name3Label.Name = "name3Label";
+            this.name3Label.Size = new System.Drawing.Size(51, 20);
+            this.name3Label.TabIndex = 76;
+            this.name3Label.Text = "Name";
+            // 
+            // id3label
+            // 
+            this.id3label.AutoSize = true;
+            this.id3label.Location = new System.Drawing.Point(1531, 395);
+            this.id3label.Name = "id3label";
+            this.id3label.Size = new System.Drawing.Size(26, 20);
+            this.id3label.TabIndex = 75;
+            this.id3label.Text = "ID";
+            // 
+            // CatDescTb
+            // 
+            this.CatDescTb.Location = new System.Drawing.Point(1645, 473);
+            this.CatDescTb.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.CatDescTb.Name = "CatDescTb";
+            this.CatDescTb.Size = new System.Drawing.Size(127, 26);
+            this.CatDescTb.TabIndex = 74;
+            // 
+            // CatNameTb
+            // 
+            this.CatNameTb.Location = new System.Drawing.Point(1645, 437);
+            this.CatNameTb.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.CatNameTb.Name = "CatNameTb";
+            this.CatNameTb.Size = new System.Drawing.Size(127, 26);
+            this.CatNameTb.TabIndex = 73;
+            // 
+            // CatIdTb
+            // 
+            this.CatIdTb.Location = new System.Drawing.Point(1645, 395);
+            this.CatIdTb.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.CatIdTb.Name = "CatIdTb";
+            this.CatIdTb.Size = new System.Drawing.Size(127, 26);
+            this.CatIdTb.TabIndex = 72;
+            // 
+            // Category
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(2096, 1146);
+            this.ControlBox = false;
+            this.Controls.Add(this.dateLabel);
+            this.Controls.Add(this.dateTimePicker);
+            this.Controls.Add(this.deleteButton);
+            this.Controls.Add(this.editButton);
+            this.Controls.Add(this.addButton);
+            this.Controls.Add(this.totalLabel);
+            this.Controls.Add(this.searchButton);
+            this.Controls.Add(this.searchTextBox);
+            this.Controls.Add(this.toDateTimePicker);
+            this.Controls.Add(this.fromDateTimePicker);
+            this.Controls.Add(this.refreshButton);
+            this.Controls.Add(this.CatDGV);
+            this.Controls.Add(this.descriptionLabel);
+            this.Controls.Add(this.name3Label);
+            this.Controls.Add(this.id3label);
+            this.Controls.Add(this.CatDescTb);
+            this.Controls.Add(this.CatNameTb);
+            this.Controls.Add(this.CatIdTb);
+            this.Name = "Category";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Load += new System.EventHandler(this.Category_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.CatDGV)).EndInit();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+
+        #endregion
+
+        private Label dateLabel;
+        private DateTimePicker dateTimePicker;
+        private Button deleteButton;
+        private Button editButton;
+        private Button addButton;
+        private Label totalLabel;
+        private Button searchButton;
+        private TextBox searchTextBox;
+        private DateTimePicker toDateTimePicker;
+        private DateTimePicker fromDateTimePicker;
+        private Button refreshButton;
+        private DataGridView CatDGV;
+        private Label descriptionLabel;
+        private Label name3Label;
+        private Label id3label;
+        private TextBox CatDescTb;
+        private TextBox CatNameTb;
+        private TextBox CatIdTb;
+    }
+}

@@ -11,13 +11,12 @@ using System.Windows.Forms;
 
 namespace SupermarketTuto.Forms
 {
-    public partial class Categories : Form
+    public partial class Category : Form
     {
-
 
         private int rowIndex = 0;
 
-        public Categories()
+        public Category()
         {
             InitializeComponent();
         }
@@ -49,7 +48,14 @@ namespace SupermarketTuto.Forms
             }
         }
 
-        private void Categories_Load_1(object sender, EventArgs e)
+        private void logOutLabel_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            LogIn login = new LogIn();
+            login.Show();
+        }
+
+        private void Category_Load(object sender, EventArgs e)
         {
             display();
             ContextMenuStrip mnu = new ContextMenuStrip();
@@ -59,7 +65,7 @@ namespace SupermarketTuto.Forms
             CatDGV.ContextMenuStrip = mnu;
         }
 
-        private void CatDGV_CellMouseUp_1(object sender, DataGridViewCellMouseEventArgs e)
+        private void CatDGV_CellMouseUp(object sender, DataGridViewCellMouseEventArgs e)
         {
             //if (e.Button == MouseButtons.Right)
             //{
@@ -71,7 +77,7 @@ namespace SupermarketTuto.Forms
             //}
         }
 
-        private void CatDGV_CellValidating_1(object sender, DataGridViewCellValidatingEventArgs e)
+        private void CatDGV_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
         {
             //CatDGV.Rows[e.RowIndex].ErrorText = "";
             //int newInteger;
@@ -88,9 +94,8 @@ namespace SupermarketTuto.Forms
             //}
         }
 
-        private void CatDGV_CellClick_1(object sender, DataGridViewCellEventArgs e)
+        private void CatDGV_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-
             CatIdTb.Text = CatDGV.SelectedRows[0].Cells[0].Value.ToString();
             CatNameTb.Text = CatDGV.SelectedRows[0].Cells[1].Value.ToString();
             CatDescTb.Text = CatDGV.SelectedRows[0].Cells[2].Value.ToString();
@@ -99,10 +104,6 @@ namespace SupermarketTuto.Forms
         private void refreshButton_Click(object sender, EventArgs e)
         {
             display();
-        }
-
-        private void searchButton_Click_1(object sender, EventArgs e)
-        {
 
         }
 
@@ -134,7 +135,7 @@ namespace SupermarketTuto.Forms
             }
         }
 
-        private void editButton_Click_1(object sender, EventArgs e)
+        private void editButton_Click(object sender, EventArgs e)
         {
             SqlConnect loaddata6 = new SqlConnect();
 
@@ -162,7 +163,7 @@ namespace SupermarketTuto.Forms
             }
         }
 
-        private void deleteButton_Click_1(object sender, EventArgs e)
+        private void deleteButton_Click(object sender, EventArgs e)
         {
             SqlConnect loaddata5 = new SqlConnect();
 
@@ -190,15 +191,5 @@ namespace SupermarketTuto.Forms
                 MessageBox.Show(ex.Message);
             }
         }
-
-
-        private void logOutLabel_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-            LogIn login = new LogIn();
-            login.Show();
-        }
-
-
     }
 }
