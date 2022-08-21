@@ -99,11 +99,6 @@ namespace SupermarketTuto
                 MessageBox.Show("Error!");
             }
 
-
-
-
-
-
         }
 
         private void CreateAccountButton_Click(object sender, EventArgs e)

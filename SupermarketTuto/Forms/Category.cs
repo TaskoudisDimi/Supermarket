@@ -27,8 +27,8 @@ namespace SupermarketTuto.Forms
 
             SqlConnect loaddata = new SqlConnect();
 
-            //loaddata.retrieveData("Select * From CategoryTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'");
-            loaddata.retrieveData("Select * From CategoryTbl");
+            loaddata.retrieveData("Select * From CategoryTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'");
+            //loaddata.retrieveData("Select * From CategoryTbl");
 
             CatDGV.DataSource = loaddata.table;
 
@@ -189,6 +189,22 @@ namespace SupermarketTuto.Forms
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void searchButton_Click(object sender, EventArgs e)
+        {
+            SqlConnect db_sellers = new SqlConnect();
+            db_sellers.search(searchTextBox.Text);
+            CatDGV.DataSource = db_sellers.table;
+            totalLabel.Text = $"Total: {CatDGV.RowCount}";
+        }
+
+        private void searchButton_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)13)
+            {
+                searchButton.PerformClick();
             }
         }
     }

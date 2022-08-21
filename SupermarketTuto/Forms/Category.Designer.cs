@@ -53,7 +53,7 @@
             // 
             this.dateLabel.AutoSize = true;
             this.dateLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.dateLabel.Location = new System.Drawing.Point(1583, 601);
+            this.dateLabel.Location = new System.Drawing.Point(1459, 684);
             this.dateLabel.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.dateLabel.Name = "dateLabel";
             this.dateLabel.Size = new System.Drawing.Size(67, 32);
@@ -64,7 +64,7 @@
             // 
             this.dateTimePicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.dateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePicker.Location = new System.Drawing.Point(1771, 601);
+            this.dateTimePicker.Location = new System.Drawing.Point(1647, 684);
             this.dateTimePicker.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.dateTimePicker.Name = "dateTimePicker";
             this.dateTimePicker.Size = new System.Drawing.Size(273, 35);
@@ -73,10 +73,10 @@
             // deleteButton
             // 
             this.deleteButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.deleteButton.Location = new System.Drawing.Point(1885, 765);
+            this.deleteButton.Location = new System.Drawing.Point(1661, 901);
             this.deleteButton.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.deleteButton.Name = "deleteButton";
-            this.deleteButton.Size = new System.Drawing.Size(162, 55);
+            this.deleteButton.Size = new System.Drawing.Size(111, 40);
             this.deleteButton.TabIndex = 87;
             this.deleteButton.Text = "Delete";
             this.deleteButton.UseVisualStyleBackColor = true;
@@ -85,10 +85,10 @@
             // editButton
             // 
             this.editButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.editButton.Location = new System.Drawing.Point(1728, 765);
+            this.editButton.Location = new System.Drawing.Point(1545, 901);
             this.editButton.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.editButton.Name = "editButton";
-            this.editButton.Size = new System.Drawing.Size(106, 55);
+            this.editButton.Size = new System.Drawing.Size(73, 40);
             this.editButton.TabIndex = 86;
             this.editButton.Text = "Edit";
             this.editButton.UseVisualStyleBackColor = true;
@@ -97,10 +97,10 @@
             // addButton
             // 
             this.addButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.addButton.Location = new System.Drawing.Point(1552, 765);
+            this.addButton.Location = new System.Drawing.Point(1425, 901);
             this.addButton.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.addButton.Name = "addButton";
-            this.addButton.Size = new System.Drawing.Size(106, 55);
+            this.addButton.Size = new System.Drawing.Size(73, 40);
             this.addButton.TabIndex = 85;
             this.addButton.Text = "Add";
             this.addButton.UseVisualStyleBackColor = true;
@@ -110,7 +110,7 @@
             // 
             this.totalLabel.AutoSize = true;
             this.totalLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.totalLabel.Location = new System.Drawing.Point(14, 1141);
+            this.totalLabel.Location = new System.Drawing.Point(14, 1102);
             this.totalLabel.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.totalLabel.Name = "totalLabel";
             this.totalLabel.Size = new System.Drawing.Size(74, 29);
@@ -127,11 +127,13 @@
             this.searchButton.TabIndex = 83;
             this.searchButton.Text = "Search";
             this.searchButton.UseVisualStyleBackColor = true;
+            this.searchButton.Click += new System.EventHandler(this.searchButton_Click);
+            this.searchButton.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.searchButton_KeyPress);
             // 
             // searchTextBox
             // 
             this.searchTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.searchTextBox.Location = new System.Drawing.Point(14, 218);
+            this.searchTextBox.Location = new System.Drawing.Point(14, 220);
             this.searchTextBox.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.searchTextBox.Name = "searchTextBox";
             this.searchTextBox.Size = new System.Drawing.Size(296, 35);
@@ -160,10 +162,10 @@
             // refreshButton
             // 
             this.refreshButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.refreshButton.Location = new System.Drawing.Point(1213, 207);
+            this.refreshButton.Location = new System.Drawing.Point(1187, 207);
             this.refreshButton.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.refreshButton.Name = "refreshButton";
-            this.refreshButton.Size = new System.Drawing.Size(149, 44);
+            this.refreshButton.Size = new System.Drawing.Size(110, 44);
             this.refreshButton.TabIndex = 79;
             this.refreshButton.Text = "Refresh";
             this.refreshButton.UseVisualStyleBackColor = true;
@@ -181,7 +183,7 @@
             this.CatDGV.RowHeadersWidth = 62;
             this.CatDGV.RowTemplate.Height = 30;
             this.CatDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.CatDGV.Size = new System.Drawing.Size(1343, 761);
+            this.CatDGV.Size = new System.Drawing.Size(1317, 761);
             this.CatDGV.TabIndex = 78;
             this.CatDGV.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.CatDGV_CellClick);
             this.CatDGV.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.CatDGV_CellMouseUp);
@@ -191,7 +193,7 @@
             // 
             this.descriptionLabel.AutoSize = true;
             this.descriptionLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.descriptionLabel.Location = new System.Drawing.Point(1546, 501);
+            this.descriptionLabel.Location = new System.Drawing.Point(1422, 555);
             this.descriptionLabel.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.descriptionLabel.Name = "descriptionLabel";
             this.descriptionLabel.Size = new System.Drawing.Size(146, 32);
@@ -202,7 +204,7 @@
             // 
             this.name3Label.AutoSize = true;
             this.name3Label.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.name3Label.Location = new System.Drawing.Point(1572, 414);
+            this.name3Label.Location = new System.Drawing.Point(1448, 443);
             this.name3Label.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.name3Label.Name = "name3Label";
             this.name3Label.Size = new System.Drawing.Size(81, 32);
@@ -213,7 +215,7 @@
             // 
             this.id3label.AutoSize = true;
             this.id3label.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.id3label.Location = new System.Drawing.Point(1572, 325);
+            this.id3label.Location = new System.Drawing.Point(1458, 325);
             this.id3label.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.id3label.Name = "id3label";
             this.id3label.Size = new System.Drawing.Size(40, 32);
@@ -223,28 +225,28 @@
             // CatDescTb
             // 
             this.CatDescTb.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.CatDescTb.Location = new System.Drawing.Point(1771, 519);
+            this.CatDescTb.Location = new System.Drawing.Point(1647, 573);
             this.CatDescTb.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.CatDescTb.Name = "CatDescTb";
-            this.CatDescTb.Size = new System.Drawing.Size(217, 35);
+            this.CatDescTb.Size = new System.Drawing.Size(273, 35);
             this.CatDescTb.TabIndex = 74;
             // 
             // CatNameTb
             // 
             this.CatNameTb.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.CatNameTb.Location = new System.Drawing.Point(1771, 414);
+            this.CatNameTb.Location = new System.Drawing.Point(1647, 443);
             this.CatNameTb.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.CatNameTb.Name = "CatNameTb";
-            this.CatNameTb.Size = new System.Drawing.Size(217, 35);
+            this.CatNameTb.Size = new System.Drawing.Size(273, 35);
             this.CatNameTb.TabIndex = 73;
             // 
             // CatIdTb
             // 
             this.CatIdTb.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.CatIdTb.Location = new System.Drawing.Point(1771, 325);
+            this.CatIdTb.Location = new System.Drawing.Point(1647, 325);
             this.CatIdTb.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.CatIdTb.Name = "CatIdTb";
-            this.CatIdTb.Size = new System.Drawing.Size(217, 35);
+            this.CatIdTb.Size = new System.Drawing.Size(283, 35);
             this.CatIdTb.TabIndex = 72;
             // 
             // Category

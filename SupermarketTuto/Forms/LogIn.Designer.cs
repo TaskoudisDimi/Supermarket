@@ -69,7 +69,7 @@
             this.PasswordTextBox.Location = new System.Drawing.Point(393, 320);
             this.PasswordTextBox.Name = "PasswordTextBox";
             this.PasswordTextBox.PasswordChar = '*';
-            this.PasswordTextBox.Size = new System.Drawing.Size(282, 39);
+            this.PasswordTextBox.Size = new System.Drawing.Size(365, 39);
             this.PasswordTextBox.TabIndex = 2;
             this.PasswordTextBox.TextChanged += new System.EventHandler(this.PasswordTextBox_TextChanged);
             // 
@@ -86,29 +86,31 @@
             // 
             // ClearButton
             // 
+            this.ClearButton.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClearButton.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.ClearButton.Location = new System.Drawing.Point(399, 799);
             this.ClearButton.Name = "ClearButton";
             this.ClearButton.Size = new System.Drawing.Size(302, 73);
             this.ClearButton.TabIndex = 4;
             this.ClearButton.Text = "Clear";
-            this.ClearButton.UseVisualStyleBackColor = true;
+            this.ClearButton.UseVisualStyleBackColor = false;
             this.ClearButton.Click += new System.EventHandler(this.ClearButton_Click);
             // 
             // LogInButton
             // 
+            this.LogInButton.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.LogInButton.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.LogInButton.Location = new System.Drawing.Point(399, 669);
             this.LogInButton.Name = "LogInButton";
             this.LogInButton.Size = new System.Drawing.Size(302, 73);
             this.LogInButton.TabIndex = 5;
             this.LogInButton.Text = "LogIn";
-            this.LogInButton.UseVisualStyleBackColor = true;
+            this.LogInButton.UseVisualStyleBackColor = false;
             this.LogInButton.Click += new System.EventHandler(this.LogInButton_Click);
             // 
             // CreateAccountButton
             // 
-            this.CreateAccountButton.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.CreateAccountButton.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.CreateAccountButton.FlatAppearance.BorderColor = System.Drawing.Color.WhiteSmoke;
             this.CreateAccountButton.FlatAppearance.BorderSize = 0;
             this.CreateAccountButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -168,7 +170,7 @@
             this.selectRoleCombobox.Location = new System.Drawing.Point(393, 486);
             this.selectRoleCombobox.Margin = new System.Windows.Forms.Padding(4);
             this.selectRoleCombobox.Name = "selectRoleCombobox";
-            this.selectRoleCombobox.Size = new System.Drawing.Size(282, 37);
+            this.selectRoleCombobox.Size = new System.Drawing.Size(365, 37);
             this.selectRoleCombobox.TabIndex = 11;
             // 
             // versionLabel
@@ -195,7 +197,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.ClientSize = new System.Drawing.Size(1290, 1073);
             this.Controls.Add(this.updateButton);
             this.Controls.Add(this.versionLabel);
