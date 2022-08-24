@@ -79,6 +79,8 @@ namespace SupermarketTuto.Forms
             ProdDGV.ContextMenuStrip = mnu;
         }
 
+
+
         private void addButton_Click(object sender, EventArgs e)
         {
             SqlConnect loaddata5 = new SqlConnect();
