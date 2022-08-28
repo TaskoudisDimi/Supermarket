@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Users));
             this.usersDataGridView = new System.Windows.Forms.DataGridView();
             this.usersLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.usersDataGridView)).BeginInit();
@@ -35,30 +36,33 @@
             // 
             // usersDataGridView
             // 
+            this.usersDataGridView.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
             this.usersDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.usersDataGridView.Location = new System.Drawing.Point(12, 67);
+            this.usersDataGridView.Location = new System.Drawing.Point(10, 58);
             this.usersDataGridView.Name = "usersDataGridView";
+            this.usersDataGridView.RowHeadersWidth = 62;
             this.usersDataGridView.RowTemplate.Height = 25;
-            this.usersDataGridView.Size = new System.Drawing.Size(776, 371);
+            this.usersDataGridView.Size = new System.Drawing.Size(665, 322);
             this.usersDataGridView.TabIndex = 0;
             // 
             // usersLabel
             // 
             this.usersLabel.AutoSize = true;
-            this.usersLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.usersLabel.Location = new System.Drawing.Point(12, 9);
+            this.usersLabel.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.usersLabel.Location = new System.Drawing.Point(10, 8);
             this.usersLabel.Name = "usersLabel";
-            this.usersLabel.Size = new System.Drawing.Size(49, 21);
+            this.usersLabel.Size = new System.Drawing.Size(162, 32);
             this.usersLabel.TabIndex = 1;
-            this.usersLabel.Text = "Users";
+            this.usersLabel.Text = "Table of Users";
             // 
             // Users
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(686, 390);
             this.Controls.Add(this.usersLabel);
             this.Controls.Add(this.usersDataGridView);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Users";
             this.Text = "Users";
             this.Load += new System.EventHandler(this.Users_Load);

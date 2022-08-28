@@ -24,20 +24,27 @@ namespace SupermarketTuto.Forms
 
             //This method will bind the Combobox with the Database
             loaddata2.retrieveData("Select CatName From CategoryTbl");
-            CatCb.DataSource = loaddata2.table;
-            //CatCb.ValueMember = "CatName";
-            CatCb.SelectedItem = null;
-            CatCb.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            CatCb.AutoCompleteSource = AutoCompleteSource.ListItems;
+            addCatCombobox.DataSource = loaddata2.table;
+            addCatCombobox.ValueMember = "CatName";
+            addCatCombobox.SelectedItem = null;
+            addCatCombobox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            addCatCombobox.AutoCompleteSource = AutoCompleteSource.ListItems;
+
+
+            catComboBox.DataSource = loaddata2.table;
+            catComboBox.ValueMember = "CatName";
+            catComboBox.SelectedItem = null;
+            catComboBox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            catComboBox.AutoCompleteSource = AutoCompleteSource.ListItems;
 
         }
 
         private void display()
         {
             SqlConnect loaddata1 = new SqlConnect();
-
-            loaddata1.retrieveData("Select * From ProductTbl Where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'");
+            loaddata1.retrieveData("Select * from ProductTbl");
             ProdDGV.DataSource = loaddata1.table;
+            ProdDGV.RowHeadersVisible = false;
             totalLabel.Text = $"Total: {ProdDGV.RowCount}";
         }
 
@@ -59,7 +66,7 @@ namespace SupermarketTuto.Forms
         {
             SqlConnect loaddata9 = new SqlConnect();
 
-            loaddata9.retrieveData("Select * from ProductTbl Where ProdCat='" + CatCb.SelectedValue.ToString() + "'");
+            loaddata9.retrieveData("Select * from ProductTbl Where ProdCat='" + addCatCombobox.SelectedValue.ToString() + "'");
             ProdDGV.DataSource = loaddata9.table;
         }
 
@@ -79,8 +86,6 @@ namespace SupermarketTuto.Forms
             ProdDGV.ContextMenuStrip = mnu;
         }
 
-
-
         private void addButton_Click(object sender, EventArgs e)
         {
             SqlConnect loaddata5 = new SqlConnect();
@@ -93,13 +98,13 @@ namespace SupermarketTuto.Forms
                 }
                 else
                 {
-                    loaddata5.commandExc("Insert Into ProductTbl values(" + ProdId.Text + ",'" + ProdName.Text + "'," + ProdQty.Text + "," + ProdPrice.Text + ",'" + CatCb.SelectedValue.ToString() + "')");
+                    loaddata5.commandExc("Insert Into ProductTbl values(" + ProdId.Text + ",'" + ProdName.Text + "'," + ProdQty.Text + "," + ProdPrice.Text + ",'" + addCatCombobox.SelectedValue.ToString() + "')");
                     MessageBox.Show("Product Successfully Insert");
-                    ProdId.Text = "";
-                    ProdName.Text = "";
-                    ProdQty.Text = "";
-                    ProdPrice.Text = "";
-                    CatCb.SelectedValue = "";
+                    ProdId.Text = String.Empty;
+                    ProdName.Text = String.Empty;
+                    ProdQty.Text = String.Empty;
+                    ProdPrice.Text = String.Empty;
+                    addCatCombobox.SelectedValue = String.Empty;
                 }
 
             }
@@ -124,11 +129,11 @@ namespace SupermarketTuto.Forms
 
                     loaddata6.commandExc("Update ProductTbl set ProdName='" + ProdName.Text + "',ProdQty='" + ProdQty.Text + "',ProdPrice='" + ProdPrice.Text + "' where ProdId=" + ProdId.Text + ";");
                     MessageBox.Show("Product Successfully Updated");
-                    ProdId.Text = "";
-                    ProdName.Text = "";
-                    ProdQty.Text = "";
-                    ProdPrice.Text = "";
-                    CatCb.SelectedValue = "";
+                    ProdId.Text = String.Empty;
+                    ProdName.Text = String.Empty;
+                    ProdQty.Text = String.Empty;
+                    ProdPrice.Text = String.Empty;
+                    addCatCombobox.SelectedValue = String.Empty;
 
                 }
             }
@@ -156,7 +161,7 @@ namespace SupermarketTuto.Forms
                     ProdName.Text = "";
                     ProdQty.Text = "";
                     ProdPrice.Text = "";
-                    CatCb.SelectedValue = "";
+                    addCatCombobox.SelectedValue = "";
 
                 }
             }
@@ -172,13 +177,13 @@ namespace SupermarketTuto.Forms
             ProdName.Text = ProdDGV.SelectedRows[0].Cells[1].Value.ToString();
             ProdQty.Text = ProdDGV.SelectedRows[0].Cells[2].Value.ToString();
             ProdPrice.Text = ProdDGV.SelectedRows[0].Cells[3].Value.ToString();
-            CatCb.SelectedValue = ProdDGV.SelectedRows[0].Cells[4].Value.ToString();
+            addCatCombobox.SelectedValue = ProdDGV.SelectedRows[0].Cells[4].Value.ToString();
         }
 
         private void refreshButton_Click(object sender, EventArgs e)
         {
-            SqlConnect loaddata10 = new SqlConnect();
-            loaddata10.retrieveData("Select * From ProductTbl");
+            SqlConnect loaddata11 = new SqlConnect();
+            loaddata11.retrieveData("Select * From ProductTbl");
         }
 
         private void searchTextBox_KeyPress(object sender, KeyPressEventArgs e)
@@ -192,9 +197,20 @@ namespace SupermarketTuto.Forms
         private void searchButton_Click(object sender, EventArgs e)
         {
             SqlConnect db = new SqlConnect();
-            db.search(searchTextBox.Text);
+            string query = "Select * From ProductTbl where ProdId like '%" + searchTextBox.Text + "%'" + "or ProdName like '%" + searchTextBox.Text + "%'" + "or ProdQty like '%" + searchTextBox.Text + "%'" + "or ProdPrice like '%" + searchTextBox.Text + "%'" + "or ProdCat like '%" + searchTextBox.Text + "%'";
+            db.search(searchTextBox.Text, query);
             ProdDGV.DataSource = db.table;
+            totalLabel.Text = $"Total: {ProdDGV.RowCount}";
+        }
+
+        private void catComboBox_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            SqlConnect loaddata10 = new SqlConnect();
+            loaddata10.retrieveData("Select * from ProductTbl where ProdCat='" + catComboBox.SelectedValue + "'");
+            ProdDGV.DataSource = loaddata10.table;
+            ProdDGV.RowHeadersVisible = false;
             totalLabel.Text = $"Total: {ProdDGV.RowCount}";
         }
     }
 }
+

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LogIn));
             this.LogInLabel = new System.Windows.Forms.Label();
             this.UserNameTextBox = new System.Windows.Forms.TextBox();
             this.PasswordTextBox = new System.Windows.Forms.TextBox();
@@ -59,7 +60,7 @@
             // 
             this.UserNameTextBox.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.UserNameTextBox.Location = new System.Drawing.Point(262, 108);
-            this.UserNameTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.UserNameTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.UserNameTextBox.Name = "UserNameTextBox";
             this.UserNameTextBox.Size = new System.Drawing.Size(245, 39);
             this.UserNameTextBox.TabIndex = 1;
@@ -69,7 +70,7 @@
             // 
             this.PasswordTextBox.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.PasswordTextBox.Location = new System.Drawing.Point(262, 208);
-            this.PasswordTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.PasswordTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.PasswordTextBox.Name = "PasswordTextBox";
             this.PasswordTextBox.PasswordChar = '*';
             this.PasswordTextBox.Size = new System.Drawing.Size(245, 39);
@@ -80,7 +81,7 @@
             // 
             this.ShowPasswordCheckBox.AutoSize = true;
             this.ShowPasswordCheckBox.Location = new System.Drawing.Point(262, 375);
-            this.ShowPasswordCheckBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.ShowPasswordCheckBox.Margin = new System.Windows.Forms.Padding(2);
             this.ShowPasswordCheckBox.Name = "ShowPasswordCheckBox";
             this.ShowPasswordCheckBox.Size = new System.Drawing.Size(109, 21);
             this.ShowPasswordCheckBox.TabIndex = 3;
@@ -93,7 +94,7 @@
             this.ClearButton.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClearButton.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.ClearButton.Location = new System.Drawing.Point(266, 519);
-            this.ClearButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.ClearButton.Margin = new System.Windows.Forms.Padding(2);
             this.ClearButton.Name = "ClearButton";
             this.ClearButton.Size = new System.Drawing.Size(201, 47);
             this.ClearButton.TabIndex = 4;
@@ -106,7 +107,7 @@
             this.LogInButton.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.LogInButton.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.LogInButton.Location = new System.Drawing.Point(266, 435);
-            this.LogInButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.LogInButton.Margin = new System.Windows.Forms.Padding(2);
             this.LogInButton.Name = "LogInButton";
             this.LogInButton.Size = new System.Drawing.Size(201, 47);
             this.LogInButton.TabIndex = 5;
@@ -122,7 +123,7 @@
             this.CreateAccountButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.CreateAccountButton.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.CreateAccountButton.Location = new System.Drawing.Point(313, 634);
-            this.CreateAccountButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.CreateAccountButton.Margin = new System.Windows.Forms.Padding(2);
             this.CreateAccountButton.Name = "CreateAccountButton";
             this.CreateAccountButton.Size = new System.Drawing.Size(113, 32);
             this.CreateAccountButton.TabIndex = 6;
@@ -195,10 +196,10 @@
             // updateButton
             // 
             this.updateButton.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.updateButton.Location = new System.Drawing.Point(745, 621);
-            this.updateButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.updateButton.Location = new System.Drawing.Point(719, 610);
+            this.updateButton.Margin = new System.Windows.Forms.Padding(2);
             this.updateButton.Name = "updateButton";
-            this.updateButton.Size = new System.Drawing.Size(95, 31);
+            this.updateButton.Size = new System.Drawing.Size(121, 42);
             this.updateButton.TabIndex = 13;
             this.updateButton.Text = "Update";
             this.updateButton.UseVisualStyleBackColor = true;
@@ -225,7 +226,8 @@
             this.Controls.Add(this.UserNameTextBox);
             this.Controls.Add(this.LogInLabel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "LogIn";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "LogIn";

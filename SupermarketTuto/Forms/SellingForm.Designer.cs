@@ -50,7 +50,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.totalLabel = new System.Windows.Forms.Label();
-            this.seller_NameLabel = new System.Windows.Forms.Label();
+            this.test = new System.Windows.Forms.Label();
             this.sumTextBox = new System.Windows.Forms.TextBox();
             this.logOutLabel = new System.Windows.Forms.Label();
             this.SellsListLabel = new System.Windows.Forms.Label();
@@ -65,18 +65,20 @@
             this.SellerNameLabel = new System.Windows.Forms.Label();
             this.printPreviewDialog1 = new System.Windows.Forms.PrintPreviewDialog();
             this.printDocument1 = new System.Drawing.Printing.PrintDocument();
+            this.sidePanel = new System.Windows.Forms.Panel();
+            this.seller_Name_Label = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.SellingDGV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BillsDGV)).BeginInit();
             this.SellingPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.OrderDGV)).BeginInit();
+            this.sidePanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // DateLabel
             // 
             this.DateLabel.AutoSize = true;
             this.DateLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.DateLabel.Location = new System.Drawing.Point(998, 1);
-            this.DateLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.DateLabel.Location = new System.Drawing.Point(665, 1);
             this.DateLabel.Name = "DateLabel";
             this.DateLabel.Size = new System.Drawing.Size(67, 32);
             this.DateLabel.TabIndex = 14;
@@ -86,8 +88,7 @@
             // 
             this.SellingLabel.AutoSize = true;
             this.SellingLabel.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
-            this.SellingLabel.Location = new System.Drawing.Point(581, 9);
-            this.SellingLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.SellingLabel.Location = new System.Drawing.Point(387, 6);
             this.SellingLabel.Name = "SellingLabel";
             this.SellingLabel.Size = new System.Drawing.Size(133, 48);
             this.SellingLabel.TabIndex = 15;
@@ -97,8 +98,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.label1.Location = new System.Drawing.Point(6, 123);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(4, 80);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(80, 32);
             this.label1.TabIndex = 16;
@@ -108,8 +108,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.label2.Location = new System.Drawing.Point(6, 176);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(4, 114);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(136, 32);
             this.label2.TabIndex = 17;
@@ -119,8 +118,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.label3.Location = new System.Drawing.Point(6, 236);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Location = new System.Drawing.Point(4, 153);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(71, 32);
             this.label3.TabIndex = 18;
@@ -130,8 +128,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.label4.Location = new System.Drawing.Point(6, 288);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Location = new System.Drawing.Point(4, 187);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(113, 32);
             this.label4.TabIndex = 19;
@@ -139,45 +136,40 @@
             // 
             // SellingQuantityTextBox
             // 
-            this.SellingQuantityTextBox.Location = new System.Drawing.Point(132, 295);
-            this.SellingQuantityTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.SellingQuantityTextBox.Location = new System.Drawing.Point(88, 192);
             this.SellingQuantityTextBox.Name = "SellingQuantityTextBox";
-            this.SellingQuantityTextBox.Size = new System.Drawing.Size(127, 26);
+            this.SellingQuantityTextBox.Size = new System.Drawing.Size(86, 20);
             this.SellingQuantityTextBox.TabIndex = 24;
             // 
             // SellingPriceTextBox
             // 
             this.SellingPriceTextBox.Enabled = false;
-            this.SellingPriceTextBox.Location = new System.Drawing.Point(132, 237);
-            this.SellingPriceTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.SellingPriceTextBox.Location = new System.Drawing.Point(88, 154);
             this.SellingPriceTextBox.Name = "SellingPriceTextBox";
-            this.SellingPriceTextBox.Size = new System.Drawing.Size(127, 26);
+            this.SellingPriceTextBox.Size = new System.Drawing.Size(86, 20);
             this.SellingPriceTextBox.TabIndex = 23;
             // 
             // SellingProdName
             // 
             this.SellingProdName.BackColor = System.Drawing.Color.White;
             this.SellingProdName.Enabled = false;
-            this.SellingProdName.Location = new System.Drawing.Point(132, 185);
-            this.SellingProdName.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.SellingProdName.Location = new System.Drawing.Point(88, 120);
             this.SellingProdName.Name = "SellingProdName";
-            this.SellingProdName.Size = new System.Drawing.Size(127, 26);
+            this.SellingProdName.Size = new System.Drawing.Size(86, 20);
             this.SellingProdName.TabIndex = 22;
             // 
             // BillId
             // 
-            this.BillId.Location = new System.Drawing.Point(132, 125);
-            this.BillId.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.BillId.Location = new System.Drawing.Point(88, 81);
             this.BillId.Name = "BillId";
-            this.BillId.Size = new System.Drawing.Size(127, 26);
+            this.BillId.Size = new System.Drawing.Size(86, 20);
             this.BillId.TabIndex = 21;
             // 
             // deleteButton
             // 
-            this.deleteButton.Location = new System.Drawing.Point(962, 671);
-            this.deleteButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.deleteButton.Location = new System.Drawing.Point(641, 436);
             this.deleteButton.Name = "deleteButton";
-            this.deleteButton.Size = new System.Drawing.Size(96, 31);
+            this.deleteButton.Size = new System.Drawing.Size(64, 20);
             this.deleteButton.TabIndex = 28;
             this.deleteButton.Text = "Delete";
             this.deleteButton.UseVisualStyleBackColor = true;
@@ -185,10 +177,9 @@
             // 
             // PrintButton
             // 
-            this.PrintButton.Location = new System.Drawing.Point(858, 671);
-            this.PrintButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.PrintButton.Location = new System.Drawing.Point(572, 436);
             this.PrintButton.Name = "PrintButton";
-            this.PrintButton.Size = new System.Drawing.Size(96, 31);
+            this.PrintButton.Size = new System.Drawing.Size(64, 20);
             this.PrintButton.TabIndex = 27;
             this.PrintButton.Text = "Print";
             this.PrintButton.UseVisualStyleBackColor = true;
@@ -196,10 +187,9 @@
             // 
             // addButton
             // 
-            this.addButton.Location = new System.Drawing.Point(753, 671);
-            this.addButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.addButton.Location = new System.Drawing.Point(502, 436);
             this.addButton.Name = "addButton";
-            this.addButton.Size = new System.Drawing.Size(96, 31);
+            this.addButton.Size = new System.Drawing.Size(64, 20);
             this.addButton.TabIndex = 26;
             this.addButton.Text = "Add";
             this.addButton.UseVisualStyleBackColor = true;
@@ -208,20 +198,18 @@
             // SearchCb
             // 
             this.SearchCb.FormattingEnabled = true;
-            this.SearchCb.Location = new System.Drawing.Point(37, 439);
-            this.SearchCb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.SearchCb.Location = new System.Drawing.Point(25, 285);
             this.SearchCb.Name = "SearchCb";
-            this.SearchCb.Size = new System.Drawing.Size(136, 28);
+            this.SearchCb.Size = new System.Drawing.Size(92, 21);
             this.SearchCb.TabIndex = 29;
             this.SearchCb.Text = "Select Category";
             this.SearchCb.SelectionChangeCommitted += new System.EventHandler(this.SearchCb_SelectionChangeCommitted);
             // 
             // refreshButton
             // 
-            this.refreshButton.Location = new System.Drawing.Point(292, 439);
-            this.refreshButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.refreshButton.Location = new System.Drawing.Point(195, 285);
             this.refreshButton.Name = "refreshButton";
-            this.refreshButton.Size = new System.Drawing.Size(96, 31);
+            this.refreshButton.Size = new System.Drawing.Size(64, 20);
             this.refreshButton.TabIndex = 30;
             this.refreshButton.Text = "Refresh";
             this.refreshButton.UseVisualStyleBackColor = true;
@@ -233,13 +221,12 @@
             this.SellingDGV.BackgroundColor = System.Drawing.Color.WhiteSmoke;
             this.SellingDGV.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.SellingDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.SellingDGV.Location = new System.Drawing.Point(37, 477);
-            this.SellingDGV.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.SellingDGV.Location = new System.Drawing.Point(25, 310);
             this.SellingDGV.Name = "SellingDGV";
             this.SellingDGV.RowHeadersWidth = 62;
             this.SellingDGV.RowTemplate.Height = 30;
             this.SellingDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.SellingDGV.Size = new System.Drawing.Size(351, 229);
+            this.SellingDGV.Size = new System.Drawing.Size(234, 149);
             this.SellingDGV.TabIndex = 31;
             this.SellingDGV.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.SellingDGV_CellClick);
             // 
@@ -249,13 +236,12 @@
             this.BillsDGV.BackgroundColor = System.Drawing.Color.WhiteSmoke;
             this.BillsDGV.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.BillsDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.BillsDGV.Location = new System.Drawing.Point(499, 477);
-            this.BillsDGV.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.BillsDGV.Location = new System.Drawing.Point(333, 310);
             this.BillsDGV.Name = "BillsDGV";
             this.BillsDGV.RowHeadersWidth = 62;
             this.BillsDGV.RowTemplate.Height = 30;
             this.BillsDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.BillsDGV.Size = new System.Drawing.Size(742, 185);
+            this.BillsDGV.Size = new System.Drawing.Size(495, 120);
             this.BillsDGV.TabIndex = 32;
             this.BillsDGV.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.BillsDGV_CellClick);
             // 
@@ -265,7 +251,7 @@
             this.SellingPanel.Controls.Add(this.label6);
             this.SellingPanel.Controls.Add(this.label5);
             this.SellingPanel.Controls.Add(this.totalLabel);
-            this.SellingPanel.Controls.Add(this.seller_NameLabel);
+            this.SellingPanel.Controls.Add(this.test);
             this.SellingPanel.Controls.Add(this.sumTextBox);
             this.SellingPanel.Controls.Add(this.logOutLabel);
             this.SellingPanel.Controls.Add(this.SellsListLabel);
@@ -290,68 +276,61 @@
             this.SellingPanel.Controls.Add(this.BillId);
             this.SellingPanel.Controls.Add(this.SellingPriceTextBox);
             this.SellingPanel.Controls.Add(this.SellingQuantityTextBox);
-            this.SellingPanel.Location = new System.Drawing.Point(12, 11);
-            this.SellingPanel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.SellingPanel.Location = new System.Drawing.Point(375, 76);
             this.SellingPanel.Name = "SellingPanel";
-            this.SellingPanel.Size = new System.Drawing.Size(1315, 784);
+            this.SellingPanel.Size = new System.Drawing.Size(1312, 641);
             this.SellingPanel.TabIndex = 33;
             this.SellingPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.SellingPanel_Paint);
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(499, 671);
-            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label6.Location = new System.Drawing.Point(333, 436);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(48, 20);
+            this.label6.Size = new System.Drawing.Size(34, 13);
             this.label6.TabIndex = 46;
             this.label6.Text = "Total:";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(37, 711);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label5.Location = new System.Drawing.Point(25, 462);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(48, 20);
+            this.label5.Size = new System.Drawing.Size(34, 13);
             this.label5.TabIndex = 45;
             this.label5.Text = "Total:";
             // 
             // totalLabel
             // 
             this.totalLabel.AutoSize = true;
-            this.totalLabel.Location = new System.Drawing.Point(499, 308);
-            this.totalLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.totalLabel.Location = new System.Drawing.Point(333, 200);
             this.totalLabel.Name = "totalLabel";
-            this.totalLabel.Size = new System.Drawing.Size(48, 20);
+            this.totalLabel.Size = new System.Drawing.Size(34, 13);
             this.totalLabel.TabIndex = 44;
             this.totalLabel.Text = "Total:";
             // 
-            // seller_NameLabel
+            // test
             // 
-            this.seller_NameLabel.AutoSize = true;
-            this.seller_NameLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.seller_NameLabel.Location = new System.Drawing.Point(4, 21);
-            this.seller_NameLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.seller_NameLabel.Name = "seller_NameLabel";
-            this.seller_NameLabel.Size = new System.Drawing.Size(158, 32);
-            this.seller_NameLabel.TabIndex = 41;
-            this.seller_NameLabel.Text = "Seller Name:";
+            this.test.AutoSize = true;
+            this.test.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.test.Location = new System.Drawing.Point(3, 14);
+            this.test.Name = "test";
+            this.test.Size = new System.Drawing.Size(158, 32);
+            this.test.TabIndex = 41;
+            this.test.Text = "Seller Name:";
             // 
             // sumTextBox
             // 
-            this.sumTextBox.Location = new System.Drawing.Point(1108, 325);
-            this.sumTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.sumTextBox.Location = new System.Drawing.Point(739, 211);
             this.sumTextBox.Name = "sumTextBox";
-            this.sumTextBox.Size = new System.Drawing.Size(127, 26);
+            this.sumTextBox.Size = new System.Drawing.Size(86, 20);
             this.sumTextBox.TabIndex = 40;
             // 
             // logOutLabel
             // 
             this.logOutLabel.AutoSize = true;
             this.logOutLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.logOutLabel.Location = new System.Drawing.Point(1151, 1);
-            this.logOutLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.logOutLabel.Location = new System.Drawing.Point(767, 1);
             this.logOutLabel.Name = "logOutLabel";
             this.logOutLabel.Size = new System.Drawing.Size(105, 32);
             this.logOutLabel.TabIndex = 39;
@@ -362,8 +341,7 @@
             // 
             this.SellsListLabel.AutoSize = true;
             this.SellsListLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.SellsListLabel.Location = new System.Drawing.Point(846, 437);
-            this.SellsListLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.SellsListLabel.Location = new System.Drawing.Point(564, 284);
             this.SellsListLabel.Name = "SellsListLabel";
             this.SellsListLabel.Size = new System.Drawing.Size(111, 32);
             this.SellsListLabel.TabIndex = 38;
@@ -381,13 +359,12 @@
             this.Price,
             this.Quantity,
             this.Total});
-            this.OrderDGV.Location = new System.Drawing.Point(499, 151);
-            this.OrderDGV.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.OrderDGV.Location = new System.Drawing.Point(333, 98);
             this.OrderDGV.Name = "OrderDGV";
             this.OrderDGV.RowHeadersWidth = 62;
             this.OrderDGV.RowTemplate.Height = 30;
             this.OrderDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.OrderDGV.Size = new System.Drawing.Size(738, 153);
+            this.OrderDGV.Size = new System.Drawing.Size(492, 99);
             this.OrderDGV.TabIndex = 37;
             // 
             // Id
@@ -429,8 +406,7 @@
             // 
             this.AmountLabel.AutoSize = true;
             this.AmountLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.AmountLabel.Location = new System.Drawing.Point(942, 328);
-            this.AmountLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.AmountLabel.Location = new System.Drawing.Point(628, 213);
             this.AmountLabel.Name = "AmountLabel";
             this.AmountLabel.Size = new System.Drawing.Size(170, 32);
             this.AmountLabel.TabIndex = 35;
@@ -438,10 +414,9 @@
             // 
             // AddProductbutton
             // 
-            this.AddProductbutton.Location = new System.Drawing.Point(303, 219);
-            this.AddProductbutton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.AddProductbutton.Location = new System.Drawing.Point(202, 142);
             this.AddProductbutton.Name = "AddProductbutton";
-            this.AddProductbutton.Size = new System.Drawing.Size(156, 31);
+            this.AddProductbutton.Size = new System.Drawing.Size(104, 20);
             this.AddProductbutton.TabIndex = 34;
             this.AddProductbutton.Text = "Add Product";
             this.AddProductbutton.UseVisualStyleBackColor = true;
@@ -451,8 +426,7 @@
             // 
             this.SellerNameLabel.AutoSize = true;
             this.SellerNameLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.SellerNameLabel.Location = new System.Drawing.Point(144, 21);
-            this.SellerNameLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.SellerNameLabel.Location = new System.Drawing.Point(96, 14);
             this.SellerNameLabel.Name = "SellerNameLabel";
             this.SellerNameLabel.Size = new System.Drawing.Size(77, 32);
             this.SellerNameLabel.TabIndex = 33;
@@ -473,16 +447,38 @@
             // 
             this.printDocument1.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument1_PrintPage);
             // 
+            // sidePanel
+            // 
+            this.sidePanel.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.sidePanel.Controls.Add(this.seller_Name_Label);
+            this.sidePanel.Dock = System.Windows.Forms.DockStyle.Left;
+            this.sidePanel.Location = new System.Drawing.Point(0, 0);
+            this.sidePanel.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
+            this.sidePanel.Name = "sidePanel";
+            this.sidePanel.Size = new System.Drawing.Size(180, 1030);
+            this.sidePanel.TabIndex = 34;
+            this.sidePanel.Paint += new System.Windows.Forms.PaintEventHandler(this.sidePanel_Paint);
+            // 
+            // seller_Name_Label
+            // 
+            this.seller_Name_Label.AutoSize = true;
+            this.seller_Name_Label.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.seller_Name_Label.Location = new System.Drawing.Point(3, 92);
+            this.seller_Name_Label.Name = "seller_Name_Label";
+            this.seller_Name_Label.Size = new System.Drawing.Size(170, 32);
+            this.seller_Name_Label.TabIndex = 0;
+            this.seller_Name_Label.Text = "Seller Name";
+            // 
             // SellingForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.ClientSize = new System.Drawing.Size(1877, 1012);
+            this.ClientSize = new System.Drawing.Size(1883, 1030);
+            this.Controls.Add(this.sidePanel);
             this.Controls.Add(this.SellingPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "SellingForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Selling Form";
@@ -493,6 +489,8 @@
             this.SellingPanel.ResumeLayout(false);
             this.SellingPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.OrderDGV)).EndInit();
+            this.sidePanel.ResumeLayout(false);
+            this.sidePanel.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -530,9 +528,11 @@
         private System.Drawing.Printing.PrintDocument printDocument1;
         private Label logOutLabel;
         private TextBox sumTextBox;
-        private Label seller_NameLabel;
+        private Label test;
         private Label label6;
         private Label label5;
         private Label totalLabel;
+        private Panel sidePanel;
+        private Label seller_Name_Label;
     }
 }

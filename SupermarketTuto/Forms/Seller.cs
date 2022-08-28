@@ -28,6 +28,7 @@ namespace SupermarketTuto.Forms
             //loaddata1.retrieveData("Select * From SellerTbl");
 
             SellDGV.DataSource = loaddata1.table;
+            totalLabel.Text = $"Total: {SellDGV.RowCount}";
 
 
         }
@@ -164,8 +165,6 @@ namespace SupermarketTuto.Forms
             display();
         }
 
-
-
         private void uploadButton_Click_1(object sender, EventArgs e)
         {
             Stream myStream = null;
@@ -221,9 +220,11 @@ namespace SupermarketTuto.Forms
         private void searchButton_Click(object sender, EventArgs e)
         {
             SqlConnect db_sellers = new SqlConnect();
-            db_sellers.search(searchTextBox.Text);
+            string query = "Select * From SellerTbl where SellerId like '%" + searchTextBox.Text + "%'" + "or SellerName like '%" + searchTextBox.Text + "%'" + "or SellerAge like '%" + searchTextBox.Text + "%'" + "or SellerPhone like '%" + searchTextBox.Text + "%'" + "or SellerPass like '%" + searchTextBox.Text + "%'";
+            db_sellers.search(searchTextBox.Text, query);
             SellDGV.DataSource = db_sellers.table;
             totalLabel.Text = $"Total: {SellDGV.RowCount}";
+
         }
 
         private void searchTextBox_KeyPress(object sender, KeyPressEventArgs e)
@@ -240,3 +241,4 @@ namespace SupermarketTuto.Forms
         }
     }
 }
+

@@ -80,11 +80,10 @@ namespace SupermarketTuto.DataAccess
         }
 
 
-        public void search(string text)
+        public void search(string text, string sql)
         {
             con.Open();
-            string query = "Select * From ProductTbl where ProdId like '%" + text + "%'" + "or ProdName like '%" + text + "%'" + "or ProdQty like '%" + text + "%'" + "or ProdPrice like '%" + text + "%'" + "or ProdCat like '%" + text + "%'";
-            SqlCommand cmd = new SqlCommand(query,con);
+            SqlCommand cmd = new SqlCommand(sql, con);
             SqlDataAdapter adapter = new SqlDataAdapter(cmd);
             adapter.Fill(table);
 

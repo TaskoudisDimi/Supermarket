@@ -61,7 +61,7 @@ namespace SupermarketTuto
             display();
             displayBills();
 
-            SellerNameLabel.Text = LogIn.sellerName;
+            //SellerNameLabel.Text = LogIn.sellerName;
         }
 
         private void SellingPanel_Paint(object sender, PaintEventArgs e)
@@ -112,7 +112,7 @@ namespace SupermarketTuto
             {
                 SqlConnect loaddata4 = new SqlConnect();
 
-                loaddata4.commandExc("Insert Into BillTbl values(" + BillId.Text + ",'" + SellerNameLabel.Text + "','" + DateLabel.Text + "'," + sumTextBox.Text + ")");
+                //loaddata4.commandExc("Insert Into BillTbl values(" + BillId.Text + ",'" + SellerNameLabel.Text + "','" + DateLabel.Text + "'," + sumTextBox.Text + ")");
 
                 displayBills();
 
@@ -196,6 +196,11 @@ namespace SupermarketTuto
             {
                 BillsDGV.Rows.RemoveAt(row.Index);
             }
+        }
+
+        private void sidePanel_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

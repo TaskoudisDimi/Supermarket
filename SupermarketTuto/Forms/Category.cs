@@ -31,6 +31,7 @@ namespace SupermarketTuto.Forms
             //loaddata.retrieveData("Select * From CategoryTbl");
 
             CatDGV.DataSource = loaddata.table;
+            totalLabel.Text = $"Total: {CatDGV.RowCount}";
 
 
         }
@@ -195,7 +196,8 @@ namespace SupermarketTuto.Forms
         private void searchButton_Click(object sender, EventArgs e)
         {
             SqlConnect db_sellers = new SqlConnect();
-            db_sellers.search(searchTextBox.Text);
+            string query = "Select * From CategoryTbl where CatId like '%" + searchTextBox.Text + "%'" + "or CatName like '%" + searchTextBox.Text + "%'" + "or CatDesc like '%" + searchTextBox.Text + "%'";
+            db_sellers.search(searchTextBox.Text, query);
             CatDGV.DataSource = db_sellers.table;
             totalLabel.Text = $"Total: {CatDGV.RowCount}";
         }

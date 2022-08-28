@@ -23,6 +23,7 @@ namespace SupermarketTuto.Forms
             SqlConnect loaddata = new SqlConnect();
             loaddata.retrieveData("Select * From Users");
             usersDataGridView.DataSource = loaddata.table;
+            usersDataGridView.RowHeadersVisible = false;
         }
     }
 }

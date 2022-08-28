@@ -28,8 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.toDateTimePicker = new System.Windows.Forms.DateTimePicker();
-            this.fromDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.totalLabel = new System.Windows.Forms.Label();
             this.searchButton = new System.Windows.Forms.Button();
             this.searchTextBox = new System.Windows.Forms.TextBox();
@@ -43,40 +41,20 @@
             this.editButton = new System.Windows.Forms.Button();
             this.addButton = new System.Windows.Forms.Button();
             this.idLabel = new System.Windows.Forms.Label();
-            this.CatCb = new System.Windows.Forms.ComboBox();
+            this.addCatCombobox = new System.Windows.Forms.ComboBox();
             this.ProdPrice = new System.Windows.Forms.TextBox();
             this.ProdQty = new System.Windows.Forms.TextBox();
             this.ProdName = new System.Windows.Forms.TextBox();
             this.ProdId = new System.Windows.Forms.TextBox();
+            this.catComboBox = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.ProdDGV)).BeginInit();
             this.SuspendLayout();
-            // 
-            // toDateTimePicker
-            // 
-            this.toDateTimePicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.toDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.toDateTimePicker.Location = new System.Drawing.Point(841, 225);
-            this.toDateTimePicker.Margin = new System.Windows.Forms.Padding(4);
-            this.toDateTimePicker.Name = "toDateTimePicker";
-            this.toDateTimePicker.Size = new System.Drawing.Size(181, 35);
-            this.toDateTimePicker.TabIndex = 108;
-            // 
-            // fromDateTimePicker
-            // 
-            this.fromDateTimePicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.fromDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.fromDateTimePicker.Location = new System.Drawing.Point(611, 225);
-            this.fromDateTimePicker.Margin = new System.Windows.Forms.Padding(4);
-            this.fromDateTimePicker.Name = "fromDateTimePicker";
-            this.fromDateTimePicker.Size = new System.Drawing.Size(181, 35);
-            this.fromDateTimePicker.TabIndex = 107;
             // 
             // totalLabel
             // 
             this.totalLabel.AutoSize = true;
             this.totalLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.totalLabel.Location = new System.Drawing.Point(13, 1100);
-            this.totalLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.totalLabel.Location = new System.Drawing.Point(9, 715);
             this.totalLabel.Name = "totalLabel";
             this.totalLabel.Size = new System.Drawing.Size(74, 29);
             this.totalLabel.TabIndex = 106;
@@ -85,10 +63,9 @@
             // searchButton
             // 
             this.searchButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.searchButton.Location = new System.Drawing.Point(333, 224);
-            this.searchButton.Margin = new System.Windows.Forms.Padding(4);
+            this.searchButton.Location = new System.Drawing.Point(222, 146);
             this.searchButton.Name = "searchButton";
-            this.searchButton.Size = new System.Drawing.Size(155, 36);
+            this.searchButton.Size = new System.Drawing.Size(103, 37);
             this.searchButton.TabIndex = 105;
             this.searchButton.Text = "Search";
             this.searchButton.UseVisualStyleBackColor = true;
@@ -97,10 +74,9 @@
             // searchTextBox
             // 
             this.searchTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.searchTextBox.Location = new System.Drawing.Point(18, 224);
-            this.searchTextBox.Margin = new System.Windows.Forms.Padding(4);
+            this.searchTextBox.Location = new System.Drawing.Point(12, 146);
             this.searchTextBox.Name = "searchTextBox";
-            this.searchTextBox.Size = new System.Drawing.Size(255, 35);
+            this.searchTextBox.Size = new System.Drawing.Size(171, 35);
             this.searchTextBox.TabIndex = 104;
             this.searchTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.searchTextBox_KeyPress);
             // 
@@ -110,23 +86,21 @@
             this.ProdDGV.BackgroundColor = System.Drawing.Color.WhiteSmoke;
             this.ProdDGV.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.ProdDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.ProdDGV.Location = new System.Drawing.Point(13, 314);
-            this.ProdDGV.Margin = new System.Windows.Forms.Padding(4);
+            this.ProdDGV.Location = new System.Drawing.Point(9, 204);
             this.ProdDGV.Name = "ProdDGV";
             this.ProdDGV.RowHeadersWidth = 62;
             this.ProdDGV.RowTemplate.Height = 30;
             this.ProdDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.ProdDGV.Size = new System.Drawing.Size(1525, 752);
+            this.ProdDGV.Size = new System.Drawing.Size(1017, 489);
             this.ProdDGV.TabIndex = 103;
             this.ProdDGV.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ProdDGV_CellClick);
             // 
             // refreshButton
             // 
             this.refreshButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.refreshButton.Location = new System.Drawing.Point(1397, 225);
-            this.refreshButton.Margin = new System.Windows.Forms.Padding(4);
+            this.refreshButton.Location = new System.Drawing.Point(897, 146);
             this.refreshButton.Name = "refreshButton";
-            this.refreshButton.Size = new System.Drawing.Size(122, 40);
+            this.refreshButton.Size = new System.Drawing.Size(115, 37);
             this.refreshButton.TabIndex = 102;
             this.refreshButton.Text = "Refresh";
             this.refreshButton.UseVisualStyleBackColor = true;
@@ -136,8 +110,7 @@
             // 
             this.categoriesLabel.AutoSize = true;
             this.categoriesLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.categoriesLabel.Location = new System.Drawing.Point(1659, 764);
-            this.categoriesLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.categoriesLabel.Location = new System.Drawing.Point(1106, 497);
             this.categoriesLabel.Name = "categoriesLabel";
             this.categoriesLabel.Size = new System.Drawing.Size(135, 32);
             this.categoriesLabel.TabIndex = 101;
@@ -147,8 +120,7 @@
             // 
             this.priceLabel.AutoSize = true;
             this.priceLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.priceLabel.Location = new System.Drawing.Point(1677, 645);
-            this.priceLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.priceLabel.Location = new System.Drawing.Point(1118, 419);
             this.priceLabel.Name = "priceLabel";
             this.priceLabel.Size = new System.Drawing.Size(71, 32);
             this.priceLabel.TabIndex = 100;
@@ -158,8 +130,7 @@
             // 
             this.quantityLabel.AutoSize = true;
             this.quantityLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.quantityLabel.Location = new System.Drawing.Point(1667, 538);
-            this.quantityLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.quantityLabel.Location = new System.Drawing.Point(1111, 350);
             this.quantityLabel.Name = "quantityLabel";
             this.quantityLabel.Size = new System.Drawing.Size(113, 32);
             this.quantityLabel.TabIndex = 99;
@@ -169,8 +140,7 @@
             // 
             this.nameLabel.AutoSize = true;
             this.nameLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.nameLabel.Location = new System.Drawing.Point(1667, 434);
-            this.nameLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.nameLabel.Location = new System.Drawing.Point(1111, 282);
             this.nameLabel.Name = "nameLabel";
             this.nameLabel.Size = new System.Drawing.Size(81, 32);
             this.nameLabel.TabIndex = 98;
@@ -179,10 +149,9 @@
             // deleteButton
             // 
             this.deleteButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.deleteButton.Location = new System.Drawing.Point(1980, 969);
-            this.deleteButton.Margin = new System.Windows.Forms.Padding(4);
+            this.deleteButton.Location = new System.Drawing.Point(1320, 630);
             this.deleteButton.Name = "deleteButton";
-            this.deleteButton.Size = new System.Drawing.Size(100, 36);
+            this.deleteButton.Size = new System.Drawing.Size(97, 40);
             this.deleteButton.TabIndex = 97;
             this.deleteButton.Text = "Delete";
             this.deleteButton.UseVisualStyleBackColor = true;
@@ -191,10 +160,9 @@
             // editButton
             // 
             this.editButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.editButton.Location = new System.Drawing.Point(1833, 969);
-            this.editButton.Margin = new System.Windows.Forms.Padding(4);
+            this.editButton.Location = new System.Drawing.Point(1222, 630);
             this.editButton.Name = "editButton";
-            this.editButton.Size = new System.Drawing.Size(96, 36);
+            this.editButton.Size = new System.Drawing.Size(64, 40);
             this.editButton.TabIndex = 96;
             this.editButton.Text = "Edit";
             this.editButton.UseVisualStyleBackColor = true;
@@ -203,10 +171,9 @@
             // addButton
             // 
             this.addButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.addButton.Location = new System.Drawing.Point(1698, 969);
-            this.addButton.Margin = new System.Windows.Forms.Padding(4);
+            this.addButton.Location = new System.Drawing.Point(1132, 630);
             this.addButton.Name = "addButton";
-            this.addButton.Size = new System.Drawing.Size(96, 36);
+            this.addButton.Size = new System.Drawing.Size(64, 40);
             this.addButton.TabIndex = 95;
             this.addButton.Text = "Add";
             this.addButton.UseVisualStyleBackColor = true;
@@ -216,69 +183,73 @@
             // 
             this.idLabel.AutoSize = true;
             this.idLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.idLabel.Location = new System.Drawing.Point(1677, 337);
-            this.idLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.idLabel.Location = new System.Drawing.Point(1118, 219);
             this.idLabel.Name = "idLabel";
             this.idLabel.Size = new System.Drawing.Size(40, 32);
             this.idLabel.TabIndex = 94;
             this.idLabel.Text = "ID";
             // 
-            // CatCb
+            // addCatCombobox
             // 
-            this.CatCb.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.CatCb.FormattingEnabled = true;
-            this.CatCb.Location = new System.Drawing.Point(1939, 759);
-            this.CatCb.Margin = new System.Windows.Forms.Padding(4);
-            this.CatCb.Name = "CatCb";
-            this.CatCb.Size = new System.Drawing.Size(212, 37);
-            this.CatCb.TabIndex = 93;
-            this.CatCb.Text = "Select Category";
+            this.addCatCombobox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.addCatCombobox.FormattingEnabled = true;
+            this.addCatCombobox.Location = new System.Drawing.Point(1293, 493);
+            this.addCatCombobox.Name = "addCatCombobox";
+            this.addCatCombobox.Size = new System.Drawing.Size(143, 37);
+            this.addCatCombobox.TabIndex = 93;
+            this.addCatCombobox.Text = "Select Category";
             // 
             // ProdPrice
             // 
             this.ProdPrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.ProdPrice.Location = new System.Drawing.Point(1939, 642);
-            this.ProdPrice.Margin = new System.Windows.Forms.Padding(4);
+            this.ProdPrice.Location = new System.Drawing.Point(1293, 417);
             this.ProdPrice.Name = "ProdPrice";
-            this.ProdPrice.Size = new System.Drawing.Size(212, 35);
+            this.ProdPrice.Size = new System.Drawing.Size(143, 35);
             this.ProdPrice.TabIndex = 92;
             // 
             // ProdQty
             // 
             this.ProdQty.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.ProdQty.Location = new System.Drawing.Point(1939, 535);
-            this.ProdQty.Margin = new System.Windows.Forms.Padding(4);
+            this.ProdQty.Location = new System.Drawing.Point(1293, 348);
             this.ProdQty.Name = "ProdQty";
-            this.ProdQty.Size = new System.Drawing.Size(212, 35);
+            this.ProdQty.Size = new System.Drawing.Size(143, 35);
             this.ProdQty.TabIndex = 91;
             // 
             // ProdName
             // 
             this.ProdName.BackColor = System.Drawing.Color.White;
             this.ProdName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.ProdName.Location = new System.Drawing.Point(1939, 431);
-            this.ProdName.Margin = new System.Windows.Forms.Padding(4);
+            this.ProdName.Location = new System.Drawing.Point(1293, 280);
             this.ProdName.Name = "ProdName";
-            this.ProdName.Size = new System.Drawing.Size(212, 35);
+            this.ProdName.Size = new System.Drawing.Size(143, 35);
             this.ProdName.TabIndex = 90;
             // 
             // ProdId
             // 
             this.ProdId.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.ProdId.Location = new System.Drawing.Point(1939, 337);
-            this.ProdId.Margin = new System.Windows.Forms.Padding(4);
+            this.ProdId.Location = new System.Drawing.Point(1293, 219);
             this.ProdId.Name = "ProdId";
-            this.ProdId.Size = new System.Drawing.Size(212, 35);
+            this.ProdId.Size = new System.Drawing.Size(143, 35);
             this.ProdId.TabIndex = 89;
+            // 
+            // catComboBox
+            // 
+            this.catComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.catComboBox.FormattingEnabled = true;
+            this.catComboBox.Location = new System.Drawing.Point(582, 146);
+            this.catComboBox.Name = "catComboBox";
+            this.catComboBox.Size = new System.Drawing.Size(143, 37);
+            this.catComboBox.TabIndex = 107;
+            this.catComboBox.Text = "Select Category";
+            this.catComboBox.SelectionChangeCommitted += new System.EventHandler(this.catComboBox_SelectionChangeCommitted);
             // 
             // Product
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(2330, 1185);
+            this.ClientSize = new System.Drawing.Size(1553, 770);
             this.ControlBox = false;
-            this.Controls.Add(this.toDateTimePicker);
-            this.Controls.Add(this.fromDateTimePicker);
+            this.Controls.Add(this.catComboBox);
             this.Controls.Add(this.totalLabel);
             this.Controls.Add(this.searchButton);
             this.Controls.Add(this.searchTextBox);
@@ -292,11 +263,12 @@
             this.Controls.Add(this.editButton);
             this.Controls.Add(this.addButton);
             this.Controls.Add(this.idLabel);
-            this.Controls.Add(this.CatCb);
+            this.Controls.Add(this.addCatCombobox);
             this.Controls.Add(this.ProdPrice);
             this.Controls.Add(this.ProdQty);
             this.Controls.Add(this.ProdName);
             this.Controls.Add(this.ProdId);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Product";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Product_Load);
@@ -307,9 +279,6 @@
         }
 
         #endregion
-
-        private DateTimePicker toDateTimePicker;
-        private DateTimePicker fromDateTimePicker;
         private Label totalLabel;
         private Button searchButton;
         private TextBox searchTextBox;
@@ -323,10 +292,11 @@
         private Button editButton;
         private Button addButton;
         private Label idLabel;
-        private ComboBox CatCb;
+        private ComboBox addCatCombobox;
         private TextBox ProdPrice;
         private TextBox ProdQty;
         private TextBox ProdName;
         private TextBox ProdId;
+        private ComboBox catComboBox;
     }
 }
