@@ -123,9 +123,9 @@ namespace SupermarketTuto.Forms
                     loaddata3.commandExc("Insert Into CategoryTbl values(" + CatIdTb.Text + ",'" + CatNameTb.Text + "','" + CatDescTb.Text + "','" + dateTimePicker.Value.ToString("MM-dd-yyyy") + "')");
                     MessageBox.Show("Success!");
                     display();
-                    CatIdTb.Text = "";
-                    CatNameTb.Text = "";
-                    CatDescTb.Text = "";
+                    CatIdTb.Text = String.Empty;
+                    CatNameTb.Text = String.Empty;
+                    CatDescTb.Text = String.Empty;
                 }
 
             }
@@ -150,9 +150,9 @@ namespace SupermarketTuto.Forms
 
                     loaddata6.commandExc("Update CategoryTbl set CatName='" + CatNameTb.Text + "',CatDesc='" + CatDescTb.Text + "' where CatId=" + CatIdTb.Text + ";");
                     display();
-                    CatIdTb.Text = "";
-                    CatNameTb.Text = "";
-                    CatDescTb.Text = "";
+                    CatIdTb.Text = String.Empty;
+                    CatNameTb.Text = String.Empty;
+                    CatDescTb.Text = String.Empty;
                     MessageBox.Show("Product Successfully Updated");
 
                 }
@@ -206,6 +206,11 @@ namespace SupermarketTuto.Forms
             {
                 searchButton.PerformClick();
             }
+        }
+
+        private void Clear()
+        {
+
         }
     }
 }

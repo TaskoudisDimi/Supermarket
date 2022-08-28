@@ -18,8 +18,6 @@ namespace SupermarketTuto.Forms
             InitializeComponent();
         }
 
-
-
         private void MainForm_Load(object sender, EventArgs e)
         {
             MainMenu();

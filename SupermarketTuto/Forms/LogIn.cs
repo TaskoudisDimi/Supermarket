@@ -20,7 +20,7 @@ namespace SupermarketTuto
 
 
         SqlConnect loaddata = new SqlConnect();
-        public static string sellerName = "Test";
+        public static string sellerName = "";
 
         public LogIn()
         {
@@ -69,34 +69,46 @@ namespace SupermarketTuto
 
         private void LogInButton_Click(object sender, EventArgs e)
         {
-
-
-            loaddata.retrieveData("Select * From [smarketdb].[dbo].[Users] Where Username= '" + UserNameTextBox.Text + "' and Password= '" + PasswordTextBox.Text + "' and Role= '" + selectRoleCombobox.SelectedItem + "'");
-            sellerName = UserNameTextBox.Text;
-
-            if (loaddata.table.Rows.Count == 1 && selectRoleCombobox.SelectedItem != "Select Role")
+            try
             {
-                if (selectRoleCombobox.SelectedItem == "Admin")
+                if (UserNameTextBox.Text == String.Empty && PasswordTextBox.Text == String.Empty)
                 {
-
-                    Product products = new Product();
-                    products.Show();
-                    this.Hide();
+                    MessageBox.Show("Misiing Data!");
                 }
-                if (selectRoleCombobox.SelectedItem == "Seller")
+                else
                 {
-                    SellingForm selling = new SellingForm();
-                    selling.Show();
-                    this.Hide();
+                    loaddata.retrieveData("Select * From [smarketdb].[dbo].[Users] Where Username= '" + UserNameTextBox.Text + "' and Password= '" + PasswordTextBox.Text + "' and Role= '" + selectRoleCombobox.SelectedItem + "'");
+                    sellerName = UserNameTextBox.Text;
+
+                    if (loaddata.table.Rows.Count == 1 && selectRoleCombobox.SelectedItem != "Select Role")
+                    {
+                        if (selectRoleCombobox.SelectedItem == "Admin")
+                        {
+
+                            Main products = new Main();
+                            products.Show();
+                            this.Hide();
+                        }
+                        if (selectRoleCombobox.SelectedItem == "Seller")
+                        {
+                            SellingForm selling = new SellingForm();
+                            selling.Show();
+                            this.Hide();
+                        }
+                    }
+                    else if (selectRoleCombobox.SelectedItem == "Select Role")
+                    {
+                        MessageBox.Show("Select Role!");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Opps! Wrong Credentials!");
+                    }
                 }
             }
-            else if (selectRoleCombobox.SelectedItem == "Select Role")
+            catch (Exception ex)
             {
-                MessageBox.Show("Select Role!");
-            }
-            else
-            {
-                MessageBox.Show("Error!");
+                MessageBox.Show("Error", "Error", MessageBoxButtons.OK);
             }
 
         }
@@ -131,7 +143,9 @@ namespace SupermarketTuto
             }
         }
 
+        private void updateButton_Click(object sender, EventArgs e)
+        {
 
-
+        }
     }
 }

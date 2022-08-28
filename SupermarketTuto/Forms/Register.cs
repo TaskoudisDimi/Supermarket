@@ -46,33 +46,39 @@ namespace SupermarketTuto
 
         private void RegisterButton_Click(object sender, EventArgs e)
         {
-            if (UsernameTextBox.Text == "" || PasswordTextBox.Text == String.Empty || ConfirmPasswordTextBox.Text == String.Empty)
+            try
             {
-                MessageBox.Show("Username and/or Password fields are empty", "Registration Failed", MessageBoxButtons.OK);
+                if (UsernameTextBox.Text == "" || PasswordTextBox.Text == String.Empty || ConfirmPasswordTextBox.Text == String.Empty)
+                {
+                    MessageBox.Show("Username and/or Password fields are empty", "Registration Failed", MessageBoxButtons.OK);
 
+                }
+                else if (PasswordTextBox.Text == ConfirmPasswordTextBox.Text && chooseRoleCombobox.SelectedItem != null)
+                {
+
+                    loaddata.commandExc("Insert Into Users Values ('" + UsernameTextBox.Text + "','" + PasswordTextBox.Text + "','" + chooseRoleCombobox.SelectedItem + "')");
+
+
+                    MessageBox.Show("Your Account has been Successfully Created", "Registration Success", MessageBoxButtons.OK);
+                    UsernameTextBox.Clear();
+                    PasswordTextBox.Clear();
+                    ConfirmPasswordTextBox.Clear();
+
+                }
+                else
+                {
+                    MessageBox.Show("Credentials does not match, please re-enter", "Registration Failed", MessageBoxButtons.OK);
+                    UsernameTextBox.Clear();
+                    PasswordTextBox.Clear();
+                    ConfirmPasswordTextBox.Clear();
+                    UsernameTextBox.Focus();
+                }
             }
-            else if(PasswordTextBox.Text == ConfirmPasswordTextBox.Text && chooseRoleCombobox.SelectedItem != null)
+            catch
             {
-                
-                loaddata.commandExc("Insert Into Users Values ('" + UsernameTextBox.Text + "','" + PasswordTextBox.Text + "','" + chooseRoleCombobox.SelectedItem + "')");
-
-
-                MessageBox.Show("Your Account has been Successfully Created", "Registration Success", MessageBoxButtons.OK);
-                UsernameTextBox.Clear();
-                PasswordTextBox.Clear();
-                ConfirmPasswordTextBox.Clear();
-
-
-
+                MessageBox.Show("Error");
             }
-            else
-            {
-                MessageBox.Show("Credentials does not match, please re-enter", "Registration Failed", MessageBoxButtons.OK);
-                UsernameTextBox.Clear();
-                PasswordTextBox.Clear();
-                ConfirmPasswordTextBox.Clear();
-                UsernameTextBox.Focus();
-            }
+            
 
         }
 
@@ -88,7 +94,7 @@ namespace SupermarketTuto
         {
             LogIn login = new LogIn();
             login.Show();
-            this.Close();
+            this.Dispose();
 
         }
 
@@ -116,4 +122,6 @@ namespace SupermarketTuto
         }
     }
 }
+
+
 
