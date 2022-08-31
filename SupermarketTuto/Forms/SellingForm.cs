@@ -31,11 +31,13 @@ namespace SupermarketTuto
         {
             SqlConnect loaddata = new SqlConnect();
 
-            loaddata.retrieveData("Select [ProdName], [ProdQty] From [ProductTbl]");
-            //loaddata.retrieveData("Select [ProdName], [ProdQty] From [ProductTbl] Where [ProdCat] = '" + Convert.ToString(SearchCb.SelectedValue) + "'");
+            //loaddata.retrieveData("Select [ProdName], [ProdQty] From [ProductTbl]");
+            loaddata.retrieveData("Select [ProdName], [ProdQty] From [ProductTbl] Where [ProdCat] = '" + Convert.ToString(SearchCb.SelectedValue) + "'");
             SellingDGV.DataSource = loaddata.table;
             SellingDGV.AllowUserToAddRows = false;
             SellingDGV.RowHeadersVisible = false;
+            totalLabel.Text = $"Total: {SellingDGV.RowCount}";
+
         }
 
         private void displayBills()
@@ -45,13 +47,26 @@ namespace SupermarketTuto
             BillsDGV.DataSource = loaddata2.table;
             BillsDGV.AllowUserToAddRows = false;
             BillsDGV.RowHeadersVisible = false;
+            total3Label.Text = $"Total: {BillsDGV.RowCount}";
+
         }
+        
+        private void displayDGV()
+        {
+            SqlConnect loaddata7 = new SqlConnect();
+            loaddata7.retrieveData("Select * From SellingProducts");
+            OrderDGV.DataSource = loaddata7.table;
+            OrderDGV.AllowUserToAddRows = false;
+            OrderDGV.RowHeadersVisible = false;
+            total2Label.Text = $"Total: {OrderDGV.RowCount}";
+        }
+
         private void fillCombo()
         {
             SqlConnect loaddata3 = new SqlConnect();
             loaddata3.retrieveData("Select CatName From CategoryTbl");
             SearchCb.DataSource = loaddata3.table;
-            //SearchCb.ValueMember = "CatName";
+            SearchCb.ValueMember = "CatName";
             SearchCb.SelectedItem = null;
 
         }
@@ -61,6 +76,8 @@ namespace SupermarketTuto
             fillCombo();
             display();
             displayBills();
+            displayDGV();
+            calcSum();
 
             seller_Name_Label.Text = "Name" + LogIn.sellerName;
         }
@@ -80,31 +97,27 @@ namespace SupermarketTuto
             }
             else
             {
-                double sum = 0;
-                int n = 0;
-                int total = Convert.ToInt32(SellingPriceTextBox.Text) * Convert.ToInt32(SellingQuantityTextBox.Text);
-                DataGridViewRow newRow = new DataGridViewRow();
-                newRow.CreateCells(OrderDGV);
-                newRow.Cells[0].Value = n + 1;
-                newRow.Cells[1].Value = SellingProdName.Text;
-                newRow.Cells[2].Value = SellingPriceTextBox.Text;
-                newRow.Cells[3].Value = SellingQuantityTextBox.Text;
-                newRow.Cells[4].Value = Convert.ToInt32(SellingPriceTextBox.Text) * Convert.ToInt32(SellingQuantityTextBox.Text);
-                OrderDGV.Rows.Add(newRow);
-                OrderDGV.AllowUserToAddRows = false;
 
-
-                for (int i = 0; i < OrderDGV.Rows.Count; i++)
-                {
-                    sum += double.Parse(OrderDGV.Rows[i].Cells[4].Value.ToString());
-                    n++;
-                }
-                sumTextBox.Text = sum.ToString();
+                SqlConnect loaddata8 = new SqlConnect();
+                loaddata8.commandExc("Insert Into SellingProducts Values('" + SellingProdName.Text + "'," + SellingPriceTextBox.Text + "," + SellingQuantityTextBox.Text + "," + (Convert.ToInt32(SellingPriceTextBox.Text) * Convert.ToInt32(SellingQuantityTextBox.Text)) + ")");
+                OrderDGV.DataSource = loaddata8.table;
+                MessageBox.Show("Success");
+                displayDGV();
+                
 
             }
 
         }
 
+        private void calcSum()
+        {
+            double sum = 0;
+            for (int i = 0; i < OrderDGV.Rows.Count; i++)
+            {
+                sum += double.Parse(OrderDGV.Rows[i].Cells[3].Value.ToString());
+            }
+            sumTextBox.Text = sum.ToString();
+        }
 
 
         private void addButton_Click(object sender, EventArgs e)
@@ -113,7 +126,7 @@ namespace SupermarketTuto
             {
                 SqlConnect loaddata4 = new SqlConnect();
 
-                //loaddata4.commandExc("Insert Into BillTbl values(" + BillId.Text + ",'" + SellerNameLabel.Text + "','" + DateLabel.Text + "'," + sumTextBox.Text + ")");
+                loaddata4.commandExc("Insert Into BillTbl values(" + BillId.Text + ",'" + seller_Name_Label.Text + "','" + DateLabel.Text + "'," + sumTextBox.Text + ")");
 
                 displayBills();
 
@@ -148,7 +161,7 @@ namespace SupermarketTuto
 
         private void refreshButton_Click(object sender, EventArgs e)
         {
-            displayBills();
+            display();
         }
 
         private void logOutLabel_Click(object sender, EventArgs e)

@@ -47,8 +47,8 @@
             this.SellingDGV = new System.Windows.Forms.DataGridView();
             this.BillsDGV = new System.Windows.Forms.DataGridView();
             this.SellingPanel = new System.Windows.Forms.Panel();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
+            this.total3Label = new System.Windows.Forms.Label();
+            this.total2Label = new System.Windows.Forms.Label();
             this.totalLabel = new System.Windows.Forms.Label();
             this.sumTextBox = new System.Windows.Forms.TextBox();
             this.SellsListLabel = new System.Windows.Forms.Label();
@@ -240,8 +240,8 @@
             // SellingPanel
             // 
             this.SellingPanel.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.SellingPanel.Controls.Add(this.label6);
-            this.SellingPanel.Controls.Add(this.label5);
+            this.SellingPanel.Controls.Add(this.total3Label);
+            this.SellingPanel.Controls.Add(this.total2Label);
             this.SellingPanel.Controls.Add(this.totalLabel);
             this.SellingPanel.Controls.Add(this.sumTextBox);
             this.SellingPanel.Controls.Add(this.SellsListLabel);
@@ -272,28 +272,28 @@
             this.SellingPanel.TabIndex = 33;
             this.SellingPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.SellingPanel_Paint);
             // 
-            // label6
+            // total3Label
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(699, 815);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(34, 13);
-            this.label6.TabIndex = 46;
-            this.label6.Text = "Total:";
+            this.total3Label.AutoSize = true;
+            this.total3Label.Location = new System.Drawing.Point(616, 813);
+            this.total3Label.Name = "total3Label";
+            this.total3Label.Size = new System.Drawing.Size(34, 13);
+            this.total3Label.TabIndex = 46;
+            this.total3Label.Text = "Total:";
             // 
-            // label5
+            // total2Label
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(261, 395);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(34, 13);
-            this.label5.TabIndex = 45;
-            this.label5.Text = "Total:";
+            this.total2Label.AutoSize = true;
+            this.total2Label.Location = new System.Drawing.Point(1474, 408);
+            this.total2Label.Name = "total2Label";
+            this.total2Label.Size = new System.Drawing.Size(34, 13);
+            this.total2Label.TabIndex = 45;
+            this.total2Label.Text = "Total:";
             // 
             // totalLabel
             // 
             this.totalLabel.AutoSize = true;
-            this.totalLabel.Location = new System.Drawing.Point(1474, 408);
+            this.totalLabel.Location = new System.Drawing.Point(255, 403);
             this.totalLabel.Name = "totalLabel";
             this.totalLabel.Size = new System.Drawing.Size(34, 13);
             this.totalLabel.TabIndex = 44;
@@ -438,8 +438,8 @@
         private PrintPreviewDialog printPreviewDialog1;
         private System.Drawing.Printing.PrintDocument printDocument1;
         private TextBox sumTextBox;
-        private Label label6;
-        private Label label5;
+        private Label total3Label;
+        private Label total2Label;
         private Label totalLabel;
         private Panel sidePanel;
         private Label seller_Name_Label;
