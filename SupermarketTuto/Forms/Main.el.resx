@@ -117,41 +117,21 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="languageComboBox.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
+  <data name="productsButton.Text" xml:space="preserve">
+    <value>Προιόντα</value>
+  </data>
+  <data name="categoriesButton.Text" xml:space="preserve">
+    <value>Κατηγορίες</value>
+  </data>
+  <data name="sellersButton.Text" xml:space="preserve">
+    <value>Πωλητές</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="categoriesButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>18, 152</value>
+  <data name="welcome.Size" type="System.Drawing.Size, System.Drawing">
+    <value>60, 30</value>
   </data>
-  <data name="&gt;&gt;mainPanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;languageComboBox.Name" xml:space="preserve">
-    <value>languageComboBox</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="productsButton.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 1, 2, 1</value>
-  </data>
-  <data name="&gt;&gt;mainPanel.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="mainPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1403, 825</value>
-  </data>
-  <data name="&gt;&gt;sidePanel.Name" xml:space="preserve">
-    <value>sidePanel</value>
-  </data>
-  <data name="&gt;&gt;welcome.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
-    <value>CenterScreen</value>
+  <data name="welcome.Text" xml:space="preserve">
+    <value>Τεστ</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -2978,184 +2958,4 @@
         IAAAAAAAAAAAAAAOAAAAnwAAAP+AAAD/wQAA/+cAAA==
 </value>
   </data>
-  <data name="welcome.Location" type="System.Drawing.Point, System.Drawing">
-    <value>532, 51</value>
-  </data>
-  <data name="&gt;&gt;sellersButton.Name" xml:space="preserve">
-    <value>sellersButton</value>
-  </data>
-  <data name="&gt;&gt;sidePanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
-  </data>
-  <data name="&gt;&gt;categoriesButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;welcome.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="sidePanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="categoriesButton.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="sidePanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 825</value>
-  </data>
-  <data name="&gt;&gt;productsButton.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="sidePanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 1, 2, 1</value>
-  </data>
-  <data name="categoriesButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>125, 43</value>
-  </data>
-  <data name="welcome.Text" xml:space="preserve">
-    <value>Welcome</value>
-  </data>
-  <data name="welcome.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="mainPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
-  </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>MainForm</value>
-  </data>
-  <data name="productsButton.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="sellersButton.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;languageComboBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="welcome.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 16pt, style=Bold</value>
-  </data>
-  <data name="welcome.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="sellersButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>18, 92</value>
-  </data>
-  <data name="mainPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>180, 0</value>
-  </data>
-  <data name="productsButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>125, 43</value>
-  </data>
-  <data name="&gt;&gt;sidePanel.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;welcome.Parent" xml:space="preserve">
-    <value>mainPanel</value>
-  </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>1583, 825</value>
-  </data>
-  <data name="mainPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
-  </data>
-  <data name="languageComboBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>121, 21</value>
-  </data>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>6, 13</value>
-  </data>
-  <data name="productsButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>18, 209</value>
-  </data>
-  <data name="sidePanel.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;languageComboBox.Parent" xml:space="preserve">
-    <value>mainPanel</value>
-  </data>
-  <data name="welcome.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 0, 2, 0</value>
-  </data>
-  <data name="productsButton.Text" xml:space="preserve">
-    <value>Products</value>
-  </data>
-  <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>Main</value>
-  </data>
-  <data name="sellersButton.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 1, 2, 1</value>
-  </data>
-  <data name="languageComboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>816, 51</value>
-  </data>
-  <data name="categoriesButton.Text" xml:space="preserve">
-    <value>Categories</value>
-  </data>
-  <data name="mainPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="&gt;&gt;productsButton.Name" xml:space="preserve">
-    <value>productsButton</value>
-  </data>
-  <data name="&gt;&gt;categoriesButton.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="sellersButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>125, 43</value>
-  </data>
-  <data name="&gt;&gt;categoriesButton.Name" xml:space="preserve">
-    <value>categoriesButton</value>
-  </data>
-  <data name="&gt;&gt;productsButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;sellersButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="sidePanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Left</value>
-  </data>
-  <data name="&gt;&gt;mainPanel.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;productsButton.Parent" xml:space="preserve">
-    <value>sidePanel</value>
-  </data>
-  <data name="&gt;&gt;sellersButton.Parent" xml:space="preserve">
-    <value>sidePanel</value>
-  </data>
-  <data name="&gt;&gt;mainPanel.Name" xml:space="preserve">
-    <value>mainPanel</value>
-  </data>
-  <data name="&gt;&gt;welcome.Name" xml:space="preserve">
-    <value>welcome</value>
-  </data>
-  <data name="sellersButton.Text" xml:space="preserve">
-    <value>Sellers</value>
-  </data>
-  <data name="&gt;&gt;sellersButton.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="categoriesButton.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 1, 2, 1</value>
-  </data>
-  <data name="&gt;&gt;categoriesButton.Parent" xml:space="preserve">
-    <value>sidePanel</value>
-  </data>
-  <data name="&gt;&gt;languageComboBox.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="welcome.Size" type="System.Drawing.Size, System.Drawing">
-    <value>108, 30</value>
-  </data>
-  <data name="&gt;&gt;sidePanel.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
 </root>

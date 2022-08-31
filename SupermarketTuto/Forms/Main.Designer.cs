@@ -34,6 +34,7 @@
             this.categoriesButton = new System.Windows.Forms.Button();
             this.sellersButton = new System.Windows.Forms.Button();
             this.mainPanel = new System.Windows.Forms.Panel();
+            this.languageComboBox = new System.Windows.Forms.ComboBox();
             this.welcome = new System.Windows.Forms.Label();
             this.sidePanel.SuspendLayout();
             this.mainPanel.SuspendLayout();
@@ -41,87 +42,64 @@
             // 
             // sidePanel
             // 
+            resources.ApplyResources(this.sidePanel, "sidePanel");
             this.sidePanel.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.sidePanel.Controls.Add(this.productsButton);
             this.sidePanel.Controls.Add(this.categoriesButton);
             this.sidePanel.Controls.Add(this.sellersButton);
-            this.sidePanel.Dock = System.Windows.Forms.DockStyle.Left;
-            this.sidePanel.Location = new System.Drawing.Point(0, 0);
-            this.sidePanel.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.sidePanel.Name = "sidePanel";
-            this.sidePanel.Size = new System.Drawing.Size(180, 825);
-            this.sidePanel.TabIndex = 1;
             // 
             // productsButton
             // 
+            resources.ApplyResources(this.productsButton, "productsButton");
             this.productsButton.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.productsButton.Location = new System.Drawing.Point(18, 209);
-            this.productsButton.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.productsButton.Name = "productsButton";
-            this.productsButton.Size = new System.Drawing.Size(125, 43);
-            this.productsButton.TabIndex = 3;
-            this.productsButton.Text = "Products";
             this.productsButton.UseVisualStyleBackColor = false;
             this.productsButton.Click += new System.EventHandler(this.productsButton_Click);
             // 
             // categoriesButton
             // 
+            resources.ApplyResources(this.categoriesButton, "categoriesButton");
             this.categoriesButton.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.categoriesButton.Location = new System.Drawing.Point(18, 152);
-            this.categoriesButton.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.categoriesButton.Name = "categoriesButton";
-            this.categoriesButton.Size = new System.Drawing.Size(125, 43);
-            this.categoriesButton.TabIndex = 2;
-            this.categoriesButton.Text = "Categories";
             this.categoriesButton.UseVisualStyleBackColor = false;
             this.categoriesButton.Click += new System.EventHandler(this.categoriesButton_Click);
             // 
             // sellersButton
             // 
+            resources.ApplyResources(this.sellersButton, "sellersButton");
             this.sellersButton.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.sellersButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.sellersButton.Location = new System.Drawing.Point(18, 92);
-            this.sellersButton.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.sellersButton.Name = "sellersButton";
-            this.sellersButton.Size = new System.Drawing.Size(125, 43);
-            this.sellersButton.TabIndex = 1;
-            this.sellersButton.Text = "Sellers";
             this.sellersButton.UseVisualStyleBackColor = false;
             this.sellersButton.Click += new System.EventHandler(this.sellersButton_Click);
             // 
             // mainPanel
             // 
+            resources.ApplyResources(this.mainPanel, "mainPanel");
+            this.mainPanel.Controls.Add(this.languageComboBox);
             this.mainPanel.Controls.Add(this.welcome);
-            this.mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mainPanel.Location = new System.Drawing.Point(180, 0);
-            this.mainPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.mainPanel.Name = "mainPanel";
-            this.mainPanel.Size = new System.Drawing.Size(1403, 825);
-            this.mainPanel.TabIndex = 9;
+            // 
+            // languageComboBox
+            // 
+            resources.ApplyResources(this.languageComboBox, "languageComboBox");
+            this.languageComboBox.FormattingEnabled = true;
+            this.languageComboBox.Name = "languageComboBox";
+            this.languageComboBox.SelectedIndexChanged += new System.EventHandler(this.languageComboBox_SelectedIndexChanged);
             // 
             // welcome
             // 
-            this.welcome.AutoSize = true;
-            this.welcome.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.welcome.Location = new System.Drawing.Point(532, 51);
-            this.welcome.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            resources.ApplyResources(this.welcome, "welcome");
             this.welcome.Name = "welcome";
-            this.welcome.Size = new System.Drawing.Size(158, 45);
-            this.welcome.TabIndex = 0;
-            this.welcome.Text = "Welcome";
             // 
             // Main
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1583, 825);
             this.Controls.Add(this.mainPanel);
             this.Controls.Add(this.sidePanel);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "Main";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "MainForm";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
@@ -140,5 +118,6 @@
         private Button sellersButton;
         private Panel mainPanel;
         private Label welcome;
+        private ComboBox languageComboBox;
     }
 }
