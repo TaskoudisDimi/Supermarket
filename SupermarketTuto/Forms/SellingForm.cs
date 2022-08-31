@@ -61,7 +61,7 @@ namespace SupermarketTuto
             display();
             displayBills();
 
-            //SellerNameLabel.Text = LogIn.sellerName;
+            seller_Name_Label.Text = "Name" + LogIn.sellerName;
         }
 
         private void SellingPanel_Paint(object sender, PaintEventArgs e)

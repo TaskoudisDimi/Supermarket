@@ -94,7 +94,7 @@
             this.mainPanel.Controls.Add(this.welcome);
             this.mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainPanel.Location = new System.Drawing.Point(180, 0);
-            this.mainPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.mainPanel.Margin = new System.Windows.Forms.Padding(2);
             this.mainPanel.Name = "mainPanel";
             this.mainPanel.Size = new System.Drawing.Size(1403, 825);
             this.mainPanel.TabIndex = 9;
@@ -103,7 +103,7 @@
             // 
             this.welcome.AutoSize = true;
             this.welcome.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.welcome.Location = new System.Drawing.Point(532, 51);
+            this.welcome.Location = new System.Drawing.Point(537, 41);
             this.welcome.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.welcome.Name = "welcome";
             this.welcome.Size = new System.Drawing.Size(158, 45);
@@ -118,7 +118,7 @@
             this.Controls.Add(this.mainPanel);
             this.Controls.Add(this.sidePanel);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Main";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MainForm";
