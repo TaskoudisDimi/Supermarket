@@ -35,6 +35,7 @@ namespace SupermarketTuto
             //loaddata.retrieveData("Select [ProdName], [ProdQty] From [ProductTbl] Where [ProdCat] = '" + Convert.ToString(SearchCb.SelectedValue) + "'");
             SellingDGV.DataSource = loaddata.table;
             SellingDGV.AllowUserToAddRows = false;
+            SellingDGV.RowHeadersVisible = false;
         }
 
         private void displayBills()
@@ -43,14 +44,14 @@ namespace SupermarketTuto
             loaddata2.retrieveData("Select * From BillTbl;");
             BillsDGV.DataSource = loaddata2.table;
             BillsDGV.AllowUserToAddRows = false;
-
+            BillsDGV.RowHeadersVisible = false;
         }
         private void fillCombo()
         {
             SqlConnect loaddata3 = new SqlConnect();
             loaddata3.retrieveData("Select CatName From CategoryTbl");
             SearchCb.DataSource = loaddata3.table;
-            SearchCb.ValueMember = "CatName";
+            //SearchCb.ValueMember = "CatName";
             SearchCb.SelectedItem = null;
 
         }
@@ -184,6 +185,7 @@ namespace SupermarketTuto
             SqlConnect loaddata5 = new SqlConnect();
             loaddata5.retrieveData("Select * from ProductTbl Where ProdCat='" + SearchCb.SelectedValue.ToString() + "'");
             SellingDGV.DataSource = loaddata5.table;
+            
 
 
         }

@@ -60,7 +60,6 @@
             this.ClientSize = new System.Drawing.Size(1157, 489);
             this.Controls.Add(this.aboutlabel);
             this.Controls.Add(this.label1);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "About";
             this.Text = "About";
             this.ResumeLayout(false);
