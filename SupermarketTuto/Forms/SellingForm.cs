@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Drawing.Printing;
 using SupermarketTuto.DataAccess;
+using SupermarketTuto.Forms;
 
 namespace SupermarketTuto
 {
@@ -18,21 +19,110 @@ namespace SupermarketTuto
         public SellingForm()
         {
             InitializeComponent();
+
         }
 
-        private void exitButton_Click(object sender, EventArgs e)
+
+        private void MainMenu()
+        {
+            MenuStrip menu = new MenuStrip();
+            menu.Dock = DockStyle.Top;
+            menu.Font = new Font("Segoe UI", 16);
+
+            this.Controls.Add(menu);
+            string[] items = new string[] { "File", "About" };
+            foreach (string Row in items)
+            {
+                ToolStripMenuItem MnuStripItem = new ToolStripMenuItem(Row);
+                menu.Items.Add(MnuStripItem);
+                SubMenu(MnuStripItem, Row);
+
+                if (MnuStripItem.Text == "About")
+                {
+                    MnuStripItem.Click += new EventHandler(MnuStripAbout_Click);
+                }
+
+            }
+
+        }
+
+        private void SubMenu(ToolStripMenuItem items, string var)
+        {
+            if (var == "File")
+            {
+                string[] subItem = new string[] { "Users", "BackUp", "Log out", "Exit" };
+                foreach (string Row in subItem)
+                {
+                    ToolStripMenuItem subMenuItem = new ToolStripMenuItem(Row, null);
+                    SubMenu(subMenuItem, Row);
+                    items.DropDownItems.Add(subMenuItem);
+                    if (subMenuItem.Text == "Users")
+                    {
+                        subMenuItem.Click += new EventHandler(MnuStripUsers_Click);
+                    }
+                    else if (subMenuItem.Text == "BackUp")
+                    {
+                        subMenuItem.Click += new EventHandler(MnuStripDb_Click);
+                    }
+                    else if (subMenuItem.Text == "Log out")
+                    {
+                        subMenuItem.Click += new EventHandler(MnuStripLogOut_Click);
+                    }
+                    else if (subMenuItem.Text == "Exit")
+                    {
+                        subMenuItem.Click += new EventHandler(MnuStripExit_Click);
+                    }
+                }
+            }
+
+        }
+
+        private void MnuStripExit_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
+        private void MnuStripLogOut_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            LogIn login = new LogIn();
+            login.Show();
+        }
+        private void MnuStripUsers_Click(object sender, EventArgs e)
+        {
+            Users users = new Users();
+            users.Show();
+        }
 
+        private void MnuStripAbout_Click(object sender, EventArgs e)
+        {
+            About about = new About();
+            about.ShowDialog();
+        }
+
+        private void MnuStripDb_Click(object sender, EventArgs e)
+        {
+
+            SqlConnect db = new SqlConnect();
+            string path = "";
+
+            FolderBrowserDialog dialog = new FolderBrowserDialog();
+            DialogResult result = dialog.ShowDialog();
+            if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(dialog.SelectedPath))
+            {
+                path = dialog.SelectedPath;
+                db.backup(path);
+            }
+            else
+            {
+                return;
+            }
+        }
 
 
         private void display()
         {
             SqlConnect loaddata = new SqlConnect();
-
-            //loaddata.retrieveData("Select [ProdName], [ProdQty] From [ProductTbl]");
-            loaddata.retrieveData("Select [ProdName], [ProdQty] From [ProductTbl] Where [ProdCat] = '" + Convert.ToString(SearchCb.SelectedValue) + "'");
+            loaddata.retrieveData("Select * From [ProductTbl] Where [ProdCat] = '" + Convert.ToString(SearchCb.SelectedValue) + "'");
             SellingDGV.DataSource = loaddata.table;
             SellingDGV.AllowUserToAddRows = false;
             SellingDGV.RowHeadersVisible = false;
@@ -73,14 +163,45 @@ namespace SupermarketTuto
 
         private void SellingForm_Load(object sender, EventArgs e)
         {
+            seller_Name_Label.Text = "Name" + LogIn.sellerName;
+
+            MainMenu();
             fillCombo();
             display();
             displayBills();
             displayDGV();
             calcSum();
 
-            seller_Name_Label.Text = "Name" + LogIn.sellerName;
+
+            ContextMenuStrip mnu = new ContextMenuStrip();
+            ToolStripMenuItem mnuDelete = new ToolStripMenuItem("Delete");
+            //Assign event handlers
+            mnuDelete.Click += new EventHandler(mnuDelete_Click);
+            //Add to main context menu
+            mnu.Items.AddRange(new ToolStripItem[] { mnuDelete });
+            //Assign to datagridview
+            SellingDGV.ContextMenuStrip = mnu;
+
+
         }
+
+        private void mnuDelete_Click(object? sender, EventArgs e)
+        {
+            SqlConnect loaddata4 = new SqlConnect();
+
+            loaddata4.commandExc("Delete From ProductTbl Where SellerTbl=" + SellingDGV.Text + "");
+
+            foreach (DataGridViewRow row in SellingDGV.SelectedRows)
+            {
+                SellingDGV.Rows.RemoveAt(row.Index);
+
+            }
+        }
+
+
+
+
+
 
         private void SellingPanel_Paint(object sender, PaintEventArgs e)
         {
@@ -103,7 +224,9 @@ namespace SupermarketTuto
                 OrderDGV.DataSource = loaddata8.table;
                 MessageBox.Show("Success");
                 displayDGV();
-                
+                calcSum();
+
+
 
             }
 
@@ -116,18 +239,18 @@ namespace SupermarketTuto
             {
                 sum += double.Parse(OrderDGV.Rows[i].Cells[3].Value.ToString());
             }
-            sumTextBox.Text = sum.ToString();
+            sumLabel.Text = sum.ToString();
         }
 
-
+            
         private void addButton_Click(object sender, EventArgs e)
         {
             try
             {
                 SqlConnect loaddata4 = new SqlConnect();
 
-                loaddata4.commandExc("Insert Into BillTbl values(" + BillId.Text + ",'" + seller_Name_Label.Text + "','" + DateLabel.Text + "'," + sumTextBox.Text + ")");
-
+                loaddata4.commandExc("Insert Into BillTbl values('" + commentsRichTextBox.Text + "','" + seller_Name_Label.Text + "','" + DateLabel.Text + "'," + sumLabel.Text + ")");
+                commentsRichTextBox.Text = String.Empty;
                 displayBills();
 
             }
@@ -183,7 +306,7 @@ namespace SupermarketTuto
         private void SellingDGV_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             SellingProdName.Text = SellingDGV.SelectedRows[0].Cells[0].Value.ToString();
-            SellingPriceTextBox.Text = SellingDGV.SelectedRows[0].Cells[1].Value.ToString();
+            SellingPriceTextBox.Text = SellingDGV.SelectedRows[0].Cells[3].Value.ToString();
 
         }
 
@@ -198,7 +321,8 @@ namespace SupermarketTuto
             SqlConnect loaddata5 = new SqlConnect();
             loaddata5.retrieveData("Select * from ProductTbl Where ProdCat='" + SearchCb.SelectedValue.ToString() + "'");
             SellingDGV.DataSource = loaddata5.table;
-            
+            display();
+
 
 
         }
@@ -216,6 +340,16 @@ namespace SupermarketTuto
         private void sidePanel_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void refreshBillsButton_Click(object sender, EventArgs e)
+        {
+            displayBills();
+        }
+
+        private void refreshOrderButton_Click(object sender, EventArgs e)
+        {
+            displayDGV();
         }
     }
 }

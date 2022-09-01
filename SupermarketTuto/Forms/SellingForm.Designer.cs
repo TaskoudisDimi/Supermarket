@@ -47,11 +47,14 @@
             this.SellingDGV = new System.Windows.Forms.DataGridView();
             this.BillsDGV = new System.Windows.Forms.DataGridView();
             this.SellingPanel = new System.Windows.Forms.Panel();
+            this.commentsRichTextBox = new System.Windows.Forms.RichTextBox();
+            this.refreshOrderButton = new System.Windows.Forms.Button();
+            this.refreshBillsButton = new System.Windows.Forms.Button();
+            this.Categories = new System.Windows.Forms.Label();
+            this.sumLabel = new System.Windows.Forms.Label();
             this.total3Label = new System.Windows.Forms.Label();
             this.total2Label = new System.Windows.Forms.Label();
             this.totalLabel = new System.Windows.Forms.Label();
-            this.sumTextBox = new System.Windows.Forms.TextBox();
-            this.SellsListLabel = new System.Windows.Forms.Label();
             this.OrderDGV = new System.Windows.Forms.DataGridView();
             this.AmountLabel = new System.Windows.Forms.Label();
             this.AddProductbutton = new System.Windows.Forms.Button();
@@ -59,6 +62,8 @@
             this.printDocument1 = new System.Drawing.Printing.PrintDocument();
             this.sidePanel = new System.Windows.Forms.Panel();
             this.seller_Name_Label = new System.Windows.Forms.Label();
+            this.Bills = new System.Windows.Forms.Label();
+            this.Products = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.SellingDGV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BillsDGV)).BeginInit();
             this.SellingPanel.SuspendLayout();
@@ -90,7 +95,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.label1.Location = new System.Drawing.Point(915, 195);
+            this.label1.Location = new System.Drawing.Point(906, 226);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(80, 32);
             this.label1.TabIndex = 16;
@@ -100,7 +105,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.label2.Location = new System.Drawing.Point(915, 252);
+            this.label2.Location = new System.Drawing.Point(906, 283);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(136, 32);
             this.label2.TabIndex = 17;
@@ -110,7 +115,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.label3.Location = new System.Drawing.Point(915, 317);
+            this.label3.Location = new System.Drawing.Point(906, 348);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(71, 32);
             this.label3.TabIndex = 18;
@@ -120,7 +125,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.label4.Location = new System.Drawing.Point(915, 381);
+            this.label4.Location = new System.Drawing.Point(906, 412);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(113, 32);
             this.label4.TabIndex = 19;
@@ -128,7 +133,7 @@
             // 
             // SellingQuantityTextBox
             // 
-            this.SellingQuantityTextBox.Location = new System.Drawing.Point(1062, 393);
+            this.SellingQuantityTextBox.Location = new System.Drawing.Point(1053, 424);
             this.SellingQuantityTextBox.Name = "SellingQuantityTextBox";
             this.SellingQuantityTextBox.Size = new System.Drawing.Size(86, 20);
             this.SellingQuantityTextBox.TabIndex = 24;
@@ -136,7 +141,7 @@
             // SellingPriceTextBox
             // 
             this.SellingPriceTextBox.Enabled = false;
-            this.SellingPriceTextBox.Location = new System.Drawing.Point(1062, 325);
+            this.SellingPriceTextBox.Location = new System.Drawing.Point(1053, 356);
             this.SellingPriceTextBox.Name = "SellingPriceTextBox";
             this.SellingPriceTextBox.Size = new System.Drawing.Size(86, 20);
             this.SellingPriceTextBox.TabIndex = 23;
@@ -145,21 +150,21 @@
             // 
             this.SellingProdName.BackColor = System.Drawing.Color.White;
             this.SellingProdName.Enabled = false;
-            this.SellingProdName.Location = new System.Drawing.Point(1062, 265);
+            this.SellingProdName.Location = new System.Drawing.Point(1053, 296);
             this.SellingProdName.Name = "SellingProdName";
             this.SellingProdName.Size = new System.Drawing.Size(86, 20);
             this.SellingProdName.TabIndex = 22;
             // 
             // BillId
             // 
-            this.BillId.Location = new System.Drawing.Point(1062, 203);
+            this.BillId.Location = new System.Drawing.Point(1053, 234);
             this.BillId.Name = "BillId";
             this.BillId.Size = new System.Drawing.Size(86, 20);
             this.BillId.TabIndex = 21;
             // 
             // deleteButton
             // 
-            this.deleteButton.Location = new System.Drawing.Point(377, 808);
+            this.deleteButton.Location = new System.Drawing.Point(920, 914);
             this.deleteButton.Name = "deleteButton";
             this.deleteButton.Size = new System.Drawing.Size(64, 23);
             this.deleteButton.TabIndex = 28;
@@ -169,7 +174,7 @@
             // 
             // PrintButton
             // 
-            this.PrintButton.Location = new System.Drawing.Point(308, 808);
+            this.PrintButton.Location = new System.Drawing.Point(833, 914);
             this.PrintButton.Name = "PrintButton";
             this.PrintButton.Size = new System.Drawing.Size(64, 23);
             this.PrintButton.TabIndex = 27;
@@ -179,7 +184,7 @@
             // 
             // addButton
             // 
-            this.addButton.Location = new System.Drawing.Point(238, 808);
+            this.addButton.Location = new System.Drawing.Point(747, 914);
             this.addButton.Name = "addButton";
             this.addButton.Size = new System.Drawing.Size(64, 23);
             this.addButton.TabIndex = 26;
@@ -190,7 +195,7 @@
             // SearchCb
             // 
             this.SearchCb.FormattingEnabled = true;
-            this.SearchCb.Location = new System.Drawing.Point(264, 196);
+            this.SearchCb.Location = new System.Drawing.Point(384, 195);
             this.SearchCb.Name = "SearchCb";
             this.SearchCb.Size = new System.Drawing.Size(92, 21);
             this.SearchCb.TabIndex = 29;
@@ -199,7 +204,7 @@
             // 
             // refreshButton
             // 
-            this.refreshButton.Location = new System.Drawing.Point(669, 195);
+            this.refreshButton.Location = new System.Drawing.Point(591, 195);
             this.refreshButton.Name = "refreshButton";
             this.refreshButton.Size = new System.Drawing.Size(64, 20);
             this.refreshButton.TabIndex = 30;
@@ -218,7 +223,7 @@
             this.SellingDGV.RowHeadersWidth = 62;
             this.SellingDGV.RowTemplate.Height = 30;
             this.SellingDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.SellingDGV.Size = new System.Drawing.Size(492, 149);
+            this.SellingDGV.Size = new System.Drawing.Size(414, 191);
             this.SellingDGV.TabIndex = 31;
             this.SellingDGV.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.SellingDGV_CellClick);
             // 
@@ -228,23 +233,28 @@
             this.BillsDGV.BackgroundColor = System.Drawing.Color.Gainsboro;
             this.BillsDGV.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.BillsDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.BillsDGV.Location = new System.Drawing.Point(238, 682);
+            this.BillsDGV.Location = new System.Drawing.Point(747, 706);
             this.BillsDGV.Name = "BillsDGV";
             this.BillsDGV.RowHeadersWidth = 62;
             this.BillsDGV.RowTemplate.Height = 30;
             this.BillsDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.BillsDGV.Size = new System.Drawing.Size(495, 123);
+            this.BillsDGV.Size = new System.Drawing.Size(417, 180);
             this.BillsDGV.TabIndex = 32;
             this.BillsDGV.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.BillsDGV_CellClick);
             // 
             // SellingPanel
             // 
             this.SellingPanel.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.SellingPanel.Controls.Add(this.Products);
+            this.SellingPanel.Controls.Add(this.Bills);
+            this.SellingPanel.Controls.Add(this.commentsRichTextBox);
+            this.SellingPanel.Controls.Add(this.refreshOrderButton);
+            this.SellingPanel.Controls.Add(this.refreshBillsButton);
+            this.SellingPanel.Controls.Add(this.Categories);
+            this.SellingPanel.Controls.Add(this.sumLabel);
             this.SellingPanel.Controls.Add(this.total3Label);
             this.SellingPanel.Controls.Add(this.total2Label);
             this.SellingPanel.Controls.Add(this.totalLabel);
-            this.SellingPanel.Controls.Add(this.sumTextBox);
-            this.SellingPanel.Controls.Add(this.SellsListLabel);
             this.SellingPanel.Controls.Add(this.OrderDGV);
             this.SellingPanel.Controls.Add(this.AmountLabel);
             this.SellingPanel.Controls.Add(this.AddProductbutton);
@@ -272,10 +282,58 @@
             this.SellingPanel.TabIndex = 33;
             this.SellingPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.SellingPanel_Paint);
             // 
+            // commentsRichTextBox
+            // 
+            this.commentsRichTextBox.Location = new System.Drawing.Point(241, 706);
+            this.commentsRichTextBox.Name = "commentsRichTextBox";
+            this.commentsRichTextBox.Size = new System.Drawing.Size(258, 180);
+            this.commentsRichTextBox.TabIndex = 51;
+            this.commentsRichTextBox.Text = "";
+            // 
+            // refreshOrderButton
+            // 
+            this.refreshOrderButton.Location = new System.Drawing.Point(1905, 162);
+            this.refreshOrderButton.Name = "refreshOrderButton";
+            this.refreshOrderButton.Size = new System.Drawing.Size(64, 20);
+            this.refreshOrderButton.TabIndex = 50;
+            this.refreshOrderButton.Text = "Refresh";
+            this.refreshOrderButton.UseVisualStyleBackColor = true;
+            this.refreshOrderButton.Click += new System.EventHandler(this.refreshOrderButton_Click);
+            // 
+            // refreshBillsButton
+            // 
+            this.refreshBillsButton.Location = new System.Drawing.Point(1100, 665);
+            this.refreshBillsButton.Name = "refreshBillsButton";
+            this.refreshBillsButton.Size = new System.Drawing.Size(64, 20);
+            this.refreshBillsButton.TabIndex = 49;
+            this.refreshBillsButton.Text = "Refresh";
+            this.refreshBillsButton.UseVisualStyleBackColor = true;
+            this.refreshBillsButton.Click += new System.EventHandler(this.refreshBillsButton_Click);
+            // 
+            // Categories
+            // 
+            this.Categories.AutoSize = true;
+            this.Categories.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.Categories.Location = new System.Drawing.Point(247, 188);
+            this.Categories.Name = "Categories";
+            this.Categories.Size = new System.Drawing.Size(131, 29);
+            this.Categories.TabIndex = 48;
+            this.Categories.Text = "Categories";
+            // 
+            // sumLabel
+            // 
+            this.sumLabel.AutoSize = true;
+            this.sumLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.sumLabel.Location = new System.Drawing.Point(1867, 489);
+            this.sumLabel.Name = "sumLabel";
+            this.sumLabel.Size = new System.Drawing.Size(62, 29);
+            this.sumLabel.TabIndex = 47;
+            this.sumLabel.Text = "Sum";
+            // 
             // total3Label
             // 
             this.total3Label.AutoSize = true;
-            this.total3Label.Location = new System.Drawing.Point(616, 813);
+            this.total3Label.Location = new System.Drawing.Point(1097, 914);
             this.total3Label.Name = "total3Label";
             this.total3Label.Size = new System.Drawing.Size(34, 13);
             this.total3Label.TabIndex = 46;
@@ -284,7 +342,7 @@
             // total2Label
             // 
             this.total2Label.AutoSize = true;
-            this.total2Label.Location = new System.Drawing.Point(1474, 408);
+            this.total2Label.Location = new System.Drawing.Point(1476, 499);
             this.total2Label.Name = "total2Label";
             this.total2Label.Size = new System.Drawing.Size(34, 13);
             this.total2Label.TabIndex = 45;
@@ -293,28 +351,11 @@
             // totalLabel
             // 
             this.totalLabel.AutoSize = true;
-            this.totalLabel.Location = new System.Drawing.Point(255, 403);
+            this.totalLabel.Location = new System.Drawing.Point(238, 442);
             this.totalLabel.Name = "totalLabel";
             this.totalLabel.Size = new System.Drawing.Size(34, 13);
             this.totalLabel.TabIndex = 44;
             this.totalLabel.Text = "Total:";
-            // 
-            // sumTextBox
-            // 
-            this.sumTextBox.Location = new System.Drawing.Point(1872, 405);
-            this.sumTextBox.Name = "sumTextBox";
-            this.sumTextBox.Size = new System.Drawing.Size(86, 20);
-            this.sumTextBox.TabIndex = 40;
-            // 
-            // SellsListLabel
-            // 
-            this.SellsListLabel.AutoSize = true;
-            this.SellsListLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.SellsListLabel.Location = new System.Drawing.Point(420, 624);
-            this.SellsListLabel.Name = "SellsListLabel";
-            this.SellsListLabel.Size = new System.Drawing.Size(111, 32);
-            this.SellsListLabel.TabIndex = 38;
-            this.SellsListLabel.Text = "Sells List";
             // 
             // OrderDGV
             // 
@@ -327,14 +368,14 @@
             this.OrderDGV.RowHeadersWidth = 62;
             this.OrderDGV.RowTemplate.Height = 30;
             this.OrderDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.OrderDGV.Size = new System.Drawing.Size(492, 177);
+            this.OrderDGV.Size = new System.Drawing.Size(492, 251);
             this.OrderDGV.TabIndex = 37;
             // 
             // AmountLabel
             // 
             this.AmountLabel.AutoSize = true;
             this.AmountLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.AmountLabel.Location = new System.Drawing.Point(1680, 403);
+            this.AmountLabel.Location = new System.Drawing.Point(1672, 484);
             this.AmountLabel.Name = "AmountLabel";
             this.AmountLabel.Size = new System.Drawing.Size(170, 32);
             this.AmountLabel.TabIndex = 35;
@@ -342,7 +383,7 @@
             // 
             // AddProductbutton
             // 
-            this.AddProductbutton.Location = new System.Drawing.Point(1275, 290);
+            this.AddProductbutton.Location = new System.Drawing.Point(1250, 323);
             this.AddProductbutton.Name = "AddProductbutton";
             this.AddProductbutton.Size = new System.Drawing.Size(104, 20);
             this.AddProductbutton.TabIndex = 34;
@@ -385,6 +426,26 @@
             this.seller_Name_Label.Size = new System.Drawing.Size(170, 32);
             this.seller_Name_Label.TabIndex = 0;
             this.seller_Name_Label.Text = "Seller Name";
+            // 
+            // Bills
+            // 
+            this.Bills.AutoSize = true;
+            this.Bills.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.Bills.Location = new System.Drawing.Point(742, 656);
+            this.Bills.Name = "Bills";
+            this.Bills.Size = new System.Drawing.Size(59, 29);
+            this.Bills.TabIndex = 52;
+            this.Bills.Text = "Bills";
+            // 
+            // Products
+            // 
+            this.Products.AutoSize = true;
+            this.Products.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.Products.Location = new System.Drawing.Point(1472, 153);
+            this.Products.Name = "Products";
+            this.Products.Size = new System.Drawing.Size(108, 29);
+            this.Products.TabIndex = 53;
+            this.Products.Text = "Products";
             // 
             // SellingForm
             // 
@@ -433,15 +494,20 @@
         private Panel SellingPanel;
         private Button AddProductbutton;
         private Label AmountLabel;
-        private Label SellsListLabel;
         private DataGridView OrderDGV;
         private PrintPreviewDialog printPreviewDialog1;
         private System.Drawing.Printing.PrintDocument printDocument1;
-        private TextBox sumTextBox;
         private Label total3Label;
         private Label total2Label;
         private Label totalLabel;
         private Panel sidePanel;
         private Label seller_Name_Label;
+        private Label sumLabel;
+        private Label Categories;
+        private Button refreshOrderButton;
+        private Button refreshBillsButton;
+        private RichTextBox commentsRichTextBox;
+        private Label Bills;
+        private Label Products;
     }
 }
