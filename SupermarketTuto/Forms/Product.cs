@@ -1,4 +1,5 @@
-﻿using SupermarketTuto.DataAccess;
+﻿using Newtonsoft.Json;
+using SupermarketTuto.DataAccess;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -211,6 +212,30 @@ namespace SupermarketTuto.Forms
             ProdDGV.RowHeadersVisible = false;
             totalLabel.Text = $"Total: {ProdDGV.RowCount}";
         }
+
+        private void APIButton_Click(object sender, EventArgs e)
+        {
+            using (var client = new HttpClient())
+            {
+                var endpoint = new Uri("http://localhost:52465/api/products");
+                var result1 = client.GetAsync(endpoint).Result;
+                var json = result1.Content.ReadAsStringAsync().Result;
+                var result = JsonConvert.DeserializeObject<List<Products>>(json);
+                ProdDGV.DataSource = result;
+            }
+        }
+    
     }
+    public class Products
+    {
+        public int Productid { get; set; }
+        public string ProdName { get; set; }
+        public int ProdQty { get; set; }
+        public int ProdPrice { get; set; }
+        public string ProdCat { get; set; }
+        public DateTime ProdDate { get; set; }
+    }
+
+    
 }
 
