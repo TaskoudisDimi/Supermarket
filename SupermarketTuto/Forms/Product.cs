@@ -18,8 +18,23 @@ namespace SupermarketTuto.Forms
         public Product()
         {
             InitializeComponent();
-        }
+            display();
 
+        }
+        private void Product_Load(object sender, EventArgs e)
+        {
+            fillCombo();
+
+
+            ContextMenuStrip mnu = new ContextMenuStrip();
+            ToolStripMenuItem mnuDelete = new ToolStripMenuItem("Delete");
+            //Assign event handlers
+            mnuDelete.Click += new EventHandler(mnuDelete_Click);
+            //Add to main context menu
+            mnu.Items.AddRange(new ToolStripItem[] { mnuDelete });
+            //Assign to datagridview
+            ProdDGV.ContextMenuStrip = mnu;
+        }
         private void fillCombo()
         {
             SqlConnect loaddata2 = new SqlConnect();
@@ -43,6 +58,7 @@ namespace SupermarketTuto.Forms
 
         private void display()
         {
+
             ProgressBar frm = new ProgressBar();
 
             BackgroundWorker bgw = new BackgroundWorker()
@@ -52,16 +68,17 @@ namespace SupermarketTuto.Forms
 
             bgw.DoWork += (s, e) =>
             {
-                for (int i = 0; i < 10000; i++)
-                {
-                    ((BackgroundWorker)s).ReportProgress(i, "Test:" + i);
-
-                }
                 SqlConnect loaddata1 = new SqlConnect();
                 loaddata1.retrieveData("Select * from ProductTbl");
                 ProdDGV.DataSource = loaddata1.table;
                 ProdDGV.RowHeadersVisible = false;
-                totalLabel.Text = $"Total: {ProdDGV.RowCount}";
+                int Count = loaddata1.table.Rows.Count;
+                for (int i = 0; i < Count; i++)
+                {
+                    totalLabel.Text = $"Total: {ProdDGV.RowCount}";
+                    ((BackgroundWorker)s).ReportProgress(i, "Loading:" + i);
+                }
+
             };
 
             bgw.ProgressChanged += (s, e) =>
@@ -103,21 +120,7 @@ namespace SupermarketTuto.Forms
             ProdDGV.DataSource = loaddata9.table;
         }
 
-        private void Product_Load(object sender, EventArgs e)
-        {
-            fillCombo();
-            display();
-
-
-            ContextMenuStrip mnu = new ContextMenuStrip();
-            ToolStripMenuItem mnuDelete = new ToolStripMenuItem("Delete");
-            //Assign event handlers
-            mnuDelete.Click += new EventHandler(mnuDelete_Click);
-            //Add to main context menu
-            mnu.Items.AddRange(new ToolStripItem[] { mnuDelete });
-            //Assign to datagridview
-            ProdDGV.ContextMenuStrip = mnu;
-        }
+       
 
         private void addButton_Click(object sender, EventArgs e)
         {

@@ -44,7 +44,6 @@ namespace SupermarketTuto.DataAccess
         }
 
 
-
         public void commandExc(string command)
         {
             try

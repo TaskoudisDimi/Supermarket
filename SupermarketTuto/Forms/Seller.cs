@@ -2,7 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -19,13 +21,13 @@ namespace SupermarketTuto.Forms
             display();
         }
 
-
+        SqlConnection con = new SqlConnection();
         private void display()
         {
             SqlConnect loaddata1 = new SqlConnect();
 
-            loaddata1.retrieveData("Select * From SellerTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'");
-            //loaddata1.retrieveData("Select * From SellerTbl");
+            SqlConnect loaddata20 = new SqlConnect();
+            loaddata1.retrieveData("Select SellerId, SellerName, SellerAge, SellerPhone, Date From SellerTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'");
 
             SellDGV.DataSource = loaddata1.table;
             totalLabel.Text = $"Total: {SellDGV.RowCount}";
@@ -82,11 +84,12 @@ namespace SupermarketTuto.Forms
                     loaddata5.commandExc("Insert Into SellerTbl values(" + SellId.Text + ",'" + SellName.Text + "'," + SellAge.Text + "," + SellPhone.Text + ",'" + SellPass.Text + "','" + dateTimePicker.Value.ToString("MM-dd-yyyy") + "','" + ImageData + "')");
 
 
-                    SellId.Text = "";
-                    SellName.Text = "";
-                    SellAge.Text = "";
-                    SellPhone.Text = "";
-                    SellPass.Text = "";
+                    SellId.Text = String.Empty;
+                    SellName.Text = String.Empty;
+                    SellAge.Text = String.Empty;
+                    SellPhone.Text = String.Empty;
+                    SellPass.Text = String.Empty;
+                    pictureBox.Image = null;
                     MessageBox.Show("Seller added successfuly");
 
 
@@ -241,6 +244,22 @@ namespace SupermarketTuto.Forms
         private void refreshButton_Click(object sender, EventArgs e)
         {
             display();
+        }
+
+
+        private void showButton_Click(object sender, EventArgs e)
+        {
+            con.ConnectionString = ConfigurationManager.ConnectionStrings["Supermarket"].ConnectionString;
+            con.Open();
+            string sql = "Select Image From SellerTbl where SellerPass=" + "'3'";
+            SqlCommand sqlCommand = new SqlCommand(sql, con);
+            SqlDataReader reader = sqlCommand.ExecuteReader();
+            reader.Read();
+            byte[] image = (byte[])(reader[0]);
+            MemoryStream ms = new MemoryStream(image);
+            pictureBox.Image = Image.FromStream(ms);
+            con.Close();
+            
         }
     }
 }
