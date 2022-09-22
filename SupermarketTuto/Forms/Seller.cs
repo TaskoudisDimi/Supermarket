@@ -60,25 +60,26 @@ namespace SupermarketTuto.Forms
 
         private void add2Button_Click(object sender, EventArgs e)
         {
+            FileStream fs;
+            BinaryReader br;
 
             SqlConnect loaddata5 = new SqlConnect();
             try
             {
-                if (SellId.Text == "" || SellName.Text == "" || SellAge.Text == "" || SellPhone.Text == "" || SellPass.Text == "")
+                if (SellId.Text == "" || SellName.Text == "" || SellAge.Text == "" || SellPhone.Text == "" || SellPass.Text == "" && imageTextBox.Text == "")
                 {
                     MessageBox.Show("Missing Information");
                 }
                 else
                 {
-                    loaddata5.commandExc("Insert Into SellerTbl values(" + SellId.Text + ",'" + SellName.Text + "'," + SellAge.Text + "," + SellPhone.Text + ",'" + SellPass.Text + "','" + dateTimePicker.Value.ToString("MM-dd-yyyy") + "')");
-
-                    //SqlConnection con = new SqlConnection("Data Source=.; Initial Catalog=smarketdb;Integrated Security=True;");
-                    //SqlCommand cmd = new SqlCommand("Insert Into Test (Photo) Values(@pic)", con);
-                    //SqlCommand cmd = new SqlCommand("Insert Into SellerTbl values(" + SellId.Text + ",'" + SellName.Text + "'," + SellAge.Text + "," + SellPhone.Text + ",'" + SellPass.Text + "@pic" + "')");
-                    //MemoryStream stream = new MemoryStream();
-                    //pictureBox.Image.Save(stream, System.Drawing.Imaging.ImageFormat.Jpeg);
-                    //byte[] pic = stream.ToArray();
-                    //cmd.Parameters.AddWithValue("@Pic", pic);
+                    string FileName = imageTextBox.Text;
+                    byte[] ImageData;
+                    fs = new FileStream(FileName, FileMode.Open, FileAccess.Read);
+                    br = new BinaryReader(fs);
+                    ImageData = br.ReadBytes((int)fs.Length);
+                    br.Close();
+                    fs.Close();
+                    loaddata5.commandExc("Insert Into SellerTbl values(" + SellId.Text + ",'" + SellName.Text + "'," + SellAge.Text + "," + SellPhone.Text + ",'" + SellPass.Text + "','" + dateTimePicker.Value.ToString("MM-dd-yyyy") + "','" + ImageData + "')");
 
 
                     SellId.Text = "";
@@ -186,7 +187,9 @@ namespace SupermarketTuto.Forms
                         }
                         else
                         {
-                            pictureBox.Load(FileName);
+                            //pictureBox.Load(FileName);
+                            pictureBox.Image = Image.FromFile(dialog.FileName);
+                            imageTextBox.Text = dialog.FileName;
                         }
                     }
 

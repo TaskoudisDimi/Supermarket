@@ -43,11 +43,42 @@ namespace SupermarketTuto.Forms
 
         private void display()
         {
-            SqlConnect loaddata1 = new SqlConnect();
-            loaddata1.retrieveData("Select * from ProductTbl");
-            ProdDGV.DataSource = loaddata1.table;
-            ProdDGV.RowHeadersVisible = false;
-            totalLabel.Text = $"Total: {ProdDGV.RowCount}";
+            ProgressBar frm = new ProgressBar();
+
+            BackgroundWorker bgw = new BackgroundWorker()
+            {
+                WorkerReportsProgress = true
+            };
+
+            bgw.DoWork += (s, e) =>
+            {
+                for (int i = 0; i < 10000; i++)
+                {
+                    ((BackgroundWorker)s).ReportProgress(i, "Test:" + i);
+
+                }
+                SqlConnect loaddata1 = new SqlConnect();
+                loaddata1.retrieveData("Select * from ProductTbl");
+                ProdDGV.DataSource = loaddata1.table;
+                ProdDGV.RowHeadersVisible = false;
+                totalLabel.Text = $"Total: {ProdDGV.RowCount}";
+            };
+
+            bgw.ProgressChanged += (s, e) =>
+            {
+                frm.SetProgress(e.ProgressPercentage, e.UserState.ToString());
+            };
+
+            bgw.RunWorkerCompleted += (s, e) =>
+            {
+                frm.Close();
+
+                if (e.Error != null)
+                    throw e.Error;
+            };
+            bgw.RunWorkerAsync();
+
+            frm.ShowDialog();
         }
 
         private void mnuDelete_Click(object? sender, EventArgs e)

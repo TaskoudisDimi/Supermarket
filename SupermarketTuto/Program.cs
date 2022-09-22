@@ -11,7 +11,7 @@ namespace SupermarketTuto
         static void Main()
         {
             //ApplicationConfiguration.Initialize();
-            Application.Run(new Product());
+            Application.Run(new Main());
 
         }
     }
