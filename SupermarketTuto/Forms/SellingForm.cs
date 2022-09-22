@@ -198,11 +198,6 @@ namespace SupermarketTuto
             }
         }
 
-
-
-
-
-
         private void SellingPanel_Paint(object sender, PaintEventArgs e)
         {
             DateLabel.Text = DateTime.Today.Day.ToString() + "/" + DateTime.Today.Month.ToString() + "/" + DateTime.Today.Year.ToString();
@@ -225,9 +220,6 @@ namespace SupermarketTuto
                 MessageBox.Show("Success");
                 displayDGV();
                 calcSum();
-
-
-
             }
 
         }

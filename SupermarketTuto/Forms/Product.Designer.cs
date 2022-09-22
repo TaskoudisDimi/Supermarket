@@ -48,6 +48,7 @@
             this.ProdId = new System.Windows.Forms.TextBox();
             this.catComboBox = new System.Windows.Forms.ComboBox();
             this.APIButton = new System.Windows.Forms.Button();
+            this.importButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.ProdDGV)).BeginInit();
             this.SuspendLayout();
             // 
@@ -55,20 +56,18 @@
             // 
             this.totalLabel.AutoSize = true;
             this.totalLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.totalLabel.Location = new System.Drawing.Point(14, 1100);
-            this.totalLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.totalLabel.Location = new System.Drawing.Point(5, 611);
             this.totalLabel.Name = "totalLabel";
-            this.totalLabel.Size = new System.Drawing.Size(74, 29);
+            this.totalLabel.Size = new System.Drawing.Size(48, 20);
             this.totalLabel.TabIndex = 106;
             this.totalLabel.Text = "Total:";
             // 
             // searchButton
             // 
             this.searchButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.searchButton.Location = new System.Drawing.Point(333, 225);
-            this.searchButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.searchButton.Location = new System.Drawing.Point(218, 54);
             this.searchButton.Name = "searchButton";
-            this.searchButton.Size = new System.Drawing.Size(154, 57);
+            this.searchButton.Size = new System.Drawing.Size(103, 37);
             this.searchButton.TabIndex = 105;
             this.searchButton.Text = "Search";
             this.searchButton.UseVisualStyleBackColor = true;
@@ -77,10 +76,9 @@
             // searchTextBox
             // 
             this.searchTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.searchTextBox.Location = new System.Drawing.Point(18, 225);
-            this.searchTextBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.searchTextBox.Location = new System.Drawing.Point(9, 59);
             this.searchTextBox.Name = "searchTextBox";
-            this.searchTextBox.Size = new System.Drawing.Size(254, 35);
+            this.searchTextBox.Size = new System.Drawing.Size(171, 26);
             this.searchTextBox.TabIndex = 104;
             this.searchTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.searchTextBox_KeyPress);
             // 
@@ -90,23 +88,21 @@
             this.ProdDGV.BackgroundColor = System.Drawing.Color.WhiteSmoke;
             this.ProdDGV.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.ProdDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.ProdDGV.Location = new System.Drawing.Point(14, 314);
-            this.ProdDGV.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.ProdDGV.Location = new System.Drawing.Point(9, 102);
             this.ProdDGV.Name = "ProdDGV";
             this.ProdDGV.RowHeadersWidth = 62;
             this.ProdDGV.RowTemplate.Height = 30;
             this.ProdDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.ProdDGV.Size = new System.Drawing.Size(1526, 752);
+            this.ProdDGV.Size = new System.Drawing.Size(840, 489);
             this.ProdDGV.TabIndex = 103;
             this.ProdDGV.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ProdDGV_CellClick);
             // 
             // refreshButton
             // 
             this.refreshButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.refreshButton.Location = new System.Drawing.Point(1346, 225);
-            this.refreshButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.refreshButton.Location = new System.Drawing.Point(734, 59);
             this.refreshButton.Name = "refreshButton";
-            this.refreshButton.Size = new System.Drawing.Size(172, 57);
+            this.refreshButton.Size = new System.Drawing.Size(115, 37);
             this.refreshButton.TabIndex = 102;
             this.refreshButton.Text = "Refresh";
             this.refreshButton.UseVisualStyleBackColor = true;
@@ -116,10 +112,9 @@
             // 
             this.categoriesLabel.AutoSize = true;
             this.categoriesLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.categoriesLabel.Location = new System.Drawing.Point(1659, 765);
-            this.categoriesLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.categoriesLabel.Location = new System.Drawing.Point(960, 332);
             this.categoriesLabel.Name = "categoriesLabel";
-            this.categoriesLabel.Size = new System.Drawing.Size(135, 32);
+            this.categoriesLabel.Size = new System.Drawing.Size(91, 21);
             this.categoriesLabel.TabIndex = 101;
             this.categoriesLabel.Text = "Categories";
             // 
@@ -127,10 +122,9 @@
             // 
             this.priceLabel.AutoSize = true;
             this.priceLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.priceLabel.Location = new System.Drawing.Point(1677, 645);
-            this.priceLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.priceLabel.Location = new System.Drawing.Point(972, 254);
             this.priceLabel.Name = "priceLabel";
-            this.priceLabel.Size = new System.Drawing.Size(71, 32);
+            this.priceLabel.Size = new System.Drawing.Size(48, 21);
             this.priceLabel.TabIndex = 100;
             this.priceLabel.Text = "Price";
             // 
@@ -138,10 +132,9 @@
             // 
             this.quantityLabel.AutoSize = true;
             this.quantityLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.quantityLabel.Location = new System.Drawing.Point(1666, 538);
-            this.quantityLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.quantityLabel.Location = new System.Drawing.Point(965, 185);
             this.quantityLabel.Name = "quantityLabel";
-            this.quantityLabel.Size = new System.Drawing.Size(113, 32);
+            this.quantityLabel.Size = new System.Drawing.Size(77, 21);
             this.quantityLabel.TabIndex = 99;
             this.quantityLabel.Text = "Quantity";
             // 
@@ -149,20 +142,18 @@
             // 
             this.nameLabel.AutoSize = true;
             this.nameLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.nameLabel.Location = new System.Drawing.Point(1666, 434);
-            this.nameLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.nameLabel.Location = new System.Drawing.Point(965, 117);
             this.nameLabel.Name = "nameLabel";
-            this.nameLabel.Size = new System.Drawing.Size(81, 32);
+            this.nameLabel.Size = new System.Drawing.Size(56, 21);
             this.nameLabel.TabIndex = 98;
             this.nameLabel.Text = "Name";
             // 
             // deleteButton
             // 
             this.deleteButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.deleteButton.Location = new System.Drawing.Point(1980, 969);
-            this.deleteButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.deleteButton.Location = new System.Drawing.Point(1174, 465);
             this.deleteButton.Name = "deleteButton";
-            this.deleteButton.Size = new System.Drawing.Size(146, 62);
+            this.deleteButton.Size = new System.Drawing.Size(97, 40);
             this.deleteButton.TabIndex = 97;
             this.deleteButton.Text = "Delete";
             this.deleteButton.UseVisualStyleBackColor = true;
@@ -171,10 +162,9 @@
             // editButton
             // 
             this.editButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.editButton.Location = new System.Drawing.Point(1833, 969);
-            this.editButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.editButton.Location = new System.Drawing.Point(1076, 465);
             this.editButton.Name = "editButton";
-            this.editButton.Size = new System.Drawing.Size(96, 62);
+            this.editButton.Size = new System.Drawing.Size(64, 40);
             this.editButton.TabIndex = 96;
             this.editButton.Text = "Edit";
             this.editButton.UseVisualStyleBackColor = true;
@@ -183,10 +173,9 @@
             // addButton
             // 
             this.addButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.addButton.Location = new System.Drawing.Point(1698, 969);
-            this.addButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.addButton.Location = new System.Drawing.Point(986, 465);
             this.addButton.Name = "addButton";
-            this.addButton.Size = new System.Drawing.Size(96, 62);
+            this.addButton.Size = new System.Drawing.Size(64, 40);
             this.addButton.TabIndex = 95;
             this.addButton.Text = "Add";
             this.addButton.UseVisualStyleBackColor = true;
@@ -196,10 +185,9 @@
             // 
             this.idLabel.AutoSize = true;
             this.idLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.idLabel.Location = new System.Drawing.Point(1677, 337);
-            this.idLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.idLabel.Location = new System.Drawing.Point(972, 54);
             this.idLabel.Name = "idLabel";
-            this.idLabel.Size = new System.Drawing.Size(40, 32);
+            this.idLabel.Size = new System.Drawing.Size(27, 21);
             this.idLabel.TabIndex = 94;
             this.idLabel.Text = "ID";
             // 
@@ -207,58 +195,52 @@
             // 
             this.addCatCombobox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.addCatCombobox.FormattingEnabled = true;
-            this.addCatCombobox.Location = new System.Drawing.Point(1940, 758);
-            this.addCatCombobox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.addCatCombobox.Location = new System.Drawing.Point(1147, 328);
             this.addCatCombobox.Name = "addCatCombobox";
-            this.addCatCombobox.Size = new System.Drawing.Size(212, 37);
+            this.addCatCombobox.Size = new System.Drawing.Size(143, 28);
             this.addCatCombobox.TabIndex = 93;
             this.addCatCombobox.Text = "Select Category";
             // 
             // ProdPrice
             // 
             this.ProdPrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.ProdPrice.Location = new System.Drawing.Point(1940, 642);
-            this.ProdPrice.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.ProdPrice.Location = new System.Drawing.Point(1147, 252);
             this.ProdPrice.Name = "ProdPrice";
-            this.ProdPrice.Size = new System.Drawing.Size(212, 35);
+            this.ProdPrice.Size = new System.Drawing.Size(143, 26);
             this.ProdPrice.TabIndex = 92;
             // 
             // ProdQty
             // 
             this.ProdQty.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.ProdQty.Location = new System.Drawing.Point(1940, 535);
-            this.ProdQty.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.ProdQty.Location = new System.Drawing.Point(1147, 183);
             this.ProdQty.Name = "ProdQty";
-            this.ProdQty.Size = new System.Drawing.Size(212, 35);
+            this.ProdQty.Size = new System.Drawing.Size(143, 26);
             this.ProdQty.TabIndex = 91;
             // 
             // ProdName
             // 
             this.ProdName.BackColor = System.Drawing.Color.White;
             this.ProdName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.ProdName.Location = new System.Drawing.Point(1940, 431);
-            this.ProdName.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.ProdName.Location = new System.Drawing.Point(1147, 115);
             this.ProdName.Name = "ProdName";
-            this.ProdName.Size = new System.Drawing.Size(212, 35);
+            this.ProdName.Size = new System.Drawing.Size(143, 26);
             this.ProdName.TabIndex = 90;
             // 
             // ProdId
             // 
             this.ProdId.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.ProdId.Location = new System.Drawing.Point(1940, 337);
-            this.ProdId.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.ProdId.Location = new System.Drawing.Point(1147, 54);
             this.ProdId.Name = "ProdId";
-            this.ProdId.Size = new System.Drawing.Size(212, 35);
+            this.ProdId.Size = new System.Drawing.Size(143, 26);
             this.ProdId.TabIndex = 89;
             // 
             // catComboBox
             // 
             this.catComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.catComboBox.FormattingEnabled = true;
-            this.catComboBox.Location = new System.Drawing.Point(873, 225);
-            this.catComboBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.catComboBox.Location = new System.Drawing.Point(429, 59);
             this.catComboBox.Name = "catComboBox";
-            this.catComboBox.Size = new System.Drawing.Size(212, 37);
+            this.catComboBox.Size = new System.Drawing.Size(143, 28);
             this.catComboBox.TabIndex = 107;
             this.catComboBox.Text = "Select Category";
             this.catComboBox.SelectionChangeCommitted += new System.EventHandler(this.catComboBox_SelectionChangeCommitted);
@@ -266,21 +248,32 @@
             // APIButton
             // 
             this.APIButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.APIButton.Location = new System.Drawing.Point(1312, 1083);
-            this.APIButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.APIButton.Location = new System.Drawing.Point(697, 611);
             this.APIButton.Name = "APIButton";
-            this.APIButton.Size = new System.Drawing.Size(228, 62);
+            this.APIButton.Size = new System.Drawing.Size(152, 40);
             this.APIButton.TabIndex = 108;
             this.APIButton.Text = "Load From API";
             this.APIButton.UseVisualStyleBackColor = true;
             this.APIButton.Click += new System.EventHandler(this.APIButton_Click);
             // 
+            // importButton
+            // 
+            this.importButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.importButton.Location = new System.Drawing.Point(218, 601);
+            this.importButton.Name = "importButton";
+            this.importButton.Size = new System.Drawing.Size(68, 30);
+            this.importButton.TabIndex = 109;
+            this.importButton.Text = "Import";
+            this.importButton.UseVisualStyleBackColor = true;
+            this.importButton.Click += new System.EventHandler(this.importButton_Click);
+            // 
             // Product
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(2330, 1185);
+            this.ClientSize = new System.Drawing.Size(1352, 693);
             this.ControlBox = false;
+            this.Controls.Add(this.importButton);
             this.Controls.Add(this.APIButton);
             this.Controls.Add(this.catComboBox);
             this.Controls.Add(this.totalLabel);
@@ -301,6 +294,7 @@
             this.Controls.Add(this.ProdQty);
             this.Controls.Add(this.ProdName);
             this.Controls.Add(this.ProdId);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Product";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Product_Load);
@@ -331,5 +325,6 @@
         private TextBox ProdId;
         private ComboBox catComboBox;
         private Button APIButton;
+        private Button importButton;
     }
 }

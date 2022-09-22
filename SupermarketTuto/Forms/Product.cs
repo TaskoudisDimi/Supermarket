@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.VisualBasic.FileIO;
+using Newtonsoft.Json;
 using SupermarketTuto.DataAccess;
 using System;
 using System.Collections.Generic;
@@ -224,8 +225,93 @@ namespace SupermarketTuto.Forms
                 ProdDGV.DataSource = result;
             }
         }
-    
+
+        private void importButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int ImportedRecord = 0, inValidItem = 0;
+                string SourceURl = "";
+                OpenFileDialog dialog = new OpenFileDialog()
+                {
+                    Title = "Browse Text File",
+                    CheckFileExists = true,
+                    CheckPathExists = true,
+                    Filter = "txt files (*.csv)|*.csv",
+                    FilterIndex = 2,
+                    RestoreDirectory = true,
+                    ReadOnlyChecked = true,
+                    ShowReadOnly = true
+
+                };
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    if (dialog.FileName.EndsWith(".csv"))
+                    {
+                        DataTable table = new DataTable();
+                        table = GetData(dialog.FileName);
+                        SourceURl = dialog.FileName;
+                        if (table.Rows != null && table.Rows.ToString() != String.Empty)
+                        {
+                            ProdDGV.DataSource = table;
+
+                        }
+
+                    }
+                }
+            }
+
+
+            catch (Exception ex)
+            {
+                MessageBox.Show("Exception" + ex);
+            }
+        }
+
+        private DataTable GetData(string path)
+        {
+            DataTable table = new DataTable();
+            try
+            {
+                if (path.EndsWith(".csv"))
+                {
+                    TextFieldParser csvReader = new TextFieldParser(path);
+                    csvReader.SetDelimiters(new string[] { "," });
+                    csvReader.HasFieldsEnclosedInQuotes = true;
+                    string[] colFields = csvReader.ReadFields();
+                    foreach (string column in colFields)
+                    {
+                        DataColumn datecolumn = new DataColumn(column);
+                        datecolumn.AllowDBNull = true;
+                        table.Columns.Add(datecolumn);
+                    }
+                    while (!csvReader.EndOfData)
+                    {
+                        string[] fieldData = csvReader.ReadFields();
+                        for (int i = 0; i < fieldData.Length; i++)
+                        {
+                            if (fieldData[i] == "")
+                            {
+                                fieldData[i] = null;
+                            }
+                        }
+                        table.Rows.Add(fieldData);
+                    }
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Exception " + ex);
+            }
+            return table;
+        }
+
     }
+
+
+
     public class Products
     {
         public int Productid { get; set; }
