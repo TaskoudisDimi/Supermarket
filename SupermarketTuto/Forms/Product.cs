@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace SupermarketTuto.Forms
 {
     public partial class Product : Form
@@ -24,7 +25,6 @@ namespace SupermarketTuto.Forms
         private void Product_Load(object sender, EventArgs e)
         {
             fillCombo();
-
 
             ContextMenuStrip mnu = new ContextMenuStrip();
             ToolStripMenuItem mnuDelete = new ToolStripMenuItem("Delete");
@@ -60,7 +60,7 @@ namespace SupermarketTuto.Forms
         {
 
             ProgressBar frm = new ProgressBar();
-
+            
             BackgroundWorker bgw = new BackgroundWorker()
             {
                 WorkerReportsProgress = true
@@ -98,6 +98,14 @@ namespace SupermarketTuto.Forms
             frm.ShowDialog();
         }
 
+        private void refresh_data()
+        {
+            SqlConnect loaddata21 = new SqlConnect();
+            loaddata21.retrieveData("Select * from ProductTbl");
+            ProdDGV.DataSource = loaddata21.table;
+            ProdDGV.RowHeadersVisible = false;
+        }
+
         private void mnuDelete_Click(object? sender, EventArgs e)
         {
             SqlConnect loaddata4 = new SqlConnect();
@@ -120,8 +128,6 @@ namespace SupermarketTuto.Forms
             ProdDGV.DataSource = loaddata9.table;
         }
 
-       
-
         private void addButton_Click(object sender, EventArgs e)
         {
             SqlConnect loaddata5 = new SqlConnect();
@@ -141,6 +147,7 @@ namespace SupermarketTuto.Forms
                     ProdQty.Text = String.Empty;
                     ProdPrice.Text = String.Empty;
                     addCatCombobox.SelectedValue = String.Empty;
+                    refresh_data();
                 }
 
             }
@@ -170,7 +177,7 @@ namespace SupermarketTuto.Forms
                     ProdQty.Text = String.Empty;
                     ProdPrice.Text = String.Empty;
                     addCatCombobox.SelectedValue = String.Empty;
-
+                    refresh_data();
                 }
             }
             catch (Exception ex)
@@ -198,7 +205,7 @@ namespace SupermarketTuto.Forms
                     ProdQty.Text = "";
                     ProdPrice.Text = "";
                     addCatCombobox.SelectedValue = "";
-
+                    refresh_data();
                 }
             }
             catch (Exception ex)
@@ -220,6 +227,7 @@ namespace SupermarketTuto.Forms
         {
             SqlConnect loaddata11 = new SqlConnect();
             loaddata11.retrieveData("Select * From ProductTbl");
+            refresh_data();
         }
 
         private void searchTextBox_KeyPress(object sender, KeyPressEventArgs e)
@@ -294,8 +302,6 @@ namespace SupermarketTuto.Forms
                     }
                 }
             }
-
-
             catch (Exception ex)
             {
                 MessageBox.Show("Exception" + ex);
@@ -342,6 +348,82 @@ namespace SupermarketTuto.Forms
             return table;
         }
 
+        private void saveButton_Click(object sender, EventArgs e)
+        {
+            SqlConnect loaddata20 = new SqlConnect();
+
+            int count = ProdDGV.RowCount;
+            for (int i = 0; i < count; i++)
+            {
+                loaddata20.commandExc("Insert Into ProductTbl values('" + ProdDGV.Rows[i].Cells[0].Value + "','" + ProdDGV.Rows[i].Cells[1].Value + "','" + ProdDGV.Rows[i].Cells[2].Value + "','" + ProdDGV.Rows[i].Cells[3].Value + "','" + ProdDGV.Rows[i].Cells[4].Value + "')");
+            }
+
+
+        }
+
+        private void exportButton_Click(object sender, EventArgs e)
+        {
+            if (ProdDGV.Rows.Count > 0)
+            {
+                SaveFileDialog dialog = new SaveFileDialog()
+                {
+                    Filter = "CSV (*.csv)|*.csv",
+                    Title = "Csv Files",
+                    RestoreDirectory = true
+                };
+
+                if(dialog.ShowDialog() == DialogResult.OK)
+                {
+                    if (File.Exists(dialog.FileName))
+                    {
+                        try
+                        {
+                            File.Delete(dialog.FileName);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("It wasn't possible to write the data to the disk." + ex.Message);
+                        }
+                    }
+                    else
+                    {
+                        try
+                        {
+                            int colCount = ProdDGV.Rows.Count;
+                            string colNames = string.Empty;
+                            string[] outputCSV = new string[ProdDGV.Rows.Count + 1];
+                            for (int i = 0; i < colCount; i++)
+                            {
+                                colNames += ProdDGV.Columns[i].HeaderText.ToString();
+                            }
+                            outputCSV[0] += colNames;
+                        
+                            for (int i = 1; (i - 1) < ProdDGV.Rows.Count; i++)
+                            {
+                                for (int j = 0; j < colCount; j++)
+                                {
+                                    outputCSV[i] += ProdDGV.Rows[i - 1].Cells[j].Value.ToString() + ",";
+                                }
+                            }
+                        
+                            File.WriteAllLines(dialog.FileName, outputCSV, Encoding.UTF8);
+                            MessageBox.Show("Success");
+
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Error :" + ex.Message);
+                        }
+
+
+                    }
+                }
+
+
+
+                
+            }
+        }
     }
 
 

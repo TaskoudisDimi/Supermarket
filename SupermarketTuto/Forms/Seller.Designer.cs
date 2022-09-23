@@ -323,7 +323,7 @@
             this.imageTextBox.Location = new System.Drawing.Point(1970, 635);
             this.imageTextBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.imageTextBox.Name = "imageTextBox";
-            this.imageTextBox.Size = new System.Drawing.Size(148, 26);
+            this.imageTextBox.Size = new System.Drawing.Size(339, 26);
             this.imageTextBox.TabIndex = 116;
             // 
             // showButton
