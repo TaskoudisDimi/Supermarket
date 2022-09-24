@@ -1,4 +1,5 @@
-﻿using SupermarketTuto.DataAccess;
+﻿using OfficeOpenXml;
+using SupermarketTuto.DataAccess;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -31,7 +32,6 @@ namespace SupermarketTuto.Forms
 
             SellDGV.DataSource = loaddata1.table;
             totalLabel.Text = $"Total: {SellDGV.RowCount}";
-
 
         }
 

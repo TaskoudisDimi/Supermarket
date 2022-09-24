@@ -34,15 +34,15 @@
             // 
             // BGWprogressBar
             // 
-            this.BGWprogressBar.Location = new System.Drawing.Point(113, 243);
+            this.BGWprogressBar.Location = new System.Drawing.Point(39, 88);
             this.BGWprogressBar.Name = "BGWprogressBar";
-            this.BGWprogressBar.Size = new System.Drawing.Size(601, 35);
+            this.BGWprogressBar.Size = new System.Drawing.Size(367, 35);
             this.BGWprogressBar.TabIndex = 0;
             // 
             // bgwLabel
             // 
             this.bgwLabel.AutoSize = true;
-            this.bgwLabel.Location = new System.Drawing.Point(110, 188);
+            this.bgwLabel.Location = new System.Drawing.Point(36, 54);
             this.bgwLabel.Name = "bgwLabel";
             this.bgwLabel.Size = new System.Drawing.Size(35, 13);
             this.bgwLabel.TabIndex = 1;
@@ -52,7 +52,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(483, 180);
             this.Controls.Add(this.bgwLabel);
             this.Controls.Add(this.BGWprogressBar);
             this.Name = "ProgressBar";

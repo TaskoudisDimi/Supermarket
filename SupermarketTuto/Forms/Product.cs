@@ -83,7 +83,7 @@ namespace SupermarketTuto.Forms
 
             bgw.ProgressChanged += (s, e) =>
             {
-                frm.SetProgress(e.ProgressPercentage, e.UserState.ToString());
+                frm.SetProgress(e.ProgressPercentage, "Loading...");
             };
 
             bgw.RunWorkerCompleted += (s, e) =>
@@ -279,7 +279,7 @@ namespace SupermarketTuto.Forms
                     Title = "Browse Text File",
                     CheckFileExists = true,
                     CheckPathExists = true,
-                    Filter = "txt files (*.csv)|*.csv",
+                    Filter = "csv files (*.csv)|*.csv",
                     FilterIndex = 2,
                     RestoreDirectory = true,
                     ReadOnlyChecked = true,
@@ -301,6 +301,7 @@ namespace SupermarketTuto.Forms
 
                     }
                 }
+                refresh_data();
             }
             catch (Exception ex)
             {
@@ -310,34 +311,39 @@ namespace SupermarketTuto.Forms
 
         private DataTable GetData(string path)
         {
-            DataTable table = new DataTable();
+            DataTable dt = new DataTable();
             try
             {
                 if (path.EndsWith(".csv"))
                 {
-                    TextFieldParser csvReader = new TextFieldParser(path);
-                    csvReader.SetDelimiters(new string[] { "," });
-                    csvReader.HasFieldsEnclosedInQuotes = true;
-                    string[] colFields = csvReader.ReadFields();
-                    foreach (string column in colFields)
-                    {
-                        DataColumn datecolumn = new DataColumn(column);
-                        datecolumn.AllowDBNull = true;
-                        table.Columns.Add(datecolumn);
-                    }
-                    while (!csvReader.EndOfData)
-                    {
-                        string[] fieldData = csvReader.ReadFields();
-                        for (int i = 0; i < fieldData.Length; i++)
-                        {
-                            if (fieldData[i] == "")
-                            {
-                                fieldData[i] = null;
-                            }
-                        }
-                        table.Rows.Add(fieldData);
-                    }
+                    //TextFieldParser csvReader = new TextFieldParser(path);
+                    //csvReader.SetDelimiters(new string[] { "," });
+                    //csvReader.HasFieldsEnclosedInQuotes = true;
+                    //string[] colFields = csvReader.ReadFields();
 
+                    string[] lines = System.IO.File.ReadAllLines(path);
+                    if (lines.Length > 0)
+                    {
+                        //first line to create header
+                        string firstLine = lines[0];
+                        string[] headerLabels = firstLine.Split(',');
+                        foreach (string headerWord in headerLabels)
+                        {
+                            dt.Columns.Add(new DataColumn(headerWord));
+                        }
+                        //For Data
+                        for (int i = 1; i < lines.Length; i++)
+                        {
+                            string[] dataWords = lines[i].Split(',');
+                            DataRow dr = dt.NewRow();
+                            int columnIndex = 0;
+                            foreach (string headerWord in headerLabels)
+                            {
+                                dr[headerWord] = dataWords[columnIndex++];
+                            }
+                            dt.Rows.Add(dr);
+                        }
+                    }
                 }
 
             }
@@ -345,7 +351,7 @@ namespace SupermarketTuto.Forms
             {
                 MessageBox.Show("Exception " + ex);
             }
-            return table;
+            return dt;
         }
 
         private void saveButton_Click(object sender, EventArgs e)
@@ -357,7 +363,7 @@ namespace SupermarketTuto.Forms
             {
                 loaddata20.commandExc("Insert Into ProductTbl values('" + ProdDGV.Rows[i].Cells[0].Value + "','" + ProdDGV.Rows[i].Cells[1].Value + "','" + ProdDGV.Rows[i].Cells[2].Value + "','" + ProdDGV.Rows[i].Cells[3].Value + "','" + ProdDGV.Rows[i].Cells[4].Value + "')");
             }
-
+            refresh_data();
 
         }
 
@@ -389,12 +395,19 @@ namespace SupermarketTuto.Forms
                     {
                         try
                         {
-                            int colCount = ProdDGV.Rows.Count;
+                            int colCount = ProdDGV.Columns.Count;
                             string colNames = string.Empty;
                             string[] outputCSV = new string[ProdDGV.Rows.Count + 1];
                             for (int i = 0; i < colCount; i++)
                             {
-                                colNames += ProdDGV.Columns[i].HeaderText.ToString();
+                                if (i == colCount - 1)
+                                {
+                                    colNames += ProdDGV.Columns[i].HeaderText.ToString();
+                                }
+                                else
+                                {
+                                    colNames += ProdDGV.Columns[i].HeaderText.ToString() + ",";
+                                }
                             }
                             outputCSV[0] += colNames;
                         
