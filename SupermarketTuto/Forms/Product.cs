@@ -22,9 +22,19 @@ namespace SupermarketTuto.Forms
             display();
 
         }
+
+
         private void Product_Load(object sender, EventArgs e)
         {
             fillCombo();
+
+            localRadioButton.Checked = true;
+            ApiRadioButton.Checked = false;
+            GetButton.Enabled = false;
+            PostButton.Enabled = false;
+            DeleteApiButton.Enabled = false;
+
+            
 
             ContextMenuStrip mnu = new ContextMenuStrip();
             ToolStripMenuItem mnuDelete = new ToolStripMenuItem("Delete");
@@ -58,6 +68,7 @@ namespace SupermarketTuto.Forms
 
         private void display()
         {
+
 
             ProgressBar frm = new ProgressBar();
             
@@ -256,18 +267,6 @@ namespace SupermarketTuto.Forms
             totalLabel.Text = $"Total: {ProdDGV.RowCount}";
         }
 
-        private void APIButton_Click(object sender, EventArgs e)
-        {
-            using (var client = new HttpClient())
-            {
-                var endpoint = new Uri("http://localhost:52465/api/products");
-                var result1 = client.GetAsync(endpoint).Result;
-                var json = result1.Content.ReadAsStringAsync().Result;
-                var result = JsonConvert.DeserializeObject<List<Products>>(json);
-                ProdDGV.DataSource = result;
-            }
-        }
-
         private void importButton_Click(object sender, EventArgs e)
         {
             try
@@ -435,6 +434,95 @@ namespace SupermarketTuto.Forms
 
 
                 
+            }
+        }
+
+
+        #region API
+        //First, we have created an object of HttpClient and assigned the base address of our Web API.
+        //The GetAsync() method sends an http GET request to the specified url.The GetAsync() method is asynchronous and returns a Task.
+        //Task.wait() suspends the execution until GetAsync() method completes the execution and returns a result.
+        //Once the execution completes, we get the result from Task using Task.result which is HttpResponseMessage.
+        //Now, you can check the status of an http response using IsSuccessStatusCode. Read the content of the result using ReadAsAsync() method.
+        private void GetButton_Click(object sender, EventArgs e)
+        {
+            using (var client = new HttpClient())
+            {
+
+                //var endpoint = new Uri("http://localhost:8083/api/products");
+                //var result1 = client.GetAsync(endpoint).Result;
+                //var json = result1.Content.ReadAsStringAsync().Result;
+                //var result = JsonConvert.DeserializeObject<List<Products>>(json);
+                client.BaseAddress = new Uri("http://localhost:8083/api/products");
+                //HTTP GET
+                var responseTask = client.GetAsync("Products");
+                responseTask.Wait();
+
+                var result = responseTask.Result;
+                if (result.IsSuccessStatusCode)
+                {
+
+                    var readTask = result.Content.ReadAsStringAsync();
+                    readTask.Wait();
+
+                    var Products = readTask.Result;
+                    var resultDeserialize = JsonConvert.DeserializeObject<List<Products>>(Products);
+
+                    ProdDGV.DataSource = resultDeserialize;
+
+                }
+            }
+        } 
+
+        private void PostButton_Click(object sender, EventArgs e)
+        {
+            var product = new Products() { Productid = Convert.ToInt32(ProdId.Text), ProdName = ProdName.Text, ProdCat = addCatCombobox.Text, ProdPrice = Convert.ToInt32(ProdPrice.Text), ProdQty = Convert.ToInt32(ProdQty.Text), ProdDate = DateTime.Now};
+
+
+            var json = JsonConvert.SerializeObject(product);
+            var data = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var url = new Uri("http://localhost:8083/api/products");
+            using var client = new HttpClient();
+
+            var response = client.PostAsync(url, data);
+            response.Wait();
+            var result = response.Result;
+            if (result.IsSuccessStatusCode)
+            {
+                var readTask = result.Content.ReadAsStringAsync();
+
+            }
+
+
+
+        }
+
+        private void DeleteApiButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        #endregion API
+
+
+
+        private void localRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            ApiRadioButton.Checked = false;
+            GetButton.Enabled = false;
+            PostButton.Enabled = false;
+            DeleteApiButton.Enabled = false;
+        }
+
+        private void ApiRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            if (ApiRadioButton.Checked == true)
+            {
+                localRadioButton.Checked = false;
+                GetButton.Enabled = true;
+                PostButton.Enabled = true;
+                DeleteApiButton.Enabled = true;
             }
         }
     }

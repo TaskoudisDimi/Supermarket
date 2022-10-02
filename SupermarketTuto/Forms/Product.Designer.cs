@@ -47,10 +47,14 @@
             this.ProdName = new System.Windows.Forms.TextBox();
             this.ProdId = new System.Windows.Forms.TextBox();
             this.catComboBox = new System.Windows.Forms.ComboBox();
-            this.APIButton = new System.Windows.Forms.Button();
+            this.GetButton = new System.Windows.Forms.Button();
             this.importButton = new System.Windows.Forms.Button();
             this.saveButton = new System.Windows.Forms.Button();
             this.exportButton = new System.Windows.Forms.Button();
+            this.PostButton = new System.Windows.Forms.Button();
+            this.DeleteApiButton = new System.Windows.Forms.Button();
+            this.localRadioButton = new System.Windows.Forms.RadioButton();
+            this.ApiRadioButton = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.ProdDGV)).BeginInit();
             this.SuspendLayout();
             // 
@@ -162,7 +166,7 @@
             // deleteButton
             // 
             this.deleteButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.deleteButton.Location = new System.Drawing.Point(1761, 715);
+            this.deleteButton.Location = new System.Drawing.Point(1752, 655);
             this.deleteButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.deleteButton.Name = "deleteButton";
             this.deleteButton.Size = new System.Drawing.Size(146, 62);
@@ -174,7 +178,7 @@
             // editButton
             // 
             this.editButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.editButton.Location = new System.Drawing.Point(1614, 715);
+            this.editButton.Location = new System.Drawing.Point(1605, 655);
             this.editButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.editButton.Name = "editButton";
             this.editButton.Size = new System.Drawing.Size(96, 62);
@@ -186,7 +190,7 @@
             // addButton
             // 
             this.addButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.addButton.Location = new System.Drawing.Point(1479, 715);
+            this.addButton.Location = new System.Drawing.Point(1470, 655);
             this.addButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.addButton.Name = "addButton";
             this.addButton.Size = new System.Drawing.Size(96, 62);
@@ -266,17 +270,17 @@
             this.catComboBox.Text = "Select Category";
             this.catComboBox.SelectionChangeCommitted += new System.EventHandler(this.catComboBox_SelectionChangeCommitted);
             // 
-            // APIButton
+            // GetButton
             // 
-            this.APIButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.APIButton.Location = new System.Drawing.Point(1046, 940);
-            this.APIButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.APIButton.Name = "APIButton";
-            this.APIButton.Size = new System.Drawing.Size(228, 62);
-            this.APIButton.TabIndex = 108;
-            this.APIButton.Text = "Load From API";
-            this.APIButton.UseVisualStyleBackColor = true;
-            this.APIButton.Click += new System.EventHandler(this.APIButton_Click);
+            this.GetButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.GetButton.Location = new System.Drawing.Point(912, 925);
+            this.GetButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.GetButton.Name = "GetButton";
+            this.GetButton.Size = new System.Drawing.Size(96, 47);
+            this.GetButton.TabIndex = 108;
+            this.GetButton.Text = "Get";
+            this.GetButton.UseVisualStyleBackColor = true;
+            this.GetButton.Click += new System.EventHandler(this.GetButton_Click);
             // 
             // importButton
             // 
@@ -305,7 +309,7 @@
             // exportButton
             // 
             this.exportButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.exportButton.Location = new System.Drawing.Point(205, 923);
+            this.exportButton.Location = new System.Drawing.Point(206, 923);
             this.exportButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.exportButton.Name = "exportButton";
             this.exportButton.Size = new System.Drawing.Size(102, 46);
@@ -314,16 +318,68 @@
             this.exportButton.UseVisualStyleBackColor = true;
             this.exportButton.Click += new System.EventHandler(this.exportButton_Click);
             // 
+            // PostButton
+            // 
+            this.PostButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.PostButton.Location = new System.Drawing.Point(1040, 925);
+            this.PostButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.PostButton.Name = "PostButton";
+            this.PostButton.Size = new System.Drawing.Size(100, 46);
+            this.PostButton.TabIndex = 112;
+            this.PostButton.Text = "Post";
+            this.PostButton.UseVisualStyleBackColor = true;
+            this.PostButton.Click += new System.EventHandler(this.PostButton_Click);
+            // 
+            // DeleteApiButton
+            // 
+            this.DeleteApiButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.DeleteApiButton.Location = new System.Drawing.Point(1171, 925);
+            this.DeleteApiButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.DeleteApiButton.Name = "DeleteApiButton";
+            this.DeleteApiButton.Size = new System.Drawing.Size(102, 45);
+            this.DeleteApiButton.TabIndex = 113;
+            this.DeleteApiButton.Text = "Delete";
+            this.DeleteApiButton.UseVisualStyleBackColor = true;
+            this.DeleteApiButton.Click += new System.EventHandler(this.DeleteApiButton_Click);
+            // 
+            // localRadioButton
+            // 
+            this.localRadioButton.AutoSize = true;
+            this.localRadioButton.Location = new System.Drawing.Point(2054, 83);
+            this.localRadioButton.Name = "localRadioButton";
+            this.localRadioButton.Size = new System.Drawing.Size(111, 24);
+            this.localRadioButton.TabIndex = 114;
+            this.localRadioButton.TabStop = true;
+            this.localRadioButton.Text = "Local Data";
+            this.localRadioButton.UseVisualStyleBackColor = true;
+            this.localRadioButton.CheckedChanged += new System.EventHandler(this.localRadioButton_CheckedChanged);
+            // 
+            // ApiRadioButton
+            // 
+            this.ApiRadioButton.AutoSize = true;
+            this.ApiRadioButton.Location = new System.Drawing.Point(2054, 136);
+            this.ApiRadioButton.Name = "ApiRadioButton";
+            this.ApiRadioButton.Size = new System.Drawing.Size(99, 24);
+            this.ApiRadioButton.TabIndex = 115;
+            this.ApiRadioButton.TabStop = true;
+            this.ApiRadioButton.Text = "API Data";
+            this.ApiRadioButton.UseVisualStyleBackColor = true;
+            this.ApiRadioButton.CheckedChanged += new System.EventHandler(this.ApiRadioButton_CheckedChanged);
+            // 
             // Product
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(2028, 1066);
+            this.ClientSize = new System.Drawing.Size(2302, 1066);
             this.ControlBox = false;
+            this.Controls.Add(this.ApiRadioButton);
+            this.Controls.Add(this.localRadioButton);
+            this.Controls.Add(this.DeleteApiButton);
+            this.Controls.Add(this.PostButton);
             this.Controls.Add(this.exportButton);
             this.Controls.Add(this.saveButton);
             this.Controls.Add(this.importButton);
-            this.Controls.Add(this.APIButton);
+            this.Controls.Add(this.GetButton);
             this.Controls.Add(this.catComboBox);
             this.Controls.Add(this.totalLabel);
             this.Controls.Add(this.searchButton);
@@ -372,9 +428,13 @@
         private TextBox ProdName;
         private TextBox ProdId;
         private ComboBox catComboBox;
-        private Button APIButton;
+        private Button GetButton;
         private Button importButton;
         private Button saveButton;
         private Button exportButton;
+        private Button PostButton;
+        private Button DeleteApiButton;
+        private RadioButton localRadioButton;
+        private RadioButton ApiRadioButton;
     }
 }
