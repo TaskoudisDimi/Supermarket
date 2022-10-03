@@ -19,23 +19,21 @@ namespace SupermarketTuto.Forms
         public Product()
         {
             InitializeComponent();
-            display();
+
+            
 
         }
 
 
         private void Product_Load(object sender, EventArgs e)
         {
+            display();
             fillCombo();
-
             localRadioButton.Checked = true;
             ApiRadioButton.Checked = false;
             GetButton.Enabled = false;
             PostButton.Enabled = false;
             DeleteApiButton.Enabled = false;
-
-            
-
             ContextMenuStrip mnu = new ContextMenuStrip();
             ToolStripMenuItem mnuDelete = new ToolStripMenuItem("Delete");
             //Assign event handlers
@@ -44,6 +42,14 @@ namespace SupermarketTuto.Forms
             mnu.Items.AddRange(new ToolStripItem[] { mnuDelete });
             //Assign to datagridview
             ProdDGV.ContextMenuStrip = mnu;
+
+
+
+
+
+
+
+
         }
         private void fillCombo()
         {
@@ -69,44 +75,77 @@ namespace SupermarketTuto.Forms
         private void display()
         {
 
+            SqlConnect loaddata1 = new SqlConnect();
+            loaddata1.retrieveData("Select * from ProductTbl");
+            ProdDGV.DataSource = loaddata1.table;
+            ProdDGV.RowHeadersVisible = false;
+            //ProgressBar frm = new ProgressBar();
 
-            ProgressBar frm = new ProgressBar();
-            
-            BackgroundWorker bgw = new BackgroundWorker()
-            {
-                WorkerReportsProgress = true
-            };
+            //BackgroundWorker bgw = new BackgroundWorker()
+            //{
+            //    WorkerReportsProgress = true
+            //};
 
-            bgw.DoWork += (s, e) =>
+            //bgw.DoWork += (s, e) =>
+            //{
+            //    SqlConnect loaddata1 = new SqlConnect();
+            //    loaddata1.retrieveData("Select * from ProductTbl");
+            //    ProdDGV.DataSource = loaddata1.table;
+            //    ProdDGV.RowHeadersVisible = false;
+            //    int Count = loaddata1.table.Rows.Count;
+            //    for (int i = 0; i < Count; i++)
+            //    {
+            //        totalLabel.Text = $"Total: {ProdDGV.RowCount}";
+            //        ((BackgroundWorker)s).ReportProgress(i, "Loading:" + i);
+            //    }
+
+            //};
+
+            //bgw.ProgressChanged += (s, e) =>
+            //{
+            //    frm.SetProgress(e.ProgressPercentage, "Loading...");
+            //};
+
+            //bgw.RunWorkerCompleted += (s, e) =>
+            //{
+            //    frm.Close();
+
+            //    if (e.Error != null)
+            //        throw e.Error;
+            //};
+            //bgw.RunWorkerAsync();
+
+            //frm.ShowDialog();
+        }
+
+        private void display_From_API()
+        {
+            using (var client = new HttpClient())
             {
-                SqlConnect loaddata1 = new SqlConnect();
-                loaddata1.retrieveData("Select * from ProductTbl");
-                ProdDGV.DataSource = loaddata1.table;
-                ProdDGV.RowHeadersVisible = false;
-                int Count = loaddata1.table.Rows.Count;
-                for (int i = 0; i < Count; i++)
+
+                //var endpoint = new Uri("http://localhost:8083/api/products");
+                //var result1 = client.GetAsync(endpoint).Result;
+                //var json = result1.Content.ReadAsStringAsync().Result;
+                //var result = JsonConvert.DeserializeObject<List<Products>>(json);
+                client.BaseAddress = new Uri("http://localhost:8083/api/products");
+                //HTTP GET
+                var responseTask = client.GetAsync("Products");
+                responseTask.Wait();
+
+                var result = responseTask.Result;
+                if (result.IsSuccessStatusCode)
                 {
-                    totalLabel.Text = $"Total: {ProdDGV.RowCount}";
-                    ((BackgroundWorker)s).ReportProgress(i, "Loading:" + i);
+
+                    var readTask = result.Content.ReadAsStringAsync();
+                    readTask.Wait();
+
+                    var Products = readTask.Result;
+                    var resultDeserialize = JsonConvert.DeserializeObject<List<Products>>(Products);
+
+                    ProdDGV.DataSource = resultDeserialize;
+
                 }
-
-            };
-
-            bgw.ProgressChanged += (s, e) =>
-            {
-                frm.SetProgress(e.ProgressPercentage, "Loading...");
-            };
-
-            bgw.RunWorkerCompleted += (s, e) =>
-            {
-                frm.Close();
-
-                if (e.Error != null)
-                    throw e.Error;
-            };
-            bgw.RunWorkerAsync();
-
-            frm.ShowDialog();
+            }
         }
 
         private void refresh_data()
@@ -503,19 +542,16 @@ namespace SupermarketTuto.Forms
 
         }
 
-        #endregion API
-
-
-
-        private void localRadioButton_CheckedChanged(object sender, EventArgs e)
+        private void localRadioButton_Click(object sender, EventArgs e)
         {
             ApiRadioButton.Checked = false;
             GetButton.Enabled = false;
             PostButton.Enabled = false;
             DeleteApiButton.Enabled = false;
+            display();
         }
 
-        private void ApiRadioButton_CheckedChanged(object sender, EventArgs e)
+        private void ApiRadioButton_Click(object sender, EventArgs e)
         {
             if (ApiRadioButton.Checked == true)
             {
@@ -523,8 +559,12 @@ namespace SupermarketTuto.Forms
                 GetButton.Enabled = true;
                 PostButton.Enabled = true;
                 DeleteApiButton.Enabled = true;
+                display_From_API();
             }
         }
+
+        #endregion API
+
     }
 
 

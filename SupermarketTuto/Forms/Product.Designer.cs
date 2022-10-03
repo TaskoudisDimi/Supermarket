@@ -53,8 +53,8 @@
             this.exportButton = new System.Windows.Forms.Button();
             this.PostButton = new System.Windows.Forms.Button();
             this.DeleteApiButton = new System.Windows.Forms.Button();
-            this.localRadioButton = new System.Windows.Forms.RadioButton();
             this.ApiRadioButton = new System.Windows.Forms.RadioButton();
+            this.localRadioButton = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.ProdDGV)).BeginInit();
             this.SuspendLayout();
             // 
@@ -62,20 +62,18 @@
             // 
             this.totalLabel.AutoSize = true;
             this.totalLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.totalLabel.Location = new System.Drawing.Point(8, 940);
-            this.totalLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.totalLabel.Location = new System.Drawing.Point(5, 611);
             this.totalLabel.Name = "totalLabel";
-            this.totalLabel.Size = new System.Drawing.Size(74, 29);
+            this.totalLabel.Size = new System.Drawing.Size(48, 20);
             this.totalLabel.TabIndex = 106;
             this.totalLabel.Text = "Total:";
             // 
             // searchButton
             // 
             this.searchButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.searchButton.Location = new System.Drawing.Point(327, 83);
-            this.searchButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.searchButton.Location = new System.Drawing.Point(218, 54);
             this.searchButton.Name = "searchButton";
-            this.searchButton.Size = new System.Drawing.Size(154, 57);
+            this.searchButton.Size = new System.Drawing.Size(103, 37);
             this.searchButton.TabIndex = 105;
             this.searchButton.Text = "Search";
             this.searchButton.UseVisualStyleBackColor = true;
@@ -84,10 +82,9 @@
             // searchTextBox
             // 
             this.searchTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.searchTextBox.Location = new System.Drawing.Point(14, 91);
-            this.searchTextBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.searchTextBox.Location = new System.Drawing.Point(9, 59);
             this.searchTextBox.Name = "searchTextBox";
-            this.searchTextBox.Size = new System.Drawing.Size(254, 35);
+            this.searchTextBox.Size = new System.Drawing.Size(171, 26);
             this.searchTextBox.TabIndex = 104;
             this.searchTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.searchTextBox_KeyPress);
             // 
@@ -97,23 +94,21 @@
             this.ProdDGV.BackgroundColor = System.Drawing.Color.WhiteSmoke;
             this.ProdDGV.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.ProdDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.ProdDGV.Location = new System.Drawing.Point(14, 157);
-            this.ProdDGV.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.ProdDGV.Location = new System.Drawing.Point(9, 102);
             this.ProdDGV.Name = "ProdDGV";
             this.ProdDGV.RowHeadersWidth = 62;
             this.ProdDGV.RowTemplate.Height = 30;
             this.ProdDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.ProdDGV.Size = new System.Drawing.Size(1260, 752);
+            this.ProdDGV.Size = new System.Drawing.Size(840, 489);
             this.ProdDGV.TabIndex = 103;
             this.ProdDGV.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ProdDGV_CellClick);
             // 
             // refreshButton
             // 
             this.refreshButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.refreshButton.Location = new System.Drawing.Point(1101, 91);
-            this.refreshButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.refreshButton.Location = new System.Drawing.Point(734, 59);
             this.refreshButton.Name = "refreshButton";
-            this.refreshButton.Size = new System.Drawing.Size(172, 57);
+            this.refreshButton.Size = new System.Drawing.Size(115, 37);
             this.refreshButton.TabIndex = 102;
             this.refreshButton.Text = "Refresh";
             this.refreshButton.UseVisualStyleBackColor = true;
@@ -123,10 +118,9 @@
             // 
             this.categoriesLabel.AutoSize = true;
             this.categoriesLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.categoriesLabel.Location = new System.Drawing.Point(1440, 511);
-            this.categoriesLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.categoriesLabel.Location = new System.Drawing.Point(960, 332);
             this.categoriesLabel.Name = "categoriesLabel";
-            this.categoriesLabel.Size = new System.Drawing.Size(135, 32);
+            this.categoriesLabel.Size = new System.Drawing.Size(91, 21);
             this.categoriesLabel.TabIndex = 101;
             this.categoriesLabel.Text = "Categories";
             // 
@@ -134,10 +128,9 @@
             // 
             this.priceLabel.AutoSize = true;
             this.priceLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.priceLabel.Location = new System.Drawing.Point(1458, 391);
-            this.priceLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.priceLabel.Location = new System.Drawing.Point(972, 254);
             this.priceLabel.Name = "priceLabel";
-            this.priceLabel.Size = new System.Drawing.Size(71, 32);
+            this.priceLabel.Size = new System.Drawing.Size(48, 21);
             this.priceLabel.TabIndex = 100;
             this.priceLabel.Text = "Price";
             // 
@@ -145,10 +138,9 @@
             // 
             this.quantityLabel.AutoSize = true;
             this.quantityLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.quantityLabel.Location = new System.Drawing.Point(1448, 285);
-            this.quantityLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.quantityLabel.Location = new System.Drawing.Point(965, 185);
             this.quantityLabel.Name = "quantityLabel";
-            this.quantityLabel.Size = new System.Drawing.Size(113, 32);
+            this.quantityLabel.Size = new System.Drawing.Size(77, 21);
             this.quantityLabel.TabIndex = 99;
             this.quantityLabel.Text = "Quantity";
             // 
@@ -156,20 +148,18 @@
             // 
             this.nameLabel.AutoSize = true;
             this.nameLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.nameLabel.Location = new System.Drawing.Point(1448, 180);
-            this.nameLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.nameLabel.Location = new System.Drawing.Point(965, 117);
             this.nameLabel.Name = "nameLabel";
-            this.nameLabel.Size = new System.Drawing.Size(81, 32);
+            this.nameLabel.Size = new System.Drawing.Size(56, 21);
             this.nameLabel.TabIndex = 98;
             this.nameLabel.Text = "Name";
             // 
             // deleteButton
             // 
             this.deleteButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.deleteButton.Location = new System.Drawing.Point(1752, 655);
-            this.deleteButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.deleteButton.Location = new System.Drawing.Point(1168, 426);
             this.deleteButton.Name = "deleteButton";
-            this.deleteButton.Size = new System.Drawing.Size(146, 62);
+            this.deleteButton.Size = new System.Drawing.Size(97, 40);
             this.deleteButton.TabIndex = 97;
             this.deleteButton.Text = "Delete";
             this.deleteButton.UseVisualStyleBackColor = true;
@@ -178,10 +168,9 @@
             // editButton
             // 
             this.editButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.editButton.Location = new System.Drawing.Point(1605, 655);
-            this.editButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.editButton.Location = new System.Drawing.Point(1070, 426);
             this.editButton.Name = "editButton";
-            this.editButton.Size = new System.Drawing.Size(96, 62);
+            this.editButton.Size = new System.Drawing.Size(64, 40);
             this.editButton.TabIndex = 96;
             this.editButton.Text = "Edit";
             this.editButton.UseVisualStyleBackColor = true;
@@ -190,10 +179,9 @@
             // addButton
             // 
             this.addButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.addButton.Location = new System.Drawing.Point(1470, 655);
-            this.addButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.addButton.Location = new System.Drawing.Point(980, 426);
             this.addButton.Name = "addButton";
-            this.addButton.Size = new System.Drawing.Size(96, 62);
+            this.addButton.Size = new System.Drawing.Size(64, 40);
             this.addButton.TabIndex = 95;
             this.addButton.Text = "Add";
             this.addButton.UseVisualStyleBackColor = true;
@@ -203,10 +191,9 @@
             // 
             this.idLabel.AutoSize = true;
             this.idLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.idLabel.Location = new System.Drawing.Point(1458, 83);
-            this.idLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.idLabel.Location = new System.Drawing.Point(972, 54);
             this.idLabel.Name = "idLabel";
-            this.idLabel.Size = new System.Drawing.Size(40, 32);
+            this.idLabel.Size = new System.Drawing.Size(27, 21);
             this.idLabel.TabIndex = 94;
             this.idLabel.Text = "ID";
             // 
@@ -214,58 +201,52 @@
             // 
             this.addCatCombobox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.addCatCombobox.FormattingEnabled = true;
-            this.addCatCombobox.Location = new System.Drawing.Point(1720, 505);
-            this.addCatCombobox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.addCatCombobox.Location = new System.Drawing.Point(1147, 328);
             this.addCatCombobox.Name = "addCatCombobox";
-            this.addCatCombobox.Size = new System.Drawing.Size(212, 37);
+            this.addCatCombobox.Size = new System.Drawing.Size(143, 28);
             this.addCatCombobox.TabIndex = 93;
             this.addCatCombobox.Text = "Select Category";
             // 
             // ProdPrice
             // 
             this.ProdPrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.ProdPrice.Location = new System.Drawing.Point(1720, 388);
-            this.ProdPrice.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.ProdPrice.Location = new System.Drawing.Point(1147, 252);
             this.ProdPrice.Name = "ProdPrice";
-            this.ProdPrice.Size = new System.Drawing.Size(212, 35);
+            this.ProdPrice.Size = new System.Drawing.Size(143, 26);
             this.ProdPrice.TabIndex = 92;
             // 
             // ProdQty
             // 
             this.ProdQty.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.ProdQty.Location = new System.Drawing.Point(1720, 282);
-            this.ProdQty.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.ProdQty.Location = new System.Drawing.Point(1147, 183);
             this.ProdQty.Name = "ProdQty";
-            this.ProdQty.Size = new System.Drawing.Size(212, 35);
+            this.ProdQty.Size = new System.Drawing.Size(143, 26);
             this.ProdQty.TabIndex = 91;
             // 
             // ProdName
             // 
             this.ProdName.BackColor = System.Drawing.Color.White;
             this.ProdName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.ProdName.Location = new System.Drawing.Point(1720, 177);
-            this.ProdName.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.ProdName.Location = new System.Drawing.Point(1147, 115);
             this.ProdName.Name = "ProdName";
-            this.ProdName.Size = new System.Drawing.Size(212, 35);
+            this.ProdName.Size = new System.Drawing.Size(143, 26);
             this.ProdName.TabIndex = 90;
             // 
             // ProdId
             // 
             this.ProdId.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.ProdId.Location = new System.Drawing.Point(1720, 83);
-            this.ProdId.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.ProdId.Location = new System.Drawing.Point(1147, 54);
             this.ProdId.Name = "ProdId";
-            this.ProdId.Size = new System.Drawing.Size(212, 35);
+            this.ProdId.Size = new System.Drawing.Size(143, 26);
             this.ProdId.TabIndex = 89;
             // 
             // catComboBox
             // 
             this.catComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.catComboBox.FormattingEnabled = true;
-            this.catComboBox.Location = new System.Drawing.Point(644, 91);
-            this.catComboBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.catComboBox.Location = new System.Drawing.Point(429, 59);
             this.catComboBox.Name = "catComboBox";
-            this.catComboBox.Size = new System.Drawing.Size(212, 37);
+            this.catComboBox.Size = new System.Drawing.Size(143, 28);
             this.catComboBox.TabIndex = 107;
             this.catComboBox.Text = "Select Category";
             this.catComboBox.SelectionChangeCommitted += new System.EventHandler(this.catComboBox_SelectionChangeCommitted);
@@ -273,10 +254,9 @@
             // GetButton
             // 
             this.GetButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.GetButton.Location = new System.Drawing.Point(912, 925);
-            this.GetButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.GetButton.Location = new System.Drawing.Point(608, 601);
             this.GetButton.Name = "GetButton";
-            this.GetButton.Size = new System.Drawing.Size(96, 47);
+            this.GetButton.Size = new System.Drawing.Size(64, 31);
             this.GetButton.TabIndex = 108;
             this.GetButton.Text = "Get";
             this.GetButton.UseVisualStyleBackColor = true;
@@ -285,10 +265,9 @@
             // importButton
             // 
             this.importButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.importButton.Location = new System.Drawing.Point(327, 925);
-            this.importButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.importButton.Location = new System.Drawing.Point(218, 601);
             this.importButton.Name = "importButton";
-            this.importButton.Size = new System.Drawing.Size(102, 46);
+            this.importButton.Size = new System.Drawing.Size(68, 30);
             this.importButton.TabIndex = 109;
             this.importButton.Text = "Import";
             this.importButton.UseVisualStyleBackColor = true;
@@ -297,10 +276,9 @@
             // saveButton
             // 
             this.saveButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.saveButton.Location = new System.Drawing.Point(456, 925);
-            this.saveButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.saveButton.Location = new System.Drawing.Point(304, 601);
             this.saveButton.Name = "saveButton";
-            this.saveButton.Size = new System.Drawing.Size(102, 46);
+            this.saveButton.Size = new System.Drawing.Size(68, 30);
             this.saveButton.TabIndex = 110;
             this.saveButton.Text = "Save";
             this.saveButton.UseVisualStyleBackColor = true;
@@ -309,10 +287,9 @@
             // exportButton
             // 
             this.exportButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.exportButton.Location = new System.Drawing.Point(206, 923);
-            this.exportButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.exportButton.Location = new System.Drawing.Point(137, 600);
             this.exportButton.Name = "exportButton";
-            this.exportButton.Size = new System.Drawing.Size(102, 46);
+            this.exportButton.Size = new System.Drawing.Size(68, 30);
             this.exportButton.TabIndex = 111;
             this.exportButton.Text = "Export";
             this.exportButton.UseVisualStyleBackColor = true;
@@ -321,10 +298,9 @@
             // PostButton
             // 
             this.PostButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.PostButton.Location = new System.Drawing.Point(1040, 925);
-            this.PostButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.PostButton.Location = new System.Drawing.Point(693, 601);
             this.PostButton.Name = "PostButton";
-            this.PostButton.Size = new System.Drawing.Size(100, 46);
+            this.PostButton.Size = new System.Drawing.Size(67, 30);
             this.PostButton.TabIndex = 112;
             this.PostButton.Text = "Post";
             this.PostButton.UseVisualStyleBackColor = true;
@@ -333,47 +309,46 @@
             // DeleteApiButton
             // 
             this.DeleteApiButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.DeleteApiButton.Location = new System.Drawing.Point(1171, 925);
-            this.DeleteApiButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.DeleteApiButton.Location = new System.Drawing.Point(781, 601);
             this.DeleteApiButton.Name = "DeleteApiButton";
-            this.DeleteApiButton.Size = new System.Drawing.Size(102, 45);
+            this.DeleteApiButton.Size = new System.Drawing.Size(68, 29);
             this.DeleteApiButton.TabIndex = 113;
             this.DeleteApiButton.Text = "Delete";
             this.DeleteApiButton.UseVisualStyleBackColor = true;
             this.DeleteApiButton.Click += new System.EventHandler(this.DeleteApiButton_Click);
             // 
-            // localRadioButton
-            // 
-            this.localRadioButton.AutoSize = true;
-            this.localRadioButton.Location = new System.Drawing.Point(2054, 83);
-            this.localRadioButton.Name = "localRadioButton";
-            this.localRadioButton.Size = new System.Drawing.Size(111, 24);
-            this.localRadioButton.TabIndex = 114;
-            this.localRadioButton.TabStop = true;
-            this.localRadioButton.Text = "Local Data";
-            this.localRadioButton.UseVisualStyleBackColor = true;
-            this.localRadioButton.CheckedChanged += new System.EventHandler(this.localRadioButton_CheckedChanged);
-            // 
             // ApiRadioButton
             // 
             this.ApiRadioButton.AutoSize = true;
-            this.ApiRadioButton.Location = new System.Drawing.Point(2054, 136);
+            this.ApiRadioButton.Location = new System.Drawing.Point(1312, 121);
             this.ApiRadioButton.Name = "ApiRadioButton";
-            this.ApiRadioButton.Size = new System.Drawing.Size(99, 24);
-            this.ApiRadioButton.TabIndex = 115;
+            this.ApiRadioButton.Size = new System.Drawing.Size(42, 17);
+            this.ApiRadioButton.TabIndex = 116;
             this.ApiRadioButton.TabStop = true;
-            this.ApiRadioButton.Text = "API Data";
+            this.ApiRadioButton.Text = "API";
             this.ApiRadioButton.UseVisualStyleBackColor = true;
-            this.ApiRadioButton.CheckedChanged += new System.EventHandler(this.ApiRadioButton_CheckedChanged);
+            this.ApiRadioButton.Click += new System.EventHandler(this.ApiRadioButton_Click);
+            // 
+            // localRadioButton
+            // 
+            this.localRadioButton.AutoSize = true;
+            this.localRadioButton.Location = new System.Drawing.Point(1312, 97);
+            this.localRadioButton.Name = "localRadioButton";
+            this.localRadioButton.Size = new System.Drawing.Size(51, 17);
+            this.localRadioButton.TabIndex = 117;
+            this.localRadioButton.TabStop = true;
+            this.localRadioButton.Text = "Local";
+            this.localRadioButton.UseVisualStyleBackColor = true;
+            this.localRadioButton.Click += new System.EventHandler(this.localRadioButton_Click);
             // 
             // Product
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(2302, 1066);
+            this.ClientSize = new System.Drawing.Size(1535, 693);
             this.ControlBox = false;
-            this.Controls.Add(this.ApiRadioButton);
             this.Controls.Add(this.localRadioButton);
+            this.Controls.Add(this.ApiRadioButton);
             this.Controls.Add(this.DeleteApiButton);
             this.Controls.Add(this.PostButton);
             this.Controls.Add(this.exportButton);
@@ -399,6 +374,7 @@
             this.Controls.Add(this.ProdQty);
             this.Controls.Add(this.ProdName);
             this.Controls.Add(this.ProdId);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Product";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Product_Load);
@@ -434,7 +410,7 @@
         private Button exportButton;
         private Button PostButton;
         private Button DeleteApiButton;
-        private RadioButton localRadioButton;
         private RadioButton ApiRadioButton;
+        private RadioButton localRadioButton;
     }
 }
