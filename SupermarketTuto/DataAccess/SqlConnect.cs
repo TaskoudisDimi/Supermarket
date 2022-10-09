@@ -82,7 +82,7 @@ namespace SupermarketTuto.DataAccess
         public void search(string text, string sql)
         {
             con.Open();
-            SqlCommand cmd = new SqlCommand(sql, con);
+            SqlCommand cmd = new SqlCommand(sql, con);              
             SqlDataAdapter adapter = new SqlDataAdapter(cmd);
             adapter.Fill(table);
 

@@ -45,11 +45,6 @@ namespace SupermarketTuto.Forms
 
 
 
-
-
-
-
-
         }
         private void fillCombo()
         {
@@ -515,13 +510,13 @@ namespace SupermarketTuto.Forms
 
         private void PostButton_Click(object sender, EventArgs e)
         {
-            var product = new Products() { Productid = Convert.ToInt32(ProdId.Text), ProdName = ProdName.Text, ProdCat = addCatCombobox.Text, ProdPrice = Convert.ToInt32(ProdPrice.Text), ProdQty = Convert.ToInt32(ProdQty.Text), ProdDate = DateTime.Now};
+            var product = new Products() { Productid = Convert.ToInt32(ProdId.Text), ProdName = ProdName.Text, ProdQty = Convert.ToInt32(ProdQty.Text), ProdPrice = Convert.ToInt32(ProdPrice.Text), ProdCat = addCatCombobox.Text };
 
 
             var json = JsonConvert.SerializeObject(product);
             var data = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var url = new Uri("http://localhost:8083/api/products");
+            var url = new Uri("http://localhost:52465/api/products");
             using var client = new HttpClient();
 
             var response = client.PostAsync(url, data);
@@ -532,9 +527,6 @@ namespace SupermarketTuto.Forms
                 var readTask = result.Content.ReadAsStringAsync();
 
             }
-
-
-
         }
 
         private void DeleteApiButton_Click(object sender, EventArgs e)
@@ -576,7 +568,6 @@ namespace SupermarketTuto.Forms
         public int ProdQty { get; set; }
         public int ProdPrice { get; set; }
         public string ProdCat { get; set; }
-        public DateTime ProdDate { get; set; }
     }
 
     
