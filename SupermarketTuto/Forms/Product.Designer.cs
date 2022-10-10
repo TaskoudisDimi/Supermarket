@@ -55,6 +55,7 @@
             this.DeleteApiButton = new System.Windows.Forms.Button();
             this.ApiRadioButton = new System.Windows.Forms.RadioButton();
             this.localRadioButton = new System.Windows.Forms.RadioButton();
+            this.putButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.ProdDGV)).BeginInit();
             this.SuspendLayout();
             // 
@@ -99,7 +100,7 @@
             this.ProdDGV.RowHeadersWidth = 62;
             this.ProdDGV.RowTemplate.Height = 30;
             this.ProdDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.ProdDGV.Size = new System.Drawing.Size(840, 489);
+            this.ProdDGV.Size = new System.Drawing.Size(864, 489);
             this.ProdDGV.TabIndex = 103;
             this.ProdDGV.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ProdDGV_CellClick);
             // 
@@ -254,7 +255,7 @@
             // GetButton
             // 
             this.GetButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.GetButton.Location = new System.Drawing.Point(608, 601);
+            this.GetButton.Location = new System.Drawing.Point(554, 597);
             this.GetButton.Name = "GetButton";
             this.GetButton.Size = new System.Drawing.Size(64, 31);
             this.GetButton.TabIndex = 108;
@@ -298,7 +299,7 @@
             // PostButton
             // 
             this.PostButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.PostButton.Location = new System.Drawing.Point(693, 601);
+            this.PostButton.Location = new System.Drawing.Point(633, 597);
             this.PostButton.Name = "PostButton";
             this.PostButton.Size = new System.Drawing.Size(67, 30);
             this.PostButton.TabIndex = 112;
@@ -309,7 +310,7 @@
             // DeleteApiButton
             // 
             this.DeleteApiButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.DeleteApiButton.Location = new System.Drawing.Point(781, 601);
+            this.DeleteApiButton.Location = new System.Drawing.Point(722, 599);
             this.DeleteApiButton.Name = "DeleteApiButton";
             this.DeleteApiButton.Size = new System.Drawing.Size(68, 29);
             this.DeleteApiButton.TabIndex = 113;
@@ -341,12 +342,24 @@
             this.localRadioButton.UseVisualStyleBackColor = true;
             this.localRadioButton.Click += new System.EventHandler(this.localRadioButton_Click);
             // 
+            // putButton
+            // 
+            this.putButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.putButton.Location = new System.Drawing.Point(805, 600);
+            this.putButton.Name = "putButton";
+            this.putButton.Size = new System.Drawing.Size(68, 29);
+            this.putButton.TabIndex = 118;
+            this.putButton.Text = "Put";
+            this.putButton.UseVisualStyleBackColor = true;
+            this.putButton.Click += new System.EventHandler(this.putButton_Click);
+            // 
             // Product
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1535, 693);
             this.ControlBox = false;
+            this.Controls.Add(this.putButton);
             this.Controls.Add(this.localRadioButton);
             this.Controls.Add(this.ApiRadioButton);
             this.Controls.Add(this.DeleteApiButton);
@@ -412,5 +425,6 @@
         private Button DeleteApiButton;
         private RadioButton ApiRadioButton;
         private RadioButton localRadioButton;
+        private Button putButton;
     }
 }
