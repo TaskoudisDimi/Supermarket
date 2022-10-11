@@ -35,6 +35,7 @@ namespace SupermarketTuto.Forms
             GetButton.Enabled = false;
             PostButton.Enabled = false;
             DeleteApiButton.Enabled = false;
+            putButton.Enabled = false;
             ContextMenuStrip mnu = new ContextMenuStrip();
             ToolStripMenuItem mnuDelete = new ToolStripMenuItem("Delete");
             //Assign event handlers
@@ -219,7 +220,7 @@ namespace SupermarketTuto.Forms
                 else
                 {
 
-                    loaddata6.commandExc("Update ProductTbl set ProdName='" + ProdName.Text + "',ProdQty='" + ProdQty.Text + "',ProdPrice='" + ProdPrice.Text + "' where ProdId=" + ProdId.Text + ";");
+                    loaddata6.commandExc("Update ProductTbl set ProdName='" + ProdName.Text + "',ProdCat='" + addCatCombobox.Text + "',ProdQty='" + ProdQty.Text + "',ProdPrice='" + ProdPrice.Text + "' where ProdId=" + ProdId.Text + ";");
                     MessageBox.Show("Product Successfully Updated");
                     ProdId.Text = String.Empty;
                     ProdName.Text = String.Empty;
@@ -249,11 +250,11 @@ namespace SupermarketTuto.Forms
 
                     loaddata7.commandExc("Delete From ProductTbl Where ProdId=" + ProdId.Text + "");
 
-                    ProdId.Text = "";
-                    ProdName.Text = "";
-                    ProdQty.Text = "";
-                    ProdPrice.Text = "";
-                    addCatCombobox.SelectedValue = "";
+                    ProdId.Text = String.Empty;
+                    ProdName.Text = String.Empty;
+                    ProdQty.Text = String.Empty;
+                    ProdPrice.Text = String.Empty;
+                    addCatCombobox.SelectedValue = String.Empty;
                     refresh_data();
                 }
             }
@@ -568,6 +569,7 @@ namespace SupermarketTuto.Forms
                 GetButton.Enabled = true;
                 PostButton.Enabled = true;
                 DeleteApiButton.Enabled = true;
+                putButton.Enabled = true;
                 display_From_API();
             }
         }
