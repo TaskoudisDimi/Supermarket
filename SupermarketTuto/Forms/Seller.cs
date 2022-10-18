@@ -74,14 +74,15 @@ namespace SupermarketTuto.Forms
                 }
                 else
                 {
-                    string FileName = imageTextBox.Text;
-                    byte[] ImageData;
-                    fs = new FileStream(FileName, FileMode.Open, FileAccess.Read);
-                    br = new BinaryReader(fs);
-                    ImageData = br.ReadBytes((int)fs.Length);
-                    br.Close();
-                    fs.Close();
-                    loaddata5.commandExc("Insert Into SellerTbl values(" + SellId.Text + ",'" + SellName.Text + "'," + SellAge.Text + "," + SellPhone.Text + ",'" + SellPass.Text + "','" + dateTimePicker.Value.ToString("MM-dd-yyyy") + "','" + ImageData + "')");
+                    //string FileName = imageTextBox.Text;
+                    //byte[] ImageData;
+                    //fs = new FileStream(FileName, FileMode.Open, FileAccess.Read);
+                    //br = new BinaryReader(fs);
+                    //ImageData = br.ReadBytes((int)fs.Length);
+                    //br.Close();
+                    //fs.Close();
+                    var image = new ImageConverter().ConvertTo(pictureBox.Image, typeof(Byte[]));
+                    loaddata5.commandExc("Insert Into SellerTbl values(" + SellId.Text + ",'" + SellName.Text + "'," + SellAge.Text + "," + SellPhone.Text + ",'" + SellPass.Text + "','" + dateTimePicker.Value.ToString("MM-dd-yyyy") + "','" + image + "')");
 
 
                     SellId.Text = String.Empty;
@@ -174,7 +175,7 @@ namespace SupermarketTuto.Forms
             Stream myStream = null;
 
             OpenFileDialog dialog = new OpenFileDialog();
-            dialog.Filter = "JPG (.JPG)|*.jpg";
+            dialog.Filter = "JPEG (.JPEG)|*.jpeg";
             if (dialog.ShowDialog() == DialogResult.OK)
             {
                 try
@@ -249,18 +250,37 @@ namespace SupermarketTuto.Forms
 
         private void showButton_Click(object sender, EventArgs e)
         {
+           
+            DataTable table = new DataTable();
             con.ConnectionString = ConfigurationManager.ConnectionStrings["Supermarket"].ConnectionString;
             con.Open();
-            string sql = "Select Image From SellerTbl where SellerPass=" + "'3'";
-            SqlCommand sqlCommand = new SqlCommand(sql, con);
-            SqlDataReader reader = sqlCommand.ExecuteReader();
-            reader.Read();
-            byte[] image = (byte[])(reader[0]);
-            MemoryStream ms = new MemoryStream(image);
-            pictureBox.Image = Image.FromStream(ms);
-            con.Close();
-            
+            SqlCommand cmd1 = new SqlCommand("Select Image From Image", con);
+
+            SqlDataAdapter adapter = new SqlDataAdapter(cmd1);
+
+            adapter.Fill(table);
         }
+
+
+        //public Image ConvertByteToImage(byte[] data)
+        //{
+        //    using (MemoryStream ms = new MemoryStream(data))
+        //    {
+        //        return Image.FromStream(ms);
+        //    }
+        //}
+
+        //byte[] ConvertImageToByte(Image image)
+        //{
+        //    using (MemoryStream ms = new MemoryStream())
+        //    {
+        //        image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+        //        return ms.ToArray();
+        //    }
+        //}
+
+
     }
 }
+
 

@@ -58,6 +58,8 @@
             this.addressTextBox = new System.Windows.Forms.TextBox();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.adressLabel = new System.Windows.Forms.Label();
+            this.localRadioButton = new System.Windows.Forms.RadioButton();
+            this.ApiRadioButton = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SellDGV)).BeginInit();
             this.SuspendLayout();
@@ -138,7 +140,7 @@
             // uploadButton
             // 
             this.uploadButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.uploadButton.Location = new System.Drawing.Point(1970, 692);
+            this.uploadButton.Location = new System.Drawing.Point(2123, 678);
             this.uploadButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.uploadButton.Name = "uploadButton";
             this.uploadButton.Size = new System.Drawing.Size(124, 48);
@@ -149,7 +151,7 @@
             // 
             // pictureBox
             // 
-            this.pictureBox.Location = new System.Drawing.Point(1970, 389);
+            this.pictureBox.Location = new System.Drawing.Point(2123, 375);
             this.pictureBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.pictureBox.Name = "pictureBox";
             this.pictureBox.Size = new System.Drawing.Size(248, 188);
@@ -197,7 +199,7 @@
             // delete2Button
             // 
             this.delete2Button.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.delete2Button.Location = new System.Drawing.Point(1664, 1081);
+            this.delete2Button.Location = new System.Drawing.Point(1655, 1096);
             this.delete2Button.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.delete2Button.Name = "delete2Button";
             this.delete2Button.Size = new System.Drawing.Size(96, 48);
@@ -209,7 +211,7 @@
             // editButton
             // 
             this.editButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.editButton.Location = new System.Drawing.Point(1548, 1081);
+            this.editButton.Location = new System.Drawing.Point(1539, 1096);
             this.editButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.editButton.Name = "editButton";
             this.editButton.Size = new System.Drawing.Size(96, 48);
@@ -221,7 +223,7 @@
             // addButton
             // 
             this.addButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.addButton.Location = new System.Drawing.Point(1423, 1081);
+            this.addButton.Location = new System.Drawing.Point(1415, 1096);
             this.addButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.addButton.Name = "addButton";
             this.addButton.Size = new System.Drawing.Size(96, 48);
@@ -324,7 +326,7 @@
             // 
             // imageTextBox
             // 
-            this.imageTextBox.Location = new System.Drawing.Point(1970, 635);
+            this.imageTextBox.Location = new System.Drawing.Point(2123, 621);
             this.imageTextBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.imageTextBox.Name = "imageTextBox";
             this.imageTextBox.Size = new System.Drawing.Size(338, 26);
@@ -332,7 +334,7 @@
             // 
             // showButton
             // 
-            this.showButton.Location = new System.Drawing.Point(1970, 758);
+            this.showButton.Location = new System.Drawing.Point(2123, 744);
             this.showButton.Name = "showButton";
             this.showButton.Size = new System.Drawing.Size(90, 51);
             this.showButton.TabIndex = 117;
@@ -364,12 +366,38 @@
             this.adressLabel.TabIndex = 120;
             this.adressLabel.Text = "Address";
             // 
+            // localRadioButton
+            // 
+            this.localRadioButton.AutoSize = true;
+            this.localRadioButton.Location = new System.Drawing.Point(1845, 403);
+            this.localRadioButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.localRadioButton.Name = "localRadioButton";
+            this.localRadioButton.Size = new System.Drawing.Size(72, 24);
+            this.localRadioButton.TabIndex = 122;
+            this.localRadioButton.TabStop = true;
+            this.localRadioButton.Text = "Local";
+            this.localRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // ApiRadioButton
+            // 
+            this.ApiRadioButton.AutoSize = true;
+            this.ApiRadioButton.Location = new System.Drawing.Point(1845, 440);
+            this.ApiRadioButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.ApiRadioButton.Name = "ApiRadioButton";
+            this.ApiRadioButton.Size = new System.Drawing.Size(60, 24);
+            this.ApiRadioButton.TabIndex = 121;
+            this.ApiRadioButton.TabStop = true;
+            this.ApiRadioButton.Text = "API";
+            this.ApiRadioButton.UseVisualStyleBackColor = true;
+            // 
             // Seller
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(2469, 1158);
+            this.ClientSize = new System.Drawing.Size(2469, 1188);
             this.ControlBox = false;
+            this.Controls.Add(this.localRadioButton);
+            this.Controls.Add(this.ApiRadioButton);
             this.Controls.Add(this.adressLabel);
             this.Controls.Add(this.addressTextBox);
             this.Controls.Add(this.showButton);
@@ -439,5 +467,7 @@
         private TextBox addressTextBox;
         private ContextMenuStrip contextMenuStrip1;
         private Label adressLabel;
+        private RadioButton localRadioButton;
+        private RadioButton ApiRadioButton;
     }
 }

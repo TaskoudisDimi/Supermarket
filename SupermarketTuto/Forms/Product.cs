@@ -17,6 +17,8 @@ namespace SupermarketTuto.Forms
 {
     public partial class Product : Form
     {
+       
+
         public Product()
         {
             InitializeComponent();
@@ -24,7 +26,6 @@ namespace SupermarketTuto.Forms
             
 
         }
-
 
         private void Product_Load(object sender, EventArgs e)
         {
@@ -45,9 +46,8 @@ namespace SupermarketTuto.Forms
             //Assign to datagridview
             ProdDGV.ContextMenuStrip = mnu;
 
-
-
         }
+
         private void fillCombo()
         {
             SqlConnect loaddata2 = new SqlConnect();
@@ -476,7 +476,6 @@ namespace SupermarketTuto.Forms
             }
         }
 
-
         #region API
         //First, we have created an object of HttpClient and assigned the base address of our Web API.
         //The GetAsync() method sends an http GET request to the specified url.The GetAsync() method is asynchronous and returns a Task.
@@ -552,6 +551,27 @@ namespace SupermarketTuto.Forms
             }
         }
 
+        private void putButton_Click(object sender, EventArgs e)
+        {
+            var product = new Products() { Prodid = Convert.ToInt32(ProdId.Text), ProdName = ProdName.Text, ProdQty = Convert.ToInt32(ProdQty.Text), ProdPrice = Convert.ToInt32(ProdPrice.Text), ProdCat = addCatCombobox.Text };
+
+            var json = JsonConvert.SerializeObject(product);
+            var data = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var url = new Uri($"http://localhost:52465/api/put/{ProdId.Text}");
+            using var client = new HttpClient();
+
+            var response = client.PutAsync(url, data);
+            response.Wait();
+            var result = response.Result;
+            if (result.IsSuccessStatusCode)
+            {
+                var readTask = result.Content.ReadAsStringAsync();
+
+            }
+        }
+
+        #endregion API
         private void localRadioButton_Click(object sender, EventArgs e)
         {
             ApiRadioButton.Checked = false;
@@ -574,29 +594,14 @@ namespace SupermarketTuto.Forms
             }
         }
 
-
-        private void putButton_Click(object sender, EventArgs e)
+        private void searchTextBox_TextChanged(object sender, EventArgs e)
         {
-            var product = new Products() { Prodid = Convert.ToInt32(ProdId.Text), ProdName = ProdName.Text, ProdQty = Convert.ToInt32(ProdQty.Text), ProdPrice = Convert.ToInt32(ProdPrice.Text), ProdCat = addCatCombobox.Text };
-
-            var json = JsonConvert.SerializeObject(product);
-            var data = new StringContent(json, Encoding.UTF8, "application/json");
-
-            var url = new Uri($"http://localhost:52465/api/put/{ProdId.Text}");
-            using var client = new HttpClient();
-
-            var response = client.PutAsync(url, data);
-            response.Wait();
-            var result = response.Result;
-            if (result.IsSuccessStatusCode)
-            {
-                var readTask = result.Content.ReadAsStringAsync();
-
-            }
+            SqlConnect db = new SqlConnect();
+            string query = "Select * From ProductTbl where ProdId like '%" + searchTextBox.Text + "%'" + "or ProdName like '%" + searchTextBox.Text + "%'" + "or ProdQty like '%" + searchTextBox.Text + "%'" + "or ProdPrice like '%" + searchTextBox.Text + "%'" + "or ProdCat like '%" + searchTextBox.Text + "%'";
+            db.search(searchTextBox.Text, query);
+            ProdDGV.DataSource = db.table;
+            totalLabel.Text = $"Total: {ProdDGV.RowCount}";
         }
-
-        #endregion API
-
     }
 
 
