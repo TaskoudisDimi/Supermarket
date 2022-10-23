@@ -56,7 +56,7 @@
             this.dateLabel.Location = new System.Drawing.Point(1026, 369);
             this.dateLabel.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.dateLabel.Name = "dateLabel";
-            this.dateLabel.Size = new System.Drawing.Size(46, 21);
+            this.dateLabel.Size = new System.Drawing.Size(67, 32);
             this.dateLabel.TabIndex = 89;
             this.dateLabel.Text = "Date";
             // 
@@ -67,7 +67,7 @@
             this.dateTimePicker.Location = new System.Drawing.Point(1128, 369);
             this.dateTimePicker.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.dateTimePicker.Name = "dateTimePicker";
-            this.dateTimePicker.Size = new System.Drawing.Size(273, 26);
+            this.dateTimePicker.Size = new System.Drawing.Size(273, 35);
             this.dateTimePicker.TabIndex = 88;
             // 
             // deleteButton
@@ -113,7 +113,7 @@
             this.totalLabel.Location = new System.Drawing.Point(14, 770);
             this.totalLabel.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.totalLabel.Name = "totalLabel";
-            this.totalLabel.Size = new System.Drawing.Size(48, 20);
+            this.totalLabel.Size = new System.Drawing.Size(74, 29);
             this.totalLabel.TabIndex = 84;
             this.totalLabel.Text = "Total:";
             // 
@@ -136,7 +136,7 @@
             this.searchTextBox.Location = new System.Drawing.Point(14, 143);
             this.searchTextBox.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.searchTextBox.Name = "searchTextBox";
-            this.searchTextBox.Size = new System.Drawing.Size(296, 26);
+            this.searchTextBox.Size = new System.Drawing.Size(296, 35);
             this.searchTextBox.TabIndex = 82;
             // 
             // toDateTimePicker
@@ -146,7 +146,7 @@
             this.toDateTimePicker.Location = new System.Drawing.Point(634, 147);
             this.toDateTimePicker.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.toDateTimePicker.Name = "toDateTimePicker";
-            this.toDateTimePicker.Size = new System.Drawing.Size(118, 26);
+            this.toDateTimePicker.Size = new System.Drawing.Size(118, 35);
             this.toDateTimePicker.TabIndex = 81;
             // 
             // fromDateTimePicker
@@ -156,7 +156,7 @@
             this.fromDateTimePicker.Location = new System.Drawing.Point(497, 147);
             this.fromDateTimePicker.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.fromDateTimePicker.Name = "fromDateTimePicker";
-            this.fromDateTimePicker.Size = new System.Drawing.Size(127, 26);
+            this.fromDateTimePicker.Size = new System.Drawing.Size(127, 35);
             this.fromDateTimePicker.TabIndex = 80;
             // 
             // refreshButton
@@ -196,7 +196,7 @@
             this.descriptionLabel.Location = new System.Drawing.Point(994, 303);
             this.descriptionLabel.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.descriptionLabel.Name = "descriptionLabel";
-            this.descriptionLabel.Size = new System.Drawing.Size(98, 21);
+            this.descriptionLabel.Size = new System.Drawing.Size(146, 32);
             this.descriptionLabel.TabIndex = 77;
             this.descriptionLabel.Text = "Description";
             // 
@@ -207,7 +207,7 @@
             this.name3Label.Location = new System.Drawing.Point(1016, 243);
             this.name3Label.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.name3Label.Name = "name3Label";
-            this.name3Label.Size = new System.Drawing.Size(56, 21);
+            this.name3Label.Size = new System.Drawing.Size(81, 32);
             this.name3Label.TabIndex = 76;
             this.name3Label.Text = "Name";
             // 
@@ -218,7 +218,7 @@
             this.id3label.Location = new System.Drawing.Point(1025, 189);
             this.id3label.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.id3label.Name = "id3label";
-            this.id3label.Size = new System.Drawing.Size(27, 21);
+            this.id3label.Size = new System.Drawing.Size(40, 32);
             this.id3label.TabIndex = 75;
             this.id3label.Text = "ID";
             // 
@@ -228,7 +228,7 @@
             this.CatDescTb.Location = new System.Drawing.Point(1128, 298);
             this.CatDescTb.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.CatDescTb.Name = "CatDescTb";
-            this.CatDescTb.Size = new System.Drawing.Size(273, 26);
+            this.CatDescTb.Size = new System.Drawing.Size(273, 35);
             this.CatDescTb.TabIndex = 74;
             // 
             // CatNameTb
@@ -237,7 +237,7 @@
             this.CatNameTb.Location = new System.Drawing.Point(1128, 243);
             this.CatNameTb.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.CatNameTb.Name = "CatNameTb";
-            this.CatNameTb.Size = new System.Drawing.Size(273, 26);
+            this.CatNameTb.Size = new System.Drawing.Size(273, 35);
             this.CatNameTb.TabIndex = 73;
             // 
             // CatIdTb
@@ -246,14 +246,14 @@
             this.CatIdTb.Location = new System.Drawing.Point(1128, 189);
             this.CatIdTb.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.CatIdTb.Name = "CatIdTb";
-            this.CatIdTb.Size = new System.Drawing.Size(283, 26);
+            this.CatIdTb.Size = new System.Drawing.Size(283, 35);
             this.CatIdTb.TabIndex = 72;
             // 
             // Category
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(14F, 29F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1582, 829);
+            this.ClientSize = new System.Drawing.Size(1582, 846);
             this.ControlBox = false;
             this.Controls.Add(this.dateLabel);
             this.Controls.Add(this.dateTimePicker);

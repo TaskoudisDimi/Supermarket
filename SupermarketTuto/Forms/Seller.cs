@@ -1,4 +1,8 @@
-﻿using OfficeOpenXml;
+﻿using GMap.NET;
+using GMap.NET.MapProviders;
+using GMap.NET.WindowsForms;
+using Newtonsoft.Json;
+using OfficeOpenXml;
 using SupermarketTuto.DataAccess;
 using System;
 using System.Collections.Generic;
@@ -21,7 +25,7 @@ namespace SupermarketTuto.Forms
             InitializeComponent();
             display();
         }
-
+        GMapControl map = new GMapControl();
         SqlConnection con = new SqlConnection();
         private void display()
         {
@@ -46,6 +50,15 @@ namespace SupermarketTuto.Forms
             mnu.Items.AddRange(new ToolStripItem[] { mnuDelete });
             //Assign to datagridview
             SellDGV.ContextMenuStrip = mnu;
+
+            this.Controls.Add(map);
+            map.Dock = DockStyle.Fill;
+            map.MapProvider = GoogleMapProvider.Instance;
+            panel1.Controls.Add(map);
+            map.Position = new PointLatLng(54.6961334816182, 25.2985095977783);
+            map.MinZoom = 0;
+            map.MaxZoom = 24;
+            map.Zoom = 9;
         }
         private void mnuDelete_Click(object? sender, EventArgs e)
         {
@@ -68,7 +81,7 @@ namespace SupermarketTuto.Forms
             SqlConnect loaddata5 = new SqlConnect();
             try
             {
-                if (SellId.Text == "" || SellName.Text == "" || SellAge.Text == "" || SellPhone.Text == "" || SellPass.Text == "" && imageTextBox.Text == "")
+                if (SellId.Text == "" || SellName.Text == "" || SellAge.Text == "" || SellPhone.Text == "" || SellPass.Text == "")
                 {
                     MessageBox.Show("Missing Information");
                 }
@@ -81,8 +94,7 @@ namespace SupermarketTuto.Forms
                     //ImageData = br.ReadBytes((int)fs.Length);
                     //br.Close();
                     //fs.Close();
-                    var image = new ImageConverter().ConvertTo(pictureBox.Image, typeof(Byte[]));
-                    loaddata5.commandExc("Insert Into SellerTbl values(" + SellId.Text + ",'" + SellName.Text + "'," + SellAge.Text + "," + SellPhone.Text + ",'" + SellPass.Text + "','" + dateTimePicker.Value.ToString("MM-dd-yyyy") + "','" + image + "')");
+                    loaddata5.commandExc("Insert Into SellerTbl values(" + SellId.Text + ",'" + SellName.Text + "'," + SellAge.Text + "," + SellPhone.Text + ",'" + SellPass.Text + "','" + dateTimePicker.Value.ToString("MM-dd-yyyy") + "')");
 
 
                     SellId.Text = String.Empty;
@@ -90,7 +102,6 @@ namespace SupermarketTuto.Forms
                     SellAge.Text = String.Empty;
                     SellPhone.Text = String.Empty;
                     SellPass.Text = String.Empty;
-                    pictureBox.Image = null;
                     MessageBox.Show("Seller added successfuly");
 
 
@@ -170,41 +181,6 @@ namespace SupermarketTuto.Forms
             display();
         }
 
-        private void uploadButton_Click_1(object sender, EventArgs e)
-        {
-            Stream myStream = null;
-
-            OpenFileDialog dialog = new OpenFileDialog();
-            dialog.Filter = "JPEG (.JPEG)|*.jpeg";
-            if (dialog.ShowDialog() == DialogResult.OK)
-            {
-                try
-                {
-                    if ((myStream = dialog.OpenFile()) != null)
-                    {
-                        //file = Image.FromFile(dialog.FileName);
-                        //pictureBox.Image = file;
-                        string FileName = dialog.FileName;
-                        if (myStream.Length > 512000)
-                        {
-                            MessageBox.Show("File Size limit exceeded");
-                        }
-                        else
-                        {
-                            //pictureBox.Load(FileName);
-                            pictureBox.Image = Image.FromFile(dialog.FileName);
-                            imageTextBox.Text = dialog.FileName;
-                        }
-                    }
-
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-            }
-        }
-
         private void SellDGV_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             SellId.Text = SellDGV.SelectedRows[0].Cells[0].Value.ToString();
@@ -248,17 +224,89 @@ namespace SupermarketTuto.Forms
         }
 
 
-        private void showButton_Click(object sender, EventArgs e)
+        // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
+        public class AddressComponent
         {
-           
-            DataTable table = new DataTable();
-            con.ConnectionString = ConfigurationManager.ConnectionStrings["Supermarket"].ConnectionString;
-            con.Open();
-            SqlCommand cmd1 = new SqlCommand("Select Image From Image", con);
+            public string long_name { get; set; }
+            public string short_name { get; set; }
+            public List<string> types { get; set; }
+        }
 
-            SqlDataAdapter adapter = new SqlDataAdapter(cmd1);
+        public class Bounds
+        {
+            public Northeast northeast { get; set; }
+            public Southwest southwest { get; set; }
+        }
 
-            adapter.Fill(table);
+        public class Geometry
+        {
+            public Bounds bounds { get; set; }
+            public Location location { get; set; }
+            public string location_type { get; set; }
+            public Viewport viewport { get; set; }
+        }
+
+        public class Location
+        {
+            public double lat { get; set; }
+            public double lng { get; set; }
+        }
+
+        public class Northeast
+        {
+            public double lat { get; set; }
+            public double lng { get; set; }
+        }
+
+        public class Result
+        {
+            public List<AddressComponent> address_components { get; set; }
+            public string formatted_address { get; set; }
+            public Geometry geometry { get; set; }
+            public string place_id { get; set; }
+            public List<string> types { get; set; }
+        }
+
+        public class Root
+        {
+            public List<Result> results { get; set; }
+            public string status { get; set; }
+        }
+
+        public class Southwest
+        {
+            public double lat { get; set; }
+            public double lng { get; set; }
+        }
+
+        public class Viewport
+        {
+            public Northeast northeast { get; set; }
+            public Southwest southwest { get; set; }
+        }
+
+        private async void addressTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                HttpClient client = new HttpClient();
+                string text = addressTextBox.Text;
+                string url = "https://maps.googleapis.com/maps/api/geocode/json?address={0}&key=AIzaSyDY6zcNwFxO2KSWvn4U1FMYlagBomOEpNw";
+                var response = await client.GetAsync(string.Format(url, text));
+                string result = await response.Content.ReadAsStringAsync();
+                Root root = JsonConvert.DeserializeObject<Root>(result);
+                Northeast coor = new Northeast();
+                foreach (var item in root.results)
+                {
+                    coor.lat = item.geometry.location.lat;
+                    coor.lng = item.geometry.location.lng;
+
+                }
+                map.Position = new PointLatLng(coor.lat, coor.lng);
+
+
+
+            }
         }
 
 

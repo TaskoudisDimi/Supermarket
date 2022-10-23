@@ -41,6 +41,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="GMap.NET.Core">
+      <HintPath>References\GMap.NET.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="GMap.NET.WindowsForms">
+      <HintPath>References\GMap.NET.WindowsForms.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Configuration.Install" />

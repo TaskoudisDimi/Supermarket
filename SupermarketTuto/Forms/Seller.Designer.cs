@@ -36,8 +36,6 @@
             this.toDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.fromDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.dateTimePicker = new System.Windows.Forms.DateTimePicker();
-            this.uploadButton = new System.Windows.Forms.Button();
-            this.pictureBox = new System.Windows.Forms.PictureBox();
             this.SellDGV = new System.Windows.Forms.DataGridView();
             this.password2Label = new System.Windows.Forms.Label();
             this.SellPass = new System.Windows.Forms.TextBox();
@@ -53,14 +51,10 @@
             this.SellName = new System.Windows.Forms.TextBox();
             this.SellId = new System.Windows.Forms.TextBox();
             this.refreshButton = new System.Windows.Forms.Button();
-            this.imageTextBox = new System.Windows.Forms.TextBox();
-            this.showButton = new System.Windows.Forms.Button();
             this.addressTextBox = new System.Windows.Forms.TextBox();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.adressLabel = new System.Windows.Forms.Label();
-            this.localRadioButton = new System.Windows.Forms.RadioButton();
-            this.ApiRadioButton = new System.Windows.Forms.RadioButton();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
+            this.panel1 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.SellDGV)).BeginInit();
             this.SuspendLayout();
             // 
@@ -136,28 +130,6 @@
             this.dateTimePicker.Name = "dateTimePicker";
             this.dateTimePicker.Size = new System.Drawing.Size(176, 35);
             this.dateTimePicker.TabIndex = 108;
-            // 
-            // uploadButton
-            // 
-            this.uploadButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.uploadButton.Location = new System.Drawing.Point(2123, 678);
-            this.uploadButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.uploadButton.Name = "uploadButton";
-            this.uploadButton.Size = new System.Drawing.Size(124, 48);
-            this.uploadButton.TabIndex = 107;
-            this.uploadButton.Text = "Upload";
-            this.uploadButton.UseVisualStyleBackColor = true;
-            this.uploadButton.Click += new System.EventHandler(this.uploadButton_Click_1);
-            // 
-            // pictureBox
-            // 
-            this.pictureBox.Location = new System.Drawing.Point(2123, 375);
-            this.pictureBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(248, 188);
-            this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox.TabIndex = 106;
-            this.pictureBox.TabStop = false;
             // 
             // SellDGV
             // 
@@ -324,30 +296,13 @@
             this.refreshButton.UseVisualStyleBackColor = true;
             this.refreshButton.Click += new System.EventHandler(this.refreshButton_Click);
             // 
-            // imageTextBox
-            // 
-            this.imageTextBox.Location = new System.Drawing.Point(2123, 621);
-            this.imageTextBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.imageTextBox.Name = "imageTextBox";
-            this.imageTextBox.Size = new System.Drawing.Size(338, 26);
-            this.imageTextBox.TabIndex = 116;
-            // 
-            // showButton
-            // 
-            this.showButton.Location = new System.Drawing.Point(2123, 744);
-            this.showButton.Name = "showButton";
-            this.showButton.Size = new System.Drawing.Size(90, 51);
-            this.showButton.TabIndex = 117;
-            this.showButton.Text = "Show";
-            this.showButton.UseVisualStyleBackColor = true;
-            this.showButton.Click += new System.EventHandler(this.showButton_Click);
-            // 
             // addressTextBox
             // 
             this.addressTextBox.Location = new System.Drawing.Point(1593, 931);
             this.addressTextBox.Name = "addressTextBox";
             this.addressTextBox.Size = new System.Drawing.Size(176, 26);
             this.addressTextBox.TabIndex = 118;
+            this.addressTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.addressTextBox_KeyPress);
             // 
             // contextMenuStrip1
             // 
@@ -366,42 +321,22 @@
             this.adressLabel.TabIndex = 120;
             this.adressLabel.Text = "Address";
             // 
-            // localRadioButton
+            // panel1
             // 
-            this.localRadioButton.AutoSize = true;
-            this.localRadioButton.Location = new System.Drawing.Point(1845, 403);
-            this.localRadioButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.localRadioButton.Name = "localRadioButton";
-            this.localRadioButton.Size = new System.Drawing.Size(72, 24);
-            this.localRadioButton.TabIndex = 122;
-            this.localRadioButton.TabStop = true;
-            this.localRadioButton.Text = "Local";
-            this.localRadioButton.UseVisualStyleBackColor = true;
-            // 
-            // ApiRadioButton
-            // 
-            this.ApiRadioButton.AutoSize = true;
-            this.ApiRadioButton.Location = new System.Drawing.Point(1845, 440);
-            this.ApiRadioButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.ApiRadioButton.Name = "ApiRadioButton";
-            this.ApiRadioButton.Size = new System.Drawing.Size(60, 24);
-            this.ApiRadioButton.TabIndex = 121;
-            this.ApiRadioButton.TabStop = true;
-            this.ApiRadioButton.Text = "API";
-            this.ApiRadioButton.UseVisualStyleBackColor = true;
+            this.panel1.Location = new System.Drawing.Point(1907, 398);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(608, 589);
+            this.panel1.TabIndex = 121;
             // 
             // Seller
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(2469, 1188);
+            this.ClientSize = new System.Drawing.Size(2551, 1238);
             this.ControlBox = false;
-            this.Controls.Add(this.localRadioButton);
-            this.Controls.Add(this.ApiRadioButton);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.adressLabel);
             this.Controls.Add(this.addressTextBox);
-            this.Controls.Add(this.showButton);
-            this.Controls.Add(this.imageTextBox);
             this.Controls.Add(this.refreshButton);
             this.Controls.Add(this.totalLabel);
             this.Controls.Add(this.searchButton);
@@ -410,8 +345,6 @@
             this.Controls.Add(this.toDateTimePicker);
             this.Controls.Add(this.fromDateTimePicker);
             this.Controls.Add(this.dateTimePicker);
-            this.Controls.Add(this.uploadButton);
-            this.Controls.Add(this.pictureBox);
             this.Controls.Add(this.SellDGV);
             this.Controls.Add(this.password2Label);
             this.Controls.Add(this.SellPass);
@@ -429,7 +362,6 @@
             this.Name = "Seller";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Seller_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SellDGV)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -445,8 +377,6 @@
         private DateTimePicker toDateTimePicker;
         private DateTimePicker fromDateTimePicker;
         private DateTimePicker dateTimePicker;
-        private Button uploadButton;
-        private PictureBox pictureBox;
         private DataGridView SellDGV;
         private Label password2Label;
         private TextBox SellPass;
@@ -462,12 +392,9 @@
         private TextBox SellName;
         private TextBox SellId;
         private Button refreshButton;
-        private TextBox imageTextBox;
-        private Button showButton;
         private TextBox addressTextBox;
         private ContextMenuStrip contextMenuStrip1;
         private Label adressLabel;
-        private RadioButton localRadioButton;
-        private RadioButton ApiRadioButton;
+        private Panel panel1;
     }
 }
