@@ -15,6 +15,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using GMap.NET.WindowsForms.Markers;
 
 namespace SupermarketTuto.Forms
 {
@@ -27,15 +28,24 @@ namespace SupermarketTuto.Forms
         }
         GMapControl map = new GMapControl();
         SqlConnection con = new SqlConnection();
+        HttpClient client = new HttpClient();
+        Northeast coor = new Northeast();
+
+        string address = string.Empty;
+
+        string url = "https://maps.googleapis.com/maps/api/geocode/json?address={0}&key=AIzaSyA6xRZPHBhRuVErZgLtseHnB6heQFiyo3g";
+
+
+
+
         private void display()
         {
             SqlConnect loaddata1 = new SqlConnect();
-
             SqlConnect loaddata20 = new SqlConnect();
-            loaddata1.retrieveData("Select SellerId, SellerName, SellerAge, SellerPhone, Date From SellerTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'");
-
+            loaddata1.retrieveData("Select SellerId, SellerName, SellerAge, SellerPhone, SellerPass, Date, Address From SellerTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'");
             SellDGV.DataSource = loaddata1.table;
             totalLabel.Text = $"Total: {SellDGV.RowCount}";
+            SellDGV.RowHeadersVisible = false;
 
         }
 
@@ -55,10 +65,10 @@ namespace SupermarketTuto.Forms
             map.Dock = DockStyle.Fill;
             map.MapProvider = GoogleMapProvider.Instance;
             panel1.Controls.Add(map);
-            map.Position = new PointLatLng(54.6961334816182, 25.2985095977783);
+            map.Position = new PointLatLng(40.629269, 22.947412); 
             map.MinZoom = 0;
             map.MaxZoom = 24;
-            map.Zoom = 9;
+            map.Zoom = 12;
         }
         private void mnuDelete_Click(object? sender, EventArgs e)
         {
@@ -87,24 +97,14 @@ namespace SupermarketTuto.Forms
                 }
                 else
                 {
-                    //string FileName = imageTextBox.Text;
-                    //byte[] ImageData;
-                    //fs = new FileStream(FileName, FileMode.Open, FileAccess.Read);
-                    //br = new BinaryReader(fs);
-                    //ImageData = br.ReadBytes((int)fs.Length);
-                    //br.Close();
-                    //fs.Close();
-                    loaddata5.commandExc("Insert Into SellerTbl values(" + SellId.Text + ",'" + SellName.Text + "'," + SellAge.Text + "," + SellPhone.Text + ",'" + SellPass.Text + "','" + dateTimePicker.Value.ToString("MM-dd-yyyy") + "')");
 
-
+                    loaddata5.commandExc("Insert Into SellerTbl values(" + SellId.Text + ",'" + SellName.Text + "'," + SellAge.Text + "," + SellPhone.Text + ",'" + SellPass.Text + "','" + dateTimePicker.Value.ToString("MM-dd-yyyy") + "','" + address + "'," + coor.lat + "," + coor.lng + ")");
                     SellId.Text = String.Empty;
                     SellName.Text = String.Empty;
                     SellAge.Text = String.Empty;
                     SellPhone.Text = String.Empty;
                     SellPass.Text = String.Empty;
                     MessageBox.Show("Seller added successfuly");
-
-
                 }
             }
             catch (Exception ex)
@@ -188,6 +188,9 @@ namespace SupermarketTuto.Forms
             SellAge.Text = SellDGV.SelectedRows[0].Cells[2].Value.ToString();
             SellPhone.Text = SellDGV.SelectedRows[0].Cells[3].Value.ToString();
             SellPass.Text = SellDGV.SelectedRows[0].Cells[4].Value.ToString();
+            dateTimePicker.Value = (DateTime)SellDGV.SelectedRows[0].Cells[5].Value;
+            addressTextBox.Text = SellDGV.SelectedRows[0].Cells[6].Value.ToString();
+
         }
 
         private void SellDGV_MouseDown(object sender, MouseEventArgs e)
@@ -285,27 +288,26 @@ namespace SupermarketTuto.Forms
             public Southwest southwest { get; set; }
         }
 
-        private async void addressTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        private async void addressTextBox_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyChar == (char)Keys.Enter)
+            if (e.KeyValue == (char)Keys.Enter)
             {
-                HttpClient client = new HttpClient();
-                string text = addressTextBox.Text;
-                string url = "https://maps.googleapis.com/maps/api/geocode/json?address={0}&key=AIzaSyDY6zcNwFxO2KSWvn4U1FMYlagBomOEpNw";
-                var response = await client.GetAsync(string.Format(url, text));
+                var response = await client.GetAsync(string.Format(url, addressTextBox.Text));
                 string result = await response.Content.ReadAsStringAsync();
                 Root root = JsonConvert.DeserializeObject<Root>(result);
-                Northeast coor = new Northeast();
                 foreach (var item in root.results)
                 {
                     coor.lat = item.geometry.location.lat;
                     coor.lng = item.geometry.location.lng;
-
+                    address = item.formatted_address;
                 }
                 map.Position = new PointLatLng(coor.lat, coor.lng);
-
-
-
+                GMap.NET.WindowsForms.GMapMarker marker = new GMapMarkerGoogleRed(map.Position);
+                GMapOverlay markers = new GMapOverlay(map, "markers");
+                markers.Markers.Add(marker);
+                map.Overlays.Add(markers);
+                map.Zoom = 18;
+                
             }
         }
 

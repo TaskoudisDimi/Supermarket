@@ -46,6 +46,9 @@
             this.CatDescTb = new System.Windows.Forms.TextBox();
             this.CatNameTb = new System.Windows.Forms.TextBox();
             this.CatIdTb = new System.Windows.Forms.TextBox();
+            this.exportButton = new System.Windows.Forms.Button();
+            this.saveButton = new System.Windows.Forms.Button();
+            this.importButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.CatDGV)).BeginInit();
             this.SuspendLayout();
             // 
@@ -249,12 +252,48 @@
             this.CatIdTb.Size = new System.Drawing.Size(283, 35);
             this.CatIdTb.TabIndex = 72;
             // 
+            // exportButton
+            // 
+            this.exportButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.exportButton.Location = new System.Drawing.Point(539, 753);
+            this.exportButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.exportButton.Name = "exportButton";
+            this.exportButton.Size = new System.Drawing.Size(102, 46);
+            this.exportButton.TabIndex = 114;
+            this.exportButton.Text = "Export";
+            this.exportButton.UseVisualStyleBackColor = true;
+            // 
+            // saveButton
+            // 
+            this.saveButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.saveButton.Location = new System.Drawing.Point(789, 755);
+            this.saveButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.saveButton.Name = "saveButton";
+            this.saveButton.Size = new System.Drawing.Size(102, 46);
+            this.saveButton.TabIndex = 113;
+            this.saveButton.Text = "Save";
+            this.saveButton.UseVisualStyleBackColor = true;
+            // 
+            // importButton
+            // 
+            this.importButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.importButton.Location = new System.Drawing.Point(660, 755);
+            this.importButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.importButton.Name = "importButton";
+            this.importButton.Size = new System.Drawing.Size(102, 46);
+            this.importButton.TabIndex = 112;
+            this.importButton.Text = "Import";
+            this.importButton.UseVisualStyleBackColor = true;
+            // 
             // Category
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(14F, 29F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1582, 846);
             this.ControlBox = false;
+            this.Controls.Add(this.exportButton);
+            this.Controls.Add(this.saveButton);
+            this.Controls.Add(this.importButton);
             this.Controls.Add(this.dateLabel);
             this.Controls.Add(this.dateTimePicker);
             this.Controls.Add(this.deleteButton);
@@ -304,5 +343,8 @@
         private TextBox CatDescTb;
         private TextBox CatNameTb;
         private TextBox CatIdTb;
+        private Button exportButton;
+        private Button saveButton;
+        private Button importButton;
     }
 }

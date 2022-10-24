@@ -55,6 +55,9 @@
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.adressLabel = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.exportButton = new System.Windows.Forms.Button();
+            this.saveButton = new System.Windows.Forms.Button();
+            this.importButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.SellDGV)).BeginInit();
             this.SuspendLayout();
             // 
@@ -302,7 +305,7 @@
             this.addressTextBox.Name = "addressTextBox";
             this.addressTextBox.Size = new System.Drawing.Size(176, 26);
             this.addressTextBox.TabIndex = 118;
-            this.addressTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.addressTextBox_KeyPress);
+            this.addressTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.addressTextBox_KeyDown);
             // 
             // contextMenuStrip1
             // 
@@ -328,12 +331,48 @@
             this.panel1.Size = new System.Drawing.Size(608, 589);
             this.panel1.TabIndex = 121;
             // 
+            // exportButton
+            // 
+            this.exportButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.exportButton.Location = new System.Drawing.Point(974, 1006);
+            this.exportButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.exportButton.Name = "exportButton";
+            this.exportButton.Size = new System.Drawing.Size(102, 46);
+            this.exportButton.TabIndex = 124;
+            this.exportButton.Text = "Export";
+            this.exportButton.UseVisualStyleBackColor = true;
+            // 
+            // saveButton
+            // 
+            this.saveButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.saveButton.Location = new System.Drawing.Point(1224, 1008);
+            this.saveButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.saveButton.Name = "saveButton";
+            this.saveButton.Size = new System.Drawing.Size(102, 46);
+            this.saveButton.TabIndex = 123;
+            this.saveButton.Text = "Save";
+            this.saveButton.UseVisualStyleBackColor = true;
+            // 
+            // importButton
+            // 
+            this.importButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.importButton.Location = new System.Drawing.Point(1095, 1008);
+            this.importButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.importButton.Name = "importButton";
+            this.importButton.Size = new System.Drawing.Size(102, 46);
+            this.importButton.TabIndex = 122;
+            this.importButton.Text = "Import";
+            this.importButton.UseVisualStyleBackColor = true;
+            // 
             // Seller
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(2551, 1238);
             this.ControlBox = false;
+            this.Controls.Add(this.exportButton);
+            this.Controls.Add(this.saveButton);
+            this.Controls.Add(this.importButton);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.adressLabel);
             this.Controls.Add(this.addressTextBox);
@@ -396,5 +435,8 @@
         private ContextMenuStrip contextMenuStrip1;
         private Label adressLabel;
         private Panel panel1;
+        private Button exportButton;
+        private Button saveButton;
+        private Button importButton;
     }
 }
