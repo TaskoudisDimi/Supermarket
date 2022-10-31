@@ -227,7 +227,6 @@ namespace SupermarketTuto.Forms
         }
 
 
-        // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
         public class AddressComponent
         {
             public string long_name { get; set; }

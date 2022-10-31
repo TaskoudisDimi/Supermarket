@@ -1,4 +1,6 @@
 using SupermarketTuto.Forms;
+using SupermarketTuto.Forms.AdminForms;
+using SupermarketTuto.Forms.SellingForms;
 
 namespace SupermarketTuto
 {
@@ -11,7 +13,7 @@ namespace SupermarketTuto
         static void Main()
         {
             //ApplicationConfiguration.Initialize();
-            Application.Run(new Main());
+            Application.Run(new MainSelling());
 
         }
     }

@@ -12,6 +12,7 @@ using SupermarketTuto.DataAccess;
 using Squirrel;
 using System.Diagnostics;
 using SupermarketTuto.Forms;
+using SupermarketTuto.Forms.AdminForms;
 
 namespace SupermarketTuto
 {
@@ -85,14 +86,14 @@ namespace SupermarketTuto
                         if (selectRoleCombobox.SelectedItem == "Admin")
                         {
 
-                            Main products = new Main();
+                            MainAdmin products = new MainAdmin();
                             products.Show();
                             this.Hide();
                         }
                         if (selectRoleCombobox.SelectedItem == "Seller")
                         {
-                            SellingForm selling = new SellingForm();
-                            selling.Show();
+                            //SellingForm selling = new SellingForm();
+                            //selling.Show();
                             this.Hide();
                         }
                     }

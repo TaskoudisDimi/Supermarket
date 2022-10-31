@@ -9,26 +9,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SupermarketTuto.Forms
+namespace SupermarketTuto.Forms.AdminForms
 {
-    public partial class Main : Form
+    public partial class MainAdmin : Form
     {
-        public Main()
+        public MainAdmin()
         {
             InitializeComponent();
         }
 
-        private void MainForm_Load(object sender, EventArgs e)
+        private void MainAdmin_Load(object sender, EventArgs e)
         {
             MainMenu();
-
-            //closeImage = Properties.Resources.Close;
-
-            List<string> language = new List<string>();
-            language.Add("Greek");
-            language.Add("English");
-
-            languageComboBox.DataSource = language;
         }
 
 
@@ -50,9 +42,7 @@ namespace SupermarketTuto.Forms
                 {
                     MnuStripItem.Click += new EventHandler(MnuStripAbout_Click);
                 }
-
             }
-
         }
 
         private void SubMenu(ToolStripMenuItem items, string var)
@@ -83,8 +73,8 @@ namespace SupermarketTuto.Forms
                     }
                 }
             }
-
         }
+
         private void MnuStripLogOut_Click(object sender, EventArgs e)
         {
             this.Hide();
@@ -128,6 +118,16 @@ namespace SupermarketTuto.Forms
             }
         }
 
+        private void sellersButton_Click(object sender, EventArgs e)
+        {
+            Seller form = new Seller();
+            form.TopLevel = false;
+            form.TopMost = true;
+            mainPanel.Controls.Add(form);
+            form.BringToFront();
+            form.Show();
+        }
+
         private void categoriesButton_Click(object sender, EventArgs e)
         {
             Category form = new Category();
@@ -150,28 +150,15 @@ namespace SupermarketTuto.Forms
             form.Show();
         }
 
-        private void sellersButton_Click(object sender, EventArgs e)
-        {
-            Seller form = new Seller();
-            form.TopLevel = false;
-            form.TopMost = true;
-            mainPanel.Controls.Add(form);
-            form.BringToFront();
-            form.Show();
-        }
 
-        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+
+        private void MainAdmin_FormClosing(object sender, FormClosingEventArgs e)
         {
             DialogResult confirm = MessageBox.Show("Confirm to close", "Exit", MessageBoxButtons.YesNo);
             if (confirm == DialogResult.No)
             {
                 e.Cancel = true;
             }
-        }
-
-        private void languageComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }
