@@ -1,6 +1,6 @@
 ﻿namespace SupermarketTuto.Forms.SellingForms
 {
-    partial class CategoryForm
+    partial class CreateBillForm
     {
         /// <summary>
         /// Required designer variable.

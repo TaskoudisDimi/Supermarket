@@ -115,9 +115,9 @@ namespace SupermarketTuto.Forms.SellingForms
         }
 
 
-        private void categoryButton_Click(object sender, EventArgs e)
+        private void createBillButton_Click(object sender, EventArgs e)
         {
-            CategoryForm form = new CategoryForm();
+            CreateBillForm form = new CreateBillForm();
             form.TopLevel = false;
             form.TopMost = true;
             mainPanel.Controls.Add(form);
@@ -147,6 +147,16 @@ namespace SupermarketTuto.Forms.SellingForms
             {
                 e.Cancel = true;
             }
+        }
+
+        private void categoriesProductsButton_Click(object sender, EventArgs e)
+        {
+            Categories_Products form = new Categories_Products();
+            form.TopLevel = false;
+            form.TopMost = true;
+            mainPanel.Controls.Add(form);
+            form.BringToFront();
+            form.Show();
         }
     }
 }

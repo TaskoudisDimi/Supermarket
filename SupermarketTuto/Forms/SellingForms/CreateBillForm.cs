@@ -11,9 +11,9 @@ using System.Windows.Forms;
 
 namespace SupermarketTuto.Forms.SellingForms
 {
-    public partial class CategoryForm : Form
+    public partial class CreateBillForm : Form
     {
-        public CategoryForm()
+        public CreateBillForm()
         {
             InitializeComponent();
         }
