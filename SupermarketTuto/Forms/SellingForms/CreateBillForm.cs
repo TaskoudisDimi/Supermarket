@@ -135,6 +135,8 @@ namespace SupermarketTuto.Forms.SellingForms
 
         private void addButton_Click(object sender, EventArgs e)
         {
+           CreateBill bill = new CreateBill();
+           bill.Show();
            
         }
     }

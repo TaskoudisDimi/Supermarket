@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualBasic.FileIO;
 using Newtonsoft.Json;
 using SupermarketTuto.DataAccess;
+using SupermarketTuto.Forms.General;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,13 +19,9 @@ namespace SupermarketTuto.Forms
     public partial class Product : Form
     {
        
-
         public Product()
         {
             InitializeComponent();
-
-            
-
         }
 
         private void Product_Load(object sender, EventArgs e)
@@ -180,31 +177,33 @@ namespace SupermarketTuto.Forms
 
         private void addButton_Click(object sender, EventArgs e)
         {
-            SqlConnect loaddata5 = new SqlConnect();
+            addEditProduct add = new addEditProduct();
+            add.Show();
+            //SqlConnect loaddata5 = new SqlConnect();
 
-            try
-            {
-                if (ProdId.Text == "" || ProdName.Text == "" || ProdQty.Text == "" || ProdPrice.Text == "")
-                {
-                    MessageBox.Show("Missing Information");
-                }
-                else
-                {
-                    loaddata5.commandExc("Insert Into ProductTbl values(" + ProdId.Text + ",'" + ProdName.Text + "'," + ProdQty.Text + "," + ProdPrice.Text + ",'" + addCatCombobox.SelectedValue.ToString() + "')");
-                    MessageBox.Show("Product Successfully Insert");
-                    ProdId.Text = String.Empty;
-                    ProdName.Text = String.Empty;
-                    ProdQty.Text = String.Empty;
-                    ProdPrice.Text = String.Empty;
-                    addCatCombobox.SelectedValue = String.Empty;
-                    refresh_data();
-                }
+            //try
+            //{
+            //    if (ProdId.Text == "" || ProdName.Text == "" || ProdQty.Text == "" || ProdPrice.Text == "")
+            //    {
+            //        MessageBox.Show("Missing Information");
+            //    }
+            //    else
+            //    {
+            //        loaddata5.commandExc("Insert Into ProductTbl values(" + ProdId.Text + ",'" + ProdName.Text + "'," + ProdQty.Text + "," + ProdPrice.Text + ",'" + addCatCombobox.SelectedValue.ToString() + "')");
+            //        MessageBox.Show("Product Successfully Insert");
+            //        ProdId.Text = String.Empty;
+            //        ProdName.Text = String.Empty;
+            //        ProdQty.Text = String.Empty;
+            //        ProdPrice.Text = String.Empty;
+            //        addCatCombobox.SelectedValue = String.Empty;
+            //        refresh_data();
+            //    }
 
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message);
+            //}
         }
 
         private void editButton_Click(object sender, EventArgs e)
@@ -601,6 +600,16 @@ namespace SupermarketTuto.Forms
             db.search(searchTextBox.Text, query);
             ProdDGV.DataSource = db.table;
             totalLabel.Text = $"Total: {ProdDGV.RowCount}";
+        }
+
+        private void toDateTimePicker_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void fromDateTimePicker_ValueChanged(object sender, EventArgs e)
+        {
+
         }
     }
 

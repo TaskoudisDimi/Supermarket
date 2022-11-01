@@ -44,28 +44,25 @@
             // 
             this.commentsLabel.AutoSize = true;
             this.commentsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.commentsLabel.Location = new System.Drawing.Point(339, 250);
-            this.commentsLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.commentsLabel.Location = new System.Drawing.Point(226, 162);
             this.commentsLabel.Name = "commentsLabel";
-            this.commentsLabel.Size = new System.Drawing.Size(129, 29);
+            this.commentsLabel.Size = new System.Drawing.Size(86, 20);
             this.commentsLabel.TabIndex = 66;
             this.commentsLabel.Text = "Comments";
             // 
             // commentsRichTextBox
             // 
-            this.commentsRichTextBox.Location = new System.Drawing.Point(344, 311);
-            this.commentsRichTextBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.commentsRichTextBox.Location = new System.Drawing.Point(229, 202);
             this.commentsRichTextBox.Name = "commentsRichTextBox";
-            this.commentsRichTextBox.Size = new System.Drawing.Size(385, 275);
+            this.commentsRichTextBox.Size = new System.Drawing.Size(258, 180);
             this.commentsRichTextBox.TabIndex = 64;
             this.commentsRichTextBox.Text = "";
             // 
             // refreshBillsButton
             // 
-            this.refreshBillsButton.Location = new System.Drawing.Point(1402, 239);
-            this.refreshBillsButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.refreshBillsButton.Location = new System.Drawing.Point(935, 155);
             this.refreshBillsButton.Name = "refreshBillsButton";
-            this.refreshBillsButton.Size = new System.Drawing.Size(96, 31);
+            this.refreshBillsButton.Size = new System.Drawing.Size(64, 20);
             this.refreshBillsButton.TabIndex = 63;
             this.refreshBillsButton.Text = "Refresh";
             this.refreshBillsButton.UseVisualStyleBackColor = true;
@@ -74,10 +71,9 @@
             // total3Label
             // 
             this.total3Label.AutoSize = true;
-            this.total3Label.Location = new System.Drawing.Point(1398, 622);
-            this.total3Label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.total3Label.Location = new System.Drawing.Point(932, 404);
             this.total3Label.Name = "total3Label";
-            this.total3Label.Size = new System.Drawing.Size(48, 20);
+            this.total3Label.Size = new System.Drawing.Size(34, 13);
             this.total3Label.TabIndex = 62;
             this.total3Label.Text = "Total:";
             // 
@@ -89,21 +85,19 @@
             this.BillsDGV.BackgroundColor = System.Drawing.Color.Gainsboro;
             this.BillsDGV.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.BillsDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.BillsDGV.Location = new System.Drawing.Point(872, 302);
-            this.BillsDGV.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.BillsDGV.Location = new System.Drawing.Point(581, 196);
             this.BillsDGV.Name = "BillsDGV";
             this.BillsDGV.RowHeadersWidth = 62;
             this.BillsDGV.RowTemplate.Height = 30;
             this.BillsDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.BillsDGV.Size = new System.Drawing.Size(626, 277);
+            this.BillsDGV.Size = new System.Drawing.Size(417, 180);
             this.BillsDGV.TabIndex = 61;
             // 
             // deleteButton
             // 
-            this.deleteButton.Location = new System.Drawing.Point(1057, 615);
-            this.deleteButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.deleteButton.Location = new System.Drawing.Point(705, 400);
             this.deleteButton.Name = "deleteButton";
-            this.deleteButton.Size = new System.Drawing.Size(96, 35);
+            this.deleteButton.Size = new System.Drawing.Size(64, 23);
             this.deleteButton.TabIndex = 60;
             this.deleteButton.Text = "Delete";
             this.deleteButton.UseVisualStyleBackColor = true;
@@ -111,10 +105,9 @@
             // 
             // billButton
             // 
-            this.billButton.Location = new System.Drawing.Point(872, 615);
-            this.billButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.billButton.Location = new System.Drawing.Point(581, 400);
             this.billButton.Name = "billButton";
-            this.billButton.Size = new System.Drawing.Size(96, 35);
+            this.billButton.Size = new System.Drawing.Size(64, 23);
             this.billButton.TabIndex = 67;
             this.billButton.Text = "Bill";
             this.billButton.UseVisualStyleBackColor = true;
@@ -124,10 +117,9 @@
             // 
             this.LabelDate.AutoSize = true;
             this.LabelDate.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.LabelDate.Location = new System.Drawing.Point(270, 29);
-            this.LabelDate.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.LabelDate.Location = new System.Drawing.Point(226, 9);
             this.LabelDate.Name = "LabelDate";
-            this.LabelDate.Size = new System.Drawing.Size(74, 32);
+            this.LabelDate.Size = new System.Drawing.Size(50, 21);
             this.LabelDate.TabIndex = 70;
             this.LabelDate.Text = "Date:";
             // 
@@ -135,18 +127,17 @@
             // 
             this.AmountLabel.AutoSize = true;
             this.AmountLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.AmountLabel.Location = new System.Drawing.Point(875, 99);
-            this.AmountLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.AmountLabel.Location = new System.Drawing.Point(583, 64);
             this.AmountLabel.Name = "AmountLabel";
-            this.AmountLabel.Size = new System.Drawing.Size(170, 32);
+            this.AmountLabel.Size = new System.Drawing.Size(114, 21);
             this.AmountLabel.TabIndex = 71;
             this.AmountLabel.Text = "Total Amount";
             // 
             // CreateBill
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1562, 988);
+            this.ClientSize = new System.Drawing.Size(1041, 642);
             this.Controls.Add(this.AmountLabel);
             this.Controls.Add(this.LabelDate);
             this.Controls.Add(this.billButton);
@@ -156,6 +147,7 @@
             this.Controls.Add(this.total3Label);
             this.Controls.Add(this.BillsDGV);
             this.Controls.Add(this.deleteButton);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "CreateBill";
             this.Text = "addProduct";
             this.Load += new System.EventHandler(this.addProduct_Load);

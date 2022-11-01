@@ -29,11 +29,8 @@ namespace SupermarketTuto.Forms
 
             loaddata.retrieveData("Select * From CategoryTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'");
             //loaddata.retrieveData("Select * From CategoryTbl");
-
             CatDGV.DataSource = loaddata.table;
             totalLabel.Text = $"Total: {CatDGV.RowCount}";
-
-
         }
 
         private void mnuDelete_Click(object? sender, EventArgs e)
