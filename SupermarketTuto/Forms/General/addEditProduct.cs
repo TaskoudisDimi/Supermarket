@@ -17,13 +17,17 @@ namespace SupermarketTuto.Forms.General
             InitializeComponent();
         }
 
+        private void addEditProduct_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                
+            }
+            catch
+            {
 
+            }
 
-
-
-
-
-
-
+        }
     }
 }

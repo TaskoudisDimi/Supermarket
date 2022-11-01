@@ -33,7 +33,7 @@
             this.quantityLabel = new System.Windows.Forms.Label();
             this.nameLabel = new System.Windows.Forms.Label();
             this.idLabel = new System.Windows.Forms.Label();
-            this.addCatCombobox = new System.Windows.Forms.ComboBox();
+            this.catCombobox = new System.Windows.Forms.ComboBox();
             this.ProdPrice = new System.Windows.Forms.TextBox();
             this.ProdQty = new System.Windows.Forms.TextBox();
             this.ProdName = new System.Windows.Forms.TextBox();
@@ -92,15 +92,15 @@
             this.idLabel.TabIndex = 107;
             this.idLabel.Text = "ID";
             // 
-            // addCatCombobox
+            // catCombobox
             // 
-            this.addCatCombobox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.addCatCombobox.FormattingEnabled = true;
-            this.addCatCombobox.Location = new System.Drawing.Point(277, 312);
-            this.addCatCombobox.Name = "addCatCombobox";
-            this.addCatCombobox.Size = new System.Drawing.Size(143, 28);
-            this.addCatCombobox.TabIndex = 106;
-            this.addCatCombobox.Text = "Select Category";
+            this.catCombobox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.catCombobox.FormattingEnabled = true;
+            this.catCombobox.Location = new System.Drawing.Point(277, 312);
+            this.catCombobox.Name = "catCombobox";
+            this.catCombobox.Size = new System.Drawing.Size(143, 28);
+            this.catCombobox.TabIndex = 106;
+            this.catCombobox.Text = "Select Category";
             // 
             // ProdPrice
             // 
@@ -167,13 +167,14 @@
             this.Controls.Add(this.quantityLabel);
             this.Controls.Add(this.nameLabel);
             this.Controls.Add(this.idLabel);
-            this.Controls.Add(this.addCatCombobox);
+            this.Controls.Add(this.catCombobox);
             this.Controls.Add(this.ProdPrice);
             this.Controls.Add(this.ProdQty);
             this.Controls.Add(this.ProdName);
             this.Controls.Add(this.ProdId);
             this.Name = "addEditProduct";
             this.Text = "addProduct";
+            this.Load += new System.EventHandler(this.addEditProduct_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -186,12 +187,12 @@
         private Label quantityLabel;
         private Label nameLabel;
         private Label idLabel;
-        private ComboBox addCatCombobox;
-        private TextBox ProdPrice;
-        private TextBox ProdQty;
-        private TextBox ProdName;
-        private TextBox ProdId;
         private Button editButton;
         private Button addButton;
+        public TextBox ProdId;
+        public TextBox ProdName;
+        public TextBox ProdQty;
+        public TextBox ProdPrice;
+        public ComboBox catCombobox;
     }
 }

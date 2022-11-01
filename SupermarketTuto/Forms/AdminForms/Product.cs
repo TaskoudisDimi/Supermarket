@@ -208,31 +208,38 @@ namespace SupermarketTuto.Forms
 
         private void editButton_Click(object sender, EventArgs e)
         {
-            SqlConnect loaddata6 = new SqlConnect();
+            addEditProduct edit = new addEditProduct();
+            edit.ProdId.Text = ProdDGV.CurrentRow.Cells[0].Value.ToString();
+            edit.ProdName.Text = ProdDGV.CurrentRow.Cells[1].Value.ToString();
+            edit.ProdPrice.Text = ProdDGV.CurrentRow.Cells[2].Value.ToString();
+            edit.ProdQty.Text = ProdDGV.CurrentRow.Cells[3].Value.ToString();
+            edit.catCombobox.Text = ProdDGV.CurrentRow.Cells[4].Value.ToString();
 
-            try
-            {
-                if (ProdId.Text == "" || ProdName.Text == "" || ProdQty.Text == "" || ProdPrice.Text == "")
-                {
-                    MessageBox.Show("Missing Information");
-                }
-                else
-                {
+            //SqlConnect loaddata6 = new SqlConnect();
 
-                    loaddata6.commandExc("Update ProductTbl set ProdName='" + ProdName.Text + "',ProdCat='" + addCatCombobox.Text + "',ProdQty='" + ProdQty.Text + "',ProdPrice='" + ProdPrice.Text + "' where ProdId=" + ProdId.Text + ";");
-                    MessageBox.Show("Product Successfully Updated");
-                    ProdId.Text = String.Empty;
-                    ProdName.Text = String.Empty;
-                    ProdQty.Text = String.Empty;
-                    ProdPrice.Text = String.Empty;
-                    addCatCombobox.SelectedValue = String.Empty;
-                    refresh_data();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            //try
+            //{
+            //    if (ProdId.Text == "" || ProdName.Text == "" || ProdQty.Text == "" || ProdPrice.Text == "")
+            //    {
+            //        MessageBox.Show("Missing Information");
+            //    }
+            //    else
+            //    {
+
+            //        loaddata6.commandExc("Update ProductTbl set ProdName='" + ProdName.Text + "',ProdCat='" + addCatCombobox.Text + "',ProdQty='" + ProdQty.Text + "',ProdPrice='" + ProdPrice.Text + "' where ProdId=" + ProdId.Text + ";");
+            //        MessageBox.Show("Product Successfully Updated");
+            //        ProdId.Text = String.Empty;
+            //        ProdName.Text = String.Empty;
+            //        ProdQty.Text = String.Empty;
+            //        ProdPrice.Text = String.Empty;
+            //        addCatCombobox.SelectedValue = String.Empty;
+            //        refresh_data();
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message);
+            //}
         }
 
         private void deleteButton_Click(object sender, EventArgs e)
