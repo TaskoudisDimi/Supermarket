@@ -1,4 +1,5 @@
 ﻿using SupermarketTuto.DataAccess;
+using SupermarketTuto.Forms.General;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -35,15 +36,15 @@ namespace SupermarketTuto.Forms
 
         private void mnuDelete_Click(object? sender, EventArgs e)
         {
-            SqlConnect loaddata2 = new SqlConnect();
+            //SqlConnect loaddata2 = new SqlConnect();
 
-            loaddata2.commandExc("Delete From CategoryTbl Where CatId='" + CatIdTb.Text + "'");
+            //loaddata2.commandExc("Delete From CategoryTbl Where CatId='" + CatIdTb.Text + "'");
 
-            foreach (DataGridViewRow row in CatDGV.SelectedRows)
-            {
-                CatDGV.Rows.RemoveAt(row.Index);
+            //foreach (DataGridViewRow row in CatDGV.SelectedRows)
+            //{
+            //    CatDGV.Rows.RemoveAt(row.Index);
 
-            }
+            //}
         }
 
         private void logOutLabel_Click(object sender, EventArgs e)
@@ -92,12 +93,7 @@ namespace SupermarketTuto.Forms
             //}
         }
 
-        private void CatDGV_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            CatIdTb.Text = CatDGV.SelectedRows[0].Cells[0].Value.ToString();
-            CatNameTb.Text = CatDGV.SelectedRows[0].Cells[1].Value.ToString();
-            CatDescTb.Text = CatDGV.SelectedRows[0].Cells[2].Value.ToString();
-        }
+
 
         private void refreshButton_Click(object sender, EventArgs e)
         {
@@ -107,58 +103,21 @@ namespace SupermarketTuto.Forms
 
         private void addButton_Click(object sender, EventArgs e)
         {
-            SqlConnect loaddata3 = new SqlConnect();
+            addEditCategory add = new addEditCategory();
+            add.Show();
 
-            try
-            {
-                if (CatIdTb.Text == "" || CatNameTb.Text == "" || CatDescTb.Text == "")
-                {
-                    MessageBox.Show("Select The Category to Delete");
-                }
-                else
-                {
-
-                    loaddata3.commandExc("Insert Into CategoryTbl values(" + CatIdTb.Text + ",'" + CatNameTb.Text + "','" + CatDescTb.Text + "','" + dateTimePicker.Value.ToString("MM-dd-yyyy") + "')");
-                    MessageBox.Show("Success!");
-                    display();
-                    CatIdTb.Text = String.Empty;
-                    CatNameTb.Text = String.Empty;
-                    CatDescTb.Text = String.Empty;
-                }
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            
         }
 
         private void editButton_Click(object sender, EventArgs e)
         {
-            SqlConnect loaddata6 = new SqlConnect();
-
-            try
-            {
-                if (CatIdTb.Text == "" || CatNameTb.Text == "" || CatDescTb.Text == "")
-                {
-                    MessageBox.Show("Missing Information");
-                }
-                else
-                {
-
-                    loaddata6.commandExc("Update CategoryTbl set CatName='" + CatNameTb.Text + "',CatDesc='" + CatDescTb.Text + "' where CatId=" + CatIdTb.Text + ";");
-                    display();
-                    CatIdTb.Text = String.Empty;
-                    CatNameTb.Text = String.Empty;
-                    CatDescTb.Text = String.Empty;
-                    MessageBox.Show("Product Successfully Updated");
-
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            addEditCategory edit = new addEditCategory();
+            edit.CatIdTb.Text = CatDGV.CurrentRow.Cells[0].Value.ToString();
+            edit.CatNameTb.Text = CatDGV.CurrentRow.Cells[1].Value.ToString();
+            edit.CatDescTb.Text = CatDGV.CurrentRow.Cells[2].Value.ToString();
+            edit.dateTimePicker.Text = CatDGV.CurrentRow.Cells[3].Value.ToString();
+            edit.Show();
+           
         }
 
         private void deleteButton_Click(object sender, EventArgs e)
@@ -167,22 +126,7 @@ namespace SupermarketTuto.Forms
 
             try
             {
-                if (CatIdTb.Text == "" || CatNameTb.Text == "" || CatDescTb.Text == "")
-                {
-                    MessageBox.Show("Select The Category to Delete");
-                }
-                else
-                {
-                    loaddata5.commandExc("Delete From CategoryTbl Where CatId='" + CatIdTb.Text + "'");
-
-                    MessageBox.Show("Category Deleted Successfully");
-                    display();
-                    CatIdTb.Text = "";
-                    CatNameTb.Text = "";
-                    CatDescTb.Text = "";
-
-
-                }
+               
             }
             catch (Exception ex)
             {

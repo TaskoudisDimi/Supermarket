@@ -28,8 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dateLabel = new System.Windows.Forms.Label();
-            this.dateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.deleteButton = new System.Windows.Forms.Button();
             this.editButton = new System.Windows.Forms.Button();
             this.addButton = new System.Windows.Forms.Button();
@@ -40,46 +38,19 @@
             this.fromDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.refreshButton = new System.Windows.Forms.Button();
             this.CatDGV = new System.Windows.Forms.DataGridView();
-            this.descriptionLabel = new System.Windows.Forms.Label();
-            this.name3Label = new System.Windows.Forms.Label();
-            this.id3label = new System.Windows.Forms.Label();
-            this.CatDescTb = new System.Windows.Forms.TextBox();
-            this.CatNameTb = new System.Windows.Forms.TextBox();
-            this.CatIdTb = new System.Windows.Forms.TextBox();
             this.exportButton = new System.Windows.Forms.Button();
             this.saveButton = new System.Windows.Forms.Button();
             this.importButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.CatDGV)).BeginInit();
             this.SuspendLayout();
             // 
-            // dateLabel
-            // 
-            this.dateLabel.AutoSize = true;
-            this.dateLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.dateLabel.Location = new System.Drawing.Point(1026, 369);
-            this.dateLabel.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.dateLabel.Name = "dateLabel";
-            this.dateLabel.Size = new System.Drawing.Size(46, 21);
-            this.dateLabel.TabIndex = 89;
-            this.dateLabel.Text = "Date";
-            // 
-            // dateTimePicker
-            // 
-            this.dateTimePicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.dateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePicker.Location = new System.Drawing.Point(1128, 369);
-            this.dateTimePicker.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
-            this.dateTimePicker.Name = "dateTimePicker";
-            this.dateTimePicker.Size = new System.Drawing.Size(273, 26);
-            this.dateTimePicker.TabIndex = 88;
-            // 
             // deleteButton
             // 
             this.deleteButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.deleteButton.Location = new System.Drawing.Point(1273, 450);
+            this.deleteButton.Location = new System.Drawing.Point(1151, 412);
             this.deleteButton.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.deleteButton.Name = "deleteButton";
-            this.deleteButton.Size = new System.Drawing.Size(111, 40);
+            this.deleteButton.Size = new System.Drawing.Size(76, 40);
             this.deleteButton.TabIndex = 87;
             this.deleteButton.Text = "Delete";
             this.deleteButton.UseVisualStyleBackColor = true;
@@ -88,7 +59,7 @@
             // editButton
             // 
             this.editButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.editButton.Location = new System.Drawing.Point(1157, 450);
+            this.editButton.Location = new System.Drawing.Point(1046, 412);
             this.editButton.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.editButton.Name = "editButton";
             this.editButton.Size = new System.Drawing.Size(73, 40);
@@ -100,7 +71,7 @@
             // addButton
             // 
             this.addButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.addButton.Location = new System.Drawing.Point(1037, 450);
+            this.addButton.Location = new System.Drawing.Point(934, 412);
             this.addButton.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.addButton.Name = "addButton";
             this.addButton.Size = new System.Drawing.Size(73, 40);
@@ -188,69 +159,8 @@
             this.CatDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.CatDGV.Size = new System.Drawing.Size(876, 549);
             this.CatDGV.TabIndex = 78;
-            this.CatDGV.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.CatDGV_CellClick);
             this.CatDGV.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.CatDGV_CellMouseUp);
             this.CatDGV.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.CatDGV_CellValidating);
-            // 
-            // descriptionLabel
-            // 
-            this.descriptionLabel.AutoSize = true;
-            this.descriptionLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.descriptionLabel.Location = new System.Drawing.Point(994, 303);
-            this.descriptionLabel.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.descriptionLabel.Name = "descriptionLabel";
-            this.descriptionLabel.Size = new System.Drawing.Size(98, 21);
-            this.descriptionLabel.TabIndex = 77;
-            this.descriptionLabel.Text = "Description";
-            // 
-            // name3Label
-            // 
-            this.name3Label.AutoSize = true;
-            this.name3Label.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.name3Label.Location = new System.Drawing.Point(1016, 243);
-            this.name3Label.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.name3Label.Name = "name3Label";
-            this.name3Label.Size = new System.Drawing.Size(56, 21);
-            this.name3Label.TabIndex = 76;
-            this.name3Label.Text = "Name";
-            // 
-            // id3label
-            // 
-            this.id3label.AutoSize = true;
-            this.id3label.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.id3label.Location = new System.Drawing.Point(1025, 189);
-            this.id3label.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.id3label.Name = "id3label";
-            this.id3label.Size = new System.Drawing.Size(27, 21);
-            this.id3label.TabIndex = 75;
-            this.id3label.Text = "ID";
-            // 
-            // CatDescTb
-            // 
-            this.CatDescTb.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.CatDescTb.Location = new System.Drawing.Point(1128, 298);
-            this.CatDescTb.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
-            this.CatDescTb.Name = "CatDescTb";
-            this.CatDescTb.Size = new System.Drawing.Size(273, 26);
-            this.CatDescTb.TabIndex = 74;
-            // 
-            // CatNameTb
-            // 
-            this.CatNameTb.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.CatNameTb.Location = new System.Drawing.Point(1128, 243);
-            this.CatNameTb.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
-            this.CatNameTb.Name = "CatNameTb";
-            this.CatNameTb.Size = new System.Drawing.Size(273, 26);
-            this.CatNameTb.TabIndex = 73;
-            // 
-            // CatIdTb
-            // 
-            this.CatIdTb.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.CatIdTb.Location = new System.Drawing.Point(1128, 189);
-            this.CatIdTb.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
-            this.CatIdTb.Name = "CatIdTb";
-            this.CatIdTb.Size = new System.Drawing.Size(283, 26);
-            this.CatIdTb.TabIndex = 72;
             // 
             // exportButton
             // 
@@ -294,8 +204,6 @@
             this.Controls.Add(this.exportButton);
             this.Controls.Add(this.saveButton);
             this.Controls.Add(this.importButton);
-            this.Controls.Add(this.dateLabel);
-            this.Controls.Add(this.dateTimePicker);
             this.Controls.Add(this.deleteButton);
             this.Controls.Add(this.editButton);
             this.Controls.Add(this.addButton);
@@ -306,12 +214,6 @@
             this.Controls.Add(this.fromDateTimePicker);
             this.Controls.Add(this.refreshButton);
             this.Controls.Add(this.CatDGV);
-            this.Controls.Add(this.descriptionLabel);
-            this.Controls.Add(this.name3Label);
-            this.Controls.Add(this.id3label);
-            this.Controls.Add(this.CatDescTb);
-            this.Controls.Add(this.CatNameTb);
-            this.Controls.Add(this.CatIdTb);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.Name = "Category";
@@ -324,9 +226,6 @@
         }
 
         #endregion
-
-        private Label dateLabel;
-        private DateTimePicker dateTimePicker;
         private Button deleteButton;
         private Button editButton;
         private Button addButton;
@@ -337,12 +236,6 @@
         private DateTimePicker fromDateTimePicker;
         private Button refreshButton;
         private DataGridView CatDGV;
-        private Label descriptionLabel;
-        private Label name3Label;
-        private Label id3label;
-        private TextBox CatDescTb;
-        private TextBox CatNameTb;
-        private TextBox CatIdTb;
         private Button exportButton;
         private Button saveButton;
         private Button importButton;

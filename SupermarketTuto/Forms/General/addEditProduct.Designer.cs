@@ -40,13 +40,15 @@
             this.ProdId = new System.Windows.Forms.TextBox();
             this.editButton = new System.Windows.Forms.Button();
             this.addButton = new System.Windows.Forms.Button();
+            this.DateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.dateLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // categoriesLabel
             // 
             this.categoriesLabel.AutoSize = true;
             this.categoriesLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.categoriesLabel.Location = new System.Drawing.Point(90, 316);
+            this.categoriesLabel.Location = new System.Drawing.Point(90, 379);
             this.categoriesLabel.Name = "categoriesLabel";
             this.categoriesLabel.Size = new System.Drawing.Size(91, 21);
             this.categoriesLabel.TabIndex = 111;
@@ -96,7 +98,7 @@
             // 
             this.catCombobox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.catCombobox.FormattingEnabled = true;
-            this.catCombobox.Location = new System.Drawing.Point(277, 312);
+            this.catCombobox.Location = new System.Drawing.Point(277, 375);
             this.catCombobox.Name = "catCombobox";
             this.catCombobox.Size = new System.Drawing.Size(143, 28);
             this.catCombobox.TabIndex = 106;
@@ -138,28 +140,52 @@
             // editButton
             // 
             this.editButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.editButton.Location = new System.Drawing.Point(277, 389);
+            this.editButton.Location = new System.Drawing.Point(277, 452);
             this.editButton.Name = "editButton";
             this.editButton.Size = new System.Drawing.Size(64, 40);
             this.editButton.TabIndex = 113;
             this.editButton.Text = "Edit";
             this.editButton.UseVisualStyleBackColor = true;
+            this.editButton.Click += new System.EventHandler(this.editButton_Click);
             // 
             // addButton
             // 
             this.addButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.addButton.Location = new System.Drawing.Point(146, 389);
+            this.addButton.Location = new System.Drawing.Point(146, 452);
             this.addButton.Name = "addButton";
             this.addButton.Size = new System.Drawing.Size(64, 40);
             this.addButton.TabIndex = 112;
             this.addButton.Text = "Add";
             this.addButton.UseVisualStyleBackColor = true;
+            this.addButton.Click += new System.EventHandler(this.addButton_Click);
+            // 
+            // DateTimePicker
+            // 
+            this.DateTimePicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.DateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.DateTimePicker.Location = new System.Drawing.Point(277, 303);
+            this.DateTimePicker.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
+            this.DateTimePicker.Name = "DateTimePicker";
+            this.DateTimePicker.Size = new System.Drawing.Size(143, 26);
+            this.DateTimePicker.TabIndex = 120;
+            // 
+            // dateLabel
+            // 
+            this.dateLabel.AutoSize = true;
+            this.dateLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.dateLabel.Location = new System.Drawing.Point(90, 308);
+            this.dateLabel.Name = "dateLabel";
+            this.dateLabel.Size = new System.Drawing.Size(46, 21);
+            this.dateLabel.TabIndex = 121;
+            this.dateLabel.Text = "Date";
             // 
             // addEditProduct
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(538, 468);
+            this.ClientSize = new System.Drawing.Size(538, 526);
+            this.Controls.Add(this.dateLabel);
+            this.Controls.Add(this.DateTimePicker);
             this.Controls.Add(this.editButton);
             this.Controls.Add(this.addButton);
             this.Controls.Add(this.categoriesLabel);
@@ -194,5 +220,7 @@
         public TextBox ProdQty;
         public TextBox ProdPrice;
         public ComboBox catCombobox;
+        private Label dateLabel;
+        public DateTimePicker DateTimePicker;
     }
 }

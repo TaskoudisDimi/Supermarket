@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SupermarketTuto.DataAccess;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,9 +18,51 @@ namespace SupermarketTuto.Forms.General
             InitializeComponent();
         }
 
+        private void addButton_Click(object sender, EventArgs e)
+        {
+            SqlConnect loaddata3 = new SqlConnect();
 
+            try
+            {
+                if (CatIdTb.Text == "" || CatNameTb.Text == "" || CatDescTb.Text == "")
+                {
+                    MessageBox.Show("Select The Category to Delete");
+                }
+                else
+                {
+                    loaddata3.commandExc("Insert Into CategoryTbl values(" + CatIdTb.Text + ",'" + CatNameTb.Text + "','" + CatDescTb.Text + "','" + dateTimePicker.Value.ToString("MM-dd-yyyy") + "')");
+                    MessageBox.Show("Success!");
+                }
 
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
 
+        private void editButton_Click(object sender, EventArgs e)
+        {
+            SqlConnect loaddata6 = new SqlConnect();
 
+            try
+            {
+                if (CatIdTb.Text == "" || CatNameTb.Text == "" || CatDescTb.Text == "")
+                {
+                    MessageBox.Show("Missing Information");
+                }
+                else
+                {
+
+                    loaddata6.commandExc("Update CategoryTbl set CatName='" + CatNameTb.Text + "',CatDesc='" + CatDescTb.Text + "' where CatId=" + CatIdTb.Text);
+                    MessageBox.Show("Product Successfully Updated");
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
     }
 }

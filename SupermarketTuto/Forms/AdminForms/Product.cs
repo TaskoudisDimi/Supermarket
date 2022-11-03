@@ -18,7 +18,7 @@ namespace SupermarketTuto.Forms
 {
     public partial class Product : Form
     {
-       
+
         public Product()
         {
             InitializeComponent();
@@ -51,11 +51,7 @@ namespace SupermarketTuto.Forms
 
             //This method will bind the Combobox with the Database
             loaddata2.retrieveData("Select CatName From CategoryTbl");
-            addCatCombobox.DataSource = loaddata2.table;
-            addCatCombobox.ValueMember = "CatName";
-            addCatCombobox.SelectedItem = null;
-            addCatCombobox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            addCatCombobox.AutoCompleteSource = AutoCompleteSource.ListItems;
+            
 
 
             catComboBox.DataSource = loaddata2.table;
@@ -70,7 +66,7 @@ namespace SupermarketTuto.Forms
         {
 
             SqlConnect loaddata1 = new SqlConnect();
-            loaddata1.retrieveData("Select * from ProductTbl");
+            loaddata1.retrieveData("Select * from ProductTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'");
             ProdDGV.DataSource = loaddata1.table;
             ProdDGV.RowHeadersVisible = false;
             //ProgressBar frm = new ProgressBar();
@@ -155,91 +151,56 @@ namespace SupermarketTuto.Forms
 
         private void mnuDelete_Click(object? sender, EventArgs e)
         {
-            SqlConnect loaddata4 = new SqlConnect();
+            //SqlConnect loaddata4 = new SqlConnect();
 
-            loaddata4.commandExc("Delete From ProductTbl Where ProdId=" + ProdId.Text + "");
+            //loaddata4.commandExc("Delete From ProductTbl Where ProdId=" + ProdId.Text + "");
 
-            foreach (DataGridViewRow row in ProdDGV.SelectedRows)
-            {
-                ProdDGV.Rows.RemoveAt(row.Index);
+            //foreach (DataGridViewRow row in ProdDGV.SelectedRows)
+            //{
+            //    ProdDGV.Rows.RemoveAt(row.Index);
 
-            }
+            //}
         }
 
 
-        private void CatCb_SelectionChangeCommitted(object sender, EventArgs e)
-        {
-            SqlConnect loaddata9 = new SqlConnect();
-
-            loaddata9.retrieveData("Select * from ProductTbl Where ProdCat='" + addCatCombobox.SelectedValue.ToString() + "'");
-            ProdDGV.DataSource = loaddata9.table;
-        }
 
         private void addButton_Click(object sender, EventArgs e)
         {
+
             addEditProduct add = new addEditProduct();
+            SqlConnect loaddata2 = new SqlConnect();
+            ////This method will bind the Combobox with the Database
+            loaddata2.retrieveData("Select CatName From CategoryTbl");
+            add.catCombobox.DataSource = loaddata2.table;
+            add.catCombobox.ValueMember = "CatName";
+            //catCombobox.SelectedItem = null;
+            add.catCombobox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            add.catCombobox.AutoCompleteSource = AutoCompleteSource.ListItems;
             add.Show();
-            //SqlConnect loaddata5 = new SqlConnect();
 
-            //try
-            //{
-            //    if (ProdId.Text == "" || ProdName.Text == "" || ProdQty.Text == "" || ProdPrice.Text == "")
-            //    {
-            //        MessageBox.Show("Missing Information");
-            //    }
-            //    else
-            //    {
-            //        loaddata5.commandExc("Insert Into ProductTbl values(" + ProdId.Text + ",'" + ProdName.Text + "'," + ProdQty.Text + "," + ProdPrice.Text + ",'" + addCatCombobox.SelectedValue.ToString() + "')");
-            //        MessageBox.Show("Product Successfully Insert");
-            //        ProdId.Text = String.Empty;
-            //        ProdName.Text = String.Empty;
-            //        ProdQty.Text = String.Empty;
-            //        ProdPrice.Text = String.Empty;
-            //        addCatCombobox.SelectedValue = String.Empty;
-            //        refresh_data();
-            //    }
-
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message);
-            //}
         }
 
         private void editButton_Click(object sender, EventArgs e)
         {
+            SqlConnect loaddata2 = new SqlConnect();
             addEditProduct edit = new addEditProduct();
+            ////This method will bind the Combobox with the Database
+            loaddata2.retrieveData("Select CatName From CategoryTbl");
+            edit.catCombobox.DataSource = loaddata2.table;
+            edit.catCombobox.ValueMember = "CatName";
+            //catCombobox.SelectedItem = null;
+            edit.catCombobox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            edit.catCombobox.AutoCompleteSource = AutoCompleteSource.ListItems;
+
             edit.ProdId.Text = ProdDGV.CurrentRow.Cells[0].Value.ToString();
             edit.ProdName.Text = ProdDGV.CurrentRow.Cells[1].Value.ToString();
             edit.ProdPrice.Text = ProdDGV.CurrentRow.Cells[2].Value.ToString();
             edit.ProdQty.Text = ProdDGV.CurrentRow.Cells[3].Value.ToString();
-            edit.catCombobox.Text = ProdDGV.CurrentRow.Cells[4].Value.ToString();
+            edit.catCombobox.SelectedValue = ProdDGV.CurrentRow.Cells[4].Value.ToString();
+            edit.DateTimePicker.Text = ProdDGV.CurrentRow.Cells[5].Value.ToString();
+            edit.Show();
 
-            //SqlConnect loaddata6 = new SqlConnect();
-
-            //try
-            //{
-            //    if (ProdId.Text == "" || ProdName.Text == "" || ProdQty.Text == "" || ProdPrice.Text == "")
-            //    {
-            //        MessageBox.Show("Missing Information");
-            //    }
-            //    else
-            //    {
-
-            //        loaddata6.commandExc("Update ProductTbl set ProdName='" + ProdName.Text + "',ProdCat='" + addCatCombobox.Text + "',ProdQty='" + ProdQty.Text + "',ProdPrice='" + ProdPrice.Text + "' where ProdId=" + ProdId.Text + ";");
-            //        MessageBox.Show("Product Successfully Updated");
-            //        ProdId.Text = String.Empty;
-            //        ProdName.Text = String.Empty;
-            //        ProdQty.Text = String.Empty;
-            //        ProdPrice.Text = String.Empty;
-            //        addCatCombobox.SelectedValue = String.Empty;
-            //        refresh_data();
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message);
-            //}
+            
         }
 
         private void deleteButton_Click(object sender, EventArgs e)
@@ -247,22 +208,11 @@ namespace SupermarketTuto.Forms
             SqlConnect loaddata7 = new SqlConnect();
             try
             {
-                if (ProdId.Text == "")
-                {
-                    MessageBox.Show("Select The Category to Delete");
-                }
-                else
-                {
 
-                    loaddata7.commandExc("Delete From ProductTbl Where ProdId=" + ProdId.Text + "");
+                loaddata7.commandExc("Delete From ProductTbl Where ProdId=" + ProdDGV.CurrentRow.Cells[0].Value.ToString());
 
-                    ProdId.Text = String.Empty;
-                    ProdName.Text = String.Empty;
-                    ProdQty.Text = String.Empty;
-                    ProdPrice.Text = String.Empty;
-                    addCatCombobox.SelectedValue = String.Empty;
-                    refresh_data();
-                }
+                refresh_data();
+
             }
             catch (Exception ex)
             {
@@ -270,15 +220,7 @@ namespace SupermarketTuto.Forms
             }
         }
 
-        private void ProdDGV_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            ProdId.Text = ProdDGV.SelectedRows[0].Cells[0].Value.ToString();
-            ProdName.Text = ProdDGV.SelectedRows[0].Cells[1].Value.ToString();
-            ProdQty.Text = ProdDGV.SelectedRows[0].Cells[2].Value.ToString();
-            ProdPrice.Text = ProdDGV.SelectedRows[0].Cells[3].Value.ToString();
-            addCatCombobox.SelectedValue = ProdDGV.SelectedRows[0].Cells[4].Value.ToString();
-        }
-
+       
         private void refreshButton_Click(object sender, EventArgs e)
         {
             SqlConnect loaddata11 = new SqlConnect();
@@ -422,7 +364,7 @@ namespace SupermarketTuto.Forms
                     RestoreDirectory = true
                 };
 
-                if(dialog.ShowDialog() == DialogResult.OK)
+                if (dialog.ShowDialog() == DialogResult.OK)
                 {
                     if (File.Exists(dialog.FileName))
                     {
@@ -454,7 +396,7 @@ namespace SupermarketTuto.Forms
                                 }
                             }
                             outputCSV[0] += colNames;
-                        
+
                             for (int i = 1; (i - 1) < ProdDGV.Rows.Count; i++)
                             {
                                 for (int j = 0; j < colCount; j++)
@@ -462,7 +404,7 @@ namespace SupermarketTuto.Forms
                                     outputCSV[i] += ProdDGV.Rows[i - 1].Cells[j].Value.ToString() + ",";
                                 }
                             }
-                        
+
                             File.WriteAllLines(dialog.FileName, outputCSV, Encoding.UTF8);
                             MessageBox.Show("Success");
 
@@ -478,7 +420,7 @@ namespace SupermarketTuto.Forms
 
 
 
-                
+
             }
         }
 
@@ -519,62 +461,62 @@ namespace SupermarketTuto.Forms
 
                 }
             }
-        } 
+        }
 
         private void PostButton_Click(object sender, EventArgs e)
         {
-            var product = new Products() { Prodid = Convert.ToInt32(ProdId.Text), ProdName = ProdName.Text, ProdQty = Convert.ToInt32(ProdQty.Text), ProdPrice = Convert.ToInt32(ProdPrice.Text), ProdCat = addCatCombobox.Text };
+            //var product = new Products() { Prodid = Convert.ToInt32(ProdId.Text), ProdName = ProdName.Text, ProdQty = Convert.ToInt32(ProdQty.Text), ProdPrice = Convert.ToInt32(ProdPrice.Text), ProdCat = addCatCombobox.Text };
 
-            var json = JsonConvert.SerializeObject(product);
-            var data = new StringContent(json, Encoding.UTF8, "application/json");
+            //var json = JsonConvert.SerializeObject(product);
+            //var data = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var url = new Uri("http://localhost:52465/api/products");
-            using var client = new HttpClient();
+            //var url = new Uri("http://localhost:52465/api/products");
+            //using var client = new HttpClient();
 
-            var response = client.PostAsync(url, data);
-            response.Wait();
-            var result = response.Result;
-            if (result.IsSuccessStatusCode)
-            {
-                var readTask = result.Content.ReadAsStringAsync();
+            //var response = client.PostAsync(url, data);
+            //response.Wait();
+            //var result = response.Result;
+            //if (result.IsSuccessStatusCode)
+            //{
+            //    var readTask = result.Content.ReadAsStringAsync();
 
-            }
+            //}
         }
 
         private void DeleteApiButton_Click(object sender, EventArgs e)
         {
 
-            var url = new Uri($"http://localhost:52465/api/delete/{ProdId.Text}");
-            using var client = new HttpClient();
+            //var url = new Uri($"http://localhost:52465/api/delete/{ProdId.Text}");
+            //using var client = new HttpClient();
 
-            var response = client.DeleteAsync(url);
-            response.Wait();
-            var result = response.Result;
-            if (result.IsSuccessStatusCode)
-            {
-                var readTask = result.Content.ReadAsStringAsync();
+            //var response = client.DeleteAsync(url);
+            //response.Wait();
+            //var result = response.Result;
+            //if (result.IsSuccessStatusCode)
+            //{
+            //    var readTask = result.Content.ReadAsStringAsync();
 
-            }
+            //}
         }
 
         private void putButton_Click(object sender, EventArgs e)
         {
-            var product = new Products() { Prodid = Convert.ToInt32(ProdId.Text), ProdName = ProdName.Text, ProdQty = Convert.ToInt32(ProdQty.Text), ProdPrice = Convert.ToInt32(ProdPrice.Text), ProdCat = addCatCombobox.Text };
+            //var product = new Products() { Prodid = Convert.ToInt32(ProdId.Text), ProdName = ProdName.Text, ProdQty = Convert.ToInt32(ProdQty.Text), ProdPrice = Convert.ToInt32(ProdPrice.Text), ProdCat = addCatCombobox.Text };
 
-            var json = JsonConvert.SerializeObject(product);
-            var data = new StringContent(json, Encoding.UTF8, "application/json");
+            //var json = JsonConvert.SerializeObject(product);
+            //var data = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var url = new Uri($"http://localhost:52465/api/put/{ProdId.Text}");
-            using var client = new HttpClient();
+            //var url = new Uri($"http://localhost:52465/api/put/{ProdId.Text}");
+            //using var client = new HttpClient();
 
-            var response = client.PutAsync(url, data);
-            response.Wait();
-            var result = response.Result;
-            if (result.IsSuccessStatusCode)
-            {
-                var readTask = result.Content.ReadAsStringAsync();
+            //var response = client.PutAsync(url, data);
+            //response.Wait();
+            //var result = response.Result;
+            //if (result.IsSuccessStatusCode)
+            //{
+            //    var readTask = result.Content.ReadAsStringAsync();
 
-            }
+            //}
         }
 
         #endregion API
@@ -609,14 +551,14 @@ namespace SupermarketTuto.Forms
             totalLabel.Text = $"Total: {ProdDGV.RowCount}";
         }
 
-        private void toDateTimePicker_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void fromDateTimePicker_ValueChanged(object sender, EventArgs e)
         {
+            display();
+        }
 
+        private void toDateTimePicker_ValueChanged(object sender, EventArgs e)
+        {
+            display();
         }
     }
 
@@ -631,6 +573,6 @@ namespace SupermarketTuto.Forms
         public string ProdCat { get; set; }
     }
 
-    
+
 }
 

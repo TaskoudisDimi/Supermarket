@@ -33,19 +33,9 @@
             this.searchTextBox = new System.Windows.Forms.TextBox();
             this.ProdDGV = new System.Windows.Forms.DataGridView();
             this.refreshButton = new System.Windows.Forms.Button();
-            this.categoriesLabel = new System.Windows.Forms.Label();
-            this.priceLabel = new System.Windows.Forms.Label();
-            this.quantityLabel = new System.Windows.Forms.Label();
-            this.nameLabel = new System.Windows.Forms.Label();
             this.deleteButton = new System.Windows.Forms.Button();
             this.editButton = new System.Windows.Forms.Button();
             this.addButton = new System.Windows.Forms.Button();
-            this.idLabel = new System.Windows.Forms.Label();
-            this.addCatCombobox = new System.Windows.Forms.ComboBox();
-            this.ProdPrice = new System.Windows.Forms.TextBox();
-            this.ProdQty = new System.Windows.Forms.TextBox();
-            this.ProdName = new System.Windows.Forms.TextBox();
-            this.ProdId = new System.Windows.Forms.TextBox();
             this.catComboBox = new System.Windows.Forms.ComboBox();
             this.GetButton = new System.Windows.Forms.Button();
             this.importButton = new System.Windows.Forms.Button();
@@ -105,7 +95,6 @@
             this.ProdDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.ProdDGV.Size = new System.Drawing.Size(901, 489);
             this.ProdDGV.TabIndex = 103;
-            this.ProdDGV.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ProdDGV_CellClick);
             // 
             // refreshButton
             // 
@@ -118,50 +107,10 @@
             this.refreshButton.UseVisualStyleBackColor = true;
             this.refreshButton.Click += new System.EventHandler(this.refreshButton_Click);
             // 
-            // categoriesLabel
-            // 
-            this.categoriesLabel.AutoSize = true;
-            this.categoriesLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.categoriesLabel.Location = new System.Drawing.Point(960, 332);
-            this.categoriesLabel.Name = "categoriesLabel";
-            this.categoriesLabel.Size = new System.Drawing.Size(91, 21);
-            this.categoriesLabel.TabIndex = 101;
-            this.categoriesLabel.Text = "Categories";
-            // 
-            // priceLabel
-            // 
-            this.priceLabel.AutoSize = true;
-            this.priceLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.priceLabel.Location = new System.Drawing.Point(972, 254);
-            this.priceLabel.Name = "priceLabel";
-            this.priceLabel.Size = new System.Drawing.Size(48, 21);
-            this.priceLabel.TabIndex = 100;
-            this.priceLabel.Text = "Price";
-            // 
-            // quantityLabel
-            // 
-            this.quantityLabel.AutoSize = true;
-            this.quantityLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.quantityLabel.Location = new System.Drawing.Point(965, 185);
-            this.quantityLabel.Name = "quantityLabel";
-            this.quantityLabel.Size = new System.Drawing.Size(77, 21);
-            this.quantityLabel.TabIndex = 99;
-            this.quantityLabel.Text = "Quantity";
-            // 
-            // nameLabel
-            // 
-            this.nameLabel.AutoSize = true;
-            this.nameLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.nameLabel.Location = new System.Drawing.Point(965, 117);
-            this.nameLabel.Name = "nameLabel";
-            this.nameLabel.Size = new System.Drawing.Size(56, 21);
-            this.nameLabel.TabIndex = 98;
-            this.nameLabel.Text = "Name";
-            // 
             // deleteButton
             // 
             this.deleteButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.deleteButton.Location = new System.Drawing.Point(1233, 426);
+            this.deleteButton.Location = new System.Drawing.Point(1185, 277);
             this.deleteButton.Name = "deleteButton";
             this.deleteButton.Size = new System.Drawing.Size(68, 40);
             this.deleteButton.TabIndex = 97;
@@ -172,7 +121,7 @@
             // editButton
             // 
             this.editButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.editButton.Location = new System.Drawing.Point(1111, 426);
+            this.editButton.Location = new System.Drawing.Point(1063, 277);
             this.editButton.Name = "editButton";
             this.editButton.Size = new System.Drawing.Size(64, 40);
             this.editButton.TabIndex = 96;
@@ -183,66 +132,13 @@
             // addButton
             // 
             this.addButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.addButton.Location = new System.Drawing.Point(980, 426);
+            this.addButton.Location = new System.Drawing.Point(932, 277);
             this.addButton.Name = "addButton";
             this.addButton.Size = new System.Drawing.Size(64, 40);
             this.addButton.TabIndex = 95;
             this.addButton.Text = "Add";
             this.addButton.UseVisualStyleBackColor = true;
             this.addButton.Click += new System.EventHandler(this.addButton_Click);
-            // 
-            // idLabel
-            // 
-            this.idLabel.AutoSize = true;
-            this.idLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.idLabel.Location = new System.Drawing.Point(972, 54);
-            this.idLabel.Name = "idLabel";
-            this.idLabel.Size = new System.Drawing.Size(27, 21);
-            this.idLabel.TabIndex = 94;
-            this.idLabel.Text = "ID";
-            // 
-            // addCatCombobox
-            // 
-            this.addCatCombobox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.addCatCombobox.FormattingEnabled = true;
-            this.addCatCombobox.Location = new System.Drawing.Point(1147, 328);
-            this.addCatCombobox.Name = "addCatCombobox";
-            this.addCatCombobox.Size = new System.Drawing.Size(143, 28);
-            this.addCatCombobox.TabIndex = 93;
-            this.addCatCombobox.Text = "Select Category";
-            // 
-            // ProdPrice
-            // 
-            this.ProdPrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.ProdPrice.Location = new System.Drawing.Point(1147, 252);
-            this.ProdPrice.Name = "ProdPrice";
-            this.ProdPrice.Size = new System.Drawing.Size(143, 26);
-            this.ProdPrice.TabIndex = 92;
-            // 
-            // ProdQty
-            // 
-            this.ProdQty.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.ProdQty.Location = new System.Drawing.Point(1147, 183);
-            this.ProdQty.Name = "ProdQty";
-            this.ProdQty.Size = new System.Drawing.Size(143, 26);
-            this.ProdQty.TabIndex = 91;
-            // 
-            // ProdName
-            // 
-            this.ProdName.BackColor = System.Drawing.Color.White;
-            this.ProdName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.ProdName.Location = new System.Drawing.Point(1147, 115);
-            this.ProdName.Name = "ProdName";
-            this.ProdName.Size = new System.Drawing.Size(143, 26);
-            this.ProdName.TabIndex = 90;
-            // 
-            // ProdId
-            // 
-            this.ProdId.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.ProdId.Location = new System.Drawing.Point(1147, 54);
-            this.ProdId.Name = "ProdId";
-            this.ProdId.Size = new System.Drawing.Size(143, 26);
-            this.ProdId.TabIndex = 89;
             // 
             // catComboBox
             // 
@@ -258,7 +154,7 @@
             // GetButton
             // 
             this.GetButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.GetButton.Location = new System.Drawing.Point(982, 499);
+            this.GetButton.Location = new System.Drawing.Point(934, 350);
             this.GetButton.Name = "GetButton";
             this.GetButton.Size = new System.Drawing.Size(64, 31);
             this.GetButton.TabIndex = 108;
@@ -302,7 +198,7 @@
             // PostButton
             // 
             this.PostButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.PostButton.Location = new System.Drawing.Point(1061, 499);
+            this.PostButton.Location = new System.Drawing.Point(1013, 350);
             this.PostButton.Name = "PostButton";
             this.PostButton.Size = new System.Drawing.Size(67, 30);
             this.PostButton.TabIndex = 112;
@@ -313,7 +209,7 @@
             // DeleteApiButton
             // 
             this.DeleteApiButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.DeleteApiButton.Location = new System.Drawing.Point(1150, 501);
+            this.DeleteApiButton.Location = new System.Drawing.Point(1102, 352);
             this.DeleteApiButton.Name = "DeleteApiButton";
             this.DeleteApiButton.Size = new System.Drawing.Size(68, 29);
             this.DeleteApiButton.TabIndex = 113;
@@ -348,7 +244,7 @@
             // putButton
             // 
             this.putButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.putButton.Location = new System.Drawing.Point(1233, 502);
+            this.putButton.Location = new System.Drawing.Point(1185, 353);
             this.putButton.Name = "putButton";
             this.putButton.Size = new System.Drawing.Size(68, 29);
             this.putButton.TabIndex = 118;
@@ -401,20 +297,10 @@
             this.Controls.Add(this.searchTextBox);
             this.Controls.Add(this.ProdDGV);
             this.Controls.Add(this.refreshButton);
-            this.Controls.Add(this.categoriesLabel);
-            this.Controls.Add(this.priceLabel);
-            this.Controls.Add(this.quantityLabel);
-            this.Controls.Add(this.nameLabel);
             this.Controls.Add(this.deleteButton);
             this.Controls.Add(this.editButton);
             this.Controls.Add(this.addButton);
-            this.Controls.Add(this.idLabel);
-            this.Controls.Add(this.addCatCombobox);
-            this.Controls.Add(this.ProdPrice);
-            this.Controls.Add(this.ProdQty);
-            this.Controls.Add(this.ProdName);
-            this.Controls.Add(this.ProdId);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Product";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Product_Load);
@@ -430,19 +316,9 @@
         private TextBox searchTextBox;
         private DataGridView ProdDGV;
         private Button refreshButton;
-        private Label categoriesLabel;
-        private Label priceLabel;
-        private Label quantityLabel;
-        private Label nameLabel;
         private Button deleteButton;
         private Button editButton;
         private Button addButton;
-        private Label idLabel;
-        private ComboBox addCatCombobox;
-        private TextBox ProdPrice;
-        private TextBox ProdQty;
-        private TextBox ProdName;
-        private TextBox ProdId;
         private ComboBox catComboBox;
         private Button GetButton;
         private Button importButton;

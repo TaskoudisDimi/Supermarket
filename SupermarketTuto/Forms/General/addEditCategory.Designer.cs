@@ -131,6 +131,7 @@
             this.editButton.TabIndex = 99;
             this.editButton.Text = "Edit";
             this.editButton.UseVisualStyleBackColor = true;
+            this.editButton.Click += new System.EventHandler(this.editButton_Click);
             // 
             // addButton
             // 
@@ -142,6 +143,7 @@
             this.addButton.TabIndex = 98;
             this.addButton.Text = "Add";
             this.addButton.UseVisualStyleBackColor = true;
+            this.addButton.Click += new System.EventHandler(this.addButton_Click);
             // 
             // addEditCategory
             // 
@@ -168,14 +170,14 @@
         #endregion
 
         private Label dateLabel;
-        private DateTimePicker dateTimePicker;
         private Label descriptionLabel;
         private Label name3Label;
         private Label id3label;
-        private TextBox CatDescTb;
-        private TextBox CatNameTb;
-        private TextBox CatIdTb;
         private Button editButton;
         private Button addButton;
+        public DateTimePicker dateTimePicker;
+        public TextBox CatDescTb;
+        public TextBox CatNameTb;
+        public TextBox CatIdTb;
     }
 }
