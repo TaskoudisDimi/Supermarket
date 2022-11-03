@@ -110,35 +110,35 @@ namespace SupermarketTuto.Forms
 
         private void display_From_API()
         {
-            using (var client = new HttpClient())
-            {
-                var url = new Uri("http://localhost:52465/api/allproducts");
+            //using (var client = new HttpClient())
+            //{
+            //    var url = new Uri("http://localhost:52465/api/allproducts");
 
-                //var endpoint = new Uri("http://localhost:8083/api/products");
-                //var result1 = client.GetAsync(endpoint).Result;
-                //var json = result1.Content.ReadAsStringAsync().Result;
-                //var result = JsonConvert.DeserializeObject<List<Products>>(json);
-                client.BaseAddress = new Uri("http://localhost:52465/api/allproducts");
-                // Add an Accept header for JSON format.
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                //HTTP GET
-                var responseTask = client.GetAsync(url.PathAndQuery);
-                responseTask.Wait();
+            //    //var endpoint = new Uri("http://localhost:8083/api/products");
+            //    //var result1 = client.GetAsync(endpoint).Result;
+            //    //var json = result1.Content.ReadAsStringAsync().Result;
+            //    //var result = JsonConvert.DeserializeObject<List<Products>>(json);
+            //    client.BaseAddress = new Uri("http://localhost:52465/api/allproducts");
+            //    // Add an Accept header for JSON format.
+            //    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            //    //HTTP GET
+            //    var responseTask = client.GetAsync(url.PathAndQuery);
+            //    responseTask.Wait();
 
-                var result = responseTask.Result;
-                if (result.IsSuccessStatusCode)
-                {
+            //    var result = responseTask.Result;
+            //    if (result.IsSuccessStatusCode)
+            //    {
 
-                    var readTask = result.Content.ReadAsStringAsync();
-                    readTask.Wait();
+            //        var readTask = result.Content.ReadAsStringAsync();
+            //        readTask.Wait();
 
-                    var Products = readTask.Result;
-                    var resultDeserialize = JsonConvert.DeserializeObject<List<Products>>(Products);
+            //        var Products = readTask.Result;
+            //        var resultDeserialize = JsonConvert.DeserializeObject<List<Products>>(Products);
 
-                    ProdDGV.DataSource = resultDeserialize;
+            //        ProdDGV.DataSource = resultDeserialize;
 
-                }
-            }
+            //    }
+            //}
         }
 
         private void refresh_data()

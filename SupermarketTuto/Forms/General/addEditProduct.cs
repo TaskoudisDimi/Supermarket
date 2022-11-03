@@ -37,16 +37,11 @@ namespace SupermarketTuto.Forms.General
 
             try
             {
-                if (ProdId.Text == "" || ProdName.Text == "" || ProdQty.Text == "" || ProdPrice.Text == "")
-                {
-                    MessageBox.Show("Missing Information");
-                }
-                else
-                {
-                    loaddata5.commandExc("Insert Into ProductTbl values(" + ProdId.Text + ",'" + ProdName.Text + "'," + ProdQty.Text + "," + ProdPrice.Text + ",'" + catCombobox.SelectedValue.ToString() + "', '" + DateTimePicker.Value.ToString("MM-dd-yyyy") + "')");
-                    MessageBox.Show("Product Successfully Insert");
-                    this.Close();
-                }
+
+                loaddata5.commandExc("Insert Into ProductTbl values(" + ProdName.Text + "'," + ProdQty.Text + "," + ProdPrice.Text + ",'" + catCombobox.SelectedValue.ToString() + "', '" + DateTimePicker.Value.ToString("MM-dd-yyyy") + "')");
+                MessageBox.Show("Product Successfully Insert");
+                this.Close();
+
 
             }
             catch (Exception ex)

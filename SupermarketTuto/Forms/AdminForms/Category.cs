@@ -31,6 +31,7 @@ namespace SupermarketTuto.Forms
             loaddata.retrieveData("Select * From CategoryTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'");
             //loaddata.retrieveData("Select * From CategoryTbl");
             CatDGV.DataSource = loaddata.table;
+            CatDGV.RowHeadersVisible = false;
             totalLabel.Text = $"Total: {CatDGV.RowCount}";
         }
 
@@ -105,8 +106,9 @@ namespace SupermarketTuto.Forms
         {
             addEditCategory add = new addEditCategory();
             add.Show();
+            refresh_data();
 
-            
+
         }
 
         private void editButton_Click(object sender, EventArgs e)
@@ -117,16 +119,19 @@ namespace SupermarketTuto.Forms
             edit.CatDescTb.Text = CatDGV.CurrentRow.Cells[2].Value.ToString();
             edit.dateTimePicker.Text = CatDGV.CurrentRow.Cells[3].Value.ToString();
             edit.Show();
-           
+            refresh_data();
+
         }
 
         private void deleteButton_Click(object sender, EventArgs e)
         {
             SqlConnect loaddata5 = new SqlConnect();
-
             try
             {
-               
+
+                loaddata5.commandExc("Delete From CategoryTbl Where CatId=" + CatDGV.CurrentRow.Cells[0].Value.ToString());
+                refresh_data();
+
             }
             catch (Exception ex)
             {
@@ -143,17 +148,32 @@ namespace SupermarketTuto.Forms
             totalLabel.Text = $"Total: {CatDGV.RowCount}";
         }
 
-        private void searchButton_KeyPress(object sender, KeyPressEventArgs e)
+
+        private void fromDateTimePicker_ValueChanged(object sender, EventArgs e)
         {
-            if (e.KeyChar == (char)13)
-            {
-                searchButton.PerformClick();
-            }
+            refresh_data();
         }
 
-        private void Clear()
+        private void refresh_data()
         {
+            SqlConnect loaddata21 = new SqlConnect();
+            loaddata21.retrieveData("Select * from CategoryTbl");
+            CatDGV.DataSource = loaddata21.table;
+            CatDGV.RowHeadersVisible = false;
+        }
 
+        private void toDateTimePicker_ValueChanged(object sender, EventArgs e)
+        {
+            refresh_data();
+        }
+
+        private void searchTextBox_TextChanged(object sender, EventArgs e)
+        {
+            SqlConnect db_sellers = new SqlConnect();
+            string query = "Select * From CategoryTbl where CatId like '%" + searchTextBox.Text + "%'" + "or CatName like '%" + searchTextBox.Text + "%'" + "or CatDesc like '%" + searchTextBox.Text + "%'";
+            db_sellers.search(searchTextBox.Text, query);
+            CatDGV.DataSource = db_sellers.table;
+            totalLabel.Text = $"Total: {CatDGV.RowCount}";
         }
     }
 }

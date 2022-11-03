@@ -1,4 +1,5 @@
 ﻿using SupermarketTuto.DataAccess;
+using SupermarketTuto.DataAccess;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -24,15 +25,11 @@ namespace SupermarketTuto.Forms.General
 
             try
             {
-                if (CatIdTb.Text == "" || CatNameTb.Text == "" || CatDescTb.Text == "")
-                {
-                    MessageBox.Show("Select The Category to Delete");
-                }
-                else
-                {
-                    loaddata3.commandExc("Insert Into CategoryTbl values(" + CatIdTb.Text + ",'" + CatNameTb.Text + "','" + CatDescTb.Text + "','" + dateTimePicker.Value.ToString("MM-dd-yyyy") + "')");
-                    MessageBox.Show("Success!");
-                }
+
+                loaddata3.commandExc("Insert Into CategoryTbl values('" + CatNameTb.Text + "','" + CatDescTb.Text + "','" + dateTimePicker.Value.ToString("MM-dd-yyyy") + "')");
+                MessageBox.Show("Success!");
+                this.Close();
+
 
             }
             catch (Exception ex)
@@ -56,7 +53,7 @@ namespace SupermarketTuto.Forms.General
 
                     loaddata6.commandExc("Update CategoryTbl set CatName='" + CatNameTb.Text + "',CatDesc='" + CatDescTb.Text + "' where CatId=" + CatIdTb.Text);
                     MessageBox.Show("Product Successfully Updated");
-
+                    this.Close();
                 }
             }
             catch (Exception ex)

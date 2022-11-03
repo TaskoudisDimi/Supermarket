@@ -53,5 +53,10 @@ namespace SupermarketTuto.Forms.SellingForms
         {
 
         }
+
+        private void add2Button_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
