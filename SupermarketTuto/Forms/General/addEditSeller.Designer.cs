@@ -38,7 +38,7 @@
             this.phone2Label = new System.Windows.Forms.Label();
             this.age2Label = new System.Windows.Forms.Label();
             this.name2Label = new System.Windows.Forms.Label();
-            this.id2label = new System.Windows.Forms.Label();
+            this.idlabel = new System.Windows.Forms.Label();
             this.SellPhone = new System.Windows.Forms.TextBox();
             this.SellAge = new System.Windows.Forms.TextBox();
             this.SellName = new System.Windows.Forms.TextBox();
@@ -61,7 +61,7 @@
             this.adressLabel.Location = new System.Drawing.Point(34, 585);
             this.adressLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.adressLabel.Name = "adressLabel";
-            this.adressLabel.Size = new System.Drawing.Size(109, 29);
+            this.adressLabel.Size = new System.Drawing.Size(75, 20);
             this.adressLabel.TabIndex = 135;
             this.adressLabel.Text = "Address";
             // 
@@ -80,7 +80,7 @@
             this.dateLabel.Location = new System.Drawing.Point(46, 505);
             this.dateLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.dateLabel.Name = "dateLabel";
-            this.dateLabel.Size = new System.Drawing.Size(157, 29);
+            this.dateLabel.Size = new System.Drawing.Size(112, 20);
             this.dateLabel.TabIndex = 133;
             this.dateLabel.Text = "Date of Birth";
             // 
@@ -90,7 +90,7 @@
             this.dateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dateTimePicker.Location = new System.Drawing.Point(244, 505);
             this.dateTimePicker.Name = "dateTimePicker";
-            this.dateTimePicker.Size = new System.Drawing.Size(176, 35);
+            this.dateTimePicker.Size = new System.Drawing.Size(176, 26);
             this.dateTimePicker.TabIndex = 132;
             // 
             // password2Label
@@ -100,7 +100,7 @@
             this.password2Label.Location = new System.Drawing.Point(45, 412);
             this.password2Label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.password2Label.Name = "password2Label";
-            this.password2Label.Size = new System.Drawing.Size(128, 29);
+            this.password2Label.Size = new System.Drawing.Size(86, 20);
             this.password2Label.TabIndex = 131;
             this.password2Label.Text = "Password";
             // 
@@ -110,7 +110,7 @@
             this.SellPass.Location = new System.Drawing.Point(244, 409);
             this.SellPass.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.SellPass.Name = "SellPass";
-            this.SellPass.Size = new System.Drawing.Size(176, 35);
+            this.SellPass.Size = new System.Drawing.Size(176, 26);
             this.SellPass.TabIndex = 130;
             // 
             // phone2Label
@@ -120,7 +120,7 @@
             this.phone2Label.Location = new System.Drawing.Point(45, 331);
             this.phone2Label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.phone2Label.Name = "phone2Label";
-            this.phone2Label.Size = new System.Drawing.Size(88, 29);
+            this.phone2Label.Size = new System.Drawing.Size(60, 20);
             this.phone2Label.TabIndex = 129;
             this.phone2Label.Text = "Phone";
             // 
@@ -131,7 +131,7 @@
             this.age2Label.Location = new System.Drawing.Point(60, 237);
             this.age2Label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.age2Label.Name = "age2Label";
-            this.age2Label.Size = new System.Drawing.Size(59, 29);
+            this.age2Label.Size = new System.Drawing.Size(41, 20);
             this.age2Label.TabIndex = 128;
             this.age2Label.Text = "Age";
             // 
@@ -142,20 +142,20 @@
             this.name2Label.Location = new System.Drawing.Point(45, 146);
             this.name2Label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.name2Label.Name = "name2Label";
-            this.name2Label.Size = new System.Drawing.Size(82, 29);
+            this.name2Label.Size = new System.Drawing.Size(55, 20);
             this.name2Label.TabIndex = 127;
             this.name2Label.Text = "Name";
             // 
-            // id2label
+            // idlabel
             // 
-            this.id2label.AutoSize = true;
-            this.id2label.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.id2label.Location = new System.Drawing.Point(60, 52);
-            this.id2label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.id2label.Name = "id2label";
-            this.id2label.Size = new System.Drawing.Size(38, 29);
-            this.id2label.TabIndex = 126;
-            this.id2label.Text = "ID";
+            this.idlabel.AutoSize = true;
+            this.idlabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.idlabel.Location = new System.Drawing.Point(60, 52);
+            this.idlabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.idlabel.Name = "idlabel";
+            this.idlabel.Size = new System.Drawing.Size(28, 20);
+            this.idlabel.TabIndex = 126;
+            this.idlabel.Text = "ID";
             // 
             // SellPhone
             // 
@@ -163,7 +163,7 @@
             this.SellPhone.Location = new System.Drawing.Point(244, 326);
             this.SellPhone.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.SellPhone.Name = "SellPhone";
-            this.SellPhone.Size = new System.Drawing.Size(176, 35);
+            this.SellPhone.Size = new System.Drawing.Size(176, 26);
             this.SellPhone.TabIndex = 125;
             // 
             // SellAge
@@ -172,7 +172,7 @@
             this.SellAge.Location = new System.Drawing.Point(244, 237);
             this.SellAge.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.SellAge.Name = "SellAge";
-            this.SellAge.Size = new System.Drawing.Size(176, 35);
+            this.SellAge.Size = new System.Drawing.Size(176, 26);
             this.SellAge.TabIndex = 124;
             // 
             // SellName
@@ -181,7 +181,7 @@
             this.SellName.Location = new System.Drawing.Point(244, 143);
             this.SellName.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.SellName.Name = "SellName";
-            this.SellName.Size = new System.Drawing.Size(176, 35);
+            this.SellName.Size = new System.Drawing.Size(176, 26);
             this.SellName.TabIndex = 123;
             // 
             // SellId
@@ -190,7 +190,7 @@
             this.SellId.Location = new System.Drawing.Point(244, 52);
             this.SellId.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.SellId.Name = "SellId";
-            this.SellId.Size = new System.Drawing.Size(176, 35);
+            this.SellId.Size = new System.Drawing.Size(176, 26);
             this.SellId.TabIndex = 122;
             // 
             // editButton
@@ -234,7 +234,7 @@
             this.Controls.Add(this.phone2Label);
             this.Controls.Add(this.age2Label);
             this.Controls.Add(this.name2Label);
-            this.Controls.Add(this.id2label);
+            this.Controls.Add(this.idlabel);
             this.Controls.Add(this.SellPhone);
             this.Controls.Add(this.SellAge);
             this.Controls.Add(this.SellName);
@@ -257,9 +257,6 @@
         private Label phone2Label;
         private Label age2Label;
         private Label name2Label;
-        private Label id2label;
-        private Button editButton;
-        private Button addButton;
         public TextBox addressTextBox;
         public DateTimePicker dateTimePicker;
         public TextBox SellPass;
@@ -267,5 +264,8 @@
         public TextBox SellAge;
         public TextBox SellName;
         public TextBox SellId;
+        public Button editButton;
+        public Button addButton;
+        public Label idlabel;
     }
 }

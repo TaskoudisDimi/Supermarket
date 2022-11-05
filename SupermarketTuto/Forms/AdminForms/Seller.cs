@@ -69,22 +69,33 @@ namespace SupermarketTuto.Forms
         private void add2Button_Click(object sender, EventArgs e)
         {
             addEditSeller add = new addEditSeller();
+            add.editButton.Visible = false;
+            add.SellId.Visible = false;
+            add.idlabel.Visible = false;
             add.Show();
-
         }
 
         private void editButton_Click_1(object sender, EventArgs e)
         {
-            addEditSeller edit = new addEditSeller();
-            edit.SellId.Text = SellDGV.CurrentRow.Cells[0].Value.ToString();
-            edit.SellName.Text = SellDGV.CurrentRow.Cells[1].Value.ToString();
-            edit.SellAge.Text = SellDGV.CurrentRow.Cells[2].Value.ToString();
-            edit.SellPhone.Text = SellDGV.CurrentRow.Cells[3].Value.ToString();
-            edit.SellPass.Text = SellDGV.CurrentRow.Cells[4].Value.ToString();
-            edit.dateTimePicker.Text = SellDGV.CurrentRow.Cells[5].Value.ToString();
-            edit.addressTextBox.Text = SellDGV.CurrentRow.Cells[6].Value.ToString();
-            edit.Show();
+            try
+            {
+                addEditSeller edit = new addEditSeller();
+                edit.SellId.Text = SellDGV.CurrentRow.Cells[0].Value.ToString();
+                edit.SellName.Text = SellDGV.CurrentRow.Cells[1].Value.ToString();
+                edit.SellAge.Text = SellDGV.CurrentRow.Cells[2].Value.ToString();
+                edit.SellPhone.Text = SellDGV.CurrentRow.Cells[3].Value.ToString();
+                edit.SellPass.Text = SellDGV.CurrentRow.Cells[4].Value.ToString();
+                edit.dateTimePicker.Text = SellDGV.CurrentRow.Cells[5].Value.ToString();
+                edit.addressTextBox.Text = SellDGV.CurrentRow.Cells[6].Value.ToString();
+                edit.addButton.Visible = false;
+                edit.SellId.ReadOnly = true;
+                edit.Show();
+            }
+            catch
+            {
 
+            }
+            
         }
 
         private void delete2Button_Click(object sender, EventArgs e)

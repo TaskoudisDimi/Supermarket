@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -105,6 +106,9 @@ namespace SupermarketTuto.Forms
         private void addButton_Click(object sender, EventArgs e)
         {
             addEditCategory add = new addEditCategory();
+            add.editButton.Visible = false;
+            add.CatIdTb.Visible = false;
+            add.idlabel.Visible = false;
             add.Show();
             refresh_data();
 
@@ -118,6 +122,8 @@ namespace SupermarketTuto.Forms
             edit.CatNameTb.Text = CatDGV.CurrentRow.Cells[1].Value.ToString();
             edit.CatDescTb.Text = CatDGV.CurrentRow.Cells[2].Value.ToString();
             edit.dateTimePicker.Text = CatDGV.CurrentRow.Cells[3].Value.ToString();
+            edit.addButton.Visible = false;
+            edit.CatIdTb.ReadOnly = true;
             edit.Show();
             refresh_data();
 

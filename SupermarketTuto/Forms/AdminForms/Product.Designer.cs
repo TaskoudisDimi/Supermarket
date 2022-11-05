@@ -55,7 +55,8 @@
             // 
             this.totalLabel.AutoSize = true;
             this.totalLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.totalLabel.Location = new System.Drawing.Point(5, 611);
+            this.totalLabel.Location = new System.Drawing.Point(8, 940);
+            this.totalLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.totalLabel.Name = "totalLabel";
             this.totalLabel.Size = new System.Drawing.Size(48, 20);
             this.totalLabel.TabIndex = 106;
@@ -64,9 +65,10 @@
             // searchButton
             // 
             this.searchButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.searchButton.Location = new System.Drawing.Point(197, 64);
+            this.searchButton.Location = new System.Drawing.Point(296, 98);
+            this.searchButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.searchButton.Name = "searchButton";
-            this.searchButton.Size = new System.Drawing.Size(92, 26);
+            this.searchButton.Size = new System.Drawing.Size(138, 40);
             this.searchButton.TabIndex = 105;
             this.searchButton.Text = "Search";
             this.searchButton.UseVisualStyleBackColor = true;
@@ -75,9 +77,10 @@
             // searchTextBox
             // 
             this.searchTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.searchTextBox.Location = new System.Drawing.Point(9, 64);
+            this.searchTextBox.Location = new System.Drawing.Point(14, 98);
+            this.searchTextBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.searchTextBox.Name = "searchTextBox";
-            this.searchTextBox.Size = new System.Drawing.Size(171, 26);
+            this.searchTextBox.Size = new System.Drawing.Size(254, 26);
             this.searchTextBox.TabIndex = 104;
             this.searchTextBox.TextChanged += new System.EventHandler(this.searchTextBox_TextChanged);
             this.searchTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.searchTextBox_KeyPress);
@@ -88,20 +91,22 @@
             this.ProdDGV.BackgroundColor = System.Drawing.Color.WhiteSmoke;
             this.ProdDGV.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.ProdDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.ProdDGV.Location = new System.Drawing.Point(9, 102);
+            this.ProdDGV.Location = new System.Drawing.Point(14, 157);
+            this.ProdDGV.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.ProdDGV.Name = "ProdDGV";
             this.ProdDGV.RowHeadersWidth = 62;
             this.ProdDGV.RowTemplate.Height = 30;
             this.ProdDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.ProdDGV.Size = new System.Drawing.Size(901, 489);
+            this.ProdDGV.Size = new System.Drawing.Size(1352, 752);
             this.ProdDGV.TabIndex = 103;
             // 
             // refreshButton
             // 
             this.refreshButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.refreshButton.Location = new System.Drawing.Point(795, 57);
+            this.refreshButton.Location = new System.Drawing.Point(1192, 88);
+            this.refreshButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.refreshButton.Name = "refreshButton";
-            this.refreshButton.Size = new System.Drawing.Size(115, 37);
+            this.refreshButton.Size = new System.Drawing.Size(172, 57);
             this.refreshButton.TabIndex = 102;
             this.refreshButton.Text = "Refresh";
             this.refreshButton.UseVisualStyleBackColor = true;
@@ -110,9 +115,10 @@
             // deleteButton
             // 
             this.deleteButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.deleteButton.Location = new System.Drawing.Point(1185, 277);
+            this.deleteButton.Location = new System.Drawing.Point(1778, 426);
+            this.deleteButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.deleteButton.Name = "deleteButton";
-            this.deleteButton.Size = new System.Drawing.Size(68, 40);
+            this.deleteButton.Size = new System.Drawing.Size(102, 62);
             this.deleteButton.TabIndex = 97;
             this.deleteButton.Text = "Delete";
             this.deleteButton.UseVisualStyleBackColor = true;
@@ -121,9 +127,10 @@
             // editButton
             // 
             this.editButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.editButton.Location = new System.Drawing.Point(1063, 277);
+            this.editButton.Location = new System.Drawing.Point(1594, 426);
+            this.editButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.editButton.Name = "editButton";
-            this.editButton.Size = new System.Drawing.Size(64, 40);
+            this.editButton.Size = new System.Drawing.Size(96, 62);
             this.editButton.TabIndex = 96;
             this.editButton.Text = "Edit";
             this.editButton.UseVisualStyleBackColor = true;
@@ -132,9 +139,10 @@
             // addButton
             // 
             this.addButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.addButton.Location = new System.Drawing.Point(932, 277);
+            this.addButton.Location = new System.Drawing.Point(1398, 426);
+            this.addButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.addButton.Name = "addButton";
-            this.addButton.Size = new System.Drawing.Size(64, 40);
+            this.addButton.Size = new System.Drawing.Size(96, 62);
             this.addButton.TabIndex = 95;
             this.addButton.Text = "Add";
             this.addButton.UseVisualStyleBackColor = true;
@@ -144,9 +152,10 @@
             // 
             this.catComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.catComboBox.FormattingEnabled = true;
-            this.catComboBox.Location = new System.Drawing.Point(349, 62);
+            this.catComboBox.Location = new System.Drawing.Point(524, 95);
+            this.catComboBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.catComboBox.Name = "catComboBox";
-            this.catComboBox.Size = new System.Drawing.Size(143, 28);
+            this.catComboBox.Size = new System.Drawing.Size(212, 28);
             this.catComboBox.TabIndex = 107;
             this.catComboBox.Text = "Select Category";
             this.catComboBox.SelectionChangeCommitted += new System.EventHandler(this.catComboBox_SelectionChangeCommitted);
@@ -154,9 +163,10 @@
             // GetButton
             // 
             this.GetButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.GetButton.Location = new System.Drawing.Point(934, 350);
+            this.GetButton.Location = new System.Drawing.Point(1401, 538);
+            this.GetButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.GetButton.Name = "GetButton";
-            this.GetButton.Size = new System.Drawing.Size(64, 31);
+            this.GetButton.Size = new System.Drawing.Size(96, 48);
             this.GetButton.TabIndex = 108;
             this.GetButton.Text = "Get";
             this.GetButton.UseVisualStyleBackColor = true;
@@ -165,9 +175,10 @@
             // importButton
             // 
             this.importButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.importButton.Location = new System.Drawing.Point(719, 611);
+            this.importButton.Location = new System.Drawing.Point(1078, 940);
+            this.importButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.importButton.Name = "importButton";
-            this.importButton.Size = new System.Drawing.Size(68, 30);
+            this.importButton.Size = new System.Drawing.Size(102, 46);
             this.importButton.TabIndex = 109;
             this.importButton.Text = "Import";
             this.importButton.UseVisualStyleBackColor = true;
@@ -176,9 +187,10 @@
             // saveButton
             // 
             this.saveButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.saveButton.Location = new System.Drawing.Point(805, 611);
+            this.saveButton.Location = new System.Drawing.Point(1208, 940);
+            this.saveButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.saveButton.Name = "saveButton";
-            this.saveButton.Size = new System.Drawing.Size(68, 30);
+            this.saveButton.Size = new System.Drawing.Size(102, 46);
             this.saveButton.TabIndex = 110;
             this.saveButton.Text = "Save";
             this.saveButton.UseVisualStyleBackColor = true;
@@ -187,9 +199,10 @@
             // exportButton
             // 
             this.exportButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.exportButton.Location = new System.Drawing.Point(639, 610);
+            this.exportButton.Location = new System.Drawing.Point(958, 938);
+            this.exportButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.exportButton.Name = "exportButton";
-            this.exportButton.Size = new System.Drawing.Size(68, 30);
+            this.exportButton.Size = new System.Drawing.Size(102, 46);
             this.exportButton.TabIndex = 111;
             this.exportButton.Text = "Export";
             this.exportButton.UseVisualStyleBackColor = true;
@@ -198,9 +211,10 @@
             // PostButton
             // 
             this.PostButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.PostButton.Location = new System.Drawing.Point(1013, 350);
+            this.PostButton.Location = new System.Drawing.Point(1520, 538);
+            this.PostButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.PostButton.Name = "PostButton";
-            this.PostButton.Size = new System.Drawing.Size(67, 30);
+            this.PostButton.Size = new System.Drawing.Size(100, 46);
             this.PostButton.TabIndex = 112;
             this.PostButton.Text = "Post";
             this.PostButton.UseVisualStyleBackColor = true;
@@ -209,9 +223,10 @@
             // DeleteApiButton
             // 
             this.DeleteApiButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.DeleteApiButton.Location = new System.Drawing.Point(1102, 352);
+            this.DeleteApiButton.Location = new System.Drawing.Point(1653, 542);
+            this.DeleteApiButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.DeleteApiButton.Name = "DeleteApiButton";
-            this.DeleteApiButton.Size = new System.Drawing.Size(68, 29);
+            this.DeleteApiButton.Size = new System.Drawing.Size(102, 45);
             this.DeleteApiButton.TabIndex = 113;
             this.DeleteApiButton.Text = "Delete";
             this.DeleteApiButton.UseVisualStyleBackColor = true;
@@ -220,9 +235,10 @@
             // ApiRadioButton
             // 
             this.ApiRadioButton.AutoSize = true;
-            this.ApiRadioButton.Location = new System.Drawing.Point(1312, 121);
+            this.ApiRadioButton.Location = new System.Drawing.Point(1968, 186);
+            this.ApiRadioButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.ApiRadioButton.Name = "ApiRadioButton";
-            this.ApiRadioButton.Size = new System.Drawing.Size(42, 17);
+            this.ApiRadioButton.Size = new System.Drawing.Size(53, 24);
             this.ApiRadioButton.TabIndex = 116;
             this.ApiRadioButton.TabStop = true;
             this.ApiRadioButton.Text = "API";
@@ -232,9 +248,10 @@
             // localRadioButton
             // 
             this.localRadioButton.AutoSize = true;
-            this.localRadioButton.Location = new System.Drawing.Point(1312, 97);
+            this.localRadioButton.Location = new System.Drawing.Point(1968, 149);
+            this.localRadioButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.localRadioButton.Name = "localRadioButton";
-            this.localRadioButton.Size = new System.Drawing.Size(51, 17);
+            this.localRadioButton.Size = new System.Drawing.Size(65, 24);
             this.localRadioButton.TabIndex = 117;
             this.localRadioButton.TabStop = true;
             this.localRadioButton.Text = "Local";
@@ -244,9 +261,10 @@
             // putButton
             // 
             this.putButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.putButton.Location = new System.Drawing.Point(1185, 353);
+            this.putButton.Location = new System.Drawing.Point(1778, 543);
+            this.putButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.putButton.Name = "putButton";
-            this.putButton.Size = new System.Drawing.Size(68, 29);
+            this.putButton.Size = new System.Drawing.Size(102, 45);
             this.putButton.TabIndex = 118;
             this.putButton.Text = "Put";
             this.putButton.UseVisualStyleBackColor = true;
@@ -256,10 +274,10 @@
             // 
             this.toDateTimePicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.toDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.toDateTimePicker.Location = new System.Drawing.Point(658, 60);
-            this.toDateTimePicker.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
+            this.toDateTimePicker.Location = new System.Drawing.Point(987, 92);
+            this.toDateTimePicker.Margin = new System.Windows.Forms.Padding(8, 5, 8, 5);
             this.toDateTimePicker.Name = "toDateTimePicker";
-            this.toDateTimePicker.Size = new System.Drawing.Size(118, 26);
+            this.toDateTimePicker.Size = new System.Drawing.Size(175, 26);
             this.toDateTimePicker.TabIndex = 120;
             this.toDateTimePicker.ValueChanged += new System.EventHandler(this.toDateTimePicker_ValueChanged);
             // 
@@ -267,18 +285,18 @@
             // 
             this.fromDateTimePicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.fromDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.fromDateTimePicker.Location = new System.Drawing.Point(521, 60);
-            this.fromDateTimePicker.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
+            this.fromDateTimePicker.Location = new System.Drawing.Point(782, 92);
+            this.fromDateTimePicker.Margin = new System.Windows.Forms.Padding(8, 5, 8, 5);
             this.fromDateTimePicker.Name = "fromDateTimePicker";
-            this.fromDateTimePicker.Size = new System.Drawing.Size(127, 26);
+            this.fromDateTimePicker.Size = new System.Drawing.Size(188, 26);
             this.fromDateTimePicker.TabIndex = 119;
             this.fromDateTimePicker.ValueChanged += new System.EventHandler(this.fromDateTimePicker_ValueChanged);
             // 
             // Product
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1535, 693);
+            this.ClientSize = new System.Drawing.Size(1924, 1066);
             this.ControlBox = false;
             this.Controls.Add(this.toDateTimePicker);
             this.Controls.Add(this.fromDateTimePicker);
@@ -300,7 +318,6 @@
             this.Controls.Add(this.deleteButton);
             this.Controls.Add(this.editButton);
             this.Controls.Add(this.addButton);
-            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Product";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Product_Load);

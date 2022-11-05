@@ -176,6 +176,9 @@ namespace SupermarketTuto.Forms
             //catCombobox.SelectedItem = null;
             add.catCombobox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             add.catCombobox.AutoCompleteSource = AutoCompleteSource.ListItems;
+            add.editButton.Visible = false;
+            add.ProdId.Visible = false;
+            add.idLabel.Visible = false;
             add.Show();
 
         }
@@ -198,6 +201,8 @@ namespace SupermarketTuto.Forms
             edit.ProdQty.Text = ProdDGV.CurrentRow.Cells[3].Value.ToString();
             edit.catCombobox.SelectedValue = ProdDGV.CurrentRow.Cells[4].Value.ToString();
             edit.DateTimePicker.Text = ProdDGV.CurrentRow.Cells[5].Value.ToString();
+            edit.addButton.Visible = false;
+            edit.ProdId.ReadOnly = true;
             edit.Show();
 
             
