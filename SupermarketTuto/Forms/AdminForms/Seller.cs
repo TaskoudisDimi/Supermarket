@@ -158,7 +158,167 @@ namespace SupermarketTuto.Forms
             display();
         }
 
+        private void exportButton_Click(object sender, EventArgs e)
+        {
+            if (SellDGV.Rows.Count > 0)
+            {
+                SaveFileDialog dialog = new SaveFileDialog()
+                {
+                    Filter = "CSV (*.csv)|*.csv",
+                    Title = "Csv Files",
+                    RestoreDirectory = true
+                };
 
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    if (File.Exists(dialog.FileName))
+                    {
+                        try
+                        {
+                            File.Delete(dialog.FileName);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("It wasn't possible to write the data to the disk." + ex.Message);
+                        }
+                    }
+                    else
+                    {
+                        try
+                        {
+                            int colCount = SellDGV.Columns.Count;
+                            string colNames = string.Empty;
+                            string[] outputCSV = new string[SellDGV.Rows.Count + 1];
+                            for (int i = 0; i < colCount; i++)
+                            {
+                                if (i == colCount - 1)
+                                {
+                                    colNames += SellDGV.Columns[i].HeaderText.ToString();
+                                }
+                                else
+                                {
+                                    colNames += SellDGV.Columns[i].HeaderText.ToString() + ",";
+                                }
+                            }
+                            outputCSV[0] += colNames;
+
+                            for (int i = 1; (i - 1) < SellDGV.Rows.Count; i++)
+                            {
+                                for (int j = 0; j < colCount; j++)
+                                {
+                                    outputCSV[i] += SellDGV.Rows[i - 1].Cells[j].Value.ToString() + ",";
+                                }
+                            }
+
+                            File.WriteAllLines(dialog.FileName, outputCSV, Encoding.UTF8);
+                            MessageBox.Show("Success");
+
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Error :" + ex.Message);
+                        }
+                    }
+                }
+            }
+        }
+
+        private void importButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int ImportedRecord = 0, inValidItem = 0;
+                string SourceURl = "";
+                OpenFileDialog dialog = new OpenFileDialog()
+                {
+                    Title = "Browse Text File",
+                    CheckFileExists = true,
+                    CheckPathExists = true,
+                    Filter = "csv files (*.csv)|*.csv",
+                    FilterIndex = 2,
+                    RestoreDirectory = true,
+                    ReadOnlyChecked = true,
+                    ShowReadOnly = true
+
+                };
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    if (dialog.FileName.EndsWith(".csv"))
+                    {
+                        DataTable table = new DataTable();
+                        table = GetData(dialog.FileName);
+                        SourceURl = dialog.FileName;
+                        if (table.Rows != null && table.Rows.ToString() != String.Empty)
+                        {
+                            SellDGV.DataSource = table;
+
+                        }
+
+                    }
+                }
+              }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Exception" + ex);
+            }
+        }
+
+        private void saveButton_Click(object sender, EventArgs e)
+        {
+            //SqlConnect loaddata20 = new SqlConnect();
+
+            //int count = SellDGV.RowCount;
+            //for (int i = 0; i < count; i++)
+            //{
+            //    loaddata20.commandExc("Insert Into ProductTbl values('" + SellDGV.Rows[i].Cells[0].Value + "','" + SellDGV.Rows[i].Cells[1].Value + "','" + SellDGV.Rows[i].Cells[2].Value + "','" + SellDGV.Rows[i].Cells[3].Value + "','" + SellDGV.Rows[i].Cells[4].Value + "')");
+            //}
+            //refresh_data();
+        }
+
+        private DataTable GetData(string path)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                if (path.EndsWith(".csv"))
+                {
+                    //TextFieldParser csvReader = new TextFieldParser(path);
+                    //csvReader.SetDelimiters(new string[] { "," });
+                    //csvReader.HasFieldsEnclosedInQuotes = true;
+                    //string[] colFields = csvReader.ReadFields();
+
+                    string[] lines = System.IO.File.ReadAllLines(path);
+                    if (lines.Length > 0)
+                    {
+                        //first line to create header
+                        string firstLine = lines[0];
+                        string[] headerLabels = firstLine.Split(',');
+                        foreach (string headerWord in headerLabels)
+                        {
+                            dt.Columns.Add(new DataColumn(headerWord));
+                        }
+                        //For Data
+                        for (int i = 1; i < lines.Length; i++)
+                        {
+                            string[] dataWords = lines[i].Split(',');
+                            DataRow dr = dt.NewRow();
+                            int columnIndex = 0;
+                            foreach (string headerWord in headerLabels)
+                            {
+                                dr[headerWord] = dataWords[columnIndex++];
+                            }
+                            dt.Rows.Add(dr);
+                        }
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Exception " + ex);
+            }
+            return dt;
+        }
 
 
 

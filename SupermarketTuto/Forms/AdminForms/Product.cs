@@ -418,14 +418,8 @@ namespace SupermarketTuto.Forms
                         {
                             MessageBox.Show("Error :" + ex.Message);
                         }
-
-
                     }
                 }
-
-
-
-
             }
         }
 
