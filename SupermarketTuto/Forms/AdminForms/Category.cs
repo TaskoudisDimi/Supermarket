@@ -316,7 +316,7 @@ namespace SupermarketTuto.Forms
                         SourceURl = dialog.FileName;
                         if (table.Rows != null && table.Rows.ToString() != String.Empty)
                         {
-                            ProdDGV.DataSource = table;
+                            CatDGV.DataSource = table;
 
                         }
 

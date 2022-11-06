@@ -47,10 +47,10 @@
             // deleteButton
             // 
             this.deleteButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.deleteButton.Location = new System.Drawing.Point(1151, 412);
+            this.deleteButton.Location = new System.Drawing.Point(574, 753);
             this.deleteButton.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.deleteButton.Name = "deleteButton";
-            this.deleteButton.Size = new System.Drawing.Size(76, 40);
+            this.deleteButton.Size = new System.Drawing.Size(76, 35);
             this.deleteButton.TabIndex = 87;
             this.deleteButton.Text = "Delete";
             this.deleteButton.UseVisualStyleBackColor = true;
@@ -59,10 +59,10 @@
             // editButton
             // 
             this.editButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.editButton.Location = new System.Drawing.Point(1046, 412);
+            this.editButton.Location = new System.Drawing.Point(497, 753);
             this.editButton.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.editButton.Name = "editButton";
-            this.editButton.Size = new System.Drawing.Size(73, 40);
+            this.editButton.Size = new System.Drawing.Size(67, 35);
             this.editButton.TabIndex = 86;
             this.editButton.Text = "Edit";
             this.editButton.UseVisualStyleBackColor = true;
@@ -71,10 +71,10 @@
             // addButton
             // 
             this.addButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.addButton.Location = new System.Drawing.Point(934, 412);
+            this.addButton.Location = new System.Drawing.Point(423, 753);
             this.addButton.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.addButton.Name = "addButton";
-            this.addButton.Size = new System.Drawing.Size(73, 40);
+            this.addButton.Size = new System.Drawing.Size(64, 33);
             this.addButton.TabIndex = 85;
             this.addButton.Text = "Add";
             this.addButton.UseVisualStyleBackColor = true;
@@ -167,10 +167,10 @@
             // exportButton
             // 
             this.exportButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.exportButton.Location = new System.Drawing.Point(539, 753);
+            this.exportButton.Location = new System.Drawing.Point(659, 753);
             this.exportButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.exportButton.Name = "exportButton";
-            this.exportButton.Size = new System.Drawing.Size(102, 46);
+            this.exportButton.Size = new System.Drawing.Size(72, 35);
             this.exportButton.TabIndex = 114;
             this.exportButton.Text = "Export";
             this.exportButton.UseVisualStyleBackColor = true;
@@ -179,10 +179,10 @@
             // saveButton
             // 
             this.saveButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.saveButton.Location = new System.Drawing.Point(789, 755);
+            this.saveButton.Location = new System.Drawing.Point(819, 755);
             this.saveButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.saveButton.Name = "saveButton";
-            this.saveButton.Size = new System.Drawing.Size(102, 46);
+            this.saveButton.Size = new System.Drawing.Size(72, 35);
             this.saveButton.TabIndex = 113;
             this.saveButton.Text = "Save";
             this.saveButton.UseVisualStyleBackColor = true;
@@ -191,10 +191,10 @@
             // importButton
             // 
             this.importButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.importButton.Location = new System.Drawing.Point(660, 755);
+            this.importButton.Location = new System.Drawing.Point(739, 755);
             this.importButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.importButton.Name = "importButton";
-            this.importButton.Size = new System.Drawing.Size(102, 46);
+            this.importButton.Size = new System.Drawing.Size(72, 35);
             this.importButton.TabIndex = 112;
             this.importButton.Text = "Import";
             this.importButton.UseVisualStyleBackColor = true;
