@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using SupermarketTuto.DataAccess;
+using SuperMarketAPI.Models;
 
 namespace SuperMarketAPI.Controllers
 {

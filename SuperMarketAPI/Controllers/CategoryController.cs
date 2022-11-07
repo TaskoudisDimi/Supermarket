@@ -18,7 +18,7 @@ namespace SuperMarketAPI.Controllers
         [System.Web.Http.Route("api/categories")]
         public HttpResponseMessage GetAllProducts()
         {
-            string query = @"Select * From CategoriesTbl";
+            string query = @"Select * From CategoryTbl";
             SqlConnect con = new SqlConnect();
             con.retrieveData(query);
             return Request.CreateResponse(HttpStatusCode.OK, con.table);

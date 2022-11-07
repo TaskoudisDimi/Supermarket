@@ -30,10 +30,10 @@ namespace SupermarketTuto.Forms
             fillCombo();
             localRadioButton.Checked = true;
             ApiRadioButton.Checked = false;
-            GetButton.Enabled = false;
-            PostButton.Enabled = false;
-            DeleteApiButton.Enabled = false;
-            putButton.Enabled = false;
+            //GetButton.Enabled = false;
+            //PostButton.Enabled = false;
+            //DeleteApiButton.Enabled = false;
+            //putButton.Enabled = false;
             ContextMenuStrip mnu = new ContextMenuStrip();
             ToolStripMenuItem mnuDelete = new ToolStripMenuItem("Delete");
             //Assign event handlers
@@ -431,35 +431,35 @@ namespace SupermarketTuto.Forms
         //Now, you can check the status of an http response using IsSuccessStatusCode. Read the content of the result using ReadAsAsync() method.
         private void GetButton_Click(object sender, EventArgs e)
         {
-            using (var client = new HttpClient())
-            {
-                var url = new Uri("http://localhost:52465/api/allproducts");
+            //using (var client = new HttpClient())
+            //{
+            //    var url = new Uri("http://localhost:52465/api/allproducts");
 
-                //var endpoint = new Uri("http://localhost:8083/api/products");
-                //var result1 = client.GetAsync(endpoint).Result;
-                //var json = result1.Content.ReadAsStringAsync().Result;
-                //var result = JsonConvert.DeserializeObject<List<Products>>(json);
-                client.BaseAddress = new Uri("http://localhost:52465/api/allproducts");
-                // Add an Accept header for JSON format.
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                //HTTP GET
-                var responseTask = client.GetAsync(url.PathAndQuery);
-                responseTask.Wait();
+            //    //var endpoint = new Uri("http://localhost:8083/api/products");
+            //    //var result1 = client.GetAsync(endpoint).Result;
+            //    //var json = result1.Content.ReadAsStringAsync().Result;
+            //    //var result = JsonConvert.DeserializeObject<List<Products>>(json);
+            //    client.BaseAddress = new Uri("http://localhost:52465/api/allproducts");
+            //    // Add an Accept header for JSON format.
+            //    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            //    //HTTP GET
+            //    var responseTask = client.GetAsync(url.PathAndQuery);
+            //    responseTask.Wait();
 
-                var result = responseTask.Result;
-                if (result.IsSuccessStatusCode)
-                {
+            //    var result = responseTask.Result;
+            //    if (result.IsSuccessStatusCode)
+            //    {
 
-                    var readTask = result.Content.ReadAsStringAsync();
-                    readTask.Wait();
+            //        var readTask = result.Content.ReadAsStringAsync();
+            //        readTask.Wait();
 
-                    var Products = readTask.Result;
-                    var resultDeserialize = JsonConvert.DeserializeObject<List<Products>>(Products);
+            //        var Products = readTask.Result;
+            //        var resultDeserialize = JsonConvert.DeserializeObject<List<Products>>(Products);
 
-                    ProdDGV.DataSource = resultDeserialize;
+            //        ProdDGV.DataSource = resultDeserialize;
 
-                }
-            }
+            //    }
+            //}
         }
 
         private void PostButton_Click(object sender, EventArgs e)
@@ -522,9 +522,9 @@ namespace SupermarketTuto.Forms
         private void localRadioButton_Click(object sender, EventArgs e)
         {
             ApiRadioButton.Checked = false;
-            GetButton.Enabled = false;
-            PostButton.Enabled = false;
-            DeleteApiButton.Enabled = false;
+            //GetButton.Enabled = false;
+            //PostButton.Enabled = false;
+            //DeleteApiButton.Enabled = false;
             display();
         }
 
@@ -533,10 +533,10 @@ namespace SupermarketTuto.Forms
             if (ApiRadioButton.Checked == true)
             {
                 localRadioButton.Checked = false;
-                GetButton.Enabled = true;
-                PostButton.Enabled = true;
-                DeleteApiButton.Enabled = true;
-                putButton.Enabled = true;
+                //GetButton.Enabled = true;
+                //PostButton.Enabled = true;
+                //DeleteApiButton.Enabled = true;
+                //putButton.Enabled = true;
                 display_From_API();
             }
         }
@@ -563,14 +563,6 @@ namespace SupermarketTuto.Forms
 
 
 
-    public class Products
-    {
-        public int Prodid { get; set; }
-        public string ProdName { get; set; }
-        public int ProdQty { get; set; }
-        public int ProdPrice { get; set; }
-        public string ProdCat { get; set; }
-    }
 
 
 }
