@@ -13,6 +13,8 @@ using Squirrel;
 using System.Diagnostics;
 using SupermarketTuto.Forms;
 using SupermarketTuto.Forms.AdminForms;
+using System.Configuration;
+using System.Reflection;
 
 namespace SupermarketTuto
 {
@@ -32,6 +34,7 @@ namespace SupermarketTuto
             selectRoleCombobox.SelectedIndex = 0;
 
             CheckForUpdates();
+            AddVersionNumber();
             AddVersionNumber();
         }
 
@@ -145,6 +148,11 @@ namespace SupermarketTuto
         }
 
         private void updateButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        public void changeDB()
         {
 
         }

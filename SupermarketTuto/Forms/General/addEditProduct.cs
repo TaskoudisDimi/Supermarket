@@ -37,12 +37,9 @@ namespace SupermarketTuto.Forms.General
 
             try
             {
-
-                loaddata5.commandExc("Insert Into ProductTbl values(" + ProdName.Text + "'," + ProdQty.Text + "," + ProdPrice.Text + ",'" + catCombobox.SelectedValue.ToString() + "', '" + DateTimePicker.Value.ToString("MM-dd-yyyy") + "')");
+                loaddata5.commandExc("Insert Into ProductTbl values('" + ProdName.Text + "'," + ProdQty.Text + "," + ProdPrice.Text + ",'" + catCombobox.SelectedValue.ToString() + "', '" + DateTimePicker.Value.ToString("MM-dd-yyyy") + "')");
                 MessageBox.Show("Product Successfully Insert");
                 this.Close();
-
-
             }
             catch (Exception ex)
             {
@@ -56,11 +53,9 @@ namespace SupermarketTuto.Forms.General
 
             try
             {
-
                 loaddata6.commandExc("Update ProductTbl set ProdName = '" + ProdName.Text + "', ProdCat = '" + catCombobox.Text + "', ProdQty = '" + ProdQty.Text + "', ProdPrice = '" + ProdPrice.Text + "', Date = '" + DateTimePicker.Value.ToString("yyyy-MM-dd") + "' where ProdId = " + ProdId.Text);
                 MessageBox.Show("Product Successfully Updated");
                 this.Close();
-
             }
             catch (Exception ex)
             {

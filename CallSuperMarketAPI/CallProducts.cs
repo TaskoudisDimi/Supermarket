@@ -56,7 +56,7 @@ namespace CallSuperMarketAPI
             var json = JsonConvert.SerializeObject(product);
 
             var data = new StringContent(json, Encoding.UTF8, "application/json");
-            var url = new Uri("http://localhost:8084/api/post/products");
+            var url = new Uri("http://localhost:8084/api/Products");
             using (var client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));

@@ -99,8 +99,7 @@ namespace SupermarketTuto.Forms
 
         private void refreshButton_Click(object sender, EventArgs e)
         {
-            display();
-
+            refresh_data();
         }
 
         private void addButton_Click(object sender, EventArgs e)
@@ -126,7 +125,6 @@ namespace SupermarketTuto.Forms
             edit.CatIdTb.ReadOnly = true;
             edit.Show();
             refresh_data();
-
         }
 
         private void deleteButton_Click(object sender, EventArgs e)
@@ -134,10 +132,8 @@ namespace SupermarketTuto.Forms
             SqlConnect loaddata5 = new SqlConnect();
             try
             {
-
                 loaddata5.commandExc("Delete From CategoryTbl Where CatId=" + CatDGV.CurrentRow.Cells[0].Value.ToString());
                 refresh_data();
-
             }
             catch (Exception ex)
             {

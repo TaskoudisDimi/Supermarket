@@ -50,9 +50,6 @@ namespace SupermarketTuto.Forms
 
             //This method will bind the Combobox with the Database
             loaddata2.retrieveData("Select CatName From CategoryTbl");
-            
-
-
             catComboBox.DataSource = loaddata2.table;
             catComboBox.ValueMember = "CatName";
             catComboBox.SelectedItem = null;
@@ -161,7 +158,6 @@ namespace SupermarketTuto.Forms
             //catCombobox.SelectedItem = null;
             edit.catCombobox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             edit.catCombobox.AutoCompleteSource = AutoCompleteSource.ListItems;
-
             edit.ProdId.Text = ProdDGV.CurrentRow.Cells[0].Value.ToString();
             edit.ProdName.Text = ProdDGV.CurrentRow.Cells[1].Value.ToString();
             edit.ProdPrice.Text = ProdDGV.CurrentRow.Cells[2].Value.ToString();
@@ -171,8 +167,6 @@ namespace SupermarketTuto.Forms
             edit.addButton.Visible = false;
             edit.ProdId.ReadOnly = true;
             edit.Show();
-
-            
         }
 
         private void deleteButton_Click(object sender, EventArgs e)
@@ -180,11 +174,8 @@ namespace SupermarketTuto.Forms
             SqlConnect loaddata7 = new SqlConnect();
             try
             {
-
                 loaddata7.commandExc("Delete From ProductTbl Where ProdId=" + ProdDGV.CurrentRow.Cells[0].Value.ToString());
-
                 refresh_data();
-
             }
             catch (Exception ex)
             {
