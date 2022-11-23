@@ -37,6 +37,7 @@
             this.billButton = new System.Windows.Forms.Button();
             this.LabelDate = new System.Windows.Forms.Label();
             this.AmountLabel = new System.Windows.Forms.Label();
+            this.seller_Name_Label = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.BillsDGV)).BeginInit();
             this.SuspendLayout();
             // 
@@ -133,11 +134,22 @@
             this.AmountLabel.TabIndex = 71;
             this.AmountLabel.Text = "Total Amount";
             // 
+            // seller_Name_Label
+            // 
+            this.seller_Name_Label.AutoSize = true;
+            this.seller_Name_Label.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.seller_Name_Label.Location = new System.Drawing.Point(12, 20);
+            this.seller_Name_Label.Name = "seller_Name_Label";
+            this.seller_Name_Label.Size = new System.Drawing.Size(114, 24);
+            this.seller_Name_Label.TabIndex = 72;
+            this.seller_Name_Label.Text = "Seller Name";
+            // 
             // CreateBill
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1041, 642);
+            this.Controls.Add(this.seller_Name_Label);
             this.Controls.Add(this.AmountLabel);
             this.Controls.Add(this.LabelDate);
             this.Controls.Add(this.billButton);
@@ -166,6 +178,7 @@
         private Button deleteButton;
         private Button billButton;
         private Label LabelDate;
-        private Label AmountLabel;
+        public Label AmountLabel;
+        private Label seller_Name_Label;
     }
 }

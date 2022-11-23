@@ -48,6 +48,16 @@ namespace SupermarketTuto.Forms.SellingForms
 
         }
 
+        private void displayDGV()
+        {
+            SqlConnect loaddata7 = new SqlConnect();
+            loaddata7.retrieveData("Select * From BillingProducts");
+            OrderDGV.DataSource = loaddata7.table;
+            OrderDGV.AllowUserToAddRows = false;
+            OrderDGV.RowHeadersVisible = false;
+            total2Label.Text = $"Total: {OrderDGV.RowCount}";
+        }
+
         private void fillCombo()
         {
             SqlConnect loaddata3 = new SqlConnect();
@@ -86,7 +96,7 @@ namespace SupermarketTuto.Forms.SellingForms
             {
 
                 SqlConnect loaddata8 = new SqlConnect();
-                loaddata8.commandExc("Insert Into SellingProducts Values('" + SellingProdName.Text + "'," + SellingPriceTextBox.Text + "," + SellingQuantityTextBox.Text + "," + (Convert.ToInt32(SellingPriceTextBox.Text) * Convert.ToInt32(SellingQuantityTextBox.Text)) + ")");
+                loaddata8.commandExc("Insert Into BillingProducts Values('" + SellingProdName.Text + "'," + SellingPriceTextBox.Text + "," + SellingQuantityTextBox.Text + "," + (Convert.ToInt32(SellingPriceTextBox.Text) * Convert.ToInt32(SellingQuantityTextBox.Text)) + ")");
                 OrderDGV.DataSource = loaddata8.table;
                 MessageBox.Show("Success");
                 displayDGV();
@@ -99,24 +109,14 @@ namespace SupermarketTuto.Forms.SellingForms
             double sum = 0;
             for (int i = 0; i < OrderDGV.Rows.Count; i++)
             {
-                sum += double.Parse(OrderDGV.Rows[i].Cells[3].Value.ToString());
+                sum += double.Parse(OrderDGV.Rows[i].Cells[4].Value.ToString());
             }
             AmountLabel.Text = sum.ToString();
         }
 
-        private void displayDGV()
-        {
-            SqlConnect loaddata7 = new SqlConnect();
-            loaddata7.retrieveData("Select * From SellingProducts");
-            OrderDGV.DataSource = loaddata7.table;
-            OrderDGV.AllowUserToAddRows = false;
-            OrderDGV.RowHeadersVisible = false;
-            total2Label.Text = $"Total: {OrderDGV.RowCount}";
-        }
-
         private void SellingDGV_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            SellingProdName.Text = SellingDGV.SelectedRows[0].Cells[0].Value.ToString();
+            SellingProdName.Text = SellingDGV.SelectedRows[0].Cells[1].Value.ToString();
             SellingPriceTextBox.Text = SellingDGV.SelectedRows[0].Cells[3].Value.ToString();
         }
 
@@ -136,6 +136,7 @@ namespace SupermarketTuto.Forms.SellingForms
         private void addButton_Click(object sender, EventArgs e)
         {
            CreateBill bill = new CreateBill();
+           bill.AmountLabel.Text = AmountLabel.Text;
            bill.Show();
            
         }

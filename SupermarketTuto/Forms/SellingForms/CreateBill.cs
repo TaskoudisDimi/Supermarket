@@ -21,14 +21,15 @@ namespace SupermarketTuto.Forms
         private void addProduct_Load(object sender, EventArgs e)
         {
             displayBills();
-
+            LabelDate.Text = DateTime.Now.ToString();
+            seller_Name_Label.Text = "Test";
         }
 
 
         private void displayBills()
         {
             SqlConnect loaddata2 = new SqlConnect();
-            loaddata2.retrieveData("Select * From BillTbl;");
+            loaddata2.retrieveData("Select * From BillTbl");
             BillsDGV.DataSource = loaddata2.table;
             BillsDGV.AllowUserToAddRows = false;
             BillsDGV.RowHeadersVisible = false;
@@ -58,7 +59,7 @@ namespace SupermarketTuto.Forms
             {
                 SqlConnect loaddata4 = new SqlConnect();
 
-                //loaddata4.commandExc("Insert Into BillTbl values('" + commentsRichTextBox.Text + "','" + seller_Name_Label.Text + "','" + LabelDate.Text + "'," + AmountLabel.Text + ")");
+                loaddata4.commandExc("Insert Into BillTbl values('" + commentsRichTextBox.Text + "','" + seller_Name_Label.Text + "','" + LabelDate.Text + "'," + AmountLabel.Text + ")");
                 commentsRichTextBox.Text = String.Empty;
                 displayBills();
 
