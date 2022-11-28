@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SupermarketTuto.DataAccess
+namespace SupermarketTuto.Utils
 {
-    public class Selects
+    public class Globals
     {
 
     }

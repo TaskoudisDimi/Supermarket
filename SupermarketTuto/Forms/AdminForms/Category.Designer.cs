@@ -87,7 +87,7 @@
             this.totalLabel.Location = new System.Drawing.Point(14, 770);
             this.totalLabel.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.totalLabel.Name = "totalLabel";
-            this.totalLabel.Size = new System.Drawing.Size(48, 20);
+            this.totalLabel.Size = new System.Drawing.Size(74, 29);
             this.totalLabel.TabIndex = 84;
             this.totalLabel.Text = "Total:";
             // 
@@ -109,7 +109,7 @@
             this.searchTextBox.Location = new System.Drawing.Point(14, 143);
             this.searchTextBox.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.searchTextBox.Name = "searchTextBox";
-            this.searchTextBox.Size = new System.Drawing.Size(296, 26);
+            this.searchTextBox.Size = new System.Drawing.Size(296, 35);
             this.searchTextBox.TabIndex = 82;
             this.searchTextBox.TextChanged += new System.EventHandler(this.searchTextBox_TextChanged);
             // 
@@ -120,7 +120,7 @@
             this.toDateTimePicker.Location = new System.Drawing.Point(634, 147);
             this.toDateTimePicker.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.toDateTimePicker.Name = "toDateTimePicker";
-            this.toDateTimePicker.Size = new System.Drawing.Size(118, 26);
+            this.toDateTimePicker.Size = new System.Drawing.Size(118, 35);
             this.toDateTimePicker.TabIndex = 81;
             this.toDateTimePicker.ValueChanged += new System.EventHandler(this.toDateTimePicker_ValueChanged);
             // 
@@ -131,7 +131,7 @@
             this.fromDateTimePicker.Location = new System.Drawing.Point(497, 147);
             this.fromDateTimePicker.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.fromDateTimePicker.Name = "fromDateTimePicker";
-            this.fromDateTimePicker.Size = new System.Drawing.Size(127, 26);
+            this.fromDateTimePicker.Size = new System.Drawing.Size(127, 35);
             this.fromDateTimePicker.TabIndex = 80;
             this.fromDateTimePicker.ValueChanged += new System.EventHandler(this.fromDateTimePicker_ValueChanged);
             // 
@@ -161,8 +161,7 @@
             this.CatDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.CatDGV.Size = new System.Drawing.Size(876, 549);
             this.CatDGV.TabIndex = 78;
-            this.CatDGV.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.CatDGV_CellMouseUp);
-            this.CatDGV.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.CatDGV_CellValidating);
+            this.CatDGV.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.CatDGV_CellFormatting);
             // 
             // exportButton
             // 
@@ -202,7 +201,7 @@
             // 
             // Category
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(14F, 29F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1582, 846);
             this.ControlBox = false;
@@ -240,9 +239,9 @@
         private DateTimePicker toDateTimePicker;
         private DateTimePicker fromDateTimePicker;
         private Button refreshButton;
-        private DataGridView CatDGV;
         private Button exportButton;
         private Button saveButton;
         private Button importButton;
+        public DataGridView CatDGV;
     }
 }

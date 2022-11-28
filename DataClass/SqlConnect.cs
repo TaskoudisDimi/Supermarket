@@ -1,9 +1,9 @@
-﻿using System.Configuration;
+﻿using System.Data;
+using System.Configuration;
 using System.Data.SqlClient;
-using System.Data;
+using System.Windows.Forms;
 
-
-namespace SupermarketTuto.DataAccess
+namespace DataClass
 {
     public class SqlConnect
     {
@@ -15,8 +15,6 @@ namespace SupermarketTuto.DataAccess
         {
             con.ConnectionString = ConfigurationManager.ConnectionStrings["smarketdb"].ConnectionString;
         }
-
-
         public void retrieveData(string command)
         {
             try
@@ -61,7 +59,6 @@ namespace SupermarketTuto.DataAccess
             }
         }
 
-
         public void backup(string path)
         {
             con.Open();
@@ -72,16 +69,14 @@ namespace SupermarketTuto.DataAccess
             MessageBox.Show("BackUp seccess!");
         }
 
-
         public void search(string text, string sql)
         {
             con.Open();
-            SqlCommand cmd = new SqlCommand(sql, con);              
+            SqlCommand cmd = new SqlCommand(sql, con);
             SqlDataAdapter adapter = new SqlDataAdapter(cmd);
             adapter.Fill(table);
 
         }
 
     }
-
 }

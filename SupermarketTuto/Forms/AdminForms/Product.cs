@@ -1,6 +1,6 @@
-﻿using Microsoft.VisualBasic.FileIO;
+﻿using DataClass;
+using Microsoft.VisualBasic.FileIO;
 using Newtonsoft.Json;
-using SupermarketTuto.DataAccess;
 using SupermarketTuto.Forms.General;
 using System;
 using System.Collections.Generic;
@@ -29,10 +29,6 @@ namespace SupermarketTuto.Forms
             display();
             fillCombo();
             
-            //GetButton.Enabled = false;
-            //PostButton.Enabled = false;
-            //DeleteApiButton.Enabled = false;
-            //putButton.Enabled = false;
             ContextMenuStrip mnu = new ContextMenuStrip();
             ToolStripMenuItem mnuDelete = new ToolStripMenuItem("Delete");
             //Assign event handlers

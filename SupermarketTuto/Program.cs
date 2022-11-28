@@ -13,7 +13,7 @@ namespace SupermarketTuto
         static void Main()
         {
             //ApplicationConfiguration.Initialize();
-            Application.Run(new MainSelling());
+            Application.Run(new MainAdmin());
         }
     }
 }
