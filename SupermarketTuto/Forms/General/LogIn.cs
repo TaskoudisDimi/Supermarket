@@ -8,13 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
-using SupermarketTuto.DataAccess;
 using Squirrel;
 using System.Diagnostics;
 using SupermarketTuto.Forms;
 using SupermarketTuto.Forms.AdminForms;
 using System.Configuration;
 using System.Reflection;
+using DataClass;
 
 namespace SupermarketTuto
 {

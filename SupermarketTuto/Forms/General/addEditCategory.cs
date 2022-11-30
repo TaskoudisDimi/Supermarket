@@ -1,5 +1,5 @@
-﻿using SupermarketTuto.DataAccess;
-using SupermarketTuto.DataAccess;
+﻿
+using DataClass;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

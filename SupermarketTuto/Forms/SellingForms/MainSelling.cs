@@ -1,4 +1,4 @@
-﻿using SupermarketTuto.DataAccess;
+﻿using DataClass;
 
 
 namespace SupermarketTuto.Forms.SellingForms

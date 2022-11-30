@@ -1,4 +1,4 @@
-﻿using SupermarketTuto.DataAccess;
+﻿
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,6 +19,7 @@ using System.Data.SqlClient;
 using static SupermarketTuto.Forms.Seller;
 using Newtonsoft.Json;
 using System.Security.Policy;
+using DataClass;
 
 namespace SupermarketTuto.Forms.General
 {

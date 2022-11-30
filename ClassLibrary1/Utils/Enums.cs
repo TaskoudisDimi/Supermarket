@@ -14,7 +14,11 @@ namespace SupermarketTuto.Utils
             False
         }
 
-
+        public enum ExpiredProduct
+        {
+            True,
+            False
+        }
 
     }
 }

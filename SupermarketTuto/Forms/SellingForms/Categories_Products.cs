@@ -1,4 +1,4 @@
-﻿using SupermarketTuto.DataAccess;
+﻿using DataClass;
 using SupermarketTuto.Forms.General;
 using System.Windows.Forms;
 
