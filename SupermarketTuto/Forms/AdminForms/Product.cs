@@ -122,8 +122,6 @@ namespace SupermarketTuto.Forms
             //}
         }
 
-
-
         private void addButton_Click(object sender, EventArgs e)
         {
 
@@ -493,11 +491,14 @@ namespace SupermarketTuto.Forms
         {
             display();
         }
+
+        private void ProdDGV_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (ProdDGV.CurrentRow.Cells[1].Value.ToString() == "Test11")
+            {
+                ProdDGV.CurrentRow.DefaultCellStyle.BackColor = Color.Red;
+            }
+        }
     }
-
-
-
-
-
 }
 

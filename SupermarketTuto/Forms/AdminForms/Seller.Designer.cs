@@ -101,6 +101,7 @@
             // SellDGV
             // 
             this.SellDGV.AllowUserToAddRows = false;
+            this.SellDGV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.SellDGV.BackgroundColor = System.Drawing.Color.WhiteSmoke;
             this.SellDGV.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.SellDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;

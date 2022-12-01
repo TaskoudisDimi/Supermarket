@@ -31,6 +31,7 @@ namespace SupermarketTuto.Forms
                 loaddata.retrieveData("Select * From CategoryTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'");
                 CatDGV.DataSource = loaddata.table;
                 CatDGV.RowHeadersVisible = false;
+                CatDGV.Columns[3].HeaderText = "Date Created";
                 totalLabel.Text = $"Total: {CatDGV.RowCount}";
                 if (totalLabel.Text == null)
                 {
