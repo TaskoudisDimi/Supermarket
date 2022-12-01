@@ -3,13 +3,12 @@ using DataClass;
 using SupermarketTuto.Forms.General;
 using System.Data;
 using System.Text;
-using static SupermarketTuto.Utils.Enums;
 
 namespace SupermarketTuto.Forms
 {
     public partial class Category : Form
     {
-        HasValue hasValue = HasValue.True;
+        
         public Category()
         {
             InitializeComponent();
@@ -36,7 +35,6 @@ namespace SupermarketTuto.Forms
                 if (totalLabel.Text == null)
                 {
                     MessageBox.Show("Warning", "There is no data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    hasValue = HasValue.False;
                 }
             }
             catch

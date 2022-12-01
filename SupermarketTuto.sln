@@ -5,7 +5,7 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SupermarketTuto", "SupermarketTuto\SupermarketTuto.csproj", "{BCA9883B-0439-4097-B2C6-A7FB99E10789}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataClass", "ClassLibrary1\DataClass.csproj", "{87C9335D-0730-4430-9479-895F0AE1ABD8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataClass", "DataClass\DataClass.csproj", "{87C9335D-0730-4430-9479-895F0AE1ABD8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

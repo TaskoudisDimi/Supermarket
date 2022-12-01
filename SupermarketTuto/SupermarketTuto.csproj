@@ -26,6 +26,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ClassLibrary1\DataClass.csproj" />
+    <ProjectReference Include="..\DataClass\DataClass.csproj" />
   </ItemGroup>
 
   <ItemGroup>
