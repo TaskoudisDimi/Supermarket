@@ -2,6 +2,7 @@
 using Microsoft.VisualBasic.FileIO;
 using Newtonsoft.Json;
 using SupermarketTuto.Forms.General;
+using SupermarketTuto.Utils;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -56,15 +57,20 @@ namespace SupermarketTuto.Forms
 
         private void display()
         {
-
-            SqlConnect loaddata1 = new SqlConnect();
-            loaddata1.retrieveData("Select * from ProductTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'");
-            ProdDGV.DataSource = loaddata1.table;
-            ProdDGV.RowHeadersVisible = false;
-            ProdDGV.Columns[5].HeaderText = "Expiration Date";
-
-
-
+            try
+            {
+                SqlConnect loaddata1 = new SqlConnect();
+                loaddata1.retrieveData("Select * from ProductTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'");
+                ProdDGV.DataSource = loaddata1.table;
+                ProdDGV.RowHeadersVisible = false;
+            }
+            catch (Exception ex)
+            {
+                
+                Utlis.Log(string.Format("Message : {0}", ex.Message), "ErrorPdoduct.txt");
+            }
+           
+            
             //ProgressBar frm = new ProgressBar();
 
             //BackgroundWorker bgw = new BackgroundWorker()
@@ -129,21 +135,17 @@ namespace SupermarketTuto.Forms
 
         private void addButton_Click(object sender, EventArgs e)
         {
-
             addEditProduct add = new addEditProduct();
             SqlConnect loaddata2 = new SqlConnect();
-            ////This method will bind the Combobox with the Database
             loaddata2.retrieveData("Select CatName From CategoryTbl");
             add.catCombobox.DataSource = loaddata2.table;
             add.catCombobox.ValueMember = "CatName";
-            //catCombobox.SelectedItem = null;
             add.catCombobox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             add.catCombobox.AutoCompleteSource = AutoCompleteSource.ListItems;
             add.editButton.Visible = false;
             add.ProdId.Visible = false;
             add.idLabel.Visible = false;
             add.Show();
-
         }
 
         private void editButton_Click(object sender, EventArgs e)

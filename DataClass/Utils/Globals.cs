@@ -9,5 +9,7 @@ namespace SupermarketTuto.Utils
     public class Globals
     {
 
+
+
     }
 }
