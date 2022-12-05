@@ -61,6 +61,10 @@ namespace SupermarketTuto.Forms
             loaddata1.retrieveData("Select * from ProductTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'");
             ProdDGV.DataSource = loaddata1.table;
             ProdDGV.RowHeadersVisible = false;
+            ProdDGV.Columns[5].HeaderText = "Expiration Date";
+
+
+
             //ProgressBar frm = new ProgressBar();
 
             //BackgroundWorker bgw = new BackgroundWorker()
@@ -107,6 +111,7 @@ namespace SupermarketTuto.Forms
             loaddata21.retrieveData("Select * from ProductTbl");
             ProdDGV.DataSource = loaddata21.table;
             ProdDGV.RowHeadersVisible = false;
+
         }
 
         private void mnuDelete_Click(object? sender, EventArgs e)
@@ -494,10 +499,12 @@ namespace SupermarketTuto.Forms
 
         private void ProdDGV_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (ProdDGV.CurrentRow.Cells[1].Value.ToString() == "Test11")
+
+            if (ProdDGV.CurrentRow.Cells[2].Value.ToString() == "1")
             {
                 ProdDGV.CurrentRow.DefaultCellStyle.BackColor = Color.Red;
             }
+
         }
     }
 }

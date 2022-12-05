@@ -26,6 +26,7 @@ namespace SupermarketTuto.Forms
             SellDGV.DataSource = loaddata1.table;
             totalLabel.Text = $"Total: {SellDGV.RowCount}";
             SellDGV.RowHeadersVisible = false;
+            SellDGV.Columns[5].HeaderText = "Date of Birth";
 
         }
 

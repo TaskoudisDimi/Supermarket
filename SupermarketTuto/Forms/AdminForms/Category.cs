@@ -310,8 +310,12 @@ namespace SupermarketTuto.Forms
 
         private void CatDGV_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-
-
+            if (CatDGV.CurrentRow.Cells[0].Value.ToString() == "2")
+            {
+                CatDGV.CurrentRow.DefaultCellStyle.BackColor = Color.Red;
+            }
         }
+
+
     }
 }
