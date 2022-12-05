@@ -6,13 +6,19 @@ namespace SupermarketTuto
 {
     internal static class Program
     {
-        /// <summary>
-        ///  The main entry point for the application.
-        /// </summary>
+       
         [STAThread]
         static void Main()
         {
-            Application.Run(new MainAdmin());
+            Application.Run(new Splash());
         }
+
+        // TODO: Write Logs
+        // TODO: Use Constants
+        // TODO: CellFormating
+        // TODO: Create Utils methods
+        // TODO: Use Interface / abstract, static 
+        // TODO: Use TCP / UDP sending/receiving packet  
+        // TODO: Build API
     }
 }

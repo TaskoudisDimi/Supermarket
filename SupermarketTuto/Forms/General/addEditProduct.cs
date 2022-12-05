@@ -38,7 +38,7 @@ namespace SupermarketTuto.Forms.General
             try
             {
                 loaddata5.commandExc("Insert Into ProductTbl values('" + ProdName.Text + "'," + ProdQty.Text + "," + ProdPrice.Text + ",'" + catCombobox.SelectedValue.ToString() + "', '" + DateTimePicker.Value.ToString("MM-dd-yyyy") + "')");
-                MessageBox.Show("Product Successfully Insert");
+                MessageBox.Show(Constants.MessageInsertData);
                 this.Close();
             }
             catch (Exception ex)
