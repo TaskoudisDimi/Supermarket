@@ -15,13 +15,14 @@ using SupermarketTuto.Forms.AdminForms;
 using System.Configuration;
 using System.Reflection;
 using DataClass;
+using SupermarketTuto.Utils;
+using Microsoft.Office.Interop.Excel;
+using Constants = DataClass.Constants;
 
 namespace SupermarketTuto
 {
     public partial class LogIn : Form
     {
-
-
         SqlConnect loaddata = new SqlConnect();
         public static string sellerName = "";
 
@@ -112,7 +113,8 @@ namespace SupermarketTuto
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error", "Error", MessageBoxButtons.OK);
+                MessageBox.Show("Error", Constants.Error, MessageBoxButtons.OK);
+                Utlis.Log(string.Format("Message : {0}", ex.Message), "ErrorLogIn.txt");
             }
 
         }
@@ -140,7 +142,7 @@ namespace SupermarketTuto
 
         private void LogIn_FormClosing_1(object sender, FormClosingEventArgs e)
         {
-            DialogResult confirm = MessageBox.Show("Confirm to close", "Exit", MessageBoxButtons.YesNo);
+            DialogResult confirm = MessageBox.Show("Confirm to close", Constants.Exit, MessageBoxButtons.YesNo);
             if (confirm == DialogResult.No)
             {
                 e.Cancel = true;

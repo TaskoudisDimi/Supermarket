@@ -8,7 +8,8 @@ namespace DataClass
 {
     public static class Constants
     {
-        public const string Exception = "Error";
+        public const string Error = "Error";
+        public const string Exit = "Exit";
         public const string Warning = "Warning";
         public const string WrongCreadentials = "Wrong Credentials";
         public const string MessageInsertData = "Successfull Insert";
