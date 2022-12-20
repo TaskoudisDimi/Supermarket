@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using DataClass;
+using SupermarketTuto.Utils;
 
 namespace SupermarketTuto
 {
@@ -21,12 +22,6 @@ namespace SupermarketTuto
         public Register()
         {
             InitializeComponent();
-
-            chooseRoleCombobox.Items.AddRange(new string[] { "Admin", "Seller" });
-            chooseRoleCombobox.Items.Insert(0, "Select Role");
-            chooseRoleCombobox.SelectedIndex = 0;
-
-
         }
 
         private void UsernameTextBox_TextChanged(object sender, EventArgs e)
@@ -53,12 +48,9 @@ namespace SupermarketTuto
                     MessageBox.Show("Username and/or Password fields are empty", "Registration Failed", MessageBoxButtons.OK);
 
                 }
-                else if (PasswordTextBox.Text == ConfirmPasswordTextBox.Text && chooseRoleCombobox.SelectedItem != null)
+                else if (PasswordTextBox.Text == ConfirmPasswordTextBox.Text)
                 {
-
-                    loaddata.commandExc("Insert Into Users Values ('" + UsernameTextBox.Text + "','" + PasswordTextBox.Text + "','" + chooseRoleCombobox.SelectedItem + "')");
-
-
+                    loaddata.commandExc("Insert Into Admins Values ('" + UsernameTextBox.Text + "'," + $"CONVERT(varbinary, '{PasswordTextBox.Text}')" + "," + "'True')");
                     MessageBox.Show("Your Account has been Successfully Created", "Registration Success", MessageBoxButtons.OK);
                     UsernameTextBox.Clear();
                     PasswordTextBox.Clear();

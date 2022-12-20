@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace SupermarketTuto.Utils
 {
@@ -62,9 +59,8 @@ namespace SupermarketTuto.Utils
                 string newFName = fname.Replace(ext, string.Format("{0}{1}", DateTime.Now.ToString("_yy_MM_dd_HH_mm_ss_"), ext));
                 File.Move(fname, newFName);
             }
-            catch
+            catch (Exception ex)
             {
-
             }
         }
 

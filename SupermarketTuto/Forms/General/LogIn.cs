@@ -18,6 +18,8 @@ using DataClass;
 using SupermarketTuto.Utils;
 using Microsoft.Office.Interop.Excel;
 using Constants = DataClass.Constants;
+using SupermarketTuto.Forms.SellingForms;
+using DataTable = System.Data.DataTable;
 
 namespace SupermarketTuto
 {
@@ -25,7 +27,6 @@ namespace SupermarketTuto
     {
         SqlConnect loaddata = new SqlConnect();
         public static string sellerName = "";
-
         public LogIn()
         {
             InitializeComponent();
@@ -82,23 +83,30 @@ namespace SupermarketTuto
                 }
                 else
                 {
-                    loaddata.retrieveData("Select * From [smarketdb].[dbo].[Users] Where Username= '" + UserNameTextBox.Text + "' and Password= '" + PasswordTextBox.Text + "' and Role= '" + selectRoleCombobox.SelectedItem + "'");
+                    //loaddata.retrieveData("Select * From [smarketdb].[dbo].[SellersTbl] Where SellerUserName = '" + UserNameTextBox.Text + "' and SellerPass = '" + PasswordTextBox.Text + "' and Role= '" + selectRoleCombobox.SelectedItem + "'");
                     sellerName = UserNameTextBox.Text;
 
-                    if (loaddata.table.Rows.Count == 1 && selectRoleCombobox.SelectedItem != "Select Role")
+                    if (selectRoleCombobox.SelectedItem != "Select Role")
                     {
                         if (selectRoleCombobox.SelectedItem == "Admin")
                         {
-
-                            MainAdmin products = new MainAdmin();
-                            products.Show();
-                            this.Hide();
+                            loaddata.retrieveData("Select * From [smarketdb].[dbo].[Admins] Where UserName = '" + UserNameTextBox.Text + "' and Password = CONVERT(varbinary,'" + PasswordTextBox.Text + "')");
+                            if (loaddata.table.Rows.Count == 1)
+                            {
+                                MainAdmin products = new MainAdmin();
+                                products.Show();
+                                this.Hide();
+                            }
                         }
                         if (selectRoleCombobox.SelectedItem == "Seller")
                         {
-                            //SellingForm selling = new SellingForm();
-                            //selling.Show();
-                            this.Hide();
+                            loaddata.retrieveData("Select * From [smarketdb].[dbo].[SellersTbl] Where SellerUserName = '" + UserNameTextBox.Text + $"' and SellerPass = CONVERT(varbinary,'{PasswordTextBox.Text}')");
+                            if(loaddata.table.Rows.Count == 1)
+                            {
+                                MainSelling selling = new MainSelling();
+                                selling.Show();
+                                this.Hide();
+                            }
                         }
                     }
                     else if (selectRoleCombobox.SelectedItem == "Select Role")
@@ -116,7 +124,6 @@ namespace SupermarketTuto
                 MessageBox.Show("Error", Constants.Error, MessageBoxButtons.OK);
                 Utlis.Log(string.Format("Message : {0}", ex.Message), "ErrorLogIn.txt");
             }
-
         }
 
         private void CreateAccountButton_Click(object sender, EventArgs e)
@@ -124,7 +131,6 @@ namespace SupermarketTuto
             Register register = new Register();
             register.Show();
             this.Hide();
-
         }
 
         private void ShowPasswordCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -138,7 +144,6 @@ namespace SupermarketTuto
                 PasswordTextBox.PasswordChar = '*';
             }
         }
-
 
         private void LogIn_FormClosing_1(object sender, FormClosingEventArgs e)
         {

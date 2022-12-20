@@ -1,5 +1,6 @@
 ﻿using DataClass;
 using SupermarketTuto.Forms.General;
+using SupermarketTuto.Utils;
 using System.Data;
 using System.Data.SqlClient;
 using System.Text;
@@ -20,14 +21,19 @@ namespace SupermarketTuto.Forms
 
         private void display()
         {
-            SqlConnect loaddata1 = new SqlConnect();
-            SqlConnect loaddata20 = new SqlConnect();
-            loaddata1.retrieveData("Select SellerId, SellerName, SellerAge, SellerPhone, SellerPass, Date, Address From SellerTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'");
-            SellDGV.DataSource = loaddata1.table;
-            totalLabel.Text = $"Total: {SellDGV.RowCount}";
-            SellDGV.RowHeadersVisible = false;
-            SellDGV.Columns[5].HeaderText = "Date of Birth";
-
+            try
+            {
+                SqlConnect loaddata1 = new SqlConnect();
+                loaddata1.retrieveData("Select SellerId, SellerName, SellerAge, SellerPhone, SellerPass, Date, Address, Active From SellerTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'");
+                SellDGV.DataSource = loaddata1.table;
+                totalLabel.Text = $"Total: {SellDGV.RowCount}";
+                SellDGV.RowHeadersVisible = false;
+                SellDGV.Columns[5].HeaderText = "Date of Birth";
+            }
+            catch(Exception ex)
+            {
+                Utlis.Log(string.Format("Message : {0}", ex.Message), "ErrorDisplayData.txt");
+            }
         }
 
         private void Seller_Load(object sender, EventArgs e)
@@ -75,18 +81,18 @@ namespace SupermarketTuto.Forms
                 edit.SellName.Text = SellDGV.CurrentRow.Cells[1].Value.ToString();
                 edit.SellAge.Text = SellDGV.CurrentRow.Cells[2].Value.ToString();
                 edit.SellPhone.Text = SellDGV.CurrentRow.Cells[3].Value.ToString();
-                edit.SellPass.Text = SellDGV.CurrentRow.Cells[4].Value.ToString();
+                edit.passwordTextBox.Text = SellDGV.CurrentRow.Cells[4].Value.ToString();
                 edit.dateTimePicker.Text = SellDGV.CurrentRow.Cells[5].Value.ToString();
                 edit.addressTextBox.Text = SellDGV.CurrentRow.Cells[6].Value.ToString();
                 edit.addButton.Visible = false;
                 edit.SellId.ReadOnly = true;
                 edit.Show();
             }
-            catch
+            catch (Exception ex)
             {
-
+                Utlis.Log(string.Format("Message : {0}", ex.Message), "ErrorDisplayData.txt");
             }
-            
+
         }
 
         private void delete2Button_Click(object sender, EventArgs e)

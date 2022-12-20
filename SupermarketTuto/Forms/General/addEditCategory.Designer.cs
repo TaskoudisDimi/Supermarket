@@ -47,7 +47,7 @@
             this.dateLabel.Location = new System.Drawing.Point(154, 363);
             this.dateLabel.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
             this.dateLabel.Name = "dateLabel";
-            this.dateLabel.Size = new System.Drawing.Size(46, 21);
+            this.dateLabel.Size = new System.Drawing.Size(67, 32);
             this.dateLabel.TabIndex = 97;
             this.dateLabel.Text = "Date";
             // 
@@ -58,7 +58,7 @@
             this.dateTimePicker.Location = new System.Drawing.Point(308, 363);
             this.dateTimePicker.Margin = new System.Windows.Forms.Padding(8, 5, 8, 5);
             this.dateTimePicker.Name = "dateTimePicker";
-            this.dateTimePicker.Size = new System.Drawing.Size(273, 26);
+            this.dateTimePicker.Size = new System.Drawing.Size(273, 35);
             this.dateTimePicker.TabIndex = 96;
             // 
             // descriptionLabel
@@ -68,7 +68,7 @@
             this.descriptionLabel.Location = new System.Drawing.Point(106, 262);
             this.descriptionLabel.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
             this.descriptionLabel.Name = "descriptionLabel";
-            this.descriptionLabel.Size = new System.Drawing.Size(98, 21);
+            this.descriptionLabel.Size = new System.Drawing.Size(146, 32);
             this.descriptionLabel.TabIndex = 95;
             this.descriptionLabel.Text = "Description";
             // 
@@ -79,7 +79,7 @@
             this.name3Label.Location = new System.Drawing.Point(140, 169);
             this.name3Label.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
             this.name3Label.Name = "name3Label";
-            this.name3Label.Size = new System.Drawing.Size(56, 21);
+            this.name3Label.Size = new System.Drawing.Size(81, 32);
             this.name3Label.TabIndex = 94;
             this.name3Label.Text = "Name";
             // 
@@ -90,7 +90,7 @@
             this.idlabel.Location = new System.Drawing.Point(153, 86);
             this.idlabel.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
             this.idlabel.Name = "idlabel";
-            this.idlabel.Size = new System.Drawing.Size(27, 21);
+            this.idlabel.Size = new System.Drawing.Size(40, 32);
             this.idlabel.TabIndex = 93;
             this.idlabel.Text = "ID";
             // 
@@ -100,7 +100,7 @@
             this.CatDescTb.Location = new System.Drawing.Point(308, 254);
             this.CatDescTb.Margin = new System.Windows.Forms.Padding(8, 5, 8, 5);
             this.CatDescTb.Name = "CatDescTb";
-            this.CatDescTb.Size = new System.Drawing.Size(273, 26);
+            this.CatDescTb.Size = new System.Drawing.Size(273, 35);
             this.CatDescTb.TabIndex = 92;
             // 
             // CatNameTb
@@ -109,7 +109,7 @@
             this.CatNameTb.Location = new System.Drawing.Point(308, 169);
             this.CatNameTb.Margin = new System.Windows.Forms.Padding(8, 5, 8, 5);
             this.CatNameTb.Name = "CatNameTb";
-            this.CatNameTb.Size = new System.Drawing.Size(273, 26);
+            this.CatNameTb.Size = new System.Drawing.Size(273, 35);
             this.CatNameTb.TabIndex = 91;
             // 
             // CatIdTb
@@ -118,7 +118,7 @@
             this.CatIdTb.Location = new System.Drawing.Point(308, 86);
             this.CatIdTb.Margin = new System.Windows.Forms.Padding(8, 5, 8, 5);
             this.CatIdTb.Name = "CatIdTb";
-            this.CatIdTb.Size = new System.Drawing.Size(273, 26);
+            this.CatIdTb.Size = new System.Drawing.Size(273, 35);
             this.CatIdTb.TabIndex = 90;
             // 
             // editButton
@@ -139,9 +139,9 @@
             this.addButton.Location = new System.Drawing.Point(158, 528);
             this.addButton.Margin = new System.Windows.Forms.Padding(8, 5, 8, 5);
             this.addButton.Name = "addButton";
-            this.addButton.Size = new System.Drawing.Size(110, 62);
+            this.addButton.Size = new System.Drawing.Size(149, 62);
             this.addButton.TabIndex = 98;
-            this.addButton.Text = "Add";
+            this.addButton.Text = "Create New";
             this.addButton.UseVisualStyleBackColor = true;
             this.addButton.Click += new System.EventHandler(this.addButton_Click);
             // 

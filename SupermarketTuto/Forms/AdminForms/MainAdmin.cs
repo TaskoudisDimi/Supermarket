@@ -29,7 +29,6 @@ namespace SupermarketTuto.Forms.AdminForms
             MenuStrip menu = new MenuStrip();
             menu.Dock = DockStyle.Top;
             menu.Font = new Font("Segoe UI", 16);
-
             this.Controls.Add(menu);
             string[] items = new string[] { "File", "About" };
             foreach (string Row in items)
@@ -37,29 +36,48 @@ namespace SupermarketTuto.Forms.AdminForms
                 ToolStripMenuItem MnuStripItem = new ToolStripMenuItem(Row);
                 menu.Items.Add(MnuStripItem);
                 SubMenu(MnuStripItem, Row);
-
                 if (MnuStripItem.Text == "About")
                 {
                     MnuStripItem.Click += new EventHandler(MnuStripAbout_Click);
                 }
+                
             }
         }
+        public void SubMenu2(ToolStripMenuItem MnuItems, string var)
+        {
+            if (var == "File")
+            {
+                string[] row = new string[] { "New", "Open", "Add", "Close", "Close Solution" };
+                foreach (string rw in row)
+                {
+                    ToolStripMenuItem SSMenu = new ToolStripMenuItem(rw, null);
+                    SubMenu(SSMenu, rw);
+                    MnuItems.DropDownItems.Add(SSMenu);
+                }
+            }
 
+            if (var == "New")
+            {
+                string[] row = new string[] { "Project", "Web Site", "File..", "Project From Existing Code" };  
+                foreach (string rw in row)
+                {
+                    ToolStripMenuItem SSSMenu = new ToolStripMenuItem(rw, null);
+                    MnuItems.DropDownItems.Add(SSSMenu);
+                }
+            }
+        }
         private void SubMenu(ToolStripMenuItem items, string var)
         {
             if (var == "File")
             {
-                string[] subItem = new string[] { "Users", "BackUp", "Log out", "Exit" };
+                string[] subItem = new string[] { "AllUsers", "BackUp", "Log out", "Exit" };
                 foreach (string Row in subItem)
                 {
                     ToolStripMenuItem subMenuItem = new ToolStripMenuItem(Row, null);
                     SubMenu(subMenuItem, Row);
                     items.DropDownItems.Add(subMenuItem);
-                    if (subMenuItem.Text == "Users")
-                    {
-                        subMenuItem.Click += new EventHandler(MnuStripUsers_Click);
-                    }
-                    else if (subMenuItem.Text == "BackUp")
+                   
+                    if (subMenuItem.Text == "BackUp")
                     {
                         subMenuItem.Click += new EventHandler(MnuStripDb_Click);
                     }
@@ -73,6 +91,34 @@ namespace SupermarketTuto.Forms.AdminForms
                     }
                 }
             }
+            if (var == "AllUsers")
+            {
+                string[] row = new string[] { "Sellers", "Admins"};
+                foreach (string rw in row)
+                {
+                    ToolStripMenuItem SSSMenu = new ToolStripMenuItem(rw, null);
+                    items.DropDownItems.Add(SSSMenu);
+                    if (SSSMenu.Text == "Sellers")
+                    {
+                        SSSMenu.Click += new EventHandler(MnuStripSellers_Click);
+                    }
+                    else if (SSSMenu.Text == "Admins")
+                    {
+                        SSSMenu.Click += new EventHandler(MnuStripAdmins_Click);
+                    }
+                }
+            }
+        }
+
+        private void MnuStripSellers_Click(object sender, EventArgs e)
+        {
+            SellersForm sellers = new SellersForm();
+            sellers.Show();
+        }
+        private void MnuStripAdmins_Click(object sender, EventArgs e)
+        {
+            Admins admins = new Admins();
+            admins.Show();
         }
 
         private void MnuStripLogOut_Click(object sender, EventArgs e)
@@ -84,7 +130,7 @@ namespace SupermarketTuto.Forms.AdminForms
 
         private void MnuStripUsers_Click(object sender, EventArgs e)
         {
-            Users users = new Users();
+            SellersForm users = new SellersForm();
             users.Show();
         }
 
@@ -104,7 +150,6 @@ namespace SupermarketTuto.Forms.AdminForms
 
             SqlConnect db = new SqlConnect();
             string path = "";
-
             FolderBrowserDialog dialog = new FolderBrowserDialog();
             DialogResult result = dialog.ShowDialog();
             if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(dialog.SelectedPath))
@@ -135,7 +180,6 @@ namespace SupermarketTuto.Forms.AdminForms
             form.TopMost = true;
             mainPanel.Controls.Add(form);
             form.BringToFront();
-
             form.Show();
         }
 
@@ -146,15 +190,12 @@ namespace SupermarketTuto.Forms.AdminForms
             form.TopMost = true;
             mainPanel.Controls.Add(form);
             form.BringToFront();
-
             form.Show();
         }
 
-
-
         private void MainAdmin_FormClosing(object sender, FormClosingEventArgs e)
         {
-            DialogResult confirm = MessageBox.Show("Confirm to close", "Exit", MessageBoxButtons.YesNo);
+            DialogResult confirm = MessageBox.Show("Confirm to close", Constants.Exit, MessageBoxButtons.YesNo);
             if (confirm == DialogResult.No)
             {
                 e.Cancel = true;

@@ -43,9 +43,12 @@ namespace SupermarketTuto.Forms.General
             SqlConnect loaddata5 = new SqlConnect();
             try
             {
-                loaddata5.commandExc("Insert Into SellerTbl values('" + SellName.Text + "'," + SellAge.Text + "," + SellPhone.Text + ",'" + SellPass.Text + "','" + dateTimePicker.Value.ToString("MM-dd-yyyy") + "','" + address + "')");
-                MessageBox.Show("Seller added successfuly");
-                this.Close();
+                if (checkBox.Checked)
+                {
+                    loaddata5.commandExc("Insert Into SellersTbl values('" + SellName.Text + "'," + "CONVERT(varbinary,'" + passwordTextBox.Text + "'), '" + SellName.Text + "'," + SellAge.Text + "," + SellPhone.Text + ",'" + dateTimePicker.Value.ToString("MM-dd-yyyy") + "','" + address + "','True')");
+                    MessageBox.Show("Seller added successfuly");
+                    this.Close();
+                }
             }
             catch (Exception ex)
             {
@@ -58,10 +61,16 @@ namespace SupermarketTuto.Forms.General
             SqlConnect loaddata3 = new SqlConnect();
             try
             {
-                loaddata3.commandExc("Update SellerTbl set SellerName='" + SellName.Text + "', SellerAge='" + SellAge.Text + "', SellerPhone='" + SellPhone.Text + "', SellerPass='" + SellPass.Text + "', Address='" + addressTextBox.Text + "', Date='" + dateTimePicker.Value.ToString("yyyy-MM-dd") + "' where SellerId=" + SellId.Text);
+                if (checkBox.Checked)
+                {
+                    loaddata3.commandExc("Update SellersTbl set SellerUserName='" + SellName.Text + $"SellerPass = Convert(varbinary, '{passwordTextBox.Text}')" + ", SellerName = " + SellName.Text + "SellerAge='" + SellAge.Text + "', SellerPhone='" + SellPhone.Text + "', Address='" + addressTextBox.Text + "', Date='" + dateTimePicker.Value.ToString("yyyy-MM-dd") + "Active = 'True'" +  "where SellerId=" + SellId.Text);
+                }
+                else
+                {
+                    loaddata3.commandExc("Update SellersTbl set SellerUserName='" + SellName.Text + $"SellerPass = Convert(varbinary, '{passwordTextBox.Text}')" + ", SellerName = " + SellName.Text + "SellerAge='" + SellAge.Text + "', SellerPhone='" + SellPhone.Text + "', Address='" + addressTextBox.Text + "', Date='" + dateTimePicker.Value.ToString("yyyy-MM-dd") + "Active = 'False'" + "where SellerId=" + SellId.Text);
+                }
                 MessageBox.Show("Product Successfully Updated");
                 this.Close();
-
             }
             catch (Exception ex)
             {

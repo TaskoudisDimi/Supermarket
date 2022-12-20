@@ -11,9 +11,9 @@ using System.Windows.Forms;
 
 namespace SupermarketTuto.Forms
 {
-    public partial class Users : Form
+    public partial class SellersForm : Form
     {
-        public Users()
+        public SellersForm()
         {
             InitializeComponent();
         }
@@ -21,9 +21,11 @@ namespace SupermarketTuto.Forms
         private void Users_Load(object sender, EventArgs e)
         {
             SqlConnect loaddata = new SqlConnect();
-            loaddata.retrieveData("Select * From Users");
+            loaddata.retrieveData("Select * From SellerTbl");
             usersDataGridView.DataSource = loaddata.table;
             usersDataGridView.RowHeadersVisible = false;
         }
+
+       
     }
 }

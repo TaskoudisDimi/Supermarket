@@ -50,18 +50,20 @@
             // 
             this.totalLabel.AutoSize = true;
             this.totalLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.totalLabel.Location = new System.Drawing.Point(9, 660);
+            this.totalLabel.Location = new System.Drawing.Point(14, 1015);
+            this.totalLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.totalLabel.Name = "totalLabel";
-            this.totalLabel.Size = new System.Drawing.Size(48, 20);
+            this.totalLabel.Size = new System.Drawing.Size(74, 29);
             this.totalLabel.TabIndex = 114;
             this.totalLabel.Text = "Total:";
             // 
             // searchButton
             // 
             this.searchButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.searchButton.Location = new System.Drawing.Point(199, 203);
+            this.searchButton.Location = new System.Drawing.Point(298, 312);
+            this.searchButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.searchButton.Name = "searchButton";
-            this.searchButton.Size = new System.Drawing.Size(87, 28);
+            this.searchButton.Size = new System.Drawing.Size(130, 43);
             this.searchButton.TabIndex = 113;
             this.searchButton.Text = "Search";
             this.searchButton.UseVisualStyleBackColor = true;
@@ -70,9 +72,10 @@
             // searchTextBox
             // 
             this.searchTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.searchTextBox.Location = new System.Drawing.Point(7, 205);
+            this.searchTextBox.Location = new System.Drawing.Point(10, 315);
+            this.searchTextBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.searchTextBox.Name = "searchTextBox";
-            this.searchTextBox.Size = new System.Drawing.Size(179, 26);
+            this.searchTextBox.Size = new System.Drawing.Size(266, 35);
             this.searchTextBox.TabIndex = 112;
             this.searchTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.searchTextBox_KeyPress);
             // 
@@ -80,10 +83,9 @@
             // 
             this.toDateTimePicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.toDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.toDateTimePicker.Location = new System.Drawing.Point(529, 203);
-            this.toDateTimePicker.Margin = new System.Windows.Forms.Padding(2);
+            this.toDateTimePicker.Location = new System.Drawing.Point(794, 312);
             this.toDateTimePicker.Name = "toDateTimePicker";
-            this.toDateTimePicker.Size = new System.Drawing.Size(117, 26);
+            this.toDateTimePicker.Size = new System.Drawing.Size(174, 35);
             this.toDateTimePicker.TabIndex = 110;
             this.toDateTimePicker.ValueChanged += new System.EventHandler(this.toDateTimePicker_ValueChanged);
             // 
@@ -91,10 +93,9 @@
             // 
             this.fromDateTimePicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.fromDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.fromDateTimePicker.Location = new System.Drawing.Point(399, 203);
-            this.fromDateTimePicker.Margin = new System.Windows.Forms.Padding(2);
+            this.fromDateTimePicker.Location = new System.Drawing.Point(598, 312);
             this.fromDateTimePicker.Name = "fromDateTimePicker";
-            this.fromDateTimePicker.Size = new System.Drawing.Size(119, 26);
+            this.fromDateTimePicker.Size = new System.Drawing.Size(176, 35);
             this.fromDateTimePicker.TabIndex = 109;
             this.fromDateTimePicker.ValueChanged += new System.EventHandler(this.fromDateTimePicker_ValueChanged_1);
             // 
@@ -105,21 +106,23 @@
             this.SellDGV.BackgroundColor = System.Drawing.Color.WhiteSmoke;
             this.SellDGV.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.SellDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.SellDGV.Location = new System.Drawing.Point(9, 253);
+            this.SellDGV.Location = new System.Drawing.Point(14, 389);
+            this.SellDGV.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.SellDGV.Name = "SellDGV";
             this.SellDGV.RowHeadersWidth = 62;
             this.SellDGV.RowTemplate.Height = 30;
             this.SellDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.SellDGV.Size = new System.Drawing.Size(873, 389);
+            this.SellDGV.Size = new System.Drawing.Size(1310, 598);
             this.SellDGV.TabIndex = 105;
             this.SellDGV.MouseDown += new System.Windows.Forms.MouseEventHandler(this.SellDGV_MouseDown);
             // 
             // delete2Button
             // 
             this.delete2Button.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.delete2Button.Location = new System.Drawing.Point(586, 655);
+            this.delete2Button.Location = new System.Drawing.Point(879, 1008);
+            this.delete2Button.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.delete2Button.Name = "delete2Button";
-            this.delete2Button.Size = new System.Drawing.Size(74, 30);
+            this.delete2Button.Size = new System.Drawing.Size(111, 46);
             this.delete2Button.TabIndex = 102;
             this.delete2Button.Text = "Delete";
             this.delete2Button.UseVisualStyleBackColor = true;
@@ -128,9 +131,10 @@
             // editButton
             // 
             this.editButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.editButton.Location = new System.Drawing.Point(507, 655);
+            this.editButton.Location = new System.Drawing.Point(760, 1008);
+            this.editButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.editButton.Name = "editButton";
-            this.editButton.Size = new System.Drawing.Size(73, 30);
+            this.editButton.Size = new System.Drawing.Size(110, 46);
             this.editButton.TabIndex = 101;
             this.editButton.Text = "Edit";
             this.editButton.UseVisualStyleBackColor = true;
@@ -139,20 +143,22 @@
             // addButton
             // 
             this.addButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.addButton.Location = new System.Drawing.Point(441, 655);
+            this.addButton.Location = new System.Drawing.Point(598, 1008);
+            this.addButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.addButton.Name = "addButton";
-            this.addButton.Size = new System.Drawing.Size(62, 30);
+            this.addButton.Size = new System.Drawing.Size(157, 46);
             this.addButton.TabIndex = 100;
-            this.addButton.Text = "Add";
+            this.addButton.Text = "Create New";
             this.addButton.UseVisualStyleBackColor = true;
             this.addButton.Click += new System.EventHandler(this.add2Button_Click);
             // 
             // refreshButton
             // 
             this.refreshButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.refreshButton.Location = new System.Drawing.Point(784, 213);
+            this.refreshButton.Location = new System.Drawing.Point(1176, 328);
+            this.refreshButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.refreshButton.Name = "refreshButton";
-            this.refreshButton.Size = new System.Drawing.Size(87, 34);
+            this.refreshButton.Size = new System.Drawing.Size(130, 52);
             this.refreshButton.TabIndex = 115;
             this.refreshButton.Text = "Refresh";
             this.refreshButton.UseVisualStyleBackColor = true;
@@ -167,9 +173,10 @@
             // exportButton
             // 
             this.exportButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.exportButton.Location = new System.Drawing.Point(666, 655);
+            this.exportButton.Location = new System.Drawing.Point(999, 1008);
+            this.exportButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.exportButton.Name = "exportButton";
-            this.exportButton.Size = new System.Drawing.Size(68, 30);
+            this.exportButton.Size = new System.Drawing.Size(102, 46);
             this.exportButton.TabIndex = 124;
             this.exportButton.Text = "Export";
             this.exportButton.UseVisualStyleBackColor = true;
@@ -178,9 +185,10 @@
             // saveButton
             // 
             this.saveButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.saveButton.Location = new System.Drawing.Point(814, 655);
+            this.saveButton.Location = new System.Drawing.Point(1221, 1008);
+            this.saveButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.saveButton.Name = "saveButton";
-            this.saveButton.Size = new System.Drawing.Size(68, 30);
+            this.saveButton.Size = new System.Drawing.Size(102, 46);
             this.saveButton.TabIndex = 123;
             this.saveButton.Text = "Save";
             this.saveButton.UseVisualStyleBackColor = true;
@@ -189,9 +197,10 @@
             // importButton
             // 
             this.importButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.importButton.Location = new System.Drawing.Point(740, 655);
+            this.importButton.Location = new System.Drawing.Point(1110, 1008);
+            this.importButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.importButton.Name = "importButton";
-            this.importButton.Size = new System.Drawing.Size(68, 30);
+            this.importButton.Size = new System.Drawing.Size(102, 46);
             this.importButton.TabIndex = 122;
             this.importButton.Text = "Import";
             this.importButton.UseVisualStyleBackColor = true;
@@ -199,9 +208,9 @@
             // 
             // Seller
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1283, 846);
+            this.ClientSize = new System.Drawing.Size(1924, 1302);
             this.ControlBox = false;
             this.Controls.Add(this.exportButton);
             this.Controls.Add(this.saveButton);
@@ -216,7 +225,6 @@
             this.Controls.Add(this.delete2Button);
             this.Controls.Add(this.editButton);
             this.Controls.Add(this.addButton);
-            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Seller";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Seller_Load);

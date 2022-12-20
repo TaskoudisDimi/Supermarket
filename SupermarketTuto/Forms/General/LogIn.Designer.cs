@@ -65,7 +65,7 @@
             // ShowPasswordCheckBox
             // 
             this.ShowPasswordCheckBox.AutoSize = true;
-            this.ShowPasswordCheckBox.Location = new System.Drawing.Point(393, 577);
+            this.ShowPasswordCheckBox.Location = new System.Drawing.Point(502, 577);
             this.ShowPasswordCheckBox.Name = "ShowPasswordCheckBox";
             this.ShowPasswordCheckBox.Size = new System.Drawing.Size(148, 24);
             this.ShowPasswordCheckBox.TabIndex = 3;
@@ -77,7 +77,7 @@
             // 
             this.ClearButton.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClearButton.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.ClearButton.Location = new System.Drawing.Point(399, 798);
+            this.ClearButton.Location = new System.Drawing.Point(425, 798);
             this.ClearButton.Name = "ClearButton";
             this.ClearButton.Size = new System.Drawing.Size(302, 72);
             this.ClearButton.TabIndex = 4;
@@ -89,7 +89,7 @@
             // 
             this.LogInButton.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.LogInButton.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.LogInButton.Location = new System.Drawing.Point(399, 669);
+            this.LogInButton.Location = new System.Drawing.Point(425, 669);
             this.LogInButton.Name = "LogInButton";
             this.LogInButton.Size = new System.Drawing.Size(302, 72);
             this.LogInButton.TabIndex = 5;
@@ -104,7 +104,7 @@
             this.CreateAccountButton.FlatAppearance.BorderSize = 0;
             this.CreateAccountButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.CreateAccountButton.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.CreateAccountButton.Location = new System.Drawing.Point(470, 975);
+            this.CreateAccountButton.Location = new System.Drawing.Point(491, 975);
             this.CreateAccountButton.Name = "CreateAccountButton";
             this.CreateAccountButton.Size = new System.Drawing.Size(170, 49);
             this.CreateAccountButton.TabIndex = 6;
@@ -116,7 +116,7 @@
             // 
             this.UsernameLabel.AutoSize = true;
             this.UsernameLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.UsernameLabel.Location = new System.Drawing.Point(387, 114);
+            this.UsernameLabel.Location = new System.Drawing.Point(512, 114);
             this.UsernameLabel.Name = "UsernameLabel";
             this.UsernameLabel.Size = new System.Drawing.Size(128, 32);
             this.UsernameLabel.TabIndex = 7;
@@ -126,7 +126,7 @@
             // 
             this.PasswordLabel.AutoSize = true;
             this.PasswordLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.PasswordLabel.Location = new System.Drawing.Point(393, 242);
+            this.PasswordLabel.Location = new System.Drawing.Point(515, 242);
             this.PasswordLabel.Name = "PasswordLabel";
             this.PasswordLabel.Size = new System.Drawing.Size(122, 32);
             this.PasswordLabel.TabIndex = 8;
@@ -136,7 +136,7 @@
             // 
             this.DontHaveAccountLabel.AutoSize = true;
             this.DontHaveAccountLabel.Font = new System.Drawing.Font("Segoe UI Light", 10F);
-            this.DontHaveAccountLabel.Location = new System.Drawing.Point(459, 938);
+            this.DontHaveAccountLabel.Location = new System.Drawing.Point(475, 938);
             this.DontHaveAccountLabel.Name = "DontHaveAccountLabel";
             this.DontHaveAccountLabel.Size = new System.Drawing.Size(202, 28);
             this.DontHaveAccountLabel.TabIndex = 9;
@@ -146,7 +146,7 @@
             // 
             this.selectRoleLabel.AutoSize = true;
             this.selectRoleLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.selectRoleLabel.Location = new System.Drawing.Point(387, 408);
+            this.selectRoleLabel.Location = new System.Drawing.Point(507, 408);
             this.selectRoleLabel.Name = "selectRoleLabel";
             this.selectRoleLabel.Size = new System.Drawing.Size(138, 32);
             this.selectRoleLabel.TabIndex = 10;

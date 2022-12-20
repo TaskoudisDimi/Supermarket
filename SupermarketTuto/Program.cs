@@ -10,7 +10,7 @@ namespace SupermarketTuto
         [STAThread]
         static void Main()
         {
-            Application.Run(new MainAdmin());
+            Application.Run(new LogIn());
         }
 
         // TODO: Write Logs
@@ -20,6 +20,7 @@ namespace SupermarketTuto
         // TODO: Use Interface / abstract, static 
         // TODO: Use TCP / UDP sending/receiving packet  
         // TODO: Build API
-        // TODO: Create store procedures 
+        // TODO: Insert data from store procedures
+ 
     }
 }

@@ -51,7 +51,7 @@
             this.categoriesLabel.Location = new System.Drawing.Point(135, 583);
             this.categoriesLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.categoriesLabel.Name = "categoriesLabel";
-            this.categoriesLabel.Size = new System.Drawing.Size(91, 21);
+            this.categoriesLabel.Size = new System.Drawing.Size(135, 32);
             this.categoriesLabel.TabIndex = 111;
             this.categoriesLabel.Text = "Categories";
             // 
@@ -62,7 +62,7 @@
             this.priceLabel.Location = new System.Drawing.Point(153, 366);
             this.priceLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.priceLabel.Name = "priceLabel";
-            this.priceLabel.Size = new System.Drawing.Size(48, 21);
+            this.priceLabel.Size = new System.Drawing.Size(71, 32);
             this.priceLabel.TabIndex = 110;
             this.priceLabel.Text = "Price";
             // 
@@ -73,7 +73,7 @@
             this.quantityLabel.Location = new System.Drawing.Point(142, 260);
             this.quantityLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.quantityLabel.Name = "quantityLabel";
-            this.quantityLabel.Size = new System.Drawing.Size(77, 21);
+            this.quantityLabel.Size = new System.Drawing.Size(113, 32);
             this.quantityLabel.TabIndex = 109;
             this.quantityLabel.Text = "Quantity";
             // 
@@ -84,7 +84,7 @@
             this.nameLabel.Location = new System.Drawing.Point(142, 155);
             this.nameLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.nameLabel.Name = "nameLabel";
-            this.nameLabel.Size = new System.Drawing.Size(56, 21);
+            this.nameLabel.Size = new System.Drawing.Size(81, 32);
             this.nameLabel.TabIndex = 108;
             this.nameLabel.Text = "Name";
             // 
@@ -95,7 +95,7 @@
             this.idLabel.Location = new System.Drawing.Point(153, 58);
             this.idLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.idLabel.Name = "idLabel";
-            this.idLabel.Size = new System.Drawing.Size(27, 21);
+            this.idLabel.Size = new System.Drawing.Size(40, 32);
             this.idLabel.TabIndex = 107;
             this.idLabel.Text = "ID";
             // 
@@ -106,7 +106,7 @@
             this.catCombobox.Location = new System.Drawing.Point(416, 577);
             this.catCombobox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.catCombobox.Name = "catCombobox";
-            this.catCombobox.Size = new System.Drawing.Size(212, 28);
+            this.catCombobox.Size = new System.Drawing.Size(212, 37);
             this.catCombobox.TabIndex = 106;
             this.catCombobox.Text = "Select Category";
             // 
@@ -116,7 +116,7 @@
             this.ProdPrice.Location = new System.Drawing.Point(416, 363);
             this.ProdPrice.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.ProdPrice.Name = "ProdPrice";
-            this.ProdPrice.Size = new System.Drawing.Size(212, 26);
+            this.ProdPrice.Size = new System.Drawing.Size(212, 35);
             this.ProdPrice.TabIndex = 105;
             // 
             // ProdQty
@@ -125,7 +125,7 @@
             this.ProdQty.Location = new System.Drawing.Point(416, 257);
             this.ProdQty.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.ProdQty.Name = "ProdQty";
-            this.ProdQty.Size = new System.Drawing.Size(212, 26);
+            this.ProdQty.Size = new System.Drawing.Size(212, 35);
             this.ProdQty.TabIndex = 104;
             // 
             // ProdName
@@ -135,7 +135,7 @@
             this.ProdName.Location = new System.Drawing.Point(416, 152);
             this.ProdName.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.ProdName.Name = "ProdName";
-            this.ProdName.Size = new System.Drawing.Size(212, 26);
+            this.ProdName.Size = new System.Drawing.Size(212, 35);
             this.ProdName.TabIndex = 103;
             // 
             // ProdId
@@ -144,7 +144,7 @@
             this.ProdId.Location = new System.Drawing.Point(416, 58);
             this.ProdId.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.ProdId.Name = "ProdId";
-            this.ProdId.Size = new System.Drawing.Size(212, 26);
+            this.ProdId.Size = new System.Drawing.Size(212, 35);
             this.ProdId.TabIndex = 102;
             // 
             // editButton
@@ -162,12 +162,12 @@
             // addButton
             // 
             this.addButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.addButton.Location = new System.Drawing.Point(219, 695);
+            this.addButton.Location = new System.Drawing.Point(184, 695);
             this.addButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.addButton.Name = "addButton";
-            this.addButton.Size = new System.Drawing.Size(96, 62);
+            this.addButton.Size = new System.Drawing.Size(152, 62);
             this.addButton.TabIndex = 112;
-            this.addButton.Text = "Add";
+            this.addButton.Text = "Create New";
             this.addButton.UseVisualStyleBackColor = true;
             this.addButton.Click += new System.EventHandler(this.addButton_Click);
             // 
@@ -178,7 +178,7 @@
             this.DateTimePicker.Location = new System.Drawing.Point(416, 466);
             this.DateTimePicker.Margin = new System.Windows.Forms.Padding(8, 5, 8, 5);
             this.DateTimePicker.Name = "DateTimePicker";
-            this.DateTimePicker.Size = new System.Drawing.Size(212, 26);
+            this.DateTimePicker.Size = new System.Drawing.Size(212, 35);
             this.DateTimePicker.TabIndex = 120;
             // 
             // dateLabel
@@ -188,7 +188,7 @@
             this.dateLabel.Location = new System.Drawing.Point(135, 474);
             this.dateLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.dateLabel.Name = "dateLabel";
-            this.dateLabel.Size = new System.Drawing.Size(46, 21);
+            this.dateLabel.Size = new System.Drawing.Size(67, 32);
             this.dateLabel.TabIndex = 121;
             this.dateLabel.Text = "Date";
             // 

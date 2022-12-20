@@ -29,7 +29,6 @@ namespace SupermarketTuto.Forms
         {
             display();
             fillCombo();
-            
             ContextMenuStrip mnu = new ContextMenuStrip();
             ToolStripMenuItem mnuDelete = new ToolStripMenuItem("Delete");
             //Assign event handlers
@@ -63,14 +62,15 @@ namespace SupermarketTuto.Forms
                 loaddata1.retrieveData("Select * from ProductTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'");
                 ProdDGV.DataSource = loaddata1.table;
                 ProdDGV.RowHeadersVisible = false;
+                
             }
             catch (Exception ex)
             {
-                
+
                 Utlis.Log(string.Format("Message : {0}", ex.Message), "ErrorPdoduct.txt");
             }
-           
-            
+
+
             //ProgressBar frm = new ProgressBar();
 
             //BackgroundWorker bgw = new BackgroundWorker()
@@ -110,14 +110,12 @@ namespace SupermarketTuto.Forms
             //frm.ShowDialog();
         }
 
-
         private void refresh_data()
         {
             SqlConnect loaddata21 = new SqlConnect();
             loaddata21.retrieveData("Select * from ProductTbl");
             ProdDGV.DataSource = loaddata21.table;
             ProdDGV.RowHeadersVisible = false;
-
         }
 
         private void mnuDelete_Click(object? sender, EventArgs e)
@@ -181,10 +179,11 @@ namespace SupermarketTuto.Forms
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                Utlis.Log(string.Format("Message : {0}", ex.Message), "ErrorDeleteProduct.txt");
             }
         }
 
-       
+
         private void refreshButton_Click(object sender, EventArgs e)
         {
             SqlConnect loaddata11 = new SqlConnect();
@@ -202,11 +201,20 @@ namespace SupermarketTuto.Forms
 
         private void searchButton_Click(object sender, EventArgs e)
         {
-            SqlConnect db = new SqlConnect();
-            string query = "Select * From ProductTbl where ProdId like '%" + searchTextBox.Text + "%'" + "or ProdName like '%" + searchTextBox.Text + "%'" + "or ProdQty like '%" + searchTextBox.Text + "%'" + "or ProdPrice like '%" + searchTextBox.Text + "%'" + "or ProdCat like '%" + searchTextBox.Text + "%'";
-            db.search(searchTextBox.Text, query);
-            ProdDGV.DataSource = db.table;
-            totalLabel.Text = $"Total: {ProdDGV.RowCount}";
+            try
+            {
+                SqlConnect db = new SqlConnect();
+                string query = "Select * From ProductTbl where ProdId like '%" + searchTextBox.Text + "%'" + "or ProdName like '%" + searchTextBox.Text + "%'" + "or ProdQty like '%" + searchTextBox.Text + "%'" + "or ProdPrice like '%" + searchTextBox.Text + "%'" + "or ProdCat like '%" + searchTextBox.Text + "%'";
+                db.search(searchTextBox.Text, query);
+                ProdDGV.DataSource = db.table;
+                totalLabel.Text = $"Total: {ProdDGV.RowCount}";
+            }
+            catch (Exception ex)
+            {
+                Utlis.Log(string.Format("Message : {0}", ex.Message), "ErrorDeleteProduct.txt");
+
+            }
+
         }
 
         private void catComboBox_SelectionChangeCommitted(object sender, EventArgs e)
@@ -226,7 +234,7 @@ namespace SupermarketTuto.Forms
                 string SourceURl = "";
                 OpenFileDialog dialog = new OpenFileDialog()
                 {
-                    Title = "Browse Text File",
+                    Title = "Browse csv File",
                     CheckFileExists = true,
                     CheckPathExists = true,
                     Filter = "csv files (*.csv)|*.csv",
@@ -246,9 +254,7 @@ namespace SupermarketTuto.Forms
                         if (table.Rows != null && table.Rows.ToString() != String.Empty)
                         {
                             ProdDGV.DataSource = table;
-
                         }
-
                     }
                 }
                 refresh_data();
@@ -256,6 +262,8 @@ namespace SupermarketTuto.Forms
             catch (Exception ex)
             {
                 MessageBox.Show("Exception" + ex);
+                Utlis.Log(string.Format("Message : {0}", ex.Message), "ErrorImportTxt.txt");
+
             }
         }
 
@@ -306,79 +314,91 @@ namespace SupermarketTuto.Forms
 
         private void saveButton_Click(object sender, EventArgs e)
         {
-            SqlConnect loaddata20 = new SqlConnect();
-
-            int count = ProdDGV.RowCount;
-            for (int i = 0; i < count; i++)
+            try
             {
-                loaddata20.commandExc("Insert Into ProductTbl values('" + ProdDGV.Rows[i].Cells[0].Value + "','" + ProdDGV.Rows[i].Cells[1].Value + "','" + ProdDGV.Rows[i].Cells[2].Value + "','" + ProdDGV.Rows[i].Cells[3].Value + "','" + ProdDGV.Rows[i].Cells[4].Value + "')");
+                SqlConnect loaddata20 = new SqlConnect();
+                int count = ProdDGV.RowCount;
+                for (int i = 0; i < count; i++)
+                {
+                    loaddata20.commandExc("Insert Into ProductTbl values('" + ProdDGV.Rows[i].Cells[0].Value + "','" + ProdDGV.Rows[i].Cells[1].Value + "','" + ProdDGV.Rows[i].Cells[2].Value + "','" + ProdDGV.Rows[i].Cells[3].Value + "','" + ProdDGV.Rows[i].Cells[4].Value + "')");
+                }
+                refresh_data();
             }
-            refresh_data();
-
+            catch (Exception ex)
+            {
+                Utlis.Log(string.Format("Message : {0}", ex.Message), "ErrorSaveData.txt");
+            }
         }
 
         private void exportButton_Click(object sender, EventArgs e)
         {
-            if (ProdDGV.Rows.Count > 0)
+            try
             {
-                SaveFileDialog dialog = new SaveFileDialog()
+                if (ProdDGV.Rows.Count > 0)
                 {
-                    Filter = "CSV (*.csv)|*.csv",
-                    Title = "Csv Files",
-                    RestoreDirectory = true
-                };
-
-                if (dialog.ShowDialog() == DialogResult.OK)
-                {
-                    if (File.Exists(dialog.FileName))
+                    SaveFileDialog dialog = new SaveFileDialog()
                     {
-                        try
-                        {
-                            File.Delete(dialog.FileName);
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show("It wasn't possible to write the data to the disk." + ex.Message);
-                        }
-                    }
-                    else
+                        Filter = "CSV (*.csv)|*.csv",
+                        Title = "Csv Files",
+                        RestoreDirectory = true
+                    };
+
+                    if (dialog.ShowDialog() == DialogResult.OK)
                     {
-                        try
+                        if (File.Exists(dialog.FileName))
                         {
-                            int colCount = ProdDGV.Columns.Count;
-                            string colNames = string.Empty;
-                            string[] outputCSV = new string[ProdDGV.Rows.Count + 1];
-                            for (int i = 0; i < colCount; i++)
+                            try
                             {
-                                if (i == colCount - 1)
-                                {
-                                    colNames += ProdDGV.Columns[i].HeaderText.ToString();
-                                }
-                                else
-                                {
-                                    colNames += ProdDGV.Columns[i].HeaderText.ToString() + ",";
-                                }
+                                File.Delete(dialog.FileName);
                             }
-                            outputCSV[0] += colNames;
-
-                            for (int i = 1; (i - 1) < ProdDGV.Rows.Count; i++)
+                            catch (Exception ex)
                             {
-                                for (int j = 0; j < colCount; j++)
-                                {
-                                    outputCSV[i] += ProdDGV.Rows[i - 1].Cells[j].Value.ToString() + ",";
-                                }
+                                MessageBox.Show("It wasn't possible to write the data to the disk." + ex.Message);
                             }
-
-                            File.WriteAllLines(dialog.FileName, outputCSV, Encoding.UTF8);
-                            MessageBox.Show("Success");
-
                         }
-                        catch (Exception ex)
+                        else
                         {
-                            MessageBox.Show("Error :" + ex.Message);
+                            try
+                            {
+                                int colCount = ProdDGV.Columns.Count;
+                                string colNames = string.Empty;
+                                string[] outputCSV = new string[ProdDGV.Rows.Count + 1];
+                                for (int i = 0; i < colCount; i++)
+                                {
+                                    if (i == colCount - 1)
+                                    {
+                                        colNames += ProdDGV.Columns[i].HeaderText.ToString();
+                                    }
+                                    else
+                                    {
+                                        colNames += ProdDGV.Columns[i].HeaderText.ToString() + ",";
+                                    }
+                                }
+                                outputCSV[0] += colNames;
+
+                                for (int i = 1; (i - 1) < ProdDGV.Rows.Count; i++)
+                                {
+                                    for (int j = 0; j < colCount; j++)
+                                    {
+                                        outputCSV[i] += ProdDGV.Rows[i - 1].Cells[j].Value.ToString() + ",";
+                                    }
+                                }
+
+                                File.WriteAllLines(dialog.FileName, outputCSV, Encoding.UTF8);
+                                MessageBox.Show("Success");
+
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show("Error :" + ex.Message);
+                            }
                         }
                     }
                 }
+            }
+            catch(Exception ex)
+            {
+                Utlis.Log(string.Format("Message : {0}", ex.Message), "ErrorExportData.txt");
             }
         }
 
@@ -478,15 +498,23 @@ namespace SupermarketTuto.Forms
         }
 
         #endregion API
-        
+
 
         private void searchTextBox_TextChanged(object sender, EventArgs e)
         {
-            SqlConnect db = new SqlConnect();
-            string query = "Select * From ProductTbl where ProdId like '%" + searchTextBox.Text + "%'" + "or ProdName like '%" + searchTextBox.Text + "%'" + "or ProdQty like '%" + searchTextBox.Text + "%'" + "or ProdPrice like '%" + searchTextBox.Text + "%'" + "or ProdCat like '%" + searchTextBox.Text + "%'";
-            db.search(searchTextBox.Text, query);
-            ProdDGV.DataSource = db.table;
-            totalLabel.Text = $"Total: {ProdDGV.RowCount}";
+            try
+            {
+                SqlConnect db = new SqlConnect();
+                string query = "Select * From ProductTbl where ProdId like '%" + searchTextBox.Text + "%'" + "or ProdName like '%" + searchTextBox.Text + "%'" + "or ProdQty like '%" + searchTextBox.Text + "%'" + "or ProdPrice like '%" + searchTextBox.Text + "%'" + "or ProdCat like '%" + searchTextBox.Text + "%'";
+                db.search(searchTextBox.Text, query);
+                ProdDGV.DataSource = db.table;
+                totalLabel.Text = $"Total: {ProdDGV.RowCount}";
+            }
+            catch(Exception ex)
+            {
+                Utlis.Log(string.Format("Message : {0}", ex.Message), "ErrorSearchData.txt");
+            }
+
         }
 
         private void fromDateTimePicker_ValueChanged(object sender, EventArgs e)
@@ -501,13 +529,17 @@ namespace SupermarketTuto.Forms
 
         private void ProdDGV_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-
-            if (ProdDGV.CurrentRow.Cells[2].Value.ToString() == "1")
+            foreach (DataGridViewRow row in ProdDGV.Rows)
             {
-                ProdDGV.CurrentRow.DefaultCellStyle.BackColor = Color.Red;
+                if (DateTime.Parse(row.Cells[5].Value.ToString()) >= DateTime.Now.AddDays(-7)
+                    && DateTime.Parse(row.Cells[5].Value.ToString()) <= DateTime.Now)
+                {
+                    row.DefaultCellStyle.BackColor = Color.Orange;
+                }
             }
-
         }
+
+        
     }
 }
 
