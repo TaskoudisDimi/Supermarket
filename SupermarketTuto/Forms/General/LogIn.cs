@@ -26,15 +26,12 @@ namespace SupermarketTuto
     public partial class LogIn : Form
     {
         SqlConnect loaddata = new SqlConnect();
-        public static string sellerName = "";
         public LogIn()
         {
             InitializeComponent();
-
             selectRoleCombobox.Items.AddRange(new string[] { "Admin", "Seller" });
             selectRoleCombobox.Items.Insert(0, "Select Role");
             selectRoleCombobox.SelectedIndex = 0;
-
             CheckForUpdates();
             AddVersionNumber();
             AddVersionNumber();
@@ -55,22 +52,11 @@ namespace SupermarketTuto
             }
         }
 
-        private void UserNameTextBox_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void PasswordTextBox_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void ClearButton_Click(object sender, EventArgs e)
         {
             UserNameTextBox.Clear();
             PasswordTextBox.Clear();
             UserNameTextBox.Focus();
-
         }
 
         private void LogInButton_Click(object sender, EventArgs e)
@@ -83,9 +69,6 @@ namespace SupermarketTuto
                 }
                 else
                 {
-                    //loaddata.retrieveData("Select * From [smarketdb].[dbo].[SellersTbl] Where SellerUserName = '" + UserNameTextBox.Text + "' and SellerPass = '" + PasswordTextBox.Text + "' and Role= '" + selectRoleCombobox.SelectedItem + "'");
-                    sellerName = UserNameTextBox.Text;
-
                     if (selectRoleCombobox.SelectedItem != "Select Role")
                     {
                         if (selectRoleCombobox.SelectedItem == "Admin")

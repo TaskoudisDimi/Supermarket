@@ -24,7 +24,8 @@ namespace SupermarketTuto.Forms
             try
             {
                 SqlConnect loaddata1 = new SqlConnect();
-                loaddata1.retrieveData("Select SellerId, SellerName, SellerAge, SellerPhone, SellerPass, Date, Address, Active From SellerTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'");
+                loaddata1.retrieveData("Select [SellerId],[SellerUserName],cast([SellerPass] as varchar(MAX)) as Password,[SellerName],[SellerAge],[SellerPhone],[Address],[Date],[Active] From SellersTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'");
+               
                 SellDGV.DataSource = loaddata1.table;
                 totalLabel.Text = $"Total: {SellDGV.RowCount}";
                 SellDGV.RowHeadersVisible = false;
@@ -317,7 +318,13 @@ namespace SupermarketTuto.Forms
             return dt;
         }
 
-
+        private void SellDGV_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.ColumnIndex == 2 && e.Value != null)
+            {
+                e.Value = new string('*', e.Value.ToString().Length);
+            }
+        }
 
         //public Image ConvertByteToImage(byte[] data)
         //{

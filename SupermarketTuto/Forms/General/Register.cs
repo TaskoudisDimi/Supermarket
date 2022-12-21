@@ -24,21 +24,6 @@ namespace SupermarketTuto
             InitializeComponent();
         }
 
-        private void UsernameTextBox_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void PasswordTextBox_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void ConfirmPasswordTextBox_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void RegisterButton_Click(object sender, EventArgs e)
         {
             try
@@ -70,8 +55,6 @@ namespace SupermarketTuto
             {
                 MessageBox.Show("Error");
             }
-            
-
         }
 
         private void ClearButton_Click(object sender, EventArgs e)
@@ -79,7 +62,6 @@ namespace SupermarketTuto
             UsernameTextBox.Clear();
             PasswordTextBox.Clear();
             ConfirmPasswordTextBox.Clear();
-
         }
 
         private void LogInButton_Click(object sender, EventArgs e)
@@ -87,7 +69,6 @@ namespace SupermarketTuto
             LogIn login = new LogIn();
             login.Show();
             this.Dispose();
-
         }
 
         private void ShowPasswordCheckBox_CheckedChanged(object sender, EventArgs e)

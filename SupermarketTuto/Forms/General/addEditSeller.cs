@@ -45,9 +45,19 @@ namespace SupermarketTuto.Forms.General
             {
                 if (checkBox.Checked)
                 {
-                    loaddata5.commandExc("Insert Into SellersTbl values('" + SellName.Text + "'," + "CONVERT(varbinary,'" + passwordTextBox.Text + "'), '" + SellName.Text + "'," + SellAge.Text + "," + SellPhone.Text + ",'" + dateTimePicker.Value.ToString("MM-dd-yyyy") + "','" + address + "','True')");
-                    MessageBox.Show("Seller added successfuly");
-                    this.Close();
+                    if(address == null)
+                    {
+                        loaddata5.commandExc("Insert Into SellersTbl values('" + SellName.Text + "'," + "CONVERT(varbinary,'" + passwordTextBox.Text + "'), '" + SellName.Text + "'," + SellAge.Text + "," + SellPhone.Text + ",'" + dateTimePicker.Value.ToString("MM-dd-yyyy") + "','" + addressTextBox.Text + "','True')");
+                        MessageBox.Show("Seller added successfuly");
+                        this.Close();
+                    }
+                    else
+                    {
+                        loaddata5.commandExc("Insert Into SellersTbl values('" + SellName.Text + "'," + "CONVERT(varbinary,'" + passwordTextBox.Text + "'), '" + SellName.Text + "'," + SellAge.Text + "," + SellPhone.Text + ",'" + dateTimePicker.Value.ToString("MM-dd-yyyy") + "','" + address + "','True')");
+                        MessageBox.Show("Seller added successfuly");
+                        this.Close();
+                    }
+
                 }
             }
             catch (Exception ex)
@@ -172,6 +182,18 @@ namespace SupermarketTuto.Forms.General
         {
             public Northeast northeast { get; set; }
             public Southwest southwest { get; set; }
+        }
+
+        private void ShowPasswordCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (ShowPasswordCheckBox.Checked)
+            {
+                passwordTextBox.PasswordChar = '\0';
+            }
+            else
+            {
+                passwordTextBox.PasswordChar = '*';
+            }
         }
     }
 }

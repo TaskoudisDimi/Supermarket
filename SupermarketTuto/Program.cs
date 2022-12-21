@@ -10,7 +10,7 @@ namespace SupermarketTuto
         [STAThread]
         static void Main()
         {
-            Application.Run(new LogIn());
+            Application.Run(new MainAdmin());
         }
 
         // TODO: Write Logs

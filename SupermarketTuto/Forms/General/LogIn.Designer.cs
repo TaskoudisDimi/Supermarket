@@ -50,7 +50,6 @@
             this.UserNameTextBox.Name = "UserNameTextBox";
             this.UserNameTextBox.Size = new System.Drawing.Size(366, 39);
             this.UserNameTextBox.TabIndex = 1;
-            this.UserNameTextBox.TextChanged += new System.EventHandler(this.UserNameTextBox_TextChanged);
             // 
             // PasswordTextBox
             // 
@@ -60,7 +59,6 @@
             this.PasswordTextBox.PasswordChar = '*';
             this.PasswordTextBox.Size = new System.Drawing.Size(366, 39);
             this.PasswordTextBox.TabIndex = 2;
-            this.PasswordTextBox.TextChanged += new System.EventHandler(this.PasswordTextBox_TextChanged);
             // 
             // ShowPasswordCheckBox
             // 
