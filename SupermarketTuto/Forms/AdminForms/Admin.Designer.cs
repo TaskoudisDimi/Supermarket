@@ -1,6 +1,6 @@
 ﻿namespace SupermarketTuto.Forms
 {
-    partial class SellersForm
+    partial class Admin
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.usersDataGridView = new System.Windows.Forms.DataGridView();
-            this.usersLabel = new System.Windows.Forms.Label();
+            this.adminsLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.usersDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -40,36 +40,34 @@
             this.usersDataGridView.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
             this.usersDataGridView.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.usersDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.usersDataGridView.Location = new System.Drawing.Point(21, 106);
-            this.usersDataGridView.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.usersDataGridView.Location = new System.Drawing.Point(14, 69);
             this.usersDataGridView.Name = "usersDataGridView";
             this.usersDataGridView.RowHeadersWidth = 62;
             this.usersDataGridView.RowTemplate.Height = 25;
-            this.usersDataGridView.Size = new System.Drawing.Size(1291, 698);
+            this.usersDataGridView.Size = new System.Drawing.Size(861, 454);
             this.usersDataGridView.TabIndex = 0;
+            this.usersDataGridView.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.usersDataGridView_CellFormatting);
             // 
-            // usersLabel
+            // adminsLabel
             // 
-            this.usersLabel.AutoSize = true;
-            this.usersLabel.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.usersLabel.Location = new System.Drawing.Point(15, 12);
-            this.usersLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.usersLabel.Name = "usersLabel";
-            this.usersLabel.Size = new System.Drawing.Size(196, 32);
-            this.usersLabel.TabIndex = 1;
-            this.usersLabel.Text = "Table of All Users";
+            this.adminsLabel.AutoSize = true;
+            this.adminsLabel.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.adminsLabel.Location = new System.Drawing.Point(10, 8);
+            this.adminsLabel.Name = "adminsLabel";
+            this.adminsLabel.Size = new System.Drawing.Size(142, 21);
+            this.adminsLabel.TabIndex = 1;
+            this.adminsLabel.Text = "Table of All Admins";
             // 
-            // SellersForm
+            // Admin
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1325, 827);
-            this.Controls.Add(this.usersLabel);
+            this.ClientSize = new System.Drawing.Size(883, 538);
+            this.Controls.Add(this.adminsLabel);
             this.Controls.Add(this.usersDataGridView);
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.Name = "SellersForm";
-            this.Text = "Users";
-            this.Load += new System.EventHandler(this.Users_Load);
+            this.Name = "Admin";
+            this.Text = "Admins";
+            this.Load += new System.EventHandler(this.Admin_Load);
             ((System.ComponentModel.ISupportInitialize)(this.usersDataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -79,6 +77,6 @@
         #endregion
 
         private DataGridView usersDataGridView;
-        private Label usersLabel;
+        private Label adminsLabel;
     }
 }

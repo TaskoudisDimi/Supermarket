@@ -55,7 +55,7 @@
             // panel1
             // 
             this.panel1.Location = new System.Drawing.Point(372, 34);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(405, 383);
             this.panel1.TabIndex = 136;
@@ -73,7 +73,7 @@
             // addressTextBox
             // 
             this.addressTextBox.Location = new System.Drawing.Point(162, 369);
-            this.addressTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.addressTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.addressTextBox.Name = "addressTextBox";
             this.addressTextBox.Size = new System.Drawing.Size(119, 20);
             this.addressTextBox.TabIndex = 134;
@@ -94,7 +94,7 @@
             this.dateTimePicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.dateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dateTimePicker.Location = new System.Drawing.Point(162, 324);
-            this.dateTimePicker.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dateTimePicker.Margin = new System.Windows.Forms.Padding(2);
             this.dateTimePicker.Name = "dateTimePicker";
             this.dateTimePicker.Size = new System.Drawing.Size(119, 26);
             this.dateTimePicker.TabIndex = 132;
@@ -226,7 +226,7 @@
             // 
             this.checkBox.AutoSize = true;
             this.checkBox.Location = new System.Drawing.Point(162, 413);
-            this.checkBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.checkBox.Margin = new System.Windows.Forms.Padding(2);
             this.checkBox.Name = "checkBox";
             this.checkBox.Size = new System.Drawing.Size(56, 17);
             this.checkBox.TabIndex = 140;
@@ -318,9 +318,9 @@
         public Button addButton;
         public Label idlabel;
         private Label label1;
-        private CheckBox checkBox;
         private Label userNameLabel;
         public TextBox usernameTextBox;
         private CheckBox ShowPasswordCheckBox;
+        public CheckBox checkBox;
     }
 }

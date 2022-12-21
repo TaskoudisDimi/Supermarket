@@ -43,6 +43,8 @@
             this.exportButton = new System.Windows.Forms.Button();
             this.saveButton = new System.Windows.Forms.Button();
             this.importButton = new System.Windows.Forms.Button();
+            this.activeComboBox = new System.Windows.Forms.ComboBox();
+            this.activeLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.SellDGV)).BeginInit();
             this.SuspendLayout();
             // 
@@ -80,8 +82,8 @@
             // 
             this.toDateTimePicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.toDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.toDateTimePicker.Location = new System.Drawing.Point(529, 203);
-            this.toDateTimePicker.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.toDateTimePicker.Location = new System.Drawing.Point(434, 202);
+            this.toDateTimePicker.Margin = new System.Windows.Forms.Padding(2);
             this.toDateTimePicker.Name = "toDateTimePicker";
             this.toDateTimePicker.Size = new System.Drawing.Size(117, 26);
             this.toDateTimePicker.TabIndex = 110;
@@ -91,8 +93,8 @@
             // 
             this.fromDateTimePicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.fromDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.fromDateTimePicker.Location = new System.Drawing.Point(399, 203);
-            this.fromDateTimePicker.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.fromDateTimePicker.Location = new System.Drawing.Point(304, 202);
+            this.fromDateTimePicker.Margin = new System.Windows.Forms.Padding(2);
             this.fromDateTimePicker.Name = "fromDateTimePicker";
             this.fromDateTimePicker.Size = new System.Drawing.Size(119, 26);
             this.fromDateTimePicker.TabIndex = 109;
@@ -151,7 +153,7 @@
             // refreshButton
             // 
             this.refreshButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.refreshButton.Location = new System.Drawing.Point(784, 213);
+            this.refreshButton.Location = new System.Drawing.Point(795, 200);
             this.refreshButton.Name = "refreshButton";
             this.refreshButton.Size = new System.Drawing.Size(87, 34);
             this.refreshButton.TabIndex = 115;
@@ -198,12 +200,31 @@
             this.importButton.UseVisualStyleBackColor = true;
             this.importButton.Click += new System.EventHandler(this.importButton_Click);
             // 
+            // activeComboBox
+            // 
+            this.activeComboBox.FormattingEnabled = true;
+            this.activeComboBox.Location = new System.Drawing.Point(666, 205);
+            this.activeComboBox.Name = "activeComboBox";
+            this.activeComboBox.Size = new System.Drawing.Size(121, 21);
+            this.activeComboBox.TabIndex = 125;
+            // 
+            // activeLabel
+            // 
+            this.activeLabel.AutoSize = true;
+            this.activeLabel.Location = new System.Drawing.Point(710, 180);
+            this.activeLabel.Name = "activeLabel";
+            this.activeLabel.Size = new System.Drawing.Size(37, 13);
+            this.activeLabel.TabIndex = 126;
+            this.activeLabel.Text = "Active";
+            // 
             // Seller
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1283, 705);
             this.ControlBox = false;
+            this.Controls.Add(this.activeLabel);
+            this.Controls.Add(this.activeComboBox);
             this.Controls.Add(this.exportButton);
             this.Controls.Add(this.saveButton);
             this.Controls.Add(this.importButton);
@@ -217,7 +238,7 @@
             this.Controls.Add(this.delete2Button);
             this.Controls.Add(this.editButton);
             this.Controls.Add(this.addButton);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Seller";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Seller_Load);
@@ -243,5 +264,7 @@
         private Button exportButton;
         private Button saveButton;
         private Button importButton;
+        private ComboBox activeComboBox;
+        public Label activeLabel;
     }
 }

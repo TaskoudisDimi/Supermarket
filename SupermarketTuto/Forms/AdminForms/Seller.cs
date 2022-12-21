@@ -79,12 +79,14 @@ namespace SupermarketTuto.Forms
             {
                 addEditSeller edit = new addEditSeller();
                 edit.SellId.Text = SellDGV.CurrentRow.Cells[0].Value.ToString();
-                edit.SellName.Text = SellDGV.CurrentRow.Cells[1].Value.ToString();
-                edit.SellAge.Text = SellDGV.CurrentRow.Cells[2].Value.ToString();
-                edit.SellPhone.Text = SellDGV.CurrentRow.Cells[3].Value.ToString();
-                edit.passwordTextBox.Text = SellDGV.CurrentRow.Cells[4].Value.ToString();
-                edit.dateTimePicker.Text = SellDGV.CurrentRow.Cells[5].Value.ToString();
+                edit.usernameTextBox.Text = SellDGV.CurrentRow.Cells[1].Value.ToString();
+                edit.passwordTextBox.Text = SellDGV.CurrentRow.Cells[2].Value.ToString();
+                edit.SellName.Text = SellDGV.CurrentRow.Cells[3].Value.ToString();
+                edit.SellAge.Text = SellDGV.CurrentRow.Cells[4].Value.ToString();
+                edit.SellPhone.Text = SellDGV.CurrentRow.Cells[5].Value.ToString();
                 edit.addressTextBox.Text = SellDGV.CurrentRow.Cells[6].Value.ToString();
+                edit.dateTimePicker.Text = SellDGV.CurrentRow.Cells[7].Value.ToString();
+                edit.checkBox.Checked = (bool)SellDGV.CurrentRow.Cells[8].Value;
                 edit.addButton.Visible = false;
                 edit.SellId.ReadOnly = true;
                 edit.Show();

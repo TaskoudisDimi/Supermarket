@@ -77,7 +77,7 @@ namespace SupermarketTuto.Forms.SellingForms
         }
         private void MnuStripUsers_Click(object sender, EventArgs e)
         {
-            SellersForm users = new SellersForm();
+            Admin users = new Admin();
             users.Show();
         }
 

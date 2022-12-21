@@ -70,14 +70,17 @@ namespace SupermarketTuto.Forms.AdminForms
         {
             if (var == "File")
             {
-                string[] subItem = new string[] { "AllUsers", "BackUp", "Log out", "Exit" };
+                string[] subItem = new string[] { "Admins", "BackUp", "Log out", "Exit" };
                 foreach (string Row in subItem)
                 {
                     ToolStripMenuItem subMenuItem = new ToolStripMenuItem(Row, null);
                     SubMenu(subMenuItem, Row);
                     items.DropDownItems.Add(subMenuItem);
-                   
-                    if (subMenuItem.Text == "BackUp")
+                    if (subMenuItem.Text == "Admins")
+                    {
+                        subMenuItem.Click += new EventHandler(MnuStripAdmins_Click);
+                    }
+                    else if (subMenuItem.Text == "BackUp")
                     {
                         subMenuItem.Click += new EventHandler(MnuStripDb_Click);
                     }
@@ -91,33 +94,28 @@ namespace SupermarketTuto.Forms.AdminForms
                     }
                 }
             }
-            if (var == "AllUsers")
-            {
-                string[] row = new string[] { "Sellers", "Admins"};
-                foreach (string rw in row)
-                {
-                    ToolStripMenuItem SSSMenu = new ToolStripMenuItem(rw, null);
-                    items.DropDownItems.Add(SSSMenu);
-                    if (SSSMenu.Text == "Sellers")
-                    {
-                        SSSMenu.Click += new EventHandler(MnuStripSellers_Click);
-                    }
-                    else if (SSSMenu.Text == "Admins")
-                    {
-                        SSSMenu.Click += new EventHandler(MnuStripAdmins_Click);
-                    }
-                }
-            }
+            //if (var == "AllUsers")
+            //{
+            //    string[] row = new string[] { "Sellers", "Admins"};
+            //    foreach (string rw in row)
+            //    {
+            //        ToolStripMenuItem SSSMenu = new ToolStripMenuItem(rw, null);
+            //        items.DropDownItems.Add(SSSMenu);
+            //        if (SSSMenu.Text == "Sellers")
+            //        {
+            //            SSSMenu.Click += new EventHandler(MnuStripSellers_Click);
+            //        }
+            //        else if (SSSMenu.Text == "Admins")
+            //        {
+            //            SSSMenu.Click += new EventHandler(MnuStripAdmins_Click);
+            //        }
+            //    }
+            //}
         }
 
-        private void MnuStripSellers_Click(object sender, EventArgs e)
-        {
-            SellersForm sellers = new SellersForm();
-            sellers.Show();
-        }
         private void MnuStripAdmins_Click(object sender, EventArgs e)
         {
-            Admins admins = new Admins();
+            Admin admins = new Admin();
             admins.Show();
         }
 
@@ -130,7 +128,7 @@ namespace SupermarketTuto.Forms.AdminForms
 
         private void MnuStripUsers_Click(object sender, EventArgs e)
         {
-            SellersForm users = new SellersForm();
+            Admin users = new Admin();
             users.Show();
         }
 
