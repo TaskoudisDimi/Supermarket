@@ -284,21 +284,27 @@ namespace SupermarketTuto.Forms
                     {
                         //first line to create header
                         string firstLine = lines[0];
+                        //Devide each data of column
                         string[] headerLabels = firstLine.Split(',');
                         foreach (string headerWord in headerLabels)
                         {
+                            //add data column
                             dt.Columns.Add(new DataColumn(headerWord));
                         }
                         //For Data
                         for (int i = 1; i < lines.Length; i++)
                         {
+                            //devide each data of rows
                             string[] dataWords = lines[i].Split(',');
+                            //create new row of DataTable
                             DataRow dr = dt.NewRow();
                             int columnIndex = 0;
                             foreach (string headerWord in headerLabels)
                             {
+                                //Corresponde each Column name with coresponding Row
                                 dr[headerWord] = dataWords[columnIndex++];
                             }
+                            //Add all rows to DataTable
                             dt.Rows.Add(dr);
                         }
                     }
@@ -330,6 +336,7 @@ namespace SupermarketTuto.Forms
             }
         }
 
+        
         private void exportButton_Click(object sender, EventArgs e)
         {
             try
@@ -363,6 +370,7 @@ namespace SupermarketTuto.Forms
                                 int colCount = ProdDGV.Columns.Count;
                                 string colNames = string.Empty;
                                 string[] outputCSV = new string[ProdDGV.Rows.Count + 1];
+                                //Keep all columns from excel
                                 for (int i = 0; i < colCount; i++)
                                 {
                                     if (i == colCount - 1)
@@ -374,8 +382,10 @@ namespace SupermarketTuto.Forms
                                         colNames += ProdDGV.Columns[i].HeaderText.ToString() + ",";
                                     }
                                 }
+                                //Set Columns to first set of outputCSV
                                 outputCSV[0] += colNames;
 
+                                //Set all rows to outputCSV
                                 for (int i = 1; (i - 1) < ProdDGV.Rows.Count; i++)
                                 {
                                     for (int j = 0; j < colCount; j++)
@@ -383,10 +393,9 @@ namespace SupermarketTuto.Forms
                                         outputCSV[i] += ProdDGV.Rows[i - 1].Cells[j].Value.ToString() + ",";
                                     }
                                 }
-
+                                //Write all data to outputCSV
                                 File.WriteAllLines(dialog.FileName, outputCSV, Encoding.UTF8);
                                 MessageBox.Show("Success");
-
                             }
                             catch (Exception ex)
                             {
