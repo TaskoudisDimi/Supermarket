@@ -1,5 +1,6 @@
 ﻿
 using DataClass;
+using SupermarketTuto.Forms.AdminForms;
 using SupermarketTuto.Forms.General;
 using System.Data;
 using System.Text;
@@ -8,7 +9,7 @@ namespace SupermarketTuto.Forms
 {
     public partial class Category : Form
     {
-        
+
         public Category()
         {
             InitializeComponent();
@@ -19,8 +20,10 @@ namespace SupermarketTuto.Forms
             display();
             ContextMenuStrip mnu = new ContextMenuStrip();
             ToolStripMenuItem mnuDelete = new ToolStripMenuItem("Delete");
+            ToolStripMenuItem mnuDisplayProducts = new ToolStripMenuItem("Show Selected Products");
             mnuDelete.Click += new EventHandler(mnuDelete_Click);
-            mnu.Items.AddRange(new ToolStripItem[] { mnuDelete });
+            mnuDisplayProducts.Click += new EventHandler(mnuDisplayProducts_Click);
+            mnu.Items.AddRange(new ToolStripItem[] { mnuDelete, mnuDisplayProducts });
             CatDGV.ContextMenuStrip = mnu;
         }
         private void display()
@@ -42,20 +45,21 @@ namespace SupermarketTuto.Forms
             {
 
             }
-           
-            
+
+
+        }
+        private void mnuDisplayProducts_Click(object? sender, EventArgs e)
+        {
+
         }
 
         private void mnuDelete_Click(object? sender, EventArgs e)
         {
             SqlConnect loaddata2 = new SqlConnect();
-
             loaddata2.commandExc("Delete From CategoryTbl Where CatId='" + CatDGV.CurrentRow.Cells[0].Value.ToString() + "'");
-
             foreach (DataGridViewRow row in CatDGV.SelectedRows)
             {
                 CatDGV.Rows.RemoveAt(row.Index);
-
             }
         }
 
@@ -119,12 +123,10 @@ namespace SupermarketTuto.Forms
             totalLabel.Text = $"Total: {CatDGV.RowCount}";
         }
 
-
         private void fromDateTimePicker_ValueChanged(object sender, EventArgs e)
         {
             refresh_data();
         }
-
 
         private void refresh_data()
         {
@@ -310,12 +312,20 @@ namespace SupermarketTuto.Forms
 
         private void CatDGV_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (CatDGV.CurrentRow.Cells[0].Value.ToString() == "2")
+            foreach (DataGridViewRow row in CatDGV.Rows)
             {
-                CatDGV.CurrentRow.DefaultCellStyle.BackColor = Color.Red;
+                if (DateTime.Parse(row.Cells[3].Value.ToString()) >= DateTime.Now.AddMonths(-7)
+                    && DateTime.Parse(row.Cells[3].Value.ToString()) <= DateTime.Now)
+                {
+                    row.DefaultCellStyle.BackColor = Color.Orange;
+                }
             }
         }
 
+        private void showSelectedProductsButton_Click(object sender, EventArgs e)
+        {
+            //SelectedProducts products = new SelectedProducts(CatDGV.CurrentRow);
 
+        }
     }
 }

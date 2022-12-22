@@ -22,8 +22,7 @@ namespace SupermarketTuto.Forms.AdminForms
         {
             MainMenu();
         }
-
-
+        
         private void MainMenu()
         {
             MenuStrip menu = new MenuStrip();
@@ -40,7 +39,7 @@ namespace SupermarketTuto.Forms.AdminForms
                 {
                     MnuStripItem.Click += new EventHandler(MnuStripAbout_Click);
                 }
-                
+
             }
         }
         public void SubMenu2(ToolStripMenuItem MnuItems, string var)
@@ -58,7 +57,7 @@ namespace SupermarketTuto.Forms.AdminForms
 
             if (var == "New")
             {
-                string[] row = new string[] { "Project", "Web Site", "File..", "Project From Existing Code" };  
+                string[] row = new string[] { "Project", "Web Site", "File..", "Project From Existing Code" };
                 foreach (string rw in row)
                 {
                     ToolStripMenuItem SSSMenu = new ToolStripMenuItem(rw, null);
@@ -166,18 +165,33 @@ namespace SupermarketTuto.Forms.AdminForms
             Seller form = new Seller();
             form.TopLevel = false;
             form.TopMost = true;
-            mainPanel.Controls.Add(form);
-            form.BringToFront();
+            splitContainer1.Panel1.Controls.Add(form);
             form.Show();
         }
 
-        private void categoriesButton_Click(object sender, EventArgs e)
+        
+
+        public void categoriesButton_Click(object sender, EventArgs e)
         {
             Category form = new Category();
             form.TopLevel = false;
+            form.TopMost = true; 
+            splitContainer1.Panel1.Controls.Add(form);
+            form.checkBoxProducts.CheckedChanged += new System.EventHandler(this.checkBoxProducts_CheckedChanged);
+            form.Show();
+        }
+
+        public void checkBoxProducts_CheckedChanged(object sender, EventArgs e)
+        {
+            //splitContainer1.Panel2Collapsed = !form22.checkBoxProducts.Checked;
+            displayProducts();
+        }
+        public void displayProducts()
+        {
+            Product form = new Product();
+            form.TopLevel = false;
             form.TopMost = true;
-            mainPanel.Controls.Add(form);
-            form.BringToFront();
+            splitContainer1.Panel2.Controls.Add(form);
             form.Show();
         }
 
@@ -186,12 +200,10 @@ namespace SupermarketTuto.Forms.AdminForms
             Product form = new Product();
             form.TopLevel = false;
             form.TopMost = true;
-            mainPanel.Controls.Add(form);
-            form.BringToFront();
+            splitContainer1.Panel1.Controls.Add(form);
             form.Show();
         }
-
-        private void MainAdmin_FormClosing(object sender, FormClosingEventArgs e)
+        public void MainAdmin_FormClosing(object sender, FormClosingEventArgs e)
         {
             DialogResult confirm = MessageBox.Show("Confirm to close", Constants.Exit, MessageBoxButtons.YesNo);
             if (confirm == DialogResult.No)
@@ -199,5 +211,8 @@ namespace SupermarketTuto.Forms.AdminForms
                 e.Cancel = true;
             }
         }
+        
+
+
     }
 }

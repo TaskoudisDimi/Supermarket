@@ -540,7 +540,7 @@ namespace SupermarketTuto.Forms
         {
             foreach (DataGridViewRow row in ProdDGV.Rows)
             {
-                if (DateTime.Parse(row.Cells[5].Value.ToString()) >= DateTime.Now.AddDays(-7)
+                if (DateTime.Parse(row.Cells[5].Value.ToString()) >= DateTime.Now.AddMonths(-7)
                     && DateTime.Parse(row.Cells[5].Value.ToString()) <= DateTime.Now)
                 {
                     row.DefaultCellStyle.BackColor = Color.Orange;

@@ -18,9 +18,11 @@ namespace SupermarketTuto
         // TODO: CellFormating
         // TODO: Create Utils methods
         // TODO: Use Interface / abstract, static 
+        // TODO: Use custom events
         // TODO: Use TCP / UDP sending/receiving packet  
         // TODO: Build API
         // TODO: Insert data from store procedures
+        // TODO: Insert Select column in DataGridViews
  
     }
 }
