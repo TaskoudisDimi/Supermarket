@@ -9,7 +9,7 @@ namespace SupermarketTuto.Utils
     public class Globals
     {
 
-
+        public string pathApp = "System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)";
 
     }
 }

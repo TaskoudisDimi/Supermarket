@@ -16,6 +16,7 @@ namespace SupermarketTuto.Forms.General
         public addEditProduct()
         {
             InitializeComponent();
+            ComboCat();
         }
 
         private void addEditProduct_Load(object sender, EventArgs e)
@@ -37,7 +38,7 @@ namespace SupermarketTuto.Forms.General
 
             try
             {
-                loaddata5.commandExc("Insert Into ProductTbl values('" + ProdName.Text + "'," + ProdQty.Text + "," + ProdPrice.Text + ",'" + catCombobox.SelectedValue.ToString() + "', '" + DateTimePicker.Value.ToString("MM-dd-yyyy") + "')");
+                loaddata5.commandExc("Insert Into ProductTbl values('" + ProdName.Text + "'," + ProdQty.Text + "," + ProdPrice.Text + "," + catIDTextBox.Text +  ",'" + catCombobox.SelectedValue.ToString() + "', '" + DateTimePicker.Value.ToString("MM-dd-yyyy") + "')");
                 MessageBox.Show(Constants.MessageInsertData);
                 this.Close();
             }
@@ -53,7 +54,7 @@ namespace SupermarketTuto.Forms.General
 
             try
             {
-                loaddata6.commandExc("Update ProductTbl set ProdName = '" + ProdName.Text + "', ProdCat = '" + catCombobox.Text + "', ProdQty = '" + ProdQty.Text + "', ProdPrice = '" + ProdPrice.Text + "', Date = '" + DateTimePicker.Value.ToString("yyyy-MM-dd") + "' where ProdId = " + ProdId.Text);
+                loaddata6.commandExc("Update ProductTbl set ProdName = '" + ProdName.Text + "', ProdCat = '" + catCombobox.Text + "', ProdQty = '" + ProdQty.Text + "', ProdPrice = '" + ProdPrice.Text + "', ProdCatID = " + catIDTextBox.Text + ", Date = '" + DateTimePicker.Value.ToString("yyyy-MM-dd") + "' where ProdId = " + ProdId.Text);
                 MessageBox.Show("Product Successfully Updated");
                 this.Close();
             }
@@ -62,5 +63,38 @@ namespace SupermarketTuto.Forms.General
                 MessageBox.Show(ex.Message);
             }
         }
+
+
+        private void ComboCat()
+        {
+            catIDTextBox.Enabled = false;
+            catIDTextBox.Text = String.Empty;
+            SqlConnect loaddata7 = new SqlConnect();
+            loaddata7.retrieveData("Select CatId, CatName From CategoryTbl");
+            catCombobox.DataSource = loaddata7.table;
+            catCombobox.ValueMember = "CatName";
+            catCombobox.SelectedItem = null;
+            catCombobox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            catCombobox.AutoCompleteSource = AutoCompleteSource.ListItems;
+        }
+
+        private void catCombobox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                SqlConnect loaddata8 = new SqlConnect();
+                loaddata8.retrieveData("Select CatId From CategoryTbl where CatName = '" + catCombobox.Text + "'");
+                if (loaddata8.table.Rows.Count != 0)
+                {
+                    catIDTextBox.Text = loaddata8.table.Rows[0]["CatId"].ToString();
+                }
+            }
+            catch
+            {
+
+            }
+        }
+
+       
     }
 }

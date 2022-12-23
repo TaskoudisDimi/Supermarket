@@ -1,7 +1,9 @@
 ﻿
+
 using DataClass;
 using SupermarketTuto.Forms.AdminForms;
 using SupermarketTuto.Forms.General;
+using SupermarketTuto.Utils;
 using System.Data;
 using System.Text;
 
@@ -18,6 +20,14 @@ namespace SupermarketTuto.Forms
         private void Category_Load(object sender, EventArgs e)
         {
             display();
+
+            //Create column Select
+            DataGridViewCheckBoxColumn checkboxColumn = new DataGridViewCheckBoxColumn();
+            checkboxColumn.Name = "Select";
+            CatDGV.Columns.Add(checkboxColumn);
+            CatDGV.Columns["Select"].DisplayIndex = 0;
+
+            //Create right click menu
             ContextMenuStrip mnu = new ContextMenuStrip();
             ToolStripMenuItem mnuDelete = new ToolStripMenuItem("Delete");
             ToolStripMenuItem mnuDisplayProducts = new ToolStripMenuItem("Show Selected Products");
@@ -41,9 +51,9 @@ namespace SupermarketTuto.Forms
                     MessageBox.Show("Warning", "There is no data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
-            catch
+            catch (Exception ex)
             {
-
+                Utlis.Log(string.Format("Message : {0}", ex.Message), "ErrorImportTxt.txt");
             }
 
 
@@ -83,8 +93,6 @@ namespace SupermarketTuto.Forms
             add.idlabel.Visible = false;
             add.Show();
             refresh_data();
-
-
         }
 
         private void editButton_Click(object sender, EventArgs e)
@@ -314,8 +322,8 @@ namespace SupermarketTuto.Forms
         {
             foreach (DataGridViewRow row in CatDGV.Rows)
             {
-                if (DateTime.Parse(row.Cells[3].Value.ToString()) >= DateTime.Now.AddMonths(-7)
-                    && DateTime.Parse(row.Cells[3].Value.ToString()) <= DateTime.Now)
+                if (DateTime.Parse(row.Cells[4].Value.ToString()) >= DateTime.Now.AddMonths(-7)
+                    && DateTime.Parse(row.Cells[4].Value.ToString()) <= DateTime.Now)
                 {
                     row.DefaultCellStyle.BackColor = Color.Orange;
                 }
@@ -324,8 +332,27 @@ namespace SupermarketTuto.Forms
 
         private void showSelectedProductsButton_Click(object sender, EventArgs e)
         {
-            //SelectedProducts products = new SelectedProducts(CatDGV.CurrentRow);
+            try
+            {
+                List<int> cats = new List<int>();
+                for (int i = 0; i < CatDGV.Rows.Count; i++)
+                {
+                    if (Convert.ToBoolean(CatDGV.Rows[i].Cells[0].Value))
+                    {
+                        cats.Add((int)CatDGV.Rows[i].Cells[1].Value);
+                    }
+                }
+                if (cats.Count != 0)
+                {
+                    SelectedProducts frm = new SelectedProducts(cats);
+                    frm.Show();
+                }  
+            }
+            catch
+            {
 
+            }
+            
         }
     }
 }

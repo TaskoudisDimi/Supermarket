@@ -10,6 +10,7 @@ namespace DataClass
     {
 
         SqlConnection con = new SqlConnection();
+
         public DataTable table = new DataTable();
 
         public SqlConnect()

@@ -211,6 +211,7 @@
             this.checkBoxProducts.TabIndex = 117;
             this.checkBoxProducts.Text = "Products";
             this.checkBoxProducts.UseVisualStyleBackColor = true;
+            this.checkBoxProducts.Visible = false;
             // 
             // showSelectedProductsButton
             // 

@@ -144,7 +144,6 @@ namespace SupermarketTuto.Forms.AdminForms
 
         private void MnuStripDb_Click(object sender, EventArgs e)
         {
-
             SqlConnect db = new SqlConnect();
             string path = "";
             FolderBrowserDialog dialog = new FolderBrowserDialog();
@@ -168,8 +167,6 @@ namespace SupermarketTuto.Forms.AdminForms
             splitContainer1.Panel1.Controls.Add(form);
             form.Show();
         }
-
-        
 
         public void categoriesButton_Click(object sender, EventArgs e)
         {

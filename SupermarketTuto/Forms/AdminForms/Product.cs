@@ -161,8 +161,9 @@ namespace SupermarketTuto.Forms
             edit.ProdName.Text = ProdDGV.CurrentRow.Cells[1].Value.ToString();
             edit.ProdPrice.Text = ProdDGV.CurrentRow.Cells[2].Value.ToString();
             edit.ProdQty.Text = ProdDGV.CurrentRow.Cells[3].Value.ToString();
-            edit.catCombobox.SelectedValue = ProdDGV.CurrentRow.Cells[4].Value.ToString();
-            edit.DateTimePicker.Text = ProdDGV.CurrentRow.Cells[5].Value.ToString();
+            edit.catCombobox.SelectedValue = ProdDGV.CurrentRow.Cells[5].Value.ToString();
+            edit.catIDTextBox.Text = ProdDGV.CurrentRow.Cells[4].Value.ToString();
+            edit.DateTimePicker.Text = ProdDGV.CurrentRow.Cells[6].Value.ToString();
             edit.addButton.Visible = false;
             edit.ProdId.ReadOnly = true;
             edit.Show();
@@ -540,8 +541,8 @@ namespace SupermarketTuto.Forms
         {
             foreach (DataGridViewRow row in ProdDGV.Rows)
             {
-                if (DateTime.Parse(row.Cells[5].Value.ToString()) >= DateTime.Now.AddMonths(-7)
-                    && DateTime.Parse(row.Cells[5].Value.ToString()) <= DateTime.Now)
+                if (DateTime.Parse(row.Cells[6].Value.ToString()) >= DateTime.Now.AddMonths(-7)
+                    && DateTime.Parse(row.Cells[6].Value.ToString()) <= DateTime.Now)
                 {
                     row.DefaultCellStyle.BackColor = Color.Orange;
                 }
