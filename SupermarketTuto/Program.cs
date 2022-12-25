@@ -13,15 +13,13 @@ namespace SupermarketTuto
             Application.Run(new MainAdmin());
         }
 
-        // TODO: Write Logs
-        // TODO: Use Constants
-        // TODO: Create Utils methods
-        // TODO: Use Interface / abstract, static 
+        // TODO: Create Utils methods (write logs)
+        // TODO: Use Interface / abstract
         // TODO: Use custom events
         // TODO: Use TCP / UDP sending/receiving packet  
         // TODO: Build API
         // TODO: Insert data from store procedures
-
+        // TODO: Manage Threads
  
     }
 }

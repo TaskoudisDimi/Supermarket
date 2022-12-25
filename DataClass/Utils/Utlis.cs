@@ -68,5 +68,10 @@ namespace SupermarketTuto.Utils
         {
             return value.ToString();
         }
+
+        public static void WriteException()
+        {
+
+        }
     }
 }

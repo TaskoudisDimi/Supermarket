@@ -43,41 +43,41 @@
             this.selectedDGV.BackgroundColor = System.Drawing.Color.WhiteSmoke;
             this.selectedDGV.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.selectedDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.selectedDGV.Location = new System.Drawing.Point(14, 63);
+            this.selectedDGV.Location = new System.Drawing.Point(14, 85);
             this.selectedDGV.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.selectedDGV.Name = "selectedDGV";
             this.selectedDGV.RowHeadersWidth = 62;
             this.selectedDGV.RowTemplate.Height = 30;
             this.selectedDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.selectedDGV.Size = new System.Drawing.Size(772, 375);
+            this.selectedDGV.Size = new System.Drawing.Size(1150, 603);
             this.selectedDGV.TabIndex = 79;
             // 
             // toDateTimePicker
             // 
             this.toDateTimePicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.toDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.toDateTimePicker.Location = new System.Drawing.Point(594, 31);
+            this.toDateTimePicker.Location = new System.Drawing.Point(949, 31);
             this.toDateTimePicker.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.toDateTimePicker.Name = "toDateTimePicker";
-            this.toDateTimePicker.Size = new System.Drawing.Size(118, 26);
+            this.toDateTimePicker.Size = new System.Drawing.Size(176, 35);
             this.toDateTimePicker.TabIndex = 122;
             // 
             // fromDateTimePicker
             // 
             this.fromDateTimePicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.fromDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.fromDateTimePicker.Location = new System.Drawing.Point(458, 31);
+            this.fromDateTimePicker.Location = new System.Drawing.Point(737, 33);
             this.fromDateTimePicker.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.fromDateTimePicker.Name = "fromDateTimePicker";
-            this.fromDateTimePicker.Size = new System.Drawing.Size(127, 26);
+            this.fromDateTimePicker.Size = new System.Drawing.Size(202, 35);
             this.fromDateTimePicker.TabIndex = 121;
             // 
             // searchButton
             // 
             this.searchButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.searchButton.Location = new System.Drawing.Point(254, 33);
+            this.searchButton.Location = new System.Drawing.Point(262, 33);
             this.searchButton.Name = "searchButton";
-            this.searchButton.Size = new System.Drawing.Size(92, 26);
+            this.searchButton.Size = new System.Drawing.Size(123, 35);
             this.searchButton.TabIndex = 124;
             this.searchButton.Text = "Search";
             this.searchButton.UseVisualStyleBackColor = true;
@@ -87,14 +87,14 @@
             this.searchTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.searchTextBox.Location = new System.Drawing.Point(14, 33);
             this.searchTextBox.Name = "searchTextBox";
-            this.searchTextBox.Size = new System.Drawing.Size(222, 26);
+            this.searchTextBox.Size = new System.Drawing.Size(222, 35);
             this.searchTextBox.TabIndex = 123;
             // 
             // SelectedProducts
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(859, 477);
+            this.ClientSize = new System.Drawing.Size(1178, 700);
             this.Controls.Add(this.searchButton);
             this.Controls.Add(this.searchTextBox);
             this.Controls.Add(this.toDateTimePicker);

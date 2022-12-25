@@ -45,23 +45,23 @@
             // 
             this.commentsLabel.AutoSize = true;
             this.commentsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.commentsLabel.Location = new System.Drawing.Point(28, 173);
+            this.commentsLabel.Location = new System.Drawing.Point(464, 183);
             this.commentsLabel.Name = "commentsLabel";
-            this.commentsLabel.Size = new System.Drawing.Size(86, 20);
+            this.commentsLabel.Size = new System.Drawing.Size(129, 29);
             this.commentsLabel.TabIndex = 66;
             this.commentsLabel.Text = "Comments";
             // 
             // commentsRichTextBox
             // 
-            this.commentsRichTextBox.Location = new System.Drawing.Point(31, 213);
+            this.commentsRichTextBox.Location = new System.Drawing.Point(467, 223);
             this.commentsRichTextBox.Name = "commentsRichTextBox";
-            this.commentsRichTextBox.Size = new System.Drawing.Size(258, 180);
+            this.commentsRichTextBox.Size = new System.Drawing.Size(292, 99);
             this.commentsRichTextBox.TabIndex = 64;
             this.commentsRichTextBox.Text = "";
             // 
             // refreshBillsButton
             // 
-            this.refreshBillsButton.Location = new System.Drawing.Point(737, 166);
+            this.refreshBillsButton.Location = new System.Drawing.Point(371, 155);
             this.refreshBillsButton.Name = "refreshBillsButton";
             this.refreshBillsButton.Size = new System.Drawing.Size(64, 20);
             this.refreshBillsButton.TabIndex = 63;
@@ -72,7 +72,7 @@
             // total3Label
             // 
             this.total3Label.AutoSize = true;
-            this.total3Label.Location = new System.Drawing.Point(734, 415);
+            this.total3Label.Location = new System.Drawing.Point(342, 378);
             this.total3Label.Name = "total3Label";
             this.total3Label.Size = new System.Drawing.Size(34, 13);
             this.total3Label.TabIndex = 62;
@@ -86,7 +86,7 @@
             this.BillsDGV.BackgroundColor = System.Drawing.Color.Gainsboro;
             this.BillsDGV.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.BillsDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.BillsDGV.Location = new System.Drawing.Point(383, 207);
+            this.BillsDGV.Location = new System.Drawing.Point(18, 181);
             this.BillsDGV.Name = "BillsDGV";
             this.BillsDGV.RowHeadersWidth = 62;
             this.BillsDGV.RowTemplate.Height = 30;
@@ -96,7 +96,7 @@
             // 
             // deleteButton
             // 
-            this.deleteButton.Location = new System.Drawing.Point(507, 411);
+            this.deleteButton.Location = new System.Drawing.Point(90, 367);
             this.deleteButton.Name = "deleteButton";
             this.deleteButton.Size = new System.Drawing.Size(64, 23);
             this.deleteButton.TabIndex = 60;
@@ -106,7 +106,7 @@
             // 
             // billButton
             // 
-            this.billButton.Location = new System.Drawing.Point(383, 411);
+            this.billButton.Location = new System.Drawing.Point(20, 368);
             this.billButton.Name = "billButton";
             this.billButton.Size = new System.Drawing.Size(64, 23);
             this.billButton.TabIndex = 67;
@@ -118,9 +118,9 @@
             // 
             this.LabelDate.AutoSize = true;
             this.LabelDate.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.LabelDate.Location = new System.Drawing.Point(818, 20);
+            this.LabelDate.Location = new System.Drawing.Point(840, 20);
             this.LabelDate.Name = "LabelDate";
-            this.LabelDate.Size = new System.Drawing.Size(50, 21);
+            this.LabelDate.Size = new System.Drawing.Size(74, 32);
             this.LabelDate.TabIndex = 70;
             this.LabelDate.Text = "Date:";
             // 
@@ -128,9 +128,9 @@
             // 
             this.AmountLabel.AutoSize = true;
             this.AmountLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.AmountLabel.Location = new System.Drawing.Point(470, 72);
+            this.AmountLabel.Location = new System.Drawing.Point(387, 65);
             this.AmountLabel.Name = "AmountLabel";
-            this.AmountLabel.Size = new System.Drawing.Size(114, 21);
+            this.AmountLabel.Size = new System.Drawing.Size(170, 32);
             this.AmountLabel.TabIndex = 71;
             this.AmountLabel.Text = "Total Amount";
             // 
@@ -140,7 +140,7 @@
             this.seller_Name_Label.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.seller_Name_Label.Location = new System.Drawing.Point(12, 20);
             this.seller_Name_Label.Name = "seller_Name_Label";
-            this.seller_Name_Label.Size = new System.Drawing.Size(114, 24);
+            this.seller_Name_Label.Size = new System.Drawing.Size(170, 32);
             this.seller_Name_Label.TabIndex = 72;
             this.seller_Name_Label.Text = "Seller Name";
             // 
@@ -148,7 +148,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1041, 642);
+            this.ClientSize = new System.Drawing.Size(1041, 501);
             this.Controls.Add(this.seller_Name_Label);
             this.Controls.Add(this.AmountLabel);
             this.Controls.Add(this.LabelDate);

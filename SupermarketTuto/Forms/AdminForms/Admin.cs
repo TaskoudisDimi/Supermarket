@@ -20,6 +20,14 @@ namespace SupermarketTuto.Forms
 
         private void Admin_Load(object sender, EventArgs e)
         {
+            try
+            {
+
+            }
+            catch
+            {
+
+            }
             SqlConnect loaddata = new SqlConnect();
             loaddata.retrieveData("Select [Id],[UserName],cast([Password] as varchar(MAX)) as Password,[Active] From [Admins]");
             usersDataGridView.DataSource = loaddata.table;
