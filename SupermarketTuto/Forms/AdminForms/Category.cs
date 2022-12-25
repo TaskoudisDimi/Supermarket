@@ -27,13 +27,19 @@ namespace SupermarketTuto.Forms
             CatDGV.Columns.Add(checkboxColumn);
             CatDGV.Columns["Select"].DisplayIndex = 0;
 
+            menu();
+        }
+        private void menu()
+        {
             //Create right click menu
             ContextMenuStrip mnu = new ContextMenuStrip();
+            ToolStripMenuItem mnuEdit = new ToolStripMenuItem("Edit");
             ToolStripMenuItem mnuDelete = new ToolStripMenuItem("Delete");
-            ToolStripMenuItem mnuDisplayProducts = new ToolStripMenuItem("Show Selected Products");
+            ToolStripMenuItem mnuSelectedProducts = new ToolStripMenuItem("Show Selected Products");
+            mnuEdit.Click += new EventHandler(mnuEdit_Click);
             mnuDelete.Click += new EventHandler(mnuDelete_Click);
-            mnuDisplayProducts.Click += new EventHandler(mnuDisplayProducts_Click);
-            mnu.Items.AddRange(new ToolStripItem[] { mnuDelete, mnuDisplayProducts });
+            mnuSelectedProducts.Click += new EventHandler(mnuSelectedProducts_Click);
+            mnu.Items.AddRange(new ToolStripItem[] { mnuEdit, mnuSelectedProducts, mnuDelete });
             CatDGV.ContextMenuStrip = mnu;
         }
         private void display()
@@ -58,9 +64,41 @@ namespace SupermarketTuto.Forms
 
 
         }
-        private void mnuDisplayProducts_Click(object? sender, EventArgs e)
-        {
 
+        private void mnuEdit_Click(object? sender, EventArgs e)
+        {
+            addEditCategory edit = new addEditCategory();
+            edit.CatIdTb.Text = CatDGV.CurrentRow.Cells[1].Value.ToString();
+            edit.CatNameTb.Text = CatDGV.CurrentRow.Cells[2].Value.ToString();
+            edit.CatDescTb.Text = CatDGV.CurrentRow.Cells[3].Value.ToString();
+            edit.dateTimePicker.Text = CatDGV.CurrentRow.Cells[4].Value.ToString();
+            edit.addButton.Visible = false;
+            edit.CatIdTb.ReadOnly = true;
+            edit.Show();
+            refresh_data();
+        }
+        private void mnuSelectedProducts_Click(object? sender, EventArgs e)
+        {
+            try
+            {
+                List<int> cats = new List<int>();
+                for (int i = 0; i < CatDGV.Rows.Count; i++)
+                {
+                    if (Convert.ToBoolean(CatDGV.Rows[i].Cells[0].Value))
+                    {
+                        cats.Add((int)CatDGV.Rows[i].Cells[1].Value);
+                    }
+                }
+                if (cats.Count != 0)
+                {
+                    SelectedProducts frm = new SelectedProducts(cats);
+                    frm.Show();
+                }
+            }
+            catch
+            {
+
+            }
         }
 
         private void mnuDelete_Click(object? sender, EventArgs e)
@@ -98,10 +136,10 @@ namespace SupermarketTuto.Forms
         private void editButton_Click(object sender, EventArgs e)
         {
             addEditCategory edit = new addEditCategory();
-            edit.CatIdTb.Text = CatDGV.CurrentRow.Cells[0].Value.ToString();
-            edit.CatNameTb.Text = CatDGV.CurrentRow.Cells[1].Value.ToString();
-            edit.CatDescTb.Text = CatDGV.CurrentRow.Cells[2].Value.ToString();
-            edit.dateTimePicker.Text = CatDGV.CurrentRow.Cells[3].Value.ToString();
+            edit.CatIdTb.Text = CatDGV.CurrentRow.Cells[1].Value.ToString();
+            edit.CatNameTb.Text = CatDGV.CurrentRow.Cells[2].Value.ToString();
+            edit.CatDescTb.Text = CatDGV.CurrentRow.Cells[3].Value.ToString();
+            edit.dateTimePicker.Text = CatDGV.CurrentRow.Cells[4].Value.ToString();
             edit.addButton.Visible = false;
             edit.CatIdTb.ReadOnly = true;
             edit.Show();

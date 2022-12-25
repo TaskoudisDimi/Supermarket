@@ -3,6 +3,7 @@ using SupermarketTuto.Forms.General;
 using SupermarketTuto.Utils;
 using System.Data;
 using System.Data.SqlClient;
+using System.Net.Http.Headers;
 using System.Text;
 
 
@@ -23,13 +24,34 @@ namespace SupermarketTuto.Forms
         {
             try
             {
-                SqlConnect loaddata1 = new SqlConnect();
-                loaddata1.retrieveData("Select [SellerId],[SellerUserName],cast([SellerPass] as varchar(MAX)) as Password,[SellerName],[SellerAge],[SellerPhone],[Address],[Date],[Active] From SellersTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'");
-               
-                SellDGV.DataSource = loaddata1.table;
-                totalLabel.Text = $"Total: {SellDGV.RowCount}";
-                SellDGV.RowHeadersVisible = false;
-                SellDGV.Columns[5].HeaderText = "Date of Birth";
+                if (activeComboBox.Text == "Active")
+                {
+                    SqlConnect loaddata1 = new SqlConnect();
+                    loaddata1.retrieveData("Select [SellerId],[SellerUserName],cast([SellerPass] as varchar(MAX)) as Password,[SellerName],[SellerAge],[SellerPhone],[Address],[Date],[Active] From SellersTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and Active = 'true'");
+                    SellDGV.DataSource = loaddata1.table;
+                    totalLabel.Text = $"Total: {SellDGV.RowCount}";
+                    SellDGV.RowHeadersVisible = false;
+                    SellDGV.Columns[5].HeaderText = "Date of Birth";
+                }
+                else if (activeComboBox.Text == "Inactive")
+                {
+                    SqlConnect loaddata1 = new SqlConnect();
+                    loaddata1.retrieveData("Select [SellerId],[SellerUserName],cast([SellerPass] as varchar(MAX)) as Password,[SellerName],[SellerAge],[SellerPhone],[Address],[Date],[Active] From SellersTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and Active = 'False'");
+                    SellDGV.DataSource = loaddata1.table;
+                    totalLabel.Text = $"Total: {SellDGV.RowCount}";
+                    SellDGV.RowHeadersVisible = false;
+                    SellDGV.Columns[5].HeaderText = "Date of Birth";
+                }
+                else
+                {
+                    SqlConnect loaddata1 = new SqlConnect();
+                    loaddata1.retrieveData("Select [SellerId],[SellerUserName],cast([SellerPass] as varchar(MAX)) as Password,[SellerName],[SellerAge],[SellerPhone],[Address],[Date],[Active] From SellersTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'");
+                    SellDGV.DataSource = loaddata1.table;
+                    totalLabel.Text = $"Total: {SellDGV.RowCount}";
+                    SellDGV.RowHeadersVisible = false;
+                    SellDGV.Columns[5].HeaderText = "Date of Birth";
+                }
+                
             }
             catch(Exception ex)
             {
@@ -40,28 +62,61 @@ namespace SupermarketTuto.Forms
         private void Seller_Load(object sender, EventArgs e)
         {
             display();
-            ContextMenuStrip mnu = new ContextMenuStrip();
+            //menu();
+            fillcombo();
+        }
+
+        private void fillcombo()
+        {
+            //Fill combo Active
+            string[] test2 = { "Not Set", "Active", "Inactive" };
+            activeComboBox.DataSource = test2;
+        }
+
+        private void menu()
+        {
+            ContextMenuStrip menu = new ContextMenuStrip();
             ToolStripMenuItem mnuDelete = new ToolStripMenuItem("Delete");
-            //Assign event handlers
+            ToolStripMenuItem mnuEdit = new ToolStripMenuItem("Edit");
             mnuDelete.Click += new EventHandler(mnuDelete_Click);
-            //Add to main context menu
-            mnu.Items.AddRange(new ToolStripItem[] { mnuDelete });
-            //Assign to datagridview
-            SellDGV.ContextMenuStrip = mnu;
+            mnuEdit.Click += new EventHandler(mnuEdit_Click);
+            menu.Items.AddRange(new ToolStripItem[] { mnuEdit, mnuDelete });
+            SellDGV.ContextMenuStrip = menu;
+            SellDGV.AllowUserToAddRows = false;
+        }
 
-
+        private void mnuEdit_Click(object? sender, EventArgs e)
+        {
+            try
+            {
+                addEditSeller edit = new addEditSeller();
+                edit.SellId.Text = SellDGV.CurrentRow.Cells[0].Value.ToString();
+                edit.usernameTextBox.Text = SellDGV.CurrentRow.Cells[1].Value.ToString();
+                edit.passwordTextBox.Text = SellDGV.CurrentRow.Cells[2].Value.ToString();
+                edit.SellName.Text = SellDGV.CurrentRow.Cells[3].Value.ToString();
+                edit.SellAge.Text = SellDGV.CurrentRow.Cells[4].Value.ToString();
+                edit.SellPhone.Text = SellDGV.CurrentRow.Cells[5].Value.ToString();
+                edit.addressTextBox.Text = SellDGV.CurrentRow.Cells[6].Value.ToString();
+                edit.dateTimePicker.Text = SellDGV.CurrentRow.Cells[7].Value.ToString();
+                edit.checkBox.Checked = (bool)SellDGV.CurrentRow.Cells[8].Value;
+                edit.addButton.Visible = false;
+                edit.SellId.ReadOnly = true;
+                edit.Show();
+            }
+            catch (Exception ex)
+            {
+                Utlis.Log(string.Format("Message : {0}", ex.Message), "ErrorDisplayData.txt");
+            }
         }
         private void mnuDelete_Click(object? sender, EventArgs e)
         {
-            //SqlConnect loaddata2 = new SqlConnect();
+            SqlConnect loaddata2 = new SqlConnect();
+            loaddata2.commandExc("Delete From SellerTbl Where SellerId = " + SellDGV.CurrentRow.Cells[0].Value.ToString());
+            foreach (DataGridViewRow row in SellDGV.SelectedRows)
+            {
+                SellDGV.Rows.RemoveAt(row.Index);
 
-            //loaddata2.commandExc("Delete From SellerTbl Where SellerId=" + SellId.Text + "");
-
-            //foreach (DataGridViewRow row in SellDGV.SelectedRows)
-            //{
-            //    SellDGV.Rows.RemoveAt(row.Index);
-
-            //}
+            }
         }
 
         private void add2Button_Click(object sender, EventArgs e)
@@ -127,12 +182,7 @@ namespace SupermarketTuto.Forms
 
         private void SellDGV_MouseDown(object sender, MouseEventArgs e)
         {
-            ContextMenuStrip menu = new ContextMenuStrip();
-            ToolStripMenuItem sellerDelete = new ToolStripMenuItem("Delete");
-            sellerDelete.Click += new EventHandler(mnuDelete_Click);
-            menu.Items.AddRange(new ToolStripItem[] { sellerDelete });
-            SellDGV.ContextMenuStrip = menu;
-            SellDGV.AllowUserToAddRows = false;
+            menu();
         }
 
         private void searchButton_Click(object sender, EventArgs e)
@@ -147,6 +197,7 @@ namespace SupermarketTuto.Forms
 
         private void searchTextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
+            //Search with Enter 
             if (e.KeyChar == (char)13)
             {
                 searchButton.PerformClick();
@@ -326,6 +377,20 @@ namespace SupermarketTuto.Forms
             {
                 e.Value = new string('*', e.Value.ToString().Length);
             }
+        }
+
+        private void activeComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                display();
+                
+            }
+            catch(Exception ex)
+            {
+
+            }
+            
         }
 
         //public Image ConvertByteToImage(byte[] data)

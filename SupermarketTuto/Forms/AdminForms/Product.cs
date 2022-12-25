@@ -29,15 +29,45 @@ namespace SupermarketTuto.Forms
         {
             display();
             fillCombo();
+            menu();
+
+        }
+
+        private void menu()
+        {
             ContextMenuStrip mnu = new ContextMenuStrip();
+            ToolStripMenuItem mnuEdit = new ToolStripMenuItem("Edit");
             ToolStripMenuItem mnuDelete = new ToolStripMenuItem("Delete");
             //Assign event handlers
             mnuDelete.Click += new EventHandler(mnuDelete_Click);
+            mnuEdit.Click += new EventHandler(mnuEdit_Click);
             //Add to main context menu
-            mnu.Items.AddRange(new ToolStripItem[] { mnuDelete });
+            mnu.Items.AddRange(new ToolStripItem[] {mnuEdit, mnuDelete });
             //Assign to datagridview
             ProdDGV.ContextMenuStrip = mnu;
+        }
 
+        private void mnuEdit_Click(object? sender, EventArgs e)
+        {
+            SqlConnect loaddata2 = new SqlConnect();
+            addEditProduct edit = new addEditProduct();
+            ////This method will bind the Combobox with the Database
+            loaddata2.retrieveData("Select CatName From CategoryTbl");
+            edit.catCombobox.DataSource = loaddata2.table;
+            edit.catCombobox.ValueMember = "CatName";
+            //catCombobox.SelectedItem = null;
+            edit.catCombobox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            edit.catCombobox.AutoCompleteSource = AutoCompleteSource.ListItems;
+            edit.ProdId.Text = ProdDGV.CurrentRow.Cells[0].Value.ToString();
+            edit.ProdName.Text = ProdDGV.CurrentRow.Cells[1].Value.ToString();
+            edit.ProdPrice.Text = ProdDGV.CurrentRow.Cells[2].Value.ToString();
+            edit.ProdQty.Text = ProdDGV.CurrentRow.Cells[3].Value.ToString();
+            edit.catCombobox.SelectedValue = ProdDGV.CurrentRow.Cells[5].Value.ToString();
+            edit.catIDTextBox.Text = ProdDGV.CurrentRow.Cells[4].Value.ToString();
+            edit.DateTimePicker.Text = ProdDGV.CurrentRow.Cells[6].Value.ToString();
+            edit.addButton.Visible = false;
+            edit.ProdId.ReadOnly = true;
+            edit.Show();
         }
 
         private void fillCombo()
@@ -120,15 +150,15 @@ namespace SupermarketTuto.Forms
 
         private void mnuDelete_Click(object? sender, EventArgs e)
         {
-            //SqlConnect loaddata4 = new SqlConnect();
+            SqlConnect loaddata4 = new SqlConnect();
 
-            //loaddata4.commandExc("Delete From ProductTbl Where ProdId=" + ProdId.Text + "");
+            loaddata4.commandExc("Delete From ProductTbl Where ProdId=" + ProdDGV.CurrentRow.Cells[0].Value.ToString());
 
-            //foreach (DataGridViewRow row in ProdDGV.SelectedRows)
-            //{
-            //    ProdDGV.Rows.RemoveAt(row.Index);
+            foreach (DataGridViewRow row in ProdDGV.SelectedRows)
+            {
+                ProdDGV.Rows.RemoveAt(row.Index);
 
-            //}
+            }
         }
 
         private void addButton_Click(object sender, EventArgs e)
