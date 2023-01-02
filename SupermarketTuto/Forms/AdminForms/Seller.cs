@@ -13,7 +13,7 @@ namespace SupermarketTuto.Forms
     public partial class Seller : Form
     {
         SqlConnection con = new SqlConnection();
-
+        
         public Seller()
         {
             InitializeComponent();
@@ -24,14 +24,18 @@ namespace SupermarketTuto.Forms
         {
             try
             {
+                fromDateTimePicker.Value = DateTime.Now.AddMonths(-2);
                 if (activeComboBox.Text == "Active")
                 {
+                    
                     SqlConnect loaddata1 = new SqlConnect();
                     loaddata1.retrieveData("Select [SellerId],[SellerUserName],cast([SellerPass] as varchar(MAX)) as Password,[SellerName],[SellerAge],[SellerPhone],[Address],[Date],[Active] From SellersTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and Active = 'true'");
                     SellDGV.DataSource = loaddata1.table;
                     totalLabel.Text = $"Total: {SellDGV.RowCount}";
                     SellDGV.RowHeadersVisible = false;
                     SellDGV.Columns[5].HeaderText = "Date of Birth";
+                    SellDGV.Columns[7].HeaderText = "Date Created";
+
                 }
                 else if (activeComboBox.Text == "Inactive")
                 {
@@ -41,6 +45,8 @@ namespace SupermarketTuto.Forms
                     totalLabel.Text = $"Total: {SellDGV.RowCount}";
                     SellDGV.RowHeadersVisible = false;
                     SellDGV.Columns[5].HeaderText = "Date of Birth";
+                    SellDGV.Columns[7].HeaderText = "Date Created";
+
                 }
                 else
                 {
@@ -50,8 +56,10 @@ namespace SupermarketTuto.Forms
                     totalLabel.Text = $"Total: {SellDGV.RowCount}";
                     SellDGV.RowHeadersVisible = false;
                     SellDGV.Columns[5].HeaderText = "Date of Birth";
+                    SellDGV.Columns[7].HeaderText = "Date Created";
+
                 }
-                
+
             }
             catch(Exception ex)
             {
@@ -62,7 +70,6 @@ namespace SupermarketTuto.Forms
         private void Seller_Load(object sender, EventArgs e)
         {
             display();
-            //menu();
             fillcombo();
         }
 
@@ -373,10 +380,19 @@ namespace SupermarketTuto.Forms
 
         private void SellDGV_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
+            foreach (DataGridViewRow row in SellDGV.Rows)
+            {
+                if(Convert.ToBoolean(row.Cells[8].Value.ToString()) == false)
+                {
+                    row.DefaultCellStyle.BackColor = Color.Orange;
+                }
+                
+            }
             if (e.ColumnIndex == 2 && e.Value != null)
             {
                 e.Value = new string('*', e.Value.ToString().Length);
             }
+
         }
 
         private void activeComboBox_SelectedIndexChanged(object sender, EventArgs e)

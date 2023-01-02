@@ -18,9 +18,91 @@ namespace SupermarketTuto.Forms.SellingForms
             display();
             display2();
             fillCombo();
+            menu();
+            menu2();
         }
 
+        private void menu()
+        {
+            ContextMenuStrip menu = new ContextMenuStrip();
+            ToolStripMenuItem edit = new ToolStripMenuItem("Edit");
+            ToolStripMenuItem delete = new ToolStripMenuItem("Delete");
+            edit.Click += new EventHandler(Edit_Click);
+            delete.Click += new EventHandler(Delete_Click);
+            menu.Items.AddRange(new ToolStripItem[] { edit, delete });
+            ProdDGV.ContextMenuStrip = menu;
+        }
+        private void Edit_Click(object? sender, EventArgs e)
+        {
+            SqlConnect loaddata20 = new SqlConnect();
+            addEditProduct edit = new addEditProduct();
+            ////This method will bind the Combobox with the Database
+            loaddata20.retrieveData("Select CatName From CategoryTbl");
+            edit.catCombobox.DataSource = loaddata20.table;
+            edit.catCombobox.ValueMember = "CatName";
+            //catCombobox.SelectedItem = null;
+            edit.catCombobox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            edit.catCombobox.AutoCompleteSource = AutoCompleteSource.ListItems;
+            edit.ProdId.Text = ProdDGV.CurrentRow.Cells[0].Value.ToString();
+            edit.ProdName.Text = ProdDGV.CurrentRow.Cells[1].Value.ToString();
+            edit.ProdPrice.Text = ProdDGV.CurrentRow.Cells[2].Value.ToString();
+            edit.ProdQty.Text = ProdDGV.CurrentRow.Cells[3].Value.ToString();
+            edit.catCombobox.SelectedValue = ProdDGV.CurrentRow.Cells[5].Value.ToString();
+            edit.catIDTextBox.Text = ProdDGV.CurrentRow.Cells[4].Value.ToString();
+            edit.DateTimePicker.Text = ProdDGV.CurrentRow.Cells[6].Value.ToString();
+            edit.addButton.Visible = false;
+            edit.ProdId.ReadOnly = true;
+            edit.Show();
+        }
 
+        private void Delete_Click(object? sender, EventArgs e)
+        {
+            SqlConnect loaddata7 = new SqlConnect();
+            try
+            {
+                loaddata7.commandExc("Delete From ProductTbl Where ProdId=" + ProdDGV.CurrentRow.Cells[0].Value.ToString());
+                refresh_products();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void menu2()
+        {
+            ContextMenuStrip menu = new ContextMenuStrip();
+            ToolStripMenuItem edit = new ToolStripMenuItem("Edit");
+            ToolStripMenuItem delete = new ToolStripMenuItem("Delete");
+            edit.Click += new EventHandler(Edit2_Click);
+            delete.Click += new EventHandler(Delete2_Click);
+            menu.Items.AddRange(new ToolStripItem[] { edit, delete });
+            CatDGV.ContextMenuStrip = menu;
+        }
+        private void Edit2_Click(object? sender, EventArgs e)
+        {
+            addEditCategory edit = new addEditCategory();
+            edit.CatIdTb.Text = CatDGV.CurrentRow.Cells[0].Value.ToString();
+            edit.CatNameTb.Text = CatDGV.CurrentRow.Cells[1].Value.ToString();
+            edit.CatDescTb.Text = CatDGV.CurrentRow.Cells[2].Value.ToString();
+            edit.dateTimePicker.Text = CatDGV.CurrentRow.Cells[3].Value.ToString();
+            edit.addButton.Visible = false;
+            edit.CatIdTb.ReadOnly = true;
+            edit.Show();
+        }
+        private void Delete2_Click(object? sender, EventArgs e)
+        {
+            SqlConnect loaddata5 = new SqlConnect();
+            try
+            {
+                loaddata5.commandExc("Delete From CategoryTbl Where CatId=" + CatDGV.CurrentRow.Cells[0].Value.ToString());
+                refresh_categories();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
         private void display()
         {
             SqlConnect loaddata = new SqlConnect();
@@ -86,13 +168,12 @@ namespace SupermarketTuto.Forms.SellingForms
 
         private void editButton_Click(object sender, EventArgs e)
         {
-            //addEditProduct edit = new addEditProduct();
-            //edit.Show();
-            SqlConnect loaddata33 = new SqlConnect();
+
+            SqlConnect loaddata20 = new SqlConnect();
             addEditProduct edit = new addEditProduct();
             ////This method will bind the Combobox with the Database
-            loaddata33.retrieveData("Select CatName From CategoryTbl");
-            edit.catCombobox.DataSource = loaddata33.table;
+            loaddata20.retrieveData("Select CatName From CategoryTbl");
+            edit.catCombobox.DataSource = loaddata20.table;
             edit.catCombobox.ValueMember = "CatName";
             //catCombobox.SelectedItem = null;
             edit.catCombobox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
@@ -101,8 +182,9 @@ namespace SupermarketTuto.Forms.SellingForms
             edit.ProdName.Text = ProdDGV.CurrentRow.Cells[1].Value.ToString();
             edit.ProdPrice.Text = ProdDGV.CurrentRow.Cells[2].Value.ToString();
             edit.ProdQty.Text = ProdDGV.CurrentRow.Cells[3].Value.ToString();
-            edit.catCombobox.SelectedValue = ProdDGV.CurrentRow.Cells[4].Value.ToString();
-            edit.DateTimePicker.Text = ProdDGV.CurrentRow.Cells[5].Value.ToString();
+            edit.catCombobox.SelectedValue = ProdDGV.CurrentRow.Cells[5].Value.ToString();
+            edit.catIDTextBox.Text = ProdDGV.CurrentRow.Cells[4].Value.ToString();
+            edit.DateTimePicker.Text = ProdDGV.CurrentRow.Cells[6].Value.ToString();
             edit.addButton.Visible = false;
             edit.ProdId.ReadOnly = true;
             edit.Show();

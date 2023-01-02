@@ -46,6 +46,7 @@ namespace SupermarketTuto.Forms
         {
             try
             {
+                fromDateTimePicker.Value = DateTime.Now.AddMonths(-2);
                 SqlConnect loaddata = new SqlConnect();
                 loaddata.retrieveData("Select * From CategoryTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'");
                 CatDGV.DataSource = loaddata.table;
@@ -103,12 +104,20 @@ namespace SupermarketTuto.Forms
 
         private void mnuDelete_Click(object? sender, EventArgs e)
         {
-            SqlConnect loaddata2 = new SqlConnect();
-            loaddata2.commandExc("Delete From CategoryTbl Where CatId='" + CatDGV.CurrentRow.Cells[0].Value.ToString() + "'");
-            foreach (DataGridViewRow row in CatDGV.SelectedRows)
+            try
             {
-                CatDGV.Rows.RemoveAt(row.Index);
+                SqlConnect loaddata2 = new SqlConnect();
+                loaddata2.commandExc("Delete From CategoryTbl Where CatId='" + CatDGV.CurrentRow.Cells[1].Value.ToString() + "'");
+                foreach (DataGridViewRow row in CatDGV.SelectedRows)
+                {
+                    CatDGV.Rows.RemoveAt(row.Index);
+                }
             }
+            catch
+            {
+
+            }
+            
         }
 
         private void logOutLabel_Click(object sender, EventArgs e)
@@ -358,14 +367,22 @@ namespace SupermarketTuto.Forms
 
         private void CatDGV_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            foreach (DataGridViewRow row in CatDGV.Rows)
-            {
-                if (DateTime.Parse(row.Cells[4].Value.ToString()) >= DateTime.Now.AddMonths(-7)
-                    && DateTime.Parse(row.Cells[4].Value.ToString()) <= DateTime.Now)
-                {
-                    row.DefaultCellStyle.BackColor = Color.Orange;
-                }
-            }
+            //try
+            //{
+            //    foreach (DataGridViewRow row in CatDGV.Rows)
+            //    {
+            //        if (DateTime.Parse(row.Cells[4].Value.ToString()) >= DateTime.Now.AddMonths(-1)
+            //            && DateTime.Parse(row.Cells[4].Value.ToString()) <= DateTime.Now)
+            //        {
+            //            row.DefaultCellStyle.BackColor = Color.Orange;
+            //        }
+            //    }
+            //}
+            //catch
+            //{
+
+            //}
+            
         }
 
         private void showSelectedProductsButton_Click(object sender, EventArgs e)

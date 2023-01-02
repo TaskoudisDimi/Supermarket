@@ -80,6 +80,10 @@ namespace SupermarketTuto
                                 products.Show();
                                 this.Hide();
                             }
+                            else
+                            {
+                                MessageBox.Show("Opps! Wrong Credentials!");
+                            }
                         }
                         if (selectRoleCombobox.SelectedItem == "Seller")
                         {
@@ -90,16 +94,17 @@ namespace SupermarketTuto
                                 selling.Show();
                                 this.Hide();
                             }
+                            else
+                            {
+                                MessageBox.Show("Opps! Wrong Credentials!");
+                            }
                         }
                     }
                     else if (selectRoleCombobox.SelectedItem == "Select Role")
                     {
                         MessageBox.Show("Select Role!");
                     }
-                    else
-                    {
-                        MessageBox.Show("Opps! Wrong Credentials!");
-                    }
+                    
                 }
             }
             catch (Exception ex)

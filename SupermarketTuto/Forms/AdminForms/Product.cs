@@ -88,10 +88,12 @@ namespace SupermarketTuto.Forms
         {
             try
             {
+                fromDateTimePicker.Value = DateTime.Now.AddMonths(-2);
                 SqlConnect loaddata1 = new SqlConnect();
                 loaddata1.retrieveData("Select * from ProductTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'");
                 ProdDGV.DataSource = loaddata1.table;
                 ProdDGV.RowHeadersVisible = false;
+                ProdDGV.Columns[6].HeaderText = "Date Created";
                 
             }
             catch (Exception ex)
@@ -571,7 +573,7 @@ namespace SupermarketTuto.Forms
         {
             foreach (DataGridViewRow row in ProdDGV.Rows)
             {
-                if (DateTime.Parse(row.Cells[6].Value.ToString()) >= DateTime.Now.AddMonths(-7)
+                if (DateTime.Parse(row.Cells[6].Value.ToString()) >= DateTime.Now.AddMonths(-1)
                     && DateTime.Parse(row.Cells[6].Value.ToString()) <= DateTime.Now)
                 {
                     row.DefaultCellStyle.BackColor = Color.Orange;

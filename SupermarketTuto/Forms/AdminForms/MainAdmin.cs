@@ -42,29 +42,7 @@ namespace SupermarketTuto.Forms.AdminForms
 
             }
         }
-        public void SubMenu2(ToolStripMenuItem MnuItems, string var)
-        {
-            if (var == "File")
-            {
-                string[] row = new string[] { "New", "Open", "Add", "Close", "Close Solution" };
-                foreach (string rw in row)
-                {
-                    ToolStripMenuItem SSMenu = new ToolStripMenuItem(rw, null);
-                    SubMenu(SSMenu, rw);
-                    MnuItems.DropDownItems.Add(SSMenu);
-                }
-            }
-
-            if (var == "New")
-            {
-                string[] row = new string[] { "Project", "Web Site", "File..", "Project From Existing Code" };
-                foreach (string rw in row)
-                {
-                    ToolStripMenuItem SSSMenu = new ToolStripMenuItem(rw, null);
-                    MnuItems.DropDownItems.Add(SSSMenu);
-                }
-            }
-        }
+       
         private void SubMenu(ToolStripMenuItem items, string var)
         {
             if (var == "File")
@@ -93,23 +71,7 @@ namespace SupermarketTuto.Forms.AdminForms
                     }
                 }
             }
-            //if (var == "AllUsers")
-            //{
-            //    string[] row = new string[] { "Sellers", "Admins"};
-            //    foreach (string rw in row)
-            //    {
-            //        ToolStripMenuItem SSSMenu = new ToolStripMenuItem(rw, null);
-            //        items.DropDownItems.Add(SSSMenu);
-            //        if (SSSMenu.Text == "Sellers")
-            //        {
-            //            SSSMenu.Click += new EventHandler(MnuStripSellers_Click);
-            //        }
-            //        else if (SSSMenu.Text == "Admins")
-            //        {
-            //            SSSMenu.Click += new EventHandler(MnuStripAdmins_Click);
-            //        }
-            //    }
-            //}
+
         }
 
         private void MnuStripAdmins_Click(object sender, EventArgs e)
@@ -174,23 +136,10 @@ namespace SupermarketTuto.Forms.AdminForms
             form.TopLevel = false;
             form.TopMost = true; 
             splitContainer1.Panel1.Controls.Add(form);
-            form.checkBoxProducts.CheckedChanged += new System.EventHandler(this.checkBoxProducts_CheckedChanged);
             form.Show();
         }
 
-        public void checkBoxProducts_CheckedChanged(object sender, EventArgs e)
-        {
-            //splitContainer1.Panel2Collapsed = !form22.checkBoxProducts.Checked;
-            displayProducts();
-        }
-        public void displayProducts()
-        {
-            Product form = new Product();
-            form.TopLevel = false;
-            form.TopMost = true;
-            splitContainer1.Panel2.Controls.Add(form);
-            form.Show();
-        }
+       
 
         private void productsButton_Click(object sender, EventArgs e)
         {

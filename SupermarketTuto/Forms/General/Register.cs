@@ -40,7 +40,8 @@ namespace SupermarketTuto
                     UsernameTextBox.Clear();
                     PasswordTextBox.Clear();
                     ConfirmPasswordTextBox.Clear();
-
+                    LogIn login = new LogIn();
+                    login.Show();
                 }
                 else
                 {
