@@ -1,5 +1,5 @@
 ﻿using DataClass;
-
+using SupermarketTuto.Utils;
 
 namespace SupermarketTuto.Forms.SellingForms
 {
@@ -8,8 +8,8 @@ namespace SupermarketTuto.Forms.SellingForms
         public MainSelling()
         {
             InitializeComponent();
+            seller_Name_Label.Text = Globals.NameOfSeller;
         }
-
 
         private void MainMenu()
         {

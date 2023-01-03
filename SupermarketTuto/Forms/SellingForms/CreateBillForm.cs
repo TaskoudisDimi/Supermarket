@@ -24,23 +24,46 @@ namespace SupermarketTuto.Forms.SellingForms
             display();
             displayDGV();
             calcSum();
+            menuProd();
+            menuBillProd();
+        }
 
-
+        private void menuProd()
+        {
             ContextMenuStrip mnu = new ContextMenuStrip();
             ToolStripMenuItem mnuDelete = new ToolStripMenuItem("Delete");
             //Assign event handlers
-            mnuDelete.Click += new EventHandler(mnuDelete_Click);
+            mnuDelete.Click += new EventHandler(mnuDeleteProd_Click);
             //Add to main context menu
             mnu.Items.AddRange(new ToolStripItem[] { mnuDelete });
             //Assign to datagridview
             SellingDGV.ContextMenuStrip = mnu;
+        }
+        private void menuBillProd()
+        {
+            ContextMenuStrip mnu = new ContextMenuStrip();
+            ToolStripMenuItem mnuDelete = new ToolStripMenuItem("Delete");
+            //Assign event handlers
+            mnuDelete.Click += new EventHandler(mnuDeleteBillProd_Click);
+            //Add to main context menu
+            mnu.Items.AddRange(new ToolStripItem[] { mnuDelete });
+            //Assign to datagridview
+            OrderDGV.ContextMenuStrip = mnu;
 
-
+        }
+        private void mnuDeleteBillProd_Click(object? sender, EventArgs e)
+        {
+            SqlConnect loaddata4 = new SqlConnect();
+            loaddata4.commandExc("Delete From BillingProducts Where Id=" + OrderDGV.CurrentRow.Cells[0].Value.ToString() + "");
+            foreach (DataGridViewRow row in OrderDGV.SelectedRows)
+            {
+                SellingDGV.Rows.RemoveAt(row.Index);
+            }
         }
         private void display()
         {
             SqlConnect loaddata = new SqlConnect();
-            loaddata.retrieveData("Select * From [ProductTbl] Where [ProdCat] = '" + Convert.ToString(SearchCb.SelectedValue) + "'");
+            loaddata.retrieveData("Select * From [ProductTbl]");
             SellingDGV.DataSource = loaddata.table;
             SellingDGV.AllowUserToAddRows = false;
             SellingDGV.RowHeadersVisible = false;
@@ -68,16 +91,13 @@ namespace SupermarketTuto.Forms.SellingForms
 
         }
 
-        private void mnuDelete_Click(object? sender, EventArgs e)
+        private void mnuDeleteProd_Click(object? sender, EventArgs e)
         {
             SqlConnect loaddata4 = new SqlConnect();
-
-            loaddata4.commandExc("Delete From ProductTbl Where SellerTbl=" + SellingDGV.Text + "");
-
+            loaddata4.commandExc("Delete From ProductTbl Where ProdId=" + SellingDGV.CurrentRow.Cells[0].Value.ToString());
             foreach (DataGridViewRow row in SellingDGV.SelectedRows)
             {
                 SellingDGV.Rows.RemoveAt(row.Index);
-
             }
         }
 
@@ -94,7 +114,6 @@ namespace SupermarketTuto.Forms.SellingForms
             }
             else
             {
-
                 SqlConnect loaddata8 = new SqlConnect();
                 loaddata8.commandExc("Insert Into BillingProducts Values('" + SellingProdName.Text + "'," + SellingPriceTextBox.Text + "," + SellingQuantityTextBox.Text + "," + (Convert.ToInt32(SellingPriceTextBox.Text) * Convert.ToInt32(SellingQuantityTextBox.Text)) + ")");
                 OrderDGV.DataSource = loaddata8.table;
@@ -111,7 +130,7 @@ namespace SupermarketTuto.Forms.SellingForms
             {
                 sum += double.Parse(OrderDGV.Rows[i].Cells[4].Value.ToString());
             }
-            AmountLabel.Text = sum.ToString();
+            AmountLabel.Text = "Total Amount : " + sum.ToString();
         }
 
         private void SellingDGV_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -135,10 +154,17 @@ namespace SupermarketTuto.Forms.SellingForms
 
         private void addButton_Click(object sender, EventArgs e)
         {
-           CreateBill bill = new CreateBill();
+           AddBill bill = new AddBill();
            bill.AmountLabel.Text = AmountLabel.Text;
            bill.Show();
            
+        }
+
+        private void delete2Button_Click(object sender, EventArgs e)
+        {
+            SqlConnect loaddata6 = new SqlConnect();
+            loaddata6.commandExc("Delete From BillingProducts where Id = " + OrderDGV.CurrentRow.Cells[0].Value.ToString());
+            displayDGV();
         }
     }
 }

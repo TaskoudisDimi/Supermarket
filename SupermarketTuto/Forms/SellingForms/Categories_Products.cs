@@ -109,6 +109,7 @@ namespace SupermarketTuto.Forms.SellingForms
             loaddata.retrieveData("Select * From CategoryTbl where Date between '" + from2DateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + to2DateTimePicker.Value.ToString("MM-dd-yyyy") + "'");
             CatDGV.DataSource = loaddata.table;
             CatDGV.RowHeadersVisible = false;
+            CatDGV.AllowUserToAddRows = false;
             total2Label.Text = $"Total: {CatDGV.RowCount}";
         }
         private void display2()

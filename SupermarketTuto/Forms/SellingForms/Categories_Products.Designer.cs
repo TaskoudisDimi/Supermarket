@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.ProdDGV = new System.Windows.Forms.DataGridView();
             this.CatDGV = new System.Windows.Forms.DataGridView();
             this.deleteButton = new System.Windows.Forms.Button();
             this.editButton = new System.Windows.Forms.Button();
@@ -49,27 +48,16 @@
             this.search2TextBox = new System.Windows.Forms.TextBox();
             this.refresh2Button = new System.Windows.Forms.Button();
             this.total2Label = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.ProdDGV)).BeginInit();
+            this.ProdDGV = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.CatDGV)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ProdDGV)).BeginInit();
             this.SuspendLayout();
-            // 
-            // ProdDGV
-            // 
-            this.ProdDGV.AllowUserToAddRows = false;
-            this.ProdDGV.BackgroundColor = System.Drawing.Color.WhiteSmoke;
-            this.ProdDGV.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.ProdDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.ProdDGV.Location = new System.Drawing.Point(36, 119);
-            this.ProdDGV.Name = "ProdDGV";
-            this.ProdDGV.RowHeadersWidth = 62;
-            this.ProdDGV.RowTemplate.Height = 30;
-            this.ProdDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.ProdDGV.Size = new System.Drawing.Size(883, 258);
-            this.ProdDGV.TabIndex = 104;
             // 
             // CatDGV
             // 
             this.CatDGV.AllowUserToAddRows = false;
+            this.CatDGV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.CatDGV.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.CatDGV.BackgroundColor = System.Drawing.Color.WhiteSmoke;
             this.CatDGV.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.CatDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -79,13 +67,13 @@
             this.CatDGV.RowHeadersWidth = 62;
             this.CatDGV.RowTemplate.Height = 30;
             this.CatDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.CatDGV.Size = new System.Drawing.Size(883, 282);
+            this.CatDGV.Size = new System.Drawing.Size(789, 282);
             this.CatDGV.TabIndex = 105;
             // 
             // deleteButton
             // 
             this.deleteButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.deleteButton.Location = new System.Drawing.Point(946, 291);
+            this.deleteButton.Location = new System.Drawing.Point(850, 279);
             this.deleteButton.Name = "deleteButton";
             this.deleteButton.Size = new System.Drawing.Size(68, 40);
             this.deleteButton.TabIndex = 112;
@@ -96,7 +84,7 @@
             // editButton
             // 
             this.editButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.editButton.Location = new System.Drawing.Point(946, 223);
+            this.editButton.Location = new System.Drawing.Point(850, 211);
             this.editButton.Name = "editButton";
             this.editButton.Size = new System.Drawing.Size(64, 40);
             this.editButton.TabIndex = 111;
@@ -107,7 +95,7 @@
             // addButton
             // 
             this.addButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.addButton.Location = new System.Drawing.Point(946, 158);
+            this.addButton.Location = new System.Drawing.Point(850, 146);
             this.addButton.Name = "addButton";
             this.addButton.Size = new System.Drawing.Size(101, 40);
             this.addButton.TabIndex = 110;
@@ -118,7 +106,7 @@
             // delete2Button
             // 
             this.delete2Button.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.delete2Button.Location = new System.Drawing.Point(946, 677);
+            this.delete2Button.Location = new System.Drawing.Point(850, 676);
             this.delete2Button.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.delete2Button.Name = "delete2Button";
             this.delete2Button.Size = new System.Drawing.Size(73, 35);
@@ -130,7 +118,7 @@
             // edit2Button
             // 
             this.edit2Button.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.edit2Button.Location = new System.Drawing.Point(946, 608);
+            this.edit2Button.Location = new System.Drawing.Point(850, 607);
             this.edit2Button.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.edit2Button.Name = "edit2Button";
             this.edit2Button.Size = new System.Drawing.Size(73, 40);
@@ -142,7 +130,7 @@
             // add2Button
             // 
             this.add2Button.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.add2Button.Location = new System.Drawing.Point(946, 539);
+            this.add2Button.Location = new System.Drawing.Point(850, 538);
             this.add2Button.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.add2Button.Name = "add2Button";
             this.add2Button.Size = new System.Drawing.Size(101, 40);
@@ -165,7 +153,7 @@
             // 
             this.toDateTimePicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.toDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.toDateTimePicker.Location = new System.Drawing.Point(667, 72);
+            this.toDateTimePicker.Location = new System.Drawing.Point(587, 74);
             this.toDateTimePicker.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.toDateTimePicker.Name = "toDateTimePicker";
             this.toDateTimePicker.Size = new System.Drawing.Size(118, 26);
@@ -176,7 +164,7 @@
             // 
             this.fromDateTimePicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.fromDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.fromDateTimePicker.Location = new System.Drawing.Point(530, 72);
+            this.fromDateTimePicker.Location = new System.Drawing.Point(450, 74);
             this.fromDateTimePicker.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.fromDateTimePicker.Name = "fromDateTimePicker";
             this.fromDateTimePicker.Size = new System.Drawing.Size(127, 26);
@@ -187,7 +175,7 @@
             // 
             this.catComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.catComboBox.FormattingEnabled = true;
-            this.catComboBox.Location = new System.Drawing.Point(361, 72);
+            this.catComboBox.Location = new System.Drawing.Point(299, 74);
             this.catComboBox.Name = "catComboBox";
             this.catComboBox.Size = new System.Drawing.Size(143, 28);
             this.catComboBox.TabIndex = 124;
@@ -197,7 +185,7 @@
             // searchButton
             // 
             this.searchButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.searchButton.Location = new System.Drawing.Point(227, 74);
+            this.searchButton.Location = new System.Drawing.Point(201, 74);
             this.searchButton.Name = "searchButton";
             this.searchButton.Size = new System.Drawing.Size(92, 26);
             this.searchButton.TabIndex = 123;
@@ -208,7 +196,7 @@
             // searchTextBox
             // 
             this.searchTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.searchTextBox.Location = new System.Drawing.Point(48, 74);
+            this.searchTextBox.Location = new System.Drawing.Point(36, 74);
             this.searchTextBox.Name = "searchTextBox";
             this.searchTextBox.Size = new System.Drawing.Size(159, 26);
             this.searchTextBox.TabIndex = 122;
@@ -217,7 +205,7 @@
             // refreshButton
             // 
             this.refreshButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.refreshButton.Location = new System.Drawing.Point(823, 69);
+            this.refreshButton.Location = new System.Drawing.Point(729, 73);
             this.refreshButton.Name = "refreshButton";
             this.refreshButton.Size = new System.Drawing.Size(96, 29);
             this.refreshButton.TabIndex = 121;
@@ -229,7 +217,7 @@
             // 
             this.from2DateTimePicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.from2DateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.from2DateTimePicker.Location = new System.Drawing.Point(503, 454);
+            this.from2DateTimePicker.Location = new System.Drawing.Point(373, 454);
             this.from2DateTimePicker.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.from2DateTimePicker.Name = "from2DateTimePicker";
             this.from2DateTimePicker.Size = new System.Drawing.Size(127, 26);
@@ -240,7 +228,7 @@
             // 
             this.to2DateTimePicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.to2DateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.to2DateTimePicker.Location = new System.Drawing.Point(640, 454);
+            this.to2DateTimePicker.Location = new System.Drawing.Point(510, 454);
             this.to2DateTimePicker.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.to2DateTimePicker.Name = "to2DateTimePicker";
             this.to2DateTimePicker.Size = new System.Drawing.Size(118, 26);
@@ -250,7 +238,7 @@
             // search2Button
             // 
             this.search2Button.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.search2Button.Location = new System.Drawing.Point(227, 456);
+            this.search2Button.Location = new System.Drawing.Point(217, 456);
             this.search2Button.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.search2Button.Name = "search2Button";
             this.search2Button.Size = new System.Drawing.Size(92, 28);
@@ -272,7 +260,7 @@
             // refresh2Button
             // 
             this.refresh2Button.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.refresh2Button.Location = new System.Drawing.Point(823, 450);
+            this.refresh2Button.Location = new System.Drawing.Point(729, 450);
             this.refresh2Button.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.refresh2Button.Name = "refresh2Button";
             this.refresh2Button.Size = new System.Drawing.Size(96, 30);
@@ -292,12 +280,29 @@
             this.total2Label.TabIndex = 132;
             this.total2Label.Text = "Total:";
             // 
+            // ProdDGV
+            // 
+            this.ProdDGV.AllowUserToAddRows = false;
+            this.ProdDGV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.ProdDGV.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.ProdDGV.BackgroundColor = System.Drawing.Color.Gainsboro;
+            this.ProdDGV.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.ProdDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.ProdDGV.Location = new System.Drawing.Point(36, 118);
+            this.ProdDGV.Name = "ProdDGV";
+            this.ProdDGV.RowHeadersWidth = 62;
+            this.ProdDGV.RowTemplate.Height = 30;
+            this.ProdDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.ProdDGV.Size = new System.Drawing.Size(789, 294);
+            this.ProdDGV.TabIndex = 133;
+            // 
             // Categories_Products
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1106, 705);
+            this.ClientSize = new System.Drawing.Size(1106, 846);
             this.ControlBox = false;
+            this.Controls.Add(this.ProdDGV);
             this.Controls.Add(this.total2Label);
             this.Controls.Add(this.search2Button);
             this.Controls.Add(this.search2TextBox);
@@ -318,21 +323,18 @@
             this.Controls.Add(this.to2DateTimePicker);
             this.Controls.Add(this.from2DateTimePicker);
             this.Controls.Add(this.CatDGV);
-            this.Controls.Add(this.ProdDGV);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Categories_Products";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Categories_Products_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.ProdDGV)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.CatDGV)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ProdDGV)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private DataGridView ProdDGV;
         private DataGridView CatDGV;
         private Button deleteButton;
         private Button editButton;
@@ -353,5 +355,6 @@
         private TextBox search2TextBox;
         private Button refresh2Button;
         private Label total2Label;
+        private DataGridView ProdDGV;
     }
 }

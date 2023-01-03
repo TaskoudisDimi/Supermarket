@@ -88,8 +88,11 @@ namespace SupermarketTuto
                         if (selectRoleCombobox.SelectedItem == "Seller")
                         {
                             loaddata.retrieveData("Select * From [smarketdb].[dbo].[SellersTbl] Where SellerUserName = '" + UserNameTextBox.Text + $"' and SellerPass = CONVERT(varbinary,'{PasswordTextBox.Text}')");
-                            if(loaddata.table.Rows.Count == 1)
+                            if (loaddata.table.Rows.Count == 1)
                             {
+
+                                Globals.NameOfSeller = loaddata.table.Rows[0][1].ToString();
+
                                 MainSelling selling = new MainSelling();
                                 selling.Show();
                                 this.Hide();
@@ -104,7 +107,7 @@ namespace SupermarketTuto
                     {
                         MessageBox.Show("Select Role!");
                     }
-                    
+
                 }
             }
             catch (Exception ex)

@@ -1,4 +1,5 @@
 ﻿using DataClass;
+using SupermarketTuto.Utils;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,9 +12,9 @@ using System.Windows.Forms;
 
 namespace SupermarketTuto.Forms
 {
-    public partial class CreateBill : Form
+    public partial class AddBill : Form
     {
-        public CreateBill()
+        public AddBill()
         {
             InitializeComponent();
         }
@@ -22,7 +23,7 @@ namespace SupermarketTuto.Forms
         {
             displayBills();
             LabelDate.Text = DateTime.Now.ToString();
-            seller_Name_Label.Text = "Test";
+            seller_Name_Label.Text = Globals.NameOfSeller;
         }
 
 
