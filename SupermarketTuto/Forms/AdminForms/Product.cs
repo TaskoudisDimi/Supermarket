@@ -94,7 +94,8 @@ namespace SupermarketTuto.Forms
                 ProdDGV.DataSource = loaddata1.table;
                 ProdDGV.RowHeadersVisible = false;
                 ProdDGV.Columns[6].HeaderText = "Date Created";
-                
+                totalLabel.Text = $"Total: {ProdDGV.RowCount}";
+
             }
             catch (Exception ex)
             {
@@ -144,10 +145,7 @@ namespace SupermarketTuto.Forms
 
         private void refresh_data()
         {
-            SqlConnect loaddata21 = new SqlConnect();
-            loaddata21.retrieveData("Select * from ProductTbl");
-            ProdDGV.DataSource = loaddata21.table;
-            ProdDGV.RowHeadersVisible = false;
+            display();
         }
 
         private void mnuDelete_Click(object? sender, EventArgs e)
@@ -219,9 +217,7 @@ namespace SupermarketTuto.Forms
 
         private void refreshButton_Click(object sender, EventArgs e)
         {
-            SqlConnect loaddata11 = new SqlConnect();
-            loaddata11.retrieveData("Select * From ProductTbl");
-            refresh_data();
+            display();
         }
 
         private void searchTextBox_KeyPress(object sender, KeyPressEventArgs e)
@@ -578,10 +574,29 @@ namespace SupermarketTuto.Forms
                 {
                     row.DefaultCellStyle.BackColor = Color.Orange;
                 }
+                else
+                {
+                    row.DefaultCellStyle.BackColor = Color.DarkSeaGreen;
+                }
             }
         }
 
-        
+
+        private void test()
+        {
+            for (int i = 0; i < 100; i++)
+            {
+                Thread.Sleep(100);
+            }
+        }
+
+        private void testButton_Click(object sender, EventArgs e)
+        {
+            using (WaitBar wait = new WaitBar(test))
+            {
+                wait.ShowDialog(this);
+            }
+        }
     }
 }
 

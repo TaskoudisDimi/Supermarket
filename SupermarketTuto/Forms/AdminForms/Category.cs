@@ -26,7 +26,6 @@ namespace SupermarketTuto.Forms
             checkboxColumn.Name = "Select";
             CatDGV.Columns.Add(checkboxColumn);
             CatDGV.Columns["Select"].DisplayIndex = 0;
-
             menu();
         }
         private void menu()
@@ -117,7 +116,7 @@ namespace SupermarketTuto.Forms
             {
 
             }
-            
+
         }
 
         private void logOutLabel_Click(object sender, EventArgs e)
@@ -367,22 +366,21 @@ namespace SupermarketTuto.Forms
 
         private void CatDGV_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            //try
+
+            //foreach (DataGridViewRow row in CatDGV.Rows)
             //{
-            //    foreach (DataGridViewRow row in CatDGV.Rows)
+            //    if (DateTime.Parse(row.Cells[4].Value.ToString()) >= DateTime.Now.AddMonths(-1)
+            //        && DateTime.Parse(row.Cells[4].Value.ToString()) <= DateTime.Now)
             //    {
-            //        if (DateTime.Parse(row.Cells[4].Value.ToString()) >= DateTime.Now.AddMonths(-1)
-            //            && DateTime.Parse(row.Cells[4].Value.ToString()) <= DateTime.Now)
-            //        {
-            //            row.DefaultCellStyle.BackColor = Color.Orange;
-            //        }
+            //        row.DefaultCellStyle.BackColor = Color.Orange;
+            //    }
+            //    else
+            //    {
+            //        row.DefaultCellStyle.BackColor = Color.DarkSeaGreen;
             //    }
             //}
-            //catch
-            //{
 
-            //}
-            
+
         }
 
         private void showSelectedProductsButton_Click(object sender, EventArgs e)
@@ -401,13 +399,13 @@ namespace SupermarketTuto.Forms
                 {
                     SelectedProducts frm = new SelectedProducts(cats);
                     frm.Show();
-                }  
+                }
             }
             catch
             {
 
             }
-            
+
         }
     }
 }

@@ -10,7 +10,7 @@ namespace SupermarketTuto
         [STAThread]
         static void Main()
         {
-            Application.Run(new MainSelling());
+            Application.Run(new MainAdmin());
         }
 
         // TODO: Create Utils methods (write logs)

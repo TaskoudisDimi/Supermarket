@@ -51,7 +51,7 @@ namespace SupermarketTuto.Forms.General
                 else
                 {
 
-                    loaddata6.commandExc("Update CategoryTbl set CatName='" + CatNameTb.Text + "',CatDesc='" + CatDescTb.Text + "' where CatId=" + CatIdTb.Text);
+                    loaddata6.commandExc("Update CategoryTbl set CatName='" + CatNameTb.Text + "',CatDesc='" + CatDescTb.Text + "', Date = '" + dateTimePicker.Value.ToString("MM-dd-yyyy") + "' where CatId=" + CatIdTb.Text);
                     MessageBox.Show("Product Successfully Updated");
                     this.Close();
                 }
