@@ -2,6 +2,7 @@
 using Microsoft.VisualBasic.FileIO;
 using Newtonsoft.Json;
 using SupermarketTuto.Forms.General;
+using SupermarketTuto.Interfaces;
 using SupermarketTuto.Utils;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ using System.Windows.Forms;
 
 namespace SupermarketTuto.Forms
 {
-    public partial class Product : Form
+    public partial class Product : Form, excelFiles, sqlCreate
     {
 
         public Product()
@@ -592,10 +593,10 @@ namespace SupermarketTuto.Forms
 
         private void testButton_Click(object sender, EventArgs e)
         {
-            using (WaitBar wait = new WaitBar(test))
-            {
-                wait.ShowDialog(this);
-            }
+            //using (WaitBar wait = new WaitBar(test))
+            //{
+            //    wait.ShowDialog(this);
+            //}
         }
     }
 }

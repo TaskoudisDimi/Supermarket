@@ -80,5 +80,21 @@ namespace DataClass
 
         }
 
+
+        public void pagingData(string command, int startRecord, int maxRecord)
+        {
+            try
+            {
+                table.Clear();
+                SqlDataAdapter adapter = new SqlDataAdapter(command, con);
+                adapter.Fill(startRecord, maxRecord, table);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+
     }
 }

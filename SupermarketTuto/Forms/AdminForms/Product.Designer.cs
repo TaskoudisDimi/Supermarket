@@ -44,6 +44,8 @@
             this.fromDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.catLabel = new System.Windows.Forms.Label();
             this.testButton = new System.Windows.Forms.Button();
+            this.nextButton = new System.Windows.Forms.Button();
+            this.prevButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.ProdDGV)).BeginInit();
             this.SuspendLayout();
             // 
@@ -230,7 +232,7 @@
             // testButton
             // 
             this.testButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.testButton.Location = new System.Drawing.Point(324, 919);
+            this.testButton.Location = new System.Drawing.Point(1820, 703);
             this.testButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.testButton.Name = "testButton";
             this.testButton.Size = new System.Drawing.Size(144, 52);
@@ -239,12 +241,36 @@
             this.testButton.UseVisualStyleBackColor = true;
             this.testButton.Click += new System.EventHandler(this.testButton_Click);
             // 
+            // nextButton
+            // 
+            this.nextButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.nextButton.Location = new System.Drawing.Point(502, 930);
+            this.nextButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.nextButton.Name = "nextButton";
+            this.nextButton.Size = new System.Drawing.Size(128, 52);
+            this.nextButton.TabIndex = 124;
+            this.nextButton.Text = "Next";
+            this.nextButton.UseVisualStyleBackColor = true;
+            // 
+            // prevButton
+            // 
+            this.prevButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.prevButton.Location = new System.Drawing.Point(349, 927);
+            this.prevButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.prevButton.Name = "prevButton";
+            this.prevButton.Size = new System.Drawing.Size(144, 55);
+            this.prevButton.TabIndex = 123;
+            this.prevButton.Text = "Previous";
+            this.prevButton.UseVisualStyleBackColor = true;
+            // 
             // Product
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(2000, 1066);
             this.ControlBox = false;
+            this.Controls.Add(this.nextButton);
+            this.Controls.Add(this.prevButton);
             this.Controls.Add(this.testButton);
             this.Controls.Add(this.catLabel);
             this.Controls.Add(this.toDateTimePicker);
@@ -287,5 +313,7 @@
         private DateTimePicker fromDateTimePicker;
         private Label catLabel;
         private Button testButton;
+        private Button nextButton;
+        private Button prevButton;
     }
 }
