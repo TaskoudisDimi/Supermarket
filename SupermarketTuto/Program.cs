@@ -15,13 +15,12 @@ namespace SupermarketTuto
         }
 
         // TODO: Paging
-        // TODO: Create Utils methods (write logs)
+        // TODO: Insert data from store procedures
+        // TODO: Manage Threads
         // TODO: Use Interface / abstract
         // TODO: Use custom events
         // TODO: Use TCP / UDP sending/receiving packet  
         // TODO: Build API
-        // TODO: Insert data from store procedures
-        // TODO: Manage Threads
- 
+
     }
 }

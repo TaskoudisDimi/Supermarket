@@ -43,9 +43,9 @@
             this.toDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.fromDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.catLabel = new System.Windows.Forms.Label();
-            this.testButton = new System.Windows.Forms.Button();
             this.nextButton = new System.Windows.Forms.Button();
             this.prevButton = new System.Windows.Forms.Button();
+            this.pagingComboBox = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.ProdDGV)).BeginInit();
             this.SuspendLayout();
             // 
@@ -229,18 +229,6 @@
             this.catLabel.TabIndex = 121;
             this.catLabel.Text = "Categories";
             // 
-            // testButton
-            // 
-            this.testButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.testButton.Location = new System.Drawing.Point(1820, 703);
-            this.testButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.testButton.Name = "testButton";
-            this.testButton.Size = new System.Drawing.Size(144, 52);
-            this.testButton.TabIndex = 122;
-            this.testButton.Text = "Test";
-            this.testButton.UseVisualStyleBackColor = true;
-            this.testButton.Click += new System.EventHandler(this.testButton_Click);
-            // 
             // nextButton
             // 
             this.nextButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
@@ -251,6 +239,7 @@
             this.nextButton.TabIndex = 124;
             this.nextButton.Text = "Next";
             this.nextButton.UseVisualStyleBackColor = true;
+            this.nextButton.Click += new System.EventHandler(this.nextButton_Click);
             // 
             // prevButton
             // 
@@ -262,6 +251,15 @@
             this.prevButton.TabIndex = 123;
             this.prevButton.Text = "Previous";
             this.prevButton.UseVisualStyleBackColor = true;
+            this.prevButton.Click += new System.EventHandler(this.prevButton_Click);
+            // 
+            // pagingComboBox
+            // 
+            this.pagingComboBox.FormattingEnabled = true;
+            this.pagingComboBox.Location = new System.Drawing.Point(196, 930);
+            this.pagingComboBox.Name = "pagingComboBox";
+            this.pagingComboBox.Size = new System.Drawing.Size(121, 28);
+            this.pagingComboBox.TabIndex = 125;
             // 
             // Product
             // 
@@ -269,9 +267,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(2000, 1066);
             this.ControlBox = false;
+            this.Controls.Add(this.pagingComboBox);
             this.Controls.Add(this.nextButton);
             this.Controls.Add(this.prevButton);
-            this.Controls.Add(this.testButton);
             this.Controls.Add(this.catLabel);
             this.Controls.Add(this.toDateTimePicker);
             this.Controls.Add(this.fromDateTimePicker);
@@ -312,8 +310,8 @@
         private DateTimePicker toDateTimePicker;
         private DateTimePicker fromDateTimePicker;
         private Label catLabel;
-        private Button testButton;
         private Button nextButton;
         private Button prevButton;
+        private ComboBox pagingComboBox;
     }
 }

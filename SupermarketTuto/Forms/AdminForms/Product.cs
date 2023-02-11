@@ -14,13 +14,16 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 
 namespace SupermarketTuto.Forms
 {
     public partial class Product : Form, excelFiles, sqlCreate
     {
-
+        int startRecord;
+        int allRecords;
+        SqlConnect loaddata20 = new SqlConnect();
         public Product()
         {
             InitializeComponent();
@@ -96,6 +99,16 @@ namespace SupermarketTuto.Forms
                 ProdDGV.RowHeadersVisible = false;
                 ProdDGV.Columns[6].HeaderText = "Date Created";
                 totalLabel.Text = $"Total: {ProdDGV.RowCount}";
+
+
+                //paging
+                List<string> comboPaging = new List<string>();
+                comboPaging.Add("5");
+                comboPaging.Add("10");
+                comboPaging.Add("20");
+                comboPaging.Add("All");
+                pagingComboBox.DataSource = comboPaging;
+                //pageLabel.Text = $"{dataGridView.Rows.Count / Convert.ToInt32(comboBox.SelectedItem)}";
 
             }
             catch (Exception ex)
@@ -582,21 +595,38 @@ namespace SupermarketTuto.Forms
             }
         }
 
-
-        private void test()
+        private void prevButton_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < 100; i++)
+            
+            startRecord = startRecord - 5;
+            if (startRecord <= 0)
             {
-                Thread.Sleep(100);
+                startRecord = 0;
+            }
+            loaddata20.pagingData("Select * From ProductTbl", startRecord, Convert.ToInt32(pagingComboBox.SelectedItem));
+            ProdDGV.DataSource = loaddata20.table;
+            if (ProdDGV.Rows.Count > 1)
+            {
+                nextButton.Enabled = true;
             }
         }
 
-        private void testButton_Click(object sender, EventArgs e)
+        private void nextButton_Click(object sender, EventArgs e)
         {
-            //using (WaitBar wait = new WaitBar(test))
-            //{
-            //    wait.ShowDialog(this);
-            //}
+            if (ProdDGV.Rows.Count > 1)
+            {
+                startRecord = startRecord + 5;
+                if (startRecord <= 0)
+                {
+                    startRecord = 10;
+                }
+                loaddata20.pagingData("Select * From ProductTbl", startRecord, Convert.ToInt32(pagingComboBox.SelectedItem));
+                ProdDGV.DataSource = loaddata20.table;
+            }
+            else
+            {
+                nextButton.Enabled = false;
+            }
         }
     }
 }
