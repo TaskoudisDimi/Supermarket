@@ -19,11 +19,10 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace SupermarketTuto.Forms
 {
-    public partial class Product : Form, excelFiles, sqlCreate
+    public partial class Product : Form, excelFiles
     {
         int startRecord;
         int allRecords;
-        SqlConnect loaddata20 = new SqlConnect();
         public Product()
         {
             InitializeComponent();
@@ -36,70 +35,18 @@ namespace SupermarketTuto.Forms
             menu();
 
         }
-
-        private void menu()
-        {
-            ContextMenuStrip mnu = new ContextMenuStrip();
-            ToolStripMenuItem mnuEdit = new ToolStripMenuItem("Edit");
-            ToolStripMenuItem mnuDelete = new ToolStripMenuItem("Delete");
-            //Assign event handlers
-            mnuDelete.Click += new EventHandler(mnuDelete_Click);
-            mnuEdit.Click += new EventHandler(mnuEdit_Click);
-            //Add to main context menu
-            mnu.Items.AddRange(new ToolStripItem[] {mnuEdit, mnuDelete });
-            //Assign to datagridview
-            ProdDGV.ContextMenuStrip = mnu;
-        }
-
-        private void mnuEdit_Click(object? sender, EventArgs e)
-        {
-            SqlConnect loaddata2 = new SqlConnect();
-            addEditProduct edit = new addEditProduct();
-            ////This method will bind the Combobox with the Database
-            loaddata2.retrieveData("Select CatName From CategoryTbl");
-            edit.catCombobox.DataSource = loaddata2.table;
-            edit.catCombobox.ValueMember = "CatName";
-            //catCombobox.SelectedItem = null;
-            edit.catCombobox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            edit.catCombobox.AutoCompleteSource = AutoCompleteSource.ListItems;
-            edit.ProdId.Text = ProdDGV.CurrentRow.Cells[0].Value.ToString();
-            edit.ProdName.Text = ProdDGV.CurrentRow.Cells[1].Value.ToString();
-            edit.ProdPrice.Text = ProdDGV.CurrentRow.Cells[2].Value.ToString();
-            edit.ProdQty.Text = ProdDGV.CurrentRow.Cells[3].Value.ToString();
-            edit.catCombobox.SelectedValue = ProdDGV.CurrentRow.Cells[5].Value.ToString();
-            edit.catIDTextBox.Text = ProdDGV.CurrentRow.Cells[4].Value.ToString();
-            edit.DateTimePicker.Text = ProdDGV.CurrentRow.Cells[6].Value.ToString();
-            edit.addButton.Visible = false;
-            edit.ProdId.ReadOnly = true;
-            edit.Show();
-        }
-
-        private void fillCombo()
-        {
-            SqlConnect loaddata2 = new SqlConnect();
-
-            //This method will bind the Combobox with the Database
-            loaddata2.retrieveData("Select CatName From CategoryTbl");
-            catComboBox.DataSource = loaddata2.table;
-            catComboBox.ValueMember = "CatName";
-            catComboBox.SelectedItem = null;
-            catComboBox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            catComboBox.AutoCompleteSource = AutoCompleteSource.ListItems;
-
-        }
-
         private void display()
         {
             try
             {
                 fromDateTimePicker.Value = DateTime.Now.AddMonths(-2);
                 SqlConnect loaddata1 = new SqlConnect();
-                loaddata1.retrieveData("Select * from ProductTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'");
+                loaddata1.pagingData("Select * from ProductTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'", 0, 5);
                 ProdDGV.DataSource = loaddata1.table;
                 ProdDGV.RowHeadersVisible = false;
                 ProdDGV.Columns[6].HeaderText = "Date Created";
                 totalLabel.Text = $"Total: {ProdDGV.RowCount}";
-
+                
 
                 //paging
                 List<string> comboPaging = new List<string>();
@@ -108,6 +55,7 @@ namespace SupermarketTuto.Forms
                 comboPaging.Add("20");
                 comboPaging.Add("All");
                 pagingComboBox.DataSource = comboPaging;
+                //pagingComboBox.SelectedItem = "5";
                 //pageLabel.Text = $"{dataGridView.Rows.Count / Convert.ToInt32(comboBox.SelectedItem)}";
 
             }
@@ -156,10 +104,56 @@ namespace SupermarketTuto.Forms
 
             //frm.ShowDialog();
         }
-
-        private void refresh_data()
+        private void fillCombo()
         {
-            display();
+            SqlConnect loaddata2 = new SqlConnect();
+
+            //This method will bind the Combobox with the Database
+            loaddata2.retrieveData("Select CatName From CategoryTbl");
+            catComboBox.DataSource = loaddata2.table;
+            catComboBox.ValueMember = "CatName";
+            catComboBox.SelectedItem = null;
+            catComboBox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            catComboBox.AutoCompleteSource = AutoCompleteSource.ListItems;
+
+        }
+
+        #region MenuStrip
+        private void menu()
+        {
+            ContextMenuStrip mnu = new ContextMenuStrip();
+            ToolStripMenuItem mnuEdit = new ToolStripMenuItem("Edit");
+            ToolStripMenuItem mnuDelete = new ToolStripMenuItem("Delete");
+            //Assign event handlers
+            mnuDelete.Click += new EventHandler(mnuDelete_Click);
+            mnuEdit.Click += new EventHandler(mnuEdit_Click);
+            //Add to main context menu
+            mnu.Items.AddRange(new ToolStripItem[] {mnuEdit, mnuDelete });
+            //Assign to datagridview
+            ProdDGV.ContextMenuStrip = mnu;
+        }
+
+        private void mnuEdit_Click(object? sender, EventArgs e)
+        {
+            SqlConnect loaddata2 = new SqlConnect();
+            addEditProduct edit = new addEditProduct();
+            ////This method will bind the Combobox with the Database
+            loaddata2.retrieveData("Select CatName From CategoryTbl");
+            edit.catCombobox.DataSource = loaddata2.table;
+            edit.catCombobox.ValueMember = "CatName";
+            //catCombobox.SelectedItem = null;
+            edit.catCombobox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            edit.catCombobox.AutoCompleteSource = AutoCompleteSource.ListItems;
+            edit.ProdId.Text = ProdDGV.CurrentRow.Cells[0].Value.ToString();
+            edit.ProdName.Text = ProdDGV.CurrentRow.Cells[1].Value.ToString();
+            edit.ProdPrice.Text = ProdDGV.CurrentRow.Cells[2].Value.ToString();
+            edit.ProdQty.Text = ProdDGV.CurrentRow.Cells[3].Value.ToString();
+            edit.catCombobox.SelectedValue = ProdDGV.CurrentRow.Cells[5].Value.ToString();
+            edit.catIDTextBox.Text = ProdDGV.CurrentRow.Cells[4].Value.ToString();
+            edit.DateTimePicker.Text = ProdDGV.CurrentRow.Cells[6].Value.ToString();
+            edit.addButton.Visible = false;
+            edit.ProdId.ReadOnly = true;
+            edit.Show();
         }
 
         private void mnuDelete_Click(object? sender, EventArgs e)
@@ -174,7 +168,9 @@ namespace SupermarketTuto.Forms
 
             }
         }
+        #endregion
 
+        #region Buttons
         private void addButton_Click(object sender, EventArgs e)
         {
             addEditProduct add = new addEditProduct();
@@ -219,7 +215,7 @@ namespace SupermarketTuto.Forms
             try
             {
                 loaddata7.commandExc("Delete From ProductTbl Where ProdId=" + ProdDGV.CurrentRow.Cells[0].Value.ToString());
-                refresh_data();
+                display();
             }
             catch (Exception ex)
             {
@@ -228,20 +224,10 @@ namespace SupermarketTuto.Forms
             }
         }
 
-
         private void refreshButton_Click(object sender, EventArgs e)
         {
             display();
         }
-
-        private void searchTextBox_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == (char)13)
-            {
-                searchButton.PerformClick();
-            }
-        }
-
         private void searchButton_Click(object sender, EventArgs e)
         {
             try
@@ -259,55 +245,12 @@ namespace SupermarketTuto.Forms
             }
 
         }
+        #endregion
 
-        private void catComboBox_SelectionChangeCommitted(object sender, EventArgs e)
-        {
-            SqlConnect loaddata10 = new SqlConnect();
-            loaddata10.retrieveData("Select * from ProductTbl where ProdCat='" + catComboBox.SelectedValue + "'");
-            ProdDGV.DataSource = loaddata10.table;
-            ProdDGV.RowHeadersVisible = false;
-            totalLabel.Text = $"Total: {ProdDGV.RowCount}";
-        }
-
+        #region Excel
         private void importButton_Click(object sender, EventArgs e)
         {
-            try
-            {
-                int ImportedRecord = 0, inValidItem = 0;
-                string SourceURl = "";
-                OpenFileDialog dialog = new OpenFileDialog()
-                {
-                    Title = "Browse csv File",
-                    CheckFileExists = true,
-                    CheckPathExists = true,
-                    Filter = "csv files (*.csv)|*.csv",
-                    FilterIndex = 2,
-                    RestoreDirectory = true,
-                    ReadOnlyChecked = true,
-                    ShowReadOnly = true
-
-                };
-                if (dialog.ShowDialog() == DialogResult.OK)
-                {
-                    if (dialog.FileName.EndsWith(".csv"))
-                    {
-                        DataTable table = new DataTable();
-                        table = GetData(dialog.FileName);
-                        SourceURl = dialog.FileName;
-                        if (table.Rows != null && table.Rows.ToString() != String.Empty)
-                        {
-                            ProdDGV.DataSource = table;
-                        }
-                    }
-                }
-                refresh_data();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Exception" + ex);
-                Utlis.Log(string.Format("Message : {0}", ex.Message), "ErrorImportTxt.txt");
-
-            }
+            import();
         }
 
         private DataTable GetData(string path)
@@ -363,24 +306,15 @@ namespace SupermarketTuto.Forms
 
         private void saveButton_Click(object sender, EventArgs e)
         {
-            try
-            {
-                SqlConnect loaddata20 = new SqlConnect();
-                int count = ProdDGV.RowCount;
-                for (int i = 0; i < count; i++)
-                {
-                    loaddata20.commandExc("Insert Into ProductTbl values('" + ProdDGV.Rows[i].Cells[0].Value + "','" + ProdDGV.Rows[i].Cells[1].Value + "','" + ProdDGV.Rows[i].Cells[2].Value + "','" + ProdDGV.Rows[i].Cells[3].Value + "','" + ProdDGV.Rows[i].Cells[4].Value + "')");
-                }
-                refresh_data();
-            }
-            catch (Exception ex)
-            {
-                Utlis.Log(string.Format("Message : {0}", ex.Message), "ErrorSaveData.txt");
-            }
+            save();
         }
 
-        
         private void exportButton_Click(object sender, EventArgs e)
+        {
+            export();
+        }
+
+        public void export()
         {
             try
             {
@@ -448,11 +382,70 @@ namespace SupermarketTuto.Forms
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Utlis.Log(string.Format("Message : {0}", ex.Message), "ErrorExportData.txt");
             }
+
         }
+        public void import()
+        {
+            try
+            {
+                int ImportedRecord = 0, inValidItem = 0;
+                string SourceURl = "";
+                OpenFileDialog dialog = new OpenFileDialog()
+                {
+                    Title = "Browse csv File",
+                    CheckFileExists = true,
+                    CheckPathExists = true,
+                    Filter = "csv files (*.csv)|*.csv",
+                    FilterIndex = 2,
+                    RestoreDirectory = true,
+                    ReadOnlyChecked = true,
+                    ShowReadOnly = true
+
+                };
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    if (dialog.FileName.EndsWith(".csv"))
+                    {
+                        DataTable table = new DataTable();
+                        table = GetData(dialog.FileName);
+                        SourceURl = dialog.FileName;
+                        if (table.Rows != null && table.Rows.ToString() != String.Empty)
+                        {
+                            ProdDGV.DataSource = table;
+                        }
+                    }
+                }
+                display();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Exception" + ex);
+                Utlis.Log(string.Format("Message : {0}", ex.Message), "ErrorImportTxt.txt");
+
+            }
+        }
+        public void save()
+        {
+            try
+            {
+                SqlConnect loaddata20 = new SqlConnect();
+                int count = ProdDGV.RowCount;
+                for (int i = 0; i < count; i++)
+                {
+                    loaddata20.commandExc("Insert Into ProductTbl values('" + ProdDGV.Rows[i].Cells[0].Value + "','" + ProdDGV.Rows[i].Cells[1].Value + "','" + ProdDGV.Rows[i].Cells[2].Value + "','" + ProdDGV.Rows[i].Cells[3].Value + "','" + ProdDGV.Rows[i].Cells[4].Value + "')");
+                }
+                display();
+            }
+            catch (Exception ex)
+            {
+                Utlis.Log(string.Format("Message : {0}", ex.Message), "ErrorSaveData.txt");
+            }
+        }
+        #endregion
 
         #region API
         //First, we have created an object of HttpClient and assigned the base address of our Web API.
@@ -551,7 +544,38 @@ namespace SupermarketTuto.Forms
 
         #endregion API
 
+        #region Events
+        private void searchTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)13)
+            {
+                searchButton.PerformClick();
+            }
+        }
 
+        private void catComboBox_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            SqlConnect loaddata10 = new SqlConnect();
+            loaddata10.retrieveData("Select * from ProductTbl where ProdCat='" + catComboBox.SelectedValue + "'");
+            ProdDGV.DataSource = loaddata10.table;
+            ProdDGV.RowHeadersVisible = false;
+            totalLabel.Text = $"Total: {ProdDGV.RowCount}";
+        }
+        private void ProdDGV_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            foreach (DataGridViewRow row in ProdDGV.Rows)
+            {
+                if (DateTime.Parse(row.Cells[6].Value.ToString()) >= DateTime.Now.AddMonths(-1)
+                    && DateTime.Parse(row.Cells[6].Value.ToString()) <= DateTime.Now)
+                {
+                    row.DefaultCellStyle.BackColor = Color.Orange;
+                }
+                else
+                {
+                    row.DefaultCellStyle.BackColor = Color.DarkSeaGreen;
+                }
+            }
+        }
         private void searchTextBox_TextChanged(object sender, EventArgs e)
         {
             try
@@ -568,7 +592,9 @@ namespace SupermarketTuto.Forms
             }
 
         }
+        #endregion 
 
+        #region DateTimePicker
         private void fromDateTimePicker_ValueChanged(object sender, EventArgs e)
         {
             display();
@@ -579,31 +605,21 @@ namespace SupermarketTuto.Forms
             display();
         }
 
-        private void ProdDGV_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
-        {
-            foreach (DataGridViewRow row in ProdDGV.Rows)
-            {
-                if (DateTime.Parse(row.Cells[6].Value.ToString()) >= DateTime.Now.AddMonths(-1)
-                    && DateTime.Parse(row.Cells[6].Value.ToString()) <= DateTime.Now)
-                {
-                    row.DefaultCellStyle.BackColor = Color.Orange;
-                }
-                else
-                {
-                    row.DefaultCellStyle.BackColor = Color.DarkSeaGreen;
-                }
-            }
-        }
+        #endregion
+
+
+        #region Paging
+        SqlConnect loaddata20 = new SqlConnect();
 
         private void prevButton_Click(object sender, EventArgs e)
         {
-            
+
             startRecord = startRecord - 5;
             if (startRecord <= 0)
             {
                 startRecord = 0;
             }
-            loaddata20.pagingData("Select * From ProductTbl", startRecord, Convert.ToInt32(pagingComboBox.SelectedItem));
+            loaddata20.pagingData("Select * from ProductTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'", startRecord, Convert.ToInt32(pagingComboBox.SelectedItem));
             ProdDGV.DataSource = loaddata20.table;
             if (ProdDGV.Rows.Count > 1)
             {
@@ -613,14 +629,14 @@ namespace SupermarketTuto.Forms
 
         private void nextButton_Click(object sender, EventArgs e)
         {
-            if (ProdDGV.Rows.Count > 1)
+            if (ProdDGV.Rows.Count > 0)
             {
                 startRecord = startRecord + 5;
                 if (startRecord <= 0)
                 {
                     startRecord = 10;
                 }
-                loaddata20.pagingData("Select * From ProductTbl", startRecord, Convert.ToInt32(pagingComboBox.SelectedItem));
+                loaddata20.pagingData("Select * from ProductTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'", startRecord, Convert.ToInt32(pagingComboBox.SelectedItem));
                 ProdDGV.DataSource = loaddata20.table;
             }
             else
@@ -628,6 +644,52 @@ namespace SupermarketTuto.Forms
                 nextButton.Enabled = false;
             }
         }
+
+        private void pagingComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            if (pagingComboBox.SelectedItem == "5")
+            {
+                loaddata20.pagingData("Select * from ProductTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'", 0, 5);
+            }
+            else if (pagingComboBox.SelectedItem == "10")
+            {
+                loaddata20.pagingData("Select * from ProductTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'", 0, 10);
+            }
+            else if (pagingComboBox.SelectedItem == "20")
+            {
+                loaddata20.pagingData("Select * from ProductTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'", 0, 20);
+            }
+            else if (pagingComboBox.SelectedItem == "All")
+            {
+                allRecords = (int)loaddata20.table.Rows.Count;
+                loaddata20.pagingData("Select * from ProductTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'", 0, allRecords);
+            }
+        }
+
+        private void pagingComboBox_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if (pagingComboBox.SelectedItem == "5")
+            {
+                loaddata20.pagingData("Select * from ProductTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'", 0, 5);
+            }
+            else if (pagingComboBox.SelectedItem == "10")
+            {
+                loaddata20.pagingData("Select * from ProductTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'", 0, 10);
+            }
+            else if (pagingComboBox.SelectedItem == "20")
+            {
+                loaddata20.pagingData("Select * from ProductTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'", 0, 20);
+            }
+            else if (pagingComboBox.SelectedItem == "All")
+            {
+                allRecords = (int)loaddata20.table.Rows.Count;
+                loaddata20.pagingData("Select * from ProductTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'", 0, allRecords);
+            }
+        }
+        #endregion
+
+
     }
 }
 

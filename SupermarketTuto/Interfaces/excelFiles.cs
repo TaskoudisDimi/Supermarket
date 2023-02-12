@@ -8,7 +8,9 @@ namespace SupermarketTuto.Interfaces
 {
     public interface excelFiles
     {
-
+        void export();
+        void import();
+        void save();
 
     }
 }

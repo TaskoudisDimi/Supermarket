@@ -3,13 +3,14 @@
 using DataClass;
 using SupermarketTuto.Forms.AdminForms;
 using SupermarketTuto.Forms.General;
+using SupermarketTuto.Interfaces;
 using SupermarketTuto.Utils;
 using System.Data;
 using System.Text;
 
 namespace SupermarketTuto.Forms
 {
-    public partial class Category : Form
+    public partial class Category : Form, excelFiles
     {
 
         public Category()
@@ -28,6 +29,9 @@ namespace SupermarketTuto.Forms
             CatDGV.Columns["Select"].DisplayIndex = 0;
             menu();
         }
+
+
+        #region MenuStrip
         private void menu()
         {
             //Create right click menu
@@ -41,29 +45,6 @@ namespace SupermarketTuto.Forms
             mnu.Items.AddRange(new ToolStripItem[] { mnuEdit, mnuSelectedProducts, mnuDelete });
             CatDGV.ContextMenuStrip = mnu;
         }
-        private void display()
-        {
-            try
-            {
-                fromDateTimePicker.Value = DateTime.Now.AddMonths(-2);
-                SqlConnect loaddata = new SqlConnect();
-                loaddata.retrieveData("Select * From CategoryTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'");
-                CatDGV.DataSource = loaddata.table;
-                CatDGV.RowHeadersVisible = false;
-                CatDGV.Columns[3].HeaderText = "Date Created";
-                totalLabel.Text = $"Total: {CatDGV.RowCount}";
-                if (totalLabel.Text == null)
-                {
-                    MessageBox.Show("Warning", "There is no data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-            }
-            catch (Exception ex)
-            {
-                Utlis.Log(string.Format("Message : {0}", ex.Message), "ErrorImportTxt.txt");
-            }
-
-
-        }
 
         private void mnuEdit_Click(object? sender, EventArgs e)
         {
@@ -76,6 +57,24 @@ namespace SupermarketTuto.Forms
             edit.CatIdTb.ReadOnly = true;
             edit.Show();
             refresh_data();
+        }
+
+        private void mnuDelete_Click(object? sender, EventArgs e)
+        {
+            try
+            {
+                SqlConnect loaddata2 = new SqlConnect();
+                loaddata2.commandExc("Delete From CategoryTbl Where CatId='" + CatDGV.CurrentRow.Cells[1].Value.ToString() + "'");
+                foreach (DataGridViewRow row in CatDGV.SelectedRows)
+                {
+                    CatDGV.Rows.RemoveAt(row.Index);
+                }
+            }
+            catch
+            {
+
+            }
+
         }
         private void mnuSelectedProducts_Click(object? sender, EventArgs e)
         {
@@ -100,24 +99,32 @@ namespace SupermarketTuto.Forms
 
             }
         }
+        #endregion
 
-        private void mnuDelete_Click(object? sender, EventArgs e)
+        private void display()
         {
             try
             {
-                SqlConnect loaddata2 = new SqlConnect();
-                loaddata2.commandExc("Delete From CategoryTbl Where CatId='" + CatDGV.CurrentRow.Cells[1].Value.ToString() + "'");
-                foreach (DataGridViewRow row in CatDGV.SelectedRows)
+                fromDateTimePicker.Value = DateTime.Now.AddMonths(-2);
+                SqlConnect loaddata = new SqlConnect();
+                loaddata.retrieveData("Select * From CategoryTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'");
+                CatDGV.DataSource = loaddata.table;
+                CatDGV.RowHeadersVisible = false;
+                CatDGV.Columns[3].HeaderText = "Date Created";
+                totalLabel.Text = $"Total: {CatDGV.RowCount}";
+                if (totalLabel.Text == null)
                 {
-                    CatDGV.Rows.RemoveAt(row.Index);
+                    MessageBox.Show("Warning", "There is no data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
-            catch
+            catch (Exception ex)
             {
-
+                Utlis.Log(string.Format("Message : {0}", ex.Message), "ErrorImportTxt.txt");
             }
 
+
         }
+
 
         private void logOutLabel_Click(object sender, EventArgs e)
         {

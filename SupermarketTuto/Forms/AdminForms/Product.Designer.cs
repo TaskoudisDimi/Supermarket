@@ -256,10 +256,12 @@
             // pagingComboBox
             // 
             this.pagingComboBox.FormattingEnabled = true;
-            this.pagingComboBox.Location = new System.Drawing.Point(196, 930);
+            this.pagingComboBox.Location = new System.Drawing.Point(186, 932);
             this.pagingComboBox.Name = "pagingComboBox";
-            this.pagingComboBox.Size = new System.Drawing.Size(121, 28);
+            this.pagingComboBox.Size = new System.Drawing.Size(134, 28);
             this.pagingComboBox.TabIndex = 125;
+            this.pagingComboBox.SelectedIndexChanged += new System.EventHandler(this.pagingComboBox_SelectedIndexChanged);
+            this.pagingComboBox.SelectedValueChanged += new System.EventHandler(this.pagingComboBox_SelectedValueChanged);
             // 
             // Product
             // 
