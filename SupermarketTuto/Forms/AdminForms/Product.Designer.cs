@@ -45,7 +45,6 @@
             this.catLabel = new System.Windows.Forms.Label();
             this.nextButton = new System.Windows.Forms.Button();
             this.prevButton = new System.Windows.Forms.Button();
-            this.pagingComboBox = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.ProdDGV)).BeginInit();
             this.SuspendLayout();
             // 
@@ -253,23 +252,12 @@
             this.prevButton.UseVisualStyleBackColor = true;
             this.prevButton.Click += new System.EventHandler(this.prevButton_Click);
             // 
-            // pagingComboBox
-            // 
-            this.pagingComboBox.FormattingEnabled = true;
-            this.pagingComboBox.Location = new System.Drawing.Point(186, 932);
-            this.pagingComboBox.Name = "pagingComboBox";
-            this.pagingComboBox.Size = new System.Drawing.Size(134, 28);
-            this.pagingComboBox.TabIndex = 125;
-            this.pagingComboBox.SelectedIndexChanged += new System.EventHandler(this.pagingComboBox_SelectedIndexChanged);
-            this.pagingComboBox.SelectedValueChanged += new System.EventHandler(this.pagingComboBox_SelectedValueChanged);
-            // 
             // Product
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(2000, 1066);
             this.ControlBox = false;
-            this.Controls.Add(this.pagingComboBox);
             this.Controls.Add(this.nextButton);
             this.Controls.Add(this.prevButton);
             this.Controls.Add(this.catLabel);
@@ -314,6 +302,5 @@
         private Label catLabel;
         private Button nextButton;
         private Button prevButton;
-        private ComboBox pagingComboBox;
     }
 }

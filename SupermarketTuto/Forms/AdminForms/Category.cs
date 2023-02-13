@@ -29,7 +29,29 @@ namespace SupermarketTuto.Forms
             CatDGV.Columns["Select"].DisplayIndex = 0;
             menu();
         }
+        private void display()
+        {
+            try
+            {
+                fromDateTimePicker.Value = DateTime.Now.AddMonths(-2);
+                SqlConnect loaddata = new SqlConnect();
+                loaddata.retrieveData("Select * From CategoryTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'");
+                CatDGV.DataSource = loaddata.table;
+                CatDGV.RowHeadersVisible = false;
+                CatDGV.Columns[3].HeaderText = "Date Created";
+                totalLabel.Text = $"Total: {CatDGV.RowCount}";
+                if (totalLabel.Text == null)
+                {
+                    MessageBox.Show("Warning", "There is no data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            catch (Exception ex)
+            {
+                Utlis.Log(string.Format("Message : {0}", ex.Message), "ErrorImportTxt.txt");
+            }
 
+
+        }
 
         #region MenuStrip
         private void menu()
@@ -56,7 +78,7 @@ namespace SupermarketTuto.Forms
             edit.addButton.Visible = false;
             edit.CatIdTb.ReadOnly = true;
             edit.Show();
-            refresh_data();
+            display();
         }
 
         private void mnuDelete_Click(object? sender, EventArgs e)
@@ -101,41 +123,10 @@ namespace SupermarketTuto.Forms
         }
         #endregion
 
-        private void display()
-        {
-            try
-            {
-                fromDateTimePicker.Value = DateTime.Now.AddMonths(-2);
-                SqlConnect loaddata = new SqlConnect();
-                loaddata.retrieveData("Select * From CategoryTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'");
-                CatDGV.DataSource = loaddata.table;
-                CatDGV.RowHeadersVisible = false;
-                CatDGV.Columns[3].HeaderText = "Date Created";
-                totalLabel.Text = $"Total: {CatDGV.RowCount}";
-                if (totalLabel.Text == null)
-                {
-                    MessageBox.Show("Warning", "There is no data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-            }
-            catch (Exception ex)
-            {
-                Utlis.Log(string.Format("Message : {0}", ex.Message), "ErrorImportTxt.txt");
-            }
-
-
-        }
-
-
-        private void logOutLabel_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-            LogIn login = new LogIn();
-            login.Show();
-        }
-
+        #region Buttons
         private void refreshButton_Click(object sender, EventArgs e)
         {
-            refresh_data();
+            display();
         }
 
         private void addButton_Click(object sender, EventArgs e)
@@ -145,7 +136,7 @@ namespace SupermarketTuto.Forms
             add.CatIdTb.Visible = false;
             add.idlabel.Visible = false;
             add.Show();
-            refresh_data();
+            display();
         }
 
         private void editButton_Click(object sender, EventArgs e)
@@ -158,7 +149,7 @@ namespace SupermarketTuto.Forms
             edit.addButton.Visible = false;
             edit.CatIdTb.ReadOnly = true;
             edit.Show();
-            refresh_data();
+            display();
         }
 
         private void deleteButton_Click(object sender, EventArgs e)
@@ -167,7 +158,7 @@ namespace SupermarketTuto.Forms
             try
             {
                 loaddata5.commandExc("Delete From CategoryTbl Where CatId=" + CatDGV.CurrentRow.Cells[0].Value.ToString());
-                refresh_data();
+                display();
             }
             catch (Exception ex)
             {
@@ -183,25 +174,46 @@ namespace SupermarketTuto.Forms
             CatDGV.DataSource = db_sellers.table;
             totalLabel.Text = $"Total: {CatDGV.RowCount}";
         }
-
-        private void fromDateTimePicker_ValueChanged(object sender, EventArgs e)
+        private void showSelectedProductsButton_Click(object sender, EventArgs e)
         {
-            refresh_data();
+            try
+            {
+                List<int> cats = new List<int>();
+                for (int i = 0; i < CatDGV.Rows.Count; i++)
+                {
+                    if (Convert.ToBoolean(CatDGV.Rows[i].Cells[0].Value))
+                    {
+                        cats.Add((int)CatDGV.Rows[i].Cells[1].Value);
+                    }
+                }
+                if (cats.Count != 0)
+                {
+                    SelectedProducts frm = new SelectedProducts(cats);
+                    frm.Show();
+                }
+            }
+            catch
+            {
+
+            }
+
         }
 
-        private void refresh_data()
+        #endregion
+
+        #region DateTimePicker
+        private void fromDateTimePicker_ValueChanged(object sender, EventArgs e)
         {
-            SqlConnect loaddata21 = new SqlConnect();
-            loaddata21.retrieveData("Select * from CategoryTbl");
-            CatDGV.DataSource = loaddata21.table;
-            CatDGV.RowHeadersVisible = false;
+            display();
         }
 
         private void toDateTimePicker_ValueChanged(object sender, EventArgs e)
         {
-            refresh_data();
+            display();
         }
+        #endregion
 
+        #region Events
         private void searchTextBox_TextChanged(object sender, EventArgs e)
         {
             SqlConnect db_sellers = new SqlConnect();
@@ -211,7 +223,68 @@ namespace SupermarketTuto.Forms
             totalLabel.Text = $"Total: {CatDGV.RowCount}";
         }
 
-        private void exportButton_Click(object sender, EventArgs e)
+        private void CatDGV_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+
+            //foreach (DataGridViewRow row in CatDGV.Rows)
+            //{
+            //    if (DateTime.Parse(row.Cells[4].Value.ToString()) >= DateTime.Now.AddMonths(-1)
+            //        && DateTime.Parse(row.Cells[4].Value.ToString()) <= DateTime.Now)
+            //    {
+            //        row.DefaultCellStyle.BackColor = Color.Orange;
+            //    }
+            //    else
+            //    {
+            //        row.DefaultCellStyle.BackColor = Color.DarkSeaGreen;
+            //    }
+            //}
+
+
+        }
+        #endregion
+
+        #region Excel
+        public void import()
+        {
+            try
+            {
+                int ImportedRecord = 0, inValidItem = 0;
+                string SourceURl = "";
+                OpenFileDialog dialog = new OpenFileDialog()
+                {
+                    Title = "Browse Text File",
+                    CheckFileExists = true,
+                    CheckPathExists = true,
+                    Filter = "csv files (*.csv)|*.csv",
+                    FilterIndex = 2,
+                    RestoreDirectory = true,
+                    ReadOnlyChecked = true,
+                    ShowReadOnly = true
+
+                };
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    if (dialog.FileName.EndsWith(".csv"))
+                    {
+                        DataTable table = new DataTable();
+                        table = GetData(dialog.FileName);
+                        SourceURl = dialog.FileName;
+                        if (table.Rows != null && table.Rows.ToString() != String.Empty)
+                        {
+                            CatDGV.DataSource = table;
+
+                        }
+
+                    }
+                }
+                display();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Exception" + ex);
+            }
+        }
+        public void export()
         {
             if (CatDGV.Rows.Count > 0)
             {
@@ -272,6 +345,21 @@ namespace SupermarketTuto.Forms
                 }
             }
         }
+        public void save()
+        {
+            SqlConnect loaddata20 = new SqlConnect();
+
+            int count = CatDGV.RowCount;
+            for (int i = 0; i < count; i++)
+            {
+                loaddata20.commandExc("Insert Into CategoryTbl values('" + CatDGV.Rows[i].Cells[0].Value + "','" + CatDGV.Rows[i].Cells[1].Value + "','" + CatDGV.Rows[i].Cells[2].Value + "','" + CatDGV.Rows[i].Cells[3].Value + "','" + CatDGV.Rows[i].Cells[4].Value + "')");
+            }
+            display();
+        }
+        private void exportButton_Click(object sender, EventArgs e)
+        {
+            export();
+        }
 
         private DataTable GetData(string path)
         {
@@ -320,99 +408,15 @@ namespace SupermarketTuto.Forms
 
         private void importButton_Click(object sender, EventArgs e)
         {
-            try
-            {
-                int ImportedRecord = 0, inValidItem = 0;
-                string SourceURl = "";
-                OpenFileDialog dialog = new OpenFileDialog()
-                {
-                    Title = "Browse Text File",
-                    CheckFileExists = true,
-                    CheckPathExists = true,
-                    Filter = "csv files (*.csv)|*.csv",
-                    FilterIndex = 2,
-                    RestoreDirectory = true,
-                    ReadOnlyChecked = true,
-                    ShowReadOnly = true
-
-                };
-                if (dialog.ShowDialog() == DialogResult.OK)
-                {
-                    if (dialog.FileName.EndsWith(".csv"))
-                    {
-                        DataTable table = new DataTable();
-                        table = GetData(dialog.FileName);
-                        SourceURl = dialog.FileName;
-                        if (table.Rows != null && table.Rows.ToString() != String.Empty)
-                        {
-                            CatDGV.DataSource = table;
-
-                        }
-
-                    }
-                }
-                refresh_data();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Exception" + ex);
-            }
+            import();
         }
 
         private void saveButton_Click(object sender, EventArgs e)
         {
-            SqlConnect loaddata20 = new SqlConnect();
-
-            int count = CatDGV.RowCount;
-            for (int i = 0; i < count; i++)
-            {
-                loaddata20.commandExc("Insert Into CategoryTbl values('" + CatDGV.Rows[i].Cells[0].Value + "','" + CatDGV.Rows[i].Cells[1].Value + "','" + CatDGV.Rows[i].Cells[2].Value + "','" + CatDGV.Rows[i].Cells[3].Value + "','" + CatDGV.Rows[i].Cells[4].Value + "')");
-            }
-            refresh_data();
+            save();
         }
-
-        private void CatDGV_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
-        {
-
-            //foreach (DataGridViewRow row in CatDGV.Rows)
-            //{
-            //    if (DateTime.Parse(row.Cells[4].Value.ToString()) >= DateTime.Now.AddMonths(-1)
-            //        && DateTime.Parse(row.Cells[4].Value.ToString()) <= DateTime.Now)
-            //    {
-            //        row.DefaultCellStyle.BackColor = Color.Orange;
-            //    }
-            //    else
-            //    {
-            //        row.DefaultCellStyle.BackColor = Color.DarkSeaGreen;
-            //    }
-            //}
+        #endregion
 
 
-        }
-
-        private void showSelectedProductsButton_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                List<int> cats = new List<int>();
-                for (int i = 0; i < CatDGV.Rows.Count; i++)
-                {
-                    if (Convert.ToBoolean(CatDGV.Rows[i].Cells[0].Value))
-                    {
-                        cats.Add((int)CatDGV.Rows[i].Cells[1].Value);
-                    }
-                }
-                if (cats.Count != 0)
-                {
-                    SelectedProducts frm = new SelectedProducts(cats);
-                    frm.Show();
-                }
-            }
-            catch
-            {
-
-            }
-
-        }
     }
 }

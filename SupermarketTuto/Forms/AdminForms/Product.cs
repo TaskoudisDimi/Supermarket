@@ -48,15 +48,6 @@ namespace SupermarketTuto.Forms
                 totalLabel.Text = $"Total: {ProdDGV.RowCount}";
                 
 
-                //paging
-                List<string> comboPaging = new List<string>();
-                comboPaging.Add("5");
-                comboPaging.Add("10");
-                comboPaging.Add("20");
-                comboPaging.Add("All");
-                pagingComboBox.DataSource = comboPaging;
-                //pagingComboBox.SelectedItem = "5";
-                //pageLabel.Text = $"{dataGridView.Rows.Count / Convert.ToInt32(comboBox.SelectedItem)}";
 
             }
             catch (Exception ex)
@@ -619,7 +610,7 @@ namespace SupermarketTuto.Forms
             {
                 startRecord = 0;
             }
-            loaddata20.pagingData("Select * from ProductTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'", startRecord, Convert.ToInt32(pagingComboBox.SelectedItem));
+            loaddata20.pagingData("Select * from ProductTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'", startRecord, 5);
             ProdDGV.DataSource = loaddata20.table;
             if (ProdDGV.Rows.Count > 1)
             {
@@ -636,7 +627,7 @@ namespace SupermarketTuto.Forms
                 {
                     startRecord = 10;
                 }
-                loaddata20.pagingData("Select * from ProductTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'", startRecord, Convert.ToInt32(pagingComboBox.SelectedItem));
+                loaddata20.pagingData("Select * from ProductTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'", startRecord, 5);
                 ProdDGV.DataSource = loaddata20.table;
             }
             else
@@ -645,48 +636,6 @@ namespace SupermarketTuto.Forms
             }
         }
 
-        private void pagingComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-            if (pagingComboBox.SelectedItem == "5")
-            {
-                loaddata20.pagingData("Select * from ProductTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'", 0, 5);
-            }
-            else if (pagingComboBox.SelectedItem == "10")
-            {
-                loaddata20.pagingData("Select * from ProductTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'", 0, 10);
-            }
-            else if (pagingComboBox.SelectedItem == "20")
-            {
-                loaddata20.pagingData("Select * from ProductTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'", 0, 20);
-            }
-            else if (pagingComboBox.SelectedItem == "All")
-            {
-                allRecords = (int)loaddata20.table.Rows.Count;
-                loaddata20.pagingData("Select * from ProductTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'", 0, allRecords);
-            }
-        }
-
-        private void pagingComboBox_SelectedValueChanged(object sender, EventArgs e)
-        {
-            if (pagingComboBox.SelectedItem == "5")
-            {
-                loaddata20.pagingData("Select * from ProductTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'", 0, 5);
-            }
-            else if (pagingComboBox.SelectedItem == "10")
-            {
-                loaddata20.pagingData("Select * from ProductTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'", 0, 10);
-            }
-            else if (pagingComboBox.SelectedItem == "20")
-            {
-                loaddata20.pagingData("Select * from ProductTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'", 0, 20);
-            }
-            else if (pagingComboBox.SelectedItem == "All")
-            {
-                allRecords = (int)loaddata20.table.Rows.Count;
-                loaddata20.pagingData("Select * from ProductTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'", 0, allRecords);
-            }
-        }
         #endregion
 
 
