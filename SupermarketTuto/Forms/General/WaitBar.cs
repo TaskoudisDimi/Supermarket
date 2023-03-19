@@ -12,21 +12,11 @@ namespace SupermarketTuto.Forms.General
 {
     public partial class WaitBar : Form
     {
-        public Action Worker { get; set; }
-        public WaitBar(Action worker)
+        public WaitBar()
         {
             InitializeComponent();
-            if (worker == null)
-            {
-                throw new ArgumentNullException();
-            }
-            Worker = worker;
+            
         }
 
-        protected override void OnLoad(EventArgs e)
-        {
-            base.OnLoad(e);
-            Task.Factory.StartNew(Worker).ContinueWith(t => { this.Close(); }, TaskScheduler.FromCurrentSynchronizationContext());
-        }
     }
 }

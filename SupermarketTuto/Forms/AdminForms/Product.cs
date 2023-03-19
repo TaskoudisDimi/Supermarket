@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Net.Http.Headers;
@@ -23,9 +24,57 @@ namespace SupermarketTuto.Forms
     {
         int startRecord;
         int allRecords;
+        private BackgroundWorker worker = new BackgroundWorker();
+        public WaitBar waitBar = new WaitBar();
+
         public Product()
         {
             InitializeComponent();
+            worker.DoWork += worker_DoWork;
+            //worker.ProgressChanged += worker_ProgressChanged;
+            worker.RunWorkerCompleted += worker_RunWorkerCompleted;
+        }
+
+        private void worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            // Update the UI when the background worker is complete
+            if (e.Cancelled)
+            {
+                waitBar.waitLabel.Text = "Cancelled";
+            }
+            else if (e.Error != null)
+            {
+                waitBar.waitLabel.Text = $"Error: {e.Error.Message}";
+            }
+            else
+            {
+                waitBar.Close();
+
+            }
+        }
+
+
+
+        private void worker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            try
+            {
+                while (ProdDGV.Rows.Count > 1)
+                {
+                    fromDateTimePicker.Value = DateTime.Now.AddMonths(-2);
+                    SqlConnect loaddata1 = new SqlConnect();
+                    loaddata1.pagingData("Select * from ProductTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'", 0, 5);
+                    ProdDGV.DataSource = loaddata1.table;
+                    ProdDGV.RowHeadersVisible = false;
+                    ProdDGV.Columns[6].HeaderText = "Date Created";
+                    totalLabel.Text = $"Total: {ProdDGV.RowCount}";
+                }
+            }
+            catch (Exception ex)
+            {
+
+                Utlis.Log(string.Format("Message : {0}", ex.Message), "ErrorPdoduct.txt");
+            }
         }
 
         private void Product_Load(object sender, EventArgs e)
@@ -39,6 +88,13 @@ namespace SupermarketTuto.Forms
         {
             try
             {
+                waitBar.Show();
+                waitBar.waitProgressBar.Style = ProgressBarStyle.Marquee;
+                if (!worker.IsBusy)
+                {
+                    // Start the background worker
+                    worker.RunWorkerAsync();
+                }
                 fromDateTimePicker.Value = DateTime.Now.AddMonths(-2);
                 SqlConnect loaddata1 = new SqlConnect();
                 loaddata1.pagingData("Select * from ProductTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'", 0, 5);
@@ -46,8 +102,6 @@ namespace SupermarketTuto.Forms
                 ProdDGV.RowHeadersVisible = false;
                 ProdDGV.Columns[6].HeaderText = "Date Created";
                 totalLabel.Text = $"Total: {ProdDGV.RowCount}";
-                
-
 
             }
             catch (Exception ex)
@@ -56,44 +110,6 @@ namespace SupermarketTuto.Forms
                 Utlis.Log(string.Format("Message : {0}", ex.Message), "ErrorPdoduct.txt");
             }
 
-
-            //ProgressBar frm = new ProgressBar();
-
-            //BackgroundWorker bgw = new BackgroundWorker()
-            //{
-            //    WorkerReportsProgress = true
-            //};
-
-            //bgw.DoWork += (s, e) =>
-            //{
-            //    SqlConnect loaddata1 = new SqlConnect();
-            //    loaddata1.retrieveData("Select * from ProductTbl");
-            //    ProdDGV.DataSource = loaddata1.table;
-            //    ProdDGV.RowHeadersVisible = false;
-            //    int Count = loaddata1.table.Rows.Count;
-            //    for (int i = 0; i < Count; i++)
-            //    {
-            //        totalLabel.Text = $"Total: {ProdDGV.RowCount}";
-            //        ((BackgroundWorker)s).ReportProgress(i, "Loading:" + i);
-            //    }
-
-            //};
-
-            //bgw.ProgressChanged += (s, e) =>
-            //{
-            //    frm.SetProgress(e.ProgressPercentage, "Loading...");
-            //};
-
-            //bgw.RunWorkerCompleted += (s, e) =>
-            //{
-            //    frm.Close();
-
-            //    if (e.Error != null)
-            //        throw e.Error;
-            //};
-            //bgw.RunWorkerAsync();
-
-            //frm.ShowDialog();
         }
         private void fillCombo()
         {
@@ -119,7 +135,7 @@ namespace SupermarketTuto.Forms
             mnuDelete.Click += new EventHandler(mnuDelete_Click);
             mnuEdit.Click += new EventHandler(mnuEdit_Click);
             //Add to main context menu
-            mnu.Items.AddRange(new ToolStripItem[] {mnuEdit, mnuDelete });
+            mnu.Items.AddRange(new ToolStripItem[] { mnuEdit, mnuDelete });
             //Assign to datagridview
             ProdDGV.ContextMenuStrip = mnu;
         }
@@ -577,7 +593,7 @@ namespace SupermarketTuto.Forms
                 ProdDGV.DataSource = db.table;
                 totalLabel.Text = $"Total: {ProdDGV.RowCount}";
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Utlis.Log(string.Format("Message : {0}", ex.Message), "ErrorSearchData.txt");
             }

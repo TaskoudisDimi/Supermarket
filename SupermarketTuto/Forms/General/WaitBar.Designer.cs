@@ -64,8 +64,7 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.ProgressBar waitProgressBar;
-        private Label waitLabel;
+        public System.Windows.Forms.ProgressBar waitProgressBar;
+        public Label waitLabel;
     }
 }
