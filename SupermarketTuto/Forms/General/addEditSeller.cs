@@ -20,6 +20,8 @@ using static SupermarketTuto.Forms.Seller;
 using Newtonsoft.Json;
 using System.Security.Policy;
 using DataClass;
+using static System.Net.Mime.MediaTypeNames;
+using Image = System.Drawing.Image;
 
 namespace SupermarketTuto.Forms.General
 {
@@ -40,6 +42,7 @@ namespace SupermarketTuto.Forms.General
 
         private void addButton_Click(object sender, EventArgs e)
         {
+            byte[] imageData = File.ReadAllBytes(imageName);
             SqlConnect loaddata5 = new SqlConnect();
             try
             {
@@ -47,13 +50,15 @@ namespace SupermarketTuto.Forms.General
                 {
                     if(address == null)
                     {
-                        loaddata5.commandExc("Insert Into SellersTbl values('" + SellName.Text + "'," + "CONVERT(varbinary,'" + passwordTextBox.Text + "'), '" + SellName.Text + "'," + SellAge.Text + "," + SellPhone.Text + ",'" + dateTimePicker.Value.ToString("MM-dd-yyyy") + "','" + addressTextBox.Text + "','True')");
+                        string query = "Insert Into SellersTbl values('" + SellName.Text + "'," + "CONVERT(varbinary,'" + passwordTextBox.Text + "'), '" + SellName.Text + "'," + SellAge.Text + "," + SellPhone.Text + ",'" + dateTimePicker.Value.ToString("MM-dd-yyyy") + "','" + addressTextBox.Text + "','True', @ImageData)";
+                        loaddata5.saveImage(imageData, query);
                         MessageBox.Show("Seller added successfuly");
                         this.Close();
                     }
                     else
                     {
-                        loaddata5.commandExc("Insert Into SellersTbl values('" + SellName.Text + "'," + "CONVERT(varbinary,'" + passwordTextBox.Text + "'), '" + SellName.Text + "'," + SellAge.Text + "," + SellPhone.Text + ",'" + dateTimePicker.Value.ToString("MM-dd-yyyy") + "','" + address + "','True')");
+                        string query = "Insert Into SellersTbl values('" + SellName.Text + "'," + "CONVERT(varbinary,'" + passwordTextBox.Text + "'), '" + SellName.Text + "'," + SellAge.Text + "," + SellPhone.Text + ",'" + dateTimePicker.Value.ToString("MM-dd-yyyy") + "','" + addressTextBox.Text + "','True', @ImageData)";
+                        loaddata5.saveImage(imageData, query);
                         MessageBox.Show("Seller added successfuly");
                         this.Close();
                     }
@@ -65,6 +70,35 @@ namespace SupermarketTuto.Forms.General
                 MessageBox.Show(ex.Message);
             }
         }
+
+        
+
+        private void ShowPasswordCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (ShowPasswordCheckBox.Checked)
+            {
+                passwordTextBox.PasswordChar = '\0';
+            }
+            else
+            {
+                passwordTextBox.PasswordChar = '*';
+            }
+        }
+
+        string imageName = "";
+        private void browseButton_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                imageName = ofd.FileName;
+                pictureBox.Image = Image.FromFile(ofd.FileName);
+            }
+        }
+
+
+
+
 
         private void editButton_Click(object sender, EventArgs e)
         {
@@ -184,16 +218,7 @@ namespace SupermarketTuto.Forms.General
             public Southwest southwest { get; set; }
         }
 
-        private void ShowPasswordCheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-            if (ShowPasswordCheckBox.Checked)
-            {
-                passwordTextBox.PasswordChar = '\0';
-            }
-            else
-            {
-                passwordTextBox.PasswordChar = '*';
-            }
-        }
+        
+
     }
 }

@@ -143,6 +143,13 @@ namespace DataClass
             }
         }
 
-
+        public void saveImage(byte[] imageData, string query)
+        {
+            OpenCon();
+            SqlCommand command = new SqlCommand(query, con);
+            command.Parameters.Add("@ImageData", SqlDbType.VarBinary, -1).Value = imageData;
+            command.ExecuteNonQuery();
+            CloseCon();
+        }
     }
 }
