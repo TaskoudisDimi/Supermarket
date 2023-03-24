@@ -9,7 +9,7 @@ namespace DataClass
     public class SqlConnect
     {
 
-        private static SqlConnection con = new SqlConnection();
+        public static SqlConnection con = new SqlConnection();
 
         public DataTable table = new DataTable();
 

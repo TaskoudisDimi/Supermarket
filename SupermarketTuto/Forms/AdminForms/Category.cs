@@ -5,6 +5,7 @@ using SupermarketTuto.Forms.AdminForms;
 using SupermarketTuto.Forms.General;
 using SupermarketTuto.Interfaces;
 using SupermarketTuto.Utils;
+using System.ComponentModel;
 using System.Data;
 using System.Text;
 
@@ -178,25 +179,50 @@ namespace SupermarketTuto.Forms
         {
             try
             {
-                List<int> cats = new List<int>();
-                for (int i = 0; i < CatDGV.Rows.Count; i++)
+                WaitBar Form_ProgressBar = new WaitBar();
+                System.ComponentModel.BackgroundWorker BackgroundWorker = new System.ComponentModel.BackgroundWorker
                 {
-                    if (Convert.ToBoolean(CatDGV.Rows[i].Cells[0].Value))
+                    WorkerReportsProgress = true
+                };
+                BackgroundWorker.DoWork += ImportTrips_DoWork;
+                BackgroundWorker.ProgressChanged += (s, e2) =>
+                {
+                    Form_ProgressBar.waitProgressBar.Value = e2.ProgressPercentage;
+                };
+                BackgroundWorker.RunWorkerCompleted += (s, e3) =>
+                {
+                    Thread.Sleep(5000);
+                    if (e3.Error != null)
+                        throw e3.Error;
+                    Form_ProgressBar.Close();
+                    if (selectedProd.Count != 0)
                     {
-                        cats.Add((int)CatDGV.Rows[i].Cells[1].Value);
+                        SelectedProducts frm = new SelectedProducts(selectedProd);
+                        frm.Show();
                     }
-                }
-                if (cats.Count != 0)
-                {
-                    SelectedProducts frm = new SelectedProducts(cats);
-                    frm.Show();
-                }
+                };
+                BackgroundWorker.RunWorkerAsync();
+                Form_ProgressBar.Show();
             }
             catch
             {
 
             }
 
+        }
+        List<int> selectedProd = new List<int>();
+        private void ImportTrips_DoWork(object sender, DoWorkEventArgs e)
+        {
+            
+            for (int i = 0; i < CatDGV.Rows.Count; i++)
+            {
+                if (Convert.ToBoolean(CatDGV.Rows[i].Cells[0].Value))
+                {
+                    selectedProd.Add((int)CatDGV.Rows[i].Cells[1].Value);
+                    (sender as BackgroundWorker).ReportProgress(i);
+                }
+            }
+            
         }
 
         #endregion

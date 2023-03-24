@@ -96,16 +96,26 @@ namespace SupermarketTuto.Forms
         {
             try
             {
+                SqlConnect loaddata50 = new SqlConnect();
                 addEditSeller edit = new addEditSeller();
                 edit.SellId.Text = SellDGV.CurrentRow.Cells[0].Value.ToString();
-                edit.usernameTextBox.Text = SellDGV.CurrentRow.Cells[1].Value.ToString();
-                edit.passwordTextBox.Text = SellDGV.CurrentRow.Cells[2].Value.ToString();
-                edit.SellName.Text = SellDGV.CurrentRow.Cells[3].Value.ToString();
-                edit.SellAge.Text = SellDGV.CurrentRow.Cells[4].Value.ToString();
-                edit.SellPhone.Text = SellDGV.CurrentRow.Cells[5].Value.ToString();
-                edit.addressTextBox.Text = SellDGV.CurrentRow.Cells[6].Value.ToString();
-                edit.dateTimePicker.Text = SellDGV.CurrentRow.Cells[7].Value.ToString();
-                edit.checkBox.Checked = (bool)SellDGV.CurrentRow.Cells[8].Value;
+                string query = $"Select * From SellersTbl where SellerId = {edit.SellId.Text}";
+                loaddata50.retrieveData(query);
+                DataTable sellers = loaddata50.table;
+                foreach (DataRow row in sellers.Rows)
+                {
+                    edit.usernameTextBox.Text = row["SellerUserName"].ToString();
+                    byte[] imageData = (byte[])row["Image"];
+                    MemoryStream ms = new MemoryStream(imageData);
+                    edit.pictureBox.Image = Image.FromStream(ms);
+                    edit.passwordTextBox.Text = row["SellerPass"].ToString();
+                    edit.SellName.Text = row["SellerName"].ToString();
+                    edit.SellAge.Text = row["SellerAge"].ToString();
+                    edit.SellPhone.Text = row["SellerPhone"].ToString();
+                    edit.addressTextBox.Text = row["Address"].ToString();
+                    edit.dateTimePicker.Text = row["Date"].ToString();
+                    edit.checkBox.Checked = (bool)row["Active"];
+                }
                 edit.addButton.Visible = false;
                 edit.SellId.ReadOnly = true;
                 edit.Show();
@@ -139,16 +149,26 @@ namespace SupermarketTuto.Forms
         {
             try
             {
+                SqlConnect loaddata60 = new SqlConnect();
                 addEditSeller edit = new addEditSeller();
                 edit.SellId.Text = SellDGV.CurrentRow.Cells[0].Value.ToString();
-                edit.usernameTextBox.Text = SellDGV.CurrentRow.Cells[1].Value.ToString();
-                edit.passwordTextBox.Text = SellDGV.CurrentRow.Cells[2].Value.ToString();
-                edit.SellName.Text = SellDGV.CurrentRow.Cells[3].Value.ToString();
-                edit.SellAge.Text = SellDGV.CurrentRow.Cells[4].Value.ToString();
-                edit.SellPhone.Text = SellDGV.CurrentRow.Cells[5].Value.ToString();
-                edit.addressTextBox.Text = SellDGV.CurrentRow.Cells[6].Value.ToString();
-                edit.dateTimePicker.Text = SellDGV.CurrentRow.Cells[7].Value.ToString();
-                edit.checkBox.Checked = (bool)SellDGV.CurrentRow.Cells[8].Value;
+                string query = $"Select * From SellersTbl where SellerId = {edit.SellId.Text}";
+                loaddata60.retrieveData(query);
+                DataTable sellers = loaddata60.table;
+                foreach(DataRow row in sellers.Rows)
+                {
+                    edit.usernameTextBox.Text = row["SellerUserName"].ToString();
+                    byte[] imageData = (byte[])row["Image"];
+                    MemoryStream ms = new MemoryStream(imageData);
+                    edit.pictureBox.Image = Image.FromStream(ms);
+                    edit.passwordTextBox.Text = row["SellerPass"].ToString();
+                    edit.SellName.Text = row["SellerName"].ToString();
+                    edit.SellAge.Text = row["SellerAge"].ToString();
+                    edit.SellPhone.Text = row["SellerPhone"].ToString();
+                    edit.addressTextBox.Text = row["Address"].ToString();
+                    edit.dateTimePicker.Text = row["Date"].ToString();
+                    edit.checkBox.Checked = (bool)row["Active"];
+                }
                 edit.addButton.Visible = false;
                 edit.SellId.ReadOnly = true;
                 edit.Show();

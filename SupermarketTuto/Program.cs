@@ -20,7 +20,7 @@ namespace SupermarketTuto
         // TODO: Use custom events
         // TODO: Use TCP / UDP sending/receiving packet  
         // TODO: Build API 
-        // TODO: Display / Save Image to db
+        // TODO: Display Image to db
 
     }
 }

@@ -1,5 +1,6 @@
 ﻿using DataClass;
 using Microsoft.VisualBasic.FileIO;
+using Microsoft.VisualBasic.Logging;
 using Newtonsoft.Json;
 using SupermarketTuto.Forms.General;
 using SupermarketTuto.Interfaces;
@@ -7,7 +8,9 @@ using SupermarketTuto.Utils;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
+using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
@@ -24,84 +27,77 @@ namespace SupermarketTuto.Forms
     {
         int startRecord;
         int allRecords;
-        private BackgroundWorker worker = new BackgroundWorker();
-        public WaitBar waitBar = new WaitBar();
+        SqlConnect loaddata1 = new SqlConnect();
+        WaitBar Form_ProgressBar = new WaitBar();
+
 
         public Product()
         {
             InitializeComponent();
-            worker.DoWork += worker_DoWork;
-            //worker.ProgressChanged += worker_ProgressChanged;
-            worker.RunWorkerCompleted += worker_RunWorkerCompleted;
         }
 
-        private void worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            // Update the UI when the background worker is complete
-            if (e.Cancelled)
-            {
-                waitBar.waitLabel.Text = "Cancelled";
-            }
-            else if (e.Error != null)
-            {
-                waitBar.waitLabel.Text = $"Error: {e.Error.Message}";
-            }
-            else
-            {
-                waitBar.Close();
-
-            }
-        }
-
-
-
-        private void worker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            try
-            {
-                while (ProdDGV.Rows.Count > 1)
-                {
-                    fromDateTimePicker.Value = DateTime.Now.AddMonths(-2);
-                    SqlConnect loaddata1 = new SqlConnect();
-                    loaddata1.pagingData("Select * from ProductTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'", 0, 5);
-                    ProdDGV.DataSource = loaddata1.table;
-                    ProdDGV.RowHeadersVisible = false;
-                    ProdDGV.Columns[6].HeaderText = "Date Created";
-                    totalLabel.Text = $"Total: {ProdDGV.RowCount}";
-                }
-            }
-            catch (Exception ex)
-            {
-
-                Utlis.Log(string.Format("Message : {0}", ex.Message), "ErrorPdoduct.txt");
-            }
-        }
 
         private void Product_Load(object sender, EventArgs e)
         {
+            //BackgroundWorker();
             display();
             fillCombo();
             menu();
+        }
+        private void ImportTrips_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            loaddata1.retrieveData("Select * from ProductTbl");
+            int data = loaddata1.table.Rows.Count;
+            for(int i = 0; i <= data; i++)
+            {
+                (sender as BackgroundWorker).ReportProgress(i);
+            }
 
         }
+
+        private void BackgroundWorker()
+        {
+            try
+            {
+               
+                System.ComponentModel.BackgroundWorker BackgroundWorker = new System.ComponentModel.BackgroundWorker
+                {
+                    WorkerReportsProgress = true
+                };
+                BackgroundWorker.DoWork += ImportTrips_DoWork;
+                BackgroundWorker.ProgressChanged += (s, e2) =>
+                {
+                    Form_ProgressBar.waitProgressBar.Value = e2.ProgressPercentage;
+                };
+                BackgroundWorker.RunWorkerCompleted += (s, e3) =>
+                {
+                    Thread.Sleep(5000);
+                    if (e3.Error != null)
+                        throw e3.Error;
+                    Form_ProgressBar.Close();
+
+                    ProdDGV.DataSource = loaddata1.table;
+                };
+
+                BackgroundWorker.RunWorkerAsync();
+                Form_ProgressBar.ShowDialog();
+            }
+            catch
+            {
+
+            }
+        }
+
         private void display()
         {
             try
             {
-                waitBar.Show();
-                waitBar.waitProgressBar.Style = ProgressBarStyle.Marquee;
-                if (!worker.IsBusy)
-                {
-                    // Start the background worker
-                    worker.RunWorkerAsync();
-                }
-                fromDateTimePicker.Value = DateTime.Now.AddMonths(-2);
-                SqlConnect loaddata1 = new SqlConnect();
                 loaddata1.pagingData("Select * from ProductTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'", 0, 5);
                 ProdDGV.DataSource = loaddata1.table;
+                fromDateTimePicker.Value = DateTime.Now.AddMonths(-2);
                 ProdDGV.RowHeadersVisible = false;
-                ProdDGV.Columns[6].HeaderText = "Date Created";
                 totalLabel.Text = $"Total: {ProdDGV.RowCount}";
+                ProdDGV.Columns[6].HeaderText = "Date Created";
 
             }
             catch (Exception ex)
@@ -614,7 +610,6 @@ namespace SupermarketTuto.Forms
 
         #endregion
 
-
         #region Paging
         SqlConnect loaddata20 = new SqlConnect();
 
@@ -651,6 +646,8 @@ namespace SupermarketTuto.Forms
                 nextButton.Enabled = false;
             }
         }
+
+
 
         #endregion
 
