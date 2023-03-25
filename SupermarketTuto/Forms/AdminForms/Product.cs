@@ -92,9 +92,10 @@ namespace SupermarketTuto.Forms
         {
             try
             {
+                fromDateTimePicker.Value = DateTime.Now.AddMonths(-2);
                 loaddata1.pagingData("Select * from ProductTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'", 0, 5);
                 ProdDGV.DataSource = loaddata1.table;
-                fromDateTimePicker.Value = DateTime.Now.AddMonths(-2);
+                
                 ProdDGV.RowHeadersVisible = false;
                 totalLabel.Text = $"Total: {ProdDGV.RowCount}";
                 ProdDGV.Columns[6].HeaderText = "Date Created";
@@ -647,11 +648,18 @@ namespace SupermarketTuto.Forms
             }
         }
 
+        
 
+        private void selectAllCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
 
+        }
+
+        private void pagingCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
         #endregion
-
-
     }
 }
 

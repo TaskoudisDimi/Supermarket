@@ -13,7 +13,8 @@ namespace SupermarketTuto.Forms
 {
     public partial class Category : Form, excelFiles
     {
-
+        int startRecord;
+        int allRecords;
         public Category()
         {
             InitializeComponent();
@@ -36,7 +37,8 @@ namespace SupermarketTuto.Forms
             {
                 fromDateTimePicker.Value = DateTime.Now.AddMonths(-2);
                 SqlConnect loaddata = new SqlConnect();
-                loaddata.retrieveData("Select * From CategoryTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'");
+                //loaddata.retrieveData("Select * From CategoryTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'");
+                loaddata.pagingData("Select * From CategoryTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'", 0 ,5);
                 CatDGV.DataSource = loaddata.table;
                 CatDGV.RowHeadersVisible = false;
                 CatDGV.Columns[3].HeaderText = "Date Created";
@@ -441,8 +443,44 @@ namespace SupermarketTuto.Forms
         {
             save();
         }
+
+
         #endregion
 
+        #region paging
+        SqlConnect loaddata90 = new SqlConnect();
+        private void prevButton_Click(object sender, EventArgs e)
+        {
+            startRecord = startRecord - 5;
+            if (startRecord <= 0)
+            {
+                startRecord = 0;
+            }
+            loaddata90.pagingData("Select * from ProductTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'", startRecord, 5);
+            CatDGV.DataSource = loaddata90.table;
+            if (CatDGV.Rows.Count > 1)
+            {
+                nextButton.Enabled = true;
+            }
+        }
 
+        private void nextButton_Click(object sender, EventArgs e)
+        {
+            if (CatDGV.Rows.Count > 0)
+            {
+                startRecord = startRecord + 5;
+                if (startRecord <= 0)
+                {
+                    startRecord = 10;
+                }
+                loaddata90.pagingData("Select * from ProductTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'", startRecord, 5);
+                CatDGV.DataSource = loaddata90.table;
+            }
+            else
+            {
+                nextButton.Enabled = false;
+            }
+        }
+        #endregion
     }
 }

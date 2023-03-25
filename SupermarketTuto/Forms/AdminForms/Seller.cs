@@ -12,8 +12,9 @@ namespace SupermarketTuto.Forms
 {
     public partial class Seller : Form
     {
-        SqlConnection con = new SqlConnection();
-        
+        int startRecord;
+        int allRecords;
+
         public Seller()
         {
             InitializeComponent();
@@ -29,7 +30,8 @@ namespace SupermarketTuto.Forms
                 {
                     
                     SqlConnect loaddata1 = new SqlConnect();
-                    loaddata1.retrieveData("Select [SellerId],[SellerUserName],cast([SellerPass] as varchar(MAX)) as Password,[SellerName],[SellerAge],[SellerPhone],[Address],[Date],[Active] From SellersTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and Active = 'true'");
+                    //loaddata1.retrieveData("Select [SellerId],[SellerUserName],cast([SellerPass] as varchar(MAX)) as Password,[SellerName],[SellerAge],[SellerPhone],[Address],[Date],[Active] From SellersTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and Active = 'true'");
+                    loaddata1.pagingData("Select [SellerId],[SellerUserName],cast([SellerPass] as varchar(MAX)) as Password,[SellerName],[SellerAge],[SellerPhone],[Address],[Date],[Active] From SellersTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and Active = 'true'", 0 ,5);
                     SellDGV.DataSource = loaddata1.table;
                     totalLabel.Text = $"Total: {SellDGV.RowCount}";
                     SellDGV.RowHeadersVisible = false;
@@ -429,22 +431,47 @@ namespace SupermarketTuto.Forms
             
         }
 
-        //public Image ConvertByteToImage(byte[] data)
-        //{
-        //    using (MemoryStream ms = new MemoryStream(data))
-        //    {
-        //        return Image.FromStream(ms);
-        //    }
-        //}
 
-        //byte[] ConvertImageToByte(Image image)
-        //{
-        //    using (MemoryStream ms = new MemoryStream())
-        //    {
-        //        image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
-        //        return ms.ToArray();
-        //    }
-        //}
+        SqlConnect loaddata20 = new SqlConnect();
+        private void prevButton_Click(object sender, EventArgs e)
+        {
+            startRecord = startRecord - 5;
+            if (startRecord <= 0)
+            {
+                startRecord = 0;
+            }
+            loaddata20.pagingData("Select * from ProductTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'", startRecord, 5);
+            SellDGV.DataSource = loaddata20.table;
+            if (SellDGV.Rows.Count > 1)
+            {
+                nextButton.Enabled = true;
+            }
+        }
+
+        private void nextButton_Click(object sender, EventArgs e)
+        {
+            if (SellDGV.Rows.Count > 0)
+            {
+                startRecord = startRecord + 5;
+                if (startRecord <= 0)
+                {
+                    startRecord = 10;
+                }
+                loaddata20.pagingData("Select * from ProductTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'", startRecord, 5);
+                SellDGV.DataSource = loaddata20.table;
+            }
+            else
+            {
+                nextButton.Enabled = false;
+            }
+        }
+
+        private void pagingCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+       
 
 
     }

@@ -45,6 +45,12 @@
             this.catLabel = new System.Windows.Forms.Label();
             this.nextButton = new System.Windows.Forms.Button();
             this.prevButton = new System.Windows.Forms.Button();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.selectAllCheckBox = new System.Windows.Forms.CheckBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.pagingCheckBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.ProdDGV)).BeginInit();
             this.SuspendLayout();
             // 
@@ -95,14 +101,14 @@
             this.ProdDGV.RowHeadersWidth = 62;
             this.ProdDGV.RowTemplate.Height = 30;
             this.ProdDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.ProdDGV.Size = new System.Drawing.Size(1852, 752);
+            this.ProdDGV.Size = new System.Drawing.Size(2364, 752);
             this.ProdDGV.TabIndex = 103;
             this.ProdDGV.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.ProdDGV_CellFormatting);
             // 
             // refreshButton
             // 
             this.refreshButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.refreshButton.Location = new System.Drawing.Point(1694, 82);
+            this.refreshButton.Location = new System.Drawing.Point(2206, 78);
             this.refreshButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.refreshButton.Name = "refreshButton";
             this.refreshButton.Size = new System.Drawing.Size(172, 57);
@@ -114,7 +120,7 @@
             // deleteButton
             // 
             this.deleteButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.deleteButton.Location = new System.Drawing.Point(1266, 928);
+            this.deleteButton.Location = new System.Drawing.Point(1773, 926);
             this.deleteButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.deleteButton.Name = "deleteButton";
             this.deleteButton.Size = new System.Drawing.Size(148, 57);
@@ -126,7 +132,7 @@
             // editButton
             // 
             this.editButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.editButton.Location = new System.Drawing.Point(1113, 932);
+            this.editButton.Location = new System.Drawing.Point(1620, 930);
             this.editButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.editButton.Name = "editButton";
             this.editButton.Size = new System.Drawing.Size(144, 52);
@@ -138,7 +144,7 @@
             // addButton
             // 
             this.addButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.addButton.Location = new System.Drawing.Point(856, 928);
+            this.addButton.Location = new System.Drawing.Point(1363, 926);
             this.addButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.addButton.Name = "addButton";
             this.addButton.Size = new System.Drawing.Size(248, 57);
@@ -151,7 +157,7 @@
             // 
             this.catComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.catComboBox.FormattingEnabled = true;
-            this.catComboBox.Location = new System.Drawing.Point(660, 91);
+            this.catComboBox.Location = new System.Drawing.Point(1237, 89);
             this.catComboBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.catComboBox.Name = "catComboBox";
             this.catComboBox.Size = new System.Drawing.Size(308, 37);
@@ -162,7 +168,7 @@
             // importButton
             // 
             this.importButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.importButton.Location = new System.Drawing.Point(1590, 929);
+            this.importButton.Location = new System.Drawing.Point(2097, 927);
             this.importButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.importButton.Name = "importButton";
             this.importButton.Size = new System.Drawing.Size(144, 55);
@@ -174,7 +180,7 @@
             // saveButton
             // 
             this.saveButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.saveButton.Location = new System.Drawing.Point(1743, 932);
+            this.saveButton.Location = new System.Drawing.Point(2250, 930);
             this.saveButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(128, 52);
@@ -186,7 +192,7 @@
             // exportButton
             // 
             this.exportButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.exportButton.Location = new System.Drawing.Point(1426, 928);
+            this.exportButton.Location = new System.Drawing.Point(1933, 926);
             this.exportButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.exportButton.Name = "exportButton";
             this.exportButton.Size = new System.Drawing.Size(154, 54);
@@ -199,7 +205,7 @@
             // 
             this.toDateTimePicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.toDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.toDateTimePicker.Location = new System.Drawing.Point(1312, 89);
+            this.toDateTimePicker.Location = new System.Drawing.Point(1889, 87);
             this.toDateTimePicker.Margin = new System.Windows.Forms.Padding(8, 5, 8, 5);
             this.toDateTimePicker.Name = "toDateTimePicker";
             this.toDateTimePicker.Size = new System.Drawing.Size(266, 35);
@@ -210,7 +216,7 @@
             // 
             this.fromDateTimePicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.fromDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.fromDateTimePicker.Location = new System.Drawing.Point(1044, 89);
+            this.fromDateTimePicker.Location = new System.Drawing.Point(1621, 87);
             this.fromDateTimePicker.Margin = new System.Windows.Forms.Padding(8, 5, 8, 5);
             this.fromDateTimePicker.Name = "fromDateTimePicker";
             this.fromDateTimePicker.Size = new System.Drawing.Size(252, 35);
@@ -221,7 +227,7 @@
             // 
             this.catLabel.AutoSize = true;
             this.catLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.catLabel.Location = new System.Drawing.Point(716, 42);
+            this.catLabel.Location = new System.Drawing.Point(1293, 40);
             this.catLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.catLabel.Name = "catLabel";
             this.catLabel.Size = new System.Drawing.Size(131, 29);
@@ -231,7 +237,7 @@
             // nextButton
             // 
             this.nextButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.nextButton.Location = new System.Drawing.Point(502, 930);
+            this.nextButton.Location = new System.Drawing.Point(1106, 926);
             this.nextButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.nextButton.Name = "nextButton";
             this.nextButton.Size = new System.Drawing.Size(128, 52);
@@ -243,7 +249,7 @@
             // prevButton
             // 
             this.prevButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.prevButton.Location = new System.Drawing.Point(349, 927);
+            this.prevButton.Location = new System.Drawing.Point(748, 926);
             this.prevButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.prevButton.Name = "prevButton";
             this.prevButton.Size = new System.Drawing.Size(144, 55);
@@ -252,12 +258,75 @@
             this.prevButton.UseVisualStyleBackColor = true;
             this.prevButton.Click += new System.EventHandler(this.prevButton_Click);
             // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(602, 930);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(121, 28);
+            this.comboBox1.TabIndex = 125;
+            // 
+            // selectAllCheckBox
+            // 
+            this.selectAllCheckBox.AutoSize = true;
+            this.selectAllCheckBox.Location = new System.Drawing.Point(641, 111);
+            this.selectAllCheckBox.Name = "selectAllCheckBox";
+            this.selectAllCheckBox.Size = new System.Drawing.Size(101, 24);
+            this.selectAllCheckBox.TabIndex = 126;
+            this.selectAllCheckBox.Text = "Select All";
+            this.selectAllCheckBox.UseVisualStyleBackColor = true;
+            this.selectAllCheckBox.CheckedChanged += new System.EventHandler(this.selectAllCheckBox_CheckedChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(917, 945);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(51, 20);
+            this.label1.TabIndex = 127;
+            this.label1.Text = "label1";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(1031, 945);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(51, 20);
+            this.label2.TabIndex = 128;
+            this.label2.Text = "label2";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(974, 945);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(51, 20);
+            this.label3.TabIndex = 129;
+            this.label3.Text = "label3";
+            // 
+            // pagingCheckBox
+            // 
+            this.pagingCheckBox.AutoSize = true;
+            this.pagingCheckBox.Location = new System.Drawing.Point(489, 929);
+            this.pagingCheckBox.Name = "pagingCheckBox";
+            this.pagingCheckBox.Size = new System.Drawing.Size(84, 24);
+            this.pagingCheckBox.TabIndex = 130;
+            this.pagingCheckBox.Text = "Paging";
+            this.pagingCheckBox.UseVisualStyleBackColor = true;
+            this.pagingCheckBox.CheckedChanged += new System.EventHandler(this.pagingCheckBox_CheckedChanged);
+            // 
             // Product
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(2000, 1066);
+            this.ClientSize = new System.Drawing.Size(2596, 1066);
             this.ControlBox = false;
+            this.Controls.Add(this.pagingCheckBox);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.selectAllCheckBox);
+            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.nextButton);
             this.Controls.Add(this.prevButton);
             this.Controls.Add(this.catLabel);
@@ -302,5 +371,11 @@
         private Label catLabel;
         private Button nextButton;
         private Button prevButton;
+        private ComboBox comboBox1;
+        private CheckBox selectAllCheckBox;
+        private Label label1;
+        private Label label2;
+        private Label label3;
+        private CheckBox pagingCheckBox;
     }
 }

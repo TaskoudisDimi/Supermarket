@@ -14,13 +14,12 @@ namespace SupermarketTuto
             Application.Run(new MainAdmin());
         }
 
-        
-        // TODO: Insert data from store procedures
-        // TODO: Manage Threads
-        // TODO: Use custom events
+        // TODO: Build class in order to manage Sql tables, schema etc
+        // TODO: Manage sql connection, Insert data from store procedures
         // TODO: Use TCP / UDP sending/receiving packet  
         // TODO: Build API 
-        // TODO: Display Image to db
+        // TODO: Manage Threads
+        // TODO: Use custom events
 
     }
 }
