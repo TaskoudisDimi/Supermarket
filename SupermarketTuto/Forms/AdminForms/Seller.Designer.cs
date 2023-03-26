@@ -45,7 +45,6 @@
             this.importButton = new System.Windows.Forms.Button();
             this.activeComboBox = new System.Windows.Forms.ComboBox();
             this.activeLabel = new System.Windows.Forms.Label();
-            this.selectAllCheckBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.SellDGV)).BeginInit();
             this.SuspendLayout();
             // 
@@ -231,23 +230,12 @@
             this.activeLabel.TabIndex = 126;
             this.activeLabel.Text = "Active";
             // 
-            // selectAllCheckBox
-            // 
-            this.selectAllCheckBox.AutoSize = true;
-            this.selectAllCheckBox.Location = new System.Drawing.Point(614, 82);
-            this.selectAllCheckBox.Name = "selectAllCheckBox";
-            this.selectAllCheckBox.Size = new System.Drawing.Size(101, 24);
-            this.selectAllCheckBox.TabIndex = 145;
-            this.selectAllCheckBox.Text = "Select All";
-            this.selectAllCheckBox.UseVisualStyleBackColor = true;
-            // 
             // Seller
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(2543, 1138);
             this.ControlBox = false;
-            this.Controls.Add(this.selectAllCheckBox);
             this.Controls.Add(this.activeLabel);
             this.Controls.Add(this.activeComboBox);
             this.Controls.Add(this.exportButton);
@@ -290,6 +278,5 @@
         private Button importButton;
         private ComboBox activeComboBox;
         public Label activeLabel;
-        private CheckBox selectAllCheckBox;
     }
 }

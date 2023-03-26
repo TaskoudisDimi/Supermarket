@@ -43,10 +43,7 @@
             this.importButton = new System.Windows.Forms.Button();
             this.showSelectedProductsButton = new System.Windows.Forms.Button();
             this.pagingCheckBox = new System.Windows.Forms.CheckBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.pagingCombobox = new System.Windows.Forms.ComboBox();
             this.nextButton = new System.Windows.Forms.Button();
             this.prevButton = new System.Windows.Forms.Button();
             this.selectAllCheckBox = new System.Windows.Forms.CheckBox();
@@ -228,52 +225,28 @@
             this.pagingCheckBox.TabIndex = 137;
             this.pagingCheckBox.Text = "Paging";
             this.pagingCheckBox.UseVisualStyleBackColor = true;
+            this.pagingCheckBox.CheckedChanged += new System.EventHandler(this.pagingCheckBox_CheckedChanged);
             // 
-            // label3
+            // pagingCombobox
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(679, 661);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(79, 29);
-            this.label3.TabIndex = 136;
-            this.label3.Text = "label3";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(736, 661);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(79, 29);
-            this.label2.TabIndex = 135;
-            this.label2.Text = "label2";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(622, 661);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(79, 29);
-            this.label1.TabIndex = 134;
-            this.label1.Text = "label1";
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(307, 646);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 37);
-            this.comboBox1.TabIndex = 133;
+            this.pagingCombobox.FormattingEnabled = true;
+            this.pagingCombobox.Location = new System.Drawing.Point(307, 646);
+            this.pagingCombobox.Name = "pagingCombobox";
+            this.pagingCombobox.Size = new System.Drawing.Size(121, 37);
+            this.pagingCombobox.TabIndex = 133;
+            this.pagingCombobox.Visible = false;
             // 
             // nextButton
             // 
             this.nextButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.nextButton.Location = new System.Drawing.Point(811, 642);
+            this.nextButton.Location = new System.Drawing.Point(605, 643);
             this.nextButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.nextButton.Name = "nextButton";
             this.nextButton.Size = new System.Drawing.Size(128, 52);
             this.nextButton.TabIndex = 132;
             this.nextButton.Text = "Next";
             this.nextButton.UseVisualStyleBackColor = true;
+            this.nextButton.Visible = false;
             this.nextButton.Click += new System.EventHandler(this.nextButton_Click);
             // 
             // prevButton
@@ -286,6 +259,7 @@
             this.prevButton.TabIndex = 131;
             this.prevButton.Text = "Previous";
             this.prevButton.UseVisualStyleBackColor = true;
+            this.prevButton.Visible = false;
             this.prevButton.Click += new System.EventHandler(this.prevButton_Click);
             // 
             // selectAllCheckBox
@@ -306,10 +280,7 @@
             this.ControlBox = false;
             this.Controls.Add(this.selectAllCheckBox);
             this.Controls.Add(this.pagingCheckBox);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.pagingCombobox);
             this.Controls.Add(this.nextButton);
             this.Controls.Add(this.prevButton);
             this.Controls.Add(this.showSelectedProductsButton);
@@ -353,10 +324,7 @@
         public DataGridView CatDGV;
         private Button showSelectedProductsButton;
         private CheckBox pagingCheckBox;
-        private Label label3;
-        private Label label2;
-        private Label label1;
-        private ComboBox comboBox1;
+        private ComboBox pagingCombobox;
         private Button nextButton;
         private Button prevButton;
         private CheckBox selectAllCheckBox;

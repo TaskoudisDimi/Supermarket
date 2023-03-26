@@ -7,8 +7,8 @@
     <ProjectGuid>{87C9335D-0730-4430-9479-895F0AE1ABD8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DataClass</RootNamespace>
-    <AssemblyName>DataClass</AssemblyName>
+    <RootNamespace>ClassLibrary1</RootNamespace>
+    <AssemblyName>ClassLibrary1</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -69,6 +69,7 @@
     <Compile Include="CustomObjects.cs" />
     <Compile Include="DatabaseManager.cs" />
     <Compile Include="ExcelFiles.cs" />
+    <Compile Include="StoreProcedures\StoreProcedures.cs" />
     <Compile Include="Transactions.cs" />
     <Compile Include="Utils\Constants.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

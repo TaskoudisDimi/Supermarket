@@ -26,7 +26,7 @@ namespace SupermarketTuto.Forms
     public partial class Product : Form, excelFiles
     {
         int startRecord;
-        int allRecords;
+
         SqlConnect loaddata1 = new SqlConnect();
         WaitBar Form_ProgressBar = new WaitBar();
 
@@ -44,11 +44,47 @@ namespace SupermarketTuto.Forms
             fillCombo();
             menu();
         }
+
+        private void display()
+        {
+            try
+            {
+                fromDateTimePicker.Value = DateTime.Now.AddMonths(-2);
+                loaddata1.retrieveData("Select * from ProductTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'");
+                ProdDGV.DataSource = loaddata1.table;
+                
+                ProdDGV.RowHeadersVisible = false;
+                totalLabel.Text = $"Total: {ProdDGV.RowCount}";
+                ProdDGV.Columns[6].HeaderText = "Date Created";
+
+            }
+            catch (Exception ex)
+            {
+
+                Utlis.Log(string.Format("Message : {0}", ex.Message), "ErrorPdoduct.txt");
+            }
+
+        }
+        private void fillCombo()
+        {
+            SqlConnect loaddata2 = new SqlConnect();
+
+            //This method will bind the Combobox with the Database
+            loaddata2.retrieveData("Select CatName From CategoryTbl");
+            catComboBox.DataSource = loaddata2.table;
+            catComboBox.ValueMember = "CatName";
+            catComboBox.SelectedItem = null;
+            catComboBox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            catComboBox.AutoCompleteSource = AutoCompleteSource.ListItems;
+
+        }
+
+        #region BackgroundWorker
         private void ImportTrips_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
             loaddata1.retrieveData("Select * from ProductTbl");
             int data = loaddata1.table.Rows.Count;
-            for(int i = 0; i <= data; i++)
+            for (int i = 0; i <= data; i++)
             {
                 (sender as BackgroundWorker).ReportProgress(i);
             }
@@ -59,7 +95,7 @@ namespace SupermarketTuto.Forms
         {
             try
             {
-               
+
                 System.ComponentModel.BackgroundWorker BackgroundWorker = new System.ComponentModel.BackgroundWorker
                 {
                     WorkerReportsProgress = true
@@ -88,39 +124,7 @@ namespace SupermarketTuto.Forms
             }
         }
 
-        private void display()
-        {
-            try
-            {
-                fromDateTimePicker.Value = DateTime.Now.AddMonths(-2);
-                loaddata1.pagingData("Select * from ProductTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'", 0, 5);
-                ProdDGV.DataSource = loaddata1.table;
-                
-                ProdDGV.RowHeadersVisible = false;
-                totalLabel.Text = $"Total: {ProdDGV.RowCount}";
-                ProdDGV.Columns[6].HeaderText = "Date Created";
-
-            }
-            catch (Exception ex)
-            {
-
-                Utlis.Log(string.Format("Message : {0}", ex.Message), "ErrorPdoduct.txt");
-            }
-
-        }
-        private void fillCombo()
-        {
-            SqlConnect loaddata2 = new SqlConnect();
-
-            //This method will bind the Combobox with the Database
-            loaddata2.retrieveData("Select CatName From CategoryTbl");
-            catComboBox.DataSource = loaddata2.table;
-            catComboBox.ValueMember = "CatName";
-            catComboBox.SelectedItem = null;
-            catComboBox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            catComboBox.AutoCompleteSource = AutoCompleteSource.ListItems;
-
-        }
+        #endregion
 
         #region MenuStrip
         private void menu()
@@ -193,21 +197,26 @@ namespace SupermarketTuto.Forms
         private void editButton_Click(object sender, EventArgs e)
         {
             SqlConnect loaddata2 = new SqlConnect();
+            SqlConnect loaddata3 = new SqlConnect();
             addEditProduct edit = new addEditProduct();
             ////This method will bind the Combobox with the Database
             loaddata2.retrieveData("Select CatName From CategoryTbl");
             edit.catCombobox.DataSource = loaddata2.table;
             edit.catCombobox.ValueMember = "CatName";
-            //catCombobox.SelectedItem = null;
             edit.catCombobox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             edit.catCombobox.AutoCompleteSource = AutoCompleteSource.ListItems;
             edit.ProdId.Text = ProdDGV.CurrentRow.Cells[0].Value.ToString();
-            edit.ProdName.Text = ProdDGV.CurrentRow.Cells[1].Value.ToString();
-            edit.ProdPrice.Text = ProdDGV.CurrentRow.Cells[2].Value.ToString();
-            edit.ProdQty.Text = ProdDGV.CurrentRow.Cells[3].Value.ToString();
-            edit.catCombobox.SelectedValue = ProdDGV.CurrentRow.Cells[5].Value.ToString();
-            edit.catIDTextBox.Text = ProdDGV.CurrentRow.Cells[4].Value.ToString();
-            edit.DateTimePicker.Text = ProdDGV.CurrentRow.Cells[6].Value.ToString();
+            string query = $"Select * From ProductTbl where ProdId = {edit.ProdId.Text}";
+            loaddata3.retrieveData(query);
+            foreach (DataRow row in loaddata3.table.Rows)
+            {
+                edit.ProdName.Text = row["ProdName"].ToString();
+                edit.ProdPrice.Text = row["ProdPrice"].ToString();
+                edit.ProdQty.Text = row["ProdQty"].ToString();
+                edit.catCombobox.SelectedValue = row["ProdCat"].ToString();
+                edit.catIDTextBox.Text = row["ProdCatID"].ToString();
+                edit.DateTimePicker.Text = row["Date"].ToString();
+            }
             edit.addButton.Visible = false;
             edit.ProdId.ReadOnly = true;
             edit.Show();
@@ -657,7 +666,24 @@ namespace SupermarketTuto.Forms
 
         private void pagingCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-
+            SqlConnect loaddata8 = new SqlConnect();
+            if (pagingCheckBox.Checked)
+            {
+                prevButton.Visible = true;
+                nextButton.Visible = true;
+                pagingComboBox.Visible = true;
+                loaddata8.pagingData("Select * from ProductTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'", 0, 5);
+                ProdDGV.DataSource = loaddata8.table;
+                pagingCheckBox.Checked = true;
+            }
+            else
+            {
+                prevButton.Visible = false;
+                nextButton.Visible = false;
+                pagingComboBox.Visible = false;
+                pagingCheckBox.Checked = false;
+                display();
+            }
         }
         #endregion
     }

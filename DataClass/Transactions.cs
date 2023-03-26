@@ -73,6 +73,15 @@ namespace ClassLibrary1
             }
         }
 
+        private void OpenConnection()
+        {
+
+        }
+
+        private void CloseConnection()
+        {
+
+        }
 
 
     }

@@ -18,7 +18,7 @@ namespace DataClass
             con.ConnectionString = ConfigurationManager.ConnectionStrings["smarketdb"].ConnectionString;
         }
 
-        private static void OpenCon()
+        public void OpenCon()
         {
             try
             {
@@ -30,7 +30,7 @@ namespace DataClass
             }
         }
 
-        private static void CloseCon()
+        private void CloseCon()
         {
             try
             {

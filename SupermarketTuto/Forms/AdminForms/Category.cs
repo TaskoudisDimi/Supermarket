@@ -37,8 +37,7 @@ namespace SupermarketTuto.Forms
             {
                 fromDateTimePicker.Value = DateTime.Now.AddMonths(-2);
                 SqlConnect loaddata = new SqlConnect();
-                //loaddata.retrieveData("Select * From CategoryTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'");
-                loaddata.pagingData("Select * From CategoryTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'", 0 ,5);
+                loaddata.retrieveData("Select * From CategoryTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'");
                 CatDGV.DataSource = loaddata.table;
                 CatDGV.RowHeadersVisible = false;
                 CatDGV.Columns[3].HeaderText = "Date Created";
@@ -144,15 +143,21 @@ namespace SupermarketTuto.Forms
 
         private void editButton_Click(object sender, EventArgs e)
         {
+
+            SqlConnect loaddata90 = new SqlConnect();
             addEditCategory edit = new addEditCategory();
             edit.CatIdTb.Text = CatDGV.CurrentRow.Cells[1].Value.ToString();
-            edit.CatNameTb.Text = CatDGV.CurrentRow.Cells[2].Value.ToString();
-            edit.CatDescTb.Text = CatDGV.CurrentRow.Cells[3].Value.ToString();
-            edit.dateTimePicker.Text = CatDGV.CurrentRow.Cells[4].Value.ToString();
+            string query = $"Select * From CategoryTbl where CatId = {edit.CatIdTb.Text}";
+            loaddata90.retrieveData(query);
+            foreach(DataRow row in loaddata90.table.Rows)
+            {
+                edit.CatNameTb.Text = row["CatName"].ToString();
+                edit.CatDescTb.Text = row["CatDesc"].ToString();
+                edit.dateTimePicker.Text = row["Date"].ToString();
+            }
             edit.addButton.Visible = false;
             edit.CatIdTb.ReadOnly = true;
             edit.Show();
-            display();
         }
 
         private void deleteButton_Click(object sender, EventArgs e)
@@ -481,6 +486,31 @@ namespace SupermarketTuto.Forms
                 nextButton.Enabled = false;
             }
         }
+
+        private void pagingCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            SqlConnect loaddata8 = new SqlConnect();
+            if (pagingCheckBox.Checked)
+            {
+                prevButton.Visible = true;
+                nextButton.Visible = true;
+                pagingCombobox.Visible = true;
+                loaddata8.pagingData("Select * from ProductTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'", 0, 5);
+                CatDGV.DataSource = loaddata8.table;
+                pagingCheckBox.Checked = true;
+            }
+            else
+            {
+                prevButton.Visible = false;
+                nextButton.Visible = false;
+                pagingCombobox.Visible = false;
+                pagingCheckBox.Checked = false;
+                display();
+            }
+        }
+
         #endregion
+
+
     }
 }

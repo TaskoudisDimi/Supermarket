@@ -45,11 +45,7 @@
             this.catLabel = new System.Windows.Forms.Label();
             this.nextButton = new System.Windows.Forms.Button();
             this.prevButton = new System.Windows.Forms.Button();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.selectAllCheckBox = new System.Windows.Forms.CheckBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.pagingComboBox = new System.Windows.Forms.ComboBox();
             this.pagingCheckBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.ProdDGV)).BeginInit();
             this.SuspendLayout();
@@ -237,13 +233,14 @@
             // nextButton
             // 
             this.nextButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.nextButton.Location = new System.Drawing.Point(1106, 926);
+            this.nextButton.Location = new System.Drawing.Point(900, 927);
             this.nextButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.nextButton.Name = "nextButton";
             this.nextButton.Size = new System.Drawing.Size(128, 52);
             this.nextButton.TabIndex = 124;
             this.nextButton.Text = "Next";
             this.nextButton.UseVisualStyleBackColor = true;
+            this.nextButton.Visible = false;
             this.nextButton.Click += new System.EventHandler(this.nextButton_Click);
             // 
             // prevButton
@@ -256,53 +253,17 @@
             this.prevButton.TabIndex = 123;
             this.prevButton.Text = "Previous";
             this.prevButton.UseVisualStyleBackColor = true;
+            this.prevButton.Visible = false;
             this.prevButton.Click += new System.EventHandler(this.prevButton_Click);
             // 
-            // comboBox1
+            // pagingComboBox
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(602, 930);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 28);
-            this.comboBox1.TabIndex = 125;
-            // 
-            // selectAllCheckBox
-            // 
-            this.selectAllCheckBox.AutoSize = true;
-            this.selectAllCheckBox.Location = new System.Drawing.Point(641, 111);
-            this.selectAllCheckBox.Name = "selectAllCheckBox";
-            this.selectAllCheckBox.Size = new System.Drawing.Size(101, 24);
-            this.selectAllCheckBox.TabIndex = 126;
-            this.selectAllCheckBox.Text = "Select All";
-            this.selectAllCheckBox.UseVisualStyleBackColor = true;
-            this.selectAllCheckBox.CheckedChanged += new System.EventHandler(this.selectAllCheckBox_CheckedChanged);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(917, 945);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(51, 20);
-            this.label1.TabIndex = 127;
-            this.label1.Text = "label1";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(1031, 945);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(51, 20);
-            this.label2.TabIndex = 128;
-            this.label2.Text = "label2";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(974, 945);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(51, 20);
-            this.label3.TabIndex = 129;
-            this.label3.Text = "label3";
+            this.pagingComboBox.FormattingEnabled = true;
+            this.pagingComboBox.Location = new System.Drawing.Point(602, 930);
+            this.pagingComboBox.Name = "pagingComboBox";
+            this.pagingComboBox.Size = new System.Drawing.Size(121, 28);
+            this.pagingComboBox.TabIndex = 125;
+            this.pagingComboBox.Visible = false;
             // 
             // pagingCheckBox
             // 
@@ -322,11 +283,7 @@
             this.ClientSize = new System.Drawing.Size(2596, 1066);
             this.ControlBox = false;
             this.Controls.Add(this.pagingCheckBox);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.selectAllCheckBox);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.pagingComboBox);
             this.Controls.Add(this.nextButton);
             this.Controls.Add(this.prevButton);
             this.Controls.Add(this.catLabel);
@@ -371,11 +328,7 @@
         private Label catLabel;
         private Button nextButton;
         private Button prevButton;
-        private ComboBox comboBox1;
-        private CheckBox selectAllCheckBox;
-        private Label label1;
-        private Label label2;
-        private Label label3;
+        private ComboBox pagingComboBox;
         private CheckBox pagingCheckBox;
     }
 }

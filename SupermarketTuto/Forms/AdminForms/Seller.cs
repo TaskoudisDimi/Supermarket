@@ -12,15 +12,11 @@ namespace SupermarketTuto.Forms
 {
     public partial class Seller : Form
     {
-        int startRecord;
-        int allRecords;
-
         public Seller()
         {
             InitializeComponent();
             display();
         }
-
         private void display()
         {
             try
@@ -28,10 +24,10 @@ namespace SupermarketTuto.Forms
                 fromDateTimePicker.Value = DateTime.Now.AddMonths(-2);
                 if (activeComboBox.Text == "Active")
                 {
-                    
+
                     SqlConnect loaddata1 = new SqlConnect();
                     //loaddata1.retrieveData("Select [SellerId],[SellerUserName],cast([SellerPass] as varchar(MAX)) as Password,[SellerName],[SellerAge],[SellerPhone],[Address],[Date],[Active] From SellersTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and Active = 'true'");
-                    loaddata1.pagingData("Select [SellerId],[SellerUserName],cast([SellerPass] as varchar(MAX)) as Password,[SellerName],[SellerAge],[SellerPhone],[Address],[Date],[Active] From SellersTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and Active = 'true'", 0 ,5);
+                    loaddata1.pagingData("Select [SellerId],[SellerUserName],cast([SellerPass] as varchar(MAX)) as Password,[SellerName],[SellerAge],[SellerPhone],[Address],[Date],[Active] From SellersTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and Active = 'true'", 0, 5);
                     SellDGV.DataSource = loaddata1.table;
                     totalLabel.Text = $"Total: {SellDGV.RowCount}";
                     SellDGV.RowHeadersVisible = false;
@@ -63,7 +59,7 @@ namespace SupermarketTuto.Forms
                 }
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Utlis.Log(string.Format("Message : {0}", ex.Message), "ErrorDisplayData.txt");
             }
@@ -81,7 +77,84 @@ namespace SupermarketTuto.Forms
             string[] test2 = { "Not Set", "Active", "Inactive" };
             activeComboBox.DataSource = test2;
         }
+        #region buttons
+        private void add2Button_Click(object sender, EventArgs e)
+        {
+            addEditSeller add = new addEditSeller();
+            add.editButton.Visible = false;
+            add.SellId.Visible = false;
+            add.idlabel.Visible = false;
+            add.Show();
+        }
 
+        private void editButton_Click_1(object sender, EventArgs e)
+        {
+            try
+            {
+                SqlConnect loaddata60 = new SqlConnect();
+                addEditSeller edit = new addEditSeller();
+                edit.SellId.Text = SellDGV.CurrentRow.Cells[0].Value.ToString();
+                string query = $"Select * From SellersTbl where SellerId = {edit.SellId.Text}";
+                loaddata60.retrieveData(query);
+                DataTable sellers = loaddata60.table;
+                foreach (DataRow row in sellers.Rows)
+                {
+                    edit.usernameTextBox.Text = row["SellerUserName"].ToString();
+                    byte[] imageData = (byte[])row["Image"];
+                    MemoryStream ms = new MemoryStream(imageData);
+                    edit.pictureBox.Image = Image.FromStream(ms);
+                    edit.passwordTextBox.Text = row["SellerPass"].ToString();
+                    edit.SellName.Text = row["SellerName"].ToString();
+                    edit.SellAge.Text = row["SellerAge"].ToString();
+                    edit.SellPhone.Text = row["SellerPhone"].ToString();
+                    edit.addressTextBox.Text = row["Address"].ToString();
+                    edit.dateTimePicker.Text = row["Date"].ToString();
+                    edit.checkBox.Checked = (bool)row["Active"];
+                }
+                edit.addButton.Visible = false;
+                edit.SellId.ReadOnly = true;
+                edit.Show();
+            }
+            catch (Exception ex)
+            {
+                Utlis.Log(string.Format("Message : {0}", ex.Message), "ErrorDisplayData.txt");
+            }
+
+        }
+
+        private void delete2Button_Click(object sender, EventArgs e)
+        {
+            SqlConnect loaddata4 = new SqlConnect();
+
+            try
+            {
+                loaddata4.commandExc("Delete From SellerTbl Where SellerId=" + SellDGV.CurrentRow.Cells[0].Value.ToString());
+
+                MessageBox.Show("Seller Deleted Successfully");
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        private void searchButton_Click(object sender, EventArgs e)
+        {
+            SqlConnect db_sellers = new SqlConnect();
+            string query = "Select * From SellerTbl where SellerId like '%" + searchTextBox.Text + "%'" + "or SellerName like '%" + searchTextBox.Text + "%'" + "or SellerAge like '%" + searchTextBox.Text + "%'" + "or SellerPhone like '%" + searchTextBox.Text + "%'" + "or SellerPass like '%" + searchTextBox.Text + "%'";
+            db_sellers.search(searchTextBox.Text, query);
+            SellDGV.DataSource = db_sellers.table;
+            totalLabel.Text = $"Total: {SellDGV.RowCount}";
+
+        }
+
+        private void refreshButton_Click(object sender, EventArgs e)
+        {
+            display();
+        }
+        #endregion
+
+        #region MenuStrip
         private void menu()
         {
             ContextMenuStrip menu = new ContextMenuStrip();
@@ -137,107 +210,9 @@ namespace SupermarketTuto.Forms
 
             }
         }
+        #endregion
 
-        private void add2Button_Click(object sender, EventArgs e)
-        {
-            addEditSeller add = new addEditSeller();
-            add.editButton.Visible = false;
-            add.SellId.Visible = false;
-            add.idlabel.Visible = false;
-            add.Show();
-        }
-
-        private void editButton_Click_1(object sender, EventArgs e)
-        {
-            try
-            {
-                SqlConnect loaddata60 = new SqlConnect();
-                addEditSeller edit = new addEditSeller();
-                edit.SellId.Text = SellDGV.CurrentRow.Cells[0].Value.ToString();
-                string query = $"Select * From SellersTbl where SellerId = {edit.SellId.Text}";
-                loaddata60.retrieveData(query);
-                DataTable sellers = loaddata60.table;
-                foreach(DataRow row in sellers.Rows)
-                {
-                    edit.usernameTextBox.Text = row["SellerUserName"].ToString();
-                    byte[] imageData = (byte[])row["Image"];
-                    MemoryStream ms = new MemoryStream(imageData);
-                    edit.pictureBox.Image = Image.FromStream(ms);
-                    edit.passwordTextBox.Text = row["SellerPass"].ToString();
-                    edit.SellName.Text = row["SellerName"].ToString();
-                    edit.SellAge.Text = row["SellerAge"].ToString();
-                    edit.SellPhone.Text = row["SellerPhone"].ToString();
-                    edit.addressTextBox.Text = row["Address"].ToString();
-                    edit.dateTimePicker.Text = row["Date"].ToString();
-                    edit.checkBox.Checked = (bool)row["Active"];
-                }
-                edit.addButton.Visible = false;
-                edit.SellId.ReadOnly = true;
-                edit.Show();
-            }
-            catch (Exception ex)
-            {
-                Utlis.Log(string.Format("Message : {0}", ex.Message), "ErrorDisplayData.txt");
-            }
-
-        }
-
-        private void delete2Button_Click(object sender, EventArgs e)
-        {
-            SqlConnect loaddata4 = new SqlConnect();
-
-            try
-            {
-                loaddata4.commandExc("Delete From SellerTbl Where SellerId=" + SellDGV.CurrentRow.Cells[0].Value.ToString());
-
-                MessageBox.Show("Seller Deleted Successfully");
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
-        private void fromDateTimePicker_ValueChanged_1(object sender, EventArgs e)
-        {
-            display();
-        }
-
-        private void toDateTimePicker_ValueChanged(object sender, EventArgs e)
-        {
-            display();
-        }
-
-        private void SellDGV_MouseDown(object sender, MouseEventArgs e)
-        {
-            menu();
-        }
-
-        private void searchButton_Click(object sender, EventArgs e)
-        {
-            SqlConnect db_sellers = new SqlConnect();
-            string query = "Select * From SellerTbl where SellerId like '%" + searchTextBox.Text + "%'" + "or SellerName like '%" + searchTextBox.Text + "%'" + "or SellerAge like '%" + searchTextBox.Text + "%'" + "or SellerPhone like '%" + searchTextBox.Text + "%'" + "or SellerPass like '%" + searchTextBox.Text + "%'";
-            db_sellers.search(searchTextBox.Text, query);
-            SellDGV.DataSource = db_sellers.table;
-            totalLabel.Text = $"Total: {SellDGV.RowCount}";
-
-        }
-
-        private void searchTextBox_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            //Search with Enter 
-            if (e.KeyChar == (char)13)
-            {
-                searchButton.PerformClick();
-            }
-        }
-
-        private void refreshButton_Click(object sender, EventArgs e)
-        {
-            display();
-        }
-
+        #region Excel
         private void exportButton_Click(object sender, EventArgs e)
         {
             if (SellDGV.Rows.Count > 0)
@@ -336,7 +311,7 @@ namespace SupermarketTuto.Forms
 
                     }
                 }
-              }
+            }
             catch (Exception ex)
             {
                 MessageBox.Show("Exception" + ex);
@@ -399,16 +374,41 @@ namespace SupermarketTuto.Forms
             }
             return dt;
         }
+        #endregion
+
+        #region Events
+        private void fromDateTimePicker_ValueChanged_1(object sender, EventArgs e)
+        {
+            display();
+        }
+
+        private void toDateTimePicker_ValueChanged(object sender, EventArgs e)
+        {
+            display();
+        }
+
+        private void SellDGV_MouseDown(object sender, MouseEventArgs e)
+        {
+            menu();
+        }
+        private void searchTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //Search with Enter 
+            if (e.KeyChar == (char)13)
+            {
+                searchButton.PerformClick();
+            }
+        }
 
         private void SellDGV_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             foreach (DataGridViewRow row in SellDGV.Rows)
             {
-                if(Convert.ToBoolean(row.Cells[8].Value.ToString()) == false)
+                if (Convert.ToBoolean(row.Cells[8].Value.ToString()) == false)
                 {
                     row.DefaultCellStyle.BackColor = Color.Orange;
                 }
-                
+
             }
             if (e.ColumnIndex == 2 && e.Value != null)
             {
@@ -422,58 +422,17 @@ namespace SupermarketTuto.Forms
             try
             {
                 display();
-                
+
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
 
             }
-            
-        }
-
-
-        SqlConnect loaddata20 = new SqlConnect();
-        private void prevButton_Click(object sender, EventArgs e)
-        {
-            startRecord = startRecord - 5;
-            if (startRecord <= 0)
-            {
-                startRecord = 0;
-            }
-            loaddata20.pagingData("Select * from ProductTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'", startRecord, 5);
-            SellDGV.DataSource = loaddata20.table;
-            if (SellDGV.Rows.Count > 1)
-            {
-                nextButton.Enabled = true;
-            }
-        }
-
-        private void nextButton_Click(object sender, EventArgs e)
-        {
-            if (SellDGV.Rows.Count > 0)
-            {
-                startRecord = startRecord + 5;
-                if (startRecord <= 0)
-                {
-                    startRecord = 10;
-                }
-                loaddata20.pagingData("Select * from ProductTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'", startRecord, 5);
-                SellDGV.DataSource = loaddata20.table;
-            }
-            else
-            {
-                nextButton.Enabled = false;
-            }
-        }
-
-        private void pagingCheckBox_CheckedChanged(object sender, EventArgs e)
-        {
 
         }
+        #endregion
 
-       
-
-
+ 
     }
 }
 
