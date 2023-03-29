@@ -6,6 +6,8 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DataClass;
+using System.Windows.Forms;
 
 namespace ClassLibrary1
 {
@@ -75,13 +77,41 @@ namespace ClassLibrary1
 
         private void OpenConnection()
         {
-
+            if(con.State != ConnectionState.Open)
+            {
+                con.Open();
+            }
+            else
+            {
+                CloseConnection();
+            }
         }
 
         private void CloseConnection()
         {
+            if (con.State == ConnectionState.Open)
+            {
+                con.Close();
+            }
+            else
+            {
+                OpenConnection();
+            }
+        }
+        
+        public void InsertCatName()
+        {
+            //string query = "exec SP_CategoryTbl_Insert '" + CatNameTb.Text + "','" + CatDescTb.Text + "','" + dateTimePicker.Value.ToString() + "'";
+            //loaddata3.OpenCon();
+            //        SqlCommand command = new SqlCommand(query, SqlConnect.con);
+            //command.Parameters.AddWithValue("@CatName", CatNameTb.Text);
+            //        command.Parameters.AddWithValue("@CatDesc", CatDescTb.Text);
+            //        command.Parameters.AddWithValue("@Date", dateTimePicker.Value.ToString());
+            //        command.ExecuteNonQuery();
+
 
         }
+
 
 
     }

@@ -69,7 +69,6 @@
     <Compile Include="CustomObjects.cs" />
     <Compile Include="DatabaseManager.cs" />
     <Compile Include="ExcelFiles.cs" />
-    <Compile Include="StoreProcedures\StoreProcedures.cs" />
     <Compile Include="Transactions.cs" />
     <Compile Include="Utils\Constants.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
