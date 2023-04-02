@@ -12,14 +12,12 @@ namespace SupermarketTuto.Utils
         //public static string pathApp = "System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)";
         public static string NameOfSeller = "";
 
-
         public enum TypeOfCat
         {
             Cat1 = 0,
             Cat2 = 1,
             Cat3 = 2
         }
-
 
 
     }

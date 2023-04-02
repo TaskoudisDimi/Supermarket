@@ -73,7 +73,7 @@ namespace SupermarketTuto
                     {
                         if (selectRoleCombobox.SelectedItem == "Admin")
                         {
-                            loaddata.retrieveData("Select * From [smarketdb].[dbo].[Admins] Where UserName = '" + UserNameTextBox.Text + "' and Password = CONVERT(varbinary,'" + PasswordTextBox.Text + "')");
+                            loaddata.getData("Select * From [smarketdb].[dbo].[Admins] Where UserName = '" + UserNameTextBox.Text + "' and Password = CONVERT(varbinary,'" + PasswordTextBox.Text + "')");
                             if (loaddata.table.Rows.Count == 1)
                             {
                                 MainAdmin products = new MainAdmin();
@@ -87,7 +87,7 @@ namespace SupermarketTuto
                         }
                         if (selectRoleCombobox.SelectedItem == "Seller")
                         {
-                            loaddata.retrieveData("Select * From [smarketdb].[dbo].[SellersTbl] Where SellerUserName = '" + UserNameTextBox.Text + $"' and SellerPass = CONVERT(varbinary,'{PasswordTextBox.Text}')");
+                            loaddata.getData("Select * From [smarketdb].[dbo].[SellersTbl] Where SellerUserName = '" + UserNameTextBox.Text + $"' and SellerPass = CONVERT(varbinary,'{PasswordTextBox.Text}')");
                             if (loaddata.table.Rows.Count == 1)
                             {
 

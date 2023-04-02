@@ -26,7 +26,7 @@ namespace SupermarketTuto.Forms
                 {
 
                     SqlConnect loaddata1 = new SqlConnect();
-                    //loaddata1.retrieveData("Select [SellerId],[SellerUserName],cast([SellerPass] as varchar(MAX)) as Password,[SellerName],[SellerAge],[SellerPhone],[Address],[Date],[Active] From SellersTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and Active = 'true'");
+                    //loaddata1.getData("Select [SellerId],[SellerUserName],cast([SellerPass] as varchar(MAX)) as Password,[SellerName],[SellerAge],[SellerPhone],[Address],[Date],[Active] From SellersTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and Active = 'true'");
                     loaddata1.pagingData("Select [SellerId],[SellerUserName],cast([SellerPass] as varchar(MAX)) as Password,[SellerName],[SellerAge],[SellerPhone],[Address],[Date],[Active] From SellersTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and Active = 'true'", 0, 5);
                     SellDGV.DataSource = loaddata1.table;
                     totalLabel.Text = $"Total: {SellDGV.RowCount}";
@@ -38,7 +38,7 @@ namespace SupermarketTuto.Forms
                 else if (activeComboBox.Text == "Inactive")
                 {
                     SqlConnect loaddata1 = new SqlConnect();
-                    loaddata1.retrieveData("Select [SellerId],[SellerUserName],cast([SellerPass] as varchar(MAX)) as Password,[SellerName],[SellerAge],[SellerPhone],[Address],[Date],[Active] From SellersTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and Active = 'False'");
+                    loaddata1.getData("Select [SellerId],[SellerUserName],cast([SellerPass] as varchar(MAX)) as Password,[SellerName],[SellerAge],[SellerPhone],[Address],[Date],[Active] From SellersTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and Active = 'False'");
                     SellDGV.DataSource = loaddata1.table;
                     totalLabel.Text = $"Total: {SellDGV.RowCount}";
                     SellDGV.RowHeadersVisible = false;
@@ -49,7 +49,7 @@ namespace SupermarketTuto.Forms
                 else
                 {
                     SqlConnect loaddata1 = new SqlConnect();
-                    loaddata1.retrieveData("Select [SellerId],[SellerUserName],cast([SellerPass] as varchar(MAX)) as Password,[SellerName],[SellerAge],[SellerPhone],[Address],[Date],[Active] From SellersTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'");
+                    loaddata1.getData("Select [SellerId],[SellerUserName],cast([SellerPass] as varchar(MAX)) as Password,[SellerName],[SellerAge],[SellerPhone],[Address],[Date],[Active] From SellersTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'");
                     SellDGV.DataSource = loaddata1.table;
                     totalLabel.Text = $"Total: {SellDGV.RowCount}";
                     SellDGV.RowHeadersVisible = false;
@@ -95,7 +95,7 @@ namespace SupermarketTuto.Forms
                 addEditSeller edit = new addEditSeller();
                 edit.SellId.Text = SellDGV.CurrentRow.Cells[0].Value.ToString();
                 string query = $"Select * From SellersTbl where SellerId = {edit.SellId.Text}";
-                loaddata60.retrieveData(query);
+                loaddata60.getData(query);
                 DataTable sellers = loaddata60.table;
                 foreach (DataRow row in sellers.Rows)
                 {
@@ -128,7 +128,7 @@ namespace SupermarketTuto.Forms
 
             try
             {
-                loaddata4.commandExc("Delete From SellerTbl Where SellerId=" + SellDGV.CurrentRow.Cells[0].Value.ToString());
+                loaddata4.execCom("Delete From SellerTbl Where SellerId=" + SellDGV.CurrentRow.Cells[0].Value.ToString());
 
                 MessageBox.Show("Seller Deleted Successfully");
 
@@ -175,7 +175,7 @@ namespace SupermarketTuto.Forms
                 addEditSeller edit = new addEditSeller();
                 edit.SellId.Text = SellDGV.CurrentRow.Cells[0].Value.ToString();
                 string query = $"Select * From SellersTbl where SellerId = {edit.SellId.Text}";
-                loaddata50.retrieveData(query);
+                loaddata50.getData(query);
                 DataTable sellers = loaddata50.table;
                 foreach (DataRow row in sellers.Rows)
                 {
@@ -203,7 +203,7 @@ namespace SupermarketTuto.Forms
         private void mnuDelete_Click(object? sender, EventArgs e)
         {
             SqlConnect loaddata2 = new SqlConnect();
-            loaddata2.commandExc("Delete From SellerTbl Where SellerId = " + SellDGV.CurrentRow.Cells[0].Value.ToString());
+            loaddata2.execCom("Delete From SellerTbl Where SellerId = " + SellDGV.CurrentRow.Cells[0].Value.ToString());
             foreach (DataGridViewRow row in SellDGV.SelectedRows)
             {
                 SellDGV.Rows.RemoveAt(row.Index);
@@ -325,7 +325,7 @@ namespace SupermarketTuto.Forms
             //int count = SellDGV.RowCount;
             //for (int i = 0; i < count; i++)
             //{
-            //    loaddata20.commandExc("Insert Into ProductTbl values('" + SellDGV.Rows[i].Cells[0].Value + "','" + SellDGV.Rows[i].Cells[1].Value + "','" + SellDGV.Rows[i].Cells[2].Value + "','" + SellDGV.Rows[i].Cells[3].Value + "','" + SellDGV.Rows[i].Cells[4].Value + "')");
+            //    loaddata20.execCom("Insert Into ProductTbl values('" + SellDGV.Rows[i].Cells[0].Value + "','" + SellDGV.Rows[i].Cells[1].Value + "','" + SellDGV.Rows[i].Cells[2].Value + "','" + SellDGV.Rows[i].Cells[3].Value + "','" + SellDGV.Rows[i].Cells[4].Value + "')");
             //}
             //refresh_data();
         }

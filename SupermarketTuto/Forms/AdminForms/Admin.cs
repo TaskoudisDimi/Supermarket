@@ -23,7 +23,7 @@ namespace SupermarketTuto.Forms
             try
             {
                 SqlConnect loaddata = new SqlConnect();
-                loaddata.retrieveData("Select [Id],[UserName],cast([Password] as varchar(MAX)) as Password,[Active] From [Admins]");
+                loaddata.getData("Select [Id],[UserName],cast([Password] as varchar(MAX)) as Password,[Active] From [Admins]");
                 usersDataGridView.DataSource = loaddata.table;
                 usersDataGridView.RowHeadersVisible = false;
             }

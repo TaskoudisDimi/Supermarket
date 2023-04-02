@@ -22,7 +22,7 @@ namespace SupermarketTuto.Forms.SellingForms
         private void displayBills()
         {
             SqlConnect loaddata2 = new SqlConnect();
-            loaddata2.retrieveData("Select * From BillTbl;");
+            loaddata2.getData("Select * From BillTbl;");
             BillsDGV.DataSource = loaddata2.table;
             BillsDGV.AllowUserToAddRows = false;
             BillsDGV.RowHeadersVisible = false;

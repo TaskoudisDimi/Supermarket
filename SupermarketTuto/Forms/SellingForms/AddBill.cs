@@ -30,7 +30,7 @@ namespace SupermarketTuto.Forms
         private void displayBills()
         {
             SqlConnect loaddata2 = new SqlConnect();
-            loaddata2.retrieveData("Select * From BillTbl");
+            loaddata2.getData("Select * From BillTbl");
             BillsDGV.DataSource = loaddata2.table;
             BillsDGV.AllowUserToAddRows = false;
             BillsDGV.RowHeadersVisible = false;
@@ -41,7 +41,7 @@ namespace SupermarketTuto.Forms
         private void deleteButton_Click(object sender, EventArgs e)
         {
             SqlConnect loaddata6 = new SqlConnect();
-            loaddata6.commandExc("Delete From BillTbl Where BillId=" + BillsDGV.CurrentRow.Cells[0].Value.ToString() + "");
+            loaddata6.execCom("Delete From BillTbl Where BillId=" + BillsDGV.CurrentRow.Cells[0].Value.ToString() + "");
             foreach (DataGridViewRow row in BillsDGV.Rows)
             {
                 BillsDGV.Rows.RemoveAt(row.Index);
@@ -60,7 +60,7 @@ namespace SupermarketTuto.Forms
             {
                 SqlConnect loaddata4 = new SqlConnect();
 
-                loaddata4.commandExc("Insert Into BillTbl values('" + commentsRichTextBox.Text + "','" + seller_Name_Label.Text + "','" + LabelDate.Text + "'," + AmountLabel.Text + ")");
+                loaddata4.execCom("Insert Into BillTbl values('" + commentsRichTextBox.Text + "','" + seller_Name_Label.Text + "','" + LabelDate.Text + "'," + AmountLabel.Text + ")");
                 commentsRichTextBox.Text = String.Empty;
                 displayBills();
 

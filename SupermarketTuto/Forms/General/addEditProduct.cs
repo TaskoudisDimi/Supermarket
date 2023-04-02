@@ -38,7 +38,7 @@ namespace SupermarketTuto.Forms.General
 
             try
             {
-                loaddata5.commandExc("Insert Into ProductTbl values('" + ProdName.Text + "'," + ProdQty.Text + "," + ProdPrice.Text + "," + catIDTextBox.Text +  ",'" + catCombobox.SelectedValue.ToString() + "', '" + DateTimePicker.Value.ToString("MM-dd-yyyy") + "')");
+                loaddata5.execCom("Insert Into ProductTbl values('" + ProdName.Text + "'," + ProdQty.Text + "," + ProdPrice.Text + "," + catIDTextBox.Text +  ",'" + catCombobox.SelectedValue.ToString() + "', '" + DateTimePicker.Value.ToString("MM-dd-yyyy") + "')");
                 MessageBox.Show(Constants.MessageInsertData);
                 this.Close();
             }
@@ -54,7 +54,7 @@ namespace SupermarketTuto.Forms.General
 
             try
             {
-                loaddata6.commandExc("Update ProductTbl set ProdName = '" + ProdName.Text + "', ProdCat = '" + catCombobox.Text + "', ProdQty = '" + ProdQty.Text + "', ProdPrice = '" + ProdPrice.Text + "', ProdCatID = " + catIDTextBox.Text + ", Date = '" + DateTimePicker.Value.ToString("yyyy-MM-dd") + "' where ProdId = " + ProdId.Text);
+                loaddata6.execCom("Update ProductTbl set ProdName = '" + ProdName.Text + "', ProdCat = '" + catCombobox.Text + "', ProdQty = '" + ProdQty.Text + "', ProdPrice = '" + ProdPrice.Text + "', ProdCatID = " + catIDTextBox.Text + ", Date = '" + DateTimePicker.Value.ToString("yyyy-MM-dd") + "' where ProdId = " + ProdId.Text);
                 MessageBox.Show("Product Successfully Updated");
                 this.Close();
             }
@@ -70,7 +70,7 @@ namespace SupermarketTuto.Forms.General
             catIDTextBox.Enabled = false;
             catIDTextBox.Text = String.Empty;
             SqlConnect loaddata7 = new SqlConnect();
-            loaddata7.retrieveData("Select CatId, CatName From CategoryTbl");
+            loaddata7.getData("Select CatId, CatName From CategoryTbl");
             catCombobox.DataSource = loaddata7.table;
             catCombobox.ValueMember = "CatName";
             catCombobox.SelectedItem = null;
@@ -83,7 +83,7 @@ namespace SupermarketTuto.Forms.General
             try
             {
                 SqlConnect loaddata8 = new SqlConnect();
-                loaddata8.retrieveData("Select CatId From CategoryTbl where CatName = '" + catCombobox.Text + "'");
+                loaddata8.getData("Select CatId From CategoryTbl where CatName = '" + catCombobox.Text + "'");
                 if (loaddata8.table.Rows.Count != 0)
                 {
                     catIDTextBox.Text = loaddata8.table.Rows[0]["CatId"].ToString();

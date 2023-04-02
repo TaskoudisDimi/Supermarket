@@ -27,7 +27,7 @@ namespace SupermarketTuto.Forms.General
 
             try
             {
-                loaddata3.commandExc("Insert Into CategoryTbl values('" + CatNameTb.Text + "','" + CatDescTb.Text + "','" + dateTimePicker.Value.ToString("MM-dd-yyyy") + "')");
+                loaddata3.execCom("Insert Into CategoryTbl values('" + CatNameTb.Text + "','" + CatDescTb.Text + "','" + dateTimePicker.Value.ToString("MM-dd-yyyy") + "')");
                 MessageBox.Show("Success!");
                 this.Close();
             }
@@ -50,7 +50,7 @@ namespace SupermarketTuto.Forms.General
                 else
                 {
 
-                    loaddata6.commandExc("Update CategoryTbl set CatName='" + CatNameTb.Text + "',CatDesc='" + CatDescTb.Text + "', Date = '" + dateTimePicker.Value.ToString("MM-dd-yyyy") + "' where CatId=" + CatIdTb.Text);
+                    loaddata6.execCom("Update CategoryTbl set CatName='" + CatNameTb.Text + "',CatDesc='" + CatDescTb.Text + "', Date = '" + dateTimePicker.Value.ToString("MM-dd-yyyy") + "' where CatId=" + CatIdTb.Text);
                     MessageBox.Show("Product Successfully Updated");
                     this.Close();
                 }

@@ -1,3 +1,4 @@
+using DataClass;
 using SupermarketTuto.Forms;
 using SupermarketTuto.Forms.AdminForms;
 using SupermarketTuto.Forms.General;
@@ -15,7 +16,6 @@ namespace SupermarketTuto
         }
 
         // TODO: Build class in order to manage Sql tables, schema etc
-        // TODO: Manage sql connection, Insert data from store procedures
         // TODO: Use TCP / UDP sending/receiving packet  
         // TODO: Build API 
         // TODO: Manage Threads

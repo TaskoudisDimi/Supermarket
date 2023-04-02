@@ -1,225 +1,48 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
 using System.Data.SqlClient;
-using System.Drawing;
-using System.Runtime.Remoting.Messaging;
-using System.Transactions;
-using System.Windows.Forms;
+using System.Data;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace DataClass
+namespace ClassLibrary1
 {
-    public class SqlConnect
+    public class CheckDatabase
     {
+        private readonly string connectionString;
 
-        public static SqlConnection con = new SqlConnection();
-
-        public DataTable table = new DataTable();
-        public DataSet set = new DataSet();
-
-        public SqlConnect()
+        public CheckDatabase(string connectionString)
         {
-            con.ConnectionString = ConfigurationManager.ConnectionStrings["smarketdb"].ConnectionString;
+            this.connectionString = connectionString;
         }
 
-        public static void OpenCon()
-        {
-            if (con.State != ConnectionState.Open)
-            {
-                try
-                {
-                    con.Open();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-            }
-            else
-            {
-                CloseCon();
-            }
-        }
-
-        private static void CloseCon()
-        {
-            if (con.State != ConnectionState.Closed)
-            {
-                try
-                {
-                    con.Close();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-            }
-        }
-
-        public DataTable getData(string cmd)
-        {
-            OpenCon();
-            SqlTransaction transaction = con.BeginTransaction();
-
-            try
-            {
-                SqlCommand command = new SqlCommand(cmd, con, transaction);
-                SqlDataAdapter adapter = new SqlDataAdapter(command);
-
-                adapter.Fill(table);
-
-                transaction.Commit();
-                return table;
-            }
-            catch (Exception ex)
-            {
-                transaction.Rollback();
-                throw ex;
-            }
-            finally
-            {
-                con.Close();
-            }
-        }
-        public DataSet getDataSet(string cmd)
-        {
-            OpenCon();
-            SqlTransaction transaction = con.BeginTransaction();
-
-            try
-            {
-                SqlCommand command = new SqlCommand(cmd, con, transaction);
-                SqlDataAdapter adapter = new SqlDataAdapter(command);
-
-                adapter.Fill(table);
-
-                transaction.Commit();
-                return set;
-            }
-            catch (Exception ex)
-            {
-                transaction.Rollback();
-                throw ex;
-            }
-            finally
-            {
-                con.Close();
-            }
-        }
-        public void execCom(string cmd)
-        {
-            OpenCon();
-            SqlTransaction transaction = con.BeginTransaction();
-
-            try
-            {
-                // Insert data into table
-                SqlCommand command = new SqlCommand(cmd, con, transaction);
-                command.ExecuteNonQuery();
-
-                transaction.Commit();
-            }
-            catch (Exception ex)
-            {
-                transaction.Rollback();
-                throw ex;
-            }
-            finally
-            {
-                CloseCon();
-            }
-        }
-
-        public void backup(string path)
-        {
-            try
-            {
-                OpenCon();
-                string query = "BACKUP DATABASE smarketdb TO DISK = '" + path + "\\backupfile.bak' WITH FORMAT,MEDIANAME = 'Z_SQLServerBackups',NAME = 'Full Backup of Testdb';";
-                SqlCommand cmd = new SqlCommand(query, con);
-                cmd.ExecuteNonQuery();
-                MessageBox.Show("BackUp seccess!");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            finally
-            {
-                CloseCon();
-            }
-        }
-
-        public void search(string text, string sql)
-        {
-            try
-            {
-                OpenCon();
-                SqlCommand cmd = new SqlCommand(sql, con);
-                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-                adapter.Fill(table);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            finally
-            {
-                CloseCon();
-            }
-        }
-
-        public void pagingData(string command, int startRecord, int maxRecord)
-        {
-            try
-            {
-                table.Clear();
-                SqlDataAdapter adapter = new SqlDataAdapter(command, con);
-                adapter.Fill(startRecord, maxRecord, table);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-        }
-
-        public void saveImage(byte[] imageData, string query)
-        {
-            OpenCon();
-            SqlCommand command = new SqlCommand(query, con);
-            command.Parameters.Add("@ImageData", SqlDbType.VarBinary, -1).Value = imageData;
-            command.ExecuteNonQuery();
-            CloseCon();
-        }
-
-
-
-        #region Chech Schema of Database
         public void CheckSchema(List<SchemaTable> Table)
         {
-            OpenCon();
-             //var schemaTables = GetSchemaTables(connection);
-             var tables = Table;
-            foreach (var schemaTable in tables)
+            using (var connection = new SqlConnection(connectionString))
             {
-                if (!TableExists(con, schemaTable.TableName))
+                connection.Open();
+                //var schemaTables = GetSchemaTables(connection);
+                var tables = Table;
+                foreach (var schemaTable in tables)
                 {
-                    CreateTable(con, schemaTable);
-                }
-                else
-                {
-                    var existingColumns = GetTableColumns(con, schemaTable.TableName);
-                    foreach (var schemaColumn in schemaTable.Columns)
+                    if (!TableExists(connection, schemaTable.TableName))
                     {
-                        if (!existingColumns.Contains(schemaColumn.ColumnName))
+                        CreateTable(connection, schemaTable);
+                    }
+                    else
+                    {
+                        var existingColumns = GetTableColumns(connection, schemaTable.TableName);
+                        foreach (var schemaColumn in schemaTable.Columns)
                         {
-                            AddColumn(con, schemaTable.TableName, schemaColumn);
+                            if (!existingColumns.Contains(schemaColumn.ColumnName))
+                            {
+                                AddColumn(connection, schemaTable.TableName, schemaColumn);
+                            }
                         }
                     }
                 }
             }
-
         }
 
         private List<SchemaTable> GetSchemaTables(SqlConnection connection)
@@ -345,7 +168,7 @@ namespace DataClass
 
             return tables;
         }
-        #endregion
+
 
     }
 
@@ -386,5 +209,4 @@ namespace DataClass
 
         public int Size { get; }
     }
-
 }

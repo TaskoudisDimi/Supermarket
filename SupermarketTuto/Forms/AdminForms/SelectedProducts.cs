@@ -24,7 +24,7 @@ namespace SupermarketTuto.Forms.AdminForms
         private void SelectedProducts_Load(object sender, EventArgs e)
         {
             SqlConnect loaddata2 = new SqlConnect();
-            loaddata2.retrieveData("Select * From ProductTbl where ProdCatID in (" + selectedCatIDs + ")");
+            loaddata2.getData("Select * From ProductTbl where ProdCatID in (" + selectedCatIDs + ")");
             selectedDGV.DataSource = loaddata2.table;
             selectedDGV.RowHeadersVisible = false;
 

@@ -35,7 +35,7 @@ namespace SupermarketTuto
                 }
                 else if (PasswordTextBox.Text == ConfirmPasswordTextBox.Text)
                 {
-                    loaddata.commandExc("Insert Into Admins Values ('" + UsernameTextBox.Text + "'," + $"CONVERT(varbinary, '{PasswordTextBox.Text}')" + "," + "'True')");
+                    loaddata.execCom("Insert Into Admins Values ('" + UsernameTextBox.Text + "'," + $"CONVERT(varbinary, '{PasswordTextBox.Text}')" + "," + "'True')");
                     MessageBox.Show("Your Account has been Successfully Created", "Registration Success", MessageBoxButtons.OK);
                     UsernameTextBox.Clear();
                     PasswordTextBox.Clear();

@@ -37,7 +37,7 @@ namespace SupermarketTuto.Forms.SellingForms
             SqlConnect loaddata20 = new SqlConnect();
             addEditProduct edit = new addEditProduct();
             ////This method will bind the Combobox with the Database
-            loaddata20.retrieveData("Select CatName From CategoryTbl");
+            loaddata20.getData("Select CatName From CategoryTbl");
             edit.catCombobox.DataSource = loaddata20.table;
             edit.catCombobox.ValueMember = "CatName";
             //catCombobox.SelectedItem = null;
@@ -60,7 +60,7 @@ namespace SupermarketTuto.Forms.SellingForms
             SqlConnect loaddata7 = new SqlConnect();
             try
             {
-                loaddata7.commandExc("Delete From ProductTbl Where ProdId=" + ProdDGV.CurrentRow.Cells[0].Value.ToString());
+                loaddata7.execCom("Delete From ProductTbl Where ProdId=" + ProdDGV.CurrentRow.Cells[0].Value.ToString());
                 refresh_products();
             }
             catch (Exception ex)
@@ -95,7 +95,7 @@ namespace SupermarketTuto.Forms.SellingForms
             SqlConnect loaddata5 = new SqlConnect();
             try
             {
-                loaddata5.commandExc("Delete From CategoryTbl Where CatId=" + CatDGV.CurrentRow.Cells[0].Value.ToString());
+                loaddata5.execCom("Delete From CategoryTbl Where CatId=" + CatDGV.CurrentRow.Cells[0].Value.ToString());
                 refresh_categories();
             }
             catch (Exception ex)
@@ -106,7 +106,7 @@ namespace SupermarketTuto.Forms.SellingForms
         private void display()
         {
             SqlConnect loaddata = new SqlConnect();
-            loaddata.retrieveData("Select * From CategoryTbl where Date between '" + from2DateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + to2DateTimePicker.Value.ToString("MM-dd-yyyy") + "'");
+            loaddata.getData("Select * From CategoryTbl where Date between '" + from2DateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + to2DateTimePicker.Value.ToString("MM-dd-yyyy") + "'");
             CatDGV.DataSource = loaddata.table;
             CatDGV.RowHeadersVisible = false;
             CatDGV.AllowUserToAddRows = false;
@@ -115,7 +115,7 @@ namespace SupermarketTuto.Forms.SellingForms
         private void display2()
         {
             SqlConnect loaddata1 = new SqlConnect();
-            loaddata1.retrieveData("Select * from ProductTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'");
+            loaddata1.getData("Select * from ProductTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'");
             ProdDGV.DataSource = loaddata1.table;
             ProdDGV.RowHeadersVisible = false;
             totalLabel.Text = $"Total: {ProdDGV.RowCount}";
@@ -123,7 +123,7 @@ namespace SupermarketTuto.Forms.SellingForms
         private void fillCombo()
         {
             SqlConnect loaddata2 = new SqlConnect();
-            loaddata2.retrieveData("Select CatName From CategoryTbl");
+            loaddata2.getData("Select CatName From CategoryTbl");
             catComboBox.DataSource = loaddata2.table;
             catComboBox.ValueMember = "CatName";
             catComboBox.SelectedItem = null;
@@ -135,7 +135,7 @@ namespace SupermarketTuto.Forms.SellingForms
         private void refresh_products()
         {
             SqlConnect loaddata21 = new SqlConnect();
-            loaddata21.retrieveData("Select * from ProductTbl");
+            loaddata21.getData("Select * from ProductTbl");
             ProdDGV.DataSource = loaddata21.table;
             ProdDGV.RowHeadersVisible = false;
             totalLabel.Text = $"Total: {ProdDGV.RowCount}";
@@ -144,7 +144,7 @@ namespace SupermarketTuto.Forms.SellingForms
         private void refresh_categories()
         {
             SqlConnect loaddata21 = new SqlConnect();
-            loaddata21.retrieveData("Select * from CategoryTbl");
+            loaddata21.getData("Select * from CategoryTbl");
             CatDGV.DataSource = loaddata21.table;
             CatDGV.RowHeadersVisible = false;
             total2Label.Text = $"Total: {CatDGV.RowCount}";
@@ -154,7 +154,7 @@ namespace SupermarketTuto.Forms.SellingForms
             addEditProduct add = new addEditProduct();
             SqlConnect loaddata21 = new SqlConnect();
             ////This method will bind the Combobox with the Database
-            loaddata21.retrieveData("Select CatName From CategoryTbl");
+            loaddata21.getData("Select CatName From CategoryTbl");
             add.catCombobox.DataSource = loaddata21.table;
             add.catCombobox.ValueMember = "CatName";
             //catCombobox.SelectedItem = null;
@@ -173,7 +173,7 @@ namespace SupermarketTuto.Forms.SellingForms
             SqlConnect loaddata20 = new SqlConnect();
             addEditProduct edit = new addEditProduct();
             ////This method will bind the Combobox with the Database
-            loaddata20.retrieveData("Select CatName From CategoryTbl");
+            loaddata20.getData("Select CatName From CategoryTbl");
             edit.catCombobox.DataSource = loaddata20.table;
             edit.catCombobox.ValueMember = "CatName";
             //catCombobox.SelectedItem = null;
@@ -197,7 +197,7 @@ namespace SupermarketTuto.Forms.SellingForms
             SqlConnect loaddata7 = new SqlConnect();
             try
             {
-                loaddata7.commandExc("Delete From ProductTbl Where ProdId=" + ProdDGV.CurrentRow.Cells[0].Value.ToString());
+                loaddata7.execCom("Delete From ProductTbl Where ProdId=" + ProdDGV.CurrentRow.Cells[0].Value.ToString());
                 refresh_products();
             }
             catch (Exception ex)
@@ -221,7 +221,7 @@ namespace SupermarketTuto.Forms.SellingForms
         private void catComboBox_SelectionChangeCommitted(object sender, EventArgs e)
         {
             SqlConnect loaddata10 = new SqlConnect();
-            loaddata10.retrieveData("Select * from ProductTbl where ProdCat='" + catComboBox.SelectedValue + "'");
+            loaddata10.getData("Select * from ProductTbl where ProdCat='" + catComboBox.SelectedValue + "'");
             ProdDGV.DataSource = loaddata10.table;
             ProdDGV.RowHeadersVisible = false;
             totalLabel.Text = $"Total: {ProdDGV.RowCount}";
@@ -275,7 +275,7 @@ namespace SupermarketTuto.Forms.SellingForms
             SqlConnect loaddata5 = new SqlConnect();
             try
             {
-                loaddata5.commandExc("Delete From CategoryTbl Where CatId=" + CatDGV.CurrentRow.Cells[0].Value.ToString());
+                loaddata5.execCom("Delete From CategoryTbl Where CatId=" + CatDGV.CurrentRow.Cells[0].Value.ToString());
                 refresh_categories();
             }
             catch (Exception ex)

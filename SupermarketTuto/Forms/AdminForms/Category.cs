@@ -14,7 +14,6 @@ namespace SupermarketTuto.Forms
     public partial class Category : Form, excelFiles
     {
         int startRecord;
-        int allRecords;
         public Category()
         {
             InitializeComponent();
@@ -37,8 +36,7 @@ namespace SupermarketTuto.Forms
             {
                 fromDateTimePicker.Value = DateTime.Now.AddMonths(-2);
                 SqlConnect loaddata = new SqlConnect();
-                loaddata.retrieveData("Select * From CategoryTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'");
-                CatDGV.DataSource = loaddata.table;
+                CatDGV.DataSource = loaddata.getData("Select * From CategoryTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'");
                 CatDGV.RowHeadersVisible = false;
                 CatDGV.Columns[3].HeaderText = "Date Created";
                 totalLabel.Text = $"Total: {CatDGV.RowCount}";
@@ -88,7 +86,7 @@ namespace SupermarketTuto.Forms
             try
             {
                 SqlConnect loaddata2 = new SqlConnect();
-                loaddata2.commandExc("Delete From CategoryTbl Where CatId='" + CatDGV.CurrentRow.Cells[1].Value.ToString() + "'");
+                loaddata2.execCom("Delete From CategoryTbl Where CatId='" + CatDGV.CurrentRow.Cells[1].Value.ToString() + "'");
                 foreach (DataGridViewRow row in CatDGV.SelectedRows)
                 {
                     CatDGV.Rows.RemoveAt(row.Index);
@@ -148,7 +146,7 @@ namespace SupermarketTuto.Forms
             addEditCategory edit = new addEditCategory();
             edit.CatIdTb.Text = CatDGV.CurrentRow.Cells[1].Value.ToString();
             string query = $"Select * From CategoryTbl where CatId = {edit.CatIdTb.Text}";
-            loaddata90.retrieveData(query);
+            loaddata90.getData(query);
             foreach(DataRow row in loaddata90.table.Rows)
             {
                 edit.CatNameTb.Text = row["CatName"].ToString();
@@ -165,7 +163,7 @@ namespace SupermarketTuto.Forms
             SqlConnect loaddata5 = new SqlConnect();
             try
             {
-                loaddata5.commandExc("Delete From CategoryTbl Where CatId=" + CatDGV.CurrentRow.Cells[0].Value.ToString());
+                loaddata5.execCom("Delete From CategoryTbl Where CatId=" + CatDGV.CurrentRow.Cells[0].Value.ToString());
                 display();
             }
             catch (Exception ex)
@@ -385,13 +383,9 @@ namespace SupermarketTuto.Forms
             int count = CatDGV.RowCount;
             for (int i = 0; i < count; i++)
             {
-                loaddata20.commandExc("Insert Into CategoryTbl values('" + CatDGV.Rows[i].Cells[0].Value + "','" + CatDGV.Rows[i].Cells[1].Value + "','" + CatDGV.Rows[i].Cells[2].Value + "','" + CatDGV.Rows[i].Cells[3].Value + "','" + CatDGV.Rows[i].Cells[4].Value + "')");
+                loaddata20.execCom("Insert Into CategoryTbl values('" + CatDGV.Rows[i].Cells[0].Value + "','" + CatDGV.Rows[i].Cells[1].Value + "','" + CatDGV.Rows[i].Cells[2].Value + "','" + CatDGV.Rows[i].Cells[3].Value + "','" + CatDGV.Rows[i].Cells[4].Value + "')");
             }
             display();
-        }
-        private void exportButton_Click(object sender, EventArgs e)
-        {
-            export();
         }
 
         private DataTable GetData(string path)
@@ -438,7 +432,11 @@ namespace SupermarketTuto.Forms
             }
             return dt;
         }
-
+     
+        private void exportButton_Click(object sender, EventArgs e)
+        {
+            export();
+        }
         private void importButton_Click(object sender, EventArgs e)
         {
             import();
