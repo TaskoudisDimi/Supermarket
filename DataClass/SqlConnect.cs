@@ -199,8 +199,8 @@ namespace DataClass
         public void CheckSchema(List<SchemaTable> Table)
         {
             OpenCon();
-             //var schemaTables = GetSchemaTables(connection);
-             var tables = Table;
+            //var schemaTables = GetSchemaTables(connection);
+            var tables = Table;
             foreach (var schemaTable in tables)
             {
                 if (!TableExists(con, schemaTable.TableName))

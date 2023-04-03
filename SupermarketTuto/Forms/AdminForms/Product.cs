@@ -1,4 +1,5 @@
-﻿using DataClass;
+﻿using ClassLibrary1;
+using DataClass;
 using Microsoft.VisualBasic.FileIO;
 using Microsoft.VisualBasic.Logging;
 using Newtonsoft.Json;
@@ -261,203 +262,24 @@ namespace SupermarketTuto.Forms
         #endregion
 
         #region Excel
+        
+        ExcelFile excel = new ExcelFile();
+
         private void importButton_Click(object sender, EventArgs e)
         {
-            import();
-        }
-
-        private DataTable GetData(string path)
-        {
-            DataTable dt = new DataTable();
-            try
-            {
-                if (path.EndsWith(".csv"))
-                {
-                    //TextFieldParser csvReader = new TextFieldParser(path);
-                    //csvReader.SetDelimiters(new string[] { "," });
-                    //csvReader.HasFieldsEnclosedInQuotes = true;
-                    //string[] colFields = csvReader.ReadFields();
-
-                    string[] lines = System.IO.File.ReadAllLines(path);
-                    if (lines.Length > 0)
-                    {
-                        //first line to create header
-                        string firstLine = lines[0];
-                        //Devide each data of column
-                        string[] headerLabels = firstLine.Split(',');
-                        foreach (string headerWord in headerLabels)
-                        {
-                            //add data column
-                            dt.Columns.Add(new DataColumn(headerWord));
-                        }
-                        //For Data
-                        for (int i = 1; i < lines.Length; i++)
-                        {
-                            //devide each data of rows
-                            string[] dataWords = lines[i].Split(',');
-                            //create new row of DataTable
-                            DataRow dr = dt.NewRow();
-                            int columnIndex = 0;
-                            foreach (string headerWord in headerLabels)
-                            {
-                                //Corresponde each Column name with coresponding Row
-                                dr[headerWord] = dataWords[columnIndex++];
-                            }
-                            //Add all rows to DataTable
-                            dt.Rows.Add(dr);
-                        }
-                    }
-                }
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Exception " + ex);
-            }
-            return dt;
+            excel.import();
         }
 
         private void saveButton_Click(object sender, EventArgs e)
         {
-            save();
+            excel.save(ProdDGV);
         }
 
         private void exportButton_Click(object sender, EventArgs e)
         {
-            export();
+            excel.export(ProdDGV);
         }
 
-        public void export()
-        {
-            try
-            {
-                if (ProdDGV.Rows.Count > 0)
-                {
-                    SaveFileDialog dialog = new SaveFileDialog()
-                    {
-                        Filter = "CSV (*.csv)|*.csv",
-                        Title = "Csv Files",
-                        RestoreDirectory = true
-                    };
-
-                    if (dialog.ShowDialog() == DialogResult.OK)
-                    {
-                        if (File.Exists(dialog.FileName))
-                        {
-                            try
-                            {
-                                File.Delete(dialog.FileName);
-                            }
-                            catch (Exception ex)
-                            {
-                                MessageBox.Show("It wasn't possible to write the data to the disk." + ex.Message);
-                            }
-                        }
-                        else
-                        {
-                            try
-                            {
-                                int colCount = ProdDGV.Columns.Count;
-                                string colNames = string.Empty;
-                                string[] outputCSV = new string[ProdDGV.Rows.Count + 1];
-                                //Keep all columns from excel
-                                for (int i = 0; i < colCount; i++)
-                                {
-                                    if (i == colCount - 1)
-                                    {
-                                        colNames += ProdDGV.Columns[i].HeaderText.ToString();
-                                    }
-                                    else
-                                    {
-                                        colNames += ProdDGV.Columns[i].HeaderText.ToString() + ",";
-                                    }
-                                }
-                                //Set Columns to first set of outputCSV
-                                outputCSV[0] += colNames;
-
-                                //Set all rows to outputCSV
-                                for (int i = 1; (i - 1) < ProdDGV.Rows.Count; i++)
-                                {
-                                    for (int j = 0; j < colCount; j++)
-                                    {
-                                        outputCSV[i] += ProdDGV.Rows[i - 1].Cells[j].Value.ToString() + ",";
-                                    }
-                                }
-                                //Write all data to outputCSV
-                                File.WriteAllLines(dialog.FileName, outputCSV, Encoding.UTF8);
-                                MessageBox.Show("Success");
-                            }
-                            catch (Exception ex)
-                            {
-                                MessageBox.Show("Error :" + ex.Message);
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Utlis.Log(string.Format("Message : {0}", ex.Message), "ErrorExportData.txt");
-            }
-
-        }
-        public void import()
-        {
-            try
-            {
-                int ImportedRecord = 0, inValidItem = 0;
-                string SourceURl = "";
-                OpenFileDialog dialog = new OpenFileDialog()
-                {
-                    Title = "Browse csv File",
-                    CheckFileExists = true,
-                    CheckPathExists = true,
-                    Filter = "csv files (*.csv)|*.csv",
-                    FilterIndex = 2,
-                    RestoreDirectory = true,
-                    ReadOnlyChecked = true,
-                    ShowReadOnly = true
-
-                };
-                if (dialog.ShowDialog() == DialogResult.OK)
-                {
-                    if (dialog.FileName.EndsWith(".csv"))
-                    {
-                        DataTable table = new DataTable();
-                        table = GetData(dialog.FileName);
-                        SourceURl = dialog.FileName;
-                        if (table.Rows != null && table.Rows.ToString() != String.Empty)
-                        {
-                            ProdDGV.DataSource = table;
-                        }
-                    }
-                }
-                display();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Exception" + ex);
-                Utlis.Log(string.Format("Message : {0}", ex.Message), "ErrorImportTxt.txt");
-
-            }
-        }
-        public void save()
-        {
-            try
-            {
-                SqlConnect loaddata20 = new SqlConnect();
-                int count = ProdDGV.RowCount;
-                for (int i = 0; i < count; i++)
-                {
-                    loaddata20.execCom("Insert Into ProductTbl values('" + ProdDGV.Rows[i].Cells[0].Value + "','" + ProdDGV.Rows[i].Cells[1].Value + "','" + ProdDGV.Rows[i].Cells[2].Value + "','" + ProdDGV.Rows[i].Cells[3].Value + "','" + ProdDGV.Rows[i].Cells[4].Value + "')");
-                }
-                display();
-            }
-            catch (Exception ex)
-            {
-                Utlis.Log(string.Format("Message : {0}", ex.Message), "ErrorSaveData.txt");
-            }
-        }
         #endregion
 
         #region API
