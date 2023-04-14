@@ -1,4 +1,5 @@
-﻿using DataClass;
+﻿using ClassLibrary1.Models;
+using DataClass;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -42,5 +43,9 @@ namespace SupermarketTuto.Forms
                 e.Value = new string('*', e.Value.ToString().Length);
             }
         }
+
+       
+
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using DataClass;
+﻿using ClassLibrary1.Models;
+using DataClass;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -154,6 +155,7 @@ namespace SupermarketTuto.Forms.SellingForms
 
         private void addButton_Click(object sender, EventArgs e)
         {
+           check();
            AddBill bill = new AddBill();
            bill.AmountLabel.Text = AmountLabel.Text;
            bill.Show();
@@ -166,5 +168,16 @@ namespace SupermarketTuto.Forms.SellingForms
             loaddata6.execCom("Delete From BillingProducts where Id = " + OrderDGV.CurrentRow.Cells[0].Value.ToString());
             displayDGV();
         }
+
+        #region ChechDatabase
+        private void check()
+        {
+            SqlConnect sql = new SqlConnect();
+            var customerType = typeof(BillingProducts);
+            sql.checkTable(Categories: customerType);
+        }
+
+        #endregion
+
     }
 }

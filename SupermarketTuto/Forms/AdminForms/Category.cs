@@ -1,6 +1,5 @@
-﻿
-
-using ClassLibrary1;
+﻿using ClassLibrary1;
+using ClassLibrary1.Models;
 using DataClass;
 using SupermarketTuto.Forms.AdminForms;
 using SupermarketTuto.Forms.General;
@@ -9,6 +8,7 @@ using SupermarketTuto.Utils;
 using System.ComponentModel;
 using System.Data;
 using System.Text;
+using SchemaTable = DataClass.SchemaTable;
 
 namespace SupermarketTuto.Forms
 {
@@ -29,6 +29,7 @@ namespace SupermarketTuto.Forms
             checkboxColumn.Name = "Select";
             CatDGV.Columns.Add(checkboxColumn);
             CatDGV.Columns["Select"].DisplayIndex = 0;
+
             menu();
         }
         private void display()
@@ -132,6 +133,7 @@ namespace SupermarketTuto.Forms
 
         private void addButton_Click(object sender, EventArgs e)
         {
+            check();
             addEditCategory add = new addEditCategory();
             add.editButton.Visible = false;
             add.CatIdTb.Visible = false;
@@ -142,13 +144,13 @@ namespace SupermarketTuto.Forms
 
         private void editButton_Click(object sender, EventArgs e)
         {
-
+            check();
             SqlConnect loaddata90 = new SqlConnect();
             addEditCategory edit = new addEditCategory();
             edit.CatIdTb.Text = CatDGV.CurrentRow.Cells[1].Value.ToString();
             string query = $"Select * From CategoryTbl where CatId = {edit.CatIdTb.Text}";
             loaddata90.getData(query);
-            foreach(DataRow row in loaddata90.table.Rows)
+            foreach (DataRow row in loaddata90.table.Rows)
             {
                 edit.CatNameTb.Text = row["CatName"].ToString();
                 edit.CatDescTb.Text = row["CatDesc"].ToString();
@@ -164,6 +166,7 @@ namespace SupermarketTuto.Forms
             SqlConnect loaddata5 = new SqlConnect();
             try
             {
+                check();
                 loaddata5.execCom("Delete From CategoryTbl Where CatId=" + CatDGV.CurrentRow.Cells[0].Value.ToString());
                 display();
             }
@@ -190,7 +193,7 @@ namespace SupermarketTuto.Forms
                 {
                     WorkerReportsProgress = true
                 };
-                BackgroundWorker.DoWork += ImportTrips_DoWork;
+                BackgroundWorker.DoWork += Import_DoWork;
                 BackgroundWorker.ProgressChanged += (s, e2) =>
                 {
                     Form_ProgressBar.waitProgressBar.Value = e2.ProgressPercentage;
@@ -217,9 +220,9 @@ namespace SupermarketTuto.Forms
 
         }
         List<int> selectedProd = new List<int>();
-        private void ImportTrips_DoWork(object sender, DoWorkEventArgs e)
+        private void Import_DoWork(object sender, DoWorkEventArgs e)
         {
-            
+
             for (int i = 0; i < CatDGV.Rows.Count; i++)
             {
                 if (Convert.ToBoolean(CatDGV.Rows[i].Cells[0].Value))
@@ -228,7 +231,7 @@ namespace SupermarketTuto.Forms
                     (sender as BackgroundWorker).ReportProgress(i);
                 }
             }
-            
+
         }
 
         #endregion
@@ -272,6 +275,27 @@ namespace SupermarketTuto.Forms
             //}
 
 
+        }
+
+        private void selectAllCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (selectAllCheckBox.Checked)
+            {
+                foreach (DataGridViewRow row in CatDGV.Rows)
+                {
+                    DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)row.Cells[0];
+                    chk.Value = !(chk.Value == null ? false : (bool)chk.Value);
+                }
+            }
+            else
+            {
+                foreach (DataGridViewRow row in CatDGV.Rows)
+                {
+                    DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)row.Cells[0];
+                    chk.Value = !(chk.Value == null ? true : (bool)chk.Value);
+                }
+
+            }
         }
         #endregion
 
@@ -349,6 +373,16 @@ namespace SupermarketTuto.Forms
                 pagingCheckBox.Checked = false;
                 display();
             }
+        }
+
+        #endregion
+
+        #region ChechDatabase
+        private void check()
+        {
+            SqlConnect sql = new SqlConnect();
+            var customerType = typeof(Categories);
+            sql.checkTable(Categories: customerType);
         }
 
         #endregion

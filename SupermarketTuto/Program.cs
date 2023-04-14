@@ -1,8 +1,12 @@
+using ClassLibrary1;
+using ClassLibrary1.Models;
 using DataClass;
 using SupermarketTuto.Forms;
 using SupermarketTuto.Forms.AdminForms;
 using SupermarketTuto.Forms.General;
 using SupermarketTuto.Forms.SellingForms;
+using SchemaColumn = DataClass.SchemaColumn;
+using SchemaTable = DataClass.SchemaTable;
 
 namespace SupermarketTuto
 {
@@ -12,14 +16,14 @@ namespace SupermarketTuto
         [STAThread]
         static void Main()
         {
+
             Application.Run(new MainAdmin());
         }
 
-        // TODO: Build class in order to manage Sql tables, schema etc
         // TODO: Use TCP / UDP sending/receiving packet  
         // TODO: Build API 
-        // TODO: Manage Threads
+        // TODO: Manage Threads, Lock Treads etc.
         // TODO: Use custom events
-
+        
     }
 }

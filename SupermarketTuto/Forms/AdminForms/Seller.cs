@@ -1,4 +1,5 @@
 ﻿using ClassLibrary1;
+using ClassLibrary1.Models;
 using DataClass;
 using SupermarketTuto.Forms.General;
 using SupermarketTuto.Utils;
@@ -82,6 +83,7 @@ namespace SupermarketTuto.Forms
         #region buttons
         private void add2Button_Click(object sender, EventArgs e)
         {
+            check();
             addEditSeller add = new addEditSeller();
             add.editButton.Visible = false;
             add.SellId.Visible = false;
@@ -93,6 +95,7 @@ namespace SupermarketTuto.Forms
         {
             try
             {
+                check();
                 SqlConnect loaddata60 = new SqlConnect();
                 addEditSeller edit = new addEditSeller();
                 edit.SellId.Text = SellDGV.CurrentRow.Cells[0].Value.ToString();
@@ -130,8 +133,8 @@ namespace SupermarketTuto.Forms
 
             try
             {
+                check();
                 loaddata4.execCom("Delete From SellerTbl Where SellerId=" + SellDGV.CurrentRow.Cells[0].Value.ToString());
-
                 MessageBox.Show("Seller Deleted Successfully");
 
             }
@@ -292,7 +295,16 @@ namespace SupermarketTuto.Forms
         }
         #endregion
 
- 
+        #region ChechDatabase
+        private void check()
+        {
+            SqlConnect sql = new SqlConnect();
+            var customerType = typeof(Sellers);
+            sql.checkTable(Categories: customerType);
+        }
+
+        #endregion
+
     }
 }
 

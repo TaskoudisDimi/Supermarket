@@ -39,7 +39,6 @@ namespace SupermarketTuto.Forms.General
             InitializeComponent();
         }
 
-
         private void addButton_Click(object sender, EventArgs e)
         {
             byte[] imageData = File.ReadAllBytes(imageName);
@@ -71,8 +70,6 @@ namespace SupermarketTuto.Forms.General
             }
         }
 
-        
-
         private void ShowPasswordCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             if (ShowPasswordCheckBox.Checked)
@@ -95,10 +92,6 @@ namespace SupermarketTuto.Forms.General
                 pictureBox.Image = Image.FromFile(ofd.FileName);
             }
         }
-
-
-
-
 
         private void editButton_Click(object sender, EventArgs e)
         {

@@ -271,6 +271,7 @@
             this.selectAllCheckBox.TabIndex = 138;
             this.selectAllCheckBox.Text = "Select All";
             this.selectAllCheckBox.UseVisualStyleBackColor = true;
+            this.selectAllCheckBox.CheckedChanged += new System.EventHandler(this.selectAllCheckBox_CheckedChanged);
             // 
             // Category
             // 

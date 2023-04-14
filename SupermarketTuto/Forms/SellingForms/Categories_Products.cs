@@ -1,4 +1,5 @@
-﻿using DataClass;
+﻿using ClassLibrary1.Models;
+using DataClass;
 using SupermarketTuto.Forms.General;
 using System.Windows.Forms;
 
@@ -151,6 +152,7 @@ namespace SupermarketTuto.Forms.SellingForms
         }
         private void addButton_Click(object sender, EventArgs e)
         {
+            checkProd();
             addEditProduct add = new addEditProduct();
             SqlConnect loaddata21 = new SqlConnect();
             ////This method will bind the Combobox with the Database
@@ -169,7 +171,7 @@ namespace SupermarketTuto.Forms.SellingForms
 
         private void editButton_Click(object sender, EventArgs e)
         {
-
+            checkProd();
             SqlConnect loaddata20 = new SqlConnect();
             addEditProduct edit = new addEditProduct();
             ////This method will bind the Combobox with the Database
@@ -197,6 +199,7 @@ namespace SupermarketTuto.Forms.SellingForms
             SqlConnect loaddata7 = new SqlConnect();
             try
             {
+                checkProd();
                 loaddata7.execCom("Delete From ProductTbl Where ProdId=" + ProdDGV.CurrentRow.Cells[0].Value.ToString());
                 refresh_products();
             }
@@ -208,6 +211,7 @@ namespace SupermarketTuto.Forms.SellingForms
 
         private void add2Button_Click(object sender, EventArgs e)
         {
+            checkCat();
             //addEditCategory add = new addEditCategory();
             //add.Show();
             addEditCategory add = new addEditCategory();
@@ -259,6 +263,7 @@ namespace SupermarketTuto.Forms.SellingForms
 
         private void edit2Button_Click(object sender, EventArgs e)
         {
+            checkCat();
             addEditCategory edit = new addEditCategory();
             edit.CatIdTb.Text = CatDGV.CurrentRow.Cells[0].Value.ToString();
             edit.CatNameTb.Text = CatDGV.CurrentRow.Cells[1].Value.ToString();
@@ -275,6 +280,7 @@ namespace SupermarketTuto.Forms.SellingForms
             SqlConnect loaddata5 = new SqlConnect();
             try
             {
+                checkCat();
                 loaddata5.execCom("Delete From CategoryTbl Where CatId=" + CatDGV.CurrentRow.Cells[0].Value.ToString());
                 refresh_categories();
             }
@@ -319,5 +325,24 @@ namespace SupermarketTuto.Forms.SellingForms
             CatDGV.DataSource = db_categories2.table;
             totalLabel.Text = $"Total: {CatDGV.RowCount}";
         }
+
+
+        #region ChechDatabase
+        private void checkCat()
+        {
+            SqlConnect sql = new SqlConnect();
+            var customerType = typeof(Categories);
+            sql.checkTable(Categories: customerType);
+        }
+
+        private void checkProd()
+        {
+            SqlConnect sql = new SqlConnect();
+            var customerType = typeof(Products);
+            sql.checkTable(Categories: customerType);
+        }
+        #endregion
+
+
     }
 }

@@ -1,4 +1,5 @@
 ﻿using ClassLibrary1;
+using ClassLibrary1.Models;
 using DataClass;
 using Microsoft.VisualBasic.FileIO;
 using Microsoft.VisualBasic.Logging;
@@ -20,7 +21,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-
+using Timer = System.Windows.Forms.Timer;
 
 namespace SupermarketTuto.Forms
 {
@@ -32,19 +33,46 @@ namespace SupermarketTuto.Forms
         WaitBar Form_ProgressBar = new WaitBar();
 
 
+        private Timer timer = new Timer();
+        public delegate void UpdateDataHandler(object sender, EventArgs e);
+        public event UpdateDataHandler UpdateData;
+
         public Product()
         {
             InitializeComponent();
+
+            // Set the interval of the Timer to 60 seconds (60000 milliseconds)
+            timer.Interval = 30000;
+
+            // Subscribe to the Timer's Tick event
+            timer.Tick += Timer_Tick;
         }
-
-
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            // Raise the UpdateData event
+            UpdateData?.Invoke(this, EventArgs.Empty);
+        }
         private void Product_Load(object sender, EventArgs e)
         {
+            // Start the Timer
+            timer.Start();
+
+            // Subscribe to the DataGridView's UpdateData event
+            UpdateData += MyDataGridView_UpdateData;
+
             //BackgroundWorker();
             display();
             fillCombo();
             menu();
         }
+
+        private void MyDataGridView_UpdateData(object sender, EventArgs e)
+        {
+            // Refresh the DataGridView
+            ProdDGV.Refresh();
+        }
+
+
 
         private void display()
         {
@@ -182,6 +210,7 @@ namespace SupermarketTuto.Forms
         #region Buttons
         private void addButton_Click(object sender, EventArgs e)
         {
+            check();
             addEditProduct add = new addEditProduct();
             SqlConnect loaddata2 = new SqlConnect();
             loaddata2.getData("Select CatName From CategoryTbl");
@@ -197,6 +226,7 @@ namespace SupermarketTuto.Forms
 
         private void editButton_Click(object sender, EventArgs e)
         {
+            check();
             SqlConnect loaddata2 = new SqlConnect();
             SqlConnect loaddata3 = new SqlConnect();
             addEditProduct edit = new addEditProduct();
@@ -228,6 +258,7 @@ namespace SupermarketTuto.Forms
             SqlConnect loaddata7 = new SqlConnect();
             try
             {
+                check();
                 loaddata7.execCom("Delete From ProductTbl Where ProdId=" + ProdDGV.CurrentRow.Cells[0].Value.ToString());
                 display();
             }
@@ -508,6 +539,18 @@ namespace SupermarketTuto.Forms
             }
         }
         #endregion
+
+        #region ChechDatabase
+        private void check()
+        {
+            SqlConnect sql = new SqlConnect();
+            var customerType = typeof(Products);
+            sql.checkTable(Categories: customerType);
+        }
+
+        #endregion
+
     }
+    
 }
 

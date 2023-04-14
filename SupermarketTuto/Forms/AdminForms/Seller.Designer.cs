@@ -236,6 +236,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(2543, 1138);
             this.ControlBox = false;
+            this.Controls.Add(this.SellDGV);
             this.Controls.Add(this.activeLabel);
             this.Controls.Add(this.activeComboBox);
             this.Controls.Add(this.exportButton);
@@ -247,7 +248,6 @@
             this.Controls.Add(this.searchTextBox);
             this.Controls.Add(this.toDateTimePicker);
             this.Controls.Add(this.fromDateTimePicker);
-            this.Controls.Add(this.SellDGV);
             this.Controls.Add(this.delete2Button);
             this.Controls.Add(this.editButton);
             this.Controls.Add(this.addButton);

@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 using DataClass;
 using SupermarketTuto.Utils;
+using ClassLibrary1.Models;
 
 namespace SupermarketTuto
 {
@@ -35,6 +36,7 @@ namespace SupermarketTuto
                 }
                 else if (PasswordTextBox.Text == ConfirmPasswordTextBox.Text)
                 {
+                    check();
                     loaddata.execCom("Insert Into Admins Values ('" + UsernameTextBox.Text + "'," + $"CONVERT(varbinary, '{PasswordTextBox.Text}')" + "," + "'True')");
                     MessageBox.Show("Your Account has been Successfully Created", "Registration Success", MessageBoxButtons.OK);
                     UsernameTextBox.Clear();
@@ -94,6 +96,17 @@ namespace SupermarketTuto
                 e.Cancel = true;
             }
         }
+
+        #region ChechDatabase
+        private void check()
+        {
+            SqlConnect sql = new SqlConnect();
+            var customerType = typeof(Admins);
+            sql.checkTable(Categories: customerType);
+        }
+
+        #endregion
+
     }
 }
 

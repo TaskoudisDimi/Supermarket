@@ -1,9 +1,11 @@
-﻿using System;
+﻿using ClassLibrary1.Models;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.Linq;
 using System.Runtime.Remoting.Messaging;
 using System.Transactions;
 using System.Windows.Forms;
@@ -14,7 +16,6 @@ namespace DataClass
     {
 
         public static SqlConnection con = new SqlConnection();
-
         public DataTable table = new DataTable();
         public DataSet set = new DataSet();
 
@@ -193,13 +194,10 @@ namespace DataClass
             CloseCon();
         }
 
-
-
         #region Chech Schema of Database
         public void CheckSchema(List<SchemaTable> Table)
         {
             OpenCon();
-            //var schemaTables = GetSchemaTables(connection);
             var tables = Table;
             foreach (var schemaTable in tables)
             {
@@ -215,34 +213,65 @@ namespace DataClass
                         if (!existingColumns.Contains(schemaColumn.ColumnName))
                         {
                             AddColumn(con, schemaTable.TableName, schemaColumn);
+                            MessageBox.Show($"Added the {schemaColumn.ColumnName} column to the {schemaTable.TableName} table", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                     }
                 }
             }
 
         }
-
-        private List<SchemaTable> GetSchemaTables(SqlConnection connection)
+        private void CreateTable(SqlConnection connection, SchemaTable schemaTable)
         {
-            // This method should return a list of SchemaTable objects that define
-            // the desired schema for the database.
-            // For simplicity, we'll hard-code the schema tables here.
-            return new List<SchemaTable>()
+            var columnsSql = string.Join(", ", schemaTable.Columns.ConvertAll(c => $"{c.ColumnName} {GetSqlType(c)}"));
+            var createTableSql = $"CREATE TABLE {schemaTable.TableName} ({columnsSql})";
+            using (var command = new SqlCommand(createTableSql, connection))
             {
-                new SchemaTable("Customers", new List<SchemaColumn>()
-                {
-                    new SchemaColumn("Id", SqlDbType.Int),
-                    new SchemaColumn("Name", SqlDbType.NVarChar, 50),
-                    new SchemaColumn("Email", SqlDbType.NVarChar, 100)
-                }),
-                new SchemaTable("Orders", new List<SchemaColumn>()
-                {
-                    new SchemaColumn("Id", SqlDbType.Int),
-                    new SchemaColumn("CustomerId", SqlDbType.Int),
-                    new SchemaColumn("OrderDate", SqlDbType.DateTime),
-                    new SchemaColumn("TotalAmount", SqlDbType.Decimal)
-                })
-            };
+                command.ExecuteNonQuery();
+            }
+        }
+        private void AddColumn(SqlConnection connection, string tableName, SchemaColumn schemaColumn)
+        {
+            var addColumnSql = $"ALTER TABLE {tableName} ADD {schemaColumn.ColumnName} {GetSqlType(schemaColumn)}";
+            using (var command = new SqlCommand(addColumnSql, connection))
+            {
+                command.ExecuteNonQuery();
+            }
+        }
+        public SqlDbType GetSqlType(Type type)
+        {
+            if (type == typeof(int))
+            {
+                return SqlDbType.Int;
+            }
+            else if (type == typeof(string))
+            {
+                return SqlDbType.NVarChar;
+            }
+            else if (type == typeof(DateTime))
+            {
+                return SqlDbType.DateTime;
+            }
+            else if (type == typeof(decimal))
+            {
+                return SqlDbType.Decimal;
+            }
+            else if(type == typeof(Image))
+            {
+                return SqlDbType.Image;
+            }
+            else if(type == typeof(byte))
+            {
+                return SqlDbType.Binary;
+            }
+            else if(type == typeof(bool))
+            {
+                return SqlDbType.Bit;
+            }
+            else
+            {
+                // Handle other data types as needed
+                throw new NotSupportedException($"Data type {type.Name} is not supported.");
+            }
         }
 
         private bool TableExists(SqlConnection connection, string tableName)
@@ -270,24 +299,9 @@ namespace DataClass
             return columns;
         }
 
-        private void CreateTable(SqlConnection connection, SchemaTable schemaTable)
-        {
-            var columnsSql = string.Join(", ", schemaTable.Columns.ConvertAll(c => $"{c.ColumnName} {GetSqlType(c)}"));
-            var createTableSql = $"CREATE TABLE {schemaTable.TableName} ({columnsSql})";
-            using (var command = new SqlCommand(createTableSql, connection))
-            {
-                command.ExecuteNonQuery();
-            }
-        }
+        
 
-        private void AddColumn(SqlConnection connection, string tableName, SchemaColumn schemaColumn)
-        {
-            var addColumnSql = $"ALTER TABLE {tableName} ADD {schemaColumn.ColumnName} {GetSqlType(schemaColumn)}";
-            using (var command = new SqlCommand(addColumnSql, connection))
-            {
-                command.ExecuteNonQuery();
-            }
-        }
+        
 
         private string GetSqlType(SchemaColumn schemaColumn)
         {
@@ -299,53 +313,65 @@ namespace DataClass
             {
                 return $"{schemaColumn.DataType}(18, 2)";
             }
+            else if (schemaColumn.DataType == SqlDbType.Date)
+            {
+                return $"{schemaColumn.DataType}(max)";
+            }
+            else if (schemaColumn.DataType == SqlDbType.Binary)
+            {
+                return $"{schemaColumn.DataType}";
+            }
+            else if (schemaColumn.DataType == SqlDbType.Image)
+            {
+                return $"{schemaColumn.DataType}";
+            }
+            else if (schemaColumn.DataType == SqlDbType.Bit)
+            {
+                return $"{schemaColumn.DataType}";
+            }
             else
             {
                 return schemaColumn.DataType.ToString();
             }
         }
-        private List<SchemaTable> GetSchemaTables()
-        {
-            var tables = new List<SchemaTable>();
 
-            // Define the schema for the 'Customers' table
-            var customersColumns = new List<SchemaColumn>
-    {
-        new SchemaColumn("CustomerID", SqlDbType.Int),
-        new SchemaColumn("CustomerName", SqlDbType.NVarChar, 50),
-        new SchemaColumn("ContactName", SqlDbType.NVarChar, 50),
-        new SchemaColumn("Country", SqlDbType.NVarChar, 50),
-    };
-            var customersTable = new SchemaTable("Customers", customersColumns);
-            tables.Add(customersTable);
-
-            // Define the schema for the 'Orders' table
-            var ordersColumns = new List<SchemaColumn>
-    {
-        new SchemaColumn("OrderID", SqlDbType.Int),
-        new SchemaColumn("CustomerID", SqlDbType.Int),
-        new SchemaColumn("OrderDate", SqlDbType.DateTime),
-        new SchemaColumn("ShippedDate", SqlDbType.DateTime),
-        new SchemaColumn("ShipCountry", SqlDbType.NVarChar, 50),
-    };
-            var ordersTable = new SchemaTable("Orders", ordersColumns);
-            tables.Add(ordersTable);
-
-            // Define the schema for the 'OrderDetails' table
-            var orderDetailsColumns = new List<SchemaColumn>
-    {
-        new SchemaColumn("OrderID", SqlDbType.Int),
-        new SchemaColumn("ProductID", SqlDbType.Int),
-        new SchemaColumn("UnitPrice", SqlDbType.Decimal),
-        new SchemaColumn("Quantity", SqlDbType.Int),
-        new SchemaColumn("Discount", SqlDbType.Decimal),
-    };
-            var orderDetailsTable = new SchemaTable("OrderDetails", orderDetailsColumns);
-            tables.Add(orderDetailsTable);
-
-            return tables;
-        }
         #endregion
+
+        public void checkTable(Type Products = null, Type Categories = null, Type Bills = null, Type Sellers = null, Type Admins = null, Type BillingProducts = null)
+        {
+            List<SchemaTable> tables = new List<SchemaTable>();
+            var customerType = typeof(Type);
+            if(Products != null)
+            {
+                customerType = typeof(Products);
+            }
+            else if(Categories != null)
+            {
+                customerType = typeof(Categories);
+            }
+            else if(Bills != null)
+            {
+                customerType = typeof(Bills);
+            }
+            else if(Sellers != null)
+            {
+                customerType = typeof(Sellers);
+            }
+            else if(Admins != null)
+            {
+                customerType = typeof(Admins);
+            }
+            else if(BillingProducts != null)
+            {
+                customerType = typeof(BillingProducts);
+            }
+            var customerProperties = customerType.GetProperties();
+            var customerColumns = customerProperties.Select(p => new SchemaColumn(p.Name, GetSqlType(p.PropertyType))).ToList();
+            var customerTable = new SchemaTable("CategoryTbl", customerColumns);
+            tables.Add(customerTable);
+            CheckSchema(tables);
+        }
+
 
     }
 

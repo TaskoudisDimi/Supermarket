@@ -1,4 +1,5 @@
-﻿using DataClass;
+﻿using ClassLibrary1.Models;
+using DataClass;
 using SupermarketTuto.Utils;
 using System;
 using System.Collections.Generic;
@@ -25,7 +26,6 @@ namespace SupermarketTuto.Forms
             LabelDate.Text = DateTime.Now.ToString();
             seller_Name_Label.Text = Globals.NameOfSeller;
         }
-
 
         private void displayBills()
         {
@@ -58,8 +58,8 @@ namespace SupermarketTuto.Forms
         {
             try
             {
+                check();
                 SqlConnect loaddata4 = new SqlConnect();
-
                 loaddata4.execCom("Insert Into BillTbl values('" + commentsRichTextBox.Text + "','" + seller_Name_Label.Text + "','" + LabelDate.Text + "'," + AmountLabel.Text + ")");
                 commentsRichTextBox.Text = String.Empty;
                 displayBills();
@@ -70,5 +70,15 @@ namespace SupermarketTuto.Forms
                 MessageBox.Show(ex.Message);
             }
         }
+
+        #region ChechDatabase
+        private void check()
+        {
+            SqlConnect sql = new SqlConnect();
+            var customerType = typeof(Bills);
+            sql.checkTable(Categories: customerType);
+        }
+
+        #endregion
     }
 }
