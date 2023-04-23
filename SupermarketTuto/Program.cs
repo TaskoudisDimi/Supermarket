@@ -20,10 +20,13 @@ namespace SupermarketTuto
             Application.Run(new MainAdmin());
         }
 
+        // TODO: Uploade / Download files 
+        // TODO: Autorefresh
         // TODO: Use TCP / UDP sending/receiving packet  
-        // TODO: Build API 
         // TODO: Manage Threads, Lock Treads etc.
-        // TODO: Use custom events
-        
+        // TODO: Build API 
+        // TODO: Call API (json && xml)
     }
 }
+
+

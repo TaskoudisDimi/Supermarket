@@ -19,6 +19,11 @@ namespace SupermarketTuto.Utils
             Cat3 = 2
         }
 
+        public enum TypeOfUser
+        {
+            Admin = 0,
+            Seller = 1
+        }
 
     }
 }

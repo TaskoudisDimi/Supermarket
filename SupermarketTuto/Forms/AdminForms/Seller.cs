@@ -23,43 +23,35 @@ namespace SupermarketTuto.Forms
         {
             try
             {
-                fromDateTimePicker.Value = DateTime.Now.AddMonths(-2);
+                
                 if (activeComboBox.Text == "Active")
                 {
-
                     SqlConnect loaddata1 = new SqlConnect();
-                    //loaddata1.getData("Select [SellerId],[SellerUserName],cast([SellerPass] as varchar(MAX)) as Password,[SellerName],[SellerAge],[SellerPhone],[Address],[Date],[Active] From SellersTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and Active = 'true'");
-                    loaddata1.pagingData("Select [SellerId],[SellerUserName],cast([SellerPass] as varchar(MAX)) as Password,[SellerName],[SellerAge],[SellerPhone],[Address],[Date],[Active] From SellersTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and Active = 'true'", 0, 5);
+                    loaddata1.pagingData("Select [SellerId],[SellerUserName],cast([SellerPass] as varchar(MAX)) as Password,[SellerName],[SellerAge],[SellerPhone],[Date],[Address],[Active] From SellersTbl where Active = 'true'", 0, 5);
                     SellDGV.DataSource = loaddata1.table;
                     totalLabel.Text = $"Total: {SellDGV.RowCount}";
                     SellDGV.RowHeadersVisible = false;
-                    SellDGV.Columns[5].HeaderText = "Date of Birth";
-                    SellDGV.Columns[7].HeaderText = "Date Created";
-
+                    //SellDGV.Columns[6].HeaderText = "Date of Birth";
                 }
+                
                 else if (activeComboBox.Text == "Inactive")
                 {
                     SqlConnect loaddata1 = new SqlConnect();
-                    loaddata1.getData("Select [SellerId],[SellerUserName],cast([SellerPass] as varchar(MAX)) as Password,[SellerName],[SellerAge],[SellerPhone],[Address],[Date],[Active] From SellersTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and Active = 'False'");
+                    loaddata1.getData("Select [SellerId],[SellerUserName],cast([SellerPass] as varchar(MAX)) as Password,[SellerName],[SellerAge],[SellerPhone],[Date],[Address],[Active] From SellersTbl where Active = 'False'");
                     SellDGV.DataSource = loaddata1.table;
                     totalLabel.Text = $"Total: {SellDGV.RowCount}";
                     SellDGV.RowHeadersVisible = false;
-                    SellDGV.Columns[5].HeaderText = "Date of Birth";
-                    SellDGV.Columns[7].HeaderText = "Date Created";
-
+                    //SellDGV.Columns[6].HeaderText = "Date of Birth";
                 }
                 else
                 {
                     SqlConnect loaddata1 = new SqlConnect();
-                    loaddata1.getData("Select [SellerId],[SellerUserName],cast([SellerPass] as varchar(MAX)) as Password,[SellerName],[SellerAge],[SellerPhone],[Address],[Date],[Active] From SellersTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'");
+                    loaddata1.getData("Select [SellerId],[SellerUserName],cast([SellerPass] as varchar(MAX)) as Password,[SellerName],[SellerAge],[SellerPhone],[Date],[Address],[Active] From SellersTbl");
                     SellDGV.DataSource = loaddata1.table;
                     totalLabel.Text = $"Total: {SellDGV.RowCount}";
                     SellDGV.RowHeadersVisible = false;
-                    SellDGV.Columns[5].HeaderText = "Date of Birth";
-                    SellDGV.Columns[7].HeaderText = "Date Created";
-
+                    //SellDGV.Columns[6].HeaderText = "Date of Birth";
                 }
-
             }
             catch (Exception ex)
             {
@@ -83,7 +75,7 @@ namespace SupermarketTuto.Forms
         #region buttons
         private void add2Button_Click(object sender, EventArgs e)
         {
-            check();
+            //check();
             addEditSeller add = new addEditSeller();
             add.editButton.Visible = false;
             add.SellId.Visible = false;
@@ -95,7 +87,7 @@ namespace SupermarketTuto.Forms
         {
             try
             {
-                check();
+                //check();
                 SqlConnect loaddata60 = new SqlConnect();
                 addEditSeller edit = new addEditSeller();
                 edit.SellId.Text = SellDGV.CurrentRow.Cells[0].Value.ToString();
@@ -133,8 +125,8 @@ namespace SupermarketTuto.Forms
 
             try
             {
-                check();
-                loaddata4.execCom("Delete From SellerTbl Where SellerId=" + SellDGV.CurrentRow.Cells[0].Value.ToString());
+                //check();
+                loaddata4.execCom("Delete From SellersTbl Where SellerId=" + SellDGV.CurrentRow.Cells[0].Value.ToString());
                 MessageBox.Show("Seller Deleted Successfully");
 
             }
@@ -146,11 +138,10 @@ namespace SupermarketTuto.Forms
         private void searchButton_Click(object sender, EventArgs e)
         {
             SqlConnect db_sellers = new SqlConnect();
-            string query = "Select * From SellerTbl where SellerId like '%" + searchTextBox.Text + "%'" + "or SellerName like '%" + searchTextBox.Text + "%'" + "or SellerAge like '%" + searchTextBox.Text + "%'" + "or SellerPhone like '%" + searchTextBox.Text + "%'" + "or SellerPass like '%" + searchTextBox.Text + "%'";
+            string query = "Select [SellerId],[SellerUserName],cast([SellerPass] as varchar(MAX)) as Password,[SellerName],[SellerAge],[SellerPhone],[Date],[Address],[Active] From SellersTbl where SellerId like '%" + searchTextBox.Text + "%'" + "or SellerName like '%" + searchTextBox.Text + "%'" + "or SellerAge like '%" + searchTextBox.Text + "%'" + "or SellerPhone like '%" + searchTextBox.Text + "%'" + "or SellerPass like '%" + searchTextBox.Text + "%'";
             db_sellers.search(searchTextBox.Text, query);
             SellDGV.DataSource = db_sellers.table;
             totalLabel.Text = $"Total: {SellDGV.RowCount}";
-
         }
 
         private void refreshButton_Click(object sender, EventArgs e)
@@ -228,27 +219,20 @@ namespace SupermarketTuto.Forms
 
         private void importButton_Click(object sender, EventArgs e)
         {
-            excel.import();
+            SellDGV.DataSource = excel.import();
         }
 
         private void saveButton_Click(object sender, EventArgs e)
         {
-            excel.save(SellDGV);
+            Type seller = typeof(Sellers);
+            excel.save(SellDGV, seller);
         }
 
-       
+        
         #endregion
 
         #region Events
-        private void fromDateTimePicker_ValueChanged_1(object sender, EventArgs e)
-        {
-            display();
-        }
-
-        private void toDateTimePicker_ValueChanged(object sender, EventArgs e)
-        {
-            display();
-        }
+       
 
         private void SellDGV_MouseDown(object sender, MouseEventArgs e)
         {
@@ -305,6 +289,10 @@ namespace SupermarketTuto.Forms
 
         #endregion
 
+        private void searchTextBox_TextChanged(object sender, EventArgs e)
+        {
+            searchButton.PerformClick();
+        }
     }
 }
 

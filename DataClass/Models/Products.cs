@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace ClassLibrary1.Models
 {
-    public class Products
+    public class Products : Excel
     {
         public int ProdId { get; set; }
-
         public string ProdName { get; set; }
         public int ProdQty { get; set; }
         public int ProdPrice { get; set; }

@@ -38,15 +38,14 @@
             this.fromDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.refreshButton = new System.Windows.Forms.Button();
             this.CatDGV = new System.Windows.Forms.DataGridView();
-            this.exportButton = new System.Windows.Forms.Button();
-            this.saveButton = new System.Windows.Forms.Button();
-            this.importButton = new System.Windows.Forms.Button();
             this.showSelectedProductsButton = new System.Windows.Forms.Button();
             this.pagingCheckBox = new System.Windows.Forms.CheckBox();
             this.pagingCombobox = new System.Windows.Forms.ComboBox();
             this.nextButton = new System.Windows.Forms.Button();
             this.prevButton = new System.Windows.Forms.Button();
             this.selectAllCheckBox = new System.Windows.Forms.CheckBox();
+            this.importCombobox = new System.Windows.Forms.ComboBox();
+            this.exportCombobox = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.CatDGV)).BeginInit();
             this.SuspendLayout();
             // 
@@ -170,42 +169,6 @@
             this.CatDGV.TabIndex = 78;
             this.CatDGV.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.CatDGV_CellFormatting);
             // 
-            // exportButton
-            // 
-            this.exportButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.exportButton.Location = new System.Drawing.Point(1383, 642);
-            this.exportButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.exportButton.Name = "exportButton";
-            this.exportButton.Size = new System.Drawing.Size(101, 37);
-            this.exportButton.TabIndex = 114;
-            this.exportButton.Text = "Export";
-            this.exportButton.UseVisualStyleBackColor = true;
-            this.exportButton.Click += new System.EventHandler(this.exportButton_Click);
-            // 
-            // saveButton
-            // 
-            this.saveButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.saveButton.Location = new System.Drawing.Point(1619, 640);
-            this.saveButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.saveButton.Name = "saveButton";
-            this.saveButton.Size = new System.Drawing.Size(94, 37);
-            this.saveButton.TabIndex = 113;
-            this.saveButton.Text = "Save";
-            this.saveButton.UseVisualStyleBackColor = true;
-            this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
-            // 
-            // importButton
-            // 
-            this.importButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.importButton.Location = new System.Drawing.Point(1507, 640);
-            this.importButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.importButton.Name = "importButton";
-            this.importButton.Size = new System.Drawing.Size(104, 35);
-            this.importButton.TabIndex = 112;
-            this.importButton.Text = "Import";
-            this.importButton.UseVisualStyleBackColor = true;
-            this.importButton.Click += new System.EventHandler(this.importButton_Click);
-            // 
             // showSelectedProductsButton
             // 
             this.showSelectedProductsButton.Location = new System.Drawing.Point(1755, 71);
@@ -273,21 +236,38 @@
             this.selectAllCheckBox.UseVisualStyleBackColor = true;
             this.selectAllCheckBox.CheckedChanged += new System.EventHandler(this.selectAllCheckBox_CheckedChanged);
             // 
+            // importCombobox
+            // 
+            this.importCombobox.FormattingEnabled = true;
+            this.importCombobox.Location = new System.Drawing.Point(1380, 640);
+            this.importCombobox.Name = "importCombobox";
+            this.importCombobox.Size = new System.Drawing.Size(146, 37);
+            this.importCombobox.TabIndex = 140;
+            this.importCombobox.Text = "Import";
+            // 
+            // exportCombobox
+            // 
+            this.exportCombobox.FormattingEnabled = true;
+            this.exportCombobox.Location = new System.Drawing.Point(1562, 640);
+            this.exportCombobox.Name = "exportCombobox";
+            this.exportCombobox.Size = new System.Drawing.Size(146, 37);
+            this.exportCombobox.TabIndex = 139;
+            this.exportCombobox.Text = "Export";
+            // 
             // Category
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(14F, 29F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(2041, 846);
             this.ControlBox = false;
+            this.Controls.Add(this.importCombobox);
+            this.Controls.Add(this.exportCombobox);
             this.Controls.Add(this.selectAllCheckBox);
             this.Controls.Add(this.pagingCheckBox);
             this.Controls.Add(this.pagingCombobox);
             this.Controls.Add(this.nextButton);
             this.Controls.Add(this.prevButton);
             this.Controls.Add(this.showSelectedProductsButton);
-            this.Controls.Add(this.exportButton);
-            this.Controls.Add(this.saveButton);
-            this.Controls.Add(this.importButton);
             this.Controls.Add(this.deleteButton);
             this.Controls.Add(this.editButton);
             this.Controls.Add(this.addButton);
@@ -319,9 +299,6 @@
         private DateTimePicker toDateTimePicker;
         private DateTimePicker fromDateTimePicker;
         private Button refreshButton;
-        private Button exportButton;
-        private Button saveButton;
-        private Button importButton;
         public DataGridView CatDGV;
         private Button showSelectedProductsButton;
         private CheckBox pagingCheckBox;
@@ -329,5 +306,7 @@
         private Button nextButton;
         private Button prevButton;
         private CheckBox selectAllCheckBox;
+        private ComboBox importCombobox;
+        private ComboBox exportCombobox;
     }
 }

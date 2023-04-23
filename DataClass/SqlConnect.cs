@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
@@ -17,7 +18,11 @@ namespace DataClass
 
         public static SqlConnection con = new SqlConnection();
         public DataTable table = new DataTable();
-        public DataSet set = new DataSet();
+        private DataSet dataSet;
+        private DataTable dataTable;
+        private BindingSource bindingSource;
+        private SqlDataAdapter dataAdapter;
+
 
         public SqlConnect()
         {
@@ -69,7 +74,6 @@ namespace DataClass
                 SqlDataAdapter adapter = new SqlDataAdapter(command);
 
                 adapter.Fill(table);
-
                 transaction.Commit();
                 return table;
             }
@@ -83,20 +87,27 @@ namespace DataClass
                 con.Close();
             }
         }
-        public DataSet getDataSet(string cmd)
+
+        public BindingSource getDataTest(string cmd)
         {
             OpenCon();
             SqlTransaction transaction = con.BeginTransaction();
 
             try
             {
+                //dataTableTest = new DataTable();
+                dataSet = new DataSet();
+                dataTable = new DataTable("Categories");
                 SqlCommand command = new SqlCommand(cmd, con, transaction);
-                SqlDataAdapter adapter = new SqlDataAdapter(command);
-
-                adapter.Fill(table);
-
+                dataAdapter = new SqlDataAdapter(command);
+                dataAdapter.Fill(dataTable);
                 transaction.Commit();
-                return set;
+                dataSet.Tables.Add(dataTable);
+                //Create a new BindingSource instance and bind it to the DataSet
+                bindingSource = new BindingSource();
+                bindingSource.DataSource = dataSet;
+                bindingSource.DataMember = "Categories";
+                return bindingSource;
             }
             catch (Exception ex)
             {
@@ -108,11 +119,26 @@ namespace DataClass
                 con.Close();
             }
         }
+        public void UpdateData()
+        {
+            // Update the data in the DataTable and notify the BindingSource of the changes
+            dataTable.Rows[0]["CatName"] = "John";
+            // Create a new SqlCommandBuilder instance and use it to generate the necessary SQL statements to update the database
+            SqlCommandBuilder builder = new SqlCommandBuilder(dataAdapter);
+            dataAdapter.UpdateCommand = builder.GetUpdateCommand();
+            dataAdapter.InsertCommand = builder.GetInsertCommand();
+            dataAdapter.DeleteCommand = builder.GetDeleteCommand();
+
+            // Use the Update method of the SqlDataAdapter to perform the update
+            dataAdapter.Update(dataSet.Tables[0]);
+
+            // Reset the bindings of the BindingSource to notify the UI of the changes
+            bindingSource.ResetBindings(false);
+        }
         public void execCom(string cmd)
         {
             OpenCon();
             SqlTransaction transaction = con.BeginTransaction();
-
             try
             {
                 // Insert data into table
@@ -120,6 +146,7 @@ namespace DataClass
                 command.ExecuteNonQuery();
 
                 transaction.Commit();
+
             }
             catch (Exception ex)
             {
@@ -255,15 +282,15 @@ namespace DataClass
             {
                 return SqlDbType.Decimal;
             }
-            else if(type == typeof(Image))
+            else if (type == typeof(Image))
             {
                 return SqlDbType.Image;
             }
-            else if(type == typeof(byte))
+            else if (type == typeof(byte))
             {
                 return SqlDbType.Binary;
             }
-            else if(type == typeof(bool))
+            else if (type == typeof(bool))
             {
                 return SqlDbType.Bit;
             }
@@ -299,9 +326,6 @@ namespace DataClass
             return columns;
         }
 
-        
-
-        
 
         private string GetSqlType(SchemaColumn schemaColumn)
         {
@@ -341,27 +365,27 @@ namespace DataClass
         {
             List<SchemaTable> tables = new List<SchemaTable>();
             var customerType = typeof(Type);
-            if(Products != null)
+            if (Products != null)
             {
                 customerType = typeof(Products);
             }
-            else if(Categories != null)
+            else if (Categories != null)
             {
                 customerType = typeof(Categories);
             }
-            else if(Bills != null)
+            else if (Bills != null)
             {
                 customerType = typeof(Bills);
             }
-            else if(Sellers != null)
+            else if (Sellers != null)
             {
                 customerType = typeof(Sellers);
             }
-            else if(Admins != null)
+            else if (Admins != null)
             {
                 customerType = typeof(Admins);
             }
-            else if(BillingProducts != null)
+            else if (BillingProducts != null)
             {
                 customerType = typeof(BillingProducts);
             }

@@ -1,6 +1,8 @@
 ﻿using ClassLibrary1;
 using ClassLibrary1.Models;
 using DataClass;
+using Microsoft.Office.Interop.Excel;
+using NuGet;
 using SupermarketTuto.Forms.AdminForms;
 using SupermarketTuto.Forms.General;
 using SupermarketTuto.Interfaces;
@@ -8,18 +10,21 @@ using SupermarketTuto.Utils;
 using System.ComponentModel;
 using System.Data;
 using System.Text;
+using System.Windows.Forms;
+using DataTable = System.Data.DataTable;
 using SchemaTable = DataClass.SchemaTable;
 
 namespace SupermarketTuto.Forms
 {
-    public partial class Category : Form, excelFiles
+    public partial class Category : Form
     {
         int startRecord;
+        SqlConnect loaddata = new SqlConnect();
+        DataTable keepTable = new DataTable();
         public Category()
         {
             InitializeComponent();
         }
-
         private void Category_Load(object sender, EventArgs e)
         {
             display();
@@ -29,7 +34,6 @@ namespace SupermarketTuto.Forms
             checkboxColumn.Name = "Select";
             CatDGV.Columns.Add(checkboxColumn);
             CatDGV.Columns["Select"].DisplayIndex = 0;
-
             menu();
         }
         private void display()
@@ -37,10 +41,11 @@ namespace SupermarketTuto.Forms
             try
             {
                 fromDateTimePicker.Value = DateTime.Now.AddMonths(-2);
-                SqlConnect loaddata = new SqlConnect();
                 CatDGV.DataSource = loaddata.getData("Select * From CategoryTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'");
+                //CatDGV.DataSource = loaddata.getDataTest("Select * From CategoryTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'");
                 CatDGV.RowHeadersVisible = false;
-                CatDGV.Columns[3].HeaderText = "Date Created";
+                keepTable = loaddata.table.Copy();
+                CatDGV.Columns[3].HeaderText = "Date";
                 totalLabel.Text = $"Total: {CatDGV.RowCount}";
                 if (totalLabel.Text == null)
                 {
@@ -51,8 +56,6 @@ namespace SupermarketTuto.Forms
             {
                 Utlis.Log(string.Format("Message : {0}", ex.Message), "ErrorImportTxt.txt");
             }
-
-
         }
 
         #region MenuStrip
@@ -72,15 +75,15 @@ namespace SupermarketTuto.Forms
 
         private void mnuEdit_Click(object? sender, EventArgs e)
         {
-            addEditCategory edit = new addEditCategory();
-            edit.CatIdTb.Text = CatDGV.CurrentRow.Cells[1].Value.ToString();
-            edit.CatNameTb.Text = CatDGV.CurrentRow.Cells[2].Value.ToString();
-            edit.CatDescTb.Text = CatDGV.CurrentRow.Cells[3].Value.ToString();
-            edit.dateTimePicker.Text = CatDGV.CurrentRow.Cells[4].Value.ToString();
-            edit.addButton.Visible = false;
-            edit.CatIdTb.ReadOnly = true;
-            edit.Show();
-            display();
+            //addEditCategory edit = new addEditCategory();
+            //edit.CatIdTb.Text = CatDGV.CurrentRow.Cells[1].Value.ToString();
+            //edit.CatNameTb.Text = CatDGV.CurrentRow.Cells[2].Value.ToString();
+            //edit.CatDescTb.Text = CatDGV.CurrentRow.Cells[3].Value.ToString();
+            //edit.dateTimePicker.Text = CatDGV.CurrentRow.Cells[4].Value.ToString();
+            //edit.addButton.Visible = false;
+            //edit.CatIdTb.ReadOnly = true;
+            //edit.Show();
+            //display();
         }
 
         private void mnuDelete_Click(object? sender, EventArgs e)
@@ -93,6 +96,7 @@ namespace SupermarketTuto.Forms
                 {
                     CatDGV.Rows.RemoveAt(row.Index);
                 }
+
             }
             catch
             {
@@ -128,29 +132,25 @@ namespace SupermarketTuto.Forms
         #region Buttons
         private void refreshButton_Click(object sender, EventArgs e)
         {
-            display();
+            CatDGV.DataSource = loaddata.table;
+            //loaddata.UpdateData();
         }
 
         private void addButton_Click(object sender, EventArgs e)
         {
-            check();
-            addEditCategory add = new addEditCategory();
+            //check();
+            addEditCategory add = new addEditCategory(loaddata);
             add.editButton.Visible = false;
             add.CatIdTb.Visible = false;
             add.idlabel.Visible = false;
-            add.Show();
-            display();
+            add.ShowDialog();
         }
 
         private void editButton_Click(object sender, EventArgs e)
         {
-            check();
-            SqlConnect loaddata90 = new SqlConnect();
-            addEditCategory edit = new addEditCategory();
-            edit.CatIdTb.Text = CatDGV.CurrentRow.Cells[1].Value.ToString();
-            string query = $"Select * From CategoryTbl where CatId = {edit.CatIdTb.Text}";
-            loaddata90.getData(query);
-            foreach (DataRow row in loaddata90.table.Rows)
+            //check();
+            addEditCategory edit = new addEditCategory(loaddata);
+            foreach (DataRow row in loaddata.table.Rows)
             {
                 edit.CatNameTb.Text = row["CatName"].ToString();
                 edit.CatDescTb.Text = row["CatDesc"].ToString();
@@ -166,9 +166,9 @@ namespace SupermarketTuto.Forms
             SqlConnect loaddata5 = new SqlConnect();
             try
             {
-                check();
-                loaddata5.execCom("Delete From CategoryTbl Where CatId=" + CatDGV.CurrentRow.Cells[0].Value.ToString());
-                display();
+                //check();
+                loaddata5.execCom("Delete From CategoryTbl Where CatId = " + CatDGV.CurrentRow.Cells[1].Value.ToString());
+                //display();
             }
             catch (Exception ex)
             {
@@ -239,23 +239,45 @@ namespace SupermarketTuto.Forms
         #region DateTimePicker
         private void fromDateTimePicker_ValueChanged(object sender, EventArgs e)
         {
-            display();
+            if (loaddata.table.Columns.Count > 0)
+            {
+
+                DateTime pickerDate = fromDateTimePicker.Value.Date;
+                DataRow[] rowsToRemove = loaddata.table.Select("Date < #" + pickerDate + "#");
+                DataRow[] rowsToAdd = keepTable.Select("Date > #" + pickerDate + "#");
+                if (rowsToRemove.Count() > 0)
+                {
+                    foreach (DataRow row in rowsToRemove)
+                    {
+                        loaddata.table.Rows.Remove(row);
+                    }
+                    CatDGV.DataSource = loaddata.table;
+                }
+                else
+                {
+                    if(rowsToAdd.Count() == 0)
+                    {
+                        foreach (DataRow row in rowsToAdd)
+                        {
+                            loaddata.table.Rows.Add(row);
+                        }
+                        
+                    }
+                    CatDGV.DataSource = keepTable;
+                }
+            }
         }
 
         private void toDateTimePicker_ValueChanged(object sender, EventArgs e)
         {
-            display();
+           
         }
         #endregion
 
         #region Events
         private void searchTextBox_TextChanged(object sender, EventArgs e)
         {
-            SqlConnect db_sellers = new SqlConnect();
-            string query = "Select * From CategoryTbl where CatId like '%" + searchTextBox.Text + "%'" + "or CatName like '%" + searchTextBox.Text + "%'" + "or CatDesc like '%" + searchTextBox.Text + "%'";
-            db_sellers.search(searchTextBox.Text, query);
-            CatDGV.DataSource = db_sellers.table;
-            totalLabel.Text = $"Total: {CatDGV.RowCount}";
+            searchButton.PerformClick();
         }
 
         private void CatDGV_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -313,7 +335,8 @@ namespace SupermarketTuto.Forms
 
         private void saveButton_Click(object sender, EventArgs e)
         {
-            excel.save(CatDGV);
+            Type category = typeof(Categories);
+
         }
 
         #endregion
@@ -371,7 +394,7 @@ namespace SupermarketTuto.Forms
                 nextButton.Visible = false;
                 pagingCombobox.Visible = false;
                 pagingCheckBox.Checked = false;
-                display();
+                //display();
             }
         }
 
@@ -387,6 +410,6 @@ namespace SupermarketTuto.Forms
 
         #endregion
 
-
+       
     }
 }

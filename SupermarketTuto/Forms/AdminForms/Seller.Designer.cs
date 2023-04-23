@@ -32,8 +32,6 @@
             this.totalLabel = new System.Windows.Forms.Label();
             this.searchButton = new System.Windows.Forms.Button();
             this.searchTextBox = new System.Windows.Forms.TextBox();
-            this.toDateTimePicker = new System.Windows.Forms.DateTimePicker();
-            this.fromDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.SellDGV = new System.Windows.Forms.DataGridView();
             this.delete2Button = new System.Windows.Forms.Button();
             this.editButton = new System.Windows.Forms.Button();
@@ -79,27 +77,8 @@
             this.searchTextBox.Name = "searchTextBox";
             this.searchTextBox.Size = new System.Drawing.Size(266, 35);
             this.searchTextBox.TabIndex = 112;
+            this.searchTextBox.TextChanged += new System.EventHandler(this.searchTextBox_TextChanged);
             this.searchTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.searchTextBox_KeyPress);
-            // 
-            // toDateTimePicker
-            // 
-            this.toDateTimePicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.toDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.toDateTimePicker.Location = new System.Drawing.Point(1968, 74);
-            this.toDateTimePicker.Name = "toDateTimePicker";
-            this.toDateTimePicker.Size = new System.Drawing.Size(266, 35);
-            this.toDateTimePicker.TabIndex = 110;
-            this.toDateTimePicker.ValueChanged += new System.EventHandler(this.toDateTimePicker_ValueChanged);
-            // 
-            // fromDateTimePicker
-            // 
-            this.fromDateTimePicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.fromDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.fromDateTimePicker.Location = new System.Drawing.Point(1670, 74);
-            this.fromDateTimePicker.Name = "fromDateTimePicker";
-            this.fromDateTimePicker.Size = new System.Drawing.Size(260, 35);
-            this.fromDateTimePicker.TabIndex = 109;
-            this.fromDateTimePicker.ValueChanged += new System.EventHandler(this.fromDateTimePicker_ValueChanged_1);
             // 
             // SellDGV
             // 
@@ -246,8 +225,6 @@
             this.Controls.Add(this.totalLabel);
             this.Controls.Add(this.searchButton);
             this.Controls.Add(this.searchTextBox);
-            this.Controls.Add(this.toDateTimePicker);
-            this.Controls.Add(this.fromDateTimePicker);
             this.Controls.Add(this.delete2Button);
             this.Controls.Add(this.editButton);
             this.Controls.Add(this.addButton);
@@ -265,8 +242,6 @@
         private Label totalLabel;
         private Button searchButton;
         private TextBox searchTextBox;
-        private DateTimePicker toDateTimePicker;
-        private DateTimePicker fromDateTimePicker;
         private DataGridView SellDGV;
         private Button delete2Button;
         private Button editButton;

@@ -100,7 +100,7 @@ namespace SupermarketTuto.Forms.General
             {
                 if (checkBox.Checked)
                 {
-                    loaddata3.execCom("Update SellersTbl set SellerUserName='" + SellName.Text + $"', SellerPass = Convert(varbinary, '{passwordTextBox.Text}')" + ", SellerName = '" + SellName.Text + "', SellerAge='" + SellAge.Text + "', SellerPhone='" + SellPhone.Text + "', Address='" + addressTextBox.Text + "', Date='" + dateTimePicker.Value.ToString("yyyy-MM-dd") + "', Active = 'True'" +  "where SellerId=" + SellId.Text);
+                    loaddata3.execCom("Update SellersTbl set SellerUserName='" + usernameTextBox.Text + $"', SellerPass = Convert(varbinary, '{passwordTextBox.Text}')" + ", SellerName = '" + SellName.Text + "', SellerAge='" + SellAge.Text + "', SellerPhone='" + SellPhone.Text + "', Address='" + addressTextBox.Text + "', Date='" + dateTimePicker.Value.ToString("yyyy-MM-dd") + "', Active = 'True'" +  "where SellerId=" + SellId.Text);
                 }
                 else
                 {

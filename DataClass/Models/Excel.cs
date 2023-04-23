@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ClassLibrary1
+namespace ClassLibrary1.Models
 {
-    public class CsvFiles
+    internal interface Excel
     {
-
     }
 }

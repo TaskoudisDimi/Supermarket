@@ -18,10 +18,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="EPPlus" Version="6.0.8" />
+    <PackageReference Include="EPPlus" Version="6.2.1" />
     <PackageReference Include="ExcelPackage" Version="1.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="squirrel.windows" Version="1.9.0" />
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,6 +30,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="EPPlus">
+      <HintPath>bin\Debug\net48\EPPlus.dll</HintPath>
+    </Reference>
     <Reference Include="GMap.NET.Core">
       <HintPath>References\GMap.NET.Core.dll</HintPath>
     </Reference>

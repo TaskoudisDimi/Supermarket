@@ -1,13 +1,16 @@
 ﻿using ClassLibrary1;
 using ClassLibrary1.Models;
 using DataClass;
+using Microsoft.Office.Interop.Excel;
 using Microsoft.VisualBasic.FileIO;
 using Microsoft.VisualBasic.Logging;
 using Newtonsoft.Json;
+using OfficeOpenXml;
 using SupermarketTuto.Forms.General;
 using SupermarketTuto.Interfaces;
 using SupermarketTuto.Utils;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
@@ -21,22 +24,26 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
+using Button = System.Windows.Forms.Button;
+using ComboBox = System.Windows.Forms.ComboBox;
+using DataTable = System.Data.DataTable;
+using Rectangle = System.Drawing.Rectangle;
 using Timer = System.Windows.Forms.Timer;
 
 namespace SupermarketTuto.Forms
 {
-    public partial class Product : Form, excelFiles
+    public partial class Product : Form
     {
         int startRecord;
 
-        SqlConnect loaddata1 = new SqlConnect();
+        
         WaitBar Form_ProgressBar = new WaitBar();
-
-
+        SqlConnect loaddata1 = new SqlConnect();
+        ExcelFile excel = new ExcelFile();
         private Timer timer = new Timer();
         public delegate void UpdateDataHandler(object sender, EventArgs e);
         public event UpdateDataHandler UpdateData;
-
         public Product()
         {
             InitializeComponent();
@@ -46,6 +53,13 @@ namespace SupermarketTuto.Forms
 
             // Subscribe to the Timer's Tick event
             timer.Tick += Timer_Tick;
+           
+            exportCombobox.Items.Add("Csv");
+            exportCombobox.Items.Add("Xlsx");
+
+            importCombobox.Items.Add("Csv");
+            importCombobox.Items.Add("Xlsx");
+
         }
         private void Timer_Tick(object sender, EventArgs e)
         {
@@ -65,26 +79,24 @@ namespace SupermarketTuto.Forms
             fillCombo();
             menu();
         }
-
         private void MyDataGridView_UpdateData(object sender, EventArgs e)
         {
             // Refresh the DataGridView
             ProdDGV.Refresh();
         }
 
-
-
         private void display()
         {
             try
             {
+                
                 fromDateTimePicker.Value = DateTime.Now.AddMonths(-2);
                 loaddata1.getData("Select * from ProductTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'");
                 ProdDGV.DataSource = loaddata1.table;
-                
                 ProdDGV.RowHeadersVisible = false;
+                ProdDGV.AllowUserToAddRows = false;
                 totalLabel.Text = $"Total: {ProdDGV.RowCount}";
-                ProdDGV.Columns[6].HeaderText = "Date Created";
+                ProdDGV.Columns[6].HeaderText = "Date";
 
             }
             catch (Exception ex)
@@ -111,8 +123,9 @@ namespace SupermarketTuto.Forms
         #region BackgroundWorker
         private void ImportTrips_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
-            loaddata1.getData("Select * from ProductTbl");
-            int data = loaddata1.table.Rows.Count;
+            SqlConnect loaddata11 = new SqlConnect();
+            loaddata11.getData("Select * from ProductTbl");
+            int data = loaddata11.table.Rows.Count;
             for (int i = 0; i <= data; i++)
             {
                 (sender as BackgroundWorker).ReportProgress(i);
@@ -141,7 +154,7 @@ namespace SupermarketTuto.Forms
                         throw e3.Error;
                     Form_ProgressBar.Close();
 
-                    ProdDGV.DataSource = loaddata1.table;
+                    //ProdDGV.DataSource = loaddata1.table;
                 };
 
                 BackgroundWorker.RunWorkerAsync();
@@ -210,7 +223,7 @@ namespace SupermarketTuto.Forms
         #region Buttons
         private void addButton_Click(object sender, EventArgs e)
         {
-            check();
+            //check();
             addEditProduct add = new addEditProduct();
             SqlConnect loaddata2 = new SqlConnect();
             loaddata2.getData("Select CatName From CategoryTbl");
@@ -226,7 +239,7 @@ namespace SupermarketTuto.Forms
 
         private void editButton_Click(object sender, EventArgs e)
         {
-            check();
+            //check();
             SqlConnect loaddata2 = new SqlConnect();
             SqlConnect loaddata3 = new SqlConnect();
             addEditProduct edit = new addEditProduct();
@@ -258,7 +271,7 @@ namespace SupermarketTuto.Forms
             SqlConnect loaddata7 = new SqlConnect();
             try
             {
-                check();
+                //check();
                 loaddata7.execCom("Delete From ProductTbl Where ProdId=" + ProdDGV.CurrentRow.Cells[0].Value.ToString());
                 display();
             }
@@ -292,26 +305,6 @@ namespace SupermarketTuto.Forms
         }
         #endregion
 
-        #region Excel
-        
-        ExcelFile excel = new ExcelFile();
-
-        private void importButton_Click(object sender, EventArgs e)
-        {
-            excel.import();
-        }
-
-        private void saveButton_Click(object sender, EventArgs e)
-        {
-            excel.save(ProdDGV);
-        }
-
-        private void exportButton_Click(object sender, EventArgs e)
-        {
-            excel.export(ProdDGV);
-        }
-
-        #endregion
 
         #region API
         //First, we have created an object of HttpClient and assigned the base address of our Web API.
@@ -429,18 +422,18 @@ namespace SupermarketTuto.Forms
         }
         private void ProdDGV_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            foreach (DataGridViewRow row in ProdDGV.Rows)
-            {
-                if (DateTime.Parse(row.Cells[6].Value.ToString()) >= DateTime.Now.AddMonths(-1)
-                    && DateTime.Parse(row.Cells[6].Value.ToString()) <= DateTime.Now)
-                {
-                    row.DefaultCellStyle.BackColor = Color.Orange;
-                }
-                else
-                {
-                    row.DefaultCellStyle.BackColor = Color.DarkSeaGreen;
-                }
-            }
+            //foreach (DataGridViewRow row in ProdDGV.Rows)
+            //{
+            //    if (DateTime.Parse(row.Cells[6].Value.ToString()) >= DateTime.Now.AddMonths(-1)
+            //        && DateTime.Parse(row.Cells[6].Value.ToString()) <= DateTime.Now)
+            //    {
+            //        row.DefaultCellStyle.BackColor = Color.Orange;
+            //    }
+            //    else
+            //    {
+            //        row.DefaultCellStyle.BackColor = Color.DarkSeaGreen;
+            //    }
+            //}
         }
         private void searchTextBox_TextChanged(object sender, EventArgs e)
         {
@@ -463,12 +456,12 @@ namespace SupermarketTuto.Forms
         #region DateTimePicker
         private void fromDateTimePicker_ValueChanged(object sender, EventArgs e)
         {
-            display();
+           
         }
 
         private void toDateTimePicker_ValueChanged(object sender, EventArgs e)
         {
-            display();
+           
         }
 
         #endregion
@@ -545,12 +538,65 @@ namespace SupermarketTuto.Forms
         {
             SqlConnect sql = new SqlConnect();
             var customerType = typeof(Products);
-            sql.checkTable(Categories: customerType);
+            sql.checkTable(Products: customerType);
         }
 
         #endregion
 
+        #region Excel (csv && xlsx)
+
+        private void exportCombobox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Type product = typeof(Products);
+            var item = ((ComboBox)sender).SelectedItem.ToString();
+            if (item.Contains("Csv"))
+            {
+                excel.export(ProdDGV);
+            }
+            else if (item.Contains("Xlsx"))
+            {
+                
+                excel.Save(ProdDGV, product);
+            }
+        }
+
+        private void importCombobox_SelectedValueChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                Type product = typeof(Products);
+                DataTable tableNew = new DataTable();
+                var item = ((ComboBox)sender).SelectedItem.ToString();
+                if (item.Contains("Csv"))
+                {
+                    tableNew = excel.import();
+
+                }
+                else if (item.Contains("Xlsx"))
+                {
+                    tableNew = excel.ImportExcelAsync(ProdDGV, product);
+                }
+                loaddata1.table.Merge(tableNew);
+                ProdDGV.DataSource = loaddata1.table;
+                ProdDGV.RowHeadersVisible = false;
+                ProdDGV.AllowUserToAddRows = false;
+                DialogResult result = MessageBox.Show("Do you want to save the extra data to DB?", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes)
+                {
+                    excel.SaveToDB(tableNew, product);
+                }
+            }
+            catch
+            {
+
+            }
+            
+        }
+
+        #endregion
+
+
     }
-    
+   
 }
 

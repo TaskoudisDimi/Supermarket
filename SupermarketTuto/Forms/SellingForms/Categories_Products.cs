@@ -82,14 +82,14 @@ namespace SupermarketTuto.Forms.SellingForms
         }
         private void Edit2_Click(object? sender, EventArgs e)
         {
-            addEditCategory edit = new addEditCategory();
-            edit.CatIdTb.Text = CatDGV.CurrentRow.Cells[0].Value.ToString();
-            edit.CatNameTb.Text = CatDGV.CurrentRow.Cells[1].Value.ToString();
-            edit.CatDescTb.Text = CatDGV.CurrentRow.Cells[2].Value.ToString();
-            edit.dateTimePicker.Text = CatDGV.CurrentRow.Cells[3].Value.ToString();
-            edit.addButton.Visible = false;
-            edit.CatIdTb.ReadOnly = true;
-            edit.Show();
+            //addEditCategory edit = new addEditCategory();
+            //edit.CatIdTb.Text = CatDGV.CurrentRow.Cells[0].Value.ToString();
+            //edit.CatNameTb.Text = CatDGV.CurrentRow.Cells[1].Value.ToString();
+            //edit.CatDescTb.Text = CatDGV.CurrentRow.Cells[2].Value.ToString();
+            //edit.dateTimePicker.Text = CatDGV.CurrentRow.Cells[3].Value.ToString();
+            //edit.addButton.Visible = false;
+            //edit.CatIdTb.ReadOnly = true;
+            //edit.Show();
         }
         private void Delete2_Click(object? sender, EventArgs e)
         {
@@ -211,15 +211,15 @@ namespace SupermarketTuto.Forms.SellingForms
 
         private void add2Button_Click(object sender, EventArgs e)
         {
-            checkCat();
+            //checkCat();
             //addEditCategory add = new addEditCategory();
             //add.Show();
-            addEditCategory add = new addEditCategory();
-            add.editButton.Visible = false;
-            add.CatIdTb.Visible = false;
-            add.idlabel.Visible = false;
-            add.Show();
-            refresh_categories();
+            //addEditCategory add = new addEditCategory();
+            //add.editButton.Visible = false;
+            //add.CatIdTb.Visible = false;
+            //add.idlabel.Visible = false;
+            //add.Show();
+            //refresh_categories();
         }
 
         private void catComboBox_SelectionChangeCommitted(object sender, EventArgs e)
@@ -263,16 +263,16 @@ namespace SupermarketTuto.Forms.SellingForms
 
         private void edit2Button_Click(object sender, EventArgs e)
         {
-            checkCat();
-            addEditCategory edit = new addEditCategory();
-            edit.CatIdTb.Text = CatDGV.CurrentRow.Cells[0].Value.ToString();
-            edit.CatNameTb.Text = CatDGV.CurrentRow.Cells[1].Value.ToString();
-            edit.CatDescTb.Text = CatDGV.CurrentRow.Cells[2].Value.ToString();
-            edit.dateTimePicker.Text = CatDGV.CurrentRow.Cells[3].Value.ToString();
-            edit.addButton.Visible = false;
-            edit.CatIdTb.ReadOnly = true;
-            edit.Show();
-            refresh_categories();
+            //checkCat();
+            //addEditCategory edit = new addEditCategory();
+            //edit.CatIdTb.Text = CatDGV.CurrentRow.Cells[0].Value.ToString();
+            //edit.CatNameTb.Text = CatDGV.CurrentRow.Cells[1].Value.ToString();
+            //edit.CatDescTb.Text = CatDGV.CurrentRow.Cells[2].Value.ToString();
+            //edit.dateTimePicker.Text = CatDGV.CurrentRow.Cells[3].Value.ToString();
+            //edit.addButton.Visible = false;
+            //edit.CatIdTb.ReadOnly = true;
+            //edit.Show();
+            //refresh_categories();
         }
 
         private void delete2Button_Click(object sender, EventArgs e)

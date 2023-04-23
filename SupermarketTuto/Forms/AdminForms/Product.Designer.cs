@@ -38,7 +38,6 @@
             this.addButton = new System.Windows.Forms.Button();
             this.catComboBox = new System.Windows.Forms.ComboBox();
             this.importButton = new System.Windows.Forms.Button();
-            this.saveButton = new System.Windows.Forms.Button();
             this.exportButton = new System.Windows.Forms.Button();
             this.toDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.fromDateTimePicker = new System.Windows.Forms.DateTimePicker();
@@ -47,6 +46,8 @@
             this.prevButton = new System.Windows.Forms.Button();
             this.pagingComboBox = new System.Windows.Forms.ComboBox();
             this.pagingCheckBox = new System.Windows.Forms.CheckBox();
+            this.exportCombobox = new System.Windows.Forms.ComboBox();
+            this.importCombobox = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.ProdDGV)).BeginInit();
             this.SuspendLayout();
             // 
@@ -86,7 +87,6 @@
             // 
             // ProdDGV
             // 
-            this.ProdDGV.AllowUserToAddRows = false;
             this.ProdDGV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.ProdDGV.BackgroundColor = System.Drawing.Color.WhiteSmoke;
             this.ProdDGV.BorderStyle = System.Windows.Forms.BorderStyle.None;
@@ -116,7 +116,7 @@
             // deleteButton
             // 
             this.deleteButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.deleteButton.Location = new System.Drawing.Point(1773, 926);
+            this.deleteButton.Location = new System.Drawing.Point(1590, 926);
             this.deleteButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.deleteButton.Name = "deleteButton";
             this.deleteButton.Size = new System.Drawing.Size(148, 57);
@@ -128,7 +128,7 @@
             // editButton
             // 
             this.editButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.editButton.Location = new System.Drawing.Point(1620, 930);
+            this.editButton.Location = new System.Drawing.Point(1424, 926);
             this.editButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.editButton.Name = "editButton";
             this.editButton.Size = new System.Drawing.Size(144, 52);
@@ -140,7 +140,7 @@
             // addButton
             // 
             this.addButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.addButton.Location = new System.Drawing.Point(1363, 926);
+            this.addButton.Location = new System.Drawing.Point(1150, 926);
             this.addButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.addButton.Name = "addButton";
             this.addButton.Size = new System.Drawing.Size(248, 57);
@@ -163,39 +163,17 @@
             // 
             // importButton
             // 
-            this.importButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.importButton.Location = new System.Drawing.Point(2097, 927);
-            this.importButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.importButton.Location = new System.Drawing.Point(0, 0);
             this.importButton.Name = "importButton";
-            this.importButton.Size = new System.Drawing.Size(144, 55);
-            this.importButton.TabIndex = 109;
-            this.importButton.Text = "Import";
-            this.importButton.UseVisualStyleBackColor = true;
-            this.importButton.Click += new System.EventHandler(this.importButton_Click);
-            // 
-            // saveButton
-            // 
-            this.saveButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.saveButton.Location = new System.Drawing.Point(2250, 930);
-            this.saveButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.saveButton.Name = "saveButton";
-            this.saveButton.Size = new System.Drawing.Size(128, 52);
-            this.saveButton.TabIndex = 110;
-            this.saveButton.Text = "Save";
-            this.saveButton.UseVisualStyleBackColor = true;
-            this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
+            this.importButton.Size = new System.Drawing.Size(75, 23);
+            this.importButton.TabIndex = 135;
             // 
             // exportButton
             // 
-            this.exportButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.exportButton.Location = new System.Drawing.Point(1933, 926);
-            this.exportButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.exportButton.Location = new System.Drawing.Point(0, 0);
             this.exportButton.Name = "exportButton";
-            this.exportButton.Size = new System.Drawing.Size(154, 54);
-            this.exportButton.TabIndex = 111;
-            this.exportButton.Text = "Export";
-            this.exportButton.UseVisualStyleBackColor = true;
-            this.exportButton.Click += new System.EventHandler(this.exportButton_Click);
+            this.exportButton.Size = new System.Drawing.Size(75, 23);
+            this.exportButton.TabIndex = 134;
             // 
             // toDateTimePicker
             // 
@@ -276,12 +254,34 @@
             this.pagingCheckBox.UseVisualStyleBackColor = true;
             this.pagingCheckBox.CheckedChanged += new System.EventHandler(this.pagingCheckBox_CheckedChanged);
             // 
+            // exportCombobox
+            // 
+            this.exportCombobox.FormattingEnabled = true;
+            this.exportCombobox.Location = new System.Drawing.Point(2216, 943);
+            this.exportCombobox.Name = "exportCombobox";
+            this.exportCombobox.Size = new System.Drawing.Size(146, 28);
+            this.exportCombobox.TabIndex = 132;
+            this.exportCombobox.Text = "Export";
+            this.exportCombobox.SelectedIndexChanged += new System.EventHandler(this.exportCombobox_SelectedIndexChanged);
+            // 
+            // importCombobox
+            // 
+            this.importCombobox.FormattingEnabled = true;
+            this.importCombobox.Location = new System.Drawing.Point(2034, 943);
+            this.importCombobox.Name = "importCombobox";
+            this.importCombobox.Size = new System.Drawing.Size(146, 28);
+            this.importCombobox.TabIndex = 133;
+            this.importCombobox.Text = "Import";
+            this.importCombobox.SelectedValueChanged += new System.EventHandler(this.importCombobox_SelectedValueChanged);
+            // 
             // Product
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(2596, 1066);
             this.ControlBox = false;
+            this.Controls.Add(this.importCombobox);
+            this.Controls.Add(this.exportCombobox);
             this.Controls.Add(this.pagingCheckBox);
             this.Controls.Add(this.pagingComboBox);
             this.Controls.Add(this.nextButton);
@@ -290,7 +290,6 @@
             this.Controls.Add(this.toDateTimePicker);
             this.Controls.Add(this.fromDateTimePicker);
             this.Controls.Add(this.exportButton);
-            this.Controls.Add(this.saveButton);
             this.Controls.Add(this.importButton);
             this.Controls.Add(this.catComboBox);
             this.Controls.Add(this.totalLabel);
@@ -321,7 +320,6 @@
         private Button addButton;
         private ComboBox catComboBox;
         private Button importButton;
-        private Button saveButton;
         private Button exportButton;
         private DateTimePicker toDateTimePicker;
         private DateTimePicker fromDateTimePicker;
@@ -330,5 +328,7 @@
         private Button prevButton;
         private ComboBox pagingComboBox;
         private CheckBox pagingCheckBox;
+        private ComboBox exportCombobox;
+        private ComboBox importCombobox;
     }
 }

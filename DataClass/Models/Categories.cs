@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace ClassLibrary1.Models
 {
-    public class Categories
+    public class Categories : Excel
     {
-
         public int CatId { get; set; }
         public string CatName { get; set; }
         public string CatDesc { get; set; }
         public DateTime Date { get; set; }
     }
+
+
 }
