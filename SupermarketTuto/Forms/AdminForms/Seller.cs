@@ -208,32 +208,9 @@ namespace SupermarketTuto.Forms
         }
         #endregion
 
-        #region Excel
-
-        ExcelFile excel = new ExcelFile();
-        
-        private void exportButton_Click(object sender, EventArgs e)
-        {
-            excel.export(SellDGV);
-        }
-
-        private void importButton_Click(object sender, EventArgs e)
-        {
-            SellDGV.DataSource = excel.import();
-        }
-
-        private void saveButton_Click(object sender, EventArgs e)
-        {
-            Type seller = typeof(Sellers);
-            excel.save(SellDGV, seller);
-        }
-
-        
-        #endregion
 
         #region Events
        
-
         private void SellDGV_MouseDown(object sender, MouseEventArgs e)
         {
             menu();

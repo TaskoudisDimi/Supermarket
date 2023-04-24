@@ -20,6 +20,7 @@ namespace SupermarketTuto.Forms
     {
         int startRecord;
         SqlConnect loaddata = new SqlConnect();
+        ExcelFile excel = new ExcelFile();
         DataTable keepTable = new DataTable();
         public Category()
         {
@@ -296,7 +297,6 @@ namespace SupermarketTuto.Forms
             //    }
             //}
 
-
         }
 
         private void selectAllCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -322,21 +322,51 @@ namespace SupermarketTuto.Forms
         #endregion
 
         #region Excel
-        ExcelFile excel = new ExcelFile();
-
-        private void exportButton_Click(object sender, EventArgs e)
+        private void importCombobox_SelectedValueChanged(object sender, EventArgs e)
         {
-            excel.export(CatDGV);
-        }
-        private void importButton_Click(object sender, EventArgs e)
-        {
-            excel.import();
+            try
+            {
+                Type category = typeof(Categories);
+                DataTable tableNew = new DataTable();
+                var item = ((ComboBox)sender).SelectedItem.ToString();
+                if (item.Contains("Csv"))
+                {
+                    tableNew = excel.import(category);
+
+                }
+                else if (item.Contains("Xlsx"))
+                {
+                    tableNew = excel.ImportExcelAsync(CatDGV, category);
+                }
+                loaddata.table.Merge(tableNew);
+                CatDGV.DataSource = loaddata.table;
+                CatDGV.RowHeadersVisible = false;
+                CatDGV.AllowUserToAddRows = false;
+                DialogResult result = MessageBox.Show("Do you want to save the extra data to DB?", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes)
+                {
+                    excel.SaveToDB(tableNew, category);
+                }
+            }
+            catch
+            {
+
+            }
         }
 
-        private void saveButton_Click(object sender, EventArgs e)
+        private void exportCombobox_SelectedValueChanged(object sender, EventArgs e)
         {
             Type category = typeof(Categories);
+            var item = ((ComboBox)sender).SelectedItem.ToString();
+            if (item.Contains("Csv"))
+            {
+                excel.export(CatDGV);
+            }
+            else if (item.Contains("Xlsx"))
+            {
 
+                excel.Save(CatDGV, category);
+            }
         }
 
         #endregion
@@ -408,8 +438,9 @@ namespace SupermarketTuto.Forms
             sql.checkTable(Categories: customerType);
         }
 
+
         #endregion
 
-       
+        
     }
 }

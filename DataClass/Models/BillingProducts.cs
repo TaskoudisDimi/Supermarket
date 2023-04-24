@@ -8,7 +8,6 @@ namespace ClassLibrary1.Models
 {
     public class BillingProducts
     {
-
         public int Id { get; set; }
         public string ProdName { get; set; }
         public int Price { get; set; }

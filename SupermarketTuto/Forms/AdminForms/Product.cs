@@ -569,7 +569,7 @@ namespace SupermarketTuto.Forms
                 var item = ((ComboBox)sender).SelectedItem.ToString();
                 if (item.Contains("Csv"))
                 {
-                    tableNew = excel.import();
+                    tableNew = excel.import(product);
 
                 }
                 else if (item.Contains("Xlsx"))

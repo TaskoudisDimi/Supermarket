@@ -31,7 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Bills));
             this.refreshBillsButton = new System.Windows.Forms.Button();
             this.BillsDGV = new System.Windows.Forms.DataGridView();
-            this.exportButton = new System.Windows.Forms.Button();
             this.total3Label = new System.Windows.Forms.Label();
             this.PrintButton = new System.Windows.Forms.Button();
             this.printDocument1 = new System.Drawing.Printing.PrintDocument();
@@ -41,9 +40,10 @@
             // 
             // refreshBillsButton
             // 
-            this.refreshBillsButton.Location = new System.Drawing.Point(440, 12);
+            this.refreshBillsButton.Location = new System.Drawing.Point(660, 18);
+            this.refreshBillsButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.refreshBillsButton.Name = "refreshBillsButton";
-            this.refreshBillsButton.Size = new System.Drawing.Size(64, 20);
+            this.refreshBillsButton.Size = new System.Drawing.Size(96, 31);
             this.refreshBillsButton.TabIndex = 65;
             this.refreshBillsButton.Text = "Refresh";
             this.refreshBillsButton.UseVisualStyleBackColor = true;
@@ -57,38 +57,31 @@
             this.BillsDGV.BackgroundColor = System.Drawing.Color.Gainsboro;
             this.BillsDGV.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.BillsDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.BillsDGV.Location = new System.Drawing.Point(12, 38);
+            this.BillsDGV.Location = new System.Drawing.Point(18, 58);
+            this.BillsDGV.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.BillsDGV.Name = "BillsDGV";
             this.BillsDGV.RowHeadersWidth = 62;
             this.BillsDGV.RowTemplate.Height = 30;
             this.BillsDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.BillsDGV.Size = new System.Drawing.Size(492, 208);
+            this.BillsDGV.Size = new System.Drawing.Size(738, 320);
             this.BillsDGV.TabIndex = 64;
-            // 
-            // exportButton
-            // 
-            this.exportButton.Location = new System.Drawing.Point(350, 257);
-            this.exportButton.Name = "exportButton";
-            this.exportButton.Size = new System.Drawing.Size(64, 23);
-            this.exportButton.TabIndex = 70;
-            this.exportButton.Text = "Export";
-            this.exportButton.UseVisualStyleBackColor = true;
-            this.exportButton.Click += new System.EventHandler(this.exportButton_Click);
             // 
             // total3Label
             // 
             this.total3Label.AutoSize = true;
-            this.total3Label.Location = new System.Drawing.Point(420, 262);
+            this.total3Label.Location = new System.Drawing.Point(630, 403);
+            this.total3Label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.total3Label.Name = "total3Label";
-            this.total3Label.Size = new System.Drawing.Size(34, 13);
+            this.total3Label.Size = new System.Drawing.Size(48, 20);
             this.total3Label.TabIndex = 69;
             this.total3Label.Text = "Total:";
             // 
             // PrintButton
             // 
-            this.PrintButton.Location = new System.Drawing.Point(12, 252);
+            this.PrintButton.Location = new System.Drawing.Point(18, 388);
+            this.PrintButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.PrintButton.Name = "PrintButton";
-            this.PrintButton.Size = new System.Drawing.Size(64, 23);
+            this.PrintButton.Size = new System.Drawing.Size(96, 35);
             this.PrintButton.TabIndex = 68;
             this.PrintButton.Text = "Print";
             this.PrintButton.UseVisualStyleBackColor = true;
@@ -110,16 +103,14 @@
             // 
             // Bills
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(734, 371);
+            this.ClientSize = new System.Drawing.Size(1101, 571);
             this.ControlBox = false;
-            this.Controls.Add(this.exportButton);
             this.Controls.Add(this.total3Label);
             this.Controls.Add(this.PrintButton);
             this.Controls.Add(this.refreshBillsButton);
             this.Controls.Add(this.BillsDGV);
-            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Bills";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Bills_Load);
@@ -133,7 +124,6 @@
 
         private Button refreshBillsButton;
         private DataGridView BillsDGV;
-        private Button exportButton;
         private Label total3Label;
         private Button PrintButton;
         private System.Drawing.Printing.PrintDocument printDocument1;

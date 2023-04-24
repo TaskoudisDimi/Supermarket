@@ -38,9 +38,6 @@
             this.addButton = new System.Windows.Forms.Button();
             this.refreshButton = new System.Windows.Forms.Button();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.exportButton = new System.Windows.Forms.Button();
-            this.saveButton = new System.Windows.Forms.Button();
-            this.importButton = new System.Windows.Forms.Button();
             this.activeComboBox = new System.Windows.Forms.ComboBox();
             this.activeLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.SellDGV)).BeginInit();
@@ -152,42 +149,6 @@
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
-            // exportButton
-            // 
-            this.exportButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.exportButton.Location = new System.Drawing.Point(2025, 758);
-            this.exportButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.exportButton.Name = "exportButton";
-            this.exportButton.Size = new System.Drawing.Size(152, 66);
-            this.exportButton.TabIndex = 124;
-            this.exportButton.Text = "Export";
-            this.exportButton.UseVisualStyleBackColor = true;
-            this.exportButton.Click += new System.EventHandler(this.exportButton_Click);
-            // 
-            // saveButton
-            // 
-            this.saveButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.saveButton.Location = new System.Drawing.Point(2332, 758);
-            this.saveButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.saveButton.Name = "saveButton";
-            this.saveButton.Size = new System.Drawing.Size(126, 66);
-            this.saveButton.TabIndex = 123;
-            this.saveButton.Text = "Save";
-            this.saveButton.UseVisualStyleBackColor = true;
-            this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
-            // 
-            // importButton
-            // 
-            this.importButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.importButton.Location = new System.Drawing.Point(2186, 758);
-            this.importButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.importButton.Name = "importButton";
-            this.importButton.Size = new System.Drawing.Size(138, 66);
-            this.importButton.TabIndex = 122;
-            this.importButton.Text = "Import";
-            this.importButton.UseVisualStyleBackColor = true;
-            this.importButton.Click += new System.EventHandler(this.importButton_Click);
-            // 
             // activeComboBox
             // 
             this.activeComboBox.FormattingEnabled = true;
@@ -218,9 +179,6 @@
             this.Controls.Add(this.SellDGV);
             this.Controls.Add(this.activeLabel);
             this.Controls.Add(this.activeComboBox);
-            this.Controls.Add(this.exportButton);
-            this.Controls.Add(this.saveButton);
-            this.Controls.Add(this.importButton);
             this.Controls.Add(this.refreshButton);
             this.Controls.Add(this.totalLabel);
             this.Controls.Add(this.searchButton);
@@ -248,9 +206,6 @@
         private Button addButton;
         private Button refreshButton;
         private ContextMenuStrip contextMenuStrip1;
-        private Button exportButton;
-        private Button saveButton;
-        private Button importButton;
         private ComboBox activeComboBox;
         public Label activeLabel;
     }

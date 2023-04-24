@@ -244,6 +244,7 @@
             this.importCombobox.Size = new System.Drawing.Size(146, 37);
             this.importCombobox.TabIndex = 140;
             this.importCombobox.Text = "Import";
+            this.importCombobox.SelectedValueChanged += new System.EventHandler(this.importCombobox_SelectedValueChanged);
             // 
             // exportCombobox
             // 
@@ -253,6 +254,7 @@
             this.exportCombobox.Size = new System.Drawing.Size(146, 37);
             this.exportCombobox.TabIndex = 139;
             this.exportCombobox.Text = "Export";
+            this.exportCombobox.SelectedValueChanged += new System.EventHandler(this.exportCombobox_SelectedValueChanged);
             // 
             // Category
             // 
