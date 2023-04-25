@@ -36,6 +36,12 @@ namespace SupermarketTuto.Forms
             CatDGV.Columns.Add(checkboxColumn);
             CatDGV.Columns["Select"].DisplayIndex = 0;
             menu();
+
+            exportCombobox.Items.Add("Csv");
+            exportCombobox.Items.Add("Xlsx");
+
+            importCombobox.Items.Add("Csv");
+            importCombobox.Items.Add("Xlsx");
         }
         private void display()
         {

@@ -195,11 +195,15 @@ namespace ClassLibrary1
         public void SaveToDB(DataTable table, Type type)
         {
             SqlConnect loaddata20 = new SqlConnect();
+
             foreach (DataRow row in table.Rows)
             {
+                
                 if (type.Name == "Products")
                 {
-                    loaddata20.execCom("Insert Into ProductTbl values('" + row["ProdName"] + "','" + row["ProdQty"] + "','" + row["ProdPrice"] + "','" + row["ProdCatID"] + "','" + row["ProdCat"] + "','" + row["Date"] + "')");
+                    DateTime DateTime = (DateTime)row["Date"];
+                    string Date = DateTime.ToString("yyyy-MM-dd");
+                    loaddata20.execCom("Insert Into ProductTbl values('" + row["ProdName"] + "','" + row["ProdQty"] + "','" + row["ProdPrice"] + "','" + row["ProdCatID"] + "','" + row["ProdCat"] + "','" + Date + "')");
                 }
                 else if (type.Name.Equals("Categories"))
                 {
@@ -277,24 +281,18 @@ namespace ClassLibrary1
                         }
                         else if (typeOfClass.Name.Equals("Categories"))
                         {
-                            dataTable.Columns.Add("ProdId", typeof(int));
-                            dataTable.Columns.Add("ProdName");
-                            dataTable.Columns.Add("ProdQty", typeof(int));
-                            dataTable.Columns.Add("ProdPrice", typeof(int));
-                            dataTable.Columns.Add("ProdCatID", typeof(int));
-                            dataTable.Columns.Add("ProdCat");
+                            dataTable.Columns.Add("CatId", typeof(int));
+                            dataTable.Columns.Add("CatName");
+                            dataTable.Columns.Add("CatDesc");
                             dataTable.Columns.Add("Date", typeof(DateTime));
 
                             // Loop through the rows in the worksheet and add them to the DataTable
                             while (string.IsNullOrWhiteSpace(ws.Cells[rowAdd, col].Value?.ToString()) == false)
                             {
                                 DataRow row = dataTable.Rows.Add();
-                                row["ProdId"] = int.Parse(ws.Cells[rowAdd, col].Value.ToString());
-                                row["ProdName"] = ws.Cells[rowAdd, col + 1].Value.ToString();
-                                row["ProdQty"] = int.Parse(ws.Cells[rowAdd, col + 2].Value.ToString());
-                                row["ProdPrice"] = int.Parse(ws.Cells[rowAdd, col + 3].Value.ToString());
-                                row["ProdCatID"] = int.Parse(ws.Cells[rowAdd, col + 4].Value.ToString());
-                                row["ProdCat"] = ws.Cells[rowAdd, col + 5].Value.ToString();
+                                row["CatId"] = int.Parse(ws.Cells[rowAdd, col].Value.ToString());
+                                row["CatName"] = ws.Cells[rowAdd, col + 1].Value.ToString();
+                                row["CatDesc"] = ws.Cells[rowAdd, col + 5].Value.ToString();
                                 ExcelRange range = ws.Cells[rowAdd, col + 6];
                                 date = Convert.ToDouble(range.Value);
                                 row["Date"] = DateTime.FromOADate(date);
@@ -303,53 +301,43 @@ namespace ClassLibrary1
                         }
                         else if (typeOfClass.Name.Equals("Bills"))
                         {
-                            dataTable.Columns.Add("ProdId", typeof(int));
-                            dataTable.Columns.Add("ProdName");
-                            dataTable.Columns.Add("ProdQty", typeof(int));
-                            dataTable.Columns.Add("ProdPrice", typeof(int));
-                            dataTable.Columns.Add("ProdCatID", typeof(int));
-                            dataTable.Columns.Add("ProdCat");
+                            dataTable.Columns.Add("Id", typeof(int));
+                            dataTable.Columns.Add("Comments");
+                            dataTable.Columns.Add("SellName");
+                            dataTable.Columns.Add("BillDate");
                             dataTable.Columns.Add("Date", typeof(DateTime));
 
                             // Loop through the rows in the worksheet and add them to the DataTable
                             while (string.IsNullOrWhiteSpace(ws.Cells[rowAdd, col].Value?.ToString()) == false)
                             {
                                 DataRow row = dataTable.Rows.Add();
-                                row["ProdId"] = int.Parse(ws.Cells[rowAdd, col].Value.ToString());
-                                row["ProdName"] = ws.Cells[rowAdd, col + 1].Value.ToString();
-                                row["ProdQty"] = int.Parse(ws.Cells[rowAdd, col + 2].Value.ToString());
-                                row["ProdPrice"] = int.Parse(ws.Cells[rowAdd, col + 3].Value.ToString());
-                                row["ProdCatID"] = int.Parse(ws.Cells[rowAdd, col + 4].Value.ToString());
-                                row["ProdCat"] = ws.Cells[rowAdd, col + 5].Value.ToString();
+                                row["Id"] = int.Parse(ws.Cells[rowAdd, col].Value.ToString());
+                                row["Comments"] = ws.Cells[rowAdd, col + 1].Value.ToString();
+                                row["SellName"] = ws.Cells[rowAdd, col + 1].Value.ToString();
                                 ExcelRange range = ws.Cells[rowAdd, col + 6];
                                 date = Convert.ToDouble(range.Value);
-                                row["Date"] = DateTime.FromOADate(date);
+                                row["BillDate"] = DateTime.FromOADate(date);
+                                row["TotAmt"] = int.Parse(ws.Cells[rowAdd, col].Value.ToString());
                                 rowAdd += 1;
                             }
                         }
                         else if (typeOfClass.Name.Equals("BillingProducts"))
                         {
-                            dataTable.Columns.Add("ProdId", typeof(int));
+                            dataTable.Columns.Add("Id", typeof(int));
                             dataTable.Columns.Add("ProdName");
-                            dataTable.Columns.Add("ProdQty", typeof(int));
-                            dataTable.Columns.Add("ProdPrice", typeof(int));
-                            dataTable.Columns.Add("ProdCatID", typeof(int));
-                            dataTable.Columns.Add("ProdCat");
-                            dataTable.Columns.Add("Date", typeof(DateTime));
+                            dataTable.Columns.Add("Price", typeof(int));
+                            dataTable.Columns.Add("Qty", typeof(int));
+                            dataTable.Columns.Add("Total", typeof(int));
 
                             // Loop through the rows in the worksheet and add them to the DataTable
                             while (string.IsNullOrWhiteSpace(ws.Cells[rowAdd, col].Value?.ToString()) == false)
                             {
                                 DataRow row = dataTable.Rows.Add();
-                                row["ProdId"] = int.Parse(ws.Cells[rowAdd, col].Value.ToString());
+                                row["Id"] = int.Parse(ws.Cells[rowAdd, col].Value.ToString());
                                 row["ProdName"] = ws.Cells[rowAdd, col + 1].Value.ToString();
-                                row["ProdQty"] = int.Parse(ws.Cells[rowAdd, col + 2].Value.ToString());
-                                row["ProdPrice"] = int.Parse(ws.Cells[rowAdd, col + 3].Value.ToString());
-                                row["ProdCatID"] = int.Parse(ws.Cells[rowAdd, col + 4].Value.ToString());
-                                row["ProdCat"] = ws.Cells[rowAdd, col + 5].Value.ToString();
-                                ExcelRange range = ws.Cells[rowAdd, col + 6];
-                                date = Convert.ToDouble(range.Value);
-                                row["Date"] = DateTime.FromOADate(date);
+                                row["Price"] = int.Parse(ws.Cells[rowAdd, col + 2].Value.ToString());
+                                row["Qty"] = int.Parse(ws.Cells[rowAdd, col + 3].Value.ToString());
+                                row["Total"] = int.Parse(ws.Cells[rowAdd, col + 4].Value.ToString());
                                 rowAdd += 1;
                             }
                         }
@@ -448,7 +436,7 @@ namespace ClassLibrary1
                         bills.Id = Convert.ToInt32(row.Cells["Id"].Value);
                         bills.Comments = row.Cells["Comments"].Value.ToString();
                         bills.SellName = row.Cells["SellName"].Value.ToString();
-                        bills.BillDate = row.Cells["BillDate"].Value.ToString();
+                        bills.BillDate = DateTime.Parse(row.Cells["Date"].Value.ToString());
                         bills.TotAmt = Convert.ToInt32(row.Cells["TotAmt"].Value);
                         data.Add(bills);
                     }

@@ -576,6 +576,7 @@ namespace SupermarketTuto.Forms
                 {
                     tableNew = excel.ImportExcelAsync(ProdDGV, product);
                 }
+                
                 loaddata1.table.Merge(tableNew);
                 ProdDGV.DataSource = loaddata1.table;
                 ProdDGV.RowHeadersVisible = false;
