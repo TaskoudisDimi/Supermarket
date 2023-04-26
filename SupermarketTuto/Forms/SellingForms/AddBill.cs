@@ -58,9 +58,10 @@ namespace SupermarketTuto.Forms
         {
             try
             {
-                check();
+                string[] label = AmountLabel.Text.Split(':');
+                //check();
                 SqlConnect loaddata4 = new SqlConnect();
-                loaddata4.execCom("Insert Into BillTbl values('" + commentsRichTextBox.Text + "','" + seller_Name_Label.Text + "','" + LabelDate.Text + "'," + AmountLabel.Text + ")");
+                loaddata4.execCom("Insert Into BillTbl values('" + commentsRichTextBox.Text + "','" + seller_Name_Label.Text + "','" + LabelDate.Text + "'," + label[1] + ")");
                 commentsRichTextBox.Text = String.Empty;
                 displayBills();
 

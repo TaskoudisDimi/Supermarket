@@ -328,6 +328,22 @@ namespace SupermarketTuto.Forms
         #endregion
 
         #region Excel
+
+        private void exportCombobox_SelectedValueChanged(object sender, EventArgs e)
+        {
+            Type category = typeof(Categories);
+            var item = ((ComboBox)sender).SelectedItem.ToString();
+            if (item.Contains("Csv"))
+            {
+                excel.export(CatDGV,true);
+            }
+            else if (item.Contains("Xlsx"))
+            {
+                excel.Save(CatDGV, category);
+            }
+        }
+
+
         private void importCombobox_SelectedValueChanged(object sender, EventArgs e)
         {
             try
@@ -335,6 +351,7 @@ namespace SupermarketTuto.Forms
                 Type category = typeof(Categories);
                 DataTable tableNew = new DataTable();
                 var item = ((ComboBox)sender).SelectedItem.ToString();
+
                 if (item.Contains("Csv"))
                 {
                     tableNew = excel.import(category);
@@ -344,14 +361,21 @@ namespace SupermarketTuto.Forms
                 {
                     tableNew = excel.ImportExcelAsync(CatDGV, category);
                 }
+                DataTable table3 = loaddata.table.Clone();
+                var differenceQuery = tableNew.AsEnumerable().Except(loaddata.table.AsEnumerable(), DataRowComparer.Default);
+
+                foreach (DataRow row in differenceQuery)
+                {
+                    table3.Rows.Add(row.ItemArray);
+                }
                 loaddata.table.Merge(tableNew);
                 CatDGV.DataSource = loaddata.table;
                 CatDGV.RowHeadersVisible = false;
                 CatDGV.AllowUserToAddRows = false;
-                DialogResult result = MessageBox.Show("Do you want to save the extra data to DB?", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                DialogResult result = MessageBox.Show("Do you want to save the extra data to Database?", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                 {
-                    excel.SaveToDB(tableNew, category);
+                    excel.SaveToDB(table3, category);
                 }
             }
             catch
@@ -360,20 +384,7 @@ namespace SupermarketTuto.Forms
             }
         }
 
-        private void exportCombobox_SelectedValueChanged(object sender, EventArgs e)
-        {
-            Type category = typeof(Categories);
-            var item = ((ComboBox)sender).SelectedItem.ToString();
-            if (item.Contains("Csv"))
-            {
-                excel.export(CatDGV);
-            }
-            else if (item.Contains("Xlsx"))
-            {
-
-                excel.Save(CatDGV, category);
-            }
-        }
+        
 
         #endregion
 

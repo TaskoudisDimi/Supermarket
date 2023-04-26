@@ -17,7 +17,7 @@ namespace SupermarketTuto
         static void Main()
         {
 
-            Application.Run(new MainAdmin());
+            Application.Run(new MainSelling());
         }
 
         // TODO: Uploade / Download files 
@@ -26,6 +26,7 @@ namespace SupermarketTuto
         // TODO: Manage Threads, Lock Treads etc.
         // TODO: Build API 
         // TODO: Call API (json && xml)
+        // TODO: Create and execute Store Procedure
     }
 }
 

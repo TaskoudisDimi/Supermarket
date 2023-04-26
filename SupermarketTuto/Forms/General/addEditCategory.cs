@@ -49,7 +49,7 @@ namespace SupermarketTuto.Forms.General
                 DataRow row = loaddata.table.NewRow();
                 row["CatName"] = CatNameTb.Text;
                 row["CatDesc"] = CatDescTb.Text;
-                row["Date"] = dateTimePicker.Value.ToString("MM-dd-yyyy");
+                row["Date"] = dateTimePicker.Value.ToString("yyyy-MM-dd");
                 loaddata.table.Rows.Add(row);
                 if(loaddata.table.Rows.Cast<DataRow>().Any(r => r.RowState == DataRowState.Unchanged))
                 {

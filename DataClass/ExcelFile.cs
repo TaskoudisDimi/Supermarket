@@ -78,7 +78,20 @@ namespace ClassLibrary1
                         string[] headerLabels = firstLine.Split(',');
                         foreach (string headerWord in headerLabels)
                         {
-                            dt.Columns.Add(new DataColumn(headerWord));
+                            if(headerWord == "ProdId")
+                            {
+                                dt.Columns.Add(new DataColumn(headerWord));
+                                dt.PrimaryKey = new DataColumn[] { dt.Columns["ProdId"] };
+                            }
+                            else if(headerWord == "CatId")
+                            {
+                                dt.Columns.Add(new DataColumn(headerWord));
+                                dt.PrimaryKey = new DataColumn[] { dt.Columns["CatId"] };
+                            }
+                            else
+                            {
+                                dt.Columns.Add(new DataColumn(headerWord));
+                            }
                         }
                         if (type.Name.Equals("Products"))
                         {
@@ -93,16 +106,9 @@ namespace ClassLibrary1
                             dt.Columns["CatId"].DataType = typeof(int);
                             dt.Columns["Date"].DataType = typeof(DateTime);
                         }
-                        else if (type.Name.Equals("BillingProducts"))
-                        {
-                            dt.Columns["Id"].DataType = typeof(int);
-                            dt.Columns["Price"].DataType = typeof(int);
-                            dt.Columns["Qty"].DataType = typeof(int);
-                            dt.Columns["Total"].DataType = typeof(int);
-                        }
                         else if (type.Name.Equals("Bills"))
                         {
-                            dt.Columns["Id"].DataType = typeof(int);
+                            dt.Columns["BillId"].DataType = typeof(int);
                             dt.Columns["TotAmt"].DataType = typeof(int);
                         }
                         //For Data
@@ -128,7 +134,7 @@ namespace ClassLibrary1
             return dt;
         }
 
-        public void export(DataGridView table)
+        public void export(DataGridView table, bool useSelected = false)
         {
             if (table.Rows.Count > 0)
             {
@@ -162,24 +168,37 @@ namespace ClassLibrary1
                             {
                                 if (i == colCount - 1)
                                 {
-                                    colNames += table.Columns[i].HeaderText.ToString();
+                                    if(table.Columns[i].HeaderText.ToString() != "Select")
+                                        colNames += table.Columns[i].HeaderText.ToString();
                                 }
                                 else
                                 {
-                                    colNames += table.Columns[i].HeaderText.ToString() + ",";
+                                    if (table.Columns[i].HeaderText.ToString() != "Select")
+                                        colNames += table.Columns[i].HeaderText.ToString() + ",";
                                 }
                             }
                             outputCSV[0] += colNames;
-
+                            
                             for (int i = 1; (i - 1) < table.Rows.Count; i++)
                             {
-                                for (int j = 0; j < colCount; j++)
+                                if (useSelected)
                                 {
-                                    outputCSV[i] += table.Rows[i - 1].Cells[j].Value.ToString() + ",";
+                                    for (int j = 1; j < colCount; j++)
+                                    {
+                                        outputCSV[i] += table.Rows[i - 1].Cells[j].Value.ToString() + ",";
+                                    }
                                 }
+                                else
+                                {
+                                    for (int j = 0; j < colCount; j++)
+                                    {
+                                        outputCSV[i] += table.Rows[i - 1].Cells[j].Value.ToString() + ",";
+                                    }
+                                }
+                                
                             }
                             File.WriteAllLines(dialog.FileName, outputCSV, Encoding.UTF8);
-                            MessageBox.Show("Success");
+                            MessageBox.Show("Successfully export","Success",MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         catch (Exception ex)
                         {
@@ -198,7 +217,6 @@ namespace ClassLibrary1
 
             foreach (DataRow row in table.Rows)
             {
-                
                 if (type.Name == "Products")
                 {
                     DateTime DateTime = (DateTime)row["Date"];
@@ -207,17 +225,14 @@ namespace ClassLibrary1
                 }
                 else if (type.Name.Equals("Categories"))
                 {
-                    loaddata20.execCom("Insert Into CategoryTbl values('" + row["CatName"] + "','" + row["CatDesc"] + "','" + row["Date"] + "')");
+                    DateTime DateTime = (DateTime)row["Date"];
+                    string Date = DateTime.ToString("yyyy-MM-dd");
+                    loaddata20.execCom("Insert Into CategoryTbl values('" + row["CatName"] + "','" + row["CatDesc"] + "','" + Date + "')");
                 }
                 else if (type.Name.Equals("Bills"))
                 {
-                    loaddata20.execCom("Insert Into BillTbl values('" + row["Comments"] + "','" + row["SellName"] + "','" + row["BillDate"] + "'," + row["TotAmt"] + ")");
+                    loaddata20.execCom("Insert Into BillTbl values('" + row["Comments"] + "','" + row["SellerName"] + "','" + row["BillDate"] + "'," + row["TotAmt"] + ")");
                 }
-                else if (type.Name.Equals("BillingProducts"))
-                {
-                    loaddata20.execCom("Insert Into BillingProducts Values('" + row["ProdName"] + "'," + row["Price"] + "," + row["Qty"] + "," + row["Total"] + ")");
-                }
-
             }
         }
 
@@ -301,43 +316,23 @@ namespace ClassLibrary1
                         }
                         else if (typeOfClass.Name.Equals("Bills"))
                         {
-                            dataTable.Columns.Add("Id", typeof(int));
+                            dataTable.Columns.Add("BillId", typeof(int));
                             dataTable.Columns.Add("Comments");
-                            dataTable.Columns.Add("SellName");
-                            dataTable.Columns.Add("BillDate");
-                            dataTable.Columns.Add("Date", typeof(DateTime));
+                            dataTable.Columns.Add("SellerName");
+                            dataTable.Columns.Add("BillDate", typeof(DateTime));
+                            dataTable.Columns.Add("TotAmt", typeof(int));
 
                             // Loop through the rows in the worksheet and add them to the DataTable
                             while (string.IsNullOrWhiteSpace(ws.Cells[rowAdd, col].Value?.ToString()) == false)
                             {
                                 DataRow row = dataTable.Rows.Add();
-                                row["Id"] = int.Parse(ws.Cells[rowAdd, col].Value.ToString());
+                                row["BillId"] = int.Parse(ws.Cells[rowAdd, col].Value.ToString());
                                 row["Comments"] = ws.Cells[rowAdd, col + 1].Value.ToString();
-                                row["SellName"] = ws.Cells[rowAdd, col + 1].Value.ToString();
+                                row["SellerName"] = ws.Cells[rowAdd, col + 1].Value.ToString();
                                 ExcelRange range = ws.Cells[rowAdd, col + 6];
                                 date = Convert.ToDouble(range.Value);
                                 row["BillDate"] = DateTime.FromOADate(date);
                                 row["TotAmt"] = int.Parse(ws.Cells[rowAdd, col].Value.ToString());
-                                rowAdd += 1;
-                            }
-                        }
-                        else if (typeOfClass.Name.Equals("BillingProducts"))
-                        {
-                            dataTable.Columns.Add("Id", typeof(int));
-                            dataTable.Columns.Add("ProdName");
-                            dataTable.Columns.Add("Price", typeof(int));
-                            dataTable.Columns.Add("Qty", typeof(int));
-                            dataTable.Columns.Add("Total", typeof(int));
-
-                            // Loop through the rows in the worksheet and add them to the DataTable
-                            while (string.IsNullOrWhiteSpace(ws.Cells[rowAdd, col].Value?.ToString()) == false)
-                            {
-                                DataRow row = dataTable.Rows.Add();
-                                row["Id"] = int.Parse(ws.Cells[rowAdd, col].Value.ToString());
-                                row["ProdName"] = ws.Cells[rowAdd, col + 1].Value.ToString();
-                                row["Price"] = int.Parse(ws.Cells[rowAdd, col + 2].Value.ToString());
-                                row["Qty"] = int.Parse(ws.Cells[rowAdd, col + 3].Value.ToString());
-                                row["Total"] = int.Parse(ws.Cells[rowAdd, col + 4].Value.ToString());
                                 rowAdd += 1;
                             }
                         }
@@ -384,11 +379,6 @@ namespace ClassLibrary1
                         var bills = GetSetupDataProd(dataGridView, typeOfClass);
                         await SaveExcelFile(bills, file, typeOfClass);
                     }
-                    else if (typeOfClass.Name.Equals("BillingProducts"))
-                    {
-                        var billProducts = GetSetupDataProd(dataGridView, typeOfClass);
-                        await SaveExcelFile(billProducts, file, typeOfClass);
-                    }
                 }
                 else
                 {
@@ -433,22 +423,12 @@ namespace ClassLibrary1
                     else if (type.Name.Equals("Bills"))
                     {
                         Bills bills = new Bills();
-                        bills.Id = Convert.ToInt32(row.Cells["Id"].Value);
+                        bills.BillId = Convert.ToInt32(row.Cells["BillId"].Value);
                         bills.Comments = row.Cells["Comments"].Value.ToString();
-                        bills.SellName = row.Cells["SellName"].Value.ToString();
-                        bills.BillDate = DateTime.Parse(row.Cells["Date"].Value.ToString());
+                        bills.SellerName = row.Cells["SellerName"].Value.ToString();
+                        bills.BillDate = DateTime.Parse(row.Cells["BillDate"].Value.ToString());
                         bills.TotAmt = Convert.ToInt32(row.Cells["TotAmt"].Value);
                         data.Add(bills);
-                    }
-                    else if (type.Name.Equals("BillingProducts"))
-                    {
-                        BillingProducts billProducts = new BillingProducts();
-                        billProducts.Id = Convert.ToInt32(row.Cells["Id"].Value);
-                        billProducts.ProdName = row.Cells["ProdName"].Value.ToString();
-                        billProducts.Price = Convert.ToInt32(row.Cells["Price"].Value);
-                        billProducts.Qty = Convert.ToInt32(row.Cells["Qty"].Value);
-                        billProducts.Total = Convert.ToInt32(row.Cells["Total"].Value);
-                        data.Add(billProducts);
                     }
                 }
                 return data;
@@ -463,32 +443,46 @@ namespace ClassLibrary1
         {
             try
             {
-
                 List<Products> products = new List<Products>();
-                products = data.Cast<Products>().ToList();
+                List<Categories> categories = new List<Categories>();
+                List<Bills> bills = new List<Bills>();
+                if (type.Name.Equals("Products"))
+                {
+                    products = data.Cast<Products>().ToList();
+                }
+                else if (type.Name.Equals("Categories"))
+                {
+                    categories = data.Cast<Categories>().ToList();
+                }
+                else if (type.Name.Equals("Bills"))
+                {
+                    bills = data.Cast<Bills>().ToList();
+                }
+
                 DeleteIfExists(file);
                 using (var package = new ExcelPackage(file))
                 {
                     var ws = package.Workbook.Worksheets.Add("MainReport");
 
-                    var range = ws.Cells["A3"].LoadFromCollection(products, true);
-                    range.AutoFitColumns();
+                    
                     // Formats the header
                     if (type.Name.Equals("Products"))
                     {
+                        var range = ws.Cells["A3"].LoadFromCollection(products, true);
+                        range.AutoFitColumns();
                         ws.Cells["A1"].Value = "Report Products";
                     }
                     else if (type.Name.Equals("Categories"))
                     {
+                        var range = ws.Cells["A3"].LoadFromCollection(categories, true);
+                        range.AutoFitColumns();
                         ws.Cells["A1"].Value = "Report Categories";
                     }
                     else if (type.Name.Equals("Bills"))
                     {
+                        var range = ws.Cells["A3"].LoadFromCollection(bills, true);
+                        range.AutoFitColumns();
                         ws.Cells["A1"].Value = "Report Bills";
-                    }
-                    else if (type.Name.Equals("BillingProducts"))
-                    {
-                        ws.Cells["A1"].Value = "Report Billing Products";
                     }
                     
                     ws.Cells["A1:C1"].Merge = true;
@@ -523,6 +517,8 @@ namespace ClassLibrary1
 
         #endregion
 
+
+       
 
     }
 }

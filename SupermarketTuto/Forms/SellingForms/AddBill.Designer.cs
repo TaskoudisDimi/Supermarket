@@ -72,7 +72,7 @@
             // total3Label
             // 
             this.total3Label.AutoSize = true;
-            this.total3Label.Location = new System.Drawing.Point(623, 375);
+            this.total3Label.Location = new System.Drawing.Point(659, 365);
             this.total3Label.Name = "total3Label";
             this.total3Label.Size = new System.Drawing.Size(34, 13);
             this.total3Label.TabIndex = 62;
@@ -86,17 +86,17 @@
             this.BillsDGV.BackgroundColor = System.Drawing.Color.Gainsboro;
             this.BillsDGV.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.BillsDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.BillsDGV.Location = new System.Drawing.Point(299, 178);
+            this.BillsDGV.Location = new System.Drawing.Point(203, 178);
             this.BillsDGV.Name = "BillsDGV";
             this.BillsDGV.RowHeadersWidth = 62;
             this.BillsDGV.RowTemplate.Height = 30;
             this.BillsDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.BillsDGV.Size = new System.Drawing.Size(417, 180);
+            this.BillsDGV.Size = new System.Drawing.Size(513, 180);
             this.BillsDGV.TabIndex = 61;
             // 
             // deleteButton
             // 
-            this.deleteButton.Location = new System.Drawing.Point(371, 364);
+            this.deleteButton.Location = new System.Drawing.Point(273, 364);
             this.deleteButton.Name = "deleteButton";
             this.deleteButton.Size = new System.Drawing.Size(64, 23);
             this.deleteButton.TabIndex = 60;
@@ -106,7 +106,7 @@
             // 
             // billButton
             // 
-            this.billButton.Location = new System.Drawing.Point(301, 365);
+            this.billButton.Location = new System.Drawing.Point(203, 365);
             this.billButton.Name = "billButton";
             this.billButton.Size = new System.Drawing.Size(64, 23);
             this.billButton.TabIndex = 67;

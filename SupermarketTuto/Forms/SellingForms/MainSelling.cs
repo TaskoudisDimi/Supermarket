@@ -134,7 +134,7 @@ namespace SupermarketTuto.Forms.SellingForms
 
         private void Main_FormClosing(object sender, FormClosingEventArgs e)
         {
-            DialogResult confirm = MessageBox.Show("Confirm to close", "Exit", MessageBoxButtons.YesNo);
+            DialogResult confirm = MessageBox.Show("Confirm to close", "Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
             if (confirm == DialogResult.No)
             {
                 e.Cancel = true;

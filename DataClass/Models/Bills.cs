@@ -8,9 +8,9 @@ namespace ClassLibrary1.Models
 {
     public class Bills
     {
-        public int Id { get; set; }
+        public int BillId { get; set; }
         public string Comments { get; set; }
-        public string SellName { get; set; }
+        public string SellerName { get; set; }
         public DateTime BillDate { get; set; }
         public int TotAmt { get; set; }
 

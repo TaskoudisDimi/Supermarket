@@ -155,7 +155,7 @@ namespace SupermarketTuto.Forms.SellingForms
 
         private void addButton_Click(object sender, EventArgs e)
         {
-           check();
+           //check();
            AddBill bill = new AddBill();
            bill.AmountLabel.Text = AmountLabel.Text;
            bill.Show();

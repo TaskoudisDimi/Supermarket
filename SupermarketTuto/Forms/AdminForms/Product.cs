@@ -567,6 +567,7 @@ namespace SupermarketTuto.Forms
                 Type product = typeof(Products);
                 DataTable tableNew = new DataTable();
                 var item = ((ComboBox)sender).SelectedItem.ToString();
+                
                 if (item.Contains("Csv"))
                 {
                     tableNew = excel.import(product);
@@ -576,15 +577,21 @@ namespace SupermarketTuto.Forms
                 {
                     tableNew = excel.ImportExcelAsync(ProdDGV, product);
                 }
+                DataTable table3 = loaddata1.table.Clone();
+                var differenceQuery = tableNew.AsEnumerable().Except(loaddata1.table.AsEnumerable(), DataRowComparer.Default);
                 
+                foreach (DataRow row in differenceQuery)
+                {
+                    table3.Rows.Add(row.ItemArray);
+                }
                 loaddata1.table.Merge(tableNew);
                 ProdDGV.DataSource = loaddata1.table;
                 ProdDGV.RowHeadersVisible = false;
                 ProdDGV.AllowUserToAddRows = false;
-                DialogResult result = MessageBox.Show("Do you want to save the extra data to DB?", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                DialogResult result = MessageBox.Show("Do you want to save the extra data to Database?", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                 {
-                    excel.SaveToDB(tableNew, product);
+                    excel.SaveToDB(table3, product);
                 }
             }
             catch
@@ -594,9 +601,10 @@ namespace SupermarketTuto.Forms
             
         }
 
+
         #endregion
 
-
+       
     }
    
 }

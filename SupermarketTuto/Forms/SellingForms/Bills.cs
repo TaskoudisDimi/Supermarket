@@ -1,4 +1,5 @@
-﻿using ClassLibrary1.Models;
+﻿using ClassLibrary1;
+using ClassLibrary1.Models;
 using DataClass;
 using System;
 using System.Collections.Generic;
@@ -14,21 +15,28 @@ namespace SupermarketTuto.Forms.SellingForms
 {
     public partial class Bills : Form
     {
+
+        ExcelFile excel = new ExcelFile();
+        SqlConnect loaddata2 = new SqlConnect();
         public Bills()
         {
             InitializeComponent();
         }
 
-
         private void displayBills()
         {
-            SqlConnect loaddata2 = new SqlConnect();
+            
             loaddata2.getData("Select * From BillTbl;");
             BillsDGV.DataSource = loaddata2.table;
             BillsDGV.AllowUserToAddRows = false;
             BillsDGV.RowHeadersVisible = false;
             total3Label.Text = $"Total: {BillsDGV.RowCount}";
 
+            exportCombobox.Items.Add("Csv");
+            exportCombobox.Items.Add("Xlsx");
+
+            importCombobox.Items.Add("Csv");
+            importCombobox.Items.Add("Xlsx");
         }
 
         private void Bills_Load(object sender, EventArgs e)
@@ -62,72 +70,58 @@ namespace SupermarketTuto.Forms.SellingForms
 
         }
 
-        private void exportButton_Click(object sender, EventArgs e)
+        private void importCombobox_SelectedValueChanged(object sender, EventArgs e)
         {
-            if (BillsDGV.Rows.Count > 0)
+            try
             {
-                SaveFileDialog dialog = new SaveFileDialog()
+                Type bills = typeof(Bills);
+                DataTable tableNew = new DataTable();
+                var item = ((ComboBox)sender).SelectedItem.ToString();
+
+                if (item.Contains("Csv"))
                 {
-                    Filter = "CSV (*.csv)|*.csv",
-                    Title = "Csv Files",
-                    RestoreDirectory = true
-                };
+                    tableNew = excel.import(bills);
 
-                if (dialog.ShowDialog() == DialogResult.OK)
-                {
-                    if (File.Exists(dialog.FileName))
-                    {
-                        try
-                        {
-                            File.Delete(dialog.FileName);
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show("It wasn't possible to write the data to the disk." + ex.Message);
-                        }
-                    }
-                    else
-                    {
-                        try
-                        {
-                            int colCount = BillsDGV.Columns.Count;
-                            string colNames = string.Empty;
-                            string[] outputCSV = new string[BillsDGV.Rows.Count + 1];
-                            for (int i = 0; i < colCount; i++)
-                            {
-                                if (i == colCount - 1)
-                                {
-                                    colNames += BillsDGV.Columns[i].HeaderText.ToString();
-                                }
-                                else
-                                {
-                                    colNames += BillsDGV.Columns[i].HeaderText.ToString() + ",";
-                                }
-                            }
-                            outputCSV[0] += colNames;
-
-                            for (int i = 1; (i - 1) < BillsDGV.Rows.Count; i++)
-                            {
-                                for (int j = 0; j < colCount; j++)
-                                {
-                                    outputCSV[i] += BillsDGV.Rows[i - 1].Cells[j].Value.ToString() + ",";
-                                }
-                            }
-
-                            File.WriteAllLines(dialog.FileName, outputCSV, Encoding.UTF8);
-                            MessageBox.Show("Success");
-
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show("Error :" + ex.Message);
-                        }
-                    }
                 }
+                else if (item.Contains("Xlsx"))
+                {
+                    tableNew = excel.ImportExcelAsync(BillsDGV, bills);
+                }
+                DataTable table3 = loaddata2.table.Clone();
+                var differenceQuery = tableNew.AsEnumerable().Except(loaddata2.table.AsEnumerable(), DataRowComparer.Default);
+
+                foreach (DataRow row in differenceQuery)
+                {
+                    table3.Rows.Add(row.ItemArray);
+                }
+                loaddata2.table.Merge(tableNew);
+                BillsDGV.DataSource = loaddata2.table;
+                BillsDGV.RowHeadersVisible = false;
+                BillsDGV.AllowUserToAddRows = false;
+                DialogResult result = MessageBox.Show("Do you want to save the extra data to Database?", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes)
+                {
+                    excel.SaveToDB(table3, bills);
+                }
+            }
+            catch
+            {
+
             }
         }
 
-       
-
+        private void exportCombobox_SelectedValueChanged(object sender, EventArgs e)
+        {
+            Type bills = typeof(Bills);
+            var item = ((ComboBox)sender).SelectedItem.ToString();
+            if (item.Contains("Csv"))
+            {
+                excel.export(BillsDGV);
+            }
+            else if (item.Contains("Xlsx"))
+            {
+                excel.Save(BillsDGV, bills);
+            }
+        }
     }
 }
