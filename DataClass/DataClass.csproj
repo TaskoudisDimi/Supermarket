@@ -80,6 +80,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CustomObjects.cs" />
+    <Compile Include="DbContext.cs" />
     <Compile Include="ExcelFile.cs" />
     <Compile Include="Models\Admins.cs" />
     <Compile Include="Models\BillingProducts.cs" />
@@ -87,6 +88,8 @@
     <Compile Include="Models\Categories.cs" />
     <Compile Include="Models\Excel.cs" />
     <Compile Include="Models\Products.cs" />
+    <Compile Include="Models\SchemaColumn.cs" />
+    <Compile Include="Models\SchemaTable.cs" />
     <Compile Include="Models\Sellers.cs" />
     <Compile Include="Utils\Constants.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
