@@ -12,7 +12,6 @@ using System.Data;
 using System.Text;
 using System.Windows.Forms;
 using DataTable = System.Data.DataTable;
-using SchemaTable = DataClass.SchemaTable;
 
 namespace SupermarketTuto.Forms
 {
@@ -22,6 +21,9 @@ namespace SupermarketTuto.Forms
         SqlConnect loaddata = new SqlConnect();
         ExcelFile excel = new ExcelFile();
         DataTable keepTable = new DataTable();
+        Type categoryType = typeof(Categories);
+
+
         public Category()
         {
             InitializeComponent();
@@ -48,8 +50,8 @@ namespace SupermarketTuto.Forms
             try
             {
                 fromDateTimePicker.Value = DateTime.Now.AddMonths(-2);
-                CatDGV.DataSource = loaddata.getData("Select * From CategoryTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'");
-                //CatDGV.DataSource = loaddata.getDataTest("Select * From CategoryTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'");
+                //CatDGV.DataSource = loaddata.getData("Select * From CategoryTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'");
+                CatDGV.DataSource = loaddata.getDataTest("Select * From CategoryTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'", categoryType);
                 CatDGV.RowHeadersVisible = false;
                 keepTable = loaddata.table.Copy();
                 CatDGV.Columns[3].HeaderText = "Date";

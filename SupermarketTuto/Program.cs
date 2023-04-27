@@ -5,8 +5,7 @@ using SupermarketTuto.Forms;
 using SupermarketTuto.Forms.AdminForms;
 using SupermarketTuto.Forms.General;
 using SupermarketTuto.Forms.SellingForms;
-using SchemaColumn = DataClass.SchemaColumn;
-using SchemaTable = DataClass.SchemaTable;
+
 
 namespace SupermarketTuto
 {
@@ -17,7 +16,7 @@ namespace SupermarketTuto
         static void Main()
         {
 
-            Application.Run(new MainSelling());
+            Application.Run(new MainAdmin());
         }
 
         // TODO: Uploade / Download files 

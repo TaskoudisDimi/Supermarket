@@ -10,6 +10,7 @@ using System.Linq;
 using System.Runtime.Remoting.Messaging;
 using System.Transactions;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace DataClass
 {
@@ -19,11 +20,10 @@ namespace DataClass
         public static SqlConnection con = new SqlConnection();
         public DataTable table = new DataTable();
         private DataSet dataSet;
-        private DataTable dataTable;
+        private DataTable dataTableCategory;
+        private DataTable dataTableProduct;
         private BindingSource bindingSource;
         private SqlDataAdapter dataAdapter;
-
-
 
 
         public SqlConnect()
@@ -91,54 +91,6 @@ namespace DataClass
             }
         }
 
-        public BindingSource getDataTest(string cmd)
-        {
-            OpenCon();
-            SqlTransaction transaction = con.BeginTransaction();
-
-            try
-            {
-                
-                //dataTableTest = new DataTable();
-                dataSet = new DataSet();
-                dataTable = new DataTable("Categories");
-                SqlCommand command = new SqlCommand(cmd, con, transaction);
-                dataAdapter = new SqlDataAdapter(command);
-                dataAdapter.Fill(dataTable);
-                transaction.Commit();
-                dataSet.Tables.Add(dataTable);
-                //Create a new BindingSource instance and bind it to the DataSet
-                bindingSource = new BindingSource();
-                bindingSource.DataSource = dataSet;
-                bindingSource.DataMember = "Categories";
-                return bindingSource;
-            }
-            catch (Exception ex)
-            {
-                transaction.Rollback();
-                throw ex;
-            }
-            finally
-            {
-                con.Close();
-            }
-        }
-        public void UpdateData()
-        {
-            // Update the data in the DataTable and notify the BindingSource of the changes
-            dataTable.Rows[0]["CatName"] = "John";
-            // Create a new SqlCommandBuilder instance and use it to generate the necessary SQL statements to update the database
-            SqlCommandBuilder builder = new SqlCommandBuilder(dataAdapter);
-            dataAdapter.UpdateCommand = builder.GetUpdateCommand();
-            dataAdapter.InsertCommand = builder.GetInsertCommand();
-            dataAdapter.DeleteCommand = builder.GetDeleteCommand();
-
-            // Use the Update method of the SqlDataAdapter to perform the update
-            dataAdapter.Update(dataSet.Tables[0]);
-
-            // Reset the bindings of the BindingSource to notify the UI of the changes
-            bindingSource.ResetBindings(false);
-        }
         public void execCom(string cmd)
         {
             OpenCon();
@@ -401,6 +353,102 @@ namespace DataClass
         }
 
 
+
+
+        public BindingSource getDataTest(string cmd, Type type)
+        {
+            OpenCon();
+            
+
+            try
+            {
+                string nameOfTable = type.Name;
+                dataSet = new DataSet();
+                dataTableCategory = new DataTable(nameOfTable);
+                dataTableProduct = new DataTable(nameOfTable);
+
+                SqlCommand command = new SqlCommand(cmd, con);
+                dataAdapter = new SqlDataAdapter(command);
+                dataAdapter.Fill(dataTableCategory);
+                
+                
+                // Create a new DataSet instance and fill it with data
+                dataSet.Tables.Add(dataTableCategory);
+                // Create a new BindingSource instance and bind it to the DataSet
+
+                bindingSource = new BindingSource();
+                bindingSource.DataSource = dataSet;
+                bindingSource.DataMember = $"{nameOfTable}";
+
+
+                //// Create a DataRelation between the customers and orders tables
+                //DataRelation relation = new DataRelation("CustomerOrders",
+                //    customersTable.Columns["CustomerId"],
+                //    ordersTable.Columns["CustomerId"]);
+                //dataSet.Relations.Add(relation);
+
+
+                return bindingSource;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+        public void UpdateData()
+        {
+            // Update the data in the DataTable and notify the BindingSource of the changes
+            dataTableCategory.Rows[0]["CatName"] = "John";
+            // Create a new SqlCommandBuilder instance and use it to generate the necessary SQL statements to update the database
+            SqlCommandBuilder builder = new SqlCommandBuilder(dataAdapter);
+            dataAdapter.UpdateCommand = builder.GetUpdateCommand();
+            dataAdapter.InsertCommand = builder.GetInsertCommand();
+            dataAdapter.DeleteCommand = builder.GetDeleteCommand();
+
+            // Use the Update method of the SqlDataAdapter to perform the update
+            dataAdapter.Update(dataSet.Tables[0]);
+
+            // Reset the bindings of the BindingSource to notify the UI of the changes
+            bindingSource.ResetBindings(false);
+        }
+
+        public void DeleteData()
+        {
+            SqlCommandBuilder builder = new SqlCommandBuilder(dataAdapter);
+            dataAdapter.UpdateCommand = builder.GetUpdateCommand();
+            dataAdapter.InsertCommand = builder.GetInsertCommand();
+            dataAdapter.DeleteCommand = builder.GetDeleteCommand();
+
+            // Use the Update method of the SqlDataAdapter to perform the update
+            dataAdapter.Update(dataSet.Tables[0]);
+
+            // Reset the bindings of the BindingSource to notify the UI of the changes
+            bindingSource.ResetBindings(false);
+        }
+
+        public void InsertData()
+        {
+            SqlCommandBuilder builder = new SqlCommandBuilder(dataAdapter);
+            dataAdapter.UpdateCommand = builder.GetUpdateCommand();
+            dataAdapter.InsertCommand = builder.GetInsertCommand();
+            dataAdapter.DeleteCommand = builder.GetDeleteCommand();
+
+            // Use the Update method of the SqlDataAdapter to perform the update
+            dataAdapter.Update(dataSet.Tables[0]);
+
+            // Reset the bindings of the BindingSource to notify the UI of the changes
+            bindingSource.ResetBindings(false);
+        }
+
+
+
+        //In summary, a DataSet is a container for multiple DataTable objects and can hold relations between them,
+        //while a DataTable represents a single table of data.
+        //A BindingSource acts as a bridge between the data source and the UI, handling tasks such as sorting, filtering, and synchronization of data changes.
     }
     
 
