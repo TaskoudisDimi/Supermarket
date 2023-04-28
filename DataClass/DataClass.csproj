@@ -80,6 +80,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CustomObjects.cs" />
+    <Compile Include="DataAccess.cs" />
     <Compile Include="DbContext.cs" />
     <Compile Include="ExcelFile.cs" />
     <Compile Include="Models\Admins.cs" />

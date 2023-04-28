@@ -11,12 +11,14 @@ namespace SupermarketTuto
 {
     internal static class Program
     {
+        
        
         [STAThread]
         static void Main()
         {
-
+            
             Application.Run(new MainAdmin());
+           
         }
 
         // TODO: Uploade / Download files 

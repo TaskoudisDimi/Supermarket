@@ -20,8 +20,7 @@ namespace SupermarketTuto.Forms
         int startRecord;
         SqlConnect loaddata = new SqlConnect();
         ExcelFile excel = new ExcelFile();
-        DataTable keepTable = new DataTable();
-        Type categoryType = typeof(Categories);
+        DataTable categoryTable = new DataTable();
 
 
         public Category()
@@ -51,11 +50,22 @@ namespace SupermarketTuto.Forms
             {
                 fromDateTimePicker.Value = DateTime.Now.AddMonths(-2);
                 //CatDGV.DataSource = loaddata.getData("Select * From CategoryTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'");
-                CatDGV.DataSource = loaddata.getDataTest("Select * From CategoryTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'", categoryType);
+
+                categoryTable = DataAccess.Instance.GetTable("CategoryTbl");
+
+                // Bind the data to the UI controls using the BindingSource
+                BindingSource bindingSource = new BindingSource();
+                bindingSource.DataSource = categoryTable;
+                
+                CatDGV.DataSource = bindingSource;
+                
                 CatDGV.RowHeadersVisible = false;
-                keepTable = loaddata.table.Copy();
+                
+                //keepTable = loaddata.table.Copy();
                 CatDGV.Columns[3].HeaderText = "Date";
+
                 totalLabel.Text = $"Total: {CatDGV.RowCount}";
+
                 if (totalLabel.Text == null)
                 {
                     MessageBox.Show("Warning", "There is no data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -148,7 +158,7 @@ namespace SupermarketTuto.Forms
         private void addButton_Click(object sender, EventArgs e)
         {
             //check();
-            addEditCategory add = new addEditCategory(loaddata);
+            addEditCategory add = new addEditCategory(categoryTable, null, true);
             add.editButton.Visible = false;
             add.CatIdTb.Visible = false;
             add.idlabel.Visible = false;
@@ -158,15 +168,9 @@ namespace SupermarketTuto.Forms
         private void editButton_Click(object sender, EventArgs e)
         {
             //check();
-            addEditCategory edit = new addEditCategory(loaddata);
-            foreach (DataRow row in loaddata.table.Rows)
-            {
-                edit.CatNameTb.Text = row["CatName"].ToString();
-                edit.CatDescTb.Text = row["CatDesc"].ToString();
-                edit.dateTimePicker.Text = row["Date"].ToString();
-            }
-            edit.addButton.Visible = false;
-            edit.CatIdTb.ReadOnly = true;
+            DataGridViewRow currentRow = CatDGV.CurrentRow;
+            addEditCategory edit = new addEditCategory(categoryTable, currentRow, false);
+
             edit.Show();
         }
 
@@ -248,38 +252,44 @@ namespace SupermarketTuto.Forms
         #region DateTimePicker
         private void fromDateTimePicker_ValueChanged(object sender, EventArgs e)
         {
-            if (loaddata.table.Columns.Count > 0)
+            if (categoryTable.Rows.Count > 0)
             {
-
+                // Assuming you have a DataTable named "myDataTable"
                 DateTime pickerDate = fromDateTimePicker.Value.Date;
-                DataRow[] rowsToRemove = loaddata.table.Select("Date < #" + pickerDate + "#");
-                DataRow[] rowsToAdd = keepTable.Select("Date > #" + pickerDate + "#");
-                if (rowsToRemove.Count() > 0)
+                string filterExpression = "Date >= #" + pickerDate.ToString("yyyy/MM/dd") + "#";
+                DataRow[] filteredRows = categoryTable.Select(filterExpression);
+
+                // Create a new DataTable from the filtered rows
+                DataTable filteredTable = categoryTable.Clone();
+                foreach (DataRow row in filteredRows)
                 {
-                    foreach (DataRow row in rowsToRemove)
-                    {
-                        loaddata.table.Rows.Remove(row);
-                    }
-                    CatDGV.DataSource = loaddata.table;
+                    filteredTable.ImportRow(row);
                 }
-                else
-                {
-                    if(rowsToAdd.Count() == 0)
-                    {
-                        foreach (DataRow row in rowsToAdd)
-                        {
-                            loaddata.table.Rows.Add(row);
-                        }
-                        
-                    }
-                    CatDGV.DataSource = keepTable;
-                }
+
+                // Bind the new DataTable to a DataGridView
+                CatDGV.DataSource = filteredTable;
             }
         }
 
         private void toDateTimePicker_ValueChanged(object sender, EventArgs e)
         {
-           
+            if (categoryTable.Rows.Count > 0)
+            {
+                // Assuming you have a DataTable named "myDataTable"
+                DateTime pickerDate = toDateTimePicker.Value.Date;
+                string filterExpression = "Date <= #" + pickerDate.ToString("yyyy/MM/dd") + "#";
+                DataRow[] filteredRows = categoryTable.Select(filterExpression);
+
+                // Create a new DataTable from the filtered rows
+                DataTable filteredTable = categoryTable.Clone();
+                foreach (DataRow row in filteredRows)
+                {
+                    filteredTable.ImportRow(row);
+                }
+
+                // Bind the new DataTable to a DataGridView
+                CatDGV.DataSource = filteredTable;
+            }
         }
         #endregion
 

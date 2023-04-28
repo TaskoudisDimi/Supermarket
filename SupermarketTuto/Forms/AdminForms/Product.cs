@@ -44,6 +44,10 @@ namespace SupermarketTuto.Forms
         private Timer timer = new Timer();
         public delegate void UpdateDataHandler(object sender, EventArgs e);
         public event UpdateDataHandler UpdateData;
+
+        Type productType = typeof(Products);
+
+
         public Product()
         {
             InitializeComponent();
@@ -91,8 +95,9 @@ namespace SupermarketTuto.Forms
             {
                 
                 fromDateTimePicker.Value = DateTime.Now.AddMonths(-2);
-                loaddata1.getData("Select * from ProductTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'");
-                ProdDGV.DataSource = loaddata1.table;
+                //loaddata1.getData("Select * from ProductTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'");
+   
+                ProdDGV.DataSource = loaddata1.getDataTest("Select * from ProductTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'", productType); ;
                 ProdDGV.RowHeadersVisible = false;
                 ProdDGV.AllowUserToAddRows = false;
                 totalLabel.Text = $"Total: {ProdDGV.RowCount}";

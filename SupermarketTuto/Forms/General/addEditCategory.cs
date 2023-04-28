@@ -15,45 +15,57 @@ using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.Data;
 using System.Linq;
+using DataTable = System.Data.DataTable;
+using ClassLibrary1;
 
 namespace SupermarketTuto.Forms.General
 {
     public partial class addEditCategory : Form
     {
-        SqlConnect loaddata = new SqlConnect();
-        public addEditCategory(SqlConnect loaddata_, bool add = true)
+        DataTable categoryTable = new DataTable();
+        DataTable oldTable = new DataTable();
+        DataGridViewRow selected = new DataGridViewRow();
+        public addEditCategory(DataTable categoryTable_, DataGridViewRow selected_, bool add)
         {
             InitializeComponent();
-            loaddata = loaddata_;
+
+            categoryTable = categoryTable_;
+            selected = selected_;
+
             if (add)
             {
                 editButton.Enabled = false;
             }
             else
             {
+                CatIdTb.Text = selected.Cells["CatId"].Value.ToString();
+                CatNameTb.Text = selected.Cells["CatName"].Value.ToString();
+                CatDescTb.Text = selected.Cells["CatDesc"].Value.ToString();
+                dateTimePicker.Value = (DateTime)selected.Cells["Date"].Value;
                 addButton.Visible = false;
-                DataRow row = loaddata.table.Rows.Cast<DataRow>().Where(r => r.Field<int>("CatId") == Int32.Parse(CatIdTb.Text)).FirstOrDefault();
-                row["CatName"] = CatNameTb.Text;
-                row["CatDesc"] = CatDescTb.Text;
-                row["Date"] = dateTimePicker.Value.ToString("MM-dd-yyyy");
-                //CatIdTb.Text = 
+                //DataRow row = categoryTable.Rows.Cast<DataRow>().Where(r => r.Field<int>("CatId") == Int32.Parse(CatIdTb.Text)).FirstOrDefault();
+                //row["CatName"] = CatNameTb.Text;
+                //row["CatDesc"] = CatDescTb.Text;
+                //row["Date"] = dateTimePicker.Value.ToString("MM-dd-yyyy");
+
             }
         }
+
 
         private void addButton_Click(object sender, EventArgs e)
         {
             try
             {
-                loaddata.execCom("Insert Into CategoryTbl values('" + CatNameTb.Text + "','" + CatDescTb.Text + "','" + dateTimePicker.Value.ToString("MM-dd-yyyy") + "')");
-                loaddata.table.Columns["CatId"].AutoIncrement = true;
-                DataRow row = loaddata.table.NewRow();
+                //loaddata.execCom("Insert Into CategoryTbl values('" + CatNameTb.Text + "','" + CatDescTb.Text + "','" + dateTimePicker.Value.ToString("MM-dd-yyyy") + "')");
+                categoryTable.Columns["CatId"].AutoIncrement = true;
+                DataRow row = categoryTable.NewRow();
                 row["CatName"] = CatNameTb.Text;
                 row["CatDesc"] = CatDescTb.Text;
                 row["Date"] = dateTimePicker.Value.ToString("yyyy-MM-dd");
-                loaddata.table.Rows.Add(row);
-                if(loaddata.table.Rows.Cast<DataRow>().Any(r => r.RowState == DataRowState.Unchanged))
+                categoryTable.Rows.Add(row);
+                if(categoryTable.Rows.Cast<DataRow>().Any(r => r.RowState == DataRowState.Unchanged))
                 {
-                    loaddata.table.AcceptChanges();
+                    categoryTable.AcceptChanges();
                 }
                 MessageBox.Show($"Successfully inserted Category {row["CatName"]}","Information",MessageBoxButtons.OK,MessageBoxIcon.Information);
                 this.Close();
@@ -74,14 +86,17 @@ namespace SupermarketTuto.Forms.General
                 }
                 else
                 {
-                    loaddata.execCom("Update CategoryTbl set CatName='" + CatNameTb.Text + "',CatDesc='" + CatDescTb.Text + "', Date = '" + dateTimePicker.Value.ToString("MM-dd-yyyy") + "' where CatId=" + CatIdTb.Text);
-                    DataRow row = loaddata.table.Rows.Cast<DataRow>().Where(r => r.Field<int>("CatId") == Int32.Parse(CatIdTb.Text)).FirstOrDefault();
+                    oldTable = categoryTable.Clone();
+                    DateTime Date = dateTimePicker.Value.Date;
+                    //categoryTable.execCom("Update CategoryTbl set CatName='" + CatNameTb.Text + "',CatDesc='" + CatDescTb.Text + "', Date = '" + dateTimePicker.Value.ToString("MM-dd-yyyy") + "' where CatId=" + CatIdTb.Text);
+                    DataRow row = categoryTable.Rows.Cast<DataRow>().Where(r => r.Field<int>("CatId") == Int32.Parse(CatIdTb.Text)).FirstOrDefault();
                     row["CatName"] = CatNameTb.Text;
                     row["CatDesc"] = CatDescTb.Text;
-                    row["Date"] = dateTimePicker.Value.ToString("MM-dd-yyyy");
-                    if (loaddata.table.Rows.Cast<DataRow>().Any(r => r.RowState == DataRowState.Unchanged))
+                    row["Date"] = Date;
+                    if (categoryTable.Rows.Cast<DataRow>().Any(r => r.RowState == DataRowState.Unchanged))
                     {
-                        loaddata.table.AcceptChanges();
+                        categoryTable.AcceptChanges();
+                        DataAccess.Instance.UpdateData(oldTable, categoryTable);
                     }
                     MessageBox.Show($"Category {row["CatName"]} Successfully Updated", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.Close();
