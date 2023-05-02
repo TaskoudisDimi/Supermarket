@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Configuration;
 using System.Windows.Forms;
+using System.Collections;
 
 namespace ClassLibrary1
 {
@@ -65,32 +66,47 @@ namespace ClassLibrary1
             return cachedTables[tableName];
         }
 
-        public void UpdateData(DataTable oldTable, DataTable newTable)
+        public void UpdateData(DataTable Table)
         {
             try
             {
-                oldTable.Merge(newTable);
-                // Update the data in the DataTable and notify the BindingSource of the changes
-                //table.Rows[0]["CatName"] = "Test99";
                 adapter.SelectCommand.Connection.ConnectionString = connectionString;
                 // Create a new SqlCommandBuilder instance and use it to generate the necessary SQL statements to update the database
-                builder = new SqlCommandBuilder(adapter);
-                adapter.UpdateCommand = builder.GetUpdateCommand();
-
-                // Use the Update method of the SqlDataAdapter to perform the update
-                adapter.Update(oldTable);
-
-                
+                using (connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    builder = new SqlCommandBuilder(adapter);
+                    adapter.UpdateCommand = builder.GetUpdateCommand();
+                    // Use the Update method of the SqlDataAdapter to perform the update
+                    adapter.Update(Table);
+                }
             }
             catch
             {
 
             }
-
-            
         }
 
-       
+        public void InsertData(DataTable Table)
+        {
+            try
+            {
+                adapter.SelectCommand.Connection.ConnectionString = connectionString;
+                // Create a new SqlCommandBuilder instance and use it to generate the necessary SQL statements to update the database
+                using (connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    builder = new SqlCommandBuilder(adapter);
+                    adapter.UpdateCommand = builder.GetInsertCommand();
+                    // Use the Update method of the SqlDataAdapter to perform the update
+                    adapter.Update(Table);
+                }
+            }
+            catch
+            {
+
+            }
+        }
 
 
 
