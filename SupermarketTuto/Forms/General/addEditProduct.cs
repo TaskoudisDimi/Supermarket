@@ -13,6 +13,8 @@ namespace SupermarketTuto.Forms.General
 {
     public partial class addEditProduct : Form
     {
+        DataTable productTable = new DataTable();
+        DataGridViewRow selected = new DataGridViewRow();
         public addEditProduct()
         {
             InitializeComponent();
@@ -63,7 +65,6 @@ namespace SupermarketTuto.Forms.General
                 MessageBox.Show(ex.Message);
             }
         }
-
 
         private void ComboCat()
         {

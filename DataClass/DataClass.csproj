@@ -83,6 +83,7 @@
     <Compile Include="DataAccess.cs" />
     <Compile Include="DbContext.cs" />
     <Compile Include="ExcelFile.cs" />
+    <Compile Include="MenuStrip.cs" />
     <Compile Include="Models\Admins.cs" />
     <Compile Include="Models\BillingProducts.cs" />
     <Compile Include="Models\Bills.cs" />

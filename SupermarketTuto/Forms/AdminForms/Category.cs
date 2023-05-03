@@ -157,7 +157,6 @@ namespace SupermarketTuto.Forms
 
         private void addButton_Click(object sender, EventArgs e)
         {
-            //check();
             addEditCategory add = new addEditCategory(categoryTable, null, true);
             add.editButton.Visible = false;
             add.CatIdTb.Visible = false;
@@ -167,10 +166,8 @@ namespace SupermarketTuto.Forms
 
         private void editButton_Click(object sender, EventArgs e)
         {
-            //check();
             DataGridViewRow currentRow = CatDGV.CurrentRow;
             addEditCategory edit = new addEditCategory(categoryTable, currentRow, false);
-
             edit.Show();
         }
 
@@ -179,9 +176,8 @@ namespace SupermarketTuto.Forms
             SqlConnect loaddata5 = new SqlConnect();
             try
             {
-                //check();
                 loaddata5.execCom("Delete From CategoryTbl Where CatId = " + CatDGV.CurrentRow.Cells[1].Value.ToString());
-                //display();
+
             }
             catch (Exception ex)
             {
