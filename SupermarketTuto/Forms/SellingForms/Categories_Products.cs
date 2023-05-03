@@ -35,25 +35,25 @@ namespace SupermarketTuto.Forms.SellingForms
         }
         private void Edit_Click(object? sender, EventArgs e)
         {
-            SqlConnect loaddata20 = new SqlConnect();
-            addEditProduct edit = new addEditProduct();
-            ////This method will bind the Combobox with the Database
-            loaddata20.getData("Select CatName From CategoryTbl");
-            edit.catCombobox.DataSource = loaddata20.table;
-            edit.catCombobox.ValueMember = "CatName";
-            //catCombobox.SelectedItem = null;
-            edit.catCombobox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            edit.catCombobox.AutoCompleteSource = AutoCompleteSource.ListItems;
-            edit.ProdId.Text = ProdDGV.CurrentRow.Cells[0].Value.ToString();
-            edit.ProdName.Text = ProdDGV.CurrentRow.Cells[1].Value.ToString();
-            edit.ProdPrice.Text = ProdDGV.CurrentRow.Cells[2].Value.ToString();
-            edit.ProdQty.Text = ProdDGV.CurrentRow.Cells[3].Value.ToString();
-            edit.catCombobox.SelectedValue = ProdDGV.CurrentRow.Cells[5].Value.ToString();
-            edit.catIDTextBox.Text = ProdDGV.CurrentRow.Cells[4].Value.ToString();
-            edit.DateTimePicker.Text = ProdDGV.CurrentRow.Cells[6].Value.ToString();
-            edit.addButton.Visible = false;
-            edit.ProdId.ReadOnly = true;
-            edit.Show();
+            //SqlConnect loaddata20 = new SqlConnect();
+            //addEditProduct edit = new addEditProduct();
+            //////This method will bind the Combobox with the Database
+            //loaddata20.getData("Select CatName From CategoryTbl");
+            //edit.catCombobox.DataSource = loaddata20.table;
+            //edit.catCombobox.ValueMember = "CatName";
+            ////catCombobox.SelectedItem = null;
+            //edit.catCombobox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            //edit.catCombobox.AutoCompleteSource = AutoCompleteSource.ListItems;
+            //edit.ProdId.Text = ProdDGV.CurrentRow.Cells[0].Value.ToString();
+            //edit.ProdName.Text = ProdDGV.CurrentRow.Cells[1].Value.ToString();
+            //edit.ProdPrice.Text = ProdDGV.CurrentRow.Cells[2].Value.ToString();
+            //edit.ProdQty.Text = ProdDGV.CurrentRow.Cells[3].Value.ToString();
+            //edit.catCombobox.SelectedValue = ProdDGV.CurrentRow.Cells[5].Value.ToString();
+            //edit.catIDTextBox.Text = ProdDGV.CurrentRow.Cells[4].Value.ToString();
+            //edit.DateTimePicker.Text = ProdDGV.CurrentRow.Cells[6].Value.ToString();
+            //edit.addButton.Visible = false;
+            //edit.ProdId.ReadOnly = true;
+            //edit.Show();
         }
 
         private void Delete_Click(object? sender, EventArgs e)
@@ -152,46 +152,46 @@ namespace SupermarketTuto.Forms.SellingForms
         }
         private void addButton_Click(object sender, EventArgs e)
         {
-            checkProd();
-            addEditProduct add = new addEditProduct();
-            SqlConnect loaddata21 = new SqlConnect();
-            ////This method will bind the Combobox with the Database
-            loaddata21.getData("Select CatName From CategoryTbl");
-            add.catCombobox.DataSource = loaddata21.table;
-            add.catCombobox.ValueMember = "CatName";
-            //catCombobox.SelectedItem = null;
-            add.catCombobox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            add.catCombobox.AutoCompleteSource = AutoCompleteSource.ListItems;
-            add.editButton.Visible = false;
-            add.ProdId.Visible = false;
-            add.idLabel.Visible = false;
-            add.Show();
-            refresh_products();
+            //checkProd();
+            //addEditProduct add = new addEditProduct();
+            //SqlConnect loaddata21 = new SqlConnect();
+            //////This method will bind the Combobox with the Database
+            //loaddata21.getData("Select CatName From CategoryTbl");
+            //add.catCombobox.DataSource = loaddata21.table;
+            //add.catCombobox.ValueMember = "CatName";
+            ////catCombobox.SelectedItem = null;
+            //add.catCombobox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            //add.catCombobox.AutoCompleteSource = AutoCompleteSource.ListItems;
+            //add.editButton.Visible = false;
+            //add.ProdId.Visible = false;
+            //add.idLabel.Visible = false;
+            //add.Show();
+            //refresh_products();
         }
 
         private void editButton_Click(object sender, EventArgs e)
         {
-            checkProd();
-            SqlConnect loaddata20 = new SqlConnect();
-            addEditProduct edit = new addEditProduct();
-            ////This method will bind the Combobox with the Database
-            loaddata20.getData("Select CatName From CategoryTbl");
-            edit.catCombobox.DataSource = loaddata20.table;
-            edit.catCombobox.ValueMember = "CatName";
-            //catCombobox.SelectedItem = null;
-            edit.catCombobox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            edit.catCombobox.AutoCompleteSource = AutoCompleteSource.ListItems;
-            edit.ProdId.Text = ProdDGV.CurrentRow.Cells[0].Value.ToString();
-            edit.ProdName.Text = ProdDGV.CurrentRow.Cells[1].Value.ToString();
-            edit.ProdPrice.Text = ProdDGV.CurrentRow.Cells[2].Value.ToString();
-            edit.ProdQty.Text = ProdDGV.CurrentRow.Cells[3].Value.ToString();
-            edit.catCombobox.SelectedValue = ProdDGV.CurrentRow.Cells[5].Value.ToString();
-            edit.catIDTextBox.Text = ProdDGV.CurrentRow.Cells[4].Value.ToString();
-            edit.DateTimePicker.Text = ProdDGV.CurrentRow.Cells[6].Value.ToString();
-            edit.addButton.Visible = false;
-            edit.ProdId.ReadOnly = true;
-            edit.Show();
-            refresh_products();
+            //checkProd();
+            //SqlConnect loaddata20 = new SqlConnect();
+            //addEditProduct edit = new addEditProduct();
+            //////This method will bind the Combobox with the Database
+            //loaddata20.getData("Select CatName From CategoryTbl");
+            //edit.catCombobox.DataSource = loaddata20.table;
+            //edit.catCombobox.ValueMember = "CatName";
+            ////catCombobox.SelectedItem = null;
+            //edit.catCombobox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            //edit.catCombobox.AutoCompleteSource = AutoCompleteSource.ListItems;
+            //edit.ProdId.Text = ProdDGV.CurrentRow.Cells[0].Value.ToString();
+            //edit.ProdName.Text = ProdDGV.CurrentRow.Cells[1].Value.ToString();
+            //edit.ProdPrice.Text = ProdDGV.CurrentRow.Cells[2].Value.ToString();
+            //edit.ProdQty.Text = ProdDGV.CurrentRow.Cells[3].Value.ToString();
+            //edit.catCombobox.SelectedValue = ProdDGV.CurrentRow.Cells[5].Value.ToString();
+            //edit.catIDTextBox.Text = ProdDGV.CurrentRow.Cells[4].Value.ToString();
+            //edit.DateTimePicker.Text = ProdDGV.CurrentRow.Cells[6].Value.ToString();
+            //edit.addButton.Visible = false;
+            //edit.ProdId.ReadOnly = true;
+            //edit.Show();
+            //refresh_products();
         }
 
         private void deleteButton_Click(object sender, EventArgs e)

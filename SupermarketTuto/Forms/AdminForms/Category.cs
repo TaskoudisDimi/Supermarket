@@ -49,7 +49,6 @@ namespace SupermarketTuto.Forms
             try
             {
                 fromDateTimePicker.Value = DateTime.Now.AddMonths(-2);
-                //CatDGV.DataSource = loaddata.getData("Select * From CategoryTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'");
 
                 categoryTable = DataAccess.Instance.GetTable("CategoryTbl");
 

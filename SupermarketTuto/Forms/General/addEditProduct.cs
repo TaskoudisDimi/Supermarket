@@ -15,24 +15,30 @@ namespace SupermarketTuto.Forms.General
     {
         DataTable productTable = new DataTable();
         DataGridViewRow selected = new DataGridViewRow();
-        public addEditProduct()
+        public addEditProduct(DataTable productTable_, DataGridViewRow selected_, bool add)
         {
             InitializeComponent();
             ComboCat();
+            productTable = productTable_;
+            selected = selected_;
+
+            if (add)
+            {
+                editButton.Enabled = false;
+            }
+            else
+            {
+                ProdId.Text = selected.Cells["ProdId"].Value.ToString();
+                ProdName.Text = selected.Cells["ProdName"].Value.ToString();
+                ProdQty.Text = selected.Cells["ProdQty"].Value.ToString();
+                ProdPrice.Text = selected.Cells["ProdPrice"].Value.ToString();
+                DateTimePicker.Value = (DateTime)selected.Cells["Date"].Value;
+                categoryID.Text = selected.Cells["ProdCatID"].Value.ToString();
+                catCombobox.Text = selected.Cells["ProdCat"].Value.ToString();
+                addButton.Visible = false;
+            }
         }
 
-        private void addEditProduct_Load(object sender, EventArgs e)
-        {
-            try
-            {
-
-            }
-            catch
-            {
-
-            }
-
-        }
 
         private void addButton_Click(object sender, EventArgs e)
         {

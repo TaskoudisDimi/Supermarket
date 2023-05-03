@@ -223,7 +223,6 @@
             this.Controls.Add(this.ProdId);
             this.Name = "addEditProduct";
             this.Text = "addProduct";
-            this.Load += new System.EventHandler(this.addEditProduct_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
