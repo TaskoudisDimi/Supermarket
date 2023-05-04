@@ -28,8 +28,7 @@ namespace SupermarketTuto.Forms
 
                 sellerTable = DataAccess.Instance.GetTable("SellersTbl");
                 BindingSource binding = new BindingSource();
-                //sellerTable.Columns.Remove("SellerPass");
-                //sellerTable.Columns.Remove("Image");
+                
                 bool active = activeComboBox.Text.Equals("Active") ? true : false;
                 string filterData = "Active = " + active.ToString().ToLower();
                 DataRow[] filterRow = sellerTable.Select(filterData);
@@ -38,14 +37,14 @@ namespace SupermarketTuto.Forms
                 {
                     filterTable.ImportRow(row);
                 }
-                filterTable.Columns.Remove("SellerPass");
+                //filterTable.Columns.Remove("SellerPass");
                 filterTable.Columns.Remove("Image");
                 binding.DataSource = filterTable;
 
                 SellDGV.DataSource = binding;
-
                 totalLabel.Text = $"Total: {SellDGV.RowCount}";
                 SellDGV.RowHeadersVisible = false;
+                SellDGV.ReadOnly = true;
 
                 #region comments
                 //if (activeComboBox.Text == "Active")
@@ -102,8 +101,8 @@ namespace SupermarketTuto.Forms
         #region buttons
         private void add2Button_Click(object sender, EventArgs e)
         {
-            //check();
-            addEditSeller add = new addEditSeller();
+            
+            addEditSeller add = new addEditSeller(sellerTable, null, true);
             add.editButton.Visible = false;
             add.SellId.Visible = false;
             add.idlabel.Visible = false;
@@ -114,27 +113,10 @@ namespace SupermarketTuto.Forms
         {
             try
             {
-                //check();
-                SqlConnect loaddata60 = new SqlConnect();
-                addEditSeller edit = new addEditSeller();
-                edit.SellId.Text = SellDGV.CurrentRow.Cells[0].Value.ToString();
-                string query = $"Select * From SellersTbl where SellerId = {edit.SellId.Text}";
-                loaddata60.getData(query);
-                DataTable sellers = loaddata60.table;
-                foreach (DataRow row in sellers.Rows)
-                {
-                    edit.usernameTextBox.Text = row["SellerUserName"].ToString();
-                    byte[] imageData = (byte[])row["Image"];
-                    MemoryStream ms = new MemoryStream(imageData);
-                    edit.pictureBox.Image = Image.FromStream(ms);
-                    edit.passwordTextBox.Text = row["SellerPass"].ToString();
-                    edit.SellName.Text = row["SellerName"].ToString();
-                    edit.SellAge.Text = row["SellerAge"].ToString();
-                    edit.SellPhone.Text = row["SellerPhone"].ToString();
-                    edit.addressTextBox.Text = row["Address"].ToString();
-                    edit.dateTimePicker.Text = row["Date"].ToString();
-                    edit.checkBox.Checked = (bool)row["Active"];
-                }
+
+                DataGridViewRow currentRow = SellDGV.CurrentRow;
+                addEditSeller edit = new addEditSeller(sellerTable, currentRow, false);
+
                 edit.addButton.Visible = false;
                 edit.SellId.ReadOnly = true;
                 edit.Show();
@@ -148,14 +130,22 @@ namespace SupermarketTuto.Forms
 
         private void delete2Button_Click(object sender, EventArgs e)
         {
-            SqlConnect loaddata4 = new SqlConnect();
-
             try
             {
-                //check();
-                loaddata4.execCom("Delete From SellersTbl Where SellerId=" + SellDGV.CurrentRow.Cells[0].Value.ToString());
-                MessageBox.Show("Seller Deleted Successfully");
-
+                List<DataRow> rowsToDelete = new List<DataRow>();
+                // loop over the selected rows and add them to the list
+                foreach (DataGridViewRow selectedRow in SellDGV.SelectedRows)
+                {
+                    //Convert DataGridViewRow -> DataRow
+                    DataRow row = ((DataRowView)selectedRow.DataBoundItem).Row;
+                    rowsToDelete.Add(row);
+                }
+                // loop over the rows to delete and remove them from the DataTable
+                foreach (DataRow row in rowsToDelete)
+                {
+                    sellerTable.Rows.Remove(row);
+                }
+                DataAccess.Instance.DeleteData(sellerTable);
             }
             catch (Exception ex)
             {
@@ -194,29 +184,29 @@ namespace SupermarketTuto.Forms
         {
             try
             {
-                SqlConnect loaddata50 = new SqlConnect();
-                addEditSeller edit = new addEditSeller();
-                edit.SellId.Text = SellDGV.CurrentRow.Cells[0].Value.ToString();
-                string query = $"Select * From SellersTbl where SellerId = {edit.SellId.Text}";
-                loaddata50.getData(query);
-                DataTable sellers = loaddata50.table;
-                foreach (DataRow row in sellers.Rows)
-                {
-                    edit.usernameTextBox.Text = row["SellerUserName"].ToString();
-                    byte[] imageData = (byte[])row["Image"];
-                    MemoryStream ms = new MemoryStream(imageData);
-                    edit.pictureBox.Image = Image.FromStream(ms);
-                    edit.passwordTextBox.Text = row["SellerPass"].ToString();
-                    edit.SellName.Text = row["SellerName"].ToString();
-                    edit.SellAge.Text = row["SellerAge"].ToString();
-                    edit.SellPhone.Text = row["SellerPhone"].ToString();
-                    edit.addressTextBox.Text = row["Address"].ToString();
-                    edit.dateTimePicker.Text = row["Date"].ToString();
-                    edit.checkBox.Checked = (bool)row["Active"];
-                }
-                edit.addButton.Visible = false;
-                edit.SellId.ReadOnly = true;
-                edit.Show();
+                //SqlConnect loaddata50 = new SqlConnect();
+                //addEditSeller edit = new addEditSeller();
+                //edit.SellId.Text = SellDGV.CurrentRow.Cells[0].Value.ToString();
+                //string query = $"Select * From SellersTbl where SellerId = {edit.SellId.Text}";
+                //loaddata50.getData(query);
+                //DataTable sellers = loaddata50.table;
+                //foreach (DataRow row in sellers.Rows)
+                //{
+                //    edit.usernameTextBox.Text = row["SellerUserName"].ToString();
+                //    byte[] imageData = (byte[])row["Image"];
+                //    MemoryStream ms = new MemoryStream(imageData);
+                //    edit.pictureBox.Image = Image.FromStream(ms);
+                //    edit.passwordTextBox.Text = row["SellerPass"].ToString();
+                //    edit.SellName.Text = row["SellerName"].ToString();
+                //    edit.SellAge.Text = row["SellerAge"].ToString();
+                //    edit.SellPhone.Text = row["SellerPhone"].ToString();
+                //    edit.addressTextBox.Text = row["Address"].ToString();
+                //    edit.dateTimePicker.Text = row["Date"].ToString();
+                //    edit.checkBox.Checked = (bool)row["Active"];
+                //}
+                //edit.addButton.Visible = false;
+                //edit.SellId.ReadOnly = true;
+                //edit.Show();
             }
             catch (Exception ex)
             {

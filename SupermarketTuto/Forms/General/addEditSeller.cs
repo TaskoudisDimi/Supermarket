@@ -21,48 +21,117 @@ using System.Security.Policy;
 using DataClass;
 using static System.Net.Mime.MediaTypeNames;
 using Image = System.Drawing.Image;
+using System.Runtime.Serialization.Formatters.Binary;
+using ClassLibrary1;
+using ClassLibrary1.Models;
 
 namespace SupermarketTuto.Forms.General
 {
     public partial class addEditSeller : Form
     {
+        DataTable sellersTable = new DataTable();
+        DataGridViewRow selected = new DataGridViewRow();
+
         GMapControl map = new GMapControl();
-        SqlConnection con = new SqlConnection();
         HttpClient client = new HttpClient();
         Northeast coor = new Northeast();
         string address = string.Empty;
         string url = "https://maps.googleapis.com/maps/api/geocode/json?address={0}&key=AIzaSyA6xRZPHBhRuVErZgLtseHnB6heQFiyo3g";
 
-        public addEditSeller()
+        public addEditSeller(DataTable sellersTable_, DataGridViewRow selected_, bool add)
         {
             InitializeComponent();
-        }
+            sellersTable = sellersTable_;
+            selected = selected_;
+            BinaryFormatter formatter = new BinaryFormatter();
 
-        private void addButton_Click(object sender, EventArgs e)
+            if (add)
+            {
+                editButton.Enabled = false;
+            }
+            else
+            {
+                SellId.Text = selected.Cells["SellerId"].Value.ToString();
+                usernameTextBox.Text = selected.Cells["SellerUserName"].Value.ToString();
+                passwordTextBox.Text = selected.Cells["SellerPass"].Value.ToString();
+                SellName.Text = selected.Cells["SellerName"].Value.ToString();
+                SellAge.Text = selected.Cells["SellerAge"].Value.ToString();
+                SellPhone.Text = selected.Cells["SellerPhone"].Value.ToString();
+                addressTextBox.Text = selected.Cells["Address"].Value.ToString();
+                checkBox.Checked = (bool)selected.Cells["Active"].Value;
+
+                //// create a memory stream to hold the serialized data
+                //using (MemoryStream stream = new MemoryStream())
+                //{
+
+                //    // serialize the row object to the memory stream
+                //    formatter.Serialize(stream, selected);
+
+                //    // get the byte array from the memory stream
+                //    byte[] bytes = stream.ToArray();
+
+                //    MemoryStream ms = new MemoryStream(bytes);
+                //    pictureBox.Image = Image.FromStream(ms);
+
+                //}
+
+                dateTimePicker.Value = (DateTime)selected.Cells["Date"].Value;
+                addButton.Visible = false;
+            }
+        }
+        private void editButton_Click(object sender, EventArgs e)
         {
-            byte[] imageData = File.ReadAllBytes(imageName);
-            SqlConnect loaddata5 = new SqlConnect();
+
             try
             {
-                if (checkBox.Checked)
+                DateTime Date = dateTimePicker.Value.Date;
+                DataRow row = sellersTable.Rows.Cast<DataRow>().Where(r => r.Field<int>("SellerId") == Int32.Parse(SellId.Text)).FirstOrDefault();
+                row["SellerUserName"] = usernameTextBox.Text;
+                byte[] asciiBytes = Encoding.ASCII.GetBytes(passwordTextBox.Text);
+                row["SellerPass"] = asciiBytes;
+                row["SellerName"] = SellName.Text;
+                row["SellerAge"] = SellAge.Text;
+                row["SellerPhone"] = SellPhone.Text;
+                row["Address"] = addressTextBox.Text;
+                row["Active"] = checkBox.Checked;
+                row["Date"] = Date;
+                if (sellersTable.Rows.Cast<DataRow>().Any(r => r.RowState == DataRowState.Unchanged))
                 {
-                    if(address == null)
-                    {
-                        string query = "Insert Into SellersTbl values('" + SellName.Text + "'," + "CONVERT(varbinary,'" + passwordTextBox.Text + "'), '" + SellName.Text + "'," + SellAge.Text + "," + SellPhone.Text + ",'" + dateTimePicker.Value.ToString("MM-dd-yyyy") + "','" + addressTextBox.Text + "','True', @ImageData)";
-                        loaddata5.saveImage(imageData, query);
-                        MessageBox.Show("Seller added successfuly");
-                        this.Close();
-                    }
-                    else
-                    {
-                        string query = "Insert Into SellersTbl values('" + SellName.Text + "'," + "CONVERT(varbinary,'" + passwordTextBox.Text + "'), '" + SellName.Text + "'," + SellAge.Text + "," + SellPhone.Text + ",'" + dateTimePicker.Value.ToString("MM-dd-yyyy") + "','" + addressTextBox.Text + "','True', @ImageData)";
-                        loaddata5.saveImage(imageData, query);
-                        MessageBox.Show("Seller added successfuly");
-                        this.Close();
-                    }
-
+                    DataAccess.Instance.UpdateData(sellersTable);
                 }
+                MessageBox.Show("Product Successfully Updated");
+                this.Close();
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        private void addButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                sellersTable.Columns["SellerId"].AutoIncrement = true;
+                DataRow row = sellersTable.NewRow();
+                row["SellerUserName"] = usernameTextBox.Text;
+                byte[] asciiBytes = Encoding.ASCII.GetBytes(passwordTextBox.Text);
+                row["SellerPass"] = asciiBytes;
+                row["SellerName"] = SellName.Text;
+                row["SellerAge"] = SellAge.Text;
+                row["SellerPhone"] = SellPhone.Text;
+                row["Address"] = addressTextBox.Text;
+                row["Active"] = checkBox.Checked;
+                //row["image"] = usernameTextBox.Text;
+                row["Date"] = dateTimePicker.Value.ToString("yyyy-MM-dd");
+                sellersTable.Rows.Add(row);
+                if (sellersTable.Rows.Cast<DataRow>().Any(r => r.RowState == DataRowState.Unchanged))
+                {
+                    DataAccess.Instance.InsertData(sellersTable);
+                }
+                MessageBox.Show("Seller added successfuly");
+                this.Close();
+            }
+
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
@@ -92,27 +161,7 @@ namespace SupermarketTuto.Forms.General
             }
         }
 
-        private void editButton_Click(object sender, EventArgs e)
-        {
-            SqlConnect loaddata3 = new SqlConnect();
-            try
-            {
-                if (checkBox.Checked)
-                {
-                    loaddata3.execCom("Update SellersTbl set SellerUserName='" + usernameTextBox.Text + $"', SellerPass = Convert(varbinary, '{passwordTextBox.Text}')" + ", SellerName = '" + SellName.Text + "', SellerAge='" + SellAge.Text + "', SellerPhone='" + SellPhone.Text + "', Address='" + addressTextBox.Text + "', Date='" + dateTimePicker.Value.ToString("yyyy-MM-dd") + "', Active = 'True'" +  "where SellerId=" + SellId.Text);
-                }
-                else
-                {
-                    loaddata3.execCom("Update SellersTbl set SellerUserName='" + SellName.Text + $"', SellerPass = Convert(varbinary, '{passwordTextBox.Text}')" + ", SellerName = '" + SellName.Text + "', SellerAge='" + SellAge.Text + "', SellerPhone='" + SellPhone.Text + "', Address='" + addressTextBox.Text + "', Date='" + dateTimePicker.Value.ToString("yyyy-MM-dd") + "', Active = 'False'" + "where SellerId=" + SellId.Text);
-                }
-                MessageBox.Show("Product Successfully Updated");
-                this.Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
+
 
         private void addEditSeller_Load(object sender, EventArgs e)
         {
@@ -210,7 +259,7 @@ namespace SupermarketTuto.Forms.General
             public Southwest southwest { get; set; }
         }
 
-        
+
 
     }
 }

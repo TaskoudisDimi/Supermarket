@@ -45,9 +45,8 @@ namespace SupermarketTuto.Forms
         public delegate void UpdateDataHandler(object sender, EventArgs e);
         public event UpdateDataHandler UpdateData;
         DataTable productTable = new DataTable();
-
+        private DataTable originalCategoryTable;
         Type productType = typeof(Products);
-
 
         public Product()
         {
@@ -104,6 +103,7 @@ namespace SupermarketTuto.Forms
 
                 ProdDGV.RowHeadersVisible = false;
                 ProdDGV.AllowUserToAddRows = false;
+                ProdDGV.ReadOnly = true;
                 totalLabel.Text = $"Total: {ProdDGV.RowCount}";
                 ProdDGV.Columns[6].HeaderText = "Date";
             }
@@ -248,12 +248,22 @@ namespace SupermarketTuto.Forms
 
         private void deleteButton_Click(object sender, EventArgs e)
         {
-            SqlConnect loaddata7 = new SqlConnect();
             try
             {
-                //check();
-                loaddata7.execCom("Delete From ProductTbl Where ProdId=" + ProdDGV.CurrentRow.Cells[0].Value.ToString());
-                display();
+                List<DataRow> rowsToDelete = new List<DataRow>();
+                // loop over the selected rows and add them to the list
+                foreach (DataGridViewRow selectedRow in ProdDGV.SelectedRows)
+                {
+                    //Convert DataGridViewRow -> DataRow
+                    DataRow row = ((DataRowView)selectedRow.DataBoundItem).Row;
+                    rowsToDelete.Add(row);
+                }
+                // loop over the rows to delete and remove them from the DataTable
+                foreach (DataRow row in rowsToDelete)
+                {
+                    productTable.Rows.Remove(row);
+                }
+                DataAccess.Instance.DeleteData(productTable);
             }
             catch (Exception ex)
             {
@@ -270,11 +280,31 @@ namespace SupermarketTuto.Forms
         {
             try
             {
-                SqlConnect db = new SqlConnect();
-                string query = "Select * From ProductTbl where ProdId like '%" + searchTextBox.Text + "%'" + "or ProdName like '%" + searchTextBox.Text + "%'" + "or ProdQty like '%" + searchTextBox.Text + "%'" + "or ProdPrice like '%" + searchTextBox.Text + "%'" + "or ProdCat like '%" + searchTextBox.Text + "%'";
-                db.search(searchTextBox.Text, query);
-                ProdDGV.DataSource = db.table;
-                totalLabel.Text = $"Total: {ProdDGV.RowCount}";
+                // If the search text is not empty, filter the originalCategoryTable and assign the filtered result to the categoryTable
+                if (!string.IsNullOrWhiteSpace(searchTextBox.Text))
+                {
+                    var matchingRows = from row in originalCategoryTable.AsEnumerable()
+                                       where row.ItemArray.Any(x =>
+                                             StringComparer.OrdinalIgnoreCase.Equals(x.ToString(), searchTextBox.Text))
+                                       select row;
+
+                    if (matchingRows.Any())
+                    {
+                        productTable = matchingRows.CopyToDataTable();
+                    }
+                    else
+                    {
+                        productTable = productTable.Clone();
+                    }
+                }
+                // If the search text is empty, assign the originalCategoryTable to the categoryTable
+                else
+                {
+                    productTable = originalCategoryTable.Copy();
+                }
+
+                // Bind the categoryTable to the CatDGV DataGridView control
+                ProdDGV.DataSource = productTable;
             }
             catch (Exception ex)
             {
@@ -417,19 +447,7 @@ namespace SupermarketTuto.Forms
         }
         private void searchTextBox_TextChanged(object sender, EventArgs e)
         {
-            try
-            {
-                SqlConnect db = new SqlConnect();
-                string query = "Select * From ProductTbl where ProdId like '%" + searchTextBox.Text + "%'" + "or ProdName like '%" + searchTextBox.Text + "%'" + "or ProdQty like '%" + searchTextBox.Text + "%'" + "or ProdPrice like '%" + searchTextBox.Text + "%'" + "or ProdCat like '%" + searchTextBox.Text + "%'";
-                db.search(searchTextBox.Text, query);
-                ProdDGV.DataSource = db.table;
-                totalLabel.Text = $"Total: {ProdDGV.RowCount}";
-            }
-            catch (Exception ex)
-            {
-                Utlis.Log(string.Format("Message : {0}", ex.Message), "ErrorSearchData.txt");
-            }
-
+            searchButton.PerformClick();
         }
         #endregion 
 

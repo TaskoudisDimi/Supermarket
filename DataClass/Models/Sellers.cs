@@ -18,5 +18,6 @@ namespace ClassLibrary1.Models
         public string Address { get; set; }
         public bool Active { get; set; }
         public Image image { get; set; }
+        public DateTime Date { get; set; }
     }
 }

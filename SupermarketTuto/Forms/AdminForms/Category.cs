@@ -20,7 +20,8 @@ namespace SupermarketTuto.Forms
         int startRecord;
         ExcelFile excel = new ExcelFile();
         DataTable categoryTable = new DataTable();
-
+        // Define a private DataTable field to store the original data
+        private DataTable originalCategoryTable;
         public Category()
         {
             InitializeComponent();
@@ -53,14 +54,20 @@ namespace SupermarketTuto.Forms
                 // Bind the data to the UI controls using the BindingSource
                 BindingSource bindingSource = new BindingSource();
                 bindingSource.DataSource = categoryTable;
-                
+
                 CatDGV.DataSource = bindingSource;
-                
+
                 CatDGV.RowHeadersVisible = false;
-                
+
                 CatDGV.Columns[3].HeaderText = "Date";
 
                 totalLabel.Text = $"Total: {CatDGV.RowCount}";
+
+
+
+                // Initialize the originalCategoryTable field with the same data as categoryTable
+                originalCategoryTable = categoryTable.Copy();
+
 
                 if (totalLabel.Text == null)
                 {
@@ -147,7 +154,7 @@ namespace SupermarketTuto.Forms
         #region Buttons
         private void refreshButton_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void addButton_Click(object sender, EventArgs e)
@@ -169,11 +176,22 @@ namespace SupermarketTuto.Forms
 
         private void deleteButton_Click(object sender, EventArgs e)
         {
-            SqlConnect loaddata5 = new SqlConnect();
             try
             {
-                loaddata5.execCom("Delete From CategoryTbl Where CatId = " + CatDGV.CurrentRow.Cells[1].Value.ToString());
-
+                List<DataRow> rowsToDelete = new List<DataRow>();
+                // loop over the selected rows and add them to the list
+                foreach (DataGridViewRow selectedRow in CatDGV.SelectedRows)
+                {
+                    //Convert DataGridViewRow -> DataRow
+                    DataRow row = ((DataRowView)selectedRow.DataBoundItem).Row;
+                    rowsToDelete.Add(row);
+                }
+                // loop over the rows to delete and remove them from the DataTable
+                foreach (DataRow row in rowsToDelete)
+                {
+                    categoryTable.Rows.Remove(row);
+                }
+                DataAccess.Instance.DeleteData(categoryTable);
             }
             catch (Exception ex)
             {
@@ -181,13 +199,34 @@ namespace SupermarketTuto.Forms
             }
         }
 
+
         private void searchButton_Click(object sender, EventArgs e)
         {
-            SqlConnect db_sellers = new SqlConnect();
-            string query = "Select * From CategoryTbl where CatId like '%" + searchTextBox.Text + "%'" + "or CatName like '%" + searchTextBox.Text + "%'" + "or CatDesc like '%" + searchTextBox.Text + "%'";
-            db_sellers.search(searchTextBox.Text, query);
-            CatDGV.DataSource = db_sellers.table;
-            totalLabel.Text = $"Total: {CatDGV.RowCount}";
+            // If the search text is not empty, filter the originalCategoryTable and assign the filtered result to the categoryTable
+            if (!string.IsNullOrWhiteSpace(searchTextBox.Text))
+            {
+                var matchingRows = from row in originalCategoryTable.AsEnumerable()
+                                   where row.ItemArray.Any(x =>
+                                         StringComparer.OrdinalIgnoreCase.Equals(x.ToString(), searchTextBox.Text))
+                                   select row;
+
+                if (matchingRows.Any())
+                {
+                    categoryTable = matchingRows.CopyToDataTable();
+                }
+                else
+                {
+                    categoryTable = categoryTable.Clone();
+                }
+            }
+            // If the search text is empty, assign the originalCategoryTable to the categoryTable
+            else
+            {
+                categoryTable = originalCategoryTable.Copy();
+            }
+
+            // Bind the categoryTable to the CatDGV DataGridView control
+            CatDGV.DataSource = categoryTable;
         }
         private void showSelectedProductsButton_Click(object sender, EventArgs e)
         {
@@ -339,7 +378,7 @@ namespace SupermarketTuto.Forms
             var item = ((ComboBox)sender).SelectedItem.ToString();
             if (item.Contains("Csv"))
             {
-                excel.export(CatDGV,true);
+                excel.export(CatDGV, true);
             }
             else if (item.Contains("Xlsx"))
             {
@@ -388,7 +427,7 @@ namespace SupermarketTuto.Forms
             }
         }
 
-        
+
 
         #endregion
 
@@ -462,6 +501,6 @@ namespace SupermarketTuto.Forms
 
         #endregion
 
-        
+
     }
 }
