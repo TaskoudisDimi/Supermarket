@@ -18,10 +18,8 @@ namespace SupermarketTuto.Forms
     public partial class Category : Form
     {
         int startRecord;
-        SqlConnect loaddata = new SqlConnect();
         ExcelFile excel = new ExcelFile();
         DataTable categoryTable = new DataTable();
-
 
         public Category()
         {
@@ -60,7 +58,6 @@ namespace SupermarketTuto.Forms
                 
                 CatDGV.RowHeadersVisible = false;
                 
-                //keepTable = loaddata.table.Copy();
                 CatDGV.Columns[3].HeaderText = "Date";
 
                 totalLabel.Text = $"Total: {CatDGV.RowCount}";
@@ -150,8 +147,7 @@ namespace SupermarketTuto.Forms
         #region Buttons
         private void refreshButton_Click(object sender, EventArgs e)
         {
-            CatDGV.DataSource = loaddata.table;
-            //loaddata.UpdateData();
+            
         }
 
         private void addButton_Click(object sender, EventArgs e)
@@ -167,6 +163,7 @@ namespace SupermarketTuto.Forms
         {
             DataGridViewRow currentRow = CatDGV.CurrentRow;
             addEditCategory edit = new addEditCategory(categoryTable, currentRow, false);
+            edit.CatIdTb.ReadOnly = true;
             edit.Show();
         }
 
@@ -368,15 +365,15 @@ namespace SupermarketTuto.Forms
                 {
                     tableNew = excel.ImportExcelAsync(CatDGV, category);
                 }
-                DataTable table3 = loaddata.table.Clone();
-                var differenceQuery = tableNew.AsEnumerable().Except(loaddata.table.AsEnumerable(), DataRowComparer.Default);
+                DataTable table3 = categoryTable.Clone();
+                var differenceQuery = tableNew.AsEnumerable().Except(categoryTable.AsEnumerable(), DataRowComparer.Default);
 
                 foreach (DataRow row in differenceQuery)
                 {
                     table3.Rows.Add(row.ItemArray);
                 }
-                loaddata.table.Merge(tableNew);
-                CatDGV.DataSource = loaddata.table;
+                categoryTable.Merge(tableNew);
+                CatDGV.DataSource = categoryTable;
                 CatDGV.RowHeadersVisible = false;
                 CatDGV.AllowUserToAddRows = false;
                 DialogResult result = MessageBox.Show("Do you want to save the extra data to Database?", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question);

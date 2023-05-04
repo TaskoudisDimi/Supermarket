@@ -1,4 +1,5 @@
-﻿using DataClass;
+﻿using ClassLibrary1;
+using DataClass;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -33,7 +34,7 @@ namespace SupermarketTuto.Forms.General
                 ProdQty.Text = selected.Cells["ProdQty"].Value.ToString();
                 ProdPrice.Text = selected.Cells["ProdPrice"].Value.ToString();
                 DateTimePicker.Value = (DateTime)selected.Cells["Date"].Value;
-                categoryID.Text = selected.Cells["ProdCatID"].Value.ToString();
+                catIDTextBox.Text = selected.Cells["ProdCatID"].Value.ToString();
                 catCombobox.Text = selected.Cells["ProdCat"].Value.ToString();
                 addButton.Visible = false;
             }
@@ -42,12 +43,23 @@ namespace SupermarketTuto.Forms.General
 
         private void addButton_Click(object sender, EventArgs e)
         {
-            SqlConnect loaddata5 = new SqlConnect();
-
+            
             try
             {
-                loaddata5.execCom("Insert Into ProductTbl values('" + ProdName.Text + "'," + ProdQty.Text + "," + ProdPrice.Text + "," + catIDTextBox.Text +  ",'" + catCombobox.SelectedValue.ToString() + "', '" + DateTimePicker.Value.ToString("MM-dd-yyyy") + "')");
-                MessageBox.Show(Constants.MessageInsertData);
+                productTable.Columns["ProdId"].AutoIncrement = true;
+                DataRow row = productTable.NewRow();
+                row["ProdName"] = ProdName.Text;
+                row["ProdQty"] = ProdQty.Text;
+                row["ProdPrice"] = ProdPrice.Text;
+                row["Date"] = DateTimePicker.Value.ToString("yyyy-MM-dd");
+                row["ProdCatID"] = catIDTextBox.Text;
+                row["ProdCat"] = catCombobox.Text;
+                productTable.Rows.Add(row);
+                if(productTable.Rows.Cast<DataRow>().Any(r => r.RowState == DataRowState.Unchanged))
+                {
+                    DataAccess.Instance.InsertData(productTable);
+                }
+                MessageBox.Show($"Successfully inserted Category {row["ProdName"]}", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
             }
             catch (Exception ex)
@@ -58,13 +70,29 @@ namespace SupermarketTuto.Forms.General
 
         private void editButton_Click(object sender, EventArgs e)
         {
-            SqlConnect loaddata6 = new SqlConnect();
-
             try
             {
-                loaddata6.execCom("Update ProductTbl set ProdName = '" + ProdName.Text + "', ProdCat = '" + catCombobox.Text + "', ProdQty = '" + ProdQty.Text + "', ProdPrice = '" + ProdPrice.Text + "', ProdCatID = " + catIDTextBox.Text + ", Date = '" + DateTimePicker.Value.ToString("yyyy-MM-dd") + "' where ProdId = " + ProdId.Text);
-                MessageBox.Show("Product Successfully Updated");
-                this.Close();
+                if (ProdName.Text == "" || ProdQty.Text == "" || ProdPrice.Text == "" || catCombobox.Text == "")
+                {
+                    MessageBox.Show("Missing Information");
+                }
+                else
+                {
+                    DateTime Date = DateTimePicker.Value.Date;
+                    DataRow row = productTable.Rows.Cast<DataRow>().Where(r => r.Field<int>("ProdId") == Int32.Parse(ProdId.Text)).FirstOrDefault();
+                    row["ProdName"] = ProdName.Text;
+                    row["ProdQty"] = ProdQty.Text;
+                    row["ProdPrice"] = ProdPrice.Text;
+                    row["Date"] = Date;
+                    row["ProdCatID"] = catIDTextBox.Text;
+                    row["ProdCat"] = catCombobox.Text;
+                    if (productTable.Rows.Cast<DataRow>().Any(r => r.RowState == DataRowState.Unchanged))
+                    {
+                        DataAccess.Instance.UpdateData(productTable);
+                    }
+                    MessageBox.Show($"Category {row["ProdName"]} Successfully Updated", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.Close();
+                }
             }
             catch (Exception ex)
             {

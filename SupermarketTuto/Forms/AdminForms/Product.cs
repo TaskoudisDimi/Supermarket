@@ -37,7 +37,7 @@ namespace SupermarketTuto.Forms
     {
         int startRecord;
 
-        
+
         WaitBar Form_ProgressBar = new WaitBar();
         SqlConnect loaddata1 = new SqlConnect();
         ExcelFile excel = new ExcelFile();
@@ -58,7 +58,7 @@ namespace SupermarketTuto.Forms
 
             // Subscribe to the Timer's Tick event
             timer.Tick += Timer_Tick;
-           
+
             exportCombobox.Items.Add("Csv");
             exportCombobox.Items.Add("Xlsx");
 
@@ -101,7 +101,7 @@ namespace SupermarketTuto.Forms
                 BindingSource bindingSource = new BindingSource();
                 bindingSource.DataSource = productTable;
                 ProdDGV.DataSource = bindingSource;
-                
+
                 ProdDGV.RowHeadersVisible = false;
                 ProdDGV.AllowUserToAddRows = false;
                 totalLabel.Text = $"Total: {ProdDGV.RowCount}";
@@ -230,46 +230,20 @@ namespace SupermarketTuto.Forms
         private void addButton_Click(object sender, EventArgs e)
         {
 
-            //addEditProduct add = new addEditProduct();
-            //SqlConnect loaddata2 = new SqlConnect();
-            //loaddata2.getData("Select CatName From CategoryTbl");
-            //add.catCombobox.DataSource = loaddata2.table;
-            //add.catCombobox.ValueMember = "CatName";
-            //add.catCombobox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            //add.catCombobox.AutoCompleteSource = AutoCompleteSource.ListItems;
-            //add.editButton.Visible = false;
-            //add.ProdId.Visible = false;
-            //add.idLabel.Visible = false;
-            //add.Show();
+            addEditProduct add = new addEditProduct(productTable, null, true);
+            add.editButton.Visible = false;
+            add.ProdId.Visible = false;
+            add.idLabel.Visible = false;
+            add.Show();
         }
 
         private void editButton_Click(object sender, EventArgs e)
         {
-            //check();
-            //SqlConnect loaddata2 = new SqlConnect();
-            //SqlConnect loaddata3 = new SqlConnect();
-            //addEditProduct edit = new addEditProduct();
-            //////This method will bind the Combobox with the Database
-            //loaddata2.getData("Select CatName From CategoryTbl");
-            //edit.catCombobox.DataSource = loaddata2.table;
-            //edit.catCombobox.ValueMember = "CatName";
-            //edit.catCombobox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            //edit.catCombobox.AutoCompleteSource = AutoCompleteSource.ListItems;
-            //edit.ProdId.Text = ProdDGV.CurrentRow.Cells[0].Value.ToString();
-            //string query = $"Select * From ProductTbl where ProdId = {edit.ProdId.Text}";
-            //loaddata3.getData(query);
-            //foreach (DataRow row in loaddata3.table.Rows)
-            //{
-            //    edit.ProdName.Text = row["ProdName"].ToString();
-            //    edit.ProdPrice.Text = row["ProdPrice"].ToString();
-            //    edit.ProdQty.Text = row["ProdQty"].ToString();
-            //    edit.catCombobox.SelectedValue = row["ProdCat"].ToString();
-            //    edit.catIDTextBox.Text = row["ProdCatID"].ToString();
-            //    edit.DateTimePicker.Text = row["Date"].ToString();
-            //}
-            //edit.addButton.Visible = false;
-            //edit.ProdId.ReadOnly = true;
-            //edit.Show();
+            DataGridViewRow currentRow = ProdDGV.CurrentRow;
+            addEditProduct edit = new addEditProduct(productTable, currentRow, false);
+            edit.addButton.Visible = false;
+            edit.ProdId.ReadOnly = true;
+            edit.Show();
         }
 
         private void deleteButton_Click(object sender, EventArgs e)
@@ -309,8 +283,8 @@ namespace SupermarketTuto.Forms
             }
 
         }
-        #endregion
 
+        #endregion
 
         #region API
         //First, we have created an object of HttpClient and assigned the base address of our Web API.
@@ -462,12 +436,36 @@ namespace SupermarketTuto.Forms
         #region DateTimePicker
         private void fromDateTimePicker_ValueChanged(object sender, EventArgs e)
         {
-           
+            if (productTable.Rows.Count > 0)
+            {
+                DateTime dateTimePicker = fromDateTimePicker.Value.Date;
+                string filterDate = "Date >= #" + dateTimePicker.ToString("yyyy/MM/dd") + "#";
+                DataRow[] filteredRows = productTable.Select(filterDate);
+
+                DataTable filterTable = productTable.Clone();
+                foreach (DataRow row in filteredRows)
+                {
+                    filterTable.ImportRow(row);
+                }
+                ProdDGV.DataSource = filterTable;
+            }
         }
 
         private void toDateTimePicker_ValueChanged(object sender, EventArgs e)
         {
-           
+            if (productTable.Rows.Count > 0)
+            {
+                DateTime dateTimePicker = toDateTimePicker.Value.Date;
+                string filterDate = "Date <= #" + dateTimePicker.ToString("yyyy/MM/dd") + "#";
+                DataRow[] filteredRows = productTable.Select(filterDate);
+
+                DataTable filterTable = productTable.Clone();
+                foreach (DataRow row in filteredRows)
+                {
+                    filterTable.ImportRow(row);
+                }
+                ProdDGV.DataSource = filterTable;
+            }
         }
 
         #endregion
@@ -509,7 +507,7 @@ namespace SupermarketTuto.Forms
             }
         }
 
-        
+
 
         private void selectAllCheckBox_CheckedChanged(object sender, EventArgs e)
         {
@@ -561,7 +559,7 @@ namespace SupermarketTuto.Forms
             }
             else if (item.Contains("Xlsx"))
             {
-                
+
                 excel.Save(ProdDGV, product);
             }
         }
@@ -573,7 +571,7 @@ namespace SupermarketTuto.Forms
                 Type product = typeof(Products);
                 DataTable tableNew = new DataTable();
                 var item = ((ComboBox)sender).SelectedItem.ToString();
-                
+
                 if (item.Contains("Csv"))
                 {
                     tableNew = excel.import(product);
@@ -585,7 +583,7 @@ namespace SupermarketTuto.Forms
                 }
                 DataTable table3 = loaddata1.table.Clone();
                 var differenceQuery = tableNew.AsEnumerable().Except(loaddata1.table.AsEnumerable(), DataRowComparer.Default);
-                
+
                 foreach (DataRow row in differenceQuery)
                 {
                     table3.Rows.Add(row.ItemArray);
@@ -604,14 +602,14 @@ namespace SupermarketTuto.Forms
             {
 
             }
-            
+
         }
 
 
         #endregion
 
-       
+
     }
-   
+
 }
 

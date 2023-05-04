@@ -14,44 +14,70 @@ namespace SupermarketTuto.Forms
 {
     public partial class Seller : Form
     {
+        DataTable sellerTable = new DataTable();
+
         public Seller()
         {
             InitializeComponent();
-            display();
         }
         private void display()
         {
             try
             {
-                
-                if (activeComboBox.Text == "Active")
+                activeComboBox.SelectedIndex = 1;
+
+                sellerTable = DataAccess.Instance.GetTable("SellersTbl");
+                BindingSource binding = new BindingSource();
+                //sellerTable.Columns.Remove("SellerPass");
+                //sellerTable.Columns.Remove("Image");
+                bool active = activeComboBox.Text.Equals("Active") ? true : false;
+                string filterData = "Active = " + active.ToString().ToLower();
+                DataRow[] filterRow = sellerTable.Select(filterData);
+                DataTable filterTable = sellerTable.Clone();
+                foreach(DataRow row in filterRow)
                 {
-                    SqlConnect loaddata1 = new SqlConnect();
-                    loaddata1.pagingData("Select [SellerId],[SellerUserName],cast([SellerPass] as varchar(MAX)) as Password,[SellerName],[SellerAge],[SellerPhone],[Date],[Address],[Active] From SellersTbl where Active = 'true'", 0, 5);
-                    SellDGV.DataSource = loaddata1.table;
-                    totalLabel.Text = $"Total: {SellDGV.RowCount}";
-                    SellDGV.RowHeadersVisible = false;
-                    //SellDGV.Columns[6].HeaderText = "Date of Birth";
+                    filterTable.ImportRow(row);
                 }
-                
-                else if (activeComboBox.Text == "Inactive")
-                {
-                    SqlConnect loaddata1 = new SqlConnect();
-                    loaddata1.getData("Select [SellerId],[SellerUserName],cast([SellerPass] as varchar(MAX)) as Password,[SellerName],[SellerAge],[SellerPhone],[Date],[Address],[Active] From SellersTbl where Active = 'False'");
-                    SellDGV.DataSource = loaddata1.table;
-                    totalLabel.Text = $"Total: {SellDGV.RowCount}";
-                    SellDGV.RowHeadersVisible = false;
-                    //SellDGV.Columns[6].HeaderText = "Date of Birth";
-                }
-                else
-                {
-                    SqlConnect loaddata1 = new SqlConnect();
-                    loaddata1.getData("Select [SellerId],[SellerUserName],cast([SellerPass] as varchar(MAX)) as Password,[SellerName],[SellerAge],[SellerPhone],[Date],[Address],[Active] From SellersTbl");
-                    SellDGV.DataSource = loaddata1.table;
-                    totalLabel.Text = $"Total: {SellDGV.RowCount}";
-                    SellDGV.RowHeadersVisible = false;
-                    //SellDGV.Columns[6].HeaderText = "Date of Birth";
-                }
+                filterTable.Columns.Remove("SellerPass");
+                filterTable.Columns.Remove("Image");
+                binding.DataSource = filterTable;
+
+                SellDGV.DataSource = binding;
+
+                totalLabel.Text = $"Total: {SellDGV.RowCount}";
+                SellDGV.RowHeadersVisible = false;
+
+                #region comments
+                //if (activeComboBox.Text == "Active")
+                //{
+                //    SqlConnect loaddata1 = new SqlConnect();
+                //    loaddata1.pagingData("Select [SellerId],[SellerUserName],cast([SellerPass] as varchar(MAX)) as Password,[SellerName],[SellerAge],[SellerPhone],[Date],[Address],[Active] From SellersTbl where Active = 'true'", 0, 5);
+                //    SellDGV.DataSource = loaddata1.table;
+                //    totalLabel.Text = $"Total: {SellDGV.RowCount}";
+                //    SellDGV.RowHeadersVisible = false;
+                //    //SellDGV.Columns[6].HeaderText = "Date of Birth";
+                //}
+
+                //else if (activeComboBox.Text == "Inactive")
+                //{
+                //    SqlConnect loaddata1 = new SqlConnect();
+                //    loaddata1.getData("Select [SellerId],[SellerUserName],cast([SellerPass] as varchar(MAX)) as Password,[SellerName],[SellerAge],[SellerPhone],[Date],[Address],[Active] From SellersTbl where Active = 'False'");
+                //    SellDGV.DataSource = loaddata1.table;
+                //    totalLabel.Text = $"Total: {SellDGV.RowCount}";
+                //    SellDGV.RowHeadersVisible = false;
+                //    //SellDGV.Columns[6].HeaderText = "Date of Birth";
+                //}
+                //else
+                //{
+                //    SqlConnect loaddata1 = new SqlConnect();
+                //    loaddata1.getData("Select [SellerId],[SellerUserName],cast([SellerPass] as varchar(MAX)) as Password,[SellerName],[SellerAge],[SellerPhone],[Date],[Address],[Active] From SellersTbl");
+                //    SellDGV.DataSource = loaddata1.table;
+                //    totalLabel.Text = $"Total: {SellDGV.RowCount}";
+                //    SellDGV.RowHeadersVisible = false;
+                //    //SellDGV.Columns[6].HeaderText = "Date of Birth";
+                //}
+                #endregion
+
             }
             catch (Exception ex)
             {
@@ -61,8 +87,9 @@ namespace SupermarketTuto.Forms
 
         private void Seller_Load(object sender, EventArgs e)
         {
-            display();
             fillcombo();
+            display();
+            
         }
 
         private void fillcombo()
@@ -146,7 +173,7 @@ namespace SupermarketTuto.Forms
 
         private void refreshButton_Click(object sender, EventArgs e)
         {
-            display();
+
         }
         #endregion
 
@@ -208,7 +235,6 @@ namespace SupermarketTuto.Forms
         }
         #endregion
 
-
         #region Events
        
         private void SellDGV_MouseDown(object sender, MouseEventArgs e)
@@ -226,18 +252,18 @@ namespace SupermarketTuto.Forms
 
         private void SellDGV_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            foreach (DataGridViewRow row in SellDGV.Rows)
-            {
-                if (Convert.ToBoolean(row.Cells[8].Value.ToString()) == false)
-                {
-                    row.DefaultCellStyle.BackColor = Color.Orange;
-                }
+            //foreach (DataGridViewRow row in SellDGV.Rows)
+            //{
+            //    if (Convert.ToBoolean(row.Cells[8].Value.ToString()) == false)
+            //    {
+            //        row.DefaultCellStyle.BackColor = Color.Orange;
+            //    }
 
-            }
-            if (e.ColumnIndex == 2 && e.Value != null)
-            {
-                e.Value = new string('*', e.Value.ToString().Length);
-            }
+            //}
+            //if (e.ColumnIndex == 2 && e.Value != null)
+            //{
+            //    e.Value = new string('*', e.Value.ToString().Length);
+            //}
 
         }
 
@@ -245,7 +271,7 @@ namespace SupermarketTuto.Forms
         {
             try
             {
-                display();
+
 
             }
             catch (Exception ex)
@@ -270,6 +296,7 @@ namespace SupermarketTuto.Forms
         {
             searchButton.PerformClick();
         }
+
     }
 }
 
