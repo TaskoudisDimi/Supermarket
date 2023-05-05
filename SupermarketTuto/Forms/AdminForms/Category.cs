@@ -12,16 +12,17 @@ using System.Data;
 using System.Text;
 using System.Windows.Forms;
 using DataTable = System.Data.DataTable;
+using MenuStrip = ClassLibrary1.MenuStrip;
 
 namespace SupermarketTuto.Forms
 {
     public partial class Category : Form
     {
-        int startRecord;
         ExcelFile excel = new ExcelFile();
         DataTable categoryTable = new DataTable();
-        // Define a private DataTable field to store the original data
         private DataTable originalCategoryTable;
+        BindingSource bindingSource = new BindingSource();
+        Type category = typeof(Categories);
         public Category()
         {
             InitializeComponent();
@@ -35,13 +36,22 @@ namespace SupermarketTuto.Forms
             checkboxColumn.Name = "Select";
             CatDGV.Columns.Add(checkboxColumn);
             CatDGV.Columns["Select"].DisplayIndex = 0;
-            menu();
+
+            MenuStrip.Instance.Menu(CatDGV, categoryTable, category, true);
 
             exportCombobox.Items.Add("Csv");
             exportCombobox.Items.Add("Xlsx");
 
             importCombobox.Items.Add("Csv");
             importCombobox.Items.Add("Xlsx");
+
+            //Fill Combobox of paging
+            List<int> pageCombo = new List<int>();
+            pageCombo.Add(5);
+            pageCombo.Add(10);
+            pageCombo.Add(20);
+            pagingCombobox.DataSource = pageCombo;
+
         }
         private void display()
         {
@@ -50,9 +60,8 @@ namespace SupermarketTuto.Forms
                 fromDateTimePicker.Value = DateTime.Now.AddMonths(-2);
 
                 categoryTable = DataAccess.Instance.GetTable("CategoryTbl");
-
                 // Bind the data to the UI controls using the BindingSource
-                BindingSource bindingSource = new BindingSource();
+                bindingSource = new BindingSource();
                 bindingSource.DataSource = categoryTable;
 
                 CatDGV.DataSource = bindingSource;
@@ -61,13 +70,14 @@ namespace SupermarketTuto.Forms
 
                 CatDGV.Columns[3].HeaderText = "Date";
 
+
+                // Attach the CurrentChanged event handler to the BindingSource
+                bindingSource.CurrentChanged += bindingSource_CurrentChanged;
+
                 totalLabel.Text = $"Total: {CatDGV.RowCount}";
-
-
 
                 // Initialize the originalCategoryTable field with the same data as categoryTable
                 originalCategoryTable = categoryTable.Copy();
-
 
                 if (totalLabel.Text == null)
                 {
@@ -80,76 +90,32 @@ namespace SupermarketTuto.Forms
             }
         }
 
-        #region MenuStrip
-        private void menu()
-        {
-            //Create right click menu
-            ContextMenuStrip mnu = new ContextMenuStrip();
-            ToolStripMenuItem mnuEdit = new ToolStripMenuItem("Edit");
-            ToolStripMenuItem mnuDelete = new ToolStripMenuItem("Delete");
-            ToolStripMenuItem mnuSelectedProducts = new ToolStripMenuItem("Show Selected Products");
-            mnuEdit.Click += new EventHandler(mnuEdit_Click);
-            mnuDelete.Click += new EventHandler(mnuDelete_Click);
-            mnuSelectedProducts.Click += new EventHandler(mnuSelectedProducts_Click);
-            mnu.Items.AddRange(new ToolStripItem[] { mnuEdit, mnuSelectedProducts, mnuDelete });
-            CatDGV.ContextMenuStrip = mnu;
-        }
-
-        private void mnuEdit_Click(object? sender, EventArgs e)
-        {
-            //addEditCategory edit = new addEditCategory();
-            //edit.CatIdTb.Text = CatDGV.CurrentRow.Cells[1].Value.ToString();
-            //edit.CatNameTb.Text = CatDGV.CurrentRow.Cells[2].Value.ToString();
-            //edit.CatDescTb.Text = CatDGV.CurrentRow.Cells[3].Value.ToString();
-            //edit.dateTimePicker.Text = CatDGV.CurrentRow.Cells[4].Value.ToString();
-            //edit.addButton.Visible = false;
-            //edit.CatIdTb.ReadOnly = true;
-            //edit.Show();
-            //display();
-        }
-
-        private void mnuDelete_Click(object? sender, EventArgs e)
+        private void UpdateDataGridView()
         {
             try
             {
-                SqlConnect loaddata2 = new SqlConnect();
-                loaddata2.execCom("Delete From CategoryTbl Where CatId='" + CatDGV.CurrentRow.Cells[1].Value.ToString() + "'");
-                foreach (DataGridViewRow row in CatDGV.SelectedRows)
+                int currentPage = bindingSource.Position / 5 + 1;
+                int startIndex = (currentPage - 1) * 5;
+
+                DataTable pageDataTable = categoryTable.Clone();
+                for (int i = startIndex; i < startIndex + 5 && i < bindingSource.Count; i++)
                 {
-                    CatDGV.Rows.RemoveAt(row.Index);
+                    pageDataTable.ImportRow(categoryTable.Rows[i]);
                 }
 
+                CatDGV.DataSource = pageDataTable;
             }
             catch
             {
 
             }
-
+            
         }
-        private void mnuSelectedProducts_Click(object? sender, EventArgs e)
+
+        private void bindingSource_CurrentChanged(object sender, EventArgs e)
         {
-            try
-            {
-                List<int> cats = new List<int>();
-                for (int i = 0; i < CatDGV.Rows.Count; i++)
-                {
-                    if (Convert.ToBoolean(CatDGV.Rows[i].Cells[0].Value))
-                    {
-                        cats.Add((int)CatDGV.Rows[i].Cells[1].Value);
-                    }
-                }
-                if (cats.Count != 0)
-                {
-                    SelectedProducts frm = new SelectedProducts(cats);
-                    frm.Show();
-                }
-            }
-            catch
-            {
-
-            }
+            UpdateDataGridView();
         }
-        #endregion
 
         #region Buttons
         private void refreshButton_Click(object sender, EventArgs e)
@@ -191,7 +157,8 @@ namespace SupermarketTuto.Forms
                 {
                     categoryTable.Rows.Remove(row);
                 }
-                DataAccess.Instance.DeleteData(categoryTable);
+                //categoryTable.AcceptChanges();
+                //DataAccess.Instance.DeleteData(categoryTable);
             }
             catch (Exception ex)
             {
@@ -374,7 +341,7 @@ namespace SupermarketTuto.Forms
 
         private void exportCombobox_SelectedValueChanged(object sender, EventArgs e)
         {
-            Type category = typeof(Categories);
+            
             var item = ((ComboBox)sender).SelectedItem.ToString();
             if (item.Contains("Csv"))
             {
@@ -432,59 +399,39 @@ namespace SupermarketTuto.Forms
         #endregion
 
         #region paging
-        SqlConnect loaddata90 = new SqlConnect();
+        
         private void prevButton_Click(object sender, EventArgs e)
         {
-            startRecord = startRecord - 5;
-            if (startRecord <= 0)
+            if (bindingSource.Position > 0)
             {
-                startRecord = 0;
-            }
-            loaddata90.pagingData("Select * from ProductTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'", startRecord, 5);
-            CatDGV.DataSource = loaddata90.table;
-            if (CatDGV.Rows.Count > 1)
-            {
-                nextButton.Enabled = true;
+                bindingSource.Position -= 5;
             }
         }
 
         private void nextButton_Click(object sender, EventArgs e)
         {
-            if (CatDGV.Rows.Count > 0)
+            if(bindingSource.Position + 5 < bindingSource.Count)
             {
-                startRecord = startRecord + 5;
-                if (startRecord <= 0)
-                {
-                    startRecord = 10;
-                }
-                loaddata90.pagingData("Select * from ProductTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'", startRecord, 5);
-                CatDGV.DataSource = loaddata90.table;
-            }
-            else
-            {
-                nextButton.Enabled = false;
+                bindingSource.Position += 5;
             }
         }
 
         private void pagingCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            SqlConnect loaddata8 = new SqlConnect();
             if (pagingCheckBox.Checked)
             {
                 prevButton.Visible = true;
                 nextButton.Visible = true;
                 pagingCombobox.Visible = true;
-                loaddata8.pagingData("Select * from ProductTbl where Date between '" + fromDateTimePicker.Value.ToString("MM-dd-yyyy") + "' and '" + toDateTimePicker.Value.ToString("MM-dd-yyyy") + "'", 0, 5);
-                CatDGV.DataSource = loaddata8.table;
-                pagingCheckBox.Checked = true;
+                // Update the DataGridView with the rows for the initial page
+                UpdateDataGridView();
             }
             else
             {
                 prevButton.Visible = false;
                 nextButton.Visible = false;
                 pagingCombobox.Visible = false;
-                pagingCheckBox.Checked = false;
-                //display();
+                CatDGV.DataSource = bindingSource;
             }
         }
 

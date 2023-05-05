@@ -17,7 +17,7 @@ namespace SupermarketTuto.Forms.SellingForms
     {
 
         ExcelFile excel = new ExcelFile();
-        SqlConnect loaddata2 = new SqlConnect();
+        
         public Bills()
         {
             InitializeComponent();
@@ -26,8 +26,7 @@ namespace SupermarketTuto.Forms.SellingForms
         private void displayBills()
         {
             
-            loaddata2.getData("Select * From BillTbl;");
-            BillsDGV.DataSource = loaddata2.table;
+           
             BillsDGV.AllowUserToAddRows = false;
             BillsDGV.RowHeadersVisible = false;
             total3Label.Text = $"Total: {BillsDGV.RowCount}";
@@ -72,42 +71,7 @@ namespace SupermarketTuto.Forms.SellingForms
 
         private void importCombobox_SelectedValueChanged(object sender, EventArgs e)
         {
-            try
-            {
-                Type bills = typeof(Bills);
-                DataTable tableNew = new DataTable();
-                var item = ((ComboBox)sender).SelectedItem.ToString();
-
-                if (item.Contains("Csv"))
-                {
-                    tableNew = excel.import(bills);
-
-                }
-                else if (item.Contains("Xlsx"))
-                {
-                    tableNew = excel.ImportExcelAsync(BillsDGV, bills);
-                }
-                DataTable table3 = loaddata2.table.Clone();
-                var differenceQuery = tableNew.AsEnumerable().Except(loaddata2.table.AsEnumerable(), DataRowComparer.Default);
-
-                foreach (DataRow row in differenceQuery)
-                {
-                    table3.Rows.Add(row.ItemArray);
-                }
-                loaddata2.table.Merge(tableNew);
-                BillsDGV.DataSource = loaddata2.table;
-                BillsDGV.RowHeadersVisible = false;
-                BillsDGV.AllowUserToAddRows = false;
-                DialogResult result = MessageBox.Show("Do you want to save the extra data to Database?", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (result == DialogResult.Yes)
-                {
-                    excel.SaveToDB(table3, bills);
-                }
-            }
-            catch
-            {
-
-            }
+            
         }
 
         private void exportCombobox_SelectedValueChanged(object sender, EventArgs e)

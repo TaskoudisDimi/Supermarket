@@ -25,47 +25,13 @@ namespace SupermarketTuto.Forms.SellingForms
             display();
             displayDGV();
             calcSum();
-            menuProd();
-            menuBillProd();
-        }
-
-        private void menuProd()
-        {
-            ContextMenuStrip mnu = new ContextMenuStrip();
-            ToolStripMenuItem mnuDelete = new ToolStripMenuItem("Delete");
-            //Assign event handlers
-            mnuDelete.Click += new EventHandler(mnuDeleteProd_Click);
-            //Add to main context menu
-            mnu.Items.AddRange(new ToolStripItem[] { mnuDelete });
-            //Assign to datagridview
-            SellingDGV.ContextMenuStrip = mnu;
-        }
-        private void menuBillProd()
-        {
-            ContextMenuStrip mnu = new ContextMenuStrip();
-            ToolStripMenuItem mnuDelete = new ToolStripMenuItem("Delete");
-            //Assign event handlers
-            mnuDelete.Click += new EventHandler(mnuDeleteBillProd_Click);
-            //Add to main context menu
-            mnu.Items.AddRange(new ToolStripItem[] { mnuDelete });
-            //Assign to datagridview
-            OrderDGV.ContextMenuStrip = mnu;
 
         }
-        private void mnuDeleteBillProd_Click(object? sender, EventArgs e)
-        {
-            SqlConnect loaddata4 = new SqlConnect();
-            loaddata4.execCom("Delete From BillingProducts Where Id=" + OrderDGV.CurrentRow.Cells[0].Value.ToString() + "");
-            foreach (DataGridViewRow row in OrderDGV.SelectedRows)
-            {
-                SellingDGV.Rows.RemoveAt(row.Index);
-            }
-        }
+
+        
         private void display()
         {
-            SqlConnect loaddata = new SqlConnect();
-            loaddata.getData("Select * From [ProductTbl]");
-            SellingDGV.DataSource = loaddata.table;
+            
             SellingDGV.AllowUserToAddRows = false;
             SellingDGV.RowHeadersVisible = false;
             totalLabel.Text = $"Total: {SellingDGV.RowCount}";
@@ -74,9 +40,7 @@ namespace SupermarketTuto.Forms.SellingForms
 
         private void displayDGV()
         {
-            SqlConnect loaddata7 = new SqlConnect();
-            loaddata7.getData("Select * From BillingProducts");
-            OrderDGV.DataSource = loaddata7.table;
+            
             OrderDGV.AllowUserToAddRows = false;
             OrderDGV.RowHeadersVisible = false;
             total2Label.Text = $"Total: {OrderDGV.RowCount}";
@@ -84,23 +48,12 @@ namespace SupermarketTuto.Forms.SellingForms
 
         private void fillCombo()
         {
-            SqlConnect loaddata3 = new SqlConnect();
-            loaddata3.getData("Select CatName From CategoryTbl");
-            SearchCb.DataSource = loaddata3.table;
+            
             SearchCb.ValueMember = "CatName";
             SearchCb.SelectedItem = null;
 
         }
 
-        private void mnuDeleteProd_Click(object? sender, EventArgs e)
-        {
-            SqlConnect loaddata4 = new SqlConnect();
-            loaddata4.execCom("Delete From ProductTbl Where ProdId=" + SellingDGV.CurrentRow.Cells[0].Value.ToString());
-            foreach (DataGridViewRow row in SellingDGV.SelectedRows)
-            {
-                SellingDGV.Rows.RemoveAt(row.Index);
-            }
-        }
 
         private void refreshButton_Click(object sender, EventArgs e)
         {
@@ -115,9 +68,7 @@ namespace SupermarketTuto.Forms.SellingForms
             }
             else
             {
-                SqlConnect loaddata8 = new SqlConnect();
-                loaddata8.execCom("Insert Into BillingProducts Values('" + SellingProdName.Text + "'," + SellingPriceTextBox.Text + "," + SellingQuantityTextBox.Text + "," + (Convert.ToInt32(SellingPriceTextBox.Text) * Convert.ToInt32(SellingQuantityTextBox.Text)) + ")");
-                OrderDGV.DataSource = loaddata8.table;
+               
                 MessageBox.Show("Success");
                 displayDGV();
                 calcSum();
@@ -142,20 +93,17 @@ namespace SupermarketTuto.Forms.SellingForms
 
         private void SearchCb_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            SqlConnect loaddata5 = new SqlConnect();
-            loaddata5.getData("Select * from ProductTbl Where ProdCat='" + SearchCb.SelectedValue.ToString() + "'");
-            SellingDGV.DataSource = loaddata5.table;
-            display();
+            
+            
         }
 
         private void refreshOrderButton_Click(object sender, EventArgs e)
         {
-            displayDGV();
+           
         }
 
         private void addButton_Click(object sender, EventArgs e)
         {
-           //check();
            AddBill bill = new AddBill();
            bill.AmountLabel.Text = AmountLabel.Text;
            bill.Show();
@@ -164,9 +112,7 @@ namespace SupermarketTuto.Forms.SellingForms
 
         private void delete2Button_Click(object sender, EventArgs e)
         {
-            SqlConnect loaddata6 = new SqlConnect();
-            loaddata6.execCom("Delete From BillingProducts where Id = " + OrderDGV.CurrentRow.Cells[0].Value.ToString());
-            displayDGV();
+            
         }
 
         #region ChechDatabase

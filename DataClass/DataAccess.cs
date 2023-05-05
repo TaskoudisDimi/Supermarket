@@ -107,7 +107,7 @@ namespace ClassLibrary1
 
             }
         }
-        public void DeleteData(DataTable Table)
+        public void DeleteData(DataTable Table, DataRow row)
         {
             try
             {
@@ -126,9 +126,8 @@ namespace ClassLibrary1
             {
 
             }
+
+
         }
-
-
     }
-
 }

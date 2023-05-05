@@ -28,6 +28,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
 using Button = System.Windows.Forms.Button;
 using ComboBox = System.Windows.Forms.ComboBox;
 using DataTable = System.Data.DataTable;
+using MenuStrip = ClassLibrary1.MenuStrip;
 using Rectangle = System.Drawing.Rectangle;
 using Timer = System.Windows.Forms.Timer;
 
@@ -81,7 +82,8 @@ namespace SupermarketTuto.Forms
             //BackgroundWorker();
             display();
             fillCombo();
-            menu();
+            //menu();
+            MenuStrip.Instance.Menu(ProdDGV, productTable, productType, true);
         }
         private void MyDataGridView_UpdateData(object sender, EventArgs e)
         {
@@ -251,19 +253,21 @@ namespace SupermarketTuto.Forms
             try
             {
                 List<DataRow> rowsToDelete = new List<DataRow>();
+                DataRow row = null;
                 // loop over the selected rows and add them to the list
                 foreach (DataGridViewRow selectedRow in ProdDGV.SelectedRows)
                 {
                     //Convert DataGridViewRow -> DataRow
-                    DataRow row = ((DataRowView)selectedRow.DataBoundItem).Row;
+                    row = ((DataRowView)selectedRow.DataBoundItem).Row;
                     rowsToDelete.Add(row);
                 }
+                
+                DataAccess.Instance.DeleteData(productTable, row);
                 // loop over the rows to delete and remove them from the DataTable
-                foreach (DataRow row in rowsToDelete)
+                foreach (DataRow rowToDelete in rowsToDelete)
                 {
-                    productTable.Rows.Remove(row);
+                    productTable.Rows.Remove(rowToDelete);
                 }
-                DataAccess.Instance.DeleteData(productTable);
             }
             catch (Exception ex)
             {

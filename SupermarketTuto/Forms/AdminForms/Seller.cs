@@ -145,7 +145,7 @@ namespace SupermarketTuto.Forms
                 {
                     sellerTable.Rows.Remove(row);
                 }
-                DataAccess.Instance.DeleteData(sellerTable);
+                //DataAccess.Instance.DeleteData(sellerTable);
             }
             catch (Exception ex)
             {
