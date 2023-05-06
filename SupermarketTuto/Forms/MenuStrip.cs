@@ -15,6 +15,7 @@ namespace ClassLibrary1
         public static readonly object padlock = new object();
         private DataGridView dataGridView = new DataGridView();
         private DataTable table = new DataTable();
+        private DataTable tableSecond = new DataTable();
         private Type type;
         public static MenuStrip Instance
         {
@@ -32,11 +33,12 @@ namespace ClassLibrary1
         }
 
 
-        public void Menu(DataGridView data, DataTable table_, Type type_, bool haveSelected)
+        public void Menu(DataGridView data, DataTable table_, DataTable tableSecond_, Type type_, bool haveSelected)
         {
             dataGridView = data;
             table = table_;
             type = type_;
+            tableSecond = tableSecond_;
             ContextMenuStrip menu = new ContextMenuStrip();
             ToolStripMenuItem editMenu = new ToolStripMenuItem("Edit");
             ToolStripMenuItem deleteMenu = new ToolStripMenuItem("Delete");
@@ -90,7 +92,7 @@ namespace ClassLibrary1
             else if (type.Name == "Products")
             {
                 DataGridViewRow currentRow = dataGridView.CurrentRow;
-                addEditProduct edit = new addEditProduct(table, currentRow, false);
+                addEditProduct edit = new addEditProduct(table, currentRow, tableSecond, false);
                 edit.ProdId.ReadOnly = true;
                 edit.Show();
             }

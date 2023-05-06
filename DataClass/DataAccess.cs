@@ -15,7 +15,6 @@ namespace ClassLibrary1
     {
         private static DataAccess instance = null;
         private static readonly object padlock = new object();
-        private BindingSource bindingSource;
         private SqlDataAdapter adapter;
         private Dictionary<string, DataTable> cachedTables;
         private DataSet dataSet;
@@ -107,19 +106,35 @@ namespace ClassLibrary1
 
             }
         }
-        public void DeleteData(DataTable Table, DataRow row)
+        public void DeleteData(DataRow row, Type type)
         {
             try
             {
                 adapter.SelectCommand.Connection.ConnectionString = connectionString;
-                // Create a new SqlCommandBuilder instance and use it to generate the necessary SQL statements to update the database
-                using (connection = new SqlConnection(connectionString))
+                using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    connection.Open();
-                    builder = new SqlCommandBuilder(adapter);
+                    //SqlDataAdapter adapter = new SqlDataAdapter("SELECT * FROM ProductTbl", connection);
+                    SqlCommandBuilder builder = new SqlCommandBuilder(adapter);
+
+                    DataTable table = new DataTable();
+                    adapter.Fill(table);
+                    DataRow[] rowsToDelete = null;
+                    if (type.Name == "Products")
+                    {
+                        rowsToDelete = table.Select($"ProdId = {row["ProdId"]}");
+                    }
+                    else if(type.Name == "Categories")
+                    {
+                        rowsToDelete = table.Select($"CatId = {row["CatId"]}");
+                    }
+
+                    foreach (DataRow rowToDelete in rowsToDelete)
+                    {
+                        rowToDelete.Delete();
+                    }
+
                     adapter.DeleteCommand = builder.GetDeleteCommand();
-                    // Use the Update method of the SqlDataAdapter to perform the update
-                    adapter.Update(Table);
+                    adapter.Update(table);
                 }
             }
             catch

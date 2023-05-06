@@ -15,13 +15,17 @@ namespace SupermarketTuto.Forms.General
     public partial class addEditProduct : Form
     {
         DataTable productTable = new DataTable();
+        DataTable categoryTable = new DataTable();
         DataGridViewRow selected = new DataGridViewRow();
-        public addEditProduct(DataTable productTable_, DataGridViewRow selected_, bool add)
+        public addEditProduct(DataTable productTable_, DataGridViewRow selected_, DataTable categoryTable_ ,bool add)
         {
             InitializeComponent();
-            ComboCat();
+            
             productTable = productTable_;
             selected = selected_;
+            categoryTable = categoryTable_ ;
+
+            ComboCat();
 
             if (add)
             {
@@ -46,14 +50,15 @@ namespace SupermarketTuto.Forms.General
             
             try
             {
+                
                 productTable.Columns["ProdId"].AutoIncrement = true;
                 DataRow row = productTable.NewRow();
                 row["ProdName"] = ProdName.Text;
                 row["ProdQty"] = ProdQty.Text;
                 row["ProdPrice"] = ProdPrice.Text;
-                row["Date"] = DateTimePicker.Value.ToString("yyyy-MM-dd");
                 row["ProdCatID"] = catIDTextBox.Text;
                 row["ProdCat"] = catCombobox.Text;
+                row["Date"] = DateTimePicker.Value.ToString("yyyy-MM-dd");
                 productTable.Rows.Add(row);
                 if(productTable.Rows.Cast<DataRow>().Any(r => r.RowState == DataRowState.Unchanged))
                 {
@@ -102,12 +107,12 @@ namespace SupermarketTuto.Forms.General
 
         private void ComboCat()
         {
-            catIDTextBox.Enabled = false;
-            catIDTextBox.Text = String.Empty;
-            SqlConnect loaddata7 = new SqlConnect();
-            loaddata7.getData("Select CatId, CatName From CategoryTbl");
-            catCombobox.DataSource = loaddata7.table;
-            catCombobox.ValueMember = "CatName";
+            List<string> catNames = new List<string>();
+            foreach (DataRow row in categoryTable.Rows)
+            {
+                catNames.Add(row["CatName"].ToString());
+            }
+            catCombobox.DataSource = catNames;
             catCombobox.SelectedItem = null;
             catCombobox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             catCombobox.AutoCompleteSource = AutoCompleteSource.ListItems;

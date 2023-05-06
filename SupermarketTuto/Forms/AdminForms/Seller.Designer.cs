@@ -36,7 +36,6 @@
             this.delete2Button = new System.Windows.Forms.Button();
             this.editButton = new System.Windows.Forms.Button();
             this.addButton = new System.Windows.Forms.Button();
-            this.refreshButton = new System.Windows.Forms.Button();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.activeComboBox = new System.Windows.Forms.ComboBox();
             this.activeLabel = new System.Windows.Forms.Label();
@@ -131,18 +130,6 @@
             this.addButton.UseVisualStyleBackColor = true;
             this.addButton.Click += new System.EventHandler(this.add2Button_Click);
             // 
-            // refreshButton
-            // 
-            this.refreshButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.refreshButton.Location = new System.Drawing.Point(2290, 56);
-            this.refreshButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.refreshButton.Name = "refreshButton";
-            this.refreshButton.Size = new System.Drawing.Size(171, 66);
-            this.refreshButton.TabIndex = 115;
-            this.refreshButton.Text = "Refresh";
-            this.refreshButton.UseVisualStyleBackColor = true;
-            this.refreshButton.Click += new System.EventHandler(this.refreshButton_Click);
-            // 
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
@@ -179,7 +166,6 @@
             this.Controls.Add(this.SellDGV);
             this.Controls.Add(this.activeLabel);
             this.Controls.Add(this.activeComboBox);
-            this.Controls.Add(this.refreshButton);
             this.Controls.Add(this.totalLabel);
             this.Controls.Add(this.searchButton);
             this.Controls.Add(this.searchTextBox);
@@ -204,7 +190,6 @@
         private Button delete2Button;
         private Button editButton;
         private Button addButton;
-        private Button refreshButton;
         private ContextMenuStrip contextMenuStrip1;
         private ComboBox activeComboBox;
         public Label activeLabel;

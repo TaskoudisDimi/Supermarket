@@ -37,7 +37,7 @@ namespace SupermarketTuto.Forms
             CatDGV.Columns.Add(checkboxColumn);
             CatDGV.Columns["Select"].DisplayIndex = 0;
 
-            MenuStrip.Instance.Menu(CatDGV, categoryTable, category, true);
+            MenuStrip.Instance.Menu(CatDGV, categoryTable, null, category, true);
 
             exportCombobox.Items.Add("Csv");
             exportCombobox.Items.Add("Xlsx");
@@ -118,10 +118,6 @@ namespace SupermarketTuto.Forms
         }
 
         #region Buttons
-        private void refreshButton_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void addButton_Click(object sender, EventArgs e)
         {

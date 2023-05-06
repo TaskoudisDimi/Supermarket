@@ -161,10 +161,6 @@ namespace SupermarketTuto.Forms
             totalLabel.Text = $"Total: {SellDGV.RowCount}";
         }
 
-        private void refreshButton_Click(object sender, EventArgs e)
-        {
-
-        }
         #endregion
 
         #region MenuStrip
