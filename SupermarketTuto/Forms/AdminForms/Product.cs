@@ -94,6 +94,7 @@ namespace SupermarketTuto.Forms
             pagingComboBox.DataSource = pageCombo;
 
             MenuStrip.Instance.Menu(ProdDGV, productTable, categoryTable, productType, true);
+
         }
 
         private void MyDataGridView_UpdateData(object sender, EventArgs e)
@@ -596,9 +597,13 @@ namespace SupermarketTuto.Forms
 
 
 
+
         #endregion
 
-
+        private void button1_Click(object sender, EventArgs e)
+        {
+            DataAccess.Instance.UpdateTable("ProductTbl");
+        }
     }
 
 }
