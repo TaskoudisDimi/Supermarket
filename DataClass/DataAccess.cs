@@ -25,7 +25,6 @@ namespace ClassLibrary1
 
         public event Action<string> changeTable;
 
-
         private DataAccess()
         {
             cachedTables = new Dictionary<string, DataTable>();

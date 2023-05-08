@@ -229,13 +229,14 @@ namespace SupermarketTuto.Forms
                     row = ((DataRowView)selectedRow.DataBoundItem).Row;
                     rowsToDelete.Add(row);
                 }
-
+                
                 DataAccess.Instance.DeleteData(row, productType);
                 // loop over the rows to delete and remove them from the DataTable
                 foreach (DataRow rowToDelete in rowsToDelete)
                 {
                     productTable.Rows.Remove(rowToDelete);
                 }
+                ProdDGV.DataSource = productTable;
             }
             catch (Exception ex)
             {

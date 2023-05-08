@@ -1,12 +1,26 @@
-﻿using ClassLibrary1.Models;
+﻿using ClassLibrary1;
+using ClassLibrary1.Models;
 using DataClass;
 using SupermarketTuto.Forms.General;
+using System.Data;
 using System.Windows.Forms;
 
 namespace SupermarketTuto.Forms.SellingForms
 {
     public partial class Categories_Products : Form
     {
+        ExcelFile excel = new ExcelFile();
+        BindingSource bindingSource = new BindingSource();
+        DataTable categoryTable = new DataTable();
+        Type categoryType = typeof(Categories);
+        private DataTable originalCategoryTable;
+
+        DataTable productTable = new DataTable();
+        Type productType = typeof(Categories);
+        private DataTable originalProductTable;
+
+
+
         public Categories_Products()
         {
             InitializeComponent();
@@ -16,10 +30,23 @@ namespace SupermarketTuto.Forms.SellingForms
         {
             fromDateTimePicker.Value = DateTime.Today.AddDays(-7);
             from2DateTimePicker.Value = DateTime.Today.AddDays(-7);
+            
+            displayProducts();
+            
+            displayCategories();
 
         }
 
-       
+        private void displayCategories()
+        {
+            
+        }
+
+        private void displayProducts()
+        {
+            
+        }
+
         private void fillCombo()
         {
             
@@ -29,9 +56,6 @@ namespace SupermarketTuto.Forms.SellingForms
             catComboBox.AutoCompleteSource = AutoCompleteSource.ListItems;
 
         }
-
-
-
 
         private void addButton_Click(object sender, EventArgs e)
         {

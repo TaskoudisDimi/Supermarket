@@ -22,7 +22,7 @@ namespace SupermarketTuto.Forms
         DataTable categoryTable = new DataTable();
         private DataTable originalCategoryTable;
         BindingSource bindingSource = new BindingSource();
-        Type category = typeof(Categories);
+        Type categoryType = typeof(Categories);
         public Category()
         {
             InitializeComponent();
@@ -37,7 +37,7 @@ namespace SupermarketTuto.Forms
             CatDGV.Columns.Add(checkboxColumn);
             CatDGV.Columns["Select"].DisplayIndex = 0;
 
-            MenuStrip.Instance.Menu(CatDGV, categoryTable, null, category, true);
+            MenuStrip.Instance.Menu(CatDGV, categoryTable, null, categoryType, true);
 
             exportCombobox.Items.Add("Csv");
             exportCombobox.Items.Add("Xlsx");
@@ -141,24 +141,27 @@ namespace SupermarketTuto.Forms
             try
             {
                 List<DataRow> rowsToDelete = new List<DataRow>();
+                DataRow row = null;
                 // loop over the selected rows and add them to the list
                 foreach (DataGridViewRow selectedRow in CatDGV.SelectedRows)
                 {
                     //Convert DataGridViewRow -> DataRow
-                    DataRow row = ((DataRowView)selectedRow.DataBoundItem).Row;
+                    row = ((DataRowView)selectedRow.DataBoundItem).Row;
                     rowsToDelete.Add(row);
                 }
+
+                DataAccess.Instance.DeleteData(row, categoryType);
                 // loop over the rows to delete and remove them from the DataTable
-                foreach (DataRow row in rowsToDelete)
+                foreach (DataRow rowToDelete in rowsToDelete)
                 {
-                    categoryTable.Rows.Remove(row);
+                    categoryTable.Rows.Remove(rowToDelete);
                 }
-                //categoryTable.AcceptChanges();
-                //DataAccess.Instance.DeleteData(categoryTable);
+                CatDGV.DataSource = categoryTable;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                Utlis.Log(string.Format("Message : {0}", ex.Message), "ErrorDeleteProduct.txt");
             }
         }
 
@@ -345,7 +348,7 @@ namespace SupermarketTuto.Forms
             }
             else if (item.Contains("Xlsx"))
             {
-                excel.Save(CatDGV, category);
+                excel.Save(CatDGV, categoryType);
             }
         }
 
