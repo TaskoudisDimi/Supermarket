@@ -111,7 +111,7 @@ namespace ClassLibrary1
                         {
                             // The row has been deleted
                             cachedRow.Delete();
-                            cachedRow.AcceptChanges();
+                            
                             hasChanges = true;
                         }
                     }
