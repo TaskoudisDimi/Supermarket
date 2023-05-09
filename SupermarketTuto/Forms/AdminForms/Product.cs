@@ -196,7 +196,6 @@ namespace SupermarketTuto.Forms
         #region Buttons
         private void addButton_Click(object sender, EventArgs e)
         {
-
             addEditProduct add = new addEditProduct(productTable, null, categoryTable, true);
             add.editButton.Visible = false;
             add.ProdId.Visible = false;
@@ -485,7 +484,6 @@ namespace SupermarketTuto.Forms
 
         private void prevButton_Click(object sender, EventArgs e)
         {
-
             if (bindingSource.Position > 0)
             {
                 bindingSource.Position -= 5;
@@ -567,7 +565,7 @@ namespace SupermarketTuto.Forms
                 }
                 DataTable table3 = loaddata1.table.Clone();
                 var differenceQuery = tableNew.AsEnumerable().Except(loaddata1.table.AsEnumerable(), DataRowComparer.Default);
-
+                
                 foreach (DataRow row in differenceQuery)
                 {
                     table3.Rows.Add(row.ItemArray);

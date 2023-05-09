@@ -21,8 +21,6 @@ namespace SupermarketTuto.Forms.SellingForms
         Type productType = typeof(Categories);
         private DataTable originalProductTable;
 
-
-
         public Categories_Products()
         {
             InitializeComponent();
@@ -35,7 +33,6 @@ namespace SupermarketTuto.Forms.SellingForms
 
             fillCombo();
             displayProducts();
-            
             displayCategories();
 
         }
@@ -172,44 +169,99 @@ namespace SupermarketTuto.Forms.SellingForms
             catComboBox.AutoCompleteSource = AutoCompleteSource.ListItems;
         }
 
-        #region DateTimePickers
-        #endregion
-
-        #region Events
-        #endregion
-
-        #region Buttons
-        #endregion
-
-        #region Excel
-        #endregion
-
-        #region Paging
-        #endregion
-
         private void addProductButton_Click(object sender, EventArgs e)
         {
-
+            addEditProduct add = new addEditProduct(productTable, null, categoryTable, true);
+            add.editButton.Visible = false;
+            add.ProdId.Visible = false;
+            add.idLabel.Visible = false;
+            add.Show();
         }
 
         private void editProductButton_Click(object sender, EventArgs e)
         {
-
+            DataGridViewRow currentRow = ProdDGV.CurrentRow;
+            addEditProduct edit = new addEditProduct(productTable, currentRow, categoryTable, false);
+            edit.addButton.Visible = false;
+            edit.ProdId.ReadOnly = true;
+            edit.Show();
         }
 
         private void deleteProductButton_Click(object sender, EventArgs e)
         {
-            
+            try
+            {
+                List<DataRow> rowsToDelete = new List<DataRow>();
+                DataRow row = null;
+                // loop over the selected rows and add them to the list
+                foreach (DataGridViewRow selectedRow in ProdDGV.SelectedRows)
+                {
+                    //Convert DataGridViewRow -> DataRow
+                    row = ((DataRowView)selectedRow.DataBoundItem).Row;
+                    rowsToDelete.Add(row);
+                }
+
+                DataAccess.Instance.DeleteData(row, productType);
+                // loop over the rows to delete and remove them from the DataTable
+                foreach (DataRow rowToDelete in rowsToDelete)
+                {
+                    productTable.Rows.Remove(rowToDelete);
+                }
+                ProdDGV.DataSource = productTable;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                Utlis.Log(string.Format("Message : {0}", ex.Message), "ErrorDeleteProduct.txt");
+            }
         }
 
-        private void add2Button_Click(object sender, EventArgs e)
+        private void addCategoryButton_Click(object sender, EventArgs e)
         {
-            //addEditCategory add = new addEditCategory();
-            //add.editButton.Visible = false;
-            //add.CatIdTb.Visible = false;
-            //add.idlabel.Visible = false;
-            //add.Show();
+            addEditCategory add = new addEditCategory(categoryTable, null, true);
+            add.editButton.Visible = false;
+            add.CatIdTb.Visible = false;
+            add.idlabel.Visible = false;
+            add.ShowDialog();
         }
+        private void editCategoryButton_Click(object sender, EventArgs e)
+        {
+            DataGridViewRow currentRow = CatDGV.CurrentRow;
+            addEditCategory edit = new addEditCategory(categoryTable, currentRow, false);
+            edit.CatIdTb.ReadOnly = true;
+            edit.Show();
+        }
+
+        private void deleteCategoryButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                List<DataRow> rowsToDelete = new List<DataRow>();
+                DataRow row = null;
+                // loop over the selected rows and add them to the list
+                foreach (DataGridViewRow selectedRow in CatDGV.SelectedRows)
+                {
+                    //Convert DataGridViewRow -> DataRow
+                    row = ((DataRowView)selectedRow.DataBoundItem).Row;
+                    rowsToDelete.Add(row);
+                }
+
+                DataAccess.Instance.DeleteData(row, categoryType);
+                // loop over the rows to delete and remove them from the DataTable
+                foreach (DataRow rowToDelete in rowsToDelete)
+                {
+                    categoryTable.Rows.Remove(rowToDelete);
+                }
+                CatDGV.DataSource = categoryTable;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                Utlis.Log(string.Format("Message : {0}", ex.Message), "ErrorDeleteProduct.txt");
+            }
+        }
+
+
 
         private void catComboBox_SelectionChangeCommitted(object sender, EventArgs e)
         {
@@ -217,48 +269,6 @@ namespace SupermarketTuto.Forms.SellingForms
         }
 
         private void fromProductDateTimePicker_ValueChanged(object sender, EventArgs e)
-        {
-            if (categoryTable.Rows.Count > 0)
-            {
-                // Assuming you have a DataTable named "myDataTable"
-                DateTime pickerDate = fromProductDateTimePicker.Value.Date;
-                string filterExpression = "Date >= #" + pickerDate.ToString("yyyy/MM/dd") + "#";
-                DataRow[] filteredRows = categoryTable.Select(filterExpression);
-
-                // Create a new DataTable from the filtered rows
-                DataTable filteredTable = categoryTable.Clone();
-                foreach (DataRow row in filteredRows)
-                {
-                    filteredTable.ImportRow(row);
-                }
-
-                // Bind the new DataTable to a DataGridView
-                CatDGV.DataSource = filteredTable;
-            }
-        }
-
-        private void toProductDateTimePicker_ValueChanged(object sender, EventArgs e)
-        {
-            if (categoryTable.Rows.Count > 0)
-            {
-                // Assuming you have a DataTable named "myDataTable"
-                DateTime pickerDate = toProductDateTimePicker.Value.Date;
-                string filterExpression = "Date <= #" + pickerDate.ToString("yyyy/MM/dd") + "#";
-                DataRow[] filteredRows = categoryTable.Select(filterExpression);
-
-                // Create a new DataTable from the filtered rows
-                DataTable filteredTable = categoryTable.Clone();
-                foreach (DataRow row in filteredRows)
-                {
-                    filteredTable.ImportRow(row);
-                }
-
-                // Bind the new DataTable to a DataGridView
-                CatDGV.DataSource = filteredTable;
-            }
-        }
-
-        private void from2DateTimePicker_ValueChanged(object sender, EventArgs e)
         {
             if (productTable.Rows.Count > 0)
             {
@@ -275,7 +285,7 @@ namespace SupermarketTuto.Forms.SellingForms
             }
         }
 
-        private void to2DateTimePicker_ValueChanged(object sender, EventArgs e)
+        private void toProductDateTimePicker_ValueChanged(object sender, EventArgs e)
         {
             if (productTable.Rows.Count > 0)
             {
@@ -289,22 +299,53 @@ namespace SupermarketTuto.Forms.SellingForms
                     filterTable.ImportRow(row);
                 }
                 ProdDGV.DataSource = filterTable;
+            } 
+        }
+
+        private void fromCategoryDateTimePicker_ValueChanged(object sender, EventArgs e)
+        {
+            if (categoryTable.Rows.Count > 0)
+            {
+                // Assuming you have a DataTable named "myDataTable"
+                DateTime pickerDate = fromCategoryDateTimePicker.Value.Date;
+                string filterExpression = "Date >= #" + pickerDate.ToString("yyyy/MM/dd") + "#";
+                DataRow[] filteredRows = categoryTable.Select(filterExpression);
+
+                // Create a new DataTable from the filtered rows
+                DataTable filteredTable = categoryTable.Clone();
+                foreach (DataRow row in filteredRows)
+                {
+                    filteredTable.ImportRow(row);
+                }
+
+                // Bind the new DataTable to a DataGridView
+                CatDGV.DataSource = filteredTable;
             }
-        }
-
-        private void edit2Button_Click(object sender, EventArgs e)
-        {
-            
-            //addEditCategory edit = new addEditCategory();
-            //edit.addButton.Visible = false;
-            //edit.CatIdTb.ReadOnly = true;
-            //edit.Show();
-        }
-
-        private void delete2Button_Click(object sender, EventArgs e)
-        {
            
         }
+
+        private void toCategoryDateTimePicker_ValueChanged(object sender, EventArgs e)
+        {
+            if (categoryTable.Rows.Count > 0)
+            {
+                // Assuming you have a DataTable named "myDataTable"
+                DateTime pickerDate = toCategoryDateTimePicker.Value.Date;
+                string filterExpression = "Date <= #" + pickerDate.ToString("yyyy/MM/dd") + "#";
+                DataRow[] filteredRows = categoryTable.Select(filterExpression);
+
+                // Create a new DataTable from the filtered rows
+                DataTable filteredTable = categoryTable.Clone();
+                foreach (DataRow row in filteredRows)
+                {
+                    filteredTable.ImportRow(row);
+                }
+
+                // Bind the new DataTable to a DataGridView
+                CatDGV.DataSource = filteredTable;
+            }
+
+        }
+
 
         private void searchProductTextBox_TextChanged(object sender, EventArgs e)
         {
@@ -339,11 +380,11 @@ namespace SupermarketTuto.Forms.SellingForms
             ProdDGV.DataSource = productTable;
 
         }
-        private void search2TextBox_TextChanged(object sender, EventArgs e)
+        private void searchCategoryTextBox_TextChanged(object sender, EventArgs e)
         {
             searchCategoryButton.PerformClick();
         }
-        private void search2Button_Click(object sender, EventArgs e)
+        private void searchCategoryButton_Click(object sender, EventArgs e)
         {
             // If the search text is not empty, filter the originalCategoryTable and assign the filtered result to the categoryTable
             if (!string.IsNullOrWhiteSpace(searchProductTextBox.Text))
@@ -390,14 +431,94 @@ namespace SupermarketTuto.Forms.SellingForms
 
         #endregion
 
-        private void prevButton_Click(object sender, EventArgs e)
+        private void prevProductButton_Click(object sender, EventArgs e)
         {
-
+            if (bindingSourceProduct.Position > 0)
+            {
+                bindingSourceProduct.Position -= 5;
+            }
         }
 
-        private void nextButton_Click(object sender, EventArgs e)
+        private void nextProductButton_Click(object sender, EventArgs e)
         {
-
+            if (bindingSourceProduct.Position + 5 < bindingSourceProduct.Count)
+            {
+                bindingSourceProduct.Position += 5;
+            }
         }
+
+       
+        private void pagingProductCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (pagingProductCheckBox.Checked)
+            {
+                prevProductButton.Visible = true;
+                nextProductButton.Visible = true;
+                pagingProductCombobox.Visible = true;
+                // Update the DataGridView with the rows for the initial page
+                UpdateDataGridViewProducts();
+            }
+            else
+            {
+                prevProductButton.Visible = false;
+                nextProductButton.Visible = false;
+                pagingProductCombobox.Visible = false;
+                ProdDGV.DataSource = bindingSourceProduct;
+            }
+        }
+
+       
+
+        private void prevCategoryButton_Click(object sender, EventArgs e)
+        {
+            if (bindingSourceCategory.Position > 0)
+            {
+                bindingSourceCategory.Position -= 5;
+            }
+        }
+
+        private void nextCategoryButton_Click(object sender, EventArgs e)
+        {
+            if (bindingSourceCategory.Position + 5 < bindingSourceCategory.Count)
+            {
+                bindingSourceCategory.Position += 5;
+            }
+        }
+
+        private void pagingCategoryCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (pagingCategoryCheckBox.Checked)
+            {
+                prevCategoryButton.Visible = true;
+                nextCategoryButton.Visible = true;
+                pagingCategoryCombobox.Visible = true;
+                // Update the DataGridView with the rows for the initial page
+                UpdateDataGridViewProducts();
+            }
+            else
+            {
+                prevCategoryButton.Visible = false;
+                nextCategoryButton.Visible = false;
+                pagingCategoryCombobox.Visible = false;
+                CatDGV.DataSource = bindingSourceCategory;
+            }
+        }
+
+        #region DateTimePickers
+        #endregion
+
+        #region Events
+        #endregion
+
+        #region Buttons
+        #endregion
+
+        #region Excel
+        #endregion
+
+        #region Paging
+        #endregion
+
+
     }
 }

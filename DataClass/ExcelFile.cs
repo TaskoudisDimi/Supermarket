@@ -265,6 +265,7 @@ namespace ClassLibrary1
                     {
                         ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
                         package.LoadAsync(path);
+                        
                         var ws = package.Workbook.Worksheets[0]; // assuming your data is in the first worksheet 
 
                         if (typeOfClass.Name.Equals("Products"))

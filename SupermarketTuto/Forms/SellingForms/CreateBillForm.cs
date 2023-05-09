@@ -14,6 +14,10 @@ namespace SupermarketTuto.Forms.SellingForms
 {
     public partial class CreateBillForm : Form
     {
+
+
+
+
         public CreateBillForm()
         {
             InitializeComponent();
@@ -28,7 +32,6 @@ namespace SupermarketTuto.Forms.SellingForms
 
         }
 
-        
         private void display()
         {
             
@@ -62,17 +65,16 @@ namespace SupermarketTuto.Forms.SellingForms
 
         private void AddProductbutton_Click(object sender, EventArgs e)
         {
-            if (SellingProdName.Text == "" || SellingQuantityTextBox.Text == "")
-            {
-                MessageBox.Show("Missing Data");
-            }
-            else
-            {
-               
-                MessageBox.Show("Success");
-                displayDGV();
-                calcSum();
-            }
+            //if (SellingProdName.Text == "" || SellingQuantityTextBox.Text == "")
+            //{
+            //    MessageBox.Show("Missing Data");
+            //}
+            //else
+            //{
+            //    MessageBox.Show("Success");
+            //    displayDGV();
+            //    calcSum();
+            //}
         }
 
         private void calcSum()
@@ -87,8 +89,8 @@ namespace SupermarketTuto.Forms.SellingForms
 
         private void SellingDGV_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            SellingProdName.Text = SellingDGV.SelectedRows[0].Cells[1].Value.ToString();
-            SellingPriceTextBox.Text = SellingDGV.SelectedRows[0].Cells[3].Value.ToString();
+            //SellingProdName.Text = SellingDGV.SelectedRows[0].Cells[1].Value.ToString();
+            //SellingPriceTextBox.Text = SellingDGV.SelectedRows[0].Cells[3].Value.ToString();
         }
 
         private void SearchCb_SelectionChangeCommitted(object sender, EventArgs e)

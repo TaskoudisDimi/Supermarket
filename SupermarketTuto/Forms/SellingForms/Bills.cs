@@ -51,7 +51,7 @@ namespace SupermarketTuto.Forms.SellingForms
                 printDocument1.Print();
             }
         }
-
+        
         private void printDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
         {
             e.Graphics.DrawString("FamilySuperMarket", new Font("Century Gothic", 25, FontStyle.Bold), Brushes.Red, new Point(230));
