@@ -29,30 +29,37 @@
         private void InitializeComponent()
         {
             this.CatDGV = new System.Windows.Forms.DataGridView();
-            this.deleteButton = new System.Windows.Forms.Button();
-            this.editButton = new System.Windows.Forms.Button();
-            this.addButton = new System.Windows.Forms.Button();
-            this.delete2Button = new System.Windows.Forms.Button();
-            this.edit2Button = new System.Windows.Forms.Button();
-            this.add2Button = new System.Windows.Forms.Button();
+            this.deleteProductButton = new System.Windows.Forms.Button();
+            this.editProductButton = new System.Windows.Forms.Button();
+            this.addProductButton = new System.Windows.Forms.Button();
+            this.deleteCategoryButton = new System.Windows.Forms.Button();
+            this.editCategoryButton = new System.Windows.Forms.Button();
+            this.addCategoryButton = new System.Windows.Forms.Button();
             this.totalLabel = new System.Windows.Forms.Label();
-            this.toDateTimePicker = new System.Windows.Forms.DateTimePicker();
-            this.fromDateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.toProductDateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.fromProductDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.catComboBox = new System.Windows.Forms.ComboBox();
-            this.searchButton = new System.Windows.Forms.Button();
-            this.searchTextBox = new System.Windows.Forms.TextBox();
-            this.refreshButton = new System.Windows.Forms.Button();
-            this.from2DateTimePicker = new System.Windows.Forms.DateTimePicker();
-            this.to2DateTimePicker = new System.Windows.Forms.DateTimePicker();
-            this.search2Button = new System.Windows.Forms.Button();
-            this.search2TextBox = new System.Windows.Forms.TextBox();
-            this.refresh2Button = new System.Windows.Forms.Button();
+            this.searchProductButton = new System.Windows.Forms.Button();
+            this.searchProductTextBox = new System.Windows.Forms.TextBox();
+            this.fromCategoryDateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.toCategoryDateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.searchCategoryButton = new System.Windows.Forms.Button();
+            this.searchCategoryTextBox = new System.Windows.Forms.TextBox();
             this.total2Label = new System.Windows.Forms.Label();
             this.ProdDGV = new System.Windows.Forms.DataGridView();
-            this.importCombobox = new System.Windows.Forms.ComboBox();
-            this.exportCombobox = new System.Windows.Forms.ComboBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.importProductCombobox = new System.Windows.Forms.ComboBox();
+            this.exportProductCombobox = new System.Windows.Forms.ComboBox();
+            this.importCategoryCombobox = new System.Windows.Forms.ComboBox();
+            this.exportCategoryCombobox = new System.Windows.Forms.ComboBox();
+            this.pagingProductCheckBox = new System.Windows.Forms.CheckBox();
+            this.pagingProductCombobox = new System.Windows.Forms.ComboBox();
+            this.nextProductButton = new System.Windows.Forms.Button();
+            this.prevProductButton = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.pagingCategoryCheckBox = new System.Windows.Forms.CheckBox();
+            this.pagingCategoryCombobox = new System.Windows.Forms.ComboBox();
+            this.nextCategoryButton = new System.Windows.Forms.Button();
+            this.prevCategoryButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.CatDGV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ProdDGV)).BeginInit();
             this.SuspendLayout();
@@ -65,230 +72,199 @@
             this.CatDGV.BackgroundColor = System.Drawing.Color.WhiteSmoke;
             this.CatDGV.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.CatDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.CatDGV.Location = new System.Drawing.Point(54, 790);
-            this.CatDGV.Margin = new System.Windows.Forms.Padding(8, 5, 8, 5);
+            this.CatDGV.Location = new System.Drawing.Point(36, 514);
+            this.CatDGV.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.CatDGV.Name = "CatDGV";
             this.CatDGV.RowHeadersWidth = 62;
             this.CatDGV.RowTemplate.Height = 30;
             this.CatDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.CatDGV.Size = new System.Drawing.Size(1184, 434);
+            this.CatDGV.Size = new System.Drawing.Size(789, 282);
             this.CatDGV.TabIndex = 105;
             // 
-            // deleteButton
+            // deleteProductButton
             // 
-            this.deleteButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.deleteButton.Location = new System.Drawing.Point(1275, 429);
-            this.deleteButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.deleteButton.Name = "deleteButton";
-            this.deleteButton.Size = new System.Drawing.Size(102, 62);
-            this.deleteButton.TabIndex = 112;
-            this.deleteButton.Text = "Delete";
-            this.deleteButton.UseVisualStyleBackColor = true;
-            this.deleteButton.Click += new System.EventHandler(this.deleteButton_Click);
+            this.deleteProductButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.deleteProductButton.Location = new System.Drawing.Point(850, 279);
+            this.deleteProductButton.Name = "deleteProductButton";
+            this.deleteProductButton.Size = new System.Drawing.Size(68, 40);
+            this.deleteProductButton.TabIndex = 112;
+            this.deleteProductButton.Text = "Delete";
+            this.deleteProductButton.UseVisualStyleBackColor = true;
+            this.deleteProductButton.Click += new System.EventHandler(this.deleteProductButton_Click);
             // 
-            // editButton
+            // editProductButton
             // 
-            this.editButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.editButton.Location = new System.Drawing.Point(1275, 325);
-            this.editButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.editButton.Name = "editButton";
-            this.editButton.Size = new System.Drawing.Size(96, 62);
-            this.editButton.TabIndex = 111;
-            this.editButton.Text = "Edit";
-            this.editButton.UseVisualStyleBackColor = true;
-            this.editButton.Click += new System.EventHandler(this.editButton_Click);
+            this.editProductButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.editProductButton.Location = new System.Drawing.Point(850, 211);
+            this.editProductButton.Name = "editProductButton";
+            this.editProductButton.Size = new System.Drawing.Size(64, 40);
+            this.editProductButton.TabIndex = 111;
+            this.editProductButton.Text = "Edit";
+            this.editProductButton.UseVisualStyleBackColor = true;
+            this.editProductButton.Click += new System.EventHandler(this.editProductButton_Click);
             // 
-            // addButton
+            // addProductButton
             // 
-            this.addButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.addButton.Location = new System.Drawing.Point(1275, 225);
-            this.addButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.addButton.Name = "addButton";
-            this.addButton.Size = new System.Drawing.Size(152, 62);
-            this.addButton.TabIndex = 110;
-            this.addButton.Text = "Create New";
-            this.addButton.UseVisualStyleBackColor = true;
-            this.addButton.Click += new System.EventHandler(this.addButton_Click);
+            this.addProductButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.addProductButton.Location = new System.Drawing.Point(850, 146);
+            this.addProductButton.Name = "addProductButton";
+            this.addProductButton.Size = new System.Drawing.Size(101, 40);
+            this.addProductButton.TabIndex = 110;
+            this.addProductButton.Text = "Create New";
+            this.addProductButton.UseVisualStyleBackColor = true;
+            this.addProductButton.Click += new System.EventHandler(this.addProductButton_Click);
             // 
-            // delete2Button
+            // deleteCategoryButton
             // 
-            this.delete2Button.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.delete2Button.Location = new System.Drawing.Point(1275, 1076);
-            this.delete2Button.Margin = new System.Windows.Forms.Padding(8, 5, 8, 5);
-            this.delete2Button.Name = "delete2Button";
-            this.delete2Button.Size = new System.Drawing.Size(110, 54);
-            this.delete2Button.TabIndex = 115;
-            this.delete2Button.Text = "Delete";
-            this.delete2Button.UseVisualStyleBackColor = true;
-            this.delete2Button.Click += new System.EventHandler(this.delete2Button_Click);
+            this.deleteCategoryButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.deleteCategoryButton.Location = new System.Drawing.Point(850, 699);
+            this.deleteCategoryButton.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
+            this.deleteCategoryButton.Name = "deleteCategoryButton";
+            this.deleteCategoryButton.Size = new System.Drawing.Size(73, 35);
+            this.deleteCategoryButton.TabIndex = 115;
+            this.deleteCategoryButton.Text = "Delete";
+            this.deleteCategoryButton.UseVisualStyleBackColor = true;
+            this.deleteCategoryButton.Click += new System.EventHandler(this.delete2Button_Click);
             // 
-            // edit2Button
+            // editCategoryButton
             // 
-            this.edit2Button.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.edit2Button.Location = new System.Drawing.Point(1275, 970);
-            this.edit2Button.Margin = new System.Windows.Forms.Padding(8, 5, 8, 5);
-            this.edit2Button.Name = "edit2Button";
-            this.edit2Button.Size = new System.Drawing.Size(110, 62);
-            this.edit2Button.TabIndex = 114;
-            this.edit2Button.Text = "Edit";
-            this.edit2Button.UseVisualStyleBackColor = true;
-            this.edit2Button.Click += new System.EventHandler(this.edit2Button_Click);
+            this.editCategoryButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.editCategoryButton.Location = new System.Drawing.Point(850, 630);
+            this.editCategoryButton.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
+            this.editCategoryButton.Name = "editCategoryButton";
+            this.editCategoryButton.Size = new System.Drawing.Size(73, 40);
+            this.editCategoryButton.TabIndex = 114;
+            this.editCategoryButton.Text = "Edit";
+            this.editCategoryButton.UseVisualStyleBackColor = true;
+            this.editCategoryButton.Click += new System.EventHandler(this.edit2Button_Click);
             // 
-            // add2Button
+            // addCategoryButton
             // 
-            this.add2Button.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.add2Button.Location = new System.Drawing.Point(1275, 864);
-            this.add2Button.Margin = new System.Windows.Forms.Padding(8, 5, 8, 5);
-            this.add2Button.Name = "add2Button";
-            this.add2Button.Size = new System.Drawing.Size(152, 62);
-            this.add2Button.TabIndex = 113;
-            this.add2Button.Text = "Create New";
-            this.add2Button.UseVisualStyleBackColor = true;
-            this.add2Button.Click += new System.EventHandler(this.add2Button_Click);
+            this.addCategoryButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.addCategoryButton.Location = new System.Drawing.Point(850, 562);
+            this.addCategoryButton.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
+            this.addCategoryButton.Name = "addCategoryButton";
+            this.addCategoryButton.Size = new System.Drawing.Size(101, 40);
+            this.addCategoryButton.TabIndex = 113;
+            this.addCategoryButton.Text = "Create New";
+            this.addCategoryButton.UseVisualStyleBackColor = true;
+            this.addCategoryButton.Click += new System.EventHandler(this.add2Button_Click);
             // 
             // totalLabel
             // 
             this.totalLabel.AutoSize = true;
             this.totalLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.totalLabel.Location = new System.Drawing.Point(66, 603);
-            this.totalLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.totalLabel.Location = new System.Drawing.Point(44, 392);
             this.totalLabel.Name = "totalLabel";
-            this.totalLabel.Size = new System.Drawing.Size(74, 29);
+            this.totalLabel.Size = new System.Drawing.Size(48, 20);
             this.totalLabel.TabIndex = 116;
             this.totalLabel.Text = "Total:";
             // 
-            // toDateTimePicker
+            // toProductDateTimePicker
             // 
-            this.toDateTimePicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.toDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.toDateTimePicker.Location = new System.Drawing.Point(880, 114);
-            this.toDateTimePicker.Margin = new System.Windows.Forms.Padding(8, 5, 8, 5);
-            this.toDateTimePicker.Name = "toDateTimePicker";
-            this.toDateTimePicker.Size = new System.Drawing.Size(175, 35);
-            this.toDateTimePicker.TabIndex = 126;
-            this.toDateTimePicker.ValueChanged += new System.EventHandler(this.toDateTimePicker_ValueChanged);
+            this.toProductDateTimePicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.toProductDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.toProductDateTimePicker.Location = new System.Drawing.Point(587, 74);
+            this.toProductDateTimePicker.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
+            this.toProductDateTimePicker.Name = "toProductDateTimePicker";
+            this.toProductDateTimePicker.Size = new System.Drawing.Size(118, 26);
+            this.toProductDateTimePicker.TabIndex = 126;
+            this.toProductDateTimePicker.ValueChanged += new System.EventHandler(this.toProductDateTimePicker_ValueChanged);
             // 
-            // fromDateTimePicker
+            // fromProductDateTimePicker
             // 
-            this.fromDateTimePicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.fromDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.fromDateTimePicker.Location = new System.Drawing.Point(675, 114);
-            this.fromDateTimePicker.Margin = new System.Windows.Forms.Padding(8, 5, 8, 5);
-            this.fromDateTimePicker.Name = "fromDateTimePicker";
-            this.fromDateTimePicker.Size = new System.Drawing.Size(188, 35);
-            this.fromDateTimePicker.TabIndex = 125;
-            this.fromDateTimePicker.ValueChanged += new System.EventHandler(this.fromDateTimePicker_ValueChanged);
+            this.fromProductDateTimePicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.fromProductDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.fromProductDateTimePicker.Location = new System.Drawing.Point(450, 74);
+            this.fromProductDateTimePicker.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
+            this.fromProductDateTimePicker.Name = "fromProductDateTimePicker";
+            this.fromProductDateTimePicker.Size = new System.Drawing.Size(127, 26);
+            this.fromProductDateTimePicker.TabIndex = 125;
+            this.fromProductDateTimePicker.ValueChanged += new System.EventHandler(this.fromProductDateTimePicker_ValueChanged);
             // 
             // catComboBox
             // 
             this.catComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.catComboBox.FormattingEnabled = true;
-            this.catComboBox.Location = new System.Drawing.Point(448, 114);
-            this.catComboBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.catComboBox.Location = new System.Drawing.Point(299, 74);
             this.catComboBox.Name = "catComboBox";
-            this.catComboBox.Size = new System.Drawing.Size(212, 37);
+            this.catComboBox.Size = new System.Drawing.Size(143, 28);
             this.catComboBox.TabIndex = 124;
             this.catComboBox.Text = "Select Category";
             this.catComboBox.SelectionChangeCommitted += new System.EventHandler(this.catComboBox_SelectionChangeCommitted);
             // 
-            // searchButton
+            // searchProductButton
             // 
-            this.searchButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.searchButton.Location = new System.Drawing.Point(302, 114);
-            this.searchButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.searchButton.Name = "searchButton";
-            this.searchButton.Size = new System.Drawing.Size(138, 40);
-            this.searchButton.TabIndex = 123;
-            this.searchButton.Text = "Search";
-            this.searchButton.UseVisualStyleBackColor = true;
-            this.searchButton.Click += new System.EventHandler(this.searchButton_Click);
+            this.searchProductButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.searchProductButton.Location = new System.Drawing.Point(201, 74);
+            this.searchProductButton.Name = "searchProductButton";
+            this.searchProductButton.Size = new System.Drawing.Size(92, 26);
+            this.searchProductButton.TabIndex = 123;
+            this.searchProductButton.Text = "Search";
+            this.searchProductButton.UseVisualStyleBackColor = true;
+            this.searchProductButton.Click += new System.EventHandler(this.searchProductButton_Click);
             // 
-            // searchTextBox
+            // searchProductTextBox
             // 
-            this.searchTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.searchTextBox.Location = new System.Drawing.Point(54, 114);
-            this.searchTextBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.searchTextBox.Name = "searchTextBox";
-            this.searchTextBox.Size = new System.Drawing.Size(236, 35);
-            this.searchTextBox.TabIndex = 122;
-            this.searchTextBox.TextChanged += new System.EventHandler(this.searchTextBox_TextChanged);
+            this.searchProductTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.searchProductTextBox.Location = new System.Drawing.Point(36, 74);
+            this.searchProductTextBox.Name = "searchProductTextBox";
+            this.searchProductTextBox.Size = new System.Drawing.Size(159, 26);
+            this.searchProductTextBox.TabIndex = 122;
+            this.searchProductTextBox.TextChanged += new System.EventHandler(this.searchProductTextBox_TextChanged);
             // 
-            // refreshButton
+            // fromCategoryDateTimePicker
             // 
-            this.refreshButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.refreshButton.Location = new System.Drawing.Point(1094, 112);
-            this.refreshButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.refreshButton.Name = "refreshButton";
-            this.refreshButton.Size = new System.Drawing.Size(144, 45);
-            this.refreshButton.TabIndex = 121;
-            this.refreshButton.Text = "Refresh";
-            this.refreshButton.UseVisualStyleBackColor = true;
-            this.refreshButton.Click += new System.EventHandler(this.refreshButton_Click);
+            this.fromCategoryDateTimePicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.fromCategoryDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.fromCategoryDateTimePicker.Location = new System.Drawing.Point(373, 477);
+            this.fromCategoryDateTimePicker.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
+            this.fromCategoryDateTimePicker.Name = "fromCategoryDateTimePicker";
+            this.fromCategoryDateTimePicker.Size = new System.Drawing.Size(127, 26);
+            this.fromCategoryDateTimePicker.TabIndex = 106;
+            this.fromCategoryDateTimePicker.ValueChanged += new System.EventHandler(this.from2DateTimePicker_ValueChanged);
             // 
-            // from2DateTimePicker
+            // toCategoryDateTimePicker
             // 
-            this.from2DateTimePicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.from2DateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.from2DateTimePicker.Location = new System.Drawing.Point(560, 734);
-            this.from2DateTimePicker.Margin = new System.Windows.Forms.Padding(8, 5, 8, 5);
-            this.from2DateTimePicker.Name = "from2DateTimePicker";
-            this.from2DateTimePicker.Size = new System.Drawing.Size(188, 35);
-            this.from2DateTimePicker.TabIndex = 106;
-            this.from2DateTimePicker.ValueChanged += new System.EventHandler(this.from2DateTimePicker_ValueChanged);
+            this.toCategoryDateTimePicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.toCategoryDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.toCategoryDateTimePicker.Location = new System.Drawing.Point(510, 477);
+            this.toCategoryDateTimePicker.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
+            this.toCategoryDateTimePicker.Name = "toCategoryDateTimePicker";
+            this.toCategoryDateTimePicker.Size = new System.Drawing.Size(118, 26);
+            this.toCategoryDateTimePicker.TabIndex = 107;
+            this.toCategoryDateTimePicker.ValueChanged += new System.EventHandler(this.to2DateTimePicker_ValueChanged);
             // 
-            // to2DateTimePicker
+            // searchCategoryButton
             // 
-            this.to2DateTimePicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.to2DateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.to2DateTimePicker.Location = new System.Drawing.Point(765, 734);
-            this.to2DateTimePicker.Margin = new System.Windows.Forms.Padding(8, 5, 8, 5);
-            this.to2DateTimePicker.Name = "to2DateTimePicker";
-            this.to2DateTimePicker.Size = new System.Drawing.Size(175, 35);
-            this.to2DateTimePicker.TabIndex = 107;
-            this.to2DateTimePicker.ValueChanged += new System.EventHandler(this.to2DateTimePicker_ValueChanged);
+            this.searchCategoryButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.searchCategoryButton.Location = new System.Drawing.Point(217, 480);
+            this.searchCategoryButton.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
+            this.searchCategoryButton.Name = "searchCategoryButton";
+            this.searchCategoryButton.Size = new System.Drawing.Size(92, 28);
+            this.searchCategoryButton.TabIndex = 131;
+            this.searchCategoryButton.Text = "Search";
+            this.searchCategoryButton.UseVisualStyleBackColor = true;
+            this.searchCategoryButton.Click += new System.EventHandler(this.search2Button_Click);
             // 
-            // search2Button
+            // searchCategoryTextBox
             // 
-            this.search2Button.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.search2Button.Location = new System.Drawing.Point(326, 738);
-            this.search2Button.Margin = new System.Windows.Forms.Padding(8, 5, 8, 5);
-            this.search2Button.Name = "search2Button";
-            this.search2Button.Size = new System.Drawing.Size(138, 43);
-            this.search2Button.TabIndex = 131;
-            this.search2Button.Text = "Search";
-            this.search2Button.UseVisualStyleBackColor = true;
-            this.search2Button.Click += new System.EventHandler(this.search2Button_Click);
-            // 
-            // search2TextBox
-            // 
-            this.search2TextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.search2TextBox.Location = new System.Drawing.Point(72, 738);
-            this.search2TextBox.Margin = new System.Windows.Forms.Padding(8, 5, 8, 5);
-            this.search2TextBox.Name = "search2TextBox";
-            this.search2TextBox.Size = new System.Drawing.Size(236, 35);
-            this.search2TextBox.TabIndex = 130;
-            this.search2TextBox.TextChanged += new System.EventHandler(this.search2TextBox_TextChanged);
-            // 
-            // refresh2Button
-            // 
-            this.refresh2Button.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.refresh2Button.Location = new System.Drawing.Point(1094, 728);
-            this.refresh2Button.Margin = new System.Windows.Forms.Padding(8, 5, 8, 5);
-            this.refresh2Button.Name = "refresh2Button";
-            this.refresh2Button.Size = new System.Drawing.Size(144, 46);
-            this.refresh2Button.TabIndex = 127;
-            this.refresh2Button.Text = "Refresh";
-            this.refresh2Button.UseVisualStyleBackColor = true;
-            this.refresh2Button.Click += new System.EventHandler(this.refresh2Button_Click);
+            this.searchCategoryTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.searchCategoryTextBox.Location = new System.Drawing.Point(48, 480);
+            this.searchCategoryTextBox.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
+            this.searchCategoryTextBox.Name = "searchCategoryTextBox";
+            this.searchCategoryTextBox.Size = new System.Drawing.Size(159, 26);
+            this.searchCategoryTextBox.TabIndex = 130;
+            this.searchCategoryTextBox.TextChanged += new System.EventHandler(this.search2TextBox_TextChanged);
             // 
             // total2Label
             // 
             this.total2Label.AutoSize = true;
             this.total2Label.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.total2Label.Location = new System.Drawing.Point(66, 1250);
-            this.total2Label.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
+            this.total2Label.Location = new System.Drawing.Point(44, 812);
+            this.total2Label.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.total2Label.Name = "total2Label";
-            this.total2Label.Size = new System.Drawing.Size(74, 29);
+            this.total2Label.Size = new System.Drawing.Size(48, 20);
             this.total2Label.TabIndex = 132;
             this.total2Label.Text = "Total:";
             // 
@@ -300,82 +276,192 @@
             this.ProdDGV.BackgroundColor = System.Drawing.Color.Gainsboro;
             this.ProdDGV.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.ProdDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.ProdDGV.Location = new System.Drawing.Point(54, 182);
-            this.ProdDGV.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.ProdDGV.Location = new System.Drawing.Point(36, 118);
             this.ProdDGV.Name = "ProdDGV";
             this.ProdDGV.RowHeadersWidth = 62;
             this.ProdDGV.RowTemplate.Height = 30;
             this.ProdDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.ProdDGV.Size = new System.Drawing.Size(1184, 452);
+            this.ProdDGV.Size = new System.Drawing.Size(789, 294);
             this.ProdDGV.TabIndex = 133;
             // 
-            // importCombobox
+            // importProductCombobox
             // 
-            this.importCombobox.FormattingEnabled = true;
-            this.importCombobox.Location = new System.Drawing.Point(910, 642);
-            this.importCombobox.Name = "importCombobox";
-            this.importCombobox.Size = new System.Drawing.Size(146, 28);
-            this.importCombobox.TabIndex = 142;
-            this.importCombobox.Text = "Import";
+            this.importProductCombobox.FormattingEnabled = true;
+            this.importProductCombobox.Location = new System.Drawing.Point(607, 417);
+            this.importProductCombobox.Margin = new System.Windows.Forms.Padding(2);
+            this.importProductCombobox.Name = "importProductCombobox";
+            this.importProductCombobox.Size = new System.Drawing.Size(99, 21);
+            this.importProductCombobox.TabIndex = 142;
+            this.importProductCombobox.Text = "Import";
             // 
-            // exportCombobox
+            // exportProductCombobox
             // 
-            this.exportCombobox.FormattingEnabled = true;
-            this.exportCombobox.Location = new System.Drawing.Point(1092, 642);
-            this.exportCombobox.Name = "exportCombobox";
-            this.exportCombobox.Size = new System.Drawing.Size(146, 28);
-            this.exportCombobox.TabIndex = 141;
-            this.exportCombobox.Text = "Export";
+            this.exportProductCombobox.FormattingEnabled = true;
+            this.exportProductCombobox.Location = new System.Drawing.Point(728, 417);
+            this.exportProductCombobox.Margin = new System.Windows.Forms.Padding(2);
+            this.exportProductCombobox.Name = "exportProductCombobox";
+            this.exportProductCombobox.Size = new System.Drawing.Size(99, 21);
+            this.exportProductCombobox.TabIndex = 141;
+            this.exportProductCombobox.Text = "Export";
             // 
-            // comboBox1
+            // importCategoryCombobox
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(910, 1232);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(146, 28);
-            this.comboBox1.TabIndex = 144;
-            this.comboBox1.Text = "Import";
+            this.importCategoryCombobox.FormattingEnabled = true;
+            this.importCategoryCombobox.Location = new System.Drawing.Point(607, 801);
+            this.importCategoryCombobox.Margin = new System.Windows.Forms.Padding(2);
+            this.importCategoryCombobox.Name = "importCategoryCombobox";
+            this.importCategoryCombobox.Size = new System.Drawing.Size(99, 21);
+            this.importCategoryCombobox.TabIndex = 144;
+            this.importCategoryCombobox.Text = "Import";
             // 
-            // comboBox2
+            // exportCategoryCombobox
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(1092, 1232);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(146, 28);
-            this.comboBox2.TabIndex = 143;
-            this.comboBox2.Text = "Export";
+            this.exportCategoryCombobox.FormattingEnabled = true;
+            this.exportCategoryCombobox.Location = new System.Drawing.Point(728, 801);
+            this.exportCategoryCombobox.Margin = new System.Windows.Forms.Padding(2);
+            this.exportCategoryCombobox.Name = "exportCategoryCombobox";
+            this.exportCategoryCombobox.Size = new System.Drawing.Size(99, 21);
+            this.exportCategoryCombobox.TabIndex = 143;
+            this.exportCategoryCombobox.Text = "Export";
+            // 
+            // pagingProductCheckBox
+            // 
+            this.pagingProductCheckBox.AutoSize = true;
+            this.pagingProductCheckBox.Location = new System.Drawing.Point(129, 425);
+            this.pagingProductCheckBox.Name = "pagingProductCheckBox";
+            this.pagingProductCheckBox.Size = new System.Drawing.Size(59, 17);
+            this.pagingProductCheckBox.TabIndex = 148;
+            this.pagingProductCheckBox.Text = "Paging";
+            this.pagingProductCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // pagingProductCombobox
+            // 
+            this.pagingProductCombobox.FormattingEnabled = true;
+            this.pagingProductCombobox.Location = new System.Drawing.Point(194, 421);
+            this.pagingProductCombobox.Name = "pagingProductCombobox";
+            this.pagingProductCombobox.Size = new System.Drawing.Size(121, 21);
+            this.pagingProductCombobox.TabIndex = 147;
+            this.pagingProductCombobox.Visible = false;
+            // 
+            // nextProductButton
+            // 
+            this.nextProductButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.nextProductButton.Location = new System.Drawing.Point(428, 421);
+            this.nextProductButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.nextProductButton.Name = "nextProductButton";
+            this.nextProductButton.Size = new System.Drawing.Size(82, 32);
+            this.nextProductButton.TabIndex = 146;
+            this.nextProductButton.Text = "Next";
+            this.nextProductButton.UseVisualStyleBackColor = true;
+            this.nextProductButton.Visible = false;
+            this.nextProductButton.Click += new System.EventHandler(this.nextButton_Click);
+            // 
+            // prevProductButton
+            // 
+            this.prevProductButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.prevProductButton.Location = new System.Drawing.Point(322, 419);
+            this.prevProductButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.prevProductButton.Name = "prevProductButton";
+            this.prevProductButton.Size = new System.Drawing.Size(98, 35);
+            this.prevProductButton.TabIndex = 145;
+            this.prevProductButton.Text = "Previous";
+            this.prevProductButton.UseVisualStyleBackColor = true;
+            this.prevProductButton.Visible = false;
+            this.prevProductButton.Click += new System.EventHandler(this.prevButton_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.label1.Location = new System.Drawing.Point(32, 426);
+            this.label1.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(48, 20);
+            this.label1.TabIndex = 149;
+            this.label1.Text = "Total:";
+            // 
+            // pagingCategoryCheckBox
+            // 
+            this.pagingCategoryCheckBox.AutoSize = true;
+            this.pagingCategoryCheckBox.Location = new System.Drawing.Point(211, 801);
+            this.pagingCategoryCheckBox.Margin = new System.Windows.Forms.Padding(2);
+            this.pagingCategoryCheckBox.Name = "pagingCategoryCheckBox";
+            this.pagingCategoryCheckBox.Size = new System.Drawing.Size(59, 17);
+            this.pagingCategoryCheckBox.TabIndex = 153;
+            this.pagingCategoryCheckBox.Text = "Paging";
+            this.pagingCategoryCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // pagingCategoryCombobox
+            // 
+            this.pagingCategoryCombobox.FormattingEnabled = true;
+            this.pagingCategoryCombobox.Location = new System.Drawing.Point(286, 801);
+            this.pagingCategoryCombobox.Margin = new System.Windows.Forms.Padding(2);
+            this.pagingCategoryCombobox.Name = "pagingCategoryCombobox";
+            this.pagingCategoryCombobox.Size = new System.Drawing.Size(82, 21);
+            this.pagingCategoryCombobox.TabIndex = 152;
+            this.pagingCategoryCombobox.Visible = false;
+            // 
+            // nextCategoryButton
+            // 
+            this.nextCategoryButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.nextCategoryButton.Location = new System.Drawing.Point(485, 800);
+            this.nextCategoryButton.Name = "nextCategoryButton";
+            this.nextCategoryButton.Size = new System.Drawing.Size(85, 34);
+            this.nextCategoryButton.TabIndex = 151;
+            this.nextCategoryButton.Text = "Next";
+            this.nextCategoryButton.UseVisualStyleBackColor = true;
+            this.nextCategoryButton.Visible = false;
+            // 
+            // prevCategoryButton
+            // 
+            this.prevCategoryButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.prevCategoryButton.Location = new System.Drawing.Point(384, 799);
+            this.prevCategoryButton.Name = "prevCategoryButton";
+            this.prevCategoryButton.Size = new System.Drawing.Size(96, 36);
+            this.prevCategoryButton.TabIndex = 150;
+            this.prevCategoryButton.Text = "Previous";
+            this.prevCategoryButton.UseVisualStyleBackColor = true;
+            this.prevCategoryButton.Visible = false;
             // 
             // Categories_Products
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1659, 1327);
+            this.ClientSize = new System.Drawing.Size(1106, 884);
             this.ControlBox = false;
-            this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.comboBox2);
-            this.Controls.Add(this.importCombobox);
-            this.Controls.Add(this.exportCombobox);
+            this.Controls.Add(this.pagingCategoryCheckBox);
+            this.Controls.Add(this.pagingCategoryCombobox);
+            this.Controls.Add(this.nextCategoryButton);
+            this.Controls.Add(this.prevCategoryButton);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.pagingProductCheckBox);
+            this.Controls.Add(this.pagingProductCombobox);
+            this.Controls.Add(this.nextProductButton);
+            this.Controls.Add(this.prevProductButton);
+            this.Controls.Add(this.importCategoryCombobox);
+            this.Controls.Add(this.exportCategoryCombobox);
+            this.Controls.Add(this.importProductCombobox);
+            this.Controls.Add(this.exportProductCombobox);
             this.Controls.Add(this.ProdDGV);
             this.Controls.Add(this.total2Label);
-            this.Controls.Add(this.search2Button);
-            this.Controls.Add(this.search2TextBox);
-            this.Controls.Add(this.refresh2Button);
-            this.Controls.Add(this.toDateTimePicker);
-            this.Controls.Add(this.fromDateTimePicker);
+            this.Controls.Add(this.searchCategoryButton);
+            this.Controls.Add(this.searchCategoryTextBox);
+            this.Controls.Add(this.toProductDateTimePicker);
+            this.Controls.Add(this.fromProductDateTimePicker);
             this.Controls.Add(this.catComboBox);
-            this.Controls.Add(this.searchButton);
-            this.Controls.Add(this.searchTextBox);
-            this.Controls.Add(this.refreshButton);
+            this.Controls.Add(this.searchProductButton);
+            this.Controls.Add(this.searchProductTextBox);
             this.Controls.Add(this.totalLabel);
-            this.Controls.Add(this.delete2Button);
-            this.Controls.Add(this.edit2Button);
-            this.Controls.Add(this.add2Button);
-            this.Controls.Add(this.deleteButton);
-            this.Controls.Add(this.editButton);
-            this.Controls.Add(this.addButton);
-            this.Controls.Add(this.to2DateTimePicker);
-            this.Controls.Add(this.from2DateTimePicker);
+            this.Controls.Add(this.deleteCategoryButton);
+            this.Controls.Add(this.editCategoryButton);
+            this.Controls.Add(this.addCategoryButton);
+            this.Controls.Add(this.deleteProductButton);
+            this.Controls.Add(this.editProductButton);
+            this.Controls.Add(this.addProductButton);
+            this.Controls.Add(this.toCategoryDateTimePicker);
+            this.Controls.Add(this.fromCategoryDateTimePicker);
             this.Controls.Add(this.CatDGV);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Categories_Products";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Categories_Products_Load);
@@ -388,29 +474,36 @@
 
         #endregion
         private DataGridView CatDGV;
-        private Button deleteButton;
-        private Button editButton;
-        private Button addButton;
-        private Button delete2Button;
-        private Button edit2Button;
-        private Button add2Button;
+        private Button deleteProductButton;
+        private Button editProductButton;
+        private Button addProductButton;
+        private Button deleteCategoryButton;
+        private Button editCategoryButton;
+        private Button addCategoryButton;
         private Label totalLabel;
-        private DateTimePicker toDateTimePicker;
-        private DateTimePicker fromDateTimePicker;
+        private DateTimePicker toProductDateTimePicker;
+        private DateTimePicker fromProductDateTimePicker;
         private ComboBox catComboBox;
-        private Button searchButton;
-        private TextBox searchTextBox;
-        private Button refreshButton;
-        private DateTimePicker from2DateTimePicker;
-        private DateTimePicker to2DateTimePicker;
-        private Button search2Button;
-        private TextBox search2TextBox;
-        private Button refresh2Button;
+        private Button searchProductButton;
+        private TextBox searchProductTextBox;
+        private DateTimePicker fromCategoryDateTimePicker;
+        private DateTimePicker toCategoryDateTimePicker;
+        private Button searchCategoryButton;
+        private TextBox searchCategoryTextBox;
         private Label total2Label;
         private DataGridView ProdDGV;
-        private ComboBox importCombobox;
-        private ComboBox exportCombobox;
-        private ComboBox comboBox1;
-        private ComboBox comboBox2;
+        private ComboBox importProductCombobox;
+        private ComboBox exportProductCombobox;
+        private ComboBox importCategoryCombobox;
+        private ComboBox exportCategoryCombobox;
+        private CheckBox pagingProductCheckBox;
+        private ComboBox pagingProductCombobox;
+        private Button nextProductButton;
+        private Button prevProductButton;
+        private Label label1;
+        private CheckBox pagingCategoryCheckBox;
+        private ComboBox pagingCategoryCombobox;
+        private Button nextCategoryButton;
+        private Button prevCategoryButton;
     }
 }

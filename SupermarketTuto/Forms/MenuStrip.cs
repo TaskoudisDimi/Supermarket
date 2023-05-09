@@ -42,24 +42,31 @@ namespace ClassLibrary1
             ContextMenuStrip menu = new ContextMenuStrip();
             ToolStripMenuItem editMenu = new ToolStripMenuItem("Edit");
             ToolStripMenuItem deleteMenu = new ToolStripMenuItem("Delete");
+            ToolStripMenuItem cleanDBMenu = new ToolStripMenuItem("Clean Database");
             if (haveSelected)
             {
                 ToolStripMenuItem selectedProdctsMenu = new ToolStripMenuItem("Selected Products");
                 editMenu.Click += new EventHandler(mnuEdit_Click);
                 deleteMenu.Click += new EventHandler(deleteMenu_Click);
-                deleteMenu.Click += new EventHandler(selectedProdctsMenu_Click);
-                menu.Items.AddRange(new ToolStripItem[] { editMenu, deleteMenu, selectedProdctsMenu });
+                selectedProdctsMenu.Click += new EventHandler(selectedProdctsMenu_Click);
+                cleanDBMenu.Click += new EventHandler(cleanDBMenu_Click);
+                menu.Items.AddRange(new ToolStripItem[] { editMenu, deleteMenu, selectedProdctsMenu, cleanDBMenu });
                 data.ContextMenuStrip = menu;
             }
             else
             {
                 editMenu.Click += new EventHandler(mnuEdit_Click);
                 deleteMenu.Click += new EventHandler(deleteMenu_Click);
-                menu.Items.AddRange(new ToolStripItem[] { editMenu });
+                cleanDBMenu.Click += new EventHandler(cleanDBMenu_Click);
+                menu.Items.AddRange(new ToolStripItem[] { editMenu, deleteMenu, cleanDBMenu });
                 data.ContextMenuStrip = menu;
             }
         }
 
+        private void cleanDBMenu_Click(object sender, EventArgs e)
+        {
+           // TODO: clean database data
+        }
 
         private void deleteMenu_Click(object sender, EventArgs e)
         {

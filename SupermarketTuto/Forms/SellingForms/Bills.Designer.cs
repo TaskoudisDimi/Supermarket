@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Bills));
-            this.refreshBillsButton = new System.Windows.Forms.Button();
             this.BillsDGV = new System.Windows.Forms.DataGridView();
             this.total3Label = new System.Windows.Forms.Label();
             this.PrintButton = new System.Windows.Forms.Button();
@@ -39,16 +38,6 @@
             this.exportCombobox = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.BillsDGV)).BeginInit();
             this.SuspendLayout();
-            // 
-            // refreshBillsButton
-            // 
-            this.refreshBillsButton.Location = new System.Drawing.Point(440, 12);
-            this.refreshBillsButton.Name = "refreshBillsButton";
-            this.refreshBillsButton.Size = new System.Drawing.Size(64, 20);
-            this.refreshBillsButton.TabIndex = 65;
-            this.refreshBillsButton.Text = "Refresh";
-            this.refreshBillsButton.UseVisualStyleBackColor = true;
-            this.refreshBillsButton.Click += new System.EventHandler(this.refreshBillsButton_Click);
             // 
             // BillsDGV
             // 
@@ -129,7 +118,6 @@
             this.Controls.Add(this.exportCombobox);
             this.Controls.Add(this.total3Label);
             this.Controls.Add(this.PrintButton);
-            this.Controls.Add(this.refreshBillsButton);
             this.Controls.Add(this.BillsDGV);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Bills";
@@ -142,8 +130,6 @@
         }
 
         #endregion
-
-        private Button refreshBillsButton;
         private DataGridView BillsDGV;
         private Label total3Label;
         private Button PrintButton;

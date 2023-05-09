@@ -31,7 +31,6 @@ namespace SupermarketTuto.Forms.SellingForms
                 }
 
             }
-
         }
 
         private void SubMenu(ToolStripMenuItem items, string var)

@@ -143,10 +143,7 @@ namespace SupermarketTuto.Forms
             catComboBox.SelectedItem = null;
             catComboBox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             catComboBox.AutoCompleteSource = AutoCompleteSource.ListItems;
-
         }
-
-
 
         #region BackgroundWorker
         private void ImportTrips_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
@@ -245,10 +242,6 @@ namespace SupermarketTuto.Forms
             }
         }
 
-        private void refreshButton_Click(object sender, EventArgs e)
-        {
-            display();
-        }
         private void searchButton_Click(object sender, EventArgs e)
         {
             // If the search text is not empty, filter the originalCategoryTable and assign the filtered result to the categoryTable

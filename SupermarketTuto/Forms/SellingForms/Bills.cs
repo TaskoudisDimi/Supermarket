@@ -63,11 +63,6 @@ namespace SupermarketTuto.Forms.SellingForms
 
         }
 
-        private void refreshBillsButton_Click(object sender, EventArgs e)
-        {
-            displayBills();
-
-        }
 
         private void importCombobox_SelectedValueChanged(object sender, EventArgs e)
         {
@@ -76,16 +71,7 @@ namespace SupermarketTuto.Forms.SellingForms
 
         private void exportCombobox_SelectedValueChanged(object sender, EventArgs e)
         {
-            Type bills = typeof(Bills);
-            var item = ((ComboBox)sender).SelectedItem.ToString();
-            if (item.Contains("Csv"))
-            {
-                excel.export(BillsDGV);
-            }
-            else if (item.Contains("Xlsx"))
-            {
-                excel.Save(BillsDGV, bills);
-            }
+           
         }
     }
 }
