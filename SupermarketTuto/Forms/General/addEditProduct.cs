@@ -47,10 +47,8 @@ namespace SupermarketTuto.Forms.General
 
         private void addButton_Click(object sender, EventArgs e)
         {
-            
             try
             {
-                
                 productTable.Columns["ProdId"].AutoIncrement = true;
                 DataRow row = productTable.NewRow();
                 row["ProdName"] = ProdName.Text;
@@ -60,7 +58,7 @@ namespace SupermarketTuto.Forms.General
                 row["ProdCat"] = catCombobox.Text;
                 row["Date"] = DateTimePicker.Value.ToString("yyyy-MM-dd");
                 productTable.Rows.Add(row);
-                if(productTable.Rows.Cast<DataRow>().Any(r => r.RowState == DataRowState.Unchanged))
+                if(productTable.Rows.Cast<DataRow>().Any(r => r.RowState == DataRowState.Added))
                 {
                     DataAccess.Instance.InsertData(productTable);
                 }
@@ -91,7 +89,7 @@ namespace SupermarketTuto.Forms.General
                     row["Date"] = Date;
                     row["ProdCatID"] = catIDTextBox.Text;
                     row["ProdCat"] = catCombobox.Text;
-                    if (productTable.Rows.Cast<DataRow>().Any(r => r.RowState == DataRowState.Unchanged))
+                    if (productTable.Rows.Cast<DataRow>().Any(r => r.RowState == DataRowState.Modified))
                     {
                         DataAccess.Instance.UpdateData(productTable);
                     }

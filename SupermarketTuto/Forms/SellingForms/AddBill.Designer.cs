@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.commentsLabel = new System.Windows.Forms.Label();
-            this.commentsRichTextBox = new System.Windows.Forms.RichTextBox();
+            this.commentsTextBox = new System.Windows.Forms.RichTextBox();
             this.refreshBillsButton = new System.Windows.Forms.Button();
-            this.total3Label = new System.Windows.Forms.Label();
+            this.totalLabel = new System.Windows.Forms.Label();
             this.BillsDGV = new System.Windows.Forms.DataGridView();
             this.deleteButton = new System.Windows.Forms.Button();
             this.billButton = new System.Windows.Forms.Button();
@@ -51,13 +51,13 @@
             this.commentsLabel.TabIndex = 66;
             this.commentsLabel.Text = "Comments";
             // 
-            // commentsRichTextBox
+            // commentsTextBox
             // 
-            this.commentsRichTextBox.Location = new System.Drawing.Point(755, 57);
-            this.commentsRichTextBox.Name = "commentsRichTextBox";
-            this.commentsRichTextBox.Size = new System.Drawing.Size(207, 69);
-            this.commentsRichTextBox.TabIndex = 64;
-            this.commentsRichTextBox.Text = "";
+            this.commentsTextBox.Location = new System.Drawing.Point(755, 57);
+            this.commentsTextBox.Name = "commentsTextBox";
+            this.commentsTextBox.Size = new System.Drawing.Size(207, 69);
+            this.commentsTextBox.TabIndex = 64;
+            this.commentsTextBox.Text = "";
             // 
             // refreshBillsButton
             // 
@@ -67,16 +67,15 @@
             this.refreshBillsButton.TabIndex = 63;
             this.refreshBillsButton.Text = "Refresh";
             this.refreshBillsButton.UseVisualStyleBackColor = true;
-            this.refreshBillsButton.Click += new System.EventHandler(this.refreshBillsButton_Click);
             // 
-            // total3Label
+            // totalLabel
             // 
-            this.total3Label.AutoSize = true;
-            this.total3Label.Location = new System.Drawing.Point(659, 365);
-            this.total3Label.Name = "total3Label";
-            this.total3Label.Size = new System.Drawing.Size(34, 13);
-            this.total3Label.TabIndex = 62;
-            this.total3Label.Text = "Total:";
+            this.totalLabel.AutoSize = true;
+            this.totalLabel.Location = new System.Drawing.Point(659, 365);
+            this.totalLabel.Name = "totalLabel";
+            this.totalLabel.Size = new System.Drawing.Size(34, 13);
+            this.totalLabel.TabIndex = 62;
+            this.totalLabel.Text = "Total:";
             // 
             // BillsDGV
             // 
@@ -154,9 +153,9 @@
             this.Controls.Add(this.LabelDate);
             this.Controls.Add(this.billButton);
             this.Controls.Add(this.commentsLabel);
-            this.Controls.Add(this.commentsRichTextBox);
+            this.Controls.Add(this.commentsTextBox);
             this.Controls.Add(this.refreshBillsButton);
-            this.Controls.Add(this.total3Label);
+            this.Controls.Add(this.totalLabel);
             this.Controls.Add(this.BillsDGV);
             this.Controls.Add(this.deleteButton);
             this.Margin = new System.Windows.Forms.Padding(2);
@@ -171,9 +170,9 @@
 
         #endregion
         private Label commentsLabel;
-        private RichTextBox commentsRichTextBox;
+        private RichTextBox commentsTextBox;
         private Button refreshBillsButton;
-        private Label total3Label;
+        private Label totalLabel;
         private DataGridView BillsDGV;
         private Button deleteButton;
         private Button billButton;

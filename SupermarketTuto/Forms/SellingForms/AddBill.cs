@@ -1,4 +1,5 @@
-﻿using ClassLibrary1.Models;
+﻿using ClassLibrary1;
+using ClassLibrary1.Models;
 using DataClass;
 using SupermarketTuto.Utils;
 using System;
@@ -15,9 +16,16 @@ namespace SupermarketTuto.Forms
 {
     public partial class AddBill : Form
     {
-        public AddBill()
+        string TotalAmount = "";
+        DataTable billTable = new DataTable();
+        BindingSource billBindingSource = new BindingSource();
+        Type BillType = typeof(Bills);
+
+
+        public AddBill(string TotalAmount_)
         {
             InitializeComponent();
+            TotalAmount = TotalAmount_;
         }
 
         private void addProduct_Load(object sender, EventArgs e)
@@ -29,41 +37,23 @@ namespace SupermarketTuto.Forms
 
         private void displayBills()
         {
-            SqlConnect loaddata2 = new SqlConnect();
-            loaddata2.getData("Select * From BillTbl");
-            BillsDGV.DataSource = loaddata2.table;
-            BillsDGV.AllowUserToAddRows = false;
-            BillsDGV.RowHeadersVisible = false;
-            total3Label.Text = $"Total: {BillsDGV.RowCount}";
+            billTable = DataAccess.Instance.GetTable("BillTbl");
+
 
         }
 
         private void deleteButton_Click(object sender, EventArgs e)
         {
-            SqlConnect loaddata6 = new SqlConnect();
-            loaddata6.execCom("Delete From BillTbl Where BillId=" + BillsDGV.CurrentRow.Cells[0].Value.ToString() + "");
-            foreach (DataGridViewRow row in BillsDGV.Rows)
-            {
-                BillsDGV.Rows.RemoveAt(row.Index);
-            }
+            
         }
 
-        private void refreshBillsButton_Click(object sender, EventArgs e)
-        {
-            displayBills();
-
-        }
+       
 
         private void billButton_Click(object sender, EventArgs e)
         {
             try
             {
-                string[] label = AmountLabel.Text.Split(':');
-                //check();
-                SqlConnect loaddata4 = new SqlConnect();
-                loaddata4.execCom("Insert Into BillTbl values('" + commentsRichTextBox.Text + "','" + seller_Name_Label.Text + "','" + LabelDate.Text + "'," + label[1] + ")");
-                commentsRichTextBox.Text = String.Empty;
-                displayBills();
+                
 
             }
             catch (Exception ex)

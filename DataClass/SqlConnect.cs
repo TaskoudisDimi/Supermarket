@@ -346,7 +346,7 @@ namespace DataClass
             }
             else if (BillingProducts != null)
             {
-                customerType = typeof(BillingProducts);
+                customerType = typeof(PreBillsTbl);
             }
             var customerProperties = customerType.GetProperties();
             var customerColumns = customerProperties.Select(p => new SchemaColumn(p.Name, GetSqlType(p.PropertyType))).ToList();

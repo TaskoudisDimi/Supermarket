@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ClassLibrary1.Models
 {
-    public class BillingProducts
+    public class PreBillsTbl
     {
         public int Id { get; set; }
         public string ProdName { get; set; }

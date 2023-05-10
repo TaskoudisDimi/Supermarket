@@ -493,7 +493,7 @@ namespace SupermarketTuto.Forms.SellingForms
                 nextCategoryButton.Visible = true;
                 pagingCategoryCombobox.Visible = true;
                 // Update the DataGridView with the rows for the initial page
-                UpdateDataGridViewProducts();
+                UpdateDataGridViewCategories();
             }
             else
             {
