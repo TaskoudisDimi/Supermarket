@@ -20,41 +20,78 @@ namespace SupermarketTuto.Forms
         DataTable billTable = new DataTable();
         BindingSource billBindingSource = new BindingSource();
         Type BillType = typeof(Bills);
+        string SellerName = "";
 
-
-        public AddBill(string TotalAmount_)
+        public AddBill(string TotalAmount_, string SellerName_)
         {
             InitializeComponent();
             TotalAmount = TotalAmount_;
+            SellerName = SellerName_;
+            totalAmountTextBox.Text = TotalAmount_;
+            dateTextBox.Text = DateTime.Now.Date.ToString("dd-MM-yyyy");
+            nameTextBox.Text = SellerName_;
         }
 
         private void addProduct_Load(object sender, EventArgs e)
         {
             displayBills();
-            LabelDate.Text = DateTime.Now.ToString();
-            seller_Name_Label.Text = Globals.NameOfSeller;
+            
         }
 
         private void displayBills()
         {
             billTable = DataAccess.Instance.GetTable("BillTbl");
-
-
+            billBindingSource.DataSource = billTable;
+            BillsDGV.DataSource = billBindingSource;
         }
 
         private void deleteButton_Click(object sender, EventArgs e)
         {
-            
-        }
+            try
+            {
+                List<DataRow> rowsToDelete = new List<DataRow>();
+                DataRow row = null;
+                // loop over the selected rows and add them to the list
+                foreach (DataGridViewRow selectedRow in BillsDGV.SelectedRows)
+                {
+                    //Convert DataGridViewRow -> DataRow
+                    row = ((DataRowView)selectedRow.DataBoundItem).Row;
+                    rowsToDelete.Add(row);
+                }
 
-       
+                DataAccess.Instance.DeleteData(row, BillType);
+                // loop over the rows to delete and remove them from the DataTable
+                foreach (DataRow rowToDelete in rowsToDelete)
+                {
+                    billTable.Rows.Remove(rowToDelete);
+                }
+                BillsDGV.DataSource = billTable;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                Utlis.Log(string.Format("Message : {0}", ex.Message), "ErrorDeleteProduct.txt");
+            }
+        }
 
         private void billButton_Click(object sender, EventArgs e)
         {
             try
             {
-                
+                billTable.Columns["BillId"].AutoIncrement = true;
+                DataRow row = billTable.NewRow();
+                row["SellerName"] = nameTextBox.Text;
+                row["TotAmt"] = totalAmountTextBox.Text;
+                row["Date"] = dateTextBox.Text;
+                row["Comments"] = commentsTextBox.Text;
 
+                billTable.Rows.Add(row);
+                if (billTable.Rows.Cast<DataRow>().Any(r => r.RowState == DataRowState.Added))
+                {
+                    DataAccess.Instance.InsertData(billTable);
+                }
+                MessageBox.Show($"Successfully inserted Category {row["SellerName"]}", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Close();
             }
             catch (Exception ex)
             {

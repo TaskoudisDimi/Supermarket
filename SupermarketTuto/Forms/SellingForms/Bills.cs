@@ -17,6 +17,8 @@ namespace SupermarketTuto.Forms.SellingForms
     {
 
         ExcelFile excel = new ExcelFile();
+        DataTable billTable = new DataTable();
+        BindingSource billBindingSource = new BindingSource();
         
         public Bills()
         {
@@ -25,8 +27,11 @@ namespace SupermarketTuto.Forms.SellingForms
 
         private void displayBills()
         {
-            
-           
+            billTable = DataAccess.Instance.GetTable("BillTbl");
+            billBindingSource.DataSource = billTable;
+            BillsDGV.DataSource = billBindingSource;
+
+
             BillsDGV.AllowUserToAddRows = false;
             BillsDGV.RowHeadersVisible = false;
             total3Label.Text = $"Total: {BillsDGV.RowCount}";

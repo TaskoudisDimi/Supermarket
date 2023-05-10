@@ -120,10 +120,11 @@ namespace SupermarketTuto.Forms.SellingForms
 
         private void addButton_Click(object sender, EventArgs e)
         {
-           AddBill bill = new AddBill(totalAmountTextBox.Text);
-           
-           bill.Show();
-           
+            string SellerName = "";
+            AddBill bill = new AddBill(totalAmountTextBox.Text, SellerName);
+
+            bill.Show();
+
         }
 
         private void deleteProductButton_Click(object sender, EventArgs e)

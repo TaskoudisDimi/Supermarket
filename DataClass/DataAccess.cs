@@ -182,7 +182,6 @@ namespace ClassLibrary1
                 adapter.SelectCommand.Connection.ConnectionString = connectionString;
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    //SqlDataAdapter adapter = new SqlDataAdapter("SELECT * FROM ProductTbl", connection);
                     SqlCommandBuilder builder = new SqlCommandBuilder(adapter);
 
                     DataTable table = new DataTable();
@@ -195,6 +194,10 @@ namespace ClassLibrary1
                     else if (type.Name == "Categories")
                     {
                         rowsToDelete = table.Select($"CatId = {row["CatId"]}");
+                    }
+                    else if(type.Name == "Bills")
+                    {
+                        rowsToDelete = table.Select($"BillId = {row["BillId"]}");
                     }
 
                     foreach (DataRow rowToDelete in rowsToDelete)

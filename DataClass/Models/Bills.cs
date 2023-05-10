@@ -11,7 +11,7 @@ namespace ClassLibrary1.Models
         public int BillId { get; set; }
         public string Comments { get; set; }
         public string SellerName { get; set; }
-        public DateTime BillDate { get; set; }
+        public DateTime Date { get; set; }
         public int TotAmt { get; set; }
 
     }

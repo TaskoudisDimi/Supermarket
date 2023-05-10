@@ -427,7 +427,7 @@ namespace ClassLibrary1
                         bills.BillId = Convert.ToInt32(row.Cells["BillId"].Value);
                         bills.Comments = row.Cells["Comments"].Value.ToString();
                         bills.SellerName = row.Cells["SellerName"].Value.ToString();
-                        bills.BillDate = DateTime.Parse(row.Cells["BillDate"].Value.ToString());
+                        bills.Date = DateTime.Parse(row.Cells["BillDate"].Value.ToString());
                         bills.TotAmt = Convert.ToInt32(row.Cells["TotAmt"].Value);
                         data.Add(bills);
                     }
