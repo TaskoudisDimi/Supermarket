@@ -216,5 +216,24 @@ namespace ClassLibrary1
 
 
         }
+
+        public void CleanDB()
+        {
+            using (connection = new SqlConnection(connectionString))
+            {
+                using(command = new SqlCommand("SP_CleanDatabaseTables", connection))
+                {
+                    connection.Open();
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.ExecuteNonQuery();
+                    connection.Close();
+                }
+            }
+        }
+
+        public void RestoreDB()
+        {
+
+        }
     }
 }

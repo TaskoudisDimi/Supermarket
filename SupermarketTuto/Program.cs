@@ -16,8 +16,11 @@ namespace SupermarketTuto
         [STAThread]
         static void Main()
         {
-            Application.Run(new MainSelling());
+            Application.Run(new MainAdmin());
         }
+
+        // TODO: Selers Form, CreateBillForm Total, 
+
 
         // TODO: Uploade / Download files 
         // TODO: Autorefresh

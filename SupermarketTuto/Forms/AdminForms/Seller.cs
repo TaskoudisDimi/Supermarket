@@ -1,14 +1,15 @@
 ﻿using ClassLibrary1;
 using ClassLibrary1.Models;
 using DataClass;
+using Microsoft.Office.Interop.Excel;
 using SupermarketTuto.Forms.General;
 using SupermarketTuto.Utils;
 using System.Data;
 using System.Data.SqlClient;
 using System.Net.Http.Headers;
 using System.Text;
-
-
+using DataTable = System.Data.DataTable;
+using MenuStrip = ClassLibrary1.MenuStrip;
 
 namespace SupermarketTuto.Forms
 {
@@ -46,36 +47,7 @@ namespace SupermarketTuto.Forms
                 SellDGV.RowHeadersVisible = false;
                 SellDGV.ReadOnly = true;
 
-                #region comments
-                //if (activeComboBox.Text == "Active")
-                //{
-                //    SqlConnect loaddata1 = new SqlConnect();
-                //    loaddata1.pagingData("Select [SellerId],[SellerUserName],cast([SellerPass] as varchar(MAX)) as Password,[SellerName],[SellerAge],[SellerPhone],[Date],[Address],[Active] From SellersTbl where Active = 'true'", 0, 5);
-                //    SellDGV.DataSource = loaddata1.table;
-                //    totalLabel.Text = $"Total: {SellDGV.RowCount}";
-                //    SellDGV.RowHeadersVisible = false;
-                //    //SellDGV.Columns[6].HeaderText = "Date of Birth";
-                //}
-
-                //else if (activeComboBox.Text == "Inactive")
-                //{
-                //    SqlConnect loaddata1 = new SqlConnect();
-                //    loaddata1.getData("Select [SellerId],[SellerUserName],cast([SellerPass] as varchar(MAX)) as Password,[SellerName],[SellerAge],[SellerPhone],[Date],[Address],[Active] From SellersTbl where Active = 'False'");
-                //    SellDGV.DataSource = loaddata1.table;
-                //    totalLabel.Text = $"Total: {SellDGV.RowCount}";
-                //    SellDGV.RowHeadersVisible = false;
-                //    //SellDGV.Columns[6].HeaderText = "Date of Birth";
-                //}
-                //else
-                //{
-                //    SqlConnect loaddata1 = new SqlConnect();
-                //    loaddata1.getData("Select [SellerId],[SellerUserName],cast([SellerPass] as varchar(MAX)) as Password,[SellerName],[SellerAge],[SellerPhone],[Date],[Address],[Active] From SellersTbl");
-                //    SellDGV.DataSource = loaddata1.table;
-                //    totalLabel.Text = $"Total: {SellDGV.RowCount}";
-                //    SellDGV.RowHeadersVisible = false;
-                //    //SellDGV.Columns[6].HeaderText = "Date of Birth";
-                //}
-                #endregion
+                MenuStrip.Instance.Menu(SellDGV, sellerTable, null, null, false);
 
             }
             catch (Exception ex)

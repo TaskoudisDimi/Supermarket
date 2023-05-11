@@ -43,6 +43,8 @@ namespace SupermarketTuto.Forms
             billTable = DataAccess.Instance.GetTable("BillTbl");
             billBindingSource.DataSource = billTable;
             BillsDGV.DataSource = billBindingSource;
+            BillsDGV.AllowUserToAddRows = false;
+            BillsDGV.RowHeadersVisible = false;
         }
 
         private void deleteButton_Click(object sender, EventArgs e)
@@ -91,7 +93,7 @@ namespace SupermarketTuto.Forms
                     DataAccess.Instance.InsertData(billTable);
                 }
                 MessageBox.Show($"Successfully inserted Category {row["SellerName"]}", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.Close();
+                
             }
             catch (Exception ex)
             {

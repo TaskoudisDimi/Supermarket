@@ -93,7 +93,7 @@ namespace SupermarketTuto.Forms
             pageCombo.Add(20);
             pagingComboBox.DataSource = pageCombo;
 
-            MenuStrip.Instance.Menu(ProdDGV, productTable, categoryTable, productType, true);
+            MenuStrip.Instance.Menu(ProdDGV, productTable, categoryTable, productType, false);
 
         }
 
