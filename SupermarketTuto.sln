@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SupermarketTuto", "Supermar
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataClass", "DataClass\DataClass.csproj", "{87C9335D-0730-4430-9479-895F0AE1ABD8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service", "Service\Service.csproj", "{21CC76A9-6DCA-4DAF-9186-8EFFF00D869D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{87C9335D-0730-4430-9479-895F0AE1ABD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{87C9335D-0730-4430-9479-895F0AE1ABD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{87C9335D-0730-4430-9479-895F0AE1ABD8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21CC76A9-6DCA-4DAF-9186-8EFFF00D869D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21CC76A9-6DCA-4DAF-9186-8EFFF00D869D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21CC76A9-6DCA-4DAF-9186-8EFFF00D869D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21CC76A9-6DCA-4DAF-9186-8EFFF00D869D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

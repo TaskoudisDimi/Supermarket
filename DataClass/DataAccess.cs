@@ -231,9 +231,18 @@ namespace ClassLibrary1
             }
         }
 
-        public void RestoreDB()
+        public void RestoreDB(string pathDB, string dataOfDB, string logDataOfDB)
         {
-
+            string restoreDB = "RESTORE DATABASE smarketdb" +
+                $"FROM DISK = {pathDB}" +
+                $"WITH MOVE = ''LogicalDataFileName' TO {dataOfDB}" +
+                $"MOVE = 'LogicalLogFileName' TO {logDataOfDB}" +
+                $"REPLACE";
+                //RESTORE DATABASE[DatabaseName]
+                //FROM DISK = 'C:\Path\To\Backup\File.bak'
+                //WITH MOVE 'LogicalDataFileName' TO 'C:\Path\To\Data\File.mdf',
+                //MOVE 'LogicalLogFileName' TO 'C:\Path\To\Log\File.ldf',
+                //REPLACE;
         }
     }
 }

@@ -77,17 +77,22 @@ namespace SupermarketTuto.Forms.AdminForms
                 items.DropDownItems.Add(subSubMenuItem);
                 if(subSubMenuItem.Text == "Backup")
                 {
-                    subSubMenuItem.Click += new EventHandler(MnuStripBackup_Click);
+                    subSubMenuItem.Click += new EventHandler(MnuStripBackupDB_Click);
                 }
                 else if(subSubMenuItem.Text == "Restore")
                 {
-                    subSubMenuItem.Click += new EventHandler(MnuStripBackup_Click);
+                    subSubMenuItem.Click += new EventHandler(MnuStripRestoreDB_Click);
                 }
                 else if(subSubMenuItem.Text == "CleanDatabase")
                 {
                     subSubMenuItem.Click += new EventHandler(MnuStripCleanDB_Click);
                 }
             }
+        }
+
+        private void MnuStripRestoreDB_Click(object sender, EventArgs e)
+        {
+            
         }
 
         private void MnuStripCleanDB_Click(object sender, EventArgs e)
@@ -125,7 +130,7 @@ namespace SupermarketTuto.Forms.AdminForms
             about.ShowDialog();
         }
 
-        private void MnuStripBackup_Click(object sender, EventArgs e)
+        private void MnuStripBackupDB_Click(object sender, EventArgs e)
         {
             SqlConnect db = new SqlConnect();
             string path = "";
