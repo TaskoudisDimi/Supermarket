@@ -30,7 +30,7 @@ namespace SupermarketTuto.Forms.General
     public partial class addEditSeller : Form
     {
         DataTable sellersTable = new DataTable();
-        DataGridViewRow selected = new DataGridViewRow();
+        DataRow selected;
 
         GMapControl map = new GMapControl();
         HttpClient client = new HttpClient();
@@ -38,7 +38,7 @@ namespace SupermarketTuto.Forms.General
         string address = string.Empty;
         string url = "https://maps.googleapis.com/maps/api/geocode/json?address={0}&key=AIzaSyA6xRZPHBhRuVErZgLtseHnB6heQFiyo3g";
 
-        public addEditSeller(DataTable sellersTable_, DataGridViewRow selected_, bool add)
+        public addEditSeller(DataTable sellersTable_, DataRow selected_, bool add)
         {
             InitializeComponent();
             sellersTable = sellersTable_;
@@ -51,31 +51,21 @@ namespace SupermarketTuto.Forms.General
             }
             else
             {
-                SellId.Text = selected.Cells["SellerId"].Value.ToString();
-                usernameTextBox.Text = selected.Cells["SellerUserName"].Value.ToString();
-                passwordTextBox.Text = selected.Cells["SellerPass"].Value.ToString();
-                SellName.Text = selected.Cells["SellerName"].Value.ToString();
-                SellAge.Text = selected.Cells["SellerAge"].Value.ToString();
-                SellPhone.Text = selected.Cells["SellerPhone"].Value.ToString();
-                addressTextBox.Text = selected.Cells["Address"].Value.ToString();
-                checkBox.Checked = (bool)selected.Cells["Active"].Value;
+                SellId.Text = selected["SellerId"].ToString();
+                usernameTextBox.Text = selected["SellerUserName"].ToString();
+                passwordTextBox.Text = selected["SellerPass"].ToString();
+                SellName.Text = selected["SellerName"].ToString();
+                SellAge.Text = selected["SellerAge"].ToString();
+                SellPhone.Text = selected["SellerPhone"].ToString();
+                addressTextBox.Text = selected["Address"].ToString();
+                checkBox.Checked = (bool)selected["Active"];
 
-                //// create a memory stream to hold the serialized data
-                //using (MemoryStream stream = new MemoryStream())
-                //{
+                byte[] imageData = (byte[])selected["Image"];
+                MemoryStream ms = new MemoryStream(imageData);
+                Image image = Image.FromStream(ms);
+                pictureBox.Image = image;
 
-                //    // serialize the row object to the memory stream
-                //    formatter.Serialize(stream, selected);
-
-                //    // get the byte array from the memory stream
-                //    byte[] bytes = stream.ToArray();
-
-                //    MemoryStream ms = new MemoryStream(bytes);
-                //    pictureBox.Image = Image.FromStream(ms);
-
-                //}
-
-                dateTimePicker.Value = (DateTime)selected.Cells["Date"].Value;
+                dateTimePicker.Value = (DateTime)selected["Date"];
                 addButton.Visible = false;
             }
         }
@@ -95,7 +85,7 @@ namespace SupermarketTuto.Forms.General
                 row["Address"] = addressTextBox.Text;
                 row["Active"] = checkBox.Checked;
                 row["Date"] = Date;
-                if (sellersTable.Rows.Cast<DataRow>().Any(r => r.RowState == DataRowState.Unchanged))
+                if (sellersTable.Rows.Cast<DataRow>().Any(r => r.RowState == DataRowState.Modified))
                 {
                     DataAccess.Instance.UpdateData(sellersTable);
                 }
@@ -124,7 +114,7 @@ namespace SupermarketTuto.Forms.General
                 //row["image"] = usernameTextBox.Text;
                 row["Date"] = dateTimePicker.Value.ToString("yyyy-MM-dd");
                 sellersTable.Rows.Add(row);
-                if (sellersTable.Rows.Cast<DataRow>().Any(r => r.RowState == DataRowState.Unchanged))
+                if (sellersTable.Rows.Cast<DataRow>().Any(r => r.RowState == DataRowState.Added))
                 {
                     DataAccess.Instance.InsertData(sellersTable);
                 }

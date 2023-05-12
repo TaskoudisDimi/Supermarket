@@ -92,7 +92,9 @@ namespace SupermarketTuto.Forms.AdminForms
 
         private void MnuStripRestoreDB_Click(object sender, EventArgs e)
         {
-            
+            RestoreDB form = new RestoreDB();
+            form.Show();
+
         }
 
         private void MnuStripCleanDB_Click(object sender, EventArgs e)
