@@ -1,4 +1,6 @@
-﻿using DataClass;
+﻿using ClassLibrary1;
+using DataClass;
+using MenuStrip = System.Windows.Forms.MenuStrip;
 
 namespace SupermarketTuto.Forms.AdminForms
 {
@@ -38,7 +40,7 @@ namespace SupermarketTuto.Forms.AdminForms
         {
             if (var == "File")
             {
-                string[] subItem = new string[] { "Admins", "BackUp", "Log out", "Exit" };
+                string[] subItem = new string[] { "Admins", "Database", "Log out", "Exit" };
                 foreach (string Row in subItem)
                 {
                     ToolStripMenuItem subMenuItem = new ToolStripMenuItem(Row, null);
@@ -48,9 +50,9 @@ namespace SupermarketTuto.Forms.AdminForms
                     {
                         subMenuItem.Click += new EventHandler(MnuStripAdmins_Click);
                     }
-                    else if (subMenuItem.Text == "BackUp")
+                    else if (subMenuItem.Text == "Database")
                     {
-                        subMenuItem.Click += new EventHandler(MnuStripDb_Click);
+                        SubSubMenu(subMenuItem);
                     }
                     else if (subMenuItem.Text == "Log out")
                     {
@@ -63,6 +65,41 @@ namespace SupermarketTuto.Forms.AdminForms
                 }
             }
 
+        }
+
+        private void SubSubMenu(ToolStripMenuItem items)
+        {
+            string[] subSubItem = new string[] { "Backup", "Restore", "CleanDatabase" };
+            foreach(string Row in subSubItem)
+            {
+                ToolStripMenuItem subSubMenuItem = new ToolStripMenuItem(Row, null);
+                SubMenu(subSubMenuItem, Row);
+                items.DropDownItems.Add(subSubMenuItem);
+                if(subSubMenuItem.Text == "Backup")
+                {
+                    subSubMenuItem.Click += new EventHandler(MnuStripBackupDB_Click);
+                }
+                else if(subSubMenuItem.Text == "Restore")
+                {
+                    subSubMenuItem.Click += new EventHandler(MnuStripRestoreDB_Click);
+                }
+                else if(subSubMenuItem.Text == "CleanDatabase")
+                {
+                    subSubMenuItem.Click += new EventHandler(MnuStripCleanDB_Click);
+                }
+            }
+        }
+
+        private void MnuStripRestoreDB_Click(object sender, EventArgs e)
+        {
+            RestoreDB form = new RestoreDB();
+            form.Show();
+
+        }
+
+        private void MnuStripCleanDB_Click(object sender, EventArgs e)
+        {
+            DataAccess.Instance.CleanDB();
         }
 
         private void MnuStripAdmins_Click(object sender, EventArgs e)
@@ -95,7 +132,7 @@ namespace SupermarketTuto.Forms.AdminForms
             about.ShowDialog();
         }
 
-        private void MnuStripDb_Click(object sender, EventArgs e)
+        private void MnuStripBackupDB_Click(object sender, EventArgs e)
         {
             SqlConnect db = new SqlConnect();
             string path = "";

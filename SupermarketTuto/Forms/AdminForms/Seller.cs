@@ -1,82 +1,70 @@
 ﻿using ClassLibrary1;
 using ClassLibrary1.Models;
 using DataClass;
+using Microsoft.Office.Interop.Excel;
 using SupermarketTuto.Forms.General;
 using SupermarketTuto.Utils;
+using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Net.Http.Headers;
 using System.Text;
-
-
+using DataTable = System.Data.DataTable;
+using MenuStrip = ClassLibrary1.MenuStrip;
 
 namespace SupermarketTuto.Forms
 {
     public partial class Seller : Form
     {
         DataTable sellerTable = new DataTable();
+        BindingSource bindingSource = new BindingSource();
+        private DataTable originalProductTable;
+        Type sellerType = typeof(Sellers);
+        DataTable filterTable;
+        DataTable tableWithoutColumns;
 
         public Seller()
         {
             InitializeComponent();
         }
+        private void Seller_Load(object sender, EventArgs e)
+        {
+            display();
+        }
+
         private void display()
         {
             try
             {
-                activeComboBox.SelectedIndex = 1;
-
-                sellerTable = DataAccess.Instance.GetTable("SellersTbl");
-                BindingSource binding = new BindingSource();
                 
-                bool active = activeComboBox.Text.Equals("Active") ? true : false;
-                string filterData = "Active = " + active.ToString().ToLower();
-                DataRow[] filterRow = sellerTable.Select(filterData);
-                DataTable filterTable = sellerTable.Clone();
-                foreach(DataRow row in filterRow)
-                {
-                    filterTable.ImportRow(row);
-                }
-                //filterTable.Columns.Remove("SellerPass");
-                filterTable.Columns.Remove("Image");
-                binding.DataSource = filterTable;
+                sellerTable = DataAccess.Instance.GetTable("SellersTbl");
 
-                SellDGV.DataSource = binding;
+                filterTable = sellerTable.Copy();
+                filterTable.Columns.Remove("SellerPass");
+                filterTable.Columns.Remove("Image");
+                tableWithoutColumns = filterTable.Clone();
+                DataRow[] filterRow = filterTable.Select("Active = 1");
+                foreach (DataRow row in filterRow)
+                {
+                    tableWithoutColumns.ImportRow(row);
+                }
+
+                bindingSource.DataSource = tableWithoutColumns;
+
+                SellDGV.DataSource = bindingSource;
                 totalLabel.Text = $"Total: {SellDGV.RowCount}";
                 SellDGV.RowHeadersVisible = false;
                 SellDGV.ReadOnly = true;
 
-                #region comments
-                //if (activeComboBox.Text == "Active")
-                //{
-                //    SqlConnect loaddata1 = new SqlConnect();
-                //    loaddata1.pagingData("Select [SellerId],[SellerUserName],cast([SellerPass] as varchar(MAX)) as Password,[SellerName],[SellerAge],[SellerPhone],[Date],[Address],[Active] From SellersTbl where Active = 'true'", 0, 5);
-                //    SellDGV.DataSource = loaddata1.table;
-                //    totalLabel.Text = $"Total: {SellDGV.RowCount}";
-                //    SellDGV.RowHeadersVisible = false;
-                //    //SellDGV.Columns[6].HeaderText = "Date of Birth";
-                //}
+                // Initialize the originalCategoryTable field with the same data as categoryTable
+                originalProductTable = sellerTable.Copy();
 
-                //else if (activeComboBox.Text == "Inactive")
-                //{
-                //    SqlConnect loaddata1 = new SqlConnect();
-                //    loaddata1.getData("Select [SellerId],[SellerUserName],cast([SellerPass] as varchar(MAX)) as Password,[SellerName],[SellerAge],[SellerPhone],[Date],[Address],[Active] From SellersTbl where Active = 'False'");
-                //    SellDGV.DataSource = loaddata1.table;
-                //    totalLabel.Text = $"Total: {SellDGV.RowCount}";
-                //    SellDGV.RowHeadersVisible = false;
-                //    //SellDGV.Columns[6].HeaderText = "Date of Birth";
-                //}
-                //else
-                //{
-                //    SqlConnect loaddata1 = new SqlConnect();
-                //    loaddata1.getData("Select [SellerId],[SellerUserName],cast([SellerPass] as varchar(MAX)) as Password,[SellerName],[SellerAge],[SellerPhone],[Date],[Address],[Active] From SellersTbl");
-                //    SellDGV.DataSource = loaddata1.table;
-                //    totalLabel.Text = $"Total: {SellDGV.RowCount}";
-                //    SellDGV.RowHeadersVisible = false;
-                //    //SellDGV.Columns[6].HeaderText = "Date of Birth";
-                //}
-                #endregion
+                MenuStrip.Instance.Menu(SellDGV, sellerTable, null, null, false);
+                //Fill combo Active
+                string[] test2 = { "Not Set", "Active", "Inactive" };
+                activeComboBox.DataSource = test2;
 
+                activeComboBox.SelectedIndex = 1;
             }
             catch (Exception ex)
             {
@@ -84,24 +72,9 @@ namespace SupermarketTuto.Forms
             }
         }
 
-        private void Seller_Load(object sender, EventArgs e)
-        {
-            fillcombo();
-            display();
-            
-        }
-
-        private void fillcombo()
-        {
-            //Fill combo Active
-            string[] test2 = { "Not Set", "Active", "Inactive" };
-            activeComboBox.DataSource = test2;
-        }
-
         #region buttons
-        private void add2Button_Click(object sender, EventArgs e)
+        private void addButton_Click(object sender, EventArgs e)
         {
-            
             addEditSeller add = new addEditSeller(sellerTable, null, true);
             add.editButton.Visible = false;
             add.SellId.Visible = false;
@@ -109,17 +82,22 @@ namespace SupermarketTuto.Forms
             add.Show();
         }
 
-        private void editButton_Click_1(object sender, EventArgs e)
+        private void editButton_Click(object sender, EventArgs e)
         {
             try
             {
-
                 DataGridViewRow currentRow = SellDGV.CurrentRow;
-                addEditSeller edit = new addEditSeller(sellerTable, currentRow, false);
+                if (currentRow != null)
+                {
+                    DataRow rowOfSellDGV = ((DataRowView)currentRow.DataBoundItem).Row;
+                    string filterData = "SellerId = " + rowOfSellDGV["SellerId"];
+                    DataRow filterRow = sellerTable.Select(filterData).FirstOrDefault();
+                    addEditSeller edit = new addEditSeller(sellerTable, filterRow, false);
+                    edit.addButton.Visible = false;
+                    edit.SellId.ReadOnly = true;
+                    edit.Show();
+                }
 
-                edit.addButton.Visible = false;
-                edit.SellId.ReadOnly = true;
-                edit.Show();
             }
             catch (Exception ex)
             {
@@ -128,24 +106,26 @@ namespace SupermarketTuto.Forms
 
         }
 
-        private void delete2Button_Click(object sender, EventArgs e)
+        private void deleteButton_Click(object sender, EventArgs e)
         {
             try
             {
                 List<DataRow> rowsToDelete = new List<DataRow>();
+                DataRow row = null;
                 // loop over the selected rows and add them to the list
                 foreach (DataGridViewRow selectedRow in SellDGV.SelectedRows)
                 {
                     //Convert DataGridViewRow -> DataRow
-                    DataRow row = ((DataRowView)selectedRow.DataBoundItem).Row;
+                    row = ((DataRowView)selectedRow.DataBoundItem).Row;
                     rowsToDelete.Add(row);
                 }
-                // loop over the rows to delete and remove them from the DataTable
-                foreach (DataRow row in rowsToDelete)
-                {
-                    sellerTable.Rows.Remove(row);
-                }
-                //DataAccess.Instance.DeleteData(sellerTable);
+                DataAccess.Instance.DeleteData(row, sellerType);
+                //// loop over the rows to delete and remove them from the DataTable
+                //foreach (DataRow rowDelete in rowsToDelete)
+                //{
+                //    tableWithoutColumns.Rows.Remove(rowDelete);
+                //}
+                SellDGV.DataSource = filterTable;
             }
             catch (Exception ex)
             {
@@ -154,11 +134,31 @@ namespace SupermarketTuto.Forms
         }
         private void searchButton_Click(object sender, EventArgs e)
         {
-            SqlConnect db_sellers = new SqlConnect();
-            string query = "Select [SellerId],[SellerUserName],cast([SellerPass] as varchar(MAX)) as Password,[SellerName],[SellerAge],[SellerPhone],[Date],[Address],[Active] From SellersTbl where SellerId like '%" + searchTextBox.Text + "%'" + "or SellerName like '%" + searchTextBox.Text + "%'" + "or SellerAge like '%" + searchTextBox.Text + "%'" + "or SellerPhone like '%" + searchTextBox.Text + "%'" + "or SellerPass like '%" + searchTextBox.Text + "%'";
-            db_sellers.search(searchTextBox.Text, query);
-            SellDGV.DataSource = db_sellers.table;
-            totalLabel.Text = $"Total: {SellDGV.RowCount}";
+            // If the search text is not empty, filter the originalCategoryTable and assign the filtered result to the categoryTable
+            if (!string.IsNullOrWhiteSpace(searchTextBox.Text))
+            {
+                var matchingRows = from row in originalProductTable.AsEnumerable()
+                                   where row.ItemArray.Any(x =>
+                                         StringComparer.OrdinalIgnoreCase.Equals(x.ToString(), searchTextBox.Text))
+                                   select row;
+
+                if (matchingRows.Any())
+                {
+                    sellerTable = matchingRows.CopyToDataTable();
+                }
+                else
+                {
+                    sellerTable = sellerTable.Clone();
+                }
+            }
+            // If the search text is empty, assign the originalCategoryTable to the categoryTable
+            else
+            {
+                sellerTable = originalProductTable.Copy();
+            }
+
+            // Bind the categoryTable to the CatDGV DataGridView control
+            SellDGV.DataSource = sellerTable;
         }
 
         #endregion
@@ -222,7 +222,7 @@ namespace SupermarketTuto.Forms
         #endregion
 
         #region Events
-       
+
         private void SellDGV_MouseDown(object sender, MouseEventArgs e)
         {
             menu();
@@ -257,8 +257,29 @@ namespace SupermarketTuto.Forms
         {
             try
             {
-
-
+                if(filterTable.Rows.Count > 0)
+                {
+                    if(activeComboBox.Text == "Not Set")
+                    {
+                        SellDGV.DataSource = filterTable;
+                        SellDGV.RowHeadersVisible = false;
+                        totalLabel.Text = $"Total: {SellDGV.RowCount}";
+                    }
+                    else
+                    {
+                        bool active = activeComboBox.Text.Equals("Active") ? true : false;
+                        string filterData = "Active = " + active.ToString().ToLower();
+                        DataRow[] filterRow = filterTable.Select(filterData);
+                        DataTable comboTable = filterTable.Clone();
+                        foreach (DataRow row in filterRow)
+                        {
+                            comboTable.ImportRow(row);
+                        }
+                        SellDGV.DataSource = comboTable;
+                        SellDGV.RowHeadersVisible = false;
+                        totalLabel.Text = $"Total: {SellDGV.RowCount}";
+                    }
+                }
             }
             catch (Exception ex)
             {

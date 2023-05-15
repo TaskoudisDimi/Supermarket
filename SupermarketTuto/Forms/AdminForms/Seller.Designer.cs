@@ -104,7 +104,7 @@
             this.delete2Button.TabIndex = 102;
             this.delete2Button.Text = "Delete";
             this.delete2Button.UseVisualStyleBackColor = true;
-            this.delete2Button.Click += new System.EventHandler(this.delete2Button_Click);
+            this.delete2Button.Click += new System.EventHandler(this.deleteButton_Click);
             // 
             // editButton
             // 
@@ -116,7 +116,7 @@
             this.editButton.TabIndex = 101;
             this.editButton.Text = "Edit";
             this.editButton.UseVisualStyleBackColor = true;
-            this.editButton.Click += new System.EventHandler(this.editButton_Click_1);
+            this.editButton.Click += new System.EventHandler(this.editButton_Click);
             // 
             // addButton
             // 
@@ -128,7 +128,7 @@
             this.addButton.TabIndex = 100;
             this.addButton.Text = "Create New";
             this.addButton.UseVisualStyleBackColor = true;
-            this.addButton.Click += new System.EventHandler(this.add2Button_Click);
+            this.addButton.Click += new System.EventHandler(this.addButton_Click);
             // 
             // contextMenuStrip1
             // 

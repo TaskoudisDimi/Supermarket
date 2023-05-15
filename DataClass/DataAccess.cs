@@ -199,6 +199,10 @@ namespace ClassLibrary1
                     {
                         rowsToDelete = table.Select($"BillId = {row["BillId"]}");
                     }
+                    else if (type.Name == "Sellers")
+                    {
+                        rowsToDelete = table.Select($"SellerId = {row["SellerId"]}");
+                    }
 
                     foreach (DataRow rowToDelete in rowsToDelete)
                     {
@@ -215,6 +219,45 @@ namespace ClassLibrary1
             }
 
 
+        }
+
+        public void CleanDB()
+        {
+            using (connection = new SqlConnection(connectionString))
+            {
+                using(command = new SqlCommand("SP_CleanDatabaseTables", connection))
+                {
+                    connection.Open();
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.ExecuteNonQuery();
+                    connection.Close();
+                }
+            }
+        }
+
+        public void RestoreDB(string pathDB)
+        {
+            try
+            {
+                using (connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand useMaster = new SqlCommand("USE master", connection))
+                    {
+                        useMaster.ExecuteNonQuery();
+                    }
+                    string restoreDB = $"RESTORE DATABASE smarketdb FROM DISK = '{pathDB}' WITH REPLACE, RECOVERY";
+                    using (SqlCommand command = new SqlCommand(restoreDB, connection))
+                    {
+                        command.ExecuteNonQuery();
+                    }
+                    connection.Close();
+                }
+            }
+            catch
+            {
+
+            }   
         }
     }
 }
