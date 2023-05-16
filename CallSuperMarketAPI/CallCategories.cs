@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -45,9 +44,9 @@ namespace CallSuperMarketAPI
                     readTask.Wait();
 
                     var Categories = readTask.Result;
-                    var resultDeserialize = JsonConvert.DeserializeObject<List<Categories>>(Categories);
+                    //var resultDeserialize = JsonConvert.DeserializeObject<List<Categories>>(Categories);
 
-                    CatDGV.DataSource = resultDeserialize;
+                    //CatDGV.DataSource = resultDeserialize;
                 }
             }
 
@@ -55,21 +54,21 @@ namespace CallSuperMarketAPI
 
         private void PostButton_Click(object sender, EventArgs e)
         {
-            var categories = new Categories() { CatId = Convert.ToInt32(CatIdTb.Text), CatName = CatNameTb.Text, CatDesc = CatDescTb.Text, Date = Convert.ToDateTime(dateTimePicker.Value.ToString("yyyy/MM/dd")) };
-            var json = JsonConvert.SerializeObject(categories);
-            var data = new StringContent(json, Encoding.UTF8, "application/json");
-            var url = new Uri("http://localhost:8084/api/post/categories");
-            using (var client = new HttpClient())
-            {
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                var response = client.PostAsync(url, data);
-                response.Wait();
-                var result = response.Result;
-                if (result.IsSuccessStatusCode)
-                {
-                    var readTask = result.Content.ReadAsStringAsync();
-                }
-            };
+            //var categories = new Categories() { CatId = Convert.ToInt32(CatIdTb.Text), CatName = CatNameTb.Text, CatDesc = CatDescTb.Text, Date = Convert.ToDateTime(dateTimePicker.Value.ToString("yyyy/MM/dd")) };
+            //var json = JsonConvert.SerializeObject(categories);
+            //var data = new StringContent(json, Encoding.UTF8, "application/json");
+            //var url = new Uri("http://localhost:8084/api/post/categories");
+            //using (var client = new HttpClient())
+            //{
+            //    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            //    var response = client.PostAsync(url, data);
+            //    response.Wait();
+            //    var result = response.Result;
+            //    if (result.IsSuccessStatusCode)
+            //    {
+            //        var readTask = result.Content.ReadAsStringAsync();
+            //    }
+            //};
         }
 
         private void DeleteApiButton_Click(object sender, EventArgs e)
@@ -89,20 +88,20 @@ namespace CallSuperMarketAPI
 
         private void putButton_Click(object sender, EventArgs e)
         {
-            var categories = new Categories() { CatId = Convert.ToInt32(CatIdTb.Text), CatName = CatNameTb.Text, CatDesc = CatDescTb.Text, Date = Convert.ToDateTime(dateTimePicker.Value.ToString("yyyy/MM/dd"))};
-            var json = JsonConvert.SerializeObject(categories);
-            var data = new StringContent(json, Encoding.UTF8, "application/json");
-            var url = new Uri($"http://localhost:8084/api/put/{CatIdTb.Text}");
-            using (var client = new HttpClient())
-            {
-                var response = client.PutAsync(url, data);
-                response.Wait();
-                var result = response.Result;
-                if (result.IsSuccessStatusCode)
-                {
-                    var readTask = result.Content.ReadAsStringAsync();
-                }
-            };
+            //var categories = new Categories() { CatId = Convert.ToInt32(CatIdTb.Text), CatName = CatNameTb.Text, CatDesc = CatDescTb.Text, Date = Convert.ToDateTime(dateTimePicker.Value.ToString("yyyy/MM/dd"))};
+            //var json = JsonConvert.SerializeObject(categories);
+            //var data = new StringContent(json, Encoding.UTF8, "application/json");
+            //var url = new Uri($"http://localhost:8084/api/put/{CatIdTb.Text}");
+            //using (var client = new HttpClient())
+            //{
+            //    var response = client.PutAsync(url, data);
+            //    response.Wait();
+            //    var result = response.Result;
+            //    if (result.IsSuccessStatusCode)
+            //    {
+            //        var readTask = result.Content.ReadAsStringAsync();
+            //    }
+            //};
         }
 
         public class Categories

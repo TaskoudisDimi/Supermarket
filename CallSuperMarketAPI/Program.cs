@@ -16,7 +16,7 @@ namespace CallSuperMarketAPI
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new CallProducts());
+            Application.Run(new GetFromExternalAPI());
         }
     }
 }

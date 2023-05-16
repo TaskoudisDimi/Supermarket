@@ -4,8 +4,6 @@ using System.Net.Http.Headers;
 using System.Net.Http;
 using System.Text;
 using System.Windows.Forms;
-using Newtonsoft.Json;
-using SupermarketTuto.DataAccess;
 
 namespace CallSuperMarketAPI
 {
@@ -41,33 +39,33 @@ namespace CallSuperMarketAPI
                     readTask.Wait();
 
                     var Products = readTask.Result;
-                    var resultDeserialize = JsonConvert.DeserializeObject<List<Products>>(Products);
+                    //var resultDeserialize = JsonConvert.DeserializeObject<List<Products>>(Products);
 
-                    ProdDGV.DataSource = resultDeserialize;
+                    //ProdDGV.DataSource = resultDeserialize;
                 }
             }
         }
 
         private void PostButton_Click(object sender, EventArgs e)
         {
-            var product = new Products() { prodid = Convert.ToInt32(ProdId.Text), ProdName = ProdName.Text, ProdQty = Convert.ToInt32(ProdQty.Text), ProdPrice = Convert.ToInt32(ProdPrice.Text), ProdCat = catCombobox.Text, Date = Convert.ToDateTime(DateTimePicker.Value.ToString("yyyy/MM/dd")) };
+            //var product = new Products() { prodid = Convert.ToInt32(ProdId.Text), ProdName = ProdName.Text, ProdQty = Convert.ToInt32(ProdQty.Text), ProdPrice = Convert.ToInt32(ProdPrice.Text), ProdCat = catCombobox.Text, Date = Convert.ToDateTime(DateTimePicker.Value.ToString("yyyy/MM/dd")) };
 
 
-            var json = JsonConvert.SerializeObject(product);
+            //var json = JsonConvert.SerializeObject(product);
 
-            var data = new StringContent(json, Encoding.UTF8, "application/json");
-            var url = new Uri("http://localhost:8084/api/Products");
-            using (var client = new HttpClient())
-            {
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                var response = client.PostAsync(url, data);
-                response.Wait();
-                var result = response.Result;
-                if (result.IsSuccessStatusCode)
-                {
-                    var readTask = result.Content.ReadAsStringAsync();
-                }
-            };
+            //var data = new StringContent(json, Encoding.UTF8, "application/json");
+            //var url = new Uri("http://localhost:8084/api/Products");
+            //using (var client = new HttpClient())
+            //{
+            //    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            //    var response = client.PostAsync(url, data);
+            //    response.Wait();
+            //    var result = response.Result;
+            //    if (result.IsSuccessStatusCode)
+            //    {
+            //        var readTask = result.Content.ReadAsStringAsync();
+            //    }
+            //};
 
         }
 
@@ -89,23 +87,23 @@ namespace CallSuperMarketAPI
 
         private void putButton_Click(object sender, EventArgs e)
         {
-            var product = new Products() { prodid = Convert.ToInt32(ProdId.Text), ProdName = ProdName.Text, ProdQty = Convert.ToInt32(ProdQty.Text), ProdPrice = Convert.ToInt32(ProdPrice.Text), ProdCat = catCombobox.Text };
+            //var product = new Products() { prodid = Convert.ToInt32(ProdId.Text), ProdName = ProdName.Text, ProdQty = Convert.ToInt32(ProdQty.Text), ProdPrice = Convert.ToInt32(ProdPrice.Text), ProdCat = catCombobox.Text };
 
-            var json = JsonConvert.SerializeObject(product);
-            var data = new StringContent(json, Encoding.UTF8, "application/json");
+            //var json = JsonConvert.SerializeObject(product);
+            //var data = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var url = new Uri($"http://localhost:8084/api/put/{ProdId.Text}");
-            using (var client = new HttpClient())
-            {
-                var response = client.PutAsync(url, data);
-                response.Wait();
-                var result = response.Result;
-                if (result.IsSuccessStatusCode)
-                {
-                    var readTask = result.Content.ReadAsStringAsync();
+            //var url = new Uri($"http://localhost:8084/api/put/{ProdId.Text}");
+            //using (var client = new HttpClient())
+            //{
+            //    var response = client.PutAsync(url, data);
+            //    response.Wait();
+            //    var result = response.Result;
+            //    if (result.IsSuccessStatusCode)
+            //    {
+            //        var readTask = result.Content.ReadAsStringAsync();
 
-                }
-            };
+            //    }
+            //};
         }
 
         public class Products
@@ -120,13 +118,13 @@ namespace CallSuperMarketAPI
 
         private void fillCombo()
         {
-            SqlConnect loaddata20 = new SqlConnect();
-            loaddata20.retrieveData("Select CatName From CategoryTbl");
-            catCombobox.DataSource = loaddata20.table;
-            catCombobox.ValueMember = "CatName";
-            catCombobox.SelectedItem = null;
-            catCombobox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            catCombobox.AutoCompleteSource = AutoCompleteSource.ListItems;
+            //SqlConnect loaddata20 = new SqlConnect();
+            //loaddata20.retrieveData("Select CatName From CategoryTbl");
+            //catCombobox.DataSource = loaddata20.table;
+            //catCombobox.ValueMember = "CatName";
+            //catCombobox.SelectedItem = null;
+            //catCombobox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            //catCombobox.AutoCompleteSource = AutoCompleteSource.ListItems;
         }
 
 
