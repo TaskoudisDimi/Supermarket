@@ -15,6 +15,7 @@ namespace CallSuperMarketAPI
 {
     public partial class GetFromExternalAPI : Form
     {
+        //https://world.openfoodfacts.org/category/cheeses.json
         static readonly HttpClient client = new HttpClient();
         string url = "https://world.openfoodfacts.org/?json=true";
         public GetFromExternalAPI()
@@ -41,7 +42,16 @@ namespace CallSuperMarketAPI
             }
             
         }
+
+        private void categoryButton_Click(object sender, EventArgs e)
+        {
+            
+        }
+
     }
+
+
+
     public class Products
     {
         public int prodid { get; set; }
