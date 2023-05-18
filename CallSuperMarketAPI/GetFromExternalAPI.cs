@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -18,6 +19,7 @@ namespace CallSuperMarketAPI
         //https://world.openfoodfacts.org/category/cheeses.json
         static readonly HttpClient client = new HttpClient();
         string url = "https://world.openfoodfacts.org/?json=true";
+        string url_food = "https://api.nal.usda.gov/fdc/v1/foods/list?api_key=73bN4czbGpmlsow5zNXFUEfhcbkDxg1QWfVqT2m5";
         public GetFromExternalAPI()
         {
             InitializeComponent();
@@ -27,12 +29,14 @@ namespace CallSuperMarketAPI
         {
             try
             {
-                HttpResponseMessage response = await client.GetAsync(url);
+                HttpResponseMessage response = await client.GetAsync(url_food);
                 var Products = await response.Content.ReadAsStringAsync();
                 if (response.IsSuccessStatusCode)
                 {
-                    var ListProducts = JsonConvert.DeserializeObject<List<Products>>(Products);
-                    Console.WriteLine($"Data: {ListProducts}");
+                    var myDeserializedClass = JsonConvert.DeserializeObject<List<Root>>(Products);
+                    string path = "";
+                    
+                    Console.WriteLine($"Data: {myDeserializedClass}");
                 }
             }
             catch (HttpRequestException ex)
@@ -52,13 +56,25 @@ namespace CallSuperMarketAPI
 
 
 
-    public class Products
+    
+    public class FoodNutrient
     {
-        public int prodid { get; set; }
-        public string ProdName { get; set; }
-        public int ProdQty { get; set; }
-        public int ProdPrice { get; set; }
-        public string ProdCat { get; set; }
-        public DateTime Date { get; set; }
+        public string number { get; set; }
+        public string name { get; set; }
+        public double amount { get; set; }
+        public string unitName { get; set; }
+        public string derivationCode { get; set; }
+        public string derivationDescription { get; set; }
+    }
+
+    public class Root
+    {
+        public int fdcId { get; set; }
+        public string description { get; set; }
+        public string dataType { get; set; }
+        public string publicationDate { get; set; }
+        public List<FoodNutrient> foodNutrients { get; set; }
+        public string foodCode { get; set; }
+        public string ndbNumber { get; set; }
     }
 }

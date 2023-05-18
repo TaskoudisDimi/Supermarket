@@ -51,18 +51,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CallCategories.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="CallCategories.Designer.cs">
-      <DependentUpon>CallCategories.cs</DependentUpon>
-    </Compile>
-    <Compile Include="CallProducts.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="CallProducts.Designer.cs">
-      <DependentUpon>CallProducts.cs</DependentUpon>
-    </Compile>
     <Compile Include="GetFromExternalAPI.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -71,12 +59,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="CallCategories.resx">
-      <DependentUpon>CallCategories.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="CallProducts.resx">
-      <DependentUpon>CallProducts.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="GetFromExternalAPI.resx">
       <DependentUpon>GetFromExternalAPI.cs</DependentUpon>
     </EmbeddedResource>
