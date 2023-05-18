@@ -18,8 +18,7 @@ namespace CallSuperMarketAPI
     {
         //https://world.openfoodfacts.org/category/cheeses.json
         static readonly HttpClient client = new HttpClient();
-        string url = "https://world.openfoodfacts.org/?json=true";
-        string url_food = "https://api.nal.usda.gov/fdc/v1/foods/list?api_key=73bN4czbGpmlsow5zNXFUEfhcbkDxg1QWfVqT2m5";
+        string url_food = "https://api.edamam.com/api/food-database/v2/parser?app_id=713fa9ba&app_key=045b112511bb6b714c5c10328c5f5aba&nutrition-type=cooking&health=alcohol-free&category=generic-foods";
         public GetFromExternalAPI()
         {
             InitializeComponent();
@@ -33,7 +32,7 @@ namespace CallSuperMarketAPI
                 var Products = await response.Content.ReadAsStringAsync();
                 if (response.IsSuccessStatusCode)
                 {
-                    var myDeserializedClass = JsonConvert.DeserializeObject<List<Root>>(Products);
+                    Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(Products);
                     string path = "";
                     
                     Console.WriteLine($"Data: {myDeserializedClass}");
@@ -56,25 +55,73 @@ namespace CallSuperMarketAPI
 
 
 
+
     
-    public class FoodNutrient
+    public class Food
     {
-        public string number { get; set; }
-        public string name { get; set; }
-        public double amount { get; set; }
-        public string unitName { get; set; }
-        public string derivationCode { get; set; }
-        public string derivationDescription { get; set; }
+        public string foodId { get; set; }
+        public string label { get; set; }
+        public string knownAs { get; set; }
+        public Nutrients nutrients { get; set; }
+        public string category { get; set; }
+        public string categoryLabel { get; set; }
+        public string image { get; set; }
+    }
+
+    public class Hint
+    {
+        public Food food { get; set; }
+        public List<Measure> measures { get; set; }
+    }
+
+    public class Links
+    {
+        public Next next { get; set; }
+    }
+
+    public class Measure
+    {
+        public string uri { get; set; }
+        public string label { get; set; }
+        public double weight { get; set; }
+        public List<Qualified> qualified { get; set; }
+    }
+
+    public class Next
+    {
+        public string title { get; set; }
+        public string href { get; set; }
+    }
+
+    public class Nutrients
+    {
+        public double ENERC_KCAL { get; set; }
+        public double PROCNT { get; set; }
+        public double FAT { get; set; }
+        public double CHOCDF { get; set; }
+        public double FIBTG { get; set; }
+    }
+
+    public class Qualified
+    {
+        public List<Qualifier> qualifiers { get; set; }
+        public double weight { get; set; }
+    }
+
+    public class Qualifier
+    {
+        public string uri { get; set; }
+        public string label { get; set; }
     }
 
     public class Root
     {
-        public int fdcId { get; set; }
-        public string description { get; set; }
-        public string dataType { get; set; }
-        public string publicationDate { get; set; }
-        public List<FoodNutrient> foodNutrients { get; set; }
-        public string foodCode { get; set; }
-        public string ndbNumber { get; set; }
+        public string text { get; set; }
+        public List<object> parsed { get; set; }
+        public List<Hint> hints { get; set; }
+        public Links _links { get; set; }
     }
+
+
+
 }
