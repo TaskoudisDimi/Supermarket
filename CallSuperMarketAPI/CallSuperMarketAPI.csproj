@@ -87,6 +87,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DataClass\DataClass.csproj">
+      <Project>{87C9335D-0730-4430-9479-895F0AE1ABD8}</Project>
+      <Name>DataClass</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SupermarketTuto\SupermarketTuto.csproj">
       <Project>{BCA9883B-0439-4097-B2C6-A7FB99E10789}</Project>
       <Name>SupermarketTuto</Name>

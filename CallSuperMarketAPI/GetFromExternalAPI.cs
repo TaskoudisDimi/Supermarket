@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using ClassLibrary1.Models;
+using Newtonsoft.Json;
 using SupermarketTuto.Forms;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -29,13 +31,20 @@ namespace CallSuperMarketAPI
             try
             {
                 HttpResponseMessage response = await client.GetAsync(url_food);
-                var Products = await response.Content.ReadAsStringAsync();
+                var ProductsResponse = await response.Content.ReadAsStringAsync();
                 if (response.IsSuccessStatusCode)
                 {
-                    Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(Products);
-                    string path = "";
-                    
-                    Console.WriteLine($"Data: {myDeserializedClass}");
+                    List<Products> products = new List<Products>();
+                    List<Categories> categories = new List<Categories>();
+                    Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(ProductsResponse);
+                    if(myDeserializedClass.hints.Count > 0)
+                    {
+                        foreach(var pair in myDeserializedClass.hints)
+                        {
+                            //Category CatName
+                            //KnownAs CatDesc, ProdName
+                        }
+                    }
                 }
             }
             catch (HttpRequestException ex)
