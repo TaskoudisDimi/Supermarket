@@ -31,14 +31,14 @@
             this.allButton = new System.Windows.Forms.Button();
             this.categoryButton = new System.Windows.Forms.Button();
             this.textBox = new System.Windows.Forms.TextBox();
+            this.saveButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // allButton
             // 
-            this.allButton.Location = new System.Drawing.Point(73, 294);
-            this.allButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.allButton.Location = new System.Drawing.Point(49, 191);
             this.allButton.Name = "allButton";
-            this.allButton.Size = new System.Drawing.Size(112, 35);
+            this.allButton.Size = new System.Drawing.Size(75, 23);
             this.allButton.TabIndex = 0;
             this.allButton.Text = "All";
             this.allButton.UseVisualStyleBackColor = true;
@@ -46,10 +46,9 @@
             // 
             // categoryButton
             // 
-            this.categoryButton.Location = new System.Drawing.Point(220, 294);
-            this.categoryButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.categoryButton.Location = new System.Drawing.Point(251, 191);
             this.categoryButton.Name = "categoryButton";
-            this.categoryButton.Size = new System.Drawing.Size(112, 35);
+            this.categoryButton.Size = new System.Drawing.Size(75, 23);
             this.categoryButton.TabIndex = 1;
             this.categoryButton.Text = "Category";
             this.categoryButton.UseVisualStyleBackColor = true;
@@ -57,20 +56,31 @@
             // 
             // textBox
             // 
-            this.textBox.Location = new System.Drawing.Point(220, 249);
+            this.textBox.Location = new System.Drawing.Point(251, 162);
+            this.textBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.textBox.Name = "textBox";
-            this.textBox.Size = new System.Drawing.Size(112, 26);
+            this.textBox.Size = new System.Drawing.Size(76, 20);
             this.textBox.TabIndex = 2;
+            // 
+            // saveButton
+            // 
+            this.saveButton.Location = new System.Drawing.Point(152, 191);
+            this.saveButton.Name = "saveButton";
+            this.saveButton.Size = new System.Drawing.Size(75, 23);
+            this.saveButton.TabIndex = 3;
+            this.saveButton.Text = "Save";
+            this.saveButton.UseVisualStyleBackColor = true;
+            this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
             // 
             // GetFromExternalAPI
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(794, 374);
+            this.ClientSize = new System.Drawing.Size(529, 243);
+            this.Controls.Add(this.saveButton);
             this.Controls.Add(this.textBox);
             this.Controls.Add(this.categoryButton);
             this.Controls.Add(this.allButton);
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "GetFromExternalAPI";
             this.Text = "GetFromExternalAPI";
             this.ResumeLayout(false);
@@ -83,5 +93,6 @@
         private System.Windows.Forms.Button allButton;
         private System.Windows.Forms.Button categoryButton;
         private System.Windows.Forms.TextBox textBox;
+        private System.Windows.Forms.Button saveButton;
     }
 }
