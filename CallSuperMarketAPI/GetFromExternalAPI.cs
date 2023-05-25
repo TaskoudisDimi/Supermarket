@@ -37,6 +37,7 @@ namespace CallSuperMarketAPI
         {
             try
             {
+                statusLabel.Text = "Start getting the data";
                 HttpResponseMessage response = await client.GetAsync(url_food);
                 var ProductsResponse = await response.Content.ReadAsStringAsync();
                 if (response.IsSuccessStatusCode)
@@ -60,6 +61,7 @@ namespace CallSuperMarketAPI
                         }
                     }
                 }
+                statusLabel.Text = "End of getting";
             }
             catch (HttpRequestException ex)
             {
