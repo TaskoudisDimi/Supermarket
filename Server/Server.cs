@@ -5,14 +5,14 @@ using System.Windows.Forms;
 
 namespace Server
 {
-    public partial class Form1 : Form
+    public partial class Server : Form
     {
         private List<Socket> _clients = new List<Socket>();
         private readonly object _lock = new object();
         private Socket _serverSocket;
         private Thread _serverThread;
 
-        public Form1()
+        public Server()
         {
             InitializeComponent();
         }
