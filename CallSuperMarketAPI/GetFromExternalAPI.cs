@@ -19,6 +19,7 @@ namespace CallSuperMarketAPI
 {
     public partial class GetFromExternalAPI : Form
     {
+        //TODO: Check if existing products and categories thought ID
         //https://world.openfoodfacts.org/category/cheeses.json
         static readonly HttpClient client = new HttpClient();
         string url_food = "https://api.edamam.com/api/food-database/v2/parser?app_id=713fa9ba&app_key=045b112511bb6b714c5c10328c5f5aba&nutrition-type=cooking&health=alcohol-free&category=generic-foods";
@@ -60,8 +61,8 @@ namespace CallSuperMarketAPI
                             products.Add(product);
                         }
                     }
+                    statusLabel.Text = $"End of getting, Result: {myDeserializedClass.hints.Count}";
                 }
-                statusLabel.Text = "End of getting";
             }
             catch (HttpRequestException ex)
             {
@@ -131,71 +132,6 @@ namespace CallSuperMarketAPI
 
 
 
-
-    public class Food
-    {
-        public string foodId { get; set; }
-        public string label { get; set; }
-        public string knownAs { get; set; }
-        public Nutrients nutrients { get; set; }
-        public string category { get; set; }
-        public string categoryLabel { get; set; }
-        public string image { get; set; }
-    }
-
-    public class Hint
-    {
-        public Food food { get; set; }
-        public List<Measure> measures { get; set; }
-    }
-
-    public class Links
-    {
-        public Next next { get; set; }
-    }
-
-    public class Measure
-    {
-        public string uri { get; set; }
-        public string label { get; set; }
-        public double weight { get; set; }
-        public List<Qualified> qualified { get; set; }
-    }
-
-    public class Next
-    {
-        public string title { get; set; }
-        public string href { get; set; }
-    }
-
-    public class Nutrients
-    {
-        public double ENERC_KCAL { get; set; }
-        public double PROCNT { get; set; }
-        public double FAT { get; set; }
-        public double CHOCDF { get; set; }
-        public double FIBTG { get; set; }
-    }
-
-    public class Qualified
-    {
-        public List<Qualifier> qualifiers { get; set; }
-        public double weight { get; set; }
-    }
-
-    public class Qualifier
-    {
-        public string uri { get; set; }
-        public string label { get; set; }
-    }
-
-    public class Root
-    {
-        public string text { get; set; }
-        public List<object> parsed { get; set; }
-        public List<Hint> hints { get; set; }
-        public Links _links { get; set; }
-    }
 
 
 
