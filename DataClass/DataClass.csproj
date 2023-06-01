@@ -84,6 +84,7 @@
     <Compile Include="DbContext.cs" />
     <Compile Include="ExcelFile.cs" />
     <Compile Include="Models\Admins.cs" />
+    <Compile Include="Models\Food.cs" />
     <Compile Include="Models\PreBillsTbl.cs" />
     <Compile Include="Models\Bills.cs" />
     <Compile Include="Models\Categories.cs" />
