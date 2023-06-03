@@ -24,16 +24,15 @@ namespace SupermarketTuto
         {
 
             Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
+            Application.ThreadException += Application_ThreadException;
 
 
-            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             Application.Run(new MainAdmin());
         }
 
-        private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        private static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
         {
-            Exception ex = e.ExceptionObject as Exception;
-
+            Exception ex = e.Exception;
             // Log the exception details into a SQL Server table
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["smarketdb"].ConnectionString))
             {
@@ -47,9 +46,8 @@ namespace SupermarketTuto
             }
 
             // Display a message or perform other necessary actions
-
-            // Terminate the application (optional)
-            Environment.Exit(1);
+            ExceptionForm form = new ExceptionForm(ex.Message, ex.StackTrace);
+            form.Show();
         }
     }
 }
