@@ -9,8 +9,11 @@ namespace Server
     {
         private List<Socket> _clients = new List<Socket>();
         private readonly object _lock = new object();
-        private Socket _serverSocket;
+        private Socket serverTCP;
         private Thread _serverThread;
+        private UdpClient serverUDP;
+        private IPEndPoint endPoint;
+        private Dictionary<string, IPEndPoint> udpClients = new Dictionary<string, IPEndPoint>();
 
         public Server()
         {
@@ -19,22 +22,56 @@ namespace Server
 
         private void startButton_Click(object sender, EventArgs e)
         {
-            _serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            _serverSocket.Bind(new IPEndPoint(IPAddress.Any, 1234));
-            _serverSocket.Listen(10);
+            #region UDP
+            serverUDP = new UdpClient(8080);
+            endPoint = new IPEndPoint(IPAddress.Any, 0);
+            serverUDP.BeginReceive(ReceiveCallback, null);
+
+            #endregion
+
+            #region TCP
+            serverTCP = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            serverTCP.Bind(new IPEndPoint(IPAddress.Any, 1234));
+            serverTCP.Listen(10);
 
             _serverThread = new Thread(StartServer);
             _serverThread.Start();
 
             startButton.Enabled = false;
             logListBox.Items.Add("Server started listening on port 1234." + Environment.NewLine);
+            #endregion
+        }
+
+        private void ReceiveCallback(IAsyncResult ar)
+        {
+            try
+            {
+                //Receive
+                byte[] receivedBytes = serverUDP.EndReceive(ar, ref endPoint);
+                string message = Encoding.ASCII.GetString(receivedBytes);
+                string clientKey = $"{endPoint.Address}:{endPoint.Port}";
+                udpClients[clientKey] = endPoint;
+
+                //Send                
+                byte[] messageBytes = Encoding.ASCII.GetBytes(message);
+                // Send the message to all connected clients
+                foreach (var clientEndPoint in udpClients.Values)
+                {
+                    serverUDP.Send(messageBytes, messageBytes.Length, clientEndPoint);
+                }
+
+            }
+            catch
+            {
+
+            }
         }
 
         private void StartServer(object? obj)
         {
             while (true)
             {
-                Socket clientSocket = _serverSocket.Accept();
+                Socket clientSocket = serverTCP.Accept();
                 lock (_lock)
                 {
                     _clients.Add(clientSocket);
@@ -100,6 +137,12 @@ namespace Server
         private void Form1_Load(object sender, EventArgs e)
         {
             logListBox.Items.Add("Server started. Waiting for connections..." + Environment.NewLine);
+        }
+
+        private void stopButton_Click(object sender, EventArgs e)
+        {
+            serverUDP.Close();
+            serverTCP.Close();
         }
     }
 }

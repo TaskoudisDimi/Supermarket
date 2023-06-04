@@ -39,6 +39,7 @@
             this.bufferSizeTextBox = new System.Windows.Forms.TextBox();
             this.tcpLabel = new System.Windows.Forms.Label();
             this.udpLabel = new System.Windows.Forms.Label();
+            this.stopButton = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.SuspendLayout();
@@ -155,11 +156,23 @@
             this.udpLabel.TabIndex = 17;
             this.udpLabel.Text = "UDP";
             // 
-            // Form1
+            // stopButton
+            // 
+            this.stopButton.Location = new System.Drawing.Point(202, 163);
+            this.stopButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.stopButton.Name = "stopButton";
+            this.stopButton.Size = new System.Drawing.Size(107, 38);
+            this.stopButton.TabIndex = 18;
+            this.stopButton.Text = "Stop";
+            this.stopButton.UseVisualStyleBackColor = true;
+            this.stopButton.Click += new System.EventHandler(this.stopButton_Click);
+            // 
+            // Server
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1240, 793);
+            this.Controls.Add(this.stopButton);
             this.Controls.Add(this.udpLabel);
             this.Controls.Add(this.tcpLabel);
             this.Controls.Add(this.tabControl1);
@@ -168,7 +181,7 @@
             this.Controls.Add(this.connectedClientsLabel);
             this.Controls.Add(this.buferSizeLabel);
             this.Controls.Add(this.bufferSizeTextBox);
-            this.Name = "Form1";
+            this.Name = "Server";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tabControl1.ResumeLayout(false);
@@ -191,5 +204,6 @@
         private TextBox bufferSizeTextBox;
         private Label tcpLabel;
         private Label udpLabel;
+        private Button stopButton;
     }
 }

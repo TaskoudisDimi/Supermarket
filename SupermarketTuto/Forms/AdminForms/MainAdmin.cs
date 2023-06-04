@@ -175,7 +175,6 @@ namespace SupermarketTuto.Forms.AdminForms
             Product form = new Product();
             form.TopLevel = false;
             form.TopMost = true;
-            form = null;
             splitContainer1.Panel1.Controls.Add(form);
             form.Show();
         }
