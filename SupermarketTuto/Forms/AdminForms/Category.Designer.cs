@@ -91,7 +91,7 @@
             this.totalLabel.Location = new System.Drawing.Point(9, 640);
             this.totalLabel.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.totalLabel.Name = "totalLabel";
-            this.totalLabel.Size = new System.Drawing.Size(74, 29);
+            this.totalLabel.Size = new System.Drawing.Size(48, 20);
             this.totalLabel.TabIndex = 84;
             this.totalLabel.Text = "Total:";
             // 
@@ -113,7 +113,7 @@
             this.searchTextBox.Location = new System.Drawing.Point(14, 25);
             this.searchTextBox.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.searchTextBox.Name = "searchTextBox";
-            this.searchTextBox.Size = new System.Drawing.Size(175, 35);
+            this.searchTextBox.Size = new System.Drawing.Size(175, 26);
             this.searchTextBox.TabIndex = 82;
             this.searchTextBox.TextChanged += new System.EventHandler(this.searchTextBox_TextChanged);
             // 
@@ -124,7 +124,7 @@
             this.toDateTimePicker.Location = new System.Drawing.Point(1362, 22);
             this.toDateTimePicker.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.toDateTimePicker.Name = "toDateTimePicker";
-            this.toDateTimePicker.Size = new System.Drawing.Size(176, 35);
+            this.toDateTimePicker.Size = new System.Drawing.Size(176, 26);
             this.toDateTimePicker.TabIndex = 81;
             this.toDateTimePicker.ValueChanged += new System.EventHandler(this.toDateTimePicker_ValueChanged);
             // 
@@ -135,7 +135,7 @@
             this.fromDateTimePicker.Location = new System.Drawing.Point(1156, 22);
             this.fromDateTimePicker.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.fromDateTimePicker.Name = "fromDateTimePicker";
-            this.fromDateTimePicker.Size = new System.Drawing.Size(186, 35);
+            this.fromDateTimePicker.Size = new System.Drawing.Size(186, 26);
             this.fromDateTimePicker.TabIndex = 80;
             this.fromDateTimePicker.ValueChanged += new System.EventHandler(this.fromDateTimePicker_ValueChanged);
             // 
@@ -172,7 +172,7 @@
             this.pagingCheckBox.AutoSize = true;
             this.pagingCheckBox.Location = new System.Drawing.Point(186, 646);
             this.pagingCheckBox.Name = "pagingCheckBox";
-            this.pagingCheckBox.Size = new System.Drawing.Size(115, 33);
+            this.pagingCheckBox.Size = new System.Drawing.Size(77, 24);
             this.pagingCheckBox.TabIndex = 137;
             this.pagingCheckBox.Text = "Paging";
             this.pagingCheckBox.UseVisualStyleBackColor = true;
@@ -183,7 +183,7 @@
             this.pagingCombobox.FormattingEnabled = true;
             this.pagingCombobox.Location = new System.Drawing.Point(307, 646);
             this.pagingCombobox.Name = "pagingCombobox";
-            this.pagingCombobox.Size = new System.Drawing.Size(121, 37);
+            this.pagingCombobox.Size = new System.Drawing.Size(121, 28);
             this.pagingCombobox.TabIndex = 133;
             this.pagingCombobox.Visible = false;
             // 
@@ -218,7 +218,7 @@
             this.selectAllCheckBox.AutoSize = true;
             this.selectAllCheckBox.Location = new System.Drawing.Point(351, 28);
             this.selectAllCheckBox.Name = "selectAllCheckBox";
-            this.selectAllCheckBox.Size = new System.Drawing.Size(140, 33);
+            this.selectAllCheckBox.Size = new System.Drawing.Size(94, 24);
             this.selectAllCheckBox.TabIndex = 138;
             this.selectAllCheckBox.Text = "Select All";
             this.selectAllCheckBox.UseVisualStyleBackColor = true;
@@ -229,7 +229,7 @@
             this.importCombobox.FormattingEnabled = true;
             this.importCombobox.Location = new System.Drawing.Point(1380, 640);
             this.importCombobox.Name = "importCombobox";
-            this.importCombobox.Size = new System.Drawing.Size(146, 37);
+            this.importCombobox.Size = new System.Drawing.Size(146, 28);
             this.importCombobox.TabIndex = 140;
             this.importCombobox.Text = "Import";
             this.importCombobox.SelectedValueChanged += new System.EventHandler(this.importCombobox_SelectedValueChanged);
@@ -239,14 +239,14 @@
             this.exportCombobox.FormattingEnabled = true;
             this.exportCombobox.Location = new System.Drawing.Point(1562, 640);
             this.exportCombobox.Name = "exportCombobox";
-            this.exportCombobox.Size = new System.Drawing.Size(146, 37);
+            this.exportCombobox.Size = new System.Drawing.Size(146, 28);
             this.exportCombobox.TabIndex = 139;
             this.exportCombobox.Text = "Export";
             this.exportCombobox.SelectedValueChanged += new System.EventHandler(this.exportCombobox_SelectedValueChanged);
             // 
             // Category
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(14F, 29F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(2041, 846);
             this.ControlBox = false;

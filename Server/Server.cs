@@ -26,12 +26,11 @@ namespace Server
             serverUDP = new UdpClient(8080);
             endPoint = new IPEndPoint(IPAddress.Any, 0);
             serverUDP.BeginReceive(ReceiveCallback, null);
-
             #endregion
 
             #region TCP
             serverTCP = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            serverTCP.Bind(new IPEndPoint(IPAddress.Any, 1234));
+            serverTCP.Bind(new IPEndPoint(IPAddress.Any, 8080));
             serverTCP.Listen(10);
 
             _serverThread = new Thread(StartServer);

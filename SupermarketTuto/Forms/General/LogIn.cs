@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
-using Squirrel;
 using System.Diagnostics;
 using SupermarketTuto.Forms;
 using SupermarketTuto.Forms.AdminForms;
@@ -16,7 +15,6 @@ using System.Configuration;
 using System.Reflection;
 using DataClass;
 using SupermarketTuto.Utils;
-using Microsoft.Office.Interop.Excel;
 using Constants = DataClass.Constants;
 using SupermarketTuto.Forms.SellingForms;
 using DataTable = System.Data.DataTable;
@@ -46,10 +44,10 @@ namespace SupermarketTuto
 
         private async Task CheckForUpdates()
         {
-            using (var manager = new UpdateManager(@"C:\Temp\Releases"))
-            {
-                await manager.UpdateApp();
-            }
+            //using (var manager = new UpdateManager(@"C:\Temp\Releases"))
+            //{
+            //    await manager.UpdateApp();
+            //}
         }
 
         private void ClearButton_Click(object sender, EventArgs e)

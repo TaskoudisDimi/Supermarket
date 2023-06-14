@@ -1,8 +1,6 @@
 ﻿using ClassLibrary1;
 using ClassLibrary1.Models;
 using DataClass;
-using Microsoft.Office.Interop.Excel;
-using NuGet;
 using SupermarketTuto.Forms.AdminForms;
 using SupermarketTuto.Forms.General;
 using SupermarketTuto.Interfaces;
@@ -23,6 +21,8 @@ namespace SupermarketTuto.Forms
         private DataTable originalCategoryTable;
         BindingSource bindingSource = new BindingSource();
         Type categoryType = typeof(Categories);
+        private List<DataGridViewCellChange> changedCells = new List<DataGridViewCellChange>();
+        TCPClient ClientTCP = new TCPClient();
         public Category()
         {
             InitializeComponent();
@@ -30,6 +30,8 @@ namespace SupermarketTuto.Forms
         private void Category_Load(object sender, EventArgs e)
         {
             display();
+
+            //ClientTCP.ConnectClient();
 
             //Create column Select
             DataGridViewCheckBoxColumn checkboxColumn = new DataGridViewCheckBoxColumn();
@@ -68,7 +70,7 @@ namespace SupermarketTuto.Forms
 
                 CatDGV.RowHeadersVisible = false;
 
-                CatDGV.Columns[3].HeaderText = "Date";
+                //CatDGV.Columns[3].HeaderText = "Date";
 
 
                 // Attach the CurrentChanged event handler to the BindingSource
@@ -133,8 +135,13 @@ namespace SupermarketTuto.Forms
             DataGridViewRow currentRow = CatDGV.CurrentRow;
             addEditCategory edit = new addEditCategory(categoryTable, currentRow, false);
             edit.CatIdTb.ReadOnly = true;
+
+            edit.DataChanged += Edit_DataChanged;
+
             edit.Show();
         }
+
+       
 
         private void deleteButton_Click(object sender, EventArgs e)
         {
@@ -445,8 +452,22 @@ namespace SupermarketTuto.Forms
         }
 
 
+
         #endregion
 
+       
 
+        private void Edit_DataChanged(object sender, DataTable e)
+        {
+            //var cellValue = CatDGV.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
+            //var change = new DataGridViewCellChange()
+            //{
+            //    RowIndex = e.RowIndex,
+            //    ColumnIndex = e.ColumnIndex,
+            //    NewValue = cellValue.ToString()
+            //};
+            //changedCells.Add(change);
+            //ClientTCP.SendData(changedCells);
+        }
     }
 }

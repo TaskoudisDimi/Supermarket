@@ -17,6 +17,7 @@ using System.Data;
 using System.Linq;
 using DataTable = System.Data.DataTable;
 using ClassLibrary1;
+using ClassLibrary1.Models;
 
 namespace SupermarketTuto.Forms.General
 {
@@ -24,6 +25,8 @@ namespace SupermarketTuto.Forms.General
     {
         DataTable categoryTable = new DataTable();
         DataGridViewRow selected = new DataGridViewRow();
+        public event EventHandler<DataTable> DataChanged;
+
         public addEditCategory(DataTable categoryTable_, DataGridViewRow selected_, bool add)
         {
             InitializeComponent();
@@ -88,6 +91,9 @@ namespace SupermarketTuto.Forms.General
                     {
                         DataAccess.Instance.UpdateData(categoryTable);
                     }
+
+                    RaiseDataChangedEvent(categoryTable);
+
                     MessageBox.Show($"Category {row["CatName"]} Successfully Updated", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.Close();
                 }
@@ -95,6 +101,18 @@ namespace SupermarketTuto.Forms.General
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void RaiseDataChangedEvent(DataTable row)
+        {
+            if (selected != null)
+            {
+                int rowIndex = selected.Index;
+                int columnIndex = selected.DataGridView.Columns["CatName"].Index; // Assuming 'CatName' is the column name
+
+                // Raise the DataChanged event
+                DataChanged?.Invoke(this, row);
             }
         }
     }

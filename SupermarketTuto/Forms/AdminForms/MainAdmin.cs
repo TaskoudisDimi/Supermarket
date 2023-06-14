@@ -168,7 +168,6 @@ namespace SupermarketTuto.Forms.AdminForms
         }
 
        
-
         private void productsButton_Click(object sender, EventArgs e)
         {
             
