@@ -62,7 +62,7 @@ namespace ClassLibrary1
                 byte[] bytes = Encoding.UTF8.GetBytes(json);
                 client.Send(bytes);
                 client.Close();
-                //client.Dispose();
+                client.Dispose();
             }
             catch
             {
