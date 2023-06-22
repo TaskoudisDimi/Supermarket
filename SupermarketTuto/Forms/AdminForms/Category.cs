@@ -31,7 +31,7 @@ namespace SupermarketTuto.Forms
         {
             display();
 
-            //ClientTCP.ConnectClient();
+            ClientTCP.ConnectClient();
 
             //Create column Select
             DataGridViewCheckBoxColumn checkboxColumn = new DataGridViewCheckBoxColumn();
@@ -135,13 +135,9 @@ namespace SupermarketTuto.Forms
             DataGridViewRow currentRow = CatDGV.CurrentRow;
             addEditCategory edit = new addEditCategory(categoryTable, currentRow, false);
             edit.CatIdTb.ReadOnly = true;
-
             edit.DataChanged += Edit_DataChanged;
-
             edit.Show();
         }
-
-       
 
         private void deleteButton_Click(object sender, EventArgs e)
         {
@@ -457,17 +453,11 @@ namespace SupermarketTuto.Forms
 
        
 
-        private void Edit_DataChanged(object sender, DataTable e)
+        private void Edit_DataChanged(object sender, DataGridViewCellChange e)
         {
-            //var cellValue = CatDGV.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
-            //var change = new DataGridViewCellChange()
-            //{
-            //    RowIndex = e.RowIndex,
-            //    ColumnIndex = e.ColumnIndex,
-            //    NewValue = cellValue.ToString()
-            //};
-            //changedCells.Add(change);
-            //ClientTCP.SendData(changedCells);
+            var cellValue = e;
+            changedCells.Add(cellValue);
+            ClientTCP.SendData(changedCells);
         }
     }
 }

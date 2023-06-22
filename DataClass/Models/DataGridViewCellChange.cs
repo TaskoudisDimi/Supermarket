@@ -14,7 +14,5 @@ namespace ClassLibrary1.Models
         public int RowIndex { get; set; }
         public int ColumnIndex { get; set; }    
         public string NewValue { get; set; }
-        public DataGridViewRow dataRow;
-
     }
 }

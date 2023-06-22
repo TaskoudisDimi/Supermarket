@@ -56,11 +56,19 @@ namespace ClassLibrary1
 
         public void SendData(object data)
         {
-            string json = JsonSerializer.Serialize(data);
-            byte[] bytes = Encoding.UTF8.GetBytes(json);
-            client.Send(bytes);
-            client.Shutdown(SocketShutdown.Both);
-            client.Close();
+            try
+            {
+                string json = JsonSerializer.Serialize(data);
+                byte[] bytes = Encoding.UTF8.GetBytes(json);
+                client.Send(bytes);
+                client.Close();
+                //client.Dispose();
+            }
+            catch
+            {
+
+            }
+            
 
         }
 

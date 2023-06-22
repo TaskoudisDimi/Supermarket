@@ -1,5 +1,4 @@
-﻿
-using DataClass;
+﻿using DataClass;
 using Microsoft.Office.Interop.Excel;
 using System;
 using System.Collections.Generic;
@@ -25,7 +24,8 @@ namespace SupermarketTuto.Forms.General
     {
         DataTable categoryTable = new DataTable();
         DataGridViewRow selected = new DataGridViewRow();
-        public event EventHandler<DataTable> DataChanged;
+        public event EventHandler<DataGridViewCellChange> DataChanged;
+
 
         public addEditCategory(DataTable categoryTable_, DataGridViewRow selected_, bool add)
         {
@@ -87,13 +87,15 @@ namespace SupermarketTuto.Forms.General
                     row["CatName"] = CatNameTb.Text;
                     row["CatDesc"] = CatDescTb.Text;
                     row["Date"] = Date;
+
+                    DataTable table = categoryTable.GetChanges();
+                    GetChanges(table, row);
+
                     if (categoryTable.Rows.Cast<DataRow>().Any(r => r.RowState == DataRowState.Unchanged))
                     {
                         DataAccess.Instance.UpdateData(categoryTable);
                     }
-
-                    RaiseDataChangedEvent(categoryTable);
-
+                    
                     MessageBox.Show($"Category {row["CatName"]} Successfully Updated", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.Close();
                 }
@@ -104,16 +106,44 @@ namespace SupermarketTuto.Forms.General
             }
         }
 
-        private void RaiseDataChangedEvent(DataTable row)
+        
+
+        int columnIndex;
+        int rowIndex;
+        private void GetChanges(DataTable table, DataRow row)
         {
+            if (table != null)
+            {
+                foreach (DataRow changedRow in table.Rows)
+                {
+                    if (changedRow.RowState == DataRowState.Modified)
+                    {
+                        foreach (DataColumn column in changedRow.Table.Columns)
+                        {
+                            if (!Equals(changedRow[column, DataRowVersion.Original], changedRow[column, DataRowVersion.Current]))
+                            {
+                                columnIndex = table.Columns.IndexOf(column.ColumnName);
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
             if (selected != null)
             {
-                int rowIndex = selected.Index;
-                int columnIndex = selected.DataGridView.Columns["CatName"].Index; // Assuming 'CatName' is the column name
-
-                // Raise the DataChanged event
-                DataChanged?.Invoke(this, row);
+                rowIndex = selected.Index;
             }
+            object cellValue = table.Rows[0].ItemArray[columnIndex];
+
+            var change = new DataGridViewCellChange()
+            {
+                RowIndex = rowIndex,
+                ColumnIndex = columnIndex,
+                NewValue = cellValue.ToString()
+            };
+
+            // Raise the DataChanged event in order to send to the Client through TCP/UDP
+            DataChanged?.Invoke(this, change);
         }
     }
 }

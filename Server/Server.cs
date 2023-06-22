@@ -23,9 +23,9 @@ namespace Server
         private void startButton_Click(object sender, EventArgs e)
         {
             #region UDP
-            serverUDP = new UdpClient(8080);
-            endPoint = new IPEndPoint(IPAddress.Any, 0);
-            serverUDP.BeginReceive(ReceiveCallback, null);
+            //serverUDP = new UdpClient(8080);
+            //endPoint = new IPEndPoint(IPAddress.Any, 0);
+            //serverUDP.BeginReceive(ReceiveCallback, null);
             #endregion
 
             #region TCP
@@ -37,7 +37,7 @@ namespace Server
             _serverThread.Start();
 
             startButton.Enabled = false;
-            logListBox.Items.Add("Server started listening on port 1234." + Environment.NewLine);
+            logListBox.Items.Add("Server started listening on port 8080." + Environment.NewLine);
             #endregion
         }
 
@@ -74,6 +74,7 @@ namespace Server
                 lock (_lock)
                 {
                     _clients.Add(clientSocket);
+                    
                 }
 
                 Thread clientThread = new Thread(() => HandleClient(clientSocket));
@@ -83,6 +84,10 @@ namespace Server
 
         private void HandleClient(Socket clientSocket)
         {
+            logListBox.Invoke(new Action(() =>
+            {
+                logListBox.Items.Add("Client connected " + clientSocket.ToString() + Environment.NewLine);
+            }));
             byte[] buffer;
             buffer = Encoding.UTF8.GetBytes(bufferSizeTextBox.Text);
             int bytesRead;
