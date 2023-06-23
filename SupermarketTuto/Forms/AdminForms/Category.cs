@@ -1,6 +1,7 @@
 ﻿using ClassLibrary1;
 using ClassLibrary1.Models;
 using DataClass;
+using Microsoft.Office.Interop.Excel;
 using SupermarketTuto.Forms.AdminForms;
 using SupermarketTuto.Forms.General;
 using SupermarketTuto.Interfaces;
@@ -23,15 +24,18 @@ namespace SupermarketTuto.Forms
         Type categoryType = typeof(Categories);
         private List<DataGridViewCellChange> changedCells = new List<DataGridViewCellChange>();
         TCPClient ClientTCP = new TCPClient();
-        public Category()
+        
+        public Category(TCPClient clientTCP_)
         {
             InitializeComponent();
+            ClientTCP = clientTCP_;
+
         }
         private void Category_Load(object sender, EventArgs e)
         {
             display();
 
-            ClientTCP.ConnectClient();
+            ClientTCP.UpdateDataServer += UpdateDataFromServer;
 
             //Create column Select
             DataGridViewCheckBoxColumn checkboxColumn = new DataGridViewCheckBoxColumn();
@@ -451,13 +455,41 @@ namespace SupermarketTuto.Forms
 
         #endregion
 
-       
 
+        
         private void Edit_DataChanged(object sender, DataGridViewCellChange e)
         {
+            
             var cellValue = e;
             changedCells.Add(cellValue);
+            
             ClientTCP.SendData(changedCells);
+            ClientTCP.StopClient();
+           
+        }
+        DataTable dataTable = null;
+        private void UpdateDataFromServer(object sender, List<DataGridViewCellChange> e)
+        {
+            CatDGV.Invoke((MethodInvoker)(() =>
+            {
+                if (CatDGV.DataSource is BindingSource bindingSource)
+                    dataTable = (bindingSource.DataSource as DataTable)?.Copy();
+            }));
+
+            foreach (DataGridViewCellChange item in e)
+            {
+                dataTable.Rows[item.RowIndex][item.ColumnIndex] = item.NewValue;
+            }
+            // Reassign the updated DataTable to the BindingSource
+            CatDGV.Invoke((MethodInvoker)(() =>
+            {
+                if (CatDGV.DataSource is BindingSource bindingSource)
+                {
+                    bindingSource.DataSource = dataTable;
+                    CatDGV.DataSource = null;
+                    CatDGV.DataSource = bindingSource;
+                }
+            }));
         }
     }
 }

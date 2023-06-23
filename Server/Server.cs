@@ -1,6 +1,7 @@
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Text.Json;
 using System.Windows.Forms;
 
 namespace Server
@@ -88,8 +89,9 @@ namespace Server
             {
                 logListBox.Items.Add("Client connected " + clientSocket.ToString() + Environment.NewLine);
             }));
-            byte[] buffer;
-            buffer = Encoding.UTF8.GetBytes(bufferSizeTextBox.Text);
+            byte[] buffer = new byte[1024];
+            //buffer = Encoding.UTF8.GetBytes(bufferSizeTextBox.Text);
+            
             int bytesRead;
 
             try
@@ -99,17 +101,33 @@ namespace Server
                     byte[] receivedData = new byte[bytesRead];
                     Array.Copy(buffer, receivedData, bytesRead);
 
-                    string receivedMessage = Encoding.ASCII.GetString(receivedData);
+                    string jsonData = Encoding.UTF8.GetString(receivedData);
+
+                    // Parse the JSON string into a JsonDocument
+                    JsonDocument jsonDocument = JsonDocument.Parse(jsonData);
+
+                    // Access the root element of the JSON array
+                    JsonElement root = jsonDocument.RootElement;
+                    string newValue = "";
+
+                    foreach (JsonElement element in root.EnumerateArray())
+                    {
+                        // Access the properties dynamically
+                        int rowIndex = element.GetProperty("RowIndex").GetInt32();
+                        int columnIndex = element.GetProperty("ColumnIndex").GetInt32();
+                        newValue = element.GetProperty("NewValue").GetString();
+
+                    }
                     logListBox.Invoke(new Action(() =>
                     {
-                        logListBox.Items.Add("Received message from client: " + receivedMessage + Environment.NewLine);
+                        logListBox.Items.Add("Received message from client: " + newValue + Environment.NewLine);
                     }));
                     countLabel.Invoke(new Action(() =>
                     {
                         countLabel.Text = $"{_clients.Count}";
                     }));
 
-                    BroadcastToClients(clientSocket, receivedMessage);
+                    BroadcastToClients(clientSocket, jsonData);
                 }
             }
             catch (SocketException)
@@ -145,7 +163,7 @@ namespace Server
 
         private void stopButton_Click(object sender, EventArgs e)
         {
-            serverUDP.Close();
+            //serverUDP.Close();
             serverTCP.Close();
         }
     }

@@ -89,13 +89,13 @@ namespace SupermarketTuto.Forms.General
                     row["Date"] = Date;
 
                     DataTable table = categoryTable.GetChanges();
-                    GetChanges(table, row);
+                    
 
                     if (categoryTable.Rows.Cast<DataRow>().Any(r => r.RowState == DataRowState.Unchanged))
                     {
                         DataAccess.Instance.UpdateData(categoryTable);
                     }
-                    
+                    GetChanges(table, row);
                     MessageBox.Show($"Category {row["CatName"]} Successfully Updated", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.Close();
                 }

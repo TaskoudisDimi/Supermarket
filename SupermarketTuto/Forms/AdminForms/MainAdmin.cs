@@ -6,6 +6,7 @@ namespace SupermarketTuto.Forms.AdminForms
 {
     public partial class MainAdmin : Form
     {
+        TCPClient ClientTCP = new TCPClient();
         public MainAdmin()
         {
             InitializeComponent();
@@ -14,6 +15,8 @@ namespace SupermarketTuto.Forms.AdminForms
         private void MainAdmin_Load(object sender, EventArgs e)
         {
             MainMenu();
+            
+            ClientTCP.ConnectClient();
         }
         
         private void MainMenu()
@@ -160,14 +163,13 @@ namespace SupermarketTuto.Forms.AdminForms
 
         public void categoriesButton_Click(object sender, EventArgs e)
         {
-            Category form = new Category();
+            Category form = new Category(ClientTCP);
             form.TopLevel = false;
             form.TopMost = true; 
             splitContainer1.Panel1.Controls.Add(form);
             form.Show();
         }
 
-       
         private void productsButton_Click(object sender, EventArgs e)
         {
             
@@ -182,11 +184,10 @@ namespace SupermarketTuto.Forms.AdminForms
             DialogResult confirm = MessageBox.Show("Confirm to close", Constants.Exit, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (confirm == DialogResult.No)
             {
+                ClientTCP.StopClient();
                 e.Cancel = true;
             }
         }
         
-
-
     }
 }

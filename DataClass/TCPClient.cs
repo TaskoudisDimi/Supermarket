@@ -15,6 +15,8 @@ namespace ClassLibrary1
     {
         public Socket client;
         private Thread clientThread;
+        List<DataGridViewCellChange> changedCells = new List<DataGridViewCellChange>();
+        public event EventHandler<List<DataGridViewCellChange>> UpdateDataServer;
         public void ConnectClient()
         {
             string ipAddress = "127.0.0.1";
@@ -29,7 +31,7 @@ namespace ClassLibrary1
 
         private void ReceiveData(object obj)
         {
-            List<DataGridViewCellChange> changedCells = new List<DataGridViewCellChange>();
+            
             DataGridViewCellChange dataCell = new DataGridViewCellChange();
             byte[] buffer = new byte[1024];
             int readBytes;
@@ -49,20 +51,20 @@ namespace ClassLibrary1
                     dataCell.ColumnIndex = elem.GetProperty("ColumnIndex").GetInt32();
                     dataCell.NewValue = elem.GetProperty("NewValue").GetString();
                     changedCells.Add(dataCell);
+                    UpdateDataServer?.Invoke(this, changedCells);
                 }
 
             }
         }
 
-        public void SendData(object data)
+        public void SendData(List<DataGridViewCellChange> data)
         {
             try
             {
                 string json = JsonSerializer.Serialize(data);
                 byte[] bytes = Encoding.UTF8.GetBytes(json);
                 client.Send(bytes);
-                client.Close();
-                client.Dispose();
+                
             }
             catch
             {
@@ -74,7 +76,9 @@ namespace ClassLibrary1
 
         public void StopClient()
         {
-
+            // Close the connection
+            client.Shutdown(SocketShutdown.Both);
+           
         }
     }
 }
