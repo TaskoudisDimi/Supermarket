@@ -19,11 +19,13 @@ namespace SupermarketTuto.Forms
     {
         ExcelFile excel = new ExcelFile();
         DataTable categoryTable = new DataTable();
-        private DataTable originalCategoryTable;
+        public DataTable originalCategoryTable;
         BindingSource bindingSource = new BindingSource();
         Type categoryType = typeof(Categories);
         private List<DataGridViewCellChange> changedCells = new List<DataGridViewCellChange>();
         TCPClient ClientTCP = new TCPClient();
+        
+        public DataTable tableTest;
         
         public Category(TCPClient clientTCP_)
         {
@@ -65,7 +67,15 @@ namespace SupermarketTuto.Forms
             {
                 fromDateTimePicker.Value = DateTime.Now.AddMonths(-2);
 
-                categoryTable = DataAccess.Instance.GetTable("CategoryTbl");
+                if(tableTest != null)
+                {
+                    categoryTable = DataAccess.Instance.GetTable("CategoryTbl");
+                }
+                else
+                {
+                    categoryTable = tableTest;
+                }
+                
                 // Bind the data to the UI controls using the BindingSource
                 bindingSource = new BindingSource();
                 bindingSource.DataSource = categoryTable;
@@ -486,10 +496,13 @@ namespace SupermarketTuto.Forms
                 if (CatDGV.DataSource is BindingSource bindingSource)
                 {
                     bindingSource.DataSource = dataTable;
-                    CatDGV.DataSource = null;
                     CatDGV.DataSource = bindingSource;
                 }
             }));
+            tableTest = new DataTable();
+            tableTest = dataTable.Copy();
+            tableTest = dataTable;
+            tableTest.AcceptChanges();
         }
     }
 }

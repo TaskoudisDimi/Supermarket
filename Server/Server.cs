@@ -87,7 +87,7 @@ namespace Server
         {
             logListBox.Invoke(new Action(() =>
             {
-                logListBox.Items.Add("Client connected " + clientSocket.ToString() + Environment.NewLine);
+                logListBox.Items.Add("Client connected " + _clients.Count.ToString() + Environment.NewLine);
             }));
             byte[] buffer = new byte[1024];
             //buffer = Encoding.UTF8.GetBytes(bufferSizeTextBox.Text);

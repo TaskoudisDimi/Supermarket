@@ -179,6 +179,7 @@ namespace SupermarketTuto.Forms.AdminForms
             splitContainer1.Panel1.Controls.Add(form);
             form.Show();
         }
+
         public void MainAdmin_FormClosing(object sender, FormClosingEventArgs e)
         {
             DialogResult confirm = MessageBox.Show("Confirm to close", Constants.Exit, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
