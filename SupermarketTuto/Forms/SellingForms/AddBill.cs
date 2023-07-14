@@ -78,6 +78,7 @@ namespace SupermarketTuto.Forms
 
         private void billButton_Click(object sender, EventArgs e)
         {
+            //TODO: Create Android app and verification Bill with signature by User/Seller
             try
             {
                 billTable.Columns["BillId"].AutoIncrement = true;
