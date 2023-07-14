@@ -15,10 +15,8 @@ namespace SupermarketTuto
 
         // TODO: Upload / Download files 
         // TODO: Autorefresh  
-        // TODO: Manage Threads, Lock Treads etc.
         // TODO: Build API 
-        // TODO: Call API (json && xml)
-        // TODO: Create and execute Store Procedure
+
         [STAThread]
         static void Main()
         {

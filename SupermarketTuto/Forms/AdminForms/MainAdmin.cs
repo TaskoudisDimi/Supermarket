@@ -16,7 +16,7 @@ namespace SupermarketTuto.Forms.AdminForms
         {
             MainMenu();
             
-            ClientTCP.ConnectClient();
+            //ClientTCP.ConnectClient();
         }
         
         private void MainMenu()
@@ -164,6 +164,7 @@ namespace SupermarketTuto.Forms.AdminForms
         public void categoriesButton_Click(object sender, EventArgs e)
         {
             Category form = new Category(ClientTCP);
+            //Category form = new Category();
             form.TopLevel = false;
             form.TopMost = true; 
             splitContainer1.Panel1.Controls.Add(form);
@@ -172,7 +173,6 @@ namespace SupermarketTuto.Forms.AdminForms
 
         private void productsButton_Click(object sender, EventArgs e)
         {
-            
             Product form = new Product();
             form.TopLevel = false;
             form.TopMost = true;

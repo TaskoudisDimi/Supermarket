@@ -23,21 +23,21 @@ namespace SupermarketTuto.Forms
         BindingSource bindingSource = new BindingSource();
         Type categoryType = typeof(Categories);
         private List<DataGridViewCellChange> changedCells = new List<DataGridViewCellChange>();
-        TCPClient ClientTCP = new TCPClient();
+        //TCPClient ClientTCP = new TCPClient();
         
         public DataTable tableTest;
         
         public Category(TCPClient clientTCP_)
         {
             InitializeComponent();
-            ClientTCP = clientTCP_;
+            //ClientTCP = clientTCP_;
 
         }
         private void Category_Load(object sender, EventArgs e)
         {
             display();
 
-            ClientTCP.UpdateDataServer += UpdateDataFromServer;
+            //ClientTCP.UpdateDataServer += UpdateDataFromServer;
 
             //Create column Select
             DataGridViewCheckBoxColumn checkboxColumn = new DataGridViewCheckBoxColumn();
@@ -473,8 +473,8 @@ namespace SupermarketTuto.Forms
             var cellValue = e;
             changedCells.Add(cellValue);
             
-            ClientTCP.SendData(changedCells);
-            ClientTCP.StopClient();
+            //ClientTCP.SendData(changedCells);
+            //ClientTCP.StopClient();
            
         }
         DataTable dataTable = null;
