@@ -48,7 +48,7 @@ namespace SupermarketTuto.Forms
         DataTable productTable = new DataTable();
         private DataTable originalProductTable;
         private DataTable productTableCombobox;
-        Type productType = typeof(Products);
+        Type productType = typeof(ProductsTbl);
         DataTable categoryTable = new DataTable();
         BindingSource bindingSource = new BindingSource();
 
@@ -146,50 +146,7 @@ namespace SupermarketTuto.Forms
         }
 
         #region BackgroundWorker
-        private void ImportTrips_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
-        {
-            SqlConnect loaddata11 = new SqlConnect();
-            loaddata11.getData("Select * from ProductTbl");
-            int data = loaddata11.table.Rows.Count;
-            for (int i = 0; i <= data; i++)
-            {
-                (sender as BackgroundWorker).ReportProgress(i);
-            }
-
-        }
-
-        private void BackgroundWorker()
-        {
-            try
-            {
-
-                System.ComponentModel.BackgroundWorker BackgroundWorker = new System.ComponentModel.BackgroundWorker
-                {
-                    WorkerReportsProgress = true
-                };
-                BackgroundWorker.DoWork += ImportTrips_DoWork;
-                BackgroundWorker.ProgressChanged += (s, e2) =>
-                {
-                    Form_ProgressBar.waitProgressBar.Value = e2.ProgressPercentage;
-                };
-                BackgroundWorker.RunWorkerCompleted += (s, e3) =>
-                {
-                    Thread.Sleep(5000);
-                    if (e3.Error != null)
-                        throw e3.Error;
-                    Form_ProgressBar.Close();
-
-                    //ProdDGV.DataSource = loaddata1.table;
-                };
-
-                BackgroundWorker.RunWorkerAsync();
-                Form_ProgressBar.ShowDialog();
-            }
-            catch
-            {
-
-            }
-        }
+  
 
         #endregion
 
@@ -523,7 +480,7 @@ namespace SupermarketTuto.Forms
         private void check()
         {
             SqlConnect sql = new SqlConnect();
-            var customerType = typeof(Products);
+            var customerType = typeof(ProductsTbl);
             sql.checkTable(Products: customerType);
         }
 
@@ -533,7 +490,7 @@ namespace SupermarketTuto.Forms
 
         private void exportCombobox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Type product = typeof(Products);
+            Type product = typeof(ProductsTbl);
             var item = ((ComboBox)sender).SelectedItem.ToString();
             if (item.Contains("Csv"))
             {
@@ -550,7 +507,7 @@ namespace SupermarketTuto.Forms
         {
             try
             {
-                Type product = typeof(Products);
+                Type product = typeof(ProductsTbl);
                 DataTable tableNew = new DataTable();
                 var item = ((ComboBox)sender).SelectedItem.ToString();
 

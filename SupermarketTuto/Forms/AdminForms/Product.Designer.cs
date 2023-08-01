@@ -199,7 +199,7 @@
             // 
             this.pagingComboBox.FormattingEnabled = true;
             this.pagingComboBox.Location = new System.Drawing.Point(401, 604);
-            this.pagingComboBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pagingComboBox.Margin = new System.Windows.Forms.Padding(2);
             this.pagingComboBox.Name = "pagingComboBox";
             this.pagingComboBox.Size = new System.Drawing.Size(82, 21);
             this.pagingComboBox.TabIndex = 125;
@@ -209,7 +209,7 @@
             // 
             this.pagingCheckBox.AutoSize = true;
             this.pagingCheckBox.Location = new System.Drawing.Point(326, 604);
-            this.pagingCheckBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pagingCheckBox.Margin = new System.Windows.Forms.Padding(2);
             this.pagingCheckBox.Name = "pagingCheckBox";
             this.pagingCheckBox.Size = new System.Drawing.Size(59, 17);
             this.pagingCheckBox.TabIndex = 130;
@@ -221,7 +221,7 @@
             // 
             this.exportCombobox.FormattingEnabled = true;
             this.exportCombobox.Location = new System.Drawing.Point(1477, 613);
-            this.exportCombobox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.exportCombobox.Margin = new System.Windows.Forms.Padding(2);
             this.exportCombobox.Name = "exportCombobox";
             this.exportCombobox.Size = new System.Drawing.Size(99, 21);
             this.exportCombobox.TabIndex = 132;
@@ -232,7 +232,7 @@
             // 
             this.importCombobox.FormattingEnabled = true;
             this.importCombobox.Location = new System.Drawing.Point(1356, 613);
-            this.importCombobox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.importCombobox.Margin = new System.Windows.Forms.Padding(2);
             this.importCombobox.Name = "importCombobox";
             this.importCombobox.Size = new System.Drawing.Size(99, 21);
             this.importCombobox.TabIndex = 133;
@@ -273,7 +273,7 @@
             this.Controls.Add(this.deleteButton);
             this.Controls.Add(this.editButton);
             this.Controls.Add(this.addButton);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Product";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Product_Load);

@@ -425,7 +425,7 @@ namespace SupermarketTuto.Forms.SellingForms
         private void checkProd()
         {
             SqlConnect sql = new SqlConnect();
-            var customerType = typeof(Products);
+            var customerType = typeof(ProductsTbl);
             sql.checkTable(Categories: customerType);
         }
 

@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace ClassLibrary1.Models
 {
-    public class Products : Excel
+    [TableName("ProductTbl")]
+    public class ProductsTbl : Excel
     {
         public int ProdId { get; set; }
         public string ProdName { get; set; }

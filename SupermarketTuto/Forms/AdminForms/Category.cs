@@ -93,7 +93,7 @@ namespace SupermarketTuto.Forms
                 totalLabel.Text = $"Total: {CatDGV.RowCount}";
 
                 // Initialize the originalCategoryTable field with the same data as categoryTable
-                originalCategoryTable = categoryTable.Copy();
+                //originalCategoryTable = categoryTable.Copy();
 
                 if (totalLabel.Text == null)
                 {
@@ -454,15 +454,7 @@ namespace SupermarketTuto.Forms
         #endregion
 
         #region ChechDatabase
-        private void check()
-        {
-            SqlConnect sql = new SqlConnect();
-            var customerType = typeof(Categories);
-            sql.checkTable(Categories: customerType);
-        }
-
-
-
+        
         #endregion
 
 

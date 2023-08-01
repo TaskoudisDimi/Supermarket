@@ -137,18 +137,13 @@ namespace SupermarketTuto.Forms.AdminForms
 
         private void MnuStripBackupDB_Click(object sender, EventArgs e)
         {
-            SqlConnect db = new SqlConnect();
             string path = "";
             FolderBrowserDialog dialog = new FolderBrowserDialog();
             DialogResult result = dialog.ShowDialog();
             if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(dialog.SelectedPath))
             {
                 path = dialog.SelectedPath;
-                db.backup(path);
-            }
-            else
-            {
-                return;
+                DataAccess.Instance.backup(path);
             }
         }
 

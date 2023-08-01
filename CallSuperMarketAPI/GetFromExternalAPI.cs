@@ -23,7 +23,7 @@ namespace CallSuperMarketAPI
         //https://world.openfoodfacts.org/category/cheeses.json
         static readonly HttpClient client = new HttpClient();
         string url_food = "https://api.edamam.com/api/food-database/v2/parser?app_id=713fa9ba&app_key=045b112511bb6b714c5c10328c5f5aba&nutrition-type=cooking&health=alcohol-free&category=generic-foods";
-        List<Products> products = new List<Products>();
+        List<ProductsTbl> products = new List<ProductsTbl>();
         List<Categories> categories = new List<Categories>();
         DataTable productsTable = new DataTable();
         DataTable categoriesTable = new DataTable();
@@ -48,7 +48,7 @@ namespace CallSuperMarketAPI
                     {
                         foreach (var pair in myDeserializedClass.hints)
                         {
-                            Products product = new Products();
+                            ProductsTbl product = new ProductsTbl();
                             Categories category = new Categories();
                             string[] parts = pair.food.knownAs.Split(',');
                             product.ProdName = parts[1];

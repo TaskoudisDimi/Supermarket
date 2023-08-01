@@ -21,7 +21,7 @@ namespace SupermarketTuto.Forms.SellingForms
         DataTable productDataTable = new DataTable();
         DataTable originalProductDataTable = new DataTable();
         DataTable productTableCombobox = new DataTable();
-        Type productType = typeof(Products);
+        Type productType = typeof(ProductsTbl);
         BindingSource bindingSourceProducts = new BindingSource();
 
         DataTable categoryTable = new DataTable();

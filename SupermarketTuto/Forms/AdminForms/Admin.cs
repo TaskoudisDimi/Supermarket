@@ -1,4 +1,5 @@
-﻿using ClassLibrary1.Models;
+﻿using ClassLibrary1;
+using ClassLibrary1.Models;
 using DataClass;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,7 @@ namespace SupermarketTuto.Forms
 {
     public partial class Admin : Form
     {
+        DataTable adminTable = new DataTable();
         public Admin()
         {
             InitializeComponent();
@@ -23,14 +25,12 @@ namespace SupermarketTuto.Forms
         {
             try
             {
-                SqlConnect loaddata = new SqlConnect();
-                loaddata.getData("Select [Id],[UserName],cast([Password] as varchar(MAX)) as Password,[Active] From [Admins]");
-                usersDataGridView.DataSource = loaddata.table;
+                adminTable = DataAccess.Instance.GetTable("Admin");
+                usersDataGridView.DataSource = adminTable;
                 usersDataGridView.RowHeadersVisible = false;
             }
             catch
             {
-
 
             }
             

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Configuration;
 using System.Windows.Forms;
 using System.Collections;
+using System.Drawing;
 
 namespace ClassLibrary1
 {
@@ -71,155 +72,7 @@ namespace ClassLibrary1
             return cachedTables[tableName];
         }
 
-        public void UpdateTable(string tableName)
-        {
-            try
-            {
-                if (cachedTables.ContainsKey(tableName))
-                {
-                    // Get the latest version of the table from the database
-                    DataTable latestTable = new DataTable();
-                    string query = $"SELECT * FROM {tableName}";
-                    using (connection = new SqlConnection(connectionString))
-                    using (command = new SqlCommand(query, connection))
-                    {
-                        connection.Open();
-                        adapter = new SqlDataAdapter(command);
-                        adapter.Fill(latestTable);
-                        DataColumn firstColumnLatest = latestTable.Columns[0];
-                        latestTable.PrimaryKey = new DataColumn[] { firstColumnLatest };
-                    }
-
-                    // Compare the latest version of the table with the cached version
-                    DataTable cachedTable = cachedTables[tableName];
-                    bool hasChanges = false;
-                    foreach (DataRow latestRow in latestTable.Rows)
-                    {
-                        DataRow cachedRow = cachedTable.Rows.Find(latestRow["ProdId"]);
-                        if (cachedRow == null || !latestRow.ItemArray.SequenceEqual(cachedRow.ItemArray))
-                        {
-                            // The row has been added or modified
-                            cachedTable.Rows.Add(latestRow.ItemArray);
-                            hasChanges = true;
-                        }
-                    }
-                    foreach (DataRow cachedRow in cachedTable.Rows)
-                    {
-                        DataRow latestRow = latestTable.Rows.Find(cachedRow["ProdId"]);
-                        if (latestRow == null)
-                        {
-                            // The row has been deleted
-                            cachedRow.Delete();
-                            
-                            hasChanges = true;
-                        }
-                    }
-
-                    // If there are changes, raise an event to notify the UI to refresh the table
-                    if (hasChanges)
-                    {
-                        TableChanged?.Invoke(tableName);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-
-
-        }
-
-        // Define an event to notify the UI when a table has changed
-        public event Action<string> TableChanged;
-
-
-        public void UpdateData(DataTable Table)
-        {
-            try
-            {
-                adapter.SelectCommand.Connection.ConnectionString = connectionString;
-                // Create a new SqlCommandBuilder instance and use it to generate the necessary SQL statements to update the database
-                using (connection = new SqlConnection(connectionString))
-                {
-                    connection.Open();
-                    builder = new SqlCommandBuilder(adapter);
-                    adapter.UpdateCommand = builder.GetUpdateCommand();
-                    // Use the Update method of the SqlDataAdapter to perform the update
-                    adapter.Update(Table);
-                }
-            }
-            catch
-            {
-
-            }
-        }
-
-        public void InsertData(DataTable Table)
-        {
-            try
-            {
-                adapter.SelectCommand.Connection.ConnectionString = connectionString;
-                // Create a new SqlCommandBuilder instance and use it to generate the necessary SQL statements to update the database
-                using (connection = new SqlConnection(connectionString))
-                {
-                    connection.Open();
-                    builder = new SqlCommandBuilder(adapter);
-                    adapter.UpdateCommand = builder.GetInsertCommand();
-                    // Use the Update method of the SqlDataAdapter to perform the update
-                    adapter.Update(Table);
-                }
-            }
-            catch
-            {
-
-            }
-        }
-        public void DeleteData(DataRow row, Type type)
-        {
-            try
-            {
-                adapter.SelectCommand.Connection.ConnectionString = connectionString;
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    SqlCommandBuilder builder = new SqlCommandBuilder(adapter);
-
-                    DataTable table = new DataTable();
-                    adapter.Fill(table);
-                    DataRow[] rowsToDelete = null;
-                    if (type.Name == "Products")
-                    {
-                        rowsToDelete = table.Select($"ProdId = {row["ProdId"]}");
-                    }
-                    else if (type.Name == "Categories")
-                    {
-                        rowsToDelete = table.Select($"CatId = {row["CatId"]}");
-                    }
-                    else if(type.Name == "Bills")
-                    {
-                        rowsToDelete = table.Select($"BillId = {row["BillId"]}");
-                    }
-                    else if (type.Name == "Sellers")
-                    {
-                        rowsToDelete = table.Select($"SellerId = {row["SellerId"]}");
-                    }
-
-                    foreach (DataRow rowToDelete in rowsToDelete)
-                    {
-                        rowToDelete.Delete();
-                    }
-
-                    adapter.DeleteCommand = builder.GetDeleteCommand();
-                    adapter.Update(table);
-                }
-            }
-            catch
-            {
-
-            }
-
-
-        }
+       
 
         public void CleanDB()
         {
@@ -259,5 +112,33 @@ namespace ClassLibrary1
 
             }   
         }
+
+        public void backup(string path)
+        {
+
+            try
+            {
+                using (connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand useMaster = new SqlCommand("USE master", connection))
+                    {
+                        useMaster.ExecuteNonQuery();
+                    }
+                    string query = "BACKUP DATABASE smarketdb TO DISK = '" + path + "\\backupfile.bak' WITH FORMAT,MEDIANAME = 'Z_SQLServerBackups',NAME = 'Full Backup of Testdb';";
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.ExecuteNonQuery();
+                    }
+                    connection.Close();
+                }
+            }
+            catch
+            {
+
+            }
+
+        }
+
     }
 }
