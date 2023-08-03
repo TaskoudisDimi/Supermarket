@@ -158,8 +158,7 @@ namespace SupermarketTuto.Forms.AdminForms
 
         public void categoriesButton_Click(object sender, EventArgs e)
         {
-            Category form = new Category(ClientTCP);
-            //Category form = new Category();
+            Category form = new Category();
             form.TopLevel = false;
             form.TopMost = true; 
             splitContainer1.Panel1.Controls.Add(form);

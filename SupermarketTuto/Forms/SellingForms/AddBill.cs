@@ -49,31 +49,31 @@ namespace SupermarketTuto.Forms
 
         private void deleteButton_Click(object sender, EventArgs e)
         {
-            try
-            {
-                List<DataRow> rowsToDelete = new List<DataRow>();
-                DataRow row = null;
-                // loop over the selected rows and add them to the list
-                foreach (DataGridViewRow selectedRow in BillsDGV.SelectedRows)
-                {
-                    //Convert DataGridViewRow -> DataRow
-                    row = ((DataRowView)selectedRow.DataBoundItem).Row;
-                    rowsToDelete.Add(row);
-                }
+            //try
+            //{
+            //    List<DataRow> rowsToDelete = new List<DataRow>();
+            //    DataRow row = null;
+            //    // loop over the selected rows and add them to the list
+            //    foreach (DataGridViewRow selectedRow in BillsDGV.SelectedRows)
+            //    {
+            //        //Convert DataGridViewRow -> DataRow
+            //        row = ((DataRowView)selectedRow.DataBoundItem).Row;
+            //        rowsToDelete.Add(row);
+            //    }
 
-                DataAccess.Instance.DeleteData(row, BillType);
-                // loop over the rows to delete and remove them from the DataTable
-                foreach (DataRow rowToDelete in rowsToDelete)
-                {
-                    billTable.Rows.Remove(rowToDelete);
-                }
-                BillsDGV.DataSource = billTable;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                Utlis.Log(string.Format("Message : {0}", ex.Message), "ErrorDeleteProduct.txt");
-            }
+            //    DataAccess.Instance.DeleteData(row, BillType);
+            //    // loop over the rows to delete and remove them from the DataTable
+            //    foreach (DataRow rowToDelete in rowsToDelete)
+            //    {
+            //        billTable.Rows.Remove(rowToDelete);
+            //    }
+            //    BillsDGV.DataSource = billTable;
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message);
+            //    Utlis.Log(string.Format("Message : {0}", ex.Message), "ErrorDeleteProduct.txt");
+            //}
         }
 
         private void billButton_Click(object sender, EventArgs e)
@@ -91,7 +91,7 @@ namespace SupermarketTuto.Forms
                 billTable.Rows.Add(row);
                 if (billTable.Rows.Cast<DataRow>().Any(r => r.RowState == DataRowState.Added))
                 {
-                    DataAccess.Instance.InsertData(billTable);
+                    //DataAccess.Instance.InsertData(billTable);
                 }
                 MessageBox.Show($"Successfully inserted Category {row["SellerName"]}", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 
@@ -103,12 +103,7 @@ namespace SupermarketTuto.Forms
         }
 
         #region ChechDatabase
-        private void check()
-        {
-            SqlConnect sql = new SqlConnect();
-            var customerType = typeof(Bills);
-            sql.checkTable(Categories: customerType);
-        }
+      
 
         #endregion
     }

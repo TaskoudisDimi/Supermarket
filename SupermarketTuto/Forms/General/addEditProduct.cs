@@ -60,7 +60,7 @@ namespace SupermarketTuto.Forms.General
                 productTable.Rows.Add(row);
                 if(productTable.Rows.Cast<DataRow>().Any(r => r.RowState == DataRowState.Added))
                 {
-                    DataAccess.Instance.InsertData(productTable);
+                    //DataAccess.Instance.InsertData(productTable);
                 }
                 MessageBox.Show($"Successfully inserted Category {row["ProdName"]}", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
@@ -91,7 +91,7 @@ namespace SupermarketTuto.Forms.General
                     row["ProdCat"] = catCombobox.Text;
                     if (productTable.Rows.Cast<DataRow>().Any(r => r.RowState == DataRowState.Modified))
                     {
-                        DataAccess.Instance.UpdateData(productTable);
+                        //DataAccess.Instance.UpdateData(productTable);
                     }
                     MessageBox.Show($"Category {row["ProdName"]} Successfully Updated", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.Close();
@@ -118,19 +118,19 @@ namespace SupermarketTuto.Forms.General
 
         private void catCombobox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            try
-            {
-                SqlConnect loaddata8 = new SqlConnect();
-                loaddata8.getData("Select CatId From CategoryTbl where CatName = '" + catCombobox.Text + "'");
-                if (loaddata8.table.Rows.Count != 0)
-                {
-                    catIDTextBox.Text = loaddata8.table.Rows[0]["CatId"].ToString();
-                }
-            }
-            catch
-            {
+            //try
+            //{
+            //    SqlConnect loaddata8 = new SqlConnect();
+            //    loaddata8.getData("Select CatId From CategoryTbl where CatName = '" + catCombobox.Text + "'");
+            //    if (loaddata8.table.Rows.Count != 0)
+            //    {
+            //        catIDTextBox.Text = loaddata8.table.Rows[0]["CatId"].ToString();
+            //    }
+            //}
+            //catch
+            //{
 
-            }
+            //}
         }
 
        

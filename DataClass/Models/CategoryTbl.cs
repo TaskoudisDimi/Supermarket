@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace ClassLibrary1.Models
 {
-    public class Categories : Excel
+    [TableName("CategoryTbl")]
+    public class CategoryTbl : Excel
     {
         public int CatId { get; set; }
         public string CatName { get; set; }

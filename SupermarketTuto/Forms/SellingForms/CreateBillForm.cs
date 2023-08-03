@@ -141,18 +141,18 @@ namespace SupermarketTuto.Forms.SellingForms
                     rowsToDelete.Add(row);
                 }
 
-                DataAccess.Instance.DeleteData(row, productType);
-                // loop over the rows to delete and remove them from the DataTable
-                foreach (DataRow rowToDelete in rowsToDelete)
-                {
-                    productDataTable.Rows.Remove(rowToDelete);
-                }
-                ProdDGV.DataSource = productDataTable;
+                //DataAccess.Instance.DeleteData(row, productType);
+                //// loop over the rows to delete and remove them from the DataTable
+                //foreach (DataRow rowToDelete in rowsToDelete)
+                //{
+                //    productDataTable.Rows.Remove(rowToDelete);
+                //}
+                //ProdDGV.DataSource = productDataTable;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                Utlis.Log(string.Format("Message : {0}", ex.Message), "ErrorDeleteProduct.txt");
+                Utils.Utils.Log(string.Format("Message : {0}", ex.Message), "ErrorDeleteProduct.txt");
             }
         }
 
@@ -185,14 +185,7 @@ namespace SupermarketTuto.Forms.SellingForms
 
 
         #region ChechDatabase
-        private void check()
-        {
-            SqlConnect sql = new SqlConnect();
-            var customerType = typeof(PreBillsTbl);
-            sql.checkTable(Categories: customerType);
-        }
-
-
+       
         #endregion
 
         

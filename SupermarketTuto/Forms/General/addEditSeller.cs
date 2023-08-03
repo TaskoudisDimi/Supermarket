@@ -87,7 +87,7 @@ namespace SupermarketTuto.Forms.General
                 row["Date"] = Date;
                 if (sellersTable.Rows.Cast<DataRow>().Any(r => r.RowState == DataRowState.Modified))
                 {
-                    DataAccess.Instance.UpdateData(sellersTable);
+                    //DataAccess.Instance.UpdateData(sellersTable);
                 }
                 MessageBox.Show("Product Successfully Updated");
                 this.Close();
@@ -116,7 +116,7 @@ namespace SupermarketTuto.Forms.General
                 sellersTable.Rows.Add(row);
                 if (sellersTable.Rows.Cast<DataRow>().Any(r => r.RowState == DataRowState.Added))
                 {
-                    DataAccess.Instance.InsertData(sellersTable);
+                    //DataAccess.Instance.InsertData(sellersTable);
                 }
                 MessageBox.Show("Seller added successfuly");
                 this.Close();

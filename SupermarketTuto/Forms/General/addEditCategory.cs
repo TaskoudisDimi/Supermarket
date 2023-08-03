@@ -61,7 +61,7 @@ namespace SupermarketTuto.Forms.General
                 categoryTable.Rows.Add(row);
                 if(categoryTable.Rows.Cast<DataRow>().Any(r => r.RowState == DataRowState.Unchanged))
                 {
-                    DataAccess.Instance.InsertData(categoryTable);
+                    //DataAccess.Instance.InsertData(categoryTable);
                 }
                 MessageBox.Show($"Successfully inserted Category {row["CatName"]}","Information",MessageBoxButtons.OK,MessageBoxIcon.Information);
                 this.Close();
@@ -93,7 +93,7 @@ namespace SupermarketTuto.Forms.General
 
                     if (categoryTable.Rows.Cast<DataRow>().Any(r => r.RowState == DataRowState.Unchanged))
                     {
-                        DataAccess.Instance.UpdateData(categoryTable);
+                        //DataAccess.Instance.UpdateData(categoryTable);
                     }
                     GetChanges(table, row);
                     MessageBox.Show($"Category {row["CatName"]} Successfully Updated", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);

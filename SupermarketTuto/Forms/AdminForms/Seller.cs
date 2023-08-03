@@ -68,7 +68,7 @@ namespace SupermarketTuto.Forms
             }
             catch (Exception ex)
             {
-                Utlis.Log(string.Format("Message : {0}", ex.Message), "ErrorDisplayData.txt");
+                //Utils.Log(string.Format("Message : {0}", ex.Message), "ErrorDisplayData.txt");
             }
         }
 
@@ -101,7 +101,7 @@ namespace SupermarketTuto.Forms
             }
             catch (Exception ex)
             {
-                Utlis.Log(string.Format("Message : {0}", ex.Message), "ErrorDisplayData.txt");
+                //Utlis.Log(string.Format("Message : {0}", ex.Message), "ErrorDisplayData.txt");
             }
 
         }
@@ -119,7 +119,7 @@ namespace SupermarketTuto.Forms
                     row = ((DataRowView)selectedRow.DataBoundItem).Row;
                     rowsToDelete.Add(row);
                 }
-                DataAccess.Instance.DeleteData(row, sellerType);
+                //DataAccess.Instance.DeleteData(row, sellerType);
                 //// loop over the rows to delete and remove them from the DataTable
                 //foreach (DataRow rowDelete in rowsToDelete)
                 //{
@@ -206,18 +206,18 @@ namespace SupermarketTuto.Forms
             }
             catch (Exception ex)
             {
-                Utlis.Log(string.Format("Message : {0}", ex.Message), "ErrorDisplayData.txt");
+                //Utlis.Log(string.Format("Message : {0}", ex.Message), "ErrorDisplayData.txt");
             }
         }
         private void mnuDelete_Click(object? sender, EventArgs e)
         {
-            SqlConnect loaddata2 = new SqlConnect();
-            loaddata2.execCom("Delete From SellerTbl Where SellerId = " + SellDGV.CurrentRow.Cells[0].Value.ToString());
-            foreach (DataGridViewRow row in SellDGV.SelectedRows)
-            {
-                SellDGV.Rows.RemoveAt(row.Index);
+            //SqlConnect loaddata2 = new SqlConnect();
+            //loaddata2.execCom("Delete From SellerTbl Where SellerId = " + SellDGV.CurrentRow.Cells[0].Value.ToString());
+            //foreach (DataGridViewRow row in SellDGV.SelectedRows)
+            //{
+            //    SellDGV.Rows.RemoveAt(row.Index);
 
-            }
+            //}
         }
         #endregion
 
@@ -290,12 +290,7 @@ namespace SupermarketTuto.Forms
         #endregion
 
         #region ChechDatabase
-        private void check()
-        {
-            SqlConnect sql = new SqlConnect();
-            var customerType = typeof(Sellers);
-            sql.checkTable(Categories: customerType);
-        }
+       
 
         #endregion
 

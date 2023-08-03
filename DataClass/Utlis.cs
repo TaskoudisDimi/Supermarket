@@ -1,10 +1,13 @@
-﻿using System;
+﻿using ClassLibrary1;
+using System;
+using System.Data;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
@@ -602,7 +605,32 @@ namespace SupermarketTuto.Utils
             return success;
         }
 
+        public static DataTable ToDataTable<T>(T[] items)
+        {
+            DataTable dataTable = new DataTable(typeof(T).Name);
 
+            // Get all the properties of the custom class
+            var properties = typeof(T).GetProperties();
+
+            // Create the columns for the DataTable based on the properties of the custom class
+            foreach (var property in properties)
+            {
+                dataTable.Columns.Add(property.Name, property.PropertyType);
+            }
+
+            // Add rows to the DataTable using the properties' values from the custom objects
+            foreach (var item in items)
+            {
+                var row = dataTable.NewRow();
+                foreach (var property in properties)
+                {
+                    row[property.Name] = property.GetValue(item);
+                }
+                dataTable.Rows.Add(row);
+            }
+
+            return dataTable;
+        }
     }
 
     public class LinuxTime

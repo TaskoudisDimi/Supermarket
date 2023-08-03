@@ -213,27 +213,27 @@ namespace ClassLibrary1
 
         public void SaveToDB(DataTable table, Type type)
         {
-            SqlConnect loaddata20 = new SqlConnect();
+            //SqlConnect loaddata20 = new SqlConnect();
 
-            foreach (DataRow row in table.Rows)
-            {
-                if (type.Name == "Products")
-                {
-                    DateTime DateTime = (DateTime)row["Date"];
-                    string Date = DateTime.ToString("yyyy-MM-dd");
-                    loaddata20.execCom("Insert Into ProductTbl values('" + row["ProdName"] + "','" + row["ProdQty"] + "','" + row["ProdPrice"] + "','" + row["ProdCatID"] + "','" + row["ProdCat"] + "','" + Date + "')");
-                }
-                else if (type.Name.Equals("Categories"))
-                {
-                    DateTime DateTime = (DateTime)row["Date"];
-                    string Date = DateTime.ToString("yyyy-MM-dd");
-                    loaddata20.execCom("Insert Into CategoryTbl values('" + row["CatName"] + "','" + row["CatDesc"] + "','" + Date + "')");
-                }
-                else if (type.Name.Equals("Bills"))
-                {
-                    loaddata20.execCom("Insert Into BillTbl values('" + row["Comments"] + "','" + row["SellerName"] + "','" + row["BillDate"] + "'," + row["TotAmt"] + ")");
-                }
-            }
+            //foreach (DataRow row in table.Rows)
+            //{
+            //    if (type.Name == "Products")
+            //    {
+            //        DateTime DateTime = (DateTime)row["Date"];
+            //        string Date = DateTime.ToString("yyyy-MM-dd");
+            //        loaddata20.execCom("Insert Into ProductTbl values('" + row["ProdName"] + "','" + row["ProdQty"] + "','" + row["ProdPrice"] + "','" + row["ProdCatID"] + "','" + row["ProdCat"] + "','" + Date + "')");
+            //    }
+            //    else if (type.Name.Equals("Categories"))
+            //    {
+            //        DateTime DateTime = (DateTime)row["Date"];
+            //        string Date = DateTime.ToString("yyyy-MM-dd");
+            //        loaddata20.execCom("Insert Into CategoryTbl values('" + row["CatName"] + "','" + row["CatDesc"] + "','" + Date + "')");
+            //    }
+            //    else if (type.Name.Equals("Bills"))
+            //    {
+            //        loaddata20.execCom("Insert Into BillTbl values('" + row["Comments"] + "','" + row["SellerName"] + "','" + row["BillDate"] + "'," + row["TotAmt"] + ")");
+            //    }
+            //}
         }
 
 
@@ -414,7 +414,7 @@ namespace ClassLibrary1
                     }
                     else if (type.Name.Equals("Categories"))
                     {
-                        Categories cat = new Categories();
+                        CategoryTbl cat = new CategoryTbl();
                         cat.CatId = Convert.ToInt32(row.Cells["CatId"].Value);
                         cat.CatName = row.Cells["CatName"].Value.ToString();
                         cat.CatDesc = row.Cells["CatDesc"].Value.ToString();
@@ -445,7 +445,7 @@ namespace ClassLibrary1
             try
             {
                 List<ProductsTbl> products = new List<ProductsTbl>();
-                List<Categories> categories = new List<Categories>();
+                List<CategoryTbl> categories = new List<CategoryTbl>();
                 List<Bills> bills = new List<Bills>();
                 if (type.Name.Equals("Products"))
                 {
@@ -453,7 +453,7 @@ namespace ClassLibrary1
                 }
                 else if (type.Name.Equals("Categories"))
                 {
-                    categories = data.Cast<Categories>().ToList();
+                    categories = data.Cast<CategoryTbl>().ToList();
                 }
                 else if (type.Name.Equals("Bills"))
                 {

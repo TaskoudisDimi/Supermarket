@@ -17,7 +17,7 @@ namespace SupermarketTuto
     public partial class Register : Form
     {
 
-        SqlConnect loaddata = new SqlConnect();
+        //SqlConnect loaddata = new SqlConnect();
 
 
         public Register()
@@ -27,37 +27,37 @@ namespace SupermarketTuto
 
         private void RegisterButton_Click(object sender, EventArgs e)
         {
-            try
-            {
-                if (UsernameTextBox.Text == "" || PasswordTextBox.Text == String.Empty || ConfirmPasswordTextBox.Text == String.Empty)
-                {
-                    MessageBox.Show("Username and/or Password fields are empty", "Registration Failed", MessageBoxButtons.OK);
+            //try
+            //{
+            //    if (UsernameTextBox.Text == "" || PasswordTextBox.Text == String.Empty || ConfirmPasswordTextBox.Text == String.Empty)
+            //    {
+            //        MessageBox.Show("Username and/or Password fields are empty", "Registration Failed", MessageBoxButtons.OK);
 
-                }
-                else if (PasswordTextBox.Text == ConfirmPasswordTextBox.Text)
-                {
-                    check();
-                    loaddata.execCom("Insert Into Admins Values ('" + UsernameTextBox.Text + "'," + $"CONVERT(varbinary, '{PasswordTextBox.Text}')" + "," + "'True')");
-                    MessageBox.Show("Your Account has been Successfully Created", "Registration Success", MessageBoxButtons.OK);
-                    UsernameTextBox.Clear();
-                    PasswordTextBox.Clear();
-                    ConfirmPasswordTextBox.Clear();
-                    LogIn login = new LogIn();
-                    login.Show();
-                }
-                else
-                {
-                    MessageBox.Show("Credentials does not match, please re-enter", "Registration Failed", MessageBoxButtons.OK);
-                    UsernameTextBox.Clear();
-                    PasswordTextBox.Clear();
-                    ConfirmPasswordTextBox.Clear();
-                    UsernameTextBox.Focus();
-                }
-            }
-            catch
-            {
-                MessageBox.Show("Error");
-            }
+            //    }
+            //    else if (PasswordTextBox.Text == ConfirmPasswordTextBox.Text)
+            //    {
+            //        check();
+            //        loaddata.execCom("Insert Into Admins Values ('" + UsernameTextBox.Text + "'," + $"CONVERT(varbinary, '{PasswordTextBox.Text}')" + "," + "'True')");
+            //        MessageBox.Show("Your Account has been Successfully Created", "Registration Success", MessageBoxButtons.OK);
+            //        UsernameTextBox.Clear();
+            //        PasswordTextBox.Clear();
+            //        ConfirmPasswordTextBox.Clear();
+            //        LogIn login = new LogIn();
+            //        login.Show();
+            //    }
+            //    else
+            //    {
+            //        MessageBox.Show("Credentials does not match, please re-enter", "Registration Failed", MessageBoxButtons.OK);
+            //        UsernameTextBox.Clear();
+            //        PasswordTextBox.Clear();
+            //        ConfirmPasswordTextBox.Clear();
+            //        UsernameTextBox.Focus();
+            //    }
+            //}
+            //catch
+            //{
+            //    MessageBox.Show("Error");
+            //}
         }
 
         private void ClearButton_Click(object sender, EventArgs e)
@@ -98,13 +98,7 @@ namespace SupermarketTuto
         }
 
         #region ChechDatabase
-        private void check()
-        {
-            SqlConnect sql = new SqlConnect();
-            var customerType = typeof(Admins);
-            sql.checkTable(Categories: customerType);
-        }
-
+       
         #endregion
 
     }

@@ -13,12 +13,12 @@ namespace SupermarketTuto.Forms.SellingForms
         ExcelFile excel = new ExcelFile();
         BindingSource bindingSourceCategory = new BindingSource();
         DataTable categoryTable = new DataTable();
-        Type categoryType = typeof(Categories);
+        Type categoryType = typeof(CategoryTbl);
         private DataTable originalCategoryTable;
 
         BindingSource bindingSourceProduct = new BindingSource();
         DataTable productTable = new DataTable();
-        Type productType = typeof(Categories);
+        Type productType = typeof(CategoryTbl);
         private DataTable originalProductTable;
 
         public Categories_Products()
@@ -70,7 +70,7 @@ namespace SupermarketTuto.Forms.SellingForms
             }
             catch (Exception ex)
             {
-                Utlis.Log(string.Format("Message : {0}", ex.Message), "ErrorImportTxt.txt");
+                Utils.Utils.Log(string.Format("Message : {0}", ex.Message), "ErrorImportTxt.txt");
             }
         }
 
@@ -124,7 +124,7 @@ namespace SupermarketTuto.Forms.SellingForms
             }
             catch (Exception ex)
             {
-                Utlis.Log(string.Format("Message : {0}", ex.Message), "ErrorPdoduct.txt");
+                Utils.Utils.Log(string.Format("Message : {0}", ex.Message), "ErrorPdoduct.txt");
             }
         }
 
@@ -201,18 +201,18 @@ namespace SupermarketTuto.Forms.SellingForms
                     rowsToDelete.Add(row);
                 }
 
-                DataAccess.Instance.DeleteData(row, productType);
-                // loop over the rows to delete and remove them from the DataTable
-                foreach (DataRow rowToDelete in rowsToDelete)
-                {
-                    productTable.Rows.Remove(rowToDelete);
-                }
-                ProdDGV.DataSource = productTable;
+                //DataAccess.Instance.DeleteData(row, productType);
+                //// loop over the rows to delete and remove them from the DataTable
+                //foreach (DataRow rowToDelete in rowsToDelete)
+                //{
+                //    productTable.Rows.Remove(rowToDelete);
+                //}
+                //ProdDGV.DataSource = productTable;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                Utlis.Log(string.Format("Message : {0}", ex.Message), "ErrorDeleteProduct.txt");
+                Utils.Utils.Log(string.Format("Message : {0}", ex.Message), "ErrorDeleteProduct.txt");
             }
         }
 
@@ -246,18 +246,18 @@ namespace SupermarketTuto.Forms.SellingForms
                     rowsToDelete.Add(row);
                 }
 
-                DataAccess.Instance.DeleteData(row, categoryType);
-                // loop over the rows to delete and remove them from the DataTable
-                foreach (DataRow rowToDelete in rowsToDelete)
-                {
-                    categoryTable.Rows.Remove(rowToDelete);
-                }
-                CatDGV.DataSource = categoryTable;
+                //DataAccess.Instance.DeleteData(row, categoryType);
+                //// loop over the rows to delete and remove them from the DataTable
+                //foreach (DataRow rowToDelete in rowsToDelete)
+                //{
+                //    categoryTable.Rows.Remove(rowToDelete);
+                //}
+                //CatDGV.DataSource = categoryTable;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                Utlis.Log(string.Format("Message : {0}", ex.Message), "ErrorDeleteProduct.txt");
+                Utils.Utils.Log(string.Format("Message : {0}", ex.Message), "ErrorDeleteProduct.txt");
             }
         }
 
@@ -415,19 +415,7 @@ namespace SupermarketTuto.Forms.SellingForms
 
 
         #region ChechDatabase
-        private void checkCat()
-        {
-            SqlConnect sql = new SqlConnect();
-            var customerType = typeof(Categories);
-            sql.checkTable(Categories: customerType);
-        }
-
-        private void checkProd()
-        {
-            SqlConnect sql = new SqlConnect();
-            var customerType = typeof(ProductsTbl);
-            sql.checkTable(Categories: customerType);
-        }
+       
 
         #endregion
 

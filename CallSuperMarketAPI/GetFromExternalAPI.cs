@@ -24,7 +24,7 @@ namespace CallSuperMarketAPI
         static readonly HttpClient client = new HttpClient();
         string url_food = "https://api.edamam.com/api/food-database/v2/parser?app_id=713fa9ba&app_key=045b112511bb6b714c5c10328c5f5aba&nutrition-type=cooking&health=alcohol-free&category=generic-foods";
         List<ProductsTbl> products = new List<ProductsTbl>();
-        List<Categories> categories = new List<Categories>();
+        List<CategoryTbl> categories = new List<CategoryTbl>();
         DataTable productsTable = new DataTable();
         DataTable categoriesTable = new DataTable();
 
@@ -49,7 +49,7 @@ namespace CallSuperMarketAPI
                         foreach (var pair in myDeserializedClass.hints)
                         {
                             ProductsTbl product = new ProductsTbl();
-                            Categories category = new Categories();
+                            CategoryTbl category = new CategoryTbl();
                             string[] parts = pair.food.knownAs.Split(',');
                             product.ProdName = parts[1];
                             product.ProdCat = parts[0];

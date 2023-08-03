@@ -40,7 +40,7 @@ namespace SupermarketTuto.Forms
 
 
         WaitBar Form_ProgressBar = new WaitBar();
-        SqlConnect loaddata1 = new SqlConnect();
+        //SqlConnect loaddata1 = new SqlConnect();
         ExcelFile excel = new ExcelFile();
         private Timer timer = new Timer();
         public delegate void UpdateDataHandler(object sender, EventArgs e);
@@ -128,7 +128,7 @@ namespace SupermarketTuto.Forms
             }
             catch (Exception ex)
             {
-                Utlis.Log(string.Format("Message : {0}", ex.Message), "ErrorPdoduct.txt");
+                Utils.Utils.Log(string.Format("Message : {0}", ex.Message), "ErrorPdoduct.txt");
             }
         }
         private void fillCombo()
@@ -183,7 +183,7 @@ namespace SupermarketTuto.Forms
                     rowsToDelete.Add(row);
                 }
                 
-                DataAccess.Instance.DeleteData(row, productType);
+                //DataAccess.Instance.DeleteData(row, productType);
                 // loop over the rows to delete and remove them from the DataTable
                 foreach (DataRow rowToDelete in rowsToDelete)
                 {
@@ -194,7 +194,7 @@ namespace SupermarketTuto.Forms
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                Utlis.Log(string.Format("Message : {0}", ex.Message), "ErrorDeleteProduct.txt");
+                Utils.Utils.Log(string.Format("Message : {0}", ex.Message), "ErrorDeleteProduct.txt");
             }
         }
 
@@ -479,9 +479,9 @@ namespace SupermarketTuto.Forms
         #region ChechDatabase
         private void check()
         {
-            SqlConnect sql = new SqlConnect();
-            var customerType = typeof(ProductsTbl);
-            sql.checkTable(Products: customerType);
+            //SqlConnect sql = new SqlConnect();
+            //var customerType = typeof(ProductsTbl);
+            //sql.checkTable(Products: customerType);
         }
 
         #endregion
@@ -520,22 +520,22 @@ namespace SupermarketTuto.Forms
                 {
                     tableNew = excel.ImportExcelAsync(ProdDGV, product);
                 }
-                DataTable table3 = loaddata1.table.Clone();
-                var differenceQuery = tableNew.AsEnumerable().Except(loaddata1.table.AsEnumerable(), DataRowComparer.Default);
+                //DataTable table3 = loaddata1.table.Clone();
+                //var differenceQuery = tableNew.AsEnumerable().Except(loaddata1.table.AsEnumerable(), DataRowComparer.Default);
                 
-                foreach (DataRow row in differenceQuery)
-                {
-                    table3.Rows.Add(row.ItemArray);
-                }
-                loaddata1.table.Merge(tableNew);
-                ProdDGV.DataSource = loaddata1.table;
-                ProdDGV.RowHeadersVisible = false;
-                ProdDGV.AllowUserToAddRows = false;
-                DialogResult result = MessageBox.Show("Do you want to save the extra data to Database?", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (result == DialogResult.Yes)
-                {
-                    excel.SaveToDB(table3, product);
-                }
+                //foreach (DataRow row in differenceQuery)
+                //{
+                //    table3.Rows.Add(row.ItemArray);
+                //}
+                //loaddata1.table.Merge(tableNew);
+                //ProdDGV.DataSource = loaddata1.table;
+                //ProdDGV.RowHeadersVisible = false;
+                //ProdDGV.AllowUserToAddRows = false;
+                //DialogResult result = MessageBox.Show("Do you want to save the extra data to Database?", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                //if (result == DialogResult.Yes)
+                //{
+                //    excel.SaveToDB(table3, product);
+                //}
             }
             catch
             {
@@ -551,7 +551,7 @@ namespace SupermarketTuto.Forms
 
         private void button1_Click(object sender, EventArgs e)
         {
-            DataAccess.Instance.UpdateTable("ProductTbl");
+            //DataAccess.Instance.UpdateTable("ProductTbl");
         }
     }
 

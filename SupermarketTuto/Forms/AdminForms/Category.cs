@@ -21,18 +21,19 @@ namespace SupermarketTuto.Forms
         DataTable categoryTable = new DataTable();
         public DataTable originalCategoryTable;
         BindingSource bindingSource = new BindingSource();
-        Type categoryType = typeof(Categories);
+        Type categoryType = typeof(CategoryTbl);
         private List<DataGridViewCellChange> changedCells = new List<DataGridViewCellChange>();
         //TCPClient ClientTCP = new TCPClient();
         
         public DataTable tableTest;
         
-        public Category(TCPClient clientTCP_)
+        public Category()
         {
             InitializeComponent();
             //ClientTCP = clientTCP_;
 
         }
+
         private void Category_Load(object sender, EventArgs e)
         {
             display();
@@ -61,21 +62,25 @@ namespace SupermarketTuto.Forms
             pagingCombobox.DataSource = pageCombo;
 
         }
+
         private void display()
         {
             try
             {
                 fromDateTimePicker.Value = DateTime.Now.AddMonths(-2);
 
-                if(tableTest != null)
-                {
-                    categoryTable = DataAccess.Instance.GetTable("CategoryTbl");
-                }
-                else
-                {
-                    categoryTable = tableTest;
-                }
-                
+                var categories = DataModel.Select<CategoryTbl>();
+                categoryTable = Utils.Utils.ToDataTable(categories);
+
+                //if (tableTest == null)
+                //{
+                //    categoryTable = DataAccess.Instance.GetTable("CategoryTbl");
+                //}
+                //else
+                //{
+                //    categoryTable = tableTest;
+                //}
+
                 // Bind the data to the UI controls using the BindingSource
                 bindingSource = new BindingSource();
                 bindingSource.DataSource = categoryTable;
@@ -102,7 +107,7 @@ namespace SupermarketTuto.Forms
             }
             catch (Exception ex)
             {
-                Utlis.Log(string.Format("Message : {0}", ex.Message), "ErrorImportTxt.txt");
+                Utils.Utils.Log(string.Format("Message : {0}", ex.Message), "ErrorImportTxt.txt");
             }
         }
 
@@ -167,7 +172,7 @@ namespace SupermarketTuto.Forms
                     rowsToDelete.Add(row);
                 }
 
-                DataAccess.Instance.DeleteData(row, categoryType);
+                //DataAccess.Instance.DeleteData(row, categoryType);
                 // loop over the rows to delete and remove them from the DataTable
                 foreach (DataRow rowToDelete in rowsToDelete)
                 {
@@ -178,7 +183,7 @@ namespace SupermarketTuto.Forms
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                Utlis.Log(string.Format("Message : {0}", ex.Message), "ErrorDeleteProduct.txt");
+                Utils.Utils.Log(string.Format("Message : {0}", ex.Message), "ErrorDeleteProduct.txt");
             }
         }
 
@@ -374,7 +379,7 @@ namespace SupermarketTuto.Forms
         {
             try
             {
-                Type category = typeof(Categories);
+                Type category = typeof(CategoryTbl);
                 DataTable tableNew = new DataTable();
                 var item = ((ComboBox)sender).SelectedItem.ToString();
 

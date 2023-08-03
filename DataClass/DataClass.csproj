@@ -121,7 +121,7 @@
     <Compile Include="Models\Food.cs" />
     <Compile Include="Models\PreBillsTbl.cs" />
     <Compile Include="Models\Bills.cs" />
-    <Compile Include="Models\Categories.cs" />
+    <Compile Include="Models\CategoryTbl.cs" />
     <Compile Include="Models\Excel.cs" />
     <Compile Include="Models\ProductsTbl.cs" />
     <Compile Include="Models\SchemaColumn.cs" />
