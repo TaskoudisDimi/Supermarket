@@ -14,11 +14,14 @@ namespace ClassLibrary1
     public static class DataModel
     {
 
+        private static Dictionary<string, DataTable> cachedTables = new Dictionary<string, DataTable>();
         public static T[] Select<T>(string[] fields = null, string where = "", List<SqlParameter> queryparams = null, string table = null, string sort = null, int pageIndex = -1, int pageSize = -1, int top = -1) where T : class, new()
         {
             string error = "";
             return Select<T>(ref error, fields, where, queryparams, table, sort, pageIndex, pageSize, top);
         }
+
+
         public static T[] Select<T>(ref string error, string[] fields = null, string where = "", List<SqlParameter> queryparams = null, string table = null, string sort = null, int pageIndex = -1, int pageSize = -1, int top = -1) where T : class, new()
         {
             string tableName = table;
@@ -37,6 +40,14 @@ namespace ClassLibrary1
             error = "";
             try
             {
+                //string cacheKey = $"{tableName}_{where}_{sort}_{pageIndex}_{pageSize}_{top}";
+                //if (cachedTables.TryGetValue(cacheKey, out DataTable cachedTable))
+                //{
+                //    // If the cached DataTable exists, use it directly.
+                //    List<T> dataList = GetListFromDataTable<T>(cachedTable);
+                //    return dataList.ToArray();
+                //}
+
                 PropertyInfo[] properties = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
                 List<string> selectFields = new List<string>();
                 List<SqlParameter> para = new List<SqlParameter>();
@@ -91,15 +102,18 @@ namespace ClassLibrary1
                     dt.Dispose();
                 }
 
+                //// Cache the DataTable for future use.
+                //cachedTables[cacheKey] = dt;
+
                 return res;
             }
             catch (Exception ex)
             {
-
                 error = ex.Message;
                 return null;
             }
         }
+
 
         public static int? Create<T>(this T item, string[] fields = null, List<SqlParameter> queryparams = null, string table = null, string error = null) where T : class, new()
         {

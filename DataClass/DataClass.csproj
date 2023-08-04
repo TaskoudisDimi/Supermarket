@@ -123,7 +123,7 @@
     <Compile Include="Models\Bills.cs" />
     <Compile Include="Models\CategoryTbl.cs" />
     <Compile Include="Models\Excel.cs" />
-    <Compile Include="Models\ProductsTbl.cs" />
+    <Compile Include="Models\ProductTbl.cs" />
     <Compile Include="Models\SchemaColumn.cs" />
     <Compile Include="Models\SchemaTable.cs" />
     <Compile Include="Models\Sellers.cs" />

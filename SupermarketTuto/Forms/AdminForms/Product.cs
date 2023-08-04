@@ -40,7 +40,6 @@ namespace SupermarketTuto.Forms
 
 
         WaitBar Form_ProgressBar = new WaitBar();
-        //SqlConnect loaddata1 = new SqlConnect();
         ExcelFile excel = new ExcelFile();
         private Timer timer = new Timer();
         public delegate void UpdateDataHandler(object sender, EventArgs e);
@@ -48,7 +47,7 @@ namespace SupermarketTuto.Forms
         DataTable productTable = new DataTable();
         private DataTable originalProductTable;
         private DataTable productTableCombobox;
-        Type productType = typeof(ProductsTbl);
+        Type productType = typeof(ProductTbl);
         DataTable categoryTable = new DataTable();
         BindingSource bindingSource = new BindingSource();
 
@@ -108,7 +107,9 @@ namespace SupermarketTuto.Forms
             try
             {
                 fromDateTimePicker.Value = DateTime.Now.AddMonths(-2);
-                productTable = DataAccess.Instance.GetTable("ProductTbl");
+
+                var products = DataModel.Select<ProductTbl>();
+                productTable = Utils.Utils.ToDataTable(products);
 
                 bindingSource.DataSource = productTable;
                 ProdDGV.DataSource = bindingSource;
@@ -134,7 +135,8 @@ namespace SupermarketTuto.Forms
         private void fillCombo()
         {
             List<string> catNames = new List<string>();
-            categoryTable = DataAccess.Instance.GetTable("CategoryTbl");
+            var categories = DataModel.Select<CategoryTbl>();
+            categoryTable = Utils.Utils.ToDataTable(categories);
             foreach (DataRow row in categoryTable.Rows)
             {
                 catNames.Add(row["CatName"].ToString());
@@ -157,6 +159,7 @@ namespace SupermarketTuto.Forms
             add.editButton.Visible = false;
             add.ProdId.Visible = false;
             add.idLabel.Visible = false;
+            add.ItemCreated += Add_ItemCreated;
             add.Show();
         }
 
@@ -168,6 +171,27 @@ namespace SupermarketTuto.Forms
             edit.ProdId.ReadOnly = true;
             edit.Show();
         }
+
+        private void Add_ItemCreated(object sender, ProductEventArgs e)
+        {
+            productTable.Rows.Add(e.CreatedProduct.ProdId, e.CreatedProduct.ProdName, e.CreatedProduct.ProdQty, e.CreatedProduct.ProdPrice, e.CreatedProduct.ProdCat, e.CreatedProduct.ProdCatID, e.CreatedProduct.Date);
+            ProdDGV.Refresh();
+        }
+
+        private void Edit_ItemEdited(object sender, ProductEventArgs e)
+        {
+            //// Update the edited category in the DataTable in form1
+
+            //DataRow editedRow = categoryTable.Rows.Find(e.PrimaryKeyValue);
+            //if (editedRow != null)
+            //{
+            //    editedRow["CatName"] = e.CreatedCategory.CatName;
+            //    editedRow["CatDesc"] = e.CreatedCategory.CatDesc;
+            //    editedRow["Date"] = e.CreatedCategory.Date;
+            //}
+            //CatDGV.Refresh();
+        }
+
 
         private void deleteButton_Click(object sender, EventArgs e)
         {
@@ -490,7 +514,7 @@ namespace SupermarketTuto.Forms
 
         private void exportCombobox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Type product = typeof(ProductsTbl);
+            Type product = typeof(ProductTbl);
             var item = ((ComboBox)sender).SelectedItem.ToString();
             if (item.Contains("Csv"))
             {
@@ -507,7 +531,7 @@ namespace SupermarketTuto.Forms
         {
             try
             {
-                Type product = typeof(ProductsTbl);
+                Type product = typeof(ProductTbl);
                 DataTable tableNew = new DataTable();
                 var item = ((ComboBox)sender).SelectedItem.ToString();
 

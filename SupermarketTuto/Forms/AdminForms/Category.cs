@@ -69,18 +69,13 @@ namespace SupermarketTuto.Forms
             {
                 fromDateTimePicker.Value = DateTime.Now.AddMonths(-2);
 
+                
                 var categories = DataModel.Select<CategoryTbl>();
                 categoryTable = Utils.Utils.ToDataTable(categories);
-
-                //if (tableTest == null)
-                //{
-                //    categoryTable = DataAccess.Instance.GetTable("CategoryTbl");
-                //}
-                //else
-                //{
-                //    categoryTable = tableTest;
-                //}
-
+                categoryTable.PrimaryKey = new DataColumn[] { categoryTable.Columns["CatId"] };
+                originalCategoryTable = categoryTable.Copy();
+                
+                
                 // Bind the data to the UI controls using the BindingSource
                 bindingSource = new BindingSource();
                 bindingSource.DataSource = categoryTable;
@@ -98,7 +93,7 @@ namespace SupermarketTuto.Forms
                 totalLabel.Text = $"Total: {CatDGV.RowCount}";
 
                 // Initialize the originalCategoryTable field with the same data as categoryTable
-                //originalCategoryTable = categoryTable.Copy();
+                
 
                 if (totalLabel.Text == null)
                 {
@@ -146,7 +141,31 @@ namespace SupermarketTuto.Forms
             add.editButton.Visible = false;
             add.CatIdTb.Visible = false;
             add.idlabel.Visible = false;
+
+            add.ItemCreated += Add_ItemCreated;
             add.ShowDialog();
+
+  
+        }
+
+        private void Add_ItemCreated(object sender, CategoryEventArgs e)
+        {
+            categoryTable.Rows.Add(e.CreatedCategory.CatId, e.CreatedCategory.CatName, e.CreatedCategory.CatDesc, e.CreatedCategory.Date);
+            CatDGV.Refresh();
+        }
+
+        private void Edit_ItemEdited(object sender, CategoryEventArgs e)
+        {
+            // Update the edited category in the DataTable in form1
+
+            DataRow editedRow = categoryTable.Rows.Find(e.PrimaryKeyValue);
+            if (editedRow != null)
+            {
+                editedRow["CatName"] = e.CreatedCategory.CatName;
+                editedRow["CatDesc"] = e.CreatedCategory.CatDesc;
+                editedRow["Date"] = e.CreatedCategory.Date;
+            }
+            CatDGV.Refresh();
         }
 
         private void editButton_Click(object sender, EventArgs e)
@@ -154,7 +173,11 @@ namespace SupermarketTuto.Forms
             DataGridViewRow currentRow = CatDGV.CurrentRow;
             addEditCategory edit = new addEditCategory(categoryTable, currentRow, false);
             edit.CatIdTb.ReadOnly = true;
-            edit.DataChanged += Edit_DataChanged;
+            edit.ItemEdited += Edit_ItemEdited;
+
+
+            //edit.DataChanged += Edit_DataChanged;
+
             edit.Show();
         }
 
@@ -164,16 +187,20 @@ namespace SupermarketTuto.Forms
             {
                 List<DataRow> rowsToDelete = new List<DataRow>();
                 DataRow row = null;
+                CategoryTbl category = new CategoryTbl();
                 // loop over the selected rows and add them to the list
                 foreach (DataGridViewRow selectedRow in CatDGV.SelectedRows)
                 {
                     //Convert DataGridViewRow -> DataRow
                     row = ((DataRowView)selectedRow.DataBoundItem).Row;
+                    category.CatId = Convert.ToInt32(row["CatId"].ToString());
+                    category.CatName = row["CatName"].ToString();
+                    category.CatDesc = row["CatDesc"].ToString();
+                    category.Date = (DateTime)row["Date"];
+                    var CategoryDelete = DataModel.Delete<CategoryTbl>(category);
                     rowsToDelete.Add(row);
                 }
 
-                //DataAccess.Instance.DeleteData(row, categoryType);
-                // loop over the rows to delete and remove them from the DataTable
                 foreach (DataRow rowToDelete in rowsToDelete)
                 {
                     categoryTable.Rows.Remove(rowToDelete);

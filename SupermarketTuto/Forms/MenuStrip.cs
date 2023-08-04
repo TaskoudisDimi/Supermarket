@@ -89,7 +89,7 @@ namespace ClassLibrary1
 
         private void mnuEdit_Click(object sender, EventArgs e)
         {
-            if (type.Name == "Categories")
+            if (type.Name == "CategoryTbl")
             {
                 DataGridViewRow currentRow = dataGridView.CurrentRow;
                 addEditCategory edit = new addEditCategory(table, currentRow, false);
@@ -103,21 +103,17 @@ namespace ClassLibrary1
                 edit.ProdId.ReadOnly = true;
                 edit.Show();
             }
-            else if (type.Name == "Sellers")
+            else if (type.Name == "SellersTbl")
             {
 
             }
-            else if (type.Name == "Bills")
+            else if (type.Name == "BillTbl")
             {
 
             }
             else if (type.Name == "Admins")
             {
 
-
-            }
-            else if (type.Name == "BillingProducts")
-            {
 
             }
         }

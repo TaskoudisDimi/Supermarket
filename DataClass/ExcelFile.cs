@@ -402,7 +402,7 @@ namespace ClassLibrary1
                 {
                     if (type.Name.Equals("Products"))
                     {
-                        ProductsTbl prod = new ProductsTbl();
+                        ProductTbl prod = new ProductTbl();
                         prod.ProdId = Convert.ToInt32(row.Cells["ProdId"].Value);
                         prod.ProdCat = row.Cells["ProdCat"].Value.ToString();
                         prod.ProdName = row.Cells["ProdName"].Value.ToString();
@@ -444,12 +444,12 @@ namespace ClassLibrary1
         {
             try
             {
-                List<ProductsTbl> products = new List<ProductsTbl>();
+                List<ProductTbl> products = new List<ProductTbl>();
                 List<CategoryTbl> categories = new List<CategoryTbl>();
                 List<Bills> bills = new List<Bills>();
                 if (type.Name.Equals("Products"))
                 {
-                    products = data.Cast<ProductsTbl>().ToList();
+                    products = data.Cast<ProductTbl>().ToList();
                 }
                 else if (type.Name.Equals("Categories"))
                 {

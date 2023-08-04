@@ -25,7 +25,9 @@ namespace SupermarketTuto.Forms.General
         DataTable categoryTable = new DataTable();
         DataGridViewRow selected = new DataGridViewRow();
         public event EventHandler<DataGridViewCellChange> DataChanged;
-
+        CategoryTbl category = new CategoryTbl();
+        public event EventHandler<CategoryEventArgs> ItemCreated;
+        public event EventHandler<CategoryEventArgs> ItemEdited;
 
         public addEditCategory(DataTable categoryTable_, DataGridViewRow selected_, bool add)
         {
@@ -53,23 +55,25 @@ namespace SupermarketTuto.Forms.General
         {
             try
             {
-                categoryTable.Columns["CatId"].AutoIncrement = true;
-                DataRow row = categoryTable.NewRow();
-                row["CatName"] = CatNameTb.Text;
-                row["CatDesc"] = CatDescTb.Text;
-                row["Date"] = dateTimePicker.Value.ToString("yyyy-MM-dd");
-                categoryTable.Rows.Add(row);
-                if(categoryTable.Rows.Cast<DataRow>().Any(r => r.RowState == DataRowState.Unchanged))
-                {
-                    //DataAccess.Instance.InsertData(categoryTable);
-                }
-                MessageBox.Show($"Successfully inserted Category {row["CatName"]}","Information",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                category.CatDesc = CatNameTb.Text;
+                category.CatName = CatNameTb.Text;
+                category.Date = (DateTime)dateTimePicker.Value.Date;
+                var CreateCategory = DataModel.Create<CategoryTbl>(category);
+                OnItemCreated(new CategoryEventArgs(category, category.CatId));
+
+                MessageBox.Show($"Successfully inserted Category {category.CatName}","Information",MessageBoxButtons.OK,MessageBoxIcon.Information);
                 this.Close();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        protected virtual void OnItemCreated(CategoryEventArgs e)
+        {
+            ItemCreated?.Invoke(this, e);
+
         }
 
         private void editButton_Click(object sender, EventArgs e)
@@ -82,21 +86,16 @@ namespace SupermarketTuto.Forms.General
                 }
                 else
                 {
-                    DateTime Date = dateTimePicker.Value.Date;
-                    DataRow row = categoryTable.Rows.Cast<DataRow>().Where(r => r.Field<int>("CatId") == Int32.Parse(CatIdTb.Text)).FirstOrDefault();
-                    row["CatName"] = CatNameTb.Text;
-                    row["CatDesc"] = CatDescTb.Text;
-                    row["Date"] = Date;
+                    category.CatId = Convert.ToInt32(CatIdTb.Text);
+                    category.CatDesc = CatNameTb.Text;
+                    category.CatName = CatNameTb.Text;
+                    category.Date = (DateTime)dateTimePicker.Value.Date;
+                    var CreateCategory = DataModel.Update<CategoryTbl>(category);
+                    OnItemEdited(new CategoryEventArgs(category, category.CatId));
 
-                    DataTable table = categoryTable.GetChanges();
-                    
+                    //GetChanges(table, row);
 
-                    if (categoryTable.Rows.Cast<DataRow>().Any(r => r.RowState == DataRowState.Unchanged))
-                    {
-                        //DataAccess.Instance.UpdateData(categoryTable);
-                    }
-                    GetChanges(table, row);
-                    MessageBox.Show($"Category {row["CatName"]} Successfully Updated", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show($"Successfully inserted Category {category.CatName}", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information); 
                     this.Close();
                 }
             }
@@ -106,7 +105,12 @@ namespace SupermarketTuto.Forms.General
             }
         }
 
-        
+        protected virtual void OnItemEdited(CategoryEventArgs e)
+        {
+            ItemEdited?.Invoke(this, e);
+
+        }
+
 
         int columnIndex;
         int rowIndex;
@@ -146,4 +150,17 @@ namespace SupermarketTuto.Forms.General
             DataChanged?.Invoke(this, change);
         }
     }
+
+    public class CategoryEventArgs : EventArgs
+    {
+        public CategoryTbl CreatedCategory { get; private set; }
+        public int PrimaryKeyValue { get; private set; }
+
+        public CategoryEventArgs(CategoryTbl category, int primaryKeyValue)
+        {
+            CreatedCategory = category;
+            PrimaryKeyValue = primaryKeyValue;
+        }
+    }
+
 }

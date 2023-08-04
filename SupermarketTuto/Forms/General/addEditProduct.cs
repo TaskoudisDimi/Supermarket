@@ -1,4 +1,5 @@
 ﻿using ClassLibrary1;
+using ClassLibrary1.Models;
 using DataClass;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,10 @@ namespace SupermarketTuto.Forms.General
         DataTable productTable = new DataTable();
         DataTable categoryTable = new DataTable();
         DataGridViewRow selected = new DataGridViewRow();
+        public event EventHandler<ProductEventArgs> ItemCreated;
+        public event EventHandler<ProductEventArgs> ItemEdited;
+        ProductTbl product = new ProductTbl();
+
         public addEditProduct(DataTable productTable_, DataGridViewRow selected_, DataTable categoryTable_ ,bool add)
         {
             InitializeComponent();
@@ -49,20 +54,20 @@ namespace SupermarketTuto.Forms.General
         {
             try
             {
-                productTable.Columns["ProdId"].AutoIncrement = true;
-                DataRow row = productTable.NewRow();
-                row["ProdName"] = ProdName.Text;
-                row["ProdQty"] = ProdQty.Text;
-                row["ProdPrice"] = ProdPrice.Text;
-                row["ProdCatID"] = catIDTextBox.Text;
-                row["ProdCat"] = catCombobox.Text;
-                row["Date"] = DateTimePicker.Value.ToString("yyyy-MM-dd");
-                productTable.Rows.Add(row);
-                if(productTable.Rows.Cast<DataRow>().Any(r => r.RowState == DataRowState.Added))
-                {
-                    //DataAccess.Instance.InsertData(productTable);
-                }
-                MessageBox.Show($"Successfully inserted Category {row["ProdName"]}", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                product.ProdName = ProdName.Text;
+                product.ProdQty = Convert.ToInt32(ProdQty.Text);
+                product.ProdPrice = Convert.ToInt32(ProdPrice.Text);
+                product.ProdCatID = Convert.ToInt32(catIDTextBox.Text);
+                product.ProdCat = catCombobox.Text;
+                product.Date = DateTimePicker.Value;
+
+
+                var CreateProduct = DataModel.Create<ProductTbl>(product);
+                OnItemCreated(new ProductEventArgs(product, product.ProdId));
+
+
+                MessageBox.Show($"Successfully inserted Category {product.ProdName}", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
             }
             catch (Exception ex)
@@ -70,6 +75,12 @@ namespace SupermarketTuto.Forms.General
                 MessageBox.Show(ex.Message);
             }
         }
+
+        protected virtual void OnItemCreated(ProductEventArgs e)
+        {
+            ItemCreated?.Invoke(this, e);
+        }
+
 
         private void editButton_Click(object sender, EventArgs e)
         {
@@ -134,5 +145,16 @@ namespace SupermarketTuto.Forms.General
         }
 
        
+    }
+    public class ProductEventArgs : EventArgs
+    {
+        public ProductTbl CreatedProduct { get; private set; }
+        public int PrimaryKeyValue { get; private set; }
+
+        public ProductEventArgs(ProductTbl product, int primaryKeyValue)
+        {
+            CreatedProduct = product;
+            PrimaryKeyValue = primaryKeyValue;
+        }
     }
 }
