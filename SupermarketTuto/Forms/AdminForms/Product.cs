@@ -36,10 +36,8 @@ namespace SupermarketTuto.Forms
 {
     public partial class Product : Form
     {
-        int startRecord;
 
 
-        WaitBar Form_ProgressBar = new WaitBar();
         ExcelFile excel = new ExcelFile();
         private Timer timer = new Timer();
         public delegate void UpdateDataHandler(object sender, EventArgs e);
@@ -50,6 +48,11 @@ namespace SupermarketTuto.Forms
         Type productType = typeof(ProductTbl);
         DataTable categoryTable = new DataTable();
         BindingSource bindingSource = new BindingSource();
+
+
+        private BackgroundWorker backgroundWorker;
+        private WaitBar progressForm;
+
 
         public Product()
         {
@@ -66,6 +69,15 @@ namespace SupermarketTuto.Forms
 
             importCombobox.Items.Add("Csv");
             importCombobox.Items.Add("Xlsx");
+
+            backgroundWorker = new BackgroundWorker();
+            backgroundWorker.WorkerReportsProgress = true;
+            backgroundWorker.DoWork += BackgroundWorker_DoWork;
+            backgroundWorker.ProgressChanged += BackgroundWorker_ProgressChanged;
+            backgroundWorker.RunWorkerCompleted += BackgroundWorker_RunWorkerCompleted;
+
+            progressForm = new WaitBar();
+
 
         }
         private void Timer_Tick(object sender, EventArgs e)
@@ -94,7 +106,37 @@ namespace SupermarketTuto.Forms
 
             MenuStrip.Instance.Menu(ProdDGV, productTable, categoryTable, productType, false);
 
+            backgroundWorker.RunWorkerAsync();
+            progressForm.Show();
+
+
         }
+
+        private void BackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            Thread.Sleep(50);
+            //// Simulate a time-consuming operation (5 seconds)
+            //for (int i = 0; i < 100; i++)
+            //{
+            //    Thread.Sleep(50); // Simulate work
+            //    backgroundWorker.ReportProgress(i); // Report progress
+            //}
+        }
+
+        private void BackgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            // Update the progress bar in the progress form
+            progressForm.UpdateProgressBar(e.ProgressPercentage);
+        }
+
+        private void BackgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+           
+            // Close the progress form when the background work is done
+            progressForm.Close();
+
+        }
+
 
         private void MyDataGridView_UpdateData(object sender, EventArgs e)
         {

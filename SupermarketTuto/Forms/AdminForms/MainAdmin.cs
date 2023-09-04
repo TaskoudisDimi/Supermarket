@@ -150,28 +150,19 @@ namespace SupermarketTuto.Forms.AdminForms
         private void sellersButton_Click(object sender, EventArgs e)
         {
             Seller form = new Seller();
-            form.TopLevel = false;
-            form.TopMost = true;
-            splitContainer1.Panel1.Controls.Add(form);
-            form.Show();
+            ShowFormOnPanel(form);
         }
 
         public void categoriesButton_Click(object sender, EventArgs e)
         {
             Category form = new Category();
-            form.TopLevel = false;
-            form.TopMost = true; 
-            splitContainer1.Panel1.Controls.Add(form);
-            form.Show();
+            ShowFormOnPanel(form);
         }
 
         private void productsButton_Click(object sender, EventArgs e)
         {
             Product form = new Product();
-            form.TopLevel = false;
-            form.TopMost = true;
-            splitContainer1.Panel1.Controls.Add(form);
-            form.Show();
+            ShowFormOnPanel(form);
         }
 
         public void MainAdmin_FormClosing(object sender, FormClosingEventArgs e)
@@ -179,10 +170,26 @@ namespace SupermarketTuto.Forms.AdminForms
             DialogResult confirm = MessageBox.Show("Confirm to close", Constants.Exit, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (confirm == DialogResult.No)
             {
-                ClientTCP.StopClient();
+                //ClientTCP.StopClient();
                 e.Cancel = true;
             }
         }
-        
+
+        private void ShowFormOnPanel(Form newForm)
+        {
+            // Check if there's already a form in the panel
+            if (splitContainer1.Panel1.Controls.Count > 0)
+            {
+                // Remove the previous form from the panel
+                splitContainer1.Panel1.Controls.RemoveAt(0);
+            }
+            newForm.FormBorderStyle = FormBorderStyle.None;
+            // Add the new form to the panel
+            newForm.TopLevel = false;
+            newForm.TopMost = true;
+            splitContainer1.Panel1.Controls.Add(newForm);
+            newForm.Show();
+
+        }
     }
 }

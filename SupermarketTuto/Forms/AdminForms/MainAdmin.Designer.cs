@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.sidePanel = new System.Windows.Forms.Panel();
+            this.udpRadioButton = new System.Windows.Forms.RadioButton();
             this.productsButton = new System.Windows.Forms.Button();
+            this.tcpRadioButton = new System.Windows.Forms.RadioButton();
             this.categoriesButton = new System.Windows.Forms.Button();
             this.sellersButton = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.tcpRadioButton = new System.Windows.Forms.RadioButton();
-            this.udpRadioButton = new System.Windows.Forms.RadioButton();
             this.sidePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.SuspendLayout();
@@ -50,32 +50,56 @@
             this.sidePanel.Controls.Add(this.sellersButton);
             this.sidePanel.Dock = System.Windows.Forms.DockStyle.Left;
             this.sidePanel.Location = new System.Drawing.Point(0, 0);
-            this.sidePanel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.sidePanel.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.sidePanel.Name = "sidePanel";
-            this.sidePanel.Size = new System.Drawing.Size(270, 1062);
+            this.sidePanel.Size = new System.Drawing.Size(180, 690);
             this.sidePanel.TabIndex = 2;
+            // 
+            // udpRadioButton
+            // 
+            this.udpRadioButton.AutoSize = true;
+            this.udpRadioButton.Location = new System.Drawing.Point(29, 329);
+            this.udpRadioButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.udpRadioButton.Name = "udpRadioButton";
+            this.udpRadioButton.Size = new System.Drawing.Size(48, 17);
+            this.udpRadioButton.TabIndex = 1;
+            this.udpRadioButton.TabStop = true;
+            this.udpRadioButton.Text = "UDP";
+            this.udpRadioButton.UseVisualStyleBackColor = true;
             // 
             // productsButton
             // 
             this.productsButton.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.productsButton.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.productsButton.Location = new System.Drawing.Point(27, 322);
-            this.productsButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.productsButton.Location = new System.Drawing.Point(18, 209);
+            this.productsButton.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.productsButton.Name = "productsButton";
-            this.productsButton.Size = new System.Drawing.Size(188, 66);
+            this.productsButton.Size = new System.Drawing.Size(125, 43);
             this.productsButton.TabIndex = 3;
             this.productsButton.Text = "Products";
             this.productsButton.UseVisualStyleBackColor = false;
             this.productsButton.Click += new System.EventHandler(this.productsButton_Click);
             // 
+            // tcpRadioButton
+            // 
+            this.tcpRadioButton.AutoSize = true;
+            this.tcpRadioButton.Location = new System.Drawing.Point(29, 298);
+            this.tcpRadioButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tcpRadioButton.Name = "tcpRadioButton";
+            this.tcpRadioButton.Size = new System.Drawing.Size(46, 17);
+            this.tcpRadioButton.TabIndex = 0;
+            this.tcpRadioButton.TabStop = true;
+            this.tcpRadioButton.Text = "TCP";
+            this.tcpRadioButton.UseVisualStyleBackColor = true;
+            // 
             // categoriesButton
             // 
             this.categoriesButton.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.categoriesButton.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.categoriesButton.Location = new System.Drawing.Point(27, 234);
-            this.categoriesButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.categoriesButton.Location = new System.Drawing.Point(18, 152);
+            this.categoriesButton.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.categoriesButton.Name = "categoriesButton";
-            this.categoriesButton.Size = new System.Drawing.Size(188, 66);
+            this.categoriesButton.Size = new System.Drawing.Size(125, 43);
             this.categoriesButton.TabIndex = 2;
             this.categoriesButton.Text = "Categories";
             this.categoriesButton.UseVisualStyleBackColor = false;
@@ -86,10 +110,10 @@
             this.sellersButton.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.sellersButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.sellersButton.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.sellersButton.Location = new System.Drawing.Point(27, 142);
-            this.sellersButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.sellersButton.Location = new System.Drawing.Point(18, 92);
+            this.sellersButton.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.sellersButton.Name = "sellersButton";
-            this.sellersButton.Size = new System.Drawing.Size(188, 66);
+            this.sellersButton.Size = new System.Drawing.Size(125, 43);
             this.sellersButton.TabIndex = 1;
             this.sellersButton.Text = "Sellers";
             this.sellersButton.UseVisualStyleBackColor = false;
@@ -98,48 +122,27 @@
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(270, 0);
-            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.splitContainer1.Location = new System.Drawing.Point(180, 0);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.AutoScroll = true;
             this.splitContainer1.Panel1.BackColor = System.Drawing.SystemColors.Control;
             this.splitContainer1.Panel2Collapsed = true;
-            this.splitContainer1.Size = new System.Drawing.Size(1714, 1062);
+            this.splitContainer1.Size = new System.Drawing.Size(1143, 690);
             this.splitContainer1.SplitterDistance = 546;
-            this.splitContainer1.SplitterWidth = 6;
             this.splitContainer1.TabIndex = 3;
-            // 
-            // tcpRadioButton
-            // 
-            this.tcpRadioButton.AutoSize = true;
-            this.tcpRadioButton.Location = new System.Drawing.Point(43, 459);
-            this.tcpRadioButton.Name = "tcpRadioButton";
-            this.tcpRadioButton.Size = new System.Drawing.Size(64, 24);
-            this.tcpRadioButton.TabIndex = 0;
-            this.tcpRadioButton.TabStop = true;
-            this.tcpRadioButton.Text = "TCP";
-            this.tcpRadioButton.UseVisualStyleBackColor = true;
-            // 
-            // udpRadioButton
-            // 
-            this.udpRadioButton.AutoSize = true;
-            this.udpRadioButton.Location = new System.Drawing.Point(43, 506);
-            this.udpRadioButton.Name = "udpRadioButton";
-            this.udpRadioButton.Size = new System.Drawing.Size(68, 24);
-            this.udpRadioButton.TabIndex = 1;
-            this.udpRadioButton.TabStop = true;
-            this.udpRadioButton.Text = "UDP";
-            this.udpRadioButton.UseVisualStyleBackColor = true;
             // 
             // MainAdmin
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1984, 1062);
+            this.AutoScroll = true;
+            this.ClientSize = new System.Drawing.Size(1323, 690);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.sidePanel);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "MainAdmin";
             this.Text = "MainAdmin";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;

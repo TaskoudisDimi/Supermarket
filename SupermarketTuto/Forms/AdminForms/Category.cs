@@ -485,11 +485,6 @@ namespace SupermarketTuto.Forms
 
         #endregion
 
-        #region ChechDatabase
-        
-        #endregion
-
-
         
         private void Edit_DataChanged(object sender, DataGridViewCellChange e)
         {

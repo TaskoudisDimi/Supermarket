@@ -18,5 +18,15 @@ namespace SupermarketTuto.Forms.General
             
         }
 
+        public void UpdateProgressBar(int progress)
+        {
+            // Ensure that the progress value is within the valid range (0-100)
+            if (progress >= 0 && progress <= 100)
+            {
+                waitProgressBar.Value = progress;
+            }
+        }
+
+
     }
 }
