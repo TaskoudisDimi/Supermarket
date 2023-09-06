@@ -143,12 +143,12 @@ namespace ClassLibrary1
                 }
                 foreach (PropertyInfo p in properties)
                 {
-                    if (p.Name.ToLower().Contains("id")) continue;
+                    if (p.Name.ToLower().Contains("prodid")) continue;
                     selectFields.Add(p.Name);
                 }
                 foreach (PropertyInfo prop in properties)
                 {
-                    if (prop.Name.ToLower().Contains("id")) continue;
+                    if (prop.Name.ToLower().Contains("prodid")) continue;
                     object Value = prop.GetValue(item, null);
                     object ValuesCMD = GetValueFromItem(prop, Value);
                     values.Add(ValuesCMD);
@@ -535,6 +535,11 @@ namespace ClassLibrary1
                             else if (propType == typeof(decimal)) { value = Utils.GetDecimal(value, 0); }
                             else if (propType == typeof(bool)) { value = Utils.GetBool(value, false); }
                             else if (propType == typeof(DateTime)) { value = Utils.GetDate(value, new DateTime(1700, 1, 1)); }
+                            else if (propType == typeof(byte)) {
+                                string stringValue = Convert.ToBase64String((byte[])value);
+                                propertyInfo.SetValue(obj, stringValue, null);
+                            }
+
                             propertyInfo.SetValue(obj, Convert.ChangeType(value, propType), null);
                         }
                     }

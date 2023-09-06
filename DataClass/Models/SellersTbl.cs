@@ -7,11 +7,12 @@ using System.Threading.Tasks;
 
 namespace ClassLibrary1.Models
 {
-    public class Sellers
+    [TableName("SellersTbl")]
+    public class SellersTbl
     {
         public int SellerId { get; set; }
         public string SellerUserName { get; set; }
-        public string SellerPass { get; set; }
+        public byte SellerPass { get; set; }
         public string SellerName { get; set; }
         public int SellerAge { get; set; }
         public int SellerPhone { get; set; }

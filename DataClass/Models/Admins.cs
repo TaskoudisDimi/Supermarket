@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace ClassLibrary1.Models
 {
+    [TableName("Admins")]
     public class Admins
     {
         public int Id { get; set; }

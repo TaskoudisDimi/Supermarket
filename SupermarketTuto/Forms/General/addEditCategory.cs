@@ -90,11 +90,9 @@ namespace SupermarketTuto.Forms.General
                     category.CatDesc = CatNameTb.Text;
                     category.CatName = CatNameTb.Text;
                     category.Date = (DateTime)dateTimePicker.Value.Date;
-                    var CreateCategory = DataModel.Update<CategoryTbl>(category);
+                    DataModel.Update<CategoryTbl>(category);
                     OnItemEdited(new CategoryEventArgs(category, category.CatId));
-
                     //GetChanges(table, row);
-
                     MessageBox.Show($"Successfully inserted Category {category.CatName}", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information); 
                     this.Close();
                 }

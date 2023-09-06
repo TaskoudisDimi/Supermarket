@@ -19,7 +19,7 @@ namespace SupermarketTuto.Forms
         DataTable sellerTable = new DataTable();
         BindingSource bindingSource = new BindingSource();
         private DataTable originalProductTable;
-        Type sellerType = typeof(Sellers);
+        Type sellerType = typeof(SellersTbl);
         DataTable filterTable;
         DataTable tableWithoutColumns;
 
@@ -37,7 +37,8 @@ namespace SupermarketTuto.Forms
             try
             {
                 
-                sellerTable = DataAccess.Instance.GetTable("SellersTbl");
+                var sellers = DataModel.Select<SellersTbl>();
+                sellerTable = Utils.Utils.ToDataTable(sellers);
 
                 filterTable = sellerTable.Copy();
                 filterTable.Columns.Remove("SellerPass");

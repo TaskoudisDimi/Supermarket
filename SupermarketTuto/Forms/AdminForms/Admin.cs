@@ -25,8 +25,8 @@ namespace SupermarketTuto.Forms
         {
             try
             {
-                adminTable = DataAccess.Instance.GetTable("Admin");
-                usersDataGridView.DataSource = adminTable;
+                Admins[] admins = DataModel.Select<Admins>();
+                usersDataGridView.DataSource = admins;
                 usersDataGridView.RowHeadersVisible = false;
             }
             catch

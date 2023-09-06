@@ -54,19 +54,14 @@ namespace SupermarketTuto.Forms.General
         {
             try
             {
-
                 product.ProdName = ProdName.Text;
                 product.ProdQty = Convert.ToInt32(ProdQty.Text);
                 product.ProdPrice = Convert.ToInt32(ProdPrice.Text);
                 product.ProdCatID = Convert.ToInt32(catIDTextBox.Text);
                 product.ProdCat = catCombobox.Text;
                 product.Date = DateTimePicker.Value;
-
-
-                var CreateProduct = DataModel.Create<ProductTbl>(product);
+                DataModel.Create<ProductTbl>(product);
                 OnItemCreated(new ProductEventArgs(product, product.ProdId));
-
-
                 MessageBox.Show($"Successfully inserted Category {product.ProdName}", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
             }
@@ -92,19 +87,16 @@ namespace SupermarketTuto.Forms.General
                 }
                 else
                 {
-                    DateTime Date = DateTimePicker.Value.Date;
-                    DataRow row = productTable.Rows.Cast<DataRow>().Where(r => r.Field<int>("ProdId") == Int32.Parse(ProdId.Text)).FirstOrDefault();
-                    row["ProdName"] = ProdName.Text;
-                    row["ProdQty"] = ProdQty.Text;
-                    row["ProdPrice"] = ProdPrice.Text;
-                    row["Date"] = Date;
-                    row["ProdCatID"] = catIDTextBox.Text;
-                    row["ProdCat"] = catCombobox.Text;
-                    if (productTable.Rows.Cast<DataRow>().Any(r => r.RowState == DataRowState.Modified))
-                    {
-                        //DataAccess.Instance.UpdateData(productTable);
-                    }
-                    MessageBox.Show($"Category {row["ProdName"]} Successfully Updated", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    product.ProdId = Convert.ToInt32(ProdId.Text);
+                    product.ProdName = ProdName.Text;
+                    product.ProdCat = catCombobox.Text;
+                    product.ProdQty = Convert.ToInt32(ProdQty.Text);
+                    product.ProdCatID = Convert.ToInt32(catIDTextBox.Text);
+                    product.ProdPrice = Convert.ToInt32(ProdPrice.Text);
+                    product.Date = (DateTime)DateTimePicker.Value.Date;
+                    DataModel.Update<ProductTbl>(product);
+                    OnItemEdited(new ProductEventArgs(product, product.ProdId));
+                    MessageBox.Show($"Successfully inserted Category {product.ProdName}", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.Close();
                 }
             }
@@ -123,28 +115,34 @@ namespace SupermarketTuto.Forms.General
             }
             catCombobox.DataSource = catNames;
             catCombobox.SelectedItem = null;
+            catIDTextBox.Text = null;
             catCombobox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             catCombobox.AutoCompleteSource = AutoCompleteSource.ListItems;
         }
 
         private void catCombobox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //try
-            //{
-            //    SqlConnect loaddata8 = new SqlConnect();
-            //    loaddata8.getData("Select CatId From CategoryTbl where CatName = '" + catCombobox.Text + "'");
-            //    if (loaddata8.table.Rows.Count != 0)
-            //    {
-            //        catIDTextBox.Text = loaddata8.table.Rows[0]["CatId"].ToString();
-            //    }
-            //}
-            //catch
-            //{
+            try
+            {
+                CategoryTbl Cat = DataModel.Select<CategoryTbl>(where: $"CatName = '{catCombobox.Text}'").FirstOrDefault();
+                if (Cat != null)
+                {
+                    catIDTextBox.Text = Cat.CatId.ToString();
+                }
+            }
+            catch
+            {
 
-            //}
+            }
         }
 
-       
+        protected virtual void OnItemEdited(ProductEventArgs e)
+        {
+            ItemEdited?.Invoke(this, e);
+
+        }
+
+
     }
     public class ProductEventArgs : EventArgs
     {

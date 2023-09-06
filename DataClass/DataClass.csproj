@@ -126,7 +126,7 @@
     <Compile Include="Models\ProductTbl.cs" />
     <Compile Include="Models\SchemaColumn.cs" />
     <Compile Include="Models\SchemaTable.cs" />
-    <Compile Include="Models\Sellers.cs" />
+    <Compile Include="Models\SellersTbl.cs" />
     <Compile Include="TableNameAttribute.cs" />
     <Compile Include="TCPClient.cs" />
     <Compile Include="UDPClient.cs" />

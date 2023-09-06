@@ -194,6 +194,7 @@
             // 
             // catIDTextBox
             // 
+            this.catIDTextBox.Enabled = false;
             this.catIDTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.catIDTextBox.Location = new System.Drawing.Point(277, 373);
             this.catIDTextBox.Name = "catIDTextBox";

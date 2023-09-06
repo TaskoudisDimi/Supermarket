@@ -68,24 +68,16 @@ namespace SupermarketTuto.Forms
             try
             {
                 fromDateTimePicker.Value = DateTime.Now.AddMonths(-2);
-
-                
                 var categories = DataModel.Select<CategoryTbl>();
                 categoryTable = Utils.Utils.ToDataTable(categories);
                 categoryTable.PrimaryKey = new DataColumn[] { categoryTable.Columns["CatId"] };
                 originalCategoryTable = categoryTable.Copy();
                 
-                
                 // Bind the data to the UI controls using the BindingSource
                 bindingSource = new BindingSource();
                 bindingSource.DataSource = categoryTable;
-
                 CatDGV.DataSource = bindingSource;
-
                 CatDGV.RowHeadersVisible = false;
-
-                //CatDGV.Columns[3].HeaderText = "Date";
-
 
                 // Attach the CurrentChanged event handler to the BindingSource
                 bindingSource.CurrentChanged += bindingSource_CurrentChanged;
@@ -93,8 +85,6 @@ namespace SupermarketTuto.Forms
                 totalLabel.Text = $"Total: {CatDGV.RowCount}";
 
                 // Initialize the originalCategoryTable field with the same data as categoryTable
-                
-
                 if (totalLabel.Text == null)
                 {
                     MessageBox.Show("Warning", "There is no data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -156,7 +146,7 @@ namespace SupermarketTuto.Forms
 
         private void Edit_ItemEdited(object sender, CategoryEventArgs e)
         {
-            // Update the edited category in the DataTable in form1
+            // Update the edited category in the DataTable in form
 
             DataRow editedRow = categoryTable.Rows.Find(e.PrimaryKeyValue);
             if (editedRow != null)
@@ -175,7 +165,6 @@ namespace SupermarketTuto.Forms
             edit.CatIdTb.ReadOnly = true;
             edit.ItemEdited += Edit_ItemEdited;
 
-
             //edit.DataChanged += Edit_DataChanged;
 
             edit.Show();
@@ -187,17 +176,14 @@ namespace SupermarketTuto.Forms
             {
                 List<DataRow> rowsToDelete = new List<DataRow>();
                 DataRow row = null;
-                CategoryTbl category = new CategoryTbl();
                 // loop over the selected rows and add them to the list
                 foreach (DataGridViewRow selectedRow in CatDGV.SelectedRows)
                 {
                     //Convert DataGridViewRow -> DataRow
                     row = ((DataRowView)selectedRow.DataBoundItem).Row;
-                    category.CatId = Convert.ToInt32(row["CatId"].ToString());
-                    category.CatName = row["CatName"].ToString();
-                    category.CatDesc = row["CatDesc"].ToString();
-                    category.Date = (DateTime)row["Date"];
-                    var CategoryDelete = DataModel.Delete<CategoryTbl>(category);
+                    string CatId = Convert.ToInt32(row["CatId"]).ToString();
+                    CategoryTbl category = DataModel.Select<CategoryTbl>(where: $"CatId = '{CatId}' ").FirstOrDefault();
+                    DataModel.Delete<CategoryTbl>(category);
                     rowsToDelete.Add(row);
                 }
 
@@ -210,7 +196,7 @@ namespace SupermarketTuto.Forms
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                Utils.Utils.Log(string.Format("Message : {0}", ex.Message), "ErrorDeleteProduct.txt");
+                Utils.Utils.Log(string.Format("Message : {0}", ex.Message), "ErrorDeleteCategory.txt");
             }
         }
 

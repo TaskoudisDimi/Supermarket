@@ -49,11 +49,6 @@ namespace SupermarketTuto.Forms
         DataTable categoryTable = new DataTable();
         BindingSource bindingSource = new BindingSource();
 
-
-        private BackgroundWorker backgroundWorker;
-        private WaitBar progressForm;
-
-
         public Product()
         {
             InitializeComponent();
@@ -69,14 +64,6 @@ namespace SupermarketTuto.Forms
 
             importCombobox.Items.Add("Csv");
             importCombobox.Items.Add("Xlsx");
-
-            backgroundWorker = new BackgroundWorker();
-            backgroundWorker.WorkerReportsProgress = true;
-            backgroundWorker.DoWork += BackgroundWorker_DoWork;
-            backgroundWorker.ProgressChanged += BackgroundWorker_ProgressChanged;
-            backgroundWorker.RunWorkerCompleted += BackgroundWorker_RunWorkerCompleted;
-
-            progressForm = new WaitBar();
 
 
         }
@@ -106,37 +93,7 @@ namespace SupermarketTuto.Forms
 
             MenuStrip.Instance.Menu(ProdDGV, productTable, categoryTable, productType, false);
 
-            backgroundWorker.RunWorkerAsync();
-            progressForm.Show();
-
-
-        }
-
-        private void BackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            Thread.Sleep(50);
-            //// Simulate a time-consuming operation (5 seconds)
-            //for (int i = 0; i < 100; i++)
-            //{
-            //    Thread.Sleep(50); // Simulate work
-            //    backgroundWorker.ReportProgress(i); // Report progress
-            //}
-        }
-
-        private void BackgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
-            // Update the progress bar in the progress form
-            progressForm.UpdateProgressBar(e.ProgressPercentage);
-        }
-
-        private void BackgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-           
-            // Close the progress form when the background work is done
-            progressForm.Close();
-
-        }
-
+        }       
 
         private void MyDataGridView_UpdateData(object sender, EventArgs e)
         {
@@ -152,7 +109,7 @@ namespace SupermarketTuto.Forms
 
                 var products = DataModel.Select<ProductTbl>();
                 productTable = Utils.Utils.ToDataTable(products);
-
+                productTable.PrimaryKey = new DataColumn[] { productTable.Columns["ProdId"] };
                 bindingSource.DataSource = productTable;
                 ProdDGV.DataSource = bindingSource;
 
@@ -211,27 +168,34 @@ namespace SupermarketTuto.Forms
             addEditProduct edit = new addEditProduct(productTable, currentRow, categoryTable, false);
             edit.addButton.Visible = false;
             edit.ProdId.ReadOnly = true;
+            edit.ItemEdited += Edit_ItemEdited;
             edit.Show();
+
+            
         }
 
         private void Add_ItemCreated(object sender, ProductEventArgs e)
         {
-            productTable.Rows.Add(e.CreatedProduct.ProdId, e.CreatedProduct.ProdName, e.CreatedProduct.ProdQty, e.CreatedProduct.ProdPrice, e.CreatedProduct.ProdCat, e.CreatedProduct.ProdCatID, e.CreatedProduct.Date);
+            productTable.Rows.Add(e.CreatedProduct.ProdId, e.CreatedProduct.ProdName, e.CreatedProduct.ProdQty, e.CreatedProduct.ProdPrice, e.CreatedProduct.ProdCatID, e.CreatedProduct.ProdCat, e.CreatedProduct.Date);
             ProdDGV.Refresh();
         }
 
         private void Edit_ItemEdited(object sender, ProductEventArgs e)
         {
-            //// Update the edited category in the DataTable in form1
+            // Update the edited category in the DataTable in form
 
-            //DataRow editedRow = categoryTable.Rows.Find(e.PrimaryKeyValue);
-            //if (editedRow != null)
-            //{
-            //    editedRow["CatName"] = e.CreatedCategory.CatName;
-            //    editedRow["CatDesc"] = e.CreatedCategory.CatDesc;
-            //    editedRow["Date"] = e.CreatedCategory.Date;
-            //}
-            //CatDGV.Refresh();
+            DataRow editedRow = productTable.Rows.Find(e.PrimaryKeyValue);
+            if (editedRow != null)
+            {
+                editedRow["ProdName"] = e.CreatedProduct.ProdName;
+                editedRow["ProdPrice"] = e.CreatedProduct.ProdPrice;
+                editedRow["ProdCat"] = e.CreatedProduct.ProdCat;
+                editedRow["ProdCatID"] = e.CreatedProduct.ProdCatID;
+                editedRow["ProdQty"] = e.CreatedProduct.ProdQty;
+                editedRow["Date"] = e.CreatedProduct.Date;
+            }
+            ProdDGV.Refresh();
+
         }
 
 
@@ -246,10 +210,12 @@ namespace SupermarketTuto.Forms
                 {
                     //Convert DataGridViewRow -> DataRow
                     row = ((DataRowView)selectedRow.DataBoundItem).Row;
+                    string ProdId = Convert.ToInt32(row["ProdId"]).ToString();
+                    ProductTbl products = DataModel.Select<ProductTbl>(where: $"ProdId = '{ProdId}' ").FirstOrDefault();
+                    DataModel.Delete<ProductTbl>(products);
                     rowsToDelete.Add(row);
                 }
-                
-                //DataAccess.Instance.DeleteData(row, productType);
+
                 // loop over the rows to delete and remove them from the DataTable
                 foreach (DataRow rowToDelete in rowsToDelete)
                 {

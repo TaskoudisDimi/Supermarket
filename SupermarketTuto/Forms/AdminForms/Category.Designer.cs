@@ -159,7 +159,7 @@
             // 
             // showSelectedProductsButton
             // 
-            this.showSelectedProductsButton.Location = new System.Drawing.Point(1755, 71);
+            this.showSelectedProductsButton.Location = new System.Drawing.Point(896, 19);
             this.showSelectedProductsButton.Name = "showSelectedProductsButton";
             this.showSelectedProductsButton.Size = new System.Drawing.Size(237, 36);
             this.showSelectedProductsButton.TabIndex = 118;
@@ -248,7 +248,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(2041, 846);
+            this.ClientSize = new System.Drawing.Size(1756, 846);
             this.ControlBox = false;
             this.Controls.Add(this.importCombobox);
             this.Controls.Add(this.exportCombobox);

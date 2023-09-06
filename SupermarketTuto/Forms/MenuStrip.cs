@@ -42,31 +42,25 @@ namespace ClassLibrary1
             ContextMenuStrip menu = new ContextMenuStrip();
             ToolStripMenuItem editMenu = new ToolStripMenuItem("Edit");
             ToolStripMenuItem deleteMenu = new ToolStripMenuItem("Delete");
-            ToolStripMenuItem cleanDBMenu = new ToolStripMenuItem("Clean Database");
             if (haveSelected)
             {
                 ToolStripMenuItem selectedProdctsMenu = new ToolStripMenuItem("Selected Products");
                 editMenu.Click += new EventHandler(mnuEdit_Click);
                 deleteMenu.Click += new EventHandler(deleteMenu_Click);
                 selectedProdctsMenu.Click += new EventHandler(selectedProdctsMenu_Click);
-                cleanDBMenu.Click += new EventHandler(cleanDBMenu_Click);
-                menu.Items.AddRange(new ToolStripItem[] { editMenu, deleteMenu, selectedProdctsMenu, cleanDBMenu });
+                menu.Items.AddRange(new ToolStripItem[] { editMenu, deleteMenu, selectedProdctsMenu });
                 data.ContextMenuStrip = menu;
             }
             else
             {
                 editMenu.Click += new EventHandler(mnuEdit_Click);
                 deleteMenu.Click += new EventHandler(deleteMenu_Click);
-                cleanDBMenu.Click += new EventHandler(cleanDBMenu_Click);
-                menu.Items.AddRange(new ToolStripItem[] { editMenu, deleteMenu, cleanDBMenu });
+                menu.Items.AddRange(new ToolStripItem[] { editMenu, deleteMenu });
                 data.ContextMenuStrip = menu;
             }
         }
 
-        private void cleanDBMenu_Click(object sender, EventArgs e)
-        {
-           // TODO: clean database data
-        }
+
 
         private void deleteMenu_Click(object sender, EventArgs e)
         {
