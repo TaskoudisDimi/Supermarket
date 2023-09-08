@@ -25,7 +25,7 @@ namespace SupermarketTuto
             Application.ThreadException += Application_ThreadException;
 
 
-            Application.Run(new MainAdmin());
+            Application.Run(new MainSelling());
         }
 
         private static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)

@@ -23,7 +23,7 @@ namespace SupermarketTuto.Forms.SellingForms
         DataTable productTableCombobox = new DataTable();
         Type productType = typeof(ProductTbl);
         BindingSource bindingSourceProducts = new BindingSource();
-
+        private DataTable originalProductTable;
         DataTable categoryTable = new DataTable();
         
 
@@ -44,20 +44,44 @@ namespace SupermarketTuto.Forms.SellingForms
 
         private void displayProducts()
         {
+            try
+            {
+
+                if (productDataTable.Columns["Total"] == null)
+                {
+                    productDataTable.Columns.Add("Total", typeof(int));
+                }
+
+                var products = DataModel.Select<ProductTbl>();
+                productDataTable = Utils.Utils.ToDataTable(products);
+                productDataTable.PrimaryKey = new DataColumn[] { productDataTable.Columns["ProdId"] };
+                bindingSourceProducts.DataSource = productDataTable;
+                ProdDGV.DataSource = bindingSourceProducts;
+
+                ProdDGV.RowHeadersVisible = false;
+                ProdDGV.AllowUserToAddRows = false;
+                ProdDGV.ReadOnly = true;
+                totalLabel.Text = $"Total: {ProdDGV.RowCount}";
+                ProdDGV.Columns[6].HeaderText = "Date";
+
+                // Attach the CurrentChanged event handler to the BindingSource
+                bindingSourceProducts.CurrentChanged += bindingSource_CurrentChanged;
+
+                // Initialize the originalCategoryTable field with the same data as categoryTable
+                originalProductTable = productDataTable.Copy();
+
+            }
+            catch (Exception ex)
+            {
+                Utils.Utils.Log(string.Format("Message : {0}", ex.Message), "ErrorPdoduct.txt");
+            }
+
             //All Products
             productDataTable = DataAccess.Instance.GetTable("ProductTbl");
             
-            if (productDataTable.Columns["Total"] == null)
-            {
-                productDataTable.Columns.Add("Total", typeof(int));
-            }
+            
 
-            bindingSourceProducts.DataSource = productDataTable;
-
-            ProdDGV.DataSource = bindingSourceProducts;
-            ProdDGV.AllowUserToAddRows = false;
-            ProdDGV.RowHeadersVisible = false;
-            totalLabel.Text = $"Total: {ProdDGV.RowCount}";
+            
 
            
             //foreach (DataRow row in productDataTable.Rows)
@@ -71,6 +95,32 @@ namespace SupermarketTuto.Forms.SellingForms
 
         }
 
+        private void bindingSource_CurrentChanged(object sender, EventArgs e)
+        {
+            UpdateDataGridView();
+        }
+
+        private void UpdateDataGridView()
+        {
+            try
+            {
+                int currentPage = bindingSourceProducts.Position / 5 + 1;
+                int startIndex = (currentPage - 1) * 5;
+
+                DataTable pageDataTable = productDataTable.Clone();
+                for (int i = startIndex; i < startIndex + 5 && i < bindingSourceProducts.Count; i++)
+                {
+                    pageDataTable.ImportRow(productDataTable.Rows[i]);
+                }
+
+                ProdDGV.DataSource = pageDataTable;
+            }
+            catch
+            {
+
+            }
+
+        }
 
         private void fillCombo()
         {

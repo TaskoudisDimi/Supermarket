@@ -31,13 +31,13 @@ namespace SupermarketTuto.Forms.General
     {
         DataTable sellersTable = new DataTable();
         DataRow selected;
-
+        SellersTbl seller = new SellersTbl();
         GMapControl map = new GMapControl();
         HttpClient client = new HttpClient();
         Northeast coor = new Northeast();
         string address = string.Empty;
         string url = "https://maps.googleapis.com/maps/api/geocode/json?address={0}&key=AIzaSyA6xRZPHBhRuVErZgLtseHnB6heQFiyo3g";
-
+        string imageName = "";
         public addEditSeller(DataTable sellersTable_, DataRow selected_, bool add)
         {
             InitializeComponent();
@@ -60,10 +60,13 @@ namespace SupermarketTuto.Forms.General
                 addressTextBox.Text = selected["Address"].ToString();
                 checkBox.Checked = (bool)selected["Active"];
 
-                byte[] imageData = (byte[])selected["Image"];
-                MemoryStream ms = new MemoryStream(imageData);
-                Image image = Image.FromStream(ms);
-                pictureBox.Image = image;
+                if (!selected.IsNull("Image"))
+                {
+                    byte[] imageData = (byte[])selected["Image"];
+                    MemoryStream ms = new MemoryStream(imageData);
+                    Image image = Image.FromStream(ms);
+                    pictureBox.Image = image;
+                }
 
                 dateTimePicker.Value = (DateTime)selected["Date"];
                 addButton.Visible = false;
@@ -71,26 +74,31 @@ namespace SupermarketTuto.Forms.General
         }
         private void editButton_Click(object sender, EventArgs e)
         {
-
             try
             {
-                DateTime Date = dateTimePicker.Value.Date;
-                DataRow row = sellersTable.Rows.Cast<DataRow>().Where(r => r.Field<int>("SellerId") == Int32.Parse(SellId.Text)).FirstOrDefault();
-                row["SellerUserName"] = usernameTextBox.Text;
-                byte[] asciiBytes = Encoding.ASCII.GetBytes(passwordTextBox.Text);
-                row["SellerPass"] = asciiBytes;
-                row["SellerName"] = SellName.Text;
-                row["SellerAge"] = SellAge.Text;
-                row["SellerPhone"] = SellPhone.Text;
-                row["Address"] = addressTextBox.Text;
-                row["Active"] = checkBox.Checked;
-                row["Date"] = Date;
-                if (sellersTable.Rows.Cast<DataRow>().Any(r => r.RowState == DataRowState.Modified))
+                if (SellName.Text == "" || SellAge.Text == "" || SellPhone.Text == "" || passwordTextBox.Text == "" || addressTextBox.Text == "")
                 {
-                    //DataAccess.Instance.UpdateData(sellersTable);
+                    MessageBox.Show("Missing Information");
                 }
-                MessageBox.Show("Product Successfully Updated");
-                this.Close();
+                else
+                {
+                    //byte[] imageBytes = Utils.Utils.ImageToByteArray(pictureBox.Image);
+                    byte[] imageData = File.ReadAllBytes(imageName);
+                    seller.SellerName = SellName.Text;
+                    byte[] asciiBytes = Encoding.ASCII.GetBytes(passwordTextBox.Text);
+                    seller.SellerPass = asciiBytes;
+                    seller.SellerAge = Convert.ToInt32(SellAge.Text);
+                    seller.SellerUserName = usernameTextBox.Text;
+                    seller.SellerPhone = Convert.ToInt32(SellPhone.Text);
+                    seller.Address = addressTextBox.Text;
+                    seller.Active = checkBox.Checked;
+                    seller.Date = dateTimePicker.Value;
+                    seller.image = imageData;
+                    DataModel.Update<SellersTbl>(seller);
+                    MessageBox.Show("Seller Successfully Updated");
+                    this.Close();
+                }
+               
             }
             catch (Exception ex)
             {
@@ -140,7 +148,7 @@ namespace SupermarketTuto.Forms.General
             }
         }
 
-        string imageName = "";
+        
         private void browseButton_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();

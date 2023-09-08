@@ -33,8 +33,10 @@
             this.billButton = new System.Windows.Forms.Button();
             this.createBillButton = new System.Windows.Forms.Button();
             this.seller_Name_Label = new System.Windows.Forms.Label();
-            this.mainPanel = new System.Windows.Forms.Panel();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.sidePanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
             // 
             // sidePanel
@@ -102,23 +104,33 @@
             this.seller_Name_Label.TabIndex = 0;
             this.seller_Name_Label.Text = "Seller Name";
             // 
-            // mainPanel
+            // splitContainer1
             // 
-            this.mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mainPanel.Location = new System.Drawing.Point(163, 0);
-            this.mainPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.mainPanel.Name = "mainPanel";
-            this.mainPanel.Size = new System.Drawing.Size(1399, 690);
-            this.mainPanel.TabIndex = 70;
+            this.splitContainer1.AllowDrop = true;
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(163, 0);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.AutoScroll = true;
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.AutoScroll = true;
+            this.splitContainer1.Size = new System.Drawing.Size(1061, 690);
+            this.splitContainer1.SplitterDistance = 353;
+            this.splitContainer1.TabIndex = 70;
             // 
             // MainSelling
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1562, 690);
-            this.Controls.Add(this.mainPanel);
+            this.AutoScroll = true;
+            this.ClientSize = new System.Drawing.Size(1224, 690);
+            this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.sidePanel);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MainSelling";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Main";
@@ -127,6 +139,8 @@
             this.Load += new System.EventHandler(this.Main_Load);
             this.sidePanel.ResumeLayout(false);
             this.sidePanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -137,7 +151,7 @@
         private Button billButton;
         private Button createBillButton;
         private Label seller_Name_Label;
-        private Panel mainPanel;
         private Button categoriesProductsButton;
+        private SplitContainer splitContainer1;
     }
 }

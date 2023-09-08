@@ -1,5 +1,6 @@
 ﻿using DataClass;
 using SupermarketTuto.Utils;
+using System.Windows.Forms;
 
 namespace SupermarketTuto.Forms.SellingForms
 {
@@ -109,26 +110,19 @@ namespace SupermarketTuto.Forms.SellingForms
         private void createBillButton_Click(object sender, EventArgs e)
         {
             CreateBillForm form = new CreateBillForm();
-            form.TopLevel = false;
-            form.TopMost = true;
-            mainPanel.Controls.Add(form);
-            form.BringToFront();
-            form.Show();
+            ShowFormOnPanel(form);
         }
 
         private void billButton_Click(object sender, EventArgs e)
         {
             Bills form = new Bills();
-            form.TopLevel = false;
-            form.TopMost = true;
-            mainPanel.Controls.Add(form);
-            form.BringToFront();
-            form.Show();
+            ShowFormOnPanel(form);
         }
 
         private void Main_Load(object sender, EventArgs e)
         {
             MainMenu();
+            splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
         }
 
         private void Main_FormClosing(object sender, FormClosingEventArgs e)
@@ -142,12 +136,47 @@ namespace SupermarketTuto.Forms.SellingForms
 
         private void categoriesProductsButton_Click(object sender, EventArgs e)
         {
-            Categories_Products form = new Categories_Products();
-            form.TopLevel = false;
-            form.TopMost = true;
-            mainPanel.Controls.Add(form);
-            form.BringToFront();
-            form.Show();
+            Category form = new Category();
+            Product form2 = new Product();
+            Show2FormsOnPanel(form, form2);
         }
+
+        private void ShowFormOnPanel(Form newForm)
+        {
+            // Check if there's already a form in the panel
+            if (splitContainer1.Panel1.Controls.Count > 0)
+            {
+                // Remove the previous form from the panel
+                splitContainer1.Panel1.Controls.RemoveAt(0);
+            }
+            newForm.FormBorderStyle = FormBorderStyle.None;
+            // Add the new form to the panel
+            newForm.TopLevel = false;
+            newForm.TopMost = true;
+            splitContainer1.Panel1.Controls.Add(newForm);
+            newForm.Show();
+
+        }
+
+        private void Show2FormsOnPanel(Form form1, Form form2)
+        {
+
+            // Set the TopLevel and TopMost properties for both forms
+            form1.TopLevel = false;
+            form2.TopLevel = false;
+
+            form1.TopMost = true;
+            form2.TopMost = true;
+
+            // Add both forms to the panel
+            splitContainer1.Panel1.Controls.Add(form1);
+            splitContainer1.Panel2.Controls.Add(form2);
+
+            // Show both forms
+            form1.Show();
+            form2.Show();
+
+        }
+
     }
 }

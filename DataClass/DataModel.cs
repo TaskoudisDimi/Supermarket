@@ -194,7 +194,6 @@ namespace ClassLibrary1
                 object idOfTable = null;
                 object valueOfIdOfTable = null;
                 bool findPrimaryKey = false;
-                List<object> values = new List<object>();
                 sb.Append($"Update {table} set ");
                 foreach (PropertyInfo prop in properties)
                 {
@@ -207,7 +206,7 @@ namespace ClassLibrary1
                     }
                     object Value = prop.GetValue(item, null);
                     object ValuesCMD = GetValueFromItem(prop, Value);
-                    values.Add(ValuesCMD);
+
                     sb.Append($"[{table}].[{prop.Name}] = {ValuesCMD} ,");
                 }
                 string cmd = sb.ToString();
@@ -347,6 +346,10 @@ namespace ClassLibrary1
             else if (prop.PropertyType == typeof(string))
             {
                 return string.Format("'{0}'", Utils.GetString(val));
+            }
+            else if(prop.PropertyType == typeof(byte[]))
+            {
+                return val;
             }
 
             //string strValue = $"ENCRYPTBYPASSPHRASE('{Globals.EncryptionKey}', {strValue})";
@@ -535,9 +538,9 @@ namespace ClassLibrary1
                             else if (propType == typeof(decimal)) { value = Utils.GetDecimal(value, 0); }
                             else if (propType == typeof(bool)) { value = Utils.GetBool(value, false); }
                             else if (propType == typeof(DateTime)) { value = Utils.GetDate(value, new DateTime(1700, 1, 1)); }
-                            else if (propType == typeof(byte)) {
-                                string stringValue = Convert.ToBase64String((byte[])value);
-                                propertyInfo.SetValue(obj, stringValue, null);
+                            else if (propType == typeof(byte[])) {
+
+                                propertyInfo.SetValue(obj, value, null);
                             }
 
                             propertyInfo.SetValue(obj, Convert.ChangeType(value, propType), null);
