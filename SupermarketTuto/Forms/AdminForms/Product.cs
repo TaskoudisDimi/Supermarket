@@ -36,8 +36,6 @@ namespace SupermarketTuto.Forms
 {
     public partial class Product : Form
     {
-
-
         ExcelFile excel = new ExcelFile();
         private Timer timer = new Timer();
         public delegate void UpdateDataHandler(object sender, EventArgs e);

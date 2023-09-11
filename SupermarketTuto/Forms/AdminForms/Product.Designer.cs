@@ -53,7 +53,7 @@
             // 
             this.totalLabel.AutoSize = true;
             this.totalLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.totalLabel.Location = new System.Drawing.Point(6, 603);
+            this.totalLabel.Location = new System.Drawing.Point(8, 437);
             this.totalLabel.Name = "totalLabel";
             this.totalLabel.Size = new System.Drawing.Size(48, 20);
             this.totalLabel.TabIndex = 106;
@@ -64,7 +64,7 @@
             this.searchButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.searchButton.Location = new System.Drawing.Point(254, 64);
             this.searchButton.Name = "searchButton";
-            this.searchButton.Size = new System.Drawing.Size(128, 35);
+            this.searchButton.Size = new System.Drawing.Size(68, 29);
             this.searchButton.TabIndex = 105;
             this.searchButton.Text = "Search";
             this.searchButton.UseVisualStyleBackColor = true;
@@ -91,16 +91,16 @@
             this.ProdDGV.RowHeadersWidth = 62;
             this.ProdDGV.RowTemplate.Height = 30;
             this.ProdDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.ProdDGV.Size = new System.Drawing.Size(1576, 489);
+            this.ProdDGV.Size = new System.Drawing.Size(1089, 329);
             this.ProdDGV.TabIndex = 103;
             this.ProdDGV.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.ProdDGV_CellFormatting);
             // 
             // deleteButton
             // 
             this.deleteButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.deleteButton.Location = new System.Drawing.Point(1060, 602);
+            this.deleteButton.Location = new System.Drawing.Point(722, 437);
             this.deleteButton.Name = "deleteButton";
-            this.deleteButton.Size = new System.Drawing.Size(99, 37);
+            this.deleteButton.Size = new System.Drawing.Size(102, 34);
             this.deleteButton.TabIndex = 97;
             this.deleteButton.Text = "Delete";
             this.deleteButton.UseVisualStyleBackColor = true;
@@ -109,9 +109,9 @@
             // editButton
             // 
             this.editButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.editButton.Location = new System.Drawing.Point(949, 602);
+            this.editButton.Location = new System.Drawing.Point(614, 437);
             this.editButton.Name = "editButton";
-            this.editButton.Size = new System.Drawing.Size(96, 34);
+            this.editButton.Size = new System.Drawing.Size(102, 34);
             this.editButton.TabIndex = 96;
             this.editButton.Text = "Edit";
             this.editButton.UseVisualStyleBackColor = true;
@@ -120,9 +120,9 @@
             // addButton
             // 
             this.addButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.addButton.Location = new System.Drawing.Point(767, 602);
+            this.addButton.Location = new System.Drawing.Point(506, 437);
             this.addButton.Name = "addButton";
-            this.addButton.Size = new System.Drawing.Size(165, 37);
+            this.addButton.Size = new System.Drawing.Size(102, 34);
             this.addButton.TabIndex = 95;
             this.addButton.Text = "Create New";
             this.addButton.UseVisualStyleBackColor = true;
@@ -132,7 +132,7 @@
             // 
             this.catComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.catComboBox.FormattingEnabled = true;
-            this.catComboBox.Location = new System.Drawing.Point(825, 58);
+            this.catComboBox.Location = new System.Drawing.Point(347, 63);
             this.catComboBox.Name = "catComboBox";
             this.catComboBox.Size = new System.Drawing.Size(207, 28);
             this.catComboBox.TabIndex = 107;
@@ -143,7 +143,7 @@
             // 
             this.toDateTimePicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.toDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.toDateTimePicker.Location = new System.Drawing.Point(1259, 57);
+            this.toDateTimePicker.Location = new System.Drawing.Point(781, 62);
             this.toDateTimePicker.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.toDateTimePicker.Name = "toDateTimePicker";
             this.toDateTimePicker.Size = new System.Drawing.Size(179, 26);
@@ -154,7 +154,7 @@
             // 
             this.fromDateTimePicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.fromDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.fromDateTimePicker.Location = new System.Drawing.Point(1081, 57);
+            this.fromDateTimePicker.Location = new System.Drawing.Point(603, 62);
             this.fromDateTimePicker.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.fromDateTimePicker.Name = "fromDateTimePicker";
             this.fromDateTimePicker.Size = new System.Drawing.Size(169, 26);
@@ -165,7 +165,7 @@
             // 
             this.catLabel.AutoSize = true;
             this.catLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.catLabel.Location = new System.Drawing.Point(862, 26);
+            this.catLabel.Location = new System.Drawing.Point(384, 31);
             this.catLabel.Name = "catLabel";
             this.catLabel.Size = new System.Drawing.Size(86, 20);
             this.catLabel.TabIndex = 121;
@@ -174,9 +174,9 @@
             // nextButton
             // 
             this.nextButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.nextButton.Location = new System.Drawing.Point(600, 603);
+            this.nextButton.Location = new System.Drawing.Point(374, 435);
             this.nextButton.Name = "nextButton";
-            this.nextButton.Size = new System.Drawing.Size(85, 34);
+            this.nextButton.Size = new System.Drawing.Size(102, 34);
             this.nextButton.TabIndex = 124;
             this.nextButton.Text = "Next";
             this.nextButton.UseVisualStyleBackColor = true;
@@ -186,9 +186,9 @@
             // prevButton
             // 
             this.prevButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.prevButton.Location = new System.Drawing.Point(499, 602);
+            this.prevButton.Location = new System.Drawing.Point(266, 436);
             this.prevButton.Name = "prevButton";
-            this.prevButton.Size = new System.Drawing.Size(96, 36);
+            this.prevButton.Size = new System.Drawing.Size(102, 34);
             this.prevButton.TabIndex = 123;
             this.prevButton.Text = "Previous";
             this.prevButton.UseVisualStyleBackColor = true;
@@ -198,7 +198,7 @@
             // pagingComboBox
             // 
             this.pagingComboBox.FormattingEnabled = true;
-            this.pagingComboBox.Location = new System.Drawing.Point(401, 604);
+            this.pagingComboBox.Location = new System.Drawing.Point(179, 439);
             this.pagingComboBox.Margin = new System.Windows.Forms.Padding(2);
             this.pagingComboBox.Name = "pagingComboBox";
             this.pagingComboBox.Size = new System.Drawing.Size(82, 21);
@@ -208,7 +208,7 @@
             // pagingCheckBox
             // 
             this.pagingCheckBox.AutoSize = true;
-            this.pagingCheckBox.Location = new System.Drawing.Point(326, 604);
+            this.pagingCheckBox.Location = new System.Drawing.Point(116, 441);
             this.pagingCheckBox.Margin = new System.Windows.Forms.Padding(2);
             this.pagingCheckBox.Name = "pagingCheckBox";
             this.pagingCheckBox.Size = new System.Drawing.Size(59, 17);
@@ -220,7 +220,7 @@
             // exportCombobox
             // 
             this.exportCombobox.FormattingEnabled = true;
-            this.exportCombobox.Location = new System.Drawing.Point(1477, 613);
+            this.exportCombobox.Location = new System.Drawing.Point(997, 436);
             this.exportCombobox.Margin = new System.Windows.Forms.Padding(2);
             this.exportCombobox.Name = "exportCombobox";
             this.exportCombobox.Size = new System.Drawing.Size(99, 21);
@@ -231,7 +231,7 @@
             // importCombobox
             // 
             this.importCombobox.FormattingEnabled = true;
-            this.importCombobox.Location = new System.Drawing.Point(1356, 613);
+            this.importCombobox.Location = new System.Drawing.Point(894, 436);
             this.importCombobox.Margin = new System.Windows.Forms.Padding(2);
             this.importCombobox.Name = "importCombobox";
             this.importCombobox.Size = new System.Drawing.Size(99, 21);
@@ -253,7 +253,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1644, 693);
+            this.ClientSize = new System.Drawing.Size(1125, 502);
             this.ControlBox = false;
             this.Controls.Add(this.button1);
             this.Controls.Add(this.importCombobox);

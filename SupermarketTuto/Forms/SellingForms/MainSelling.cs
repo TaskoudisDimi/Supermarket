@@ -144,9 +144,14 @@ namespace SupermarketTuto.Forms.SellingForms
         private void ShowFormOnPanel(Form newForm)
         {
             // Check if there's already a form in the panel
-            if (splitContainer1.Panel1.Controls.Count > 0)
+            if (splitContainer1.Panel1.Controls.Count > 0 && splitContainer1.Panel2.Controls.Count > 0)
             {
                 // Remove the previous form from the panel
+                splitContainer1.Panel1.Controls.RemoveAt(0);
+                splitContainer1.Panel2.Controls.RemoveAt(0);
+            }
+            else if(splitContainer1.Panel1.Controls.Count > 0)
+            {
                 splitContainer1.Panel1.Controls.RemoveAt(0);
             }
             newForm.FormBorderStyle = FormBorderStyle.None;
@@ -154,24 +159,28 @@ namespace SupermarketTuto.Forms.SellingForms
             newForm.TopLevel = false;
             newForm.TopMost = true;
             splitContainer1.Panel1.Controls.Add(newForm);
+            
             newForm.Show();
 
         }
 
         private void Show2FormsOnPanel(Form form1, Form form2)
         {
-
+            if (splitContainer1.Panel1.Controls.Count > 0)
+            {
+                splitContainer1.Panel1.Controls.RemoveAt(0);
+            }
             // Set the TopLevel and TopMost properties for both forms
             form1.TopLevel = false;
             form2.TopLevel = false;
-
             form1.TopMost = true;
             form2.TopMost = true;
+
 
             // Add both forms to the panel
             splitContainer1.Panel1.Controls.Add(form1);
             splitContainer1.Panel2.Controls.Add(form2);
-
+            
             // Show both forms
             form1.Show();
             form2.Show();

@@ -35,17 +35,14 @@ namespace SupermarketTuto.Forms.SellingForms
         private void CategoryForm_Load(object sender, EventArgs e)
         {
             fillCombo();
-
             displayProducts();
-
-            
-
         }
 
         private void displayProducts()
         {
             try
             {
+                totalAmountTextBox.Enabled = false;
 
                 if (productDataTable.Columns["Total"] == null)
                 {
@@ -69,7 +66,16 @@ namespace SupermarketTuto.Forms.SellingForms
 
                 // Initialize the originalCategoryTable field with the same data as categoryTable
                 originalProductTable = productDataTable.Copy();
-
+                double total = 0;
+                foreach (DataRow row in productDataTable.Rows)
+                {
+                    int qty = Convert.ToInt32(row["ProdQty"]);
+                    int price = Convert.ToInt32(row["ProdPrice"]);
+                    //row["Total"] = qty * price;
+                    total += qty * price;
+                }
+                //double totAmount = productDataTable.AsEnumerable().Sum(row => row.Field<int>("Total"));
+                totalAmountTextBox.Text = total.ToString();
             }
             catch (Exception ex)
             {
@@ -80,18 +86,6 @@ namespace SupermarketTuto.Forms.SellingForms
             productDataTable = DataAccess.Instance.GetTable("ProductTbl");
             
             
-
-            
-
-           
-            //foreach (DataRow row in productDataTable.Rows)
-            //{
-            //    int qty = Convert.ToInt32(row["ProdQty"]);
-            //    int price = Convert.ToInt32(row["ProdPrice"]);
-            //    row["Total"] = qty * price;
-            //}
-            //double totAmount = productDataTable.AsEnumerable().Sum(row => row.Field<int>("Total"));
-            //totalAmountTextBox.Text = totAmount.ToString();
 
         }
 
@@ -112,7 +106,7 @@ namespace SupermarketTuto.Forms.SellingForms
                 {
                     pageDataTable.ImportRow(productDataTable.Rows[i]);
                 }
-
+               
                 ProdDGV.DataSource = pageDataTable;
             }
             catch
@@ -155,7 +149,6 @@ namespace SupermarketTuto.Forms.SellingForms
         }
 
         
-
         private void SellingDGV_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             
@@ -213,6 +206,7 @@ namespace SupermarketTuto.Forms.SellingForms
             add.editButton.Visible = false;
             add.ProdId.Visible = false;
             add.idLabel.Visible = false;
+            add.ItemCreated += Add_ItemCreated;
             add.Show();
         }
 
@@ -222,22 +216,39 @@ namespace SupermarketTuto.Forms.SellingForms
             addEditProduct edit = new addEditProduct(productDataTable, currentRow, categoryTable, false);
             edit.addButton.Visible = false;
             edit.ProdId.ReadOnly = true;
+            edit.ItemEdited += Edit_ItemEdited;
             edit.Show();
+        }
+
+        private void Add_ItemCreated(object sender, ProductEventArgs e)
+        {
+            productDataTable.Rows.Add(e.CreatedProduct.ProdId, e.CreatedProduct.ProdName, e.CreatedProduct.ProdQty, e.CreatedProduct.ProdPrice, e.CreatedProduct.ProdCatID, e.CreatedProduct.ProdCat, e.CreatedProduct.Date);
+            ProdDGV.Refresh();
+        }
+
+        private void Edit_ItemEdited(object sender, ProductEventArgs e)
+        {
+            // Update the edited category in the DataTable in form
+
+            DataRow editedRow = productDataTable.Rows.Find(e.PrimaryKeyValue);
+            if (editedRow != null)
+            {
+                editedRow["ProdName"] = e.CreatedProduct.ProdName;
+                editedRow["ProdPrice"] = e.CreatedProduct.ProdPrice;
+                editedRow["ProdCat"] = e.CreatedProduct.ProdCat;
+                editedRow["ProdCatID"] = e.CreatedProduct.ProdCatID;
+                editedRow["ProdQty"] = e.CreatedProduct.ProdQty;
+                editedRow["Date"] = e.CreatedProduct.Date;
+            }
+            ProdDGV.Refresh();
+
         }
 
 
 
-
-
-
-
-
-
-
         #region ChechDatabase
-       
+
         #endregion
 
-        
     }
 }
