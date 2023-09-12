@@ -78,5 +78,15 @@ namespace SupermarketTuto.Forms.SellingForms
         {
            
         }
+
+        private void editButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void deleteButton_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

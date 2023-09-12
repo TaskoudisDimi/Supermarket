@@ -423,7 +423,7 @@ namespace ClassLibrary1
                     }
                     else if (type.Name.Equals("Bills"))
                     {
-                        Bills bills = new Bills();
+                        BillTbl bills = new BillTbl();
                         bills.BillId = Convert.ToInt32(row.Cells["BillId"].Value);
                         bills.Comments = row.Cells["Comments"].Value.ToString();
                         bills.SellerName = row.Cells["SellerName"].Value.ToString();
@@ -446,7 +446,7 @@ namespace ClassLibrary1
             {
                 List<ProductTbl> products = new List<ProductTbl>();
                 List<CategoryTbl> categories = new List<CategoryTbl>();
-                List<Bills> bills = new List<Bills>();
+                List<BillTbl> bills = new List<BillTbl>();
                 if (type.Name.Equals("Products"))
                 {
                     products = data.Cast<ProductTbl>().ToList();
@@ -457,7 +457,7 @@ namespace ClassLibrary1
                 }
                 else if (type.Name.Equals("Bills"))
                 {
-                    bills = data.Cast<Bills>().ToList();
+                    bills = data.Cast<BillTbl>().ToList();
                 }
 
                 DeleteIfExists(file);

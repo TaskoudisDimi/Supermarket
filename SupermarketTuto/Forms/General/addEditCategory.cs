@@ -82,7 +82,7 @@ namespace SupermarketTuto.Forms.General
             {
                 if (CatIdTb.Text == "" || CatNameTb.Text == "" || CatDescTb.Text == "")
                 {
-                    MessageBox.Show("Missing Information");
+                    MessageBox.Show("Missing Information", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
                 else
                 {
