@@ -15,7 +15,7 @@ using System.Windows.Forms;
 
 namespace SupermarketTuto.Forms
 {
-    public partial class AddBill : Form
+    public partial class AddEditBill : Form
     {
         string TotalAmount = "";
         DataTable billTable = new DataTable();
@@ -25,10 +25,10 @@ namespace SupermarketTuto.Forms
         List<ProductTbl> productsList = new List<ProductTbl>();
         List<CategoryTbl> categoriesList = new List<CategoryTbl>();
         BillTbl bill = new BillTbl();
-        string productIDs = "";
-
-
-        public AddBill(string TotalAmount_, string SellerName_, List<ProductTbl> productsList_)
+        StringBuilder productIDs = new StringBuilder();
+        StringBuilder categoryIDs = new StringBuilder();
+        bool isFirstItem = true;
+        public AddEditBill(string TotalAmount_, string SellerName_, List<ProductTbl> productsList_)
         {
             InitializeComponent();
             TotalAmount = TotalAmount_;
@@ -43,24 +43,34 @@ namespace SupermarketTuto.Forms
         {
             if(productsList != null)
             {
-                
                 foreach (ProductTbl prod in productsList)
                 {
                     prodListBox.DisplayMember = "ProdName";
                     prodListBox.Items.Add(prod);
+                    if (!isFirstItem)
+                    {
+                        productIDs.Append(", ");
+                    }
+                    productIDs.Append(prod.ProdId);
+
                     CategoryTbl category = DataModel.Select<CategoryTbl>(where: $"CatId = {prod.ProdCatID}").FirstOrDefault();
                     if(category != null)
                     {
                         categoriesList.Add(category);
                     }
-                    
+                   
+                    if (category != null && !isFirstItem)
+                        categoryIDs.Append(category.CatId);
+                    else if (category != null)
+                        categoryIDs.Append(category.CatId);
+
+                    isFirstItem = false;
                 }
 
                 if (categoriesList != null)
                 {
                     foreach (CategoryTbl cat in categoriesList)
                     {
-                        //string categoryIDs
                         catListBox.DisplayMember = "CatName";
                         catListBox.Items.Add(cat);
                     }
@@ -85,6 +95,8 @@ namespace SupermarketTuto.Forms
                     bill.SellerName = nameTextBox.Text;
                     bill.TotAmt = Convert.ToInt32(totalAmountTextBox.Text);
                     bill.Date = Convert.ToDateTime(dateTextBox.Text);
+                    bill.ProductIDs = productIDs.ToString();
+                    bill.CategoryIDs = categoryIDs.ToString();
                     DataModel.Create<BillTbl>(bill);
                     MessageBox.Show($"Successfully inserted Bill", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.Close();

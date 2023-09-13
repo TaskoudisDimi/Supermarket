@@ -124,6 +124,7 @@
             this.searchButton.TabIndex = 146;
             this.searchButton.Text = "Search";
             this.searchButton.UseVisualStyleBackColor = true;
+            this.searchButton.Click += new System.EventHandler(this.searchButton_Click);
             // 
             // searchTextBox
             // 
@@ -132,6 +133,8 @@
             this.searchTextBox.Name = "searchTextBox";
             this.searchTextBox.Size = new System.Drawing.Size(222, 26);
             this.searchTextBox.TabIndex = 145;
+            this.searchTextBox.TextChanged += new System.EventHandler(this.searchTextBox_TextChanged);
+            this.searchTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.searchTextBox_KeyPress);
             // 
             // selectAllCheckBox
             // 
@@ -142,6 +145,7 @@
             this.selectAllCheckBox.TabIndex = 147;
             this.selectAllCheckBox.Text = "Select All";
             this.selectAllCheckBox.UseVisualStyleBackColor = true;
+            this.selectAllCheckBox.CheckedChanged += new System.EventHandler(this.selectAllCheckBox_CheckedChanged);
             // 
             // toDateTimePicker
             // 
@@ -152,6 +156,7 @@
             this.toDateTimePicker.Name = "toDateTimePicker";
             this.toDateTimePicker.Size = new System.Drawing.Size(179, 26);
             this.toDateTimePicker.TabIndex = 149;
+            this.toDateTimePicker.ValueChanged += new System.EventHandler(this.toDateTimePicker_ValueChanged);
             // 
             // fromDateTimePicker
             // 
@@ -162,6 +167,7 @@
             this.fromDateTimePicker.Name = "fromDateTimePicker";
             this.fromDateTimePicker.Size = new System.Drawing.Size(169, 26);
             this.fromDateTimePicker.TabIndex = 148;
+            this.fromDateTimePicker.ValueChanged += new System.EventHandler(this.fromDateTimePicker_ValueChanged);
             // 
             // editButton
             // 

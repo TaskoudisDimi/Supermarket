@@ -119,7 +119,6 @@
     <Compile Include="Models\Admins.cs" />
     <Compile Include="Models\DataGridViewCellChange.cs" />
     <Compile Include="Models\Food.cs" />
-    <Compile Include="Models\PreBillsTbl.cs" />
     <Compile Include="Models\BillTbl.cs" />
     <Compile Include="Models\CategoryTbl.cs" />
     <Compile Include="Models\Excel.cs" />

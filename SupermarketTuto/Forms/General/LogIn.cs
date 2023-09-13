@@ -18,6 +18,8 @@ using SupermarketTuto.Utils;
 using Constants = DataClass.Constants;
 using SupermarketTuto.Forms.SellingForms;
 using DataTable = System.Data.DataTable;
+using ClassLibrary1.Models;
+using ClassLibrary1;
 
 namespace SupermarketTuto
 {
@@ -31,7 +33,6 @@ namespace SupermarketTuto
             selectRoleCombobox.Items.Insert(0, "Select Role");
             selectRoleCombobox.SelectedIndex = 0;
             CheckForUpdates();
-            AddVersionNumber();
             AddVersionNumber();
         }
 
@@ -59,60 +60,57 @@ namespace SupermarketTuto
 
         private void LogInButton_Click(object sender, EventArgs e)
         {
-            //try
-            //{
-            //    if (UserNameTextBox.Text == String.Empty && PasswordTextBox.Text == String.Empty)
-            //    {
-            //        MessageBox.Show("Misiing Data!");
-            //    }
-            //    else
-            //    {
-            //        if (selectRoleCombobox.SelectedItem != "Select Role")
-            //        {
-            //            if (selectRoleCombobox.SelectedItem == "Admin")
-            //            {
-            //                loaddata.getData("Select * From [smarketdb].[dbo].[Admins] Where UserName = '" + UserNameTextBox.Text + "' and Password = CONVERT(varbinary,'" + PasswordTextBox.Text + "')");
-            //                if (loaddata.table.Rows.Count == 1)
-            //                {
-            //                    MainAdmin products = new MainAdmin();
-            //                    products.Show();
-            //                    this.Hide();
-            //                }
-            //                else
-            //                {
-            //                    MessageBox.Show("Opps! Wrong Credentials!");
-            //                }
-            //            }
-            //            if (selectRoleCombobox.SelectedItem == "Seller")
-            //            {
-            //                loaddata.getData("Select * From [smarketdb].[dbo].[SellersTbl] Where SellerUserName = '" + UserNameTextBox.Text + $"' and SellerPass = CONVERT(varbinary,'{PasswordTextBox.Text}')");
-            //                if (loaddata.table.Rows.Count == 1)
-            //                {
+            try
+            {
+                if (UserNameTextBox.Text == String.Empty && PasswordTextBox.Text == String.Empty)
+                {
+                    MessageBox.Show("Misiing Data!");
+                }
+                else
+                {
+                    if (selectRoleCombobox.SelectedItem != "Select Role")
+                    {
+                        if (selectRoleCombobox.SelectedItem == "Admin")
+                        {
+                            Admins admin = DataModel.Select<Admins>(where: $"UserName = {UserNameTextBox.Text} and Password = CONVERT(varbinary, '{PasswordTextBox.Text}'").FirstOrDefault();
+                            if (admin != null)
+                            {
+                                MainAdmin adminForms = new MainAdmin();
+                                adminForms.Show();
+                                this.Close();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Opps! Wrong Credentials!");
+                            }
+                        }
+                        if (selectRoleCombobox.SelectedItem == "Seller")
+                        {
+                            SellersTbl seller = DataModel.Select<SellersTbl>(where: $"SellerUserName = {UserNameTextBox.Text} and SellerPass = CONVERT(varbinary,'{PasswordTextBox.Text}'").FirstOrDefault();
+                            if (seller != null)
+                            {
+                                Globals.NameOfSeller = seller.SellerName;
+                                MainSelling sellingForms = new MainSelling();
+                                sellingForms.Show();
+                                this.Close();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Opps! Wrong Credentials!");
+                            }
+                        }
+                    }
+                    else if (selectRoleCombobox.SelectedItem == "Select Role")
+                    {
+                        MessageBox.Show("Select Role!");
+                    }
 
-            //                    Globals.NameOfSeller = loaddata.table.Rows[0][1].ToString();
-
-            //                    MainSelling selling = new MainSelling();
-            //                    selling.Show();
-            //                    this.Hide();
-            //                }
-            //                else
-            //                {
-            //                    MessageBox.Show("Opps! Wrong Credentials!");
-            //                }
-            //            }
-            //        }
-            //        else if (selectRoleCombobox.SelectedItem == "Select Role")
-            //        {
-            //            MessageBox.Show("Select Role!");
-            //        }
-
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show("Error", Constants.Error, MessageBoxButtons.OK);
-            //    Utlis.Log(string.Format("Message : {0}", ex.Message), "ErrorLogIn.txt");
-            //}
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error", Constants.Error, MessageBoxButtons.OK);
+            }
         }
 
         private void CreateAccountButton_Click(object sender, EventArgs e)

@@ -143,12 +143,12 @@ namespace ClassLibrary1
                 }
                 foreach (PropertyInfo p in properties)
                 {
-                    if (p.Name.ToLower().Contains("prodid")) continue;
+                    if (p.Name.ToLower().Contains("prodid") || p.Name.ToLower().Contains("billid")) continue;
                     selectFields.Add(p.Name);
                 }
                 foreach (PropertyInfo prop in properties)
                 {
-                    if (prop.Name.ToLower().Contains("prodid")) continue;
+                    if (prop.Name.ToLower().Contains("prodid") || prop.Name.ToLower().Contains("billid")) continue;
                     object Value = prop.GetValue(item, null);
                     object ValuesCMD = GetValueFromItem(prop, Value);
                     values.Add(ValuesCMD);

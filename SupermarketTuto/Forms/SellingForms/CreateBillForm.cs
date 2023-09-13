@@ -61,7 +61,6 @@ namespace SupermarketTuto.Forms.SellingForms
 
                 ClassLibrary1.MenuStrip.Instance.Menu(ProdDGV, categoryTable, null, productType, true);
 
-
                 var products = DataModel.Select<ProductTbl>();
                 productDataTable = Utils.Utils.ToDataTable(products);
                 productDataTable.PrimaryKey = new DataColumn[] { productDataTable.Columns["ProdId"] };
@@ -73,7 +72,6 @@ namespace SupermarketTuto.Forms.SellingForms
                 ProdDGV.ReadOnly = false;
                 //ProdDGV.Columns["Select"].ReadOnly = false;
                 totalLabel.Text = $"Total: {ProdDGV.RowCount}";
-                ProdDGV.Columns[6].HeaderText = "Date";
 
                 // Attach the CurrentChanged event handler to the BindingSource
                 bindingSourceProducts.CurrentChanged += bindingSource_CurrentChanged;
@@ -94,9 +92,6 @@ namespace SupermarketTuto.Forms.SellingForms
                 Utils.Utils.Log(string.Format("Message : {0}", ex.Message), "ErrorPdoduct.txt");
             }
 
-            //All Products
-            productDataTable = DataAccess.Instance.GetTable("ProductTbl");
- 
         }
 
         private void bindingSource_CurrentChanged(object sender, EventArgs e)
@@ -147,9 +142,9 @@ namespace SupermarketTuto.Forms.SellingForms
 
         private void addButton_Click(object sender, EventArgs e)
         {
-            string SellerName = "";
+            string SellerName = "Test";
             FindProducts();
-            AddBill bill = new AddBill(totalAmountTextBox.Text, SellerName, selectedProd);
+            AddEditBill bill = new AddEditBill(totalAmountTextBox.Text, SellerName, selectedProd);
             bill.Show();
         }
 

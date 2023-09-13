@@ -1,6 +1,6 @@
 ﻿namespace SupermarketTuto.Forms
 {
-    partial class AddBill
+    partial class AddEditBill
     {
         /// <summary>
         /// Required designer variable.

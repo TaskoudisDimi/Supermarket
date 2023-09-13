@@ -90,7 +90,7 @@ namespace ClassLibrary1
                 edit.CatIdTb.ReadOnly = true;
                 edit.Show();
             }
-            else if (type.Name == "Products")
+            else if (type.Name == "ProductTbl")
             {
                 DataGridViewRow currentRow = dataGridView.CurrentRow;
                 addEditProduct edit = new addEditProduct(table, currentRow, tableSecond, false);
