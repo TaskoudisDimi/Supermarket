@@ -9,9 +9,13 @@ namespace ClassLibrary1.Models
     [TableName("Admins")]
     public class Admins
     {
+
         public int Id { get; set; }
+
         public string UserName { get; set; }
-        public byte Password { get; set; }
+
+        public string Password { get; set; }
+
         public bool Active { get; set; }
 
     }

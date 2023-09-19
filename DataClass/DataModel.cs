@@ -49,6 +49,7 @@ namespace ClassLibrary1
                 //}
 
                 PropertyInfo[] properties = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+                
                 List<string> selectFields = new List<string>();
                 List<SqlParameter> para = new List<SqlParameter>();
                 if (queryparams != null && queryparams.Count > 0)
@@ -136,21 +137,29 @@ namespace ClassLibrary1
                 List<SqlParameter> para = new List<SqlParameter>();
                 string fieldName = "";
                 List<object> values = new List<object>();
-
+                object ValuesCMD;
                 if (queryparams != null && queryparams.Count > 0)
                 {
                     para.AddRange(queryparams);
                 }
                 foreach (PropertyInfo p in properties)
                 {
-                    if (p.Name.ToLower().Contains("prodid") || p.Name.ToLower().Contains("billid")) continue;
+                    if (p.Name.ToLower().Contains("prodid") || p.Name.ToLower().Contains("billid") || p.Name.ToLower().Contains("id")) continue;
                     selectFields.Add(p.Name);
                 }
                 foreach (PropertyInfo prop in properties)
                 {
-                    if (prop.Name.ToLower().Contains("prodid") || prop.Name.ToLower().Contains("billid")) continue;
+                    if (prop.Name.ToLower().Contains("prodid") || prop.Name.ToLower().Contains("billid") || prop.Name.ToLower().Contains("id")) continue;
                     object Value = prop.GetValue(item, null);
-                    object ValuesCMD = GetValueFromItem(prop, Value);
+                    if (prop.Name.ToLower().Contains("pass"))
+                    {
+                        ValuesCMD = GetValueFromItem(prop, Value, true);
+                    }
+                    else
+                    {
+                        ValuesCMD = GetValueFromItem(prop, Value);
+                    }
+                    
                     values.Add(ValuesCMD);
                 }
 
@@ -281,8 +290,14 @@ namespace ClassLibrary1
 
         #region Helpers
 
-        private static object GetValueFromItem(PropertyInfo prop, object val)
+        private static object GetValueFromItem(PropertyInfo prop, object val, bool isEncrypted = false)
         {
+            if (isEncrypted)
+            {
+                string strValue = $"ENCRYPTBYPASSPHRASE('', '{val}')";
+                return strValue;
+            }
+
             if (prop.PropertyType == typeof(DateTime))
             {
                 return string.Format("'{0}'", Utils.GetDate(val, new DateTime(1700, 1, 1)).ToString("yyyy-MM-dd H:mm:ss"));
@@ -351,8 +366,8 @@ namespace ClassLibrary1
             {
                 return val;
             }
+            
 
-            //string strValue = $"ENCRYPTBYPASSPHRASE('{Globals.EncryptionKey}', {strValue})";
 
             return null;
         }

@@ -40,7 +40,7 @@ namespace SupermarketTuto
 
                     Admins admin = new Admins();
                     admin.UserName = UsernameTextBox.Text;
-                    admin.Password = Convert.ToByte(PasswordTextBox.Text);
+                    admin.Password = Utils.Utils.GetMD5Hash(PasswordTextBox.Text);
                     admin.Active = true;
 
                     var result = DataModel.Create<Admins>(admin);
@@ -63,7 +63,7 @@ namespace SupermarketTuto
             }
             catch
             {
-                MessageBox.Show("Error");
+                MessageBox.Show("Something went wrong", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

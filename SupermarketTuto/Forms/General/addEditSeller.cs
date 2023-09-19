@@ -84,9 +84,9 @@ namespace SupermarketTuto.Forms.General
                 {
                     //byte[] imageBytes = Utils.Utils.ImageToByteArray(pictureBox.Image);
                     byte[] imageData = File.ReadAllBytes(imageName);
-                    seller.SellerName = SellName.Text;
-                    byte[] asciiBytes = Encoding.ASCII.GetBytes(passwordTextBox.Text);
-                    seller.SellerPass = asciiBytes;
+                    //seller.SellerName = SellName.Text;
+                    //byte[] asciiBytes = Encoding.ASCII.GetBytes(passwordTextBox.Text);
+                    seller.SellerPass = Utils.Utils.GetMD5Hash(passwordTextBox.Text);
                     seller.SellerAge = Convert.ToInt32(SellAge.Text);
                     seller.SellerUserName = usernameTextBox.Text;
                     seller.SellerPhone = Convert.ToInt32(SellPhone.Text);

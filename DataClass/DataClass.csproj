@@ -112,6 +112,8 @@
   <ItemGroup>
     <Compile Include="CustomObjects.cs" />
     <Compile Include="DataAccess.cs" />
+    <Compile Include="DatabaseColumnAttribute.cs" />
+    <Compile Include="DatabaseVirtualColumnAttribute.cs" />
     <Compile Include="DataContext.cs" />
     <Compile Include="DataModel.cs" />
     <Compile Include="ExcelFile.cs" />
