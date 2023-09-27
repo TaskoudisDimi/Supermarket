@@ -69,7 +69,7 @@ namespace SupermarketTuto.Forms
             {
                 fromDateTimePicker.Value = DateTime.Now.AddMonths(-2);
                 var categories = DataModel.Select<CategoryTbl>();
-                categoryTable = Utils.Utils.ToDataTable(categories);
+                //categoryTable = Utils.Utils.ToDataTable(categories);
                 categoryTable.PrimaryKey = new DataColumn[] { categoryTable.Columns["CatId"] };
                 originalCategoryTable = categoryTable.Copy();
                 

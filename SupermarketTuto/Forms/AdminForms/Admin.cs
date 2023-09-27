@@ -25,7 +25,7 @@ namespace SupermarketTuto.Forms
         {
             try
             {
-                Admins[] admins = DataModel.Select<Admins>();
+                List<Admins> admins = DataModel.Select<Admins>();
                 usersDataGridView.DataSource = admins;
                 usersDataGridView.RowHeadersVisible = false;
             }

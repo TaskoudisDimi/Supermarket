@@ -106,7 +106,7 @@ namespace SupermarketTuto.Forms
                 fromDateTimePicker.Value = DateTime.Now.AddMonths(-2);
 
                 var products = DataModel.Select<ProductTbl>();
-                productTable = Utils.Utils.ToDataTable(products);
+                //productTable = Utils.Utils.ToDataTable(products);
                 productTable.PrimaryKey = new DataColumn[] { productTable.Columns["ProdId"] };
                 bindingSource.DataSource = productTable;
                 ProdDGV.DataSource = bindingSource;
@@ -133,7 +133,7 @@ namespace SupermarketTuto.Forms
         {
             List<string> catNames = new List<string>();
             var categories = DataModel.Select<CategoryTbl>();
-            categoryTable = Utils.Utils.ToDataTable(categories);
+            //categoryTable = Utils.Utils.ToDataTable(categories);
             foreach (DataRow row in categoryTable.Rows)
             {
                 catNames.Add(row["CatName"].ToString());

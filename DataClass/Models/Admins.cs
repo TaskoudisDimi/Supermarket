@@ -15,7 +15,7 @@ namespace ClassLibrary1.Models
         public string UserName { get; set; }
 
         [DatabaseColumn(IsPrimaryKey = false, IsEncrypted = true)]
-        public byte[] Password { get; set; }
+        public string Password { get; set; }
 
         public bool Active { get; set; }
 

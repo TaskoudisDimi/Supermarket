@@ -38,7 +38,7 @@ namespace SupermarketTuto.Forms
             {
                 
                 var sellers = DataModel.Select<SellersTbl>();
-                sellerTable = Utils.Utils.ToDataTable(sellers);
+                //sellerTable = Utils.Utils.ToDataTable(sellers);
 
                 filterTable = sellerTable.Copy();
                 filterTable.Columns.Remove("SellerPass");

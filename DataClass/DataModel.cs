@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 using SupermarketTuto.Utils;
 using Newtonsoft.Json;
 using ClassLibrary1.Models;
+using System.IO;
+using System.Security.Cryptography;
+using System.Runtime.InteropServices;
 
 namespace ClassLibrary1
 {
@@ -16,14 +19,14 @@ namespace ClassLibrary1
     {
 
         private static Dictionary<string, DataTable> cachedTables = new Dictionary<string, DataTable>();
-        public static T[] Select<T>(string[] fields = null, string where = "", List<SqlParameter> queryparams = null, string table = null, string sort = null, int pageIndex = -1, int pageSize = -1, int top = -1) where T : class, new()
+        public static List<T> Select<T>(string[] fields = null, string where = "", List<SqlParameter> queryparams = null, string table = null, string sort = null, int pageIndex = -1, int pageSize = -1, int top = -1) where T : class, new()
         {
             string error = "";
             return Select<T>(ref error, fields, where, queryparams, table, sort, pageIndex, pageSize, top);
         }
 
 
-        public static T[] Select<T>(ref string error, string[] fields = null, string where = "", List<SqlParameter> queryparams = null, string table = null, string sort = null, int pageIndex = -1, int pageSize = -1, int top = -1) where T : class, new()
+        public static List<T> Select<T>(ref string error, string[] fields = null, string where = "", List<SqlParameter> queryparams = null, string table = null, string sort = null, int pageIndex = -1, int pageSize = -1, int top = -1) where T : class, new()
         {
             string tableName = table;
             if (String.IsNullOrEmpty(table))
@@ -58,7 +61,7 @@ namespace ClassLibrary1
                         selectFields.Add($"[{fieldName}]");
                     }
                 }
-                
+
                 string order = "";
                 if (!string.IsNullOrEmpty(sort))
                 {
@@ -78,14 +81,14 @@ namespace ClassLibrary1
 
                 List<T> result = GetListFromDataTable<T>(dt);
 
-                T[] res = null;
-                if (dt != null)
-                {
-                    res = Deserlize<T>(dt);
-                    dt.Dispose();
-                }
+                //T[] res = null;
+                //if (dt != null)
+                //{
+                //    res = GetListFromDataTable<T>(dt);
+                //    dt.Dispose();
+                //}
 
-                return res;
+                return result;
             }
             catch (Exception ex)
             {
@@ -95,7 +98,7 @@ namespace ClassLibrary1
         }
 
 
-        
+
         public static int? Create<T>(this T item, string[] fields = null, List<SqlParameter> queryparams = null, string table = null, string error = null) where T : class, new()
         {
             string tableName = table;
@@ -123,7 +126,7 @@ namespace ClassLibrary1
                 {
                     para.AddRange(queryparams);
                 }
-               
+
                 foreach (PropertyInfo p in properties)
                 {
                     var primaryKeyAttribute = p.GetCustomAttribute<DatabaseColumnAttribute>();
@@ -415,26 +418,13 @@ namespace ClassLibrary1
                 PropertyInfo propInfo = null;
                 foreach (PropertyInfo p in properties)
                 {
-                    if (Attribute.IsDefined(p, typeof(JsonPropertyAttribute)))
+
+                    if (String.Equals(dc.ColumnName, p.Name, StringComparison.OrdinalIgnoreCase))
                     {
-                        JsonPropertyAttribute attr = p.GetCustomAttribute<JsonPropertyAttribute>();
-                        if (attr != null)
-                        {
-                            if (String.Equals(dc.ColumnName, attr.PropertyName, StringComparison.OrdinalIgnoreCase))
-                            {
-                                propInfo = p;
-                                break;
-                            }
-                        }
+                        propInfo = p;
+                        break;
                     }
-                    else
-                    {
-                        if (String.Equals(dc.ColumnName, p.Name, StringComparison.OrdinalIgnoreCase))
-                        {
-                            propInfo = p;
-                            break;
-                        }
-                    }
+
                 }
 
                 if (propInfo != null && propInfo.CanWrite)
@@ -443,14 +433,17 @@ namespace ClassLibrary1
                     if (!dr.IsNull(dc.ColumnName))
                     {
                         var tp = Nullable.GetUnderlyingType(propInfo.PropertyType) ?? propInfo.PropertyType;
-                        //if (!Attribute.IsDefined(propInfo, typeof(BinaryFieldAttribute)))
+                        var columnAttribute = propInfo.GetCustomAttribute<DatabaseColumnAttribute>();
+                        if (!columnAttribute.IsEncrypted)
+
                         {
                             objVal = Convert.ChangeType(dr[dc], tp);
                         }
-                        //else
-                        //{
-                        //    objVal = Base64.Base64Encode((byte[])dr[dc]);
-                        //}
+                        else
+                        {
+                            objVal = Convert.ChangeType(dr[dc], tp);
+                            objVal = ByteArrayToString((byte[])objVal);
+                        }
                     }
                     propInfo.SetValue(t, objVal, null);
                 }
@@ -549,7 +542,8 @@ namespace ClassLibrary1
                             else if (propType == typeof(decimal)) { value = Utils.GetDecimal(value, 0); }
                             else if (propType == typeof(bool)) { value = Utils.GetBool(value, false); }
                             else if (propType == typeof(DateTime)) { value = Utils.GetDate(value, new DateTime(1700, 1, 1)); }
-                            else if (propType == typeof(byte)) {
+                            else if (propType == typeof(byte))
+                            {
 
                                 propertyInfo.SetValue(obj, value, null);
                             }
@@ -590,10 +584,21 @@ namespace ClassLibrary1
                     }
                     else
                     {
-                        // Handle varbinary columns
-                        if (propType == typeof(byte[]) && value is byte[])
+                        // Handle encrypted string columns
+                        if (propType == typeof(string) && propertyInfo.IsDefined(typeof(DatabaseColumnAttribute), false))
                         {
-                            propertyInfo.SetValue(obj, (byte[])value, null);
+                            var columnAttribute = propertyInfo.GetCustomAttribute<DatabaseColumnAttribute>();
+                            if (columnAttribute.IsEncrypted)
+                            {
+                                // Decrypt the encrypted string and set it to the property
+                                string decryptedValue = ByteArrayToString((byte[])value);
+                                propertyInfo.SetValue(obj, decryptedValue, null);
+                            }
+                            else
+                            {
+                                // Non-encrypted string column, set it as is
+                                propertyInfo.SetValue(obj, value.ToString(), null);
+                            }
                         }
                         else
                         {
@@ -608,6 +613,18 @@ namespace ClassLibrary1
 
             return obj;
         }
+
+        public static string ByteArrayToString(byte[] byteArray)
+        {
+            if (byteArray == null)
+            {
+                throw new ArgumentNullException(nameof(byteArray));
+            }
+
+            string result = Encoding.UTF8.GetString(byteArray);
+            return result;
+        }
+
 
 
         public static T ChangeType<T>(object value)
