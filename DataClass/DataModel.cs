@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SupermarketTuto.Utils;
 using Newtonsoft.Json;
+using ClassLibrary1.Models;
 
 namespace ClassLibrary1
 {
@@ -40,16 +41,7 @@ namespace ClassLibrary1
             error = "";
             try
             {
-                //string cacheKey = $"{tableName}_{where}_{sort}_{pageIndex}_{pageSize}_{top}";
-                //if (cachedTables.TryGetValue(cacheKey, out DataTable cachedTable))
-                //{
-                //    // If the cached DataTable exists, use it directly.
-                //    List<T> dataList = GetListFromDataTable<T>(cachedTable);
-                //    return dataList.ToArray();
-                //}
-
                 PropertyInfo[] properties = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
-                
                 List<string> selectFields = new List<string>();
                 List<SqlParameter> para = new List<SqlParameter>();
                 if (queryparams != null && queryparams.Count > 0)
@@ -60,23 +52,13 @@ namespace ClassLibrary1
                 {
                     string fieldName = p.Name;
                     string memberName = p.Name;
-                    if (Attribute.IsDefined(p, typeof(JsonPropertyAttribute)))
-                    {
-                        JsonPropertyAttribute attr = p.GetCustomAttribute<JsonPropertyAttribute>();
-                        fieldName = attr.PropertyName;
-                    }
-
-                    if (Attribute.IsDefined(p, typeof(CalculatedFieldAttribute)))
-                    {
-                        continue;
-                    }
 
                     if (fields == null || ContainsNoCase(fields, memberName))
                     {
                         selectFields.Add($"[{fieldName}]");
                     }
                 }
-
+                
                 string order = "";
                 if (!string.IsNullOrEmpty(sort))
                 {
@@ -103,9 +85,6 @@ namespace ClassLibrary1
                     dt.Dispose();
                 }
 
-                //// Cache the DataTable for future use.
-                //cachedTables[cacheKey] = dt;
-
                 return res;
             }
             catch (Exception ex)
@@ -116,6 +95,7 @@ namespace ClassLibrary1
         }
 
 
+        
         public static int? Create<T>(this T item, string[] fields = null, List<SqlParameter> queryparams = null, string table = null, string error = null) where T : class, new()
         {
             string tableName = table;
@@ -138,33 +118,36 @@ namespace ClassLibrary1
                 string fieldName = "";
                 List<object> values = new List<object>();
                 object ValuesCMD;
+                object Value;
                 if (queryparams != null && queryparams.Count > 0)
                 {
                     para.AddRange(queryparams);
                 }
+               
                 foreach (PropertyInfo p in properties)
                 {
-                    if (p.Name.ToLower().Contains("prodid") || p.Name.ToLower().Contains("billid") || p.Name.ToLower().Contains("id")) continue;
-                    selectFields.Add(p.Name);
-                }
-                foreach (PropertyInfo prop in properties)
-                {
-                    if (prop.Name.ToLower().Contains("prodid") || prop.Name.ToLower().Contains("billid") || prop.Name.ToLower().Contains("id")) continue;
-                    object Value = prop.GetValue(item, null);
-                    if (prop.Name.ToLower().Contains("pass"))
+                    var primaryKeyAttribute = p.GetCustomAttribute<DatabaseColumnAttribute>();
+                    if (primaryKeyAttribute != null && primaryKeyAttribute.IsPrimaryKey)
                     {
-                        ValuesCMD = GetValueFromItem(prop, Value, true);
+                        continue; // Skip primary key columns
+                    }
+                    // Check if the property has the IsEncrypted attribute set to true
+                    var databaseColumnAttribute = p.GetCustomAttribute<DatabaseColumnAttribute>();
+                    if (databaseColumnAttribute != null && databaseColumnAttribute.IsEncrypted)
+                    {
+                        Value = p.GetValue(item, null);
+                        ValuesCMD = GetValueFromItem(p, Value, true);
                     }
                     else
                     {
-                        ValuesCMD = GetValueFromItem(prop, Value);
+                        Value = p.GetValue(item, null);
+                        ValuesCMD = GetValueFromItem(p, Value);
                     }
-                    
                     values.Add(ValuesCMD);
                 }
 
                 string cmd = $@"SET ANSI_WARNINGS OFF;
-                                Insert Into [{tableName}] ({string.Join(",", selectFields)})
+                                Insert Into [{tableName}]
                                 VALUES ({string.Join(",", values)})
                                 SET ANSI_WARNINGS ON;";
 
@@ -204,19 +187,25 @@ namespace ClassLibrary1
                 object valueOfIdOfTable = null;
                 bool findPrimaryKey = false;
                 sb.Append($"Update {table} set ");
-                foreach (PropertyInfo prop in properties)
+                foreach (PropertyInfo p in properties)
                 {
-                    if (prop.Name.ToLower().Contains("id") && !findPrimaryKey)
+                    //if (prop.Name.ToLower().Contains("id") && !findPrimaryKey)
+                    //{
+                    //    idOfTable = prop.Name;
+                    //    valueOfIdOfTable = prop.GetValue(item, null);
+                    //    findPrimaryKey = true;
+                    //    continue;
+                    //}
+                    // Check if the property has the IsPrimaryKey attribute set to true
+                    var primaryKeyAttribute = p.GetCustomAttribute<DatabaseColumnAttribute>();
+                    if (primaryKeyAttribute != null && primaryKeyAttribute.IsPrimaryKey)
                     {
-                        idOfTable = prop.Name;
-                        valueOfIdOfTable = prop.GetValue(item, null);
-                        findPrimaryKey = true;
-                        continue;
+                        continue; // Skip primary key columns
                     }
-                    object Value = prop.GetValue(item, null);
-                    object ValuesCMD = GetValueFromItem(prop, Value);
+                    object Value = p.GetValue(item, null);
+                    object ValuesCMD = GetValueFromItem(p, Value);
 
-                    sb.Append($"[{table}].[{prop.Name}] = {ValuesCMD} ,");
+                    sb.Append($"[{table}].[{p.Name}] = {ValuesCMD} ,");
                 }
                 string cmd = sb.ToString();
                 cmd = cmd.TrimEnd(' ', ',');
@@ -257,14 +246,20 @@ namespace ClassLibrary1
                 bool findPrimaryKey = false;
                 List<object> values = new List<object>();
                 sb.Append($"Delete From {table}");
-                foreach (PropertyInfo prop in properties)
+                foreach (PropertyInfo p in properties)
                 {
-                    if (prop.Name.ToLower().Contains("id") && !findPrimaryKey)
+                    //if (prop.Name.ToLower().Contains("id") && !findPrimaryKey)
+                    //{
+                    //    idOfTable = prop.Name;
+                    //    valueOfIdOfTable = prop.GetValue(item, null);
+                    //    findPrimaryKey = true;
+                    //    continue;
+                    //}
+                    // Check if the property has the IsPrimaryKey attribute set to true
+                    var primaryKeyAttribute = p.GetCustomAttribute<DatabaseColumnAttribute>();
+                    if (primaryKeyAttribute != null && primaryKeyAttribute.IsPrimaryKey)
                     {
-                        idOfTable = prop.Name;
-                        valueOfIdOfTable = prop.GetValue(item, null);
-                        findPrimaryKey = true;
-                        continue;
+                        continue; // Skip primary key columns
                     }
                 }
                 sb.Append($" where {idOfTable} = {valueOfIdOfTable}");
@@ -292,82 +287,83 @@ namespace ClassLibrary1
 
         private static object GetValueFromItem(PropertyInfo prop, object val, bool isEncrypted = false)
         {
+
             if (isEncrypted)
             {
                 string strValue = $"ENCRYPTBYPASSPHRASE('', '{val}')";
                 return strValue;
             }
-
-            if (prop.PropertyType == typeof(DateTime))
+            else
             {
-                return string.Format("'{0}'", Utils.GetDate(val, new DateTime(1700, 1, 1)).ToString("yyyy-MM-dd H:mm:ss"));
+                if (prop.PropertyType == typeof(DateTime))
+                {
+                    return string.Format("'{0}'", Utils.GetDate(val, new DateTime(1700, 1, 1)).ToString("yyyy-MM-dd H:mm:ss"));
+                }
+                else if (prop.PropertyType == typeof(DateTime?))
+                {
+                    return string.Format("'{0}'", Utils.GetDate(val).Value.ToString("yyyy-MM-dd H:mm:ss"));
+                }
+                else if (prop.PropertyType == typeof(int))
+                {
+                    int result = Utils.GetInt(val);
+                    return result.ToString();
+                }
+                else if (prop.PropertyType == typeof(int?))
+                {
+                    int result = Utils.GetInt(val);
+                    return result.ToString();
+                }
+                else if (prop.PropertyType == typeof(float))
+                {
+                    return Utils.GetString(Utils.GetFloat(val)).Replace(",", ".");
+                }
+                else if (prop.PropertyType == typeof(float?))
+                {
+                    float? result = Utils.GetNullFloat(val);
+                    return result == null ? null : Utils.GetString(result).Replace(",", ".");
+                }
+                else if (prop.PropertyType == typeof(double))
+                {
+                    return Utils.GetString(Utils.GetDouble(val)).Replace(",", ".");
+                }
+                else if (prop.PropertyType == typeof(double?))
+                {
+                    double? result = Utils.GetNullDouble(val);
+                    return result == null ? null : Utils.GetString(result).Replace(",", ".");
+                }
+                else if (prop.PropertyType == typeof(decimal))
+                {
+                    decimal val1 = Utils.GetDecimal(val);
+                    string strVal = Utils.GetString(val1);
+                    return strVal.Replace(",", ".");
+                }
+                else if (prop.PropertyType == typeof(decimal?))
+                {
+                    decimal? result = Utils.GetNullDecimal(val);
+                    return result == null ? null : Utils.GetString(result).Replace(",", ".");
+                }
+                else if (prop.PropertyType == typeof(long))
+                {
+                    return Utils.GetInt(val);
+                }
+                else if (prop.PropertyType == typeof(long?))
+                {
+                    long result = Utils.GetInt(val);
+                    return result.ToString();
+                }
+                else if (prop.PropertyType == typeof(bool) || prop.PropertyType == typeof(bool?))
+                {
+                    return Utils.GetBool(val) ? "1" : "0";
+                }
+                else if (prop.PropertyType == typeof(string))
+                {
+                    return string.Format("'{0}'", Utils.GetString(val));
+                }
+                else if (prop.PropertyType == typeof(byte[]))
+                {
+                    return val;
+                }
             }
-            else if (prop.PropertyType == typeof(DateTime?))
-            {
-                return string.Format("'{0}'", Utils.GetDate(val).Value.ToString("yyyy-MM-dd H:mm:ss"));
-            }
-            else if (prop.PropertyType == typeof(int))
-            {
-                int result = Utils.GetInt(val);
-                return result.ToString();
-            }
-            else if (prop.PropertyType == typeof(int?))
-            {
-                int result = Utils.GetInt(val);
-                return result.ToString();
-            }
-            else if (prop.PropertyType == typeof(float))
-            {
-                return Utils.GetString(Utils.GetFloat(val)).Replace(",", ".");
-            }
-            else if (prop.PropertyType == typeof(float?))
-            {
-                float? result = Utils.GetNullFloat(val);
-                return result == null ? null : Utils.GetString(result).Replace(",", ".");
-            }
-            else if (prop.PropertyType == typeof(double))
-            {
-                return Utils.GetString(Utils.GetDouble(val)).Replace(",", ".");
-            }
-            else if (prop.PropertyType == typeof(double?))
-            {
-                double? result = Utils.GetNullDouble(val);
-                return result == null ? null : Utils.GetString(result).Replace(",", ".");
-            }
-            else if (prop.PropertyType == typeof(decimal))
-            {
-                decimal val1 = Utils.GetDecimal(val);
-                string strVal = Utils.GetString(val1);
-                return strVal.Replace(",", ".");
-            }
-            else if (prop.PropertyType == typeof(decimal?))
-            {
-                decimal? result = Utils.GetNullDecimal(val);
-                return result == null ? null : Utils.GetString(result).Replace(",", ".");
-            }
-            else if (prop.PropertyType == typeof(long))
-            {
-                return Utils.GetInt(val);
-            }
-            else if (prop.PropertyType == typeof(long?))
-            {
-                long result = Utils.GetInt(val);
-                return result.ToString();
-            }
-            else if (prop.PropertyType == typeof(bool) || prop.PropertyType == typeof(bool?))
-            {
-                return Utils.GetBool(val) ? "1" : "0";
-            }
-            else if (prop.PropertyType == typeof(string))
-            {
-                return string.Format("'{0}'", Utils.GetString(val));
-            }
-            else if(prop.PropertyType == typeof(byte[]))
-            {
-                return val;
-            }
-            
-
 
             return null;
         }
@@ -477,7 +473,7 @@ namespace ClassLibrary1
             return list;
         }
 
-        public static T GetObjectFromDataRow<T>(DataRow row) where T : class, new()
+        public static T GetObjectFromDataRow2<T>(DataRow row) where T : class, new()
         {
 
             T obj = new T();
@@ -553,7 +549,7 @@ namespace ClassLibrary1
                             else if (propType == typeof(decimal)) { value = Utils.GetDecimal(value, 0); }
                             else if (propType == typeof(bool)) { value = Utils.GetBool(value, false); }
                             else if (propType == typeof(DateTime)) { value = Utils.GetDate(value, new DateTime(1700, 1, 1)); }
-                            else if (propType == typeof(byte[])) {
+                            else if (propType == typeof(byte)) {
 
                                 propertyInfo.SetValue(obj, value, null);
                             }
@@ -565,6 +561,54 @@ namespace ClassLibrary1
             }
             return obj;
         }
+
+        public static T GetObjectFromDataRow<T>(DataRow row) where T : class, new()
+        {
+            T obj = new T();
+
+            foreach (var prop in obj.GetType().GetProperties())
+            {
+                PropertyInfo propertyInfo = obj.GetType().GetProperty(prop.Name);
+                Type propType = propertyInfo.PropertyType;
+
+                // If there is no setter for this property
+                if (propertyInfo.SetMethod == null)
+                    continue;
+
+                string ColumnName = prop.Name;
+
+                if (row.Table.Columns.Contains(ColumnName))
+                {
+                    object value = row[ColumnName];
+
+                    if (value == null || value == DBNull.Value)
+                    {
+                        if (propertyInfo.PropertyType == typeof(string))
+                            propertyInfo.SetValue(obj, string.Empty, null);
+                        else
+                            propertyInfo.SetValue(obj, null, null);
+                    }
+                    else
+                    {
+                        // Handle varbinary columns
+                        if (propType == typeof(byte[]) && value is byte[])
+                        {
+                            propertyInfo.SetValue(obj, (byte[])value, null);
+                        }
+                        else
+                        {
+                            // Handle other data types here or add custom logic
+                            // for conversions that are not straightforward.
+                            // You may need to adapt this part based on your data model.
+                            propertyInfo.SetValue(obj, Convert.ChangeType(value, propType), null);
+                        }
+                    }
+                }
+            }
+
+            return obj;
+        }
+
 
         public static T ChangeType<T>(object value)
         {

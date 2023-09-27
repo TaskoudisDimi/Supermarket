@@ -200,7 +200,6 @@ namespace SupermarketTuto.Forms
             }
         }
 
-
         private void searchButton_Click(object sender, EventArgs e)
         {
             // If the search text is not empty, filter the originalCategoryTable and assign the filtered result to the categoryTable

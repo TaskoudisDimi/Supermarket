@@ -9,6 +9,7 @@ namespace ClassLibrary1.Models
     [TableName("BillTbl")]
     public class BillTbl
     {
+        [DatabaseColumn(IsPrimaryKey = true, IsEncrypted = false)]
         public int BillId { get; set; }
         public string Comments { get; set; }
         public string SellerName { get; set; }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ClassLibrary1
 {
-
+    [AttributeUsage(AttributeTargets.Class)]
     public class TableNameAttribute : Attribute
     {
         string _tableName = "";

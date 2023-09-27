@@ -11,8 +11,11 @@ namespace ClassLibrary1.Models
     [TableName("SellersTbl")]
     public class SellersTbl
     {
+        [DatabaseColumn(IsPrimaryKey = true, IsEncrypted = false)]
         public int SellerId { get; set; }
         public string SellerUserName { get; set; }
+
+        [DatabaseColumn(IsPrimaryKey = false, IsEncrypted = true)]
         public string SellerPass { get; set; }
         public string SellerName { get; set; }
         public int SellerAge { get; set; }

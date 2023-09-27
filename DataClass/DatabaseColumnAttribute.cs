@@ -9,8 +9,8 @@ namespace ClassLibrary1
     [AttributeUsage(AttributeTargets.Property, Inherited = false, AllowMultiple = false)]
     public class DatabaseColumnAttribute : Attribute
     {
-        public bool IsPrimaryKey { get; }
-        public bool IsEncrypted { get; }
+        public bool IsPrimaryKey { get; set; }
+        public bool IsEncrypted { get; set; }
 
         public DatabaseColumnAttribute(bool isPrimaryKey = true, bool isEncrypted = false)
         {

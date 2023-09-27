@@ -9,12 +9,13 @@ namespace ClassLibrary1.Models
     [TableName("Admins")]
     public class Admins
     {
-
+        [DatabaseColumn(IsPrimaryKey = true, IsEncrypted = false)]
         public int Id { get; set; }
 
         public string UserName { get; set; }
 
-        public string Password { get; set; }
+        [DatabaseColumn(IsPrimaryKey = false, IsEncrypted = true)]
+        public byte[] Password { get; set; }
 
         public bool Active { get; set; }
 

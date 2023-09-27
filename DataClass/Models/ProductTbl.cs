@@ -10,6 +10,7 @@ namespace ClassLibrary1.Models
     [TableName("ProductTbl")]
     public class ProductTbl : Excel
     {
+        [DatabaseColumn(IsPrimaryKey = true, IsEncrypted = false)]
         public int ProdId { get; set; }
         public string ProdName { get; set; }
         public int ProdQty { get; set; }
