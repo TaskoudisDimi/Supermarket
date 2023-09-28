@@ -12,6 +12,7 @@ using DataClass;
 using SupermarketTuto.Utils;
 using ClassLibrary1.Models;
 using ClassLibrary1;
+using Org.BouncyCastle.Crypto.Generators;
 
 namespace SupermarketTuto
 {
@@ -37,13 +38,14 @@ namespace SupermarketTuto
                 }
                 else if (PasswordTextBox.Text == ConfirmPasswordTextBox.Text)
                 {
+                    
 
                     Admins admin = new Admins();
                     admin.UserName = UsernameTextBox.Text;
-                    //admin.Password = Utils.Utils.GetMD5Hash(PasswordTextBox.Text);
+                    admin.Password = PasswordTextBox.Text;
                     admin.Active = true;
 
-                    var result = DataModel.Create<Admins>(admin);
+                    DataModel.Create<Admins>(admin);
 
                     MessageBox.Show("Your Account has been Successfully Created", "Registration Success", MessageBoxButtons.OK);
                     UsernameTextBox.Clear();

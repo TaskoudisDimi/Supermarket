@@ -1,5 +1,7 @@
 ﻿using ClassLibrary1;
+using Org.BouncyCastle.Crypto.Generators;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Globalization;
@@ -614,7 +616,7 @@ namespace SupermarketTuto.Utils
             return success;
         }
 
-        public static DataTable ToDataTable<T>(T[] items)
+        public static DataTable ToDataTable<T>(List<T> items)
         {
             DataTable dataTable = new DataTable(typeof(T).Name);
 
@@ -639,6 +641,23 @@ namespace SupermarketTuto.Utils
             }
 
             return dataTable;
+        }
+
+
+        // Hash and store the user's password
+        public static string HashPassword(string password)
+        {
+            // Generate a random salt with 16 characters
+            string salt = BCrypt.Net.BCrypt.GenerateSalt(12);
+            string hashedPassword = BCrypt.Net.BCrypt.HashPassword(password, salt);
+
+            return hashedPassword;
+        }
+
+        // Verify a user's entered password against the stored hash
+        public static bool VerifyPassword(string enteredPassword, string storedHashedPassword)
+        {
+            return BCrypt.Net.BCrypt.Verify(enteredPassword, storedHashedPassword);
         }
     }
 

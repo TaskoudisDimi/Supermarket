@@ -61,8 +61,8 @@ namespace SupermarketTuto.Forms.SellingForms
 
                 ClassLibrary1.MenuStrip.Instance.Menu(ProdDGV, categoryTable, null, productType, true);
 
-                var products = DataModel.Select<ProductTbl>();
-                //productDataTable = Utils.Utils.ToDataTable(products);
+                List<ProductTbl> products = DataModel.Select<ProductTbl>();
+                productDataTable = Utils.Utils.ToDataTable(products);
                 productDataTable.PrimaryKey = new DataColumn[] { productDataTable.Columns["ProdId"] };
                 bindingSourceProducts.DataSource = productDataTable;
                 ProdDGV.DataSource = bindingSourceProducts;

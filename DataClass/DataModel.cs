@@ -19,12 +19,12 @@ namespace ClassLibrary1
     {
 
         private static Dictionary<string, DataTable> cachedTables = new Dictionary<string, DataTable>();
+
         public static List<T> Select<T>(string[] fields = null, string where = "", List<SqlParameter> queryparams = null, string table = null, string sort = null, int pageIndex = -1, int pageSize = -1, int top = -1) where T : class, new()
         {
             string error = "";
             return Select<T>(ref error, fields, where, queryparams, table, sort, pageIndex, pageSize, top);
         }
-
 
         public static List<T> Select<T>(ref string error, string[] fields = null, string where = "", List<SqlParameter> queryparams = null, string table = null, string sort = null, int pageIndex = -1, int pageSize = -1, int top = -1) where T : class, new()
         {
@@ -81,13 +81,6 @@ namespace ClassLibrary1
 
                 List<T> result = GetListFromDataTable<T>(dt);
 
-                //T[] res = null;
-                //if (dt != null)
-                //{
-                //    res = GetListFromDataTable<T>(dt);
-                //    dt.Dispose();
-                //}
-
                 return result;
             }
             catch (Exception ex)
@@ -96,8 +89,6 @@ namespace ClassLibrary1
                 return null;
             }
         }
-
-
 
         public static int? Create<T>(this T item, string[] fields = null, List<SqlParameter> queryparams = null, string table = null, string error = null) where T : class, new()
         {
@@ -192,17 +183,13 @@ namespace ClassLibrary1
                 sb.Append($"Update {table} set ");
                 foreach (PropertyInfo p in properties)
                 {
-                    //if (prop.Name.ToLower().Contains("id") && !findPrimaryKey)
-                    //{
-                    //    idOfTable = prop.Name;
-                    //    valueOfIdOfTable = prop.GetValue(item, null);
-                    //    findPrimaryKey = true;
-                    //    continue;
-                    //}
+                    
                     // Check if the property has the IsPrimaryKey attribute set to true
                     var primaryKeyAttribute = p.GetCustomAttribute<DatabaseColumnAttribute>();
                     if (primaryKeyAttribute != null && primaryKeyAttribute.IsPrimaryKey)
                     {
+                        idOfTable = p.Name;
+                        valueOfIdOfTable = p.GetValue(item, null);
                         continue; // Skip primary key columns
                     }
                     object Value = p.GetValue(item, null);
@@ -251,17 +238,12 @@ namespace ClassLibrary1
                 sb.Append($"Delete From {table}");
                 foreach (PropertyInfo p in properties)
                 {
-                    //if (prop.Name.ToLower().Contains("id") && !findPrimaryKey)
-                    //{
-                    //    idOfTable = prop.Name;
-                    //    valueOfIdOfTable = prop.GetValue(item, null);
-                    //    findPrimaryKey = true;
-                    //    continue;
-                    //}
                     // Check if the property has the IsPrimaryKey attribute set to true
                     var primaryKeyAttribute = p.GetCustomAttribute<DatabaseColumnAttribute>();
                     if (primaryKeyAttribute != null && primaryKeyAttribute.IsPrimaryKey)
                     {
+                        idOfTable = p.Name;
+                        valueOfIdOfTable = p.GetValue(item, null);
                         continue; // Skip primary key columns
                     }
                 }
@@ -281,9 +263,7 @@ namespace ClassLibrary1
             {
                 return -1;
             }
-            return 1;
         }
-
 
 
         #region Helpers
@@ -293,8 +273,9 @@ namespace ClassLibrary1
 
             if (isEncrypted)
             {
-                string strValue = $"ENCRYPTBYPASSPHRASE('', '{val}')";
-                return strValue;
+                //string strValue = $"ENCRYPTBYPASSPHRASE('', '{val}')";
+                string hashPass = Utils.HashPassword(val.ToString());
+                return string.Format("'{0}'", Utils.GetString(hashPass));
             }
             else
             {
@@ -384,73 +365,6 @@ namespace ClassLibrary1
             return false;
         }
 
-        public static T[] Deserlize<T>(DataTable dt) where T : new()
-        {
-            if (dt == null)
-                return null;
-            if (dt.Rows.Count == 0)
-            {
-                return new T[0];
-            }
-
-            List<T> resList = new List<T>();
-            foreach (DataRow dr in dt.Rows)
-            {
-                resList.Add(Deserlize<T>(dr));
-            }
-
-            return resList.ToArray();
-        }
-
-        public static T Deserlize<T>(DataRow dr) where T : new()
-        {
-            if (dr == null)
-                return default(T);
-
-            List<T> resList = new List<T>();
-            T t = new T();
-            PropertyInfo[] properties = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
-
-            foreach (DataColumn dc in dr.Table.Columns)
-            {
-                // PropertyInfo propInfo = typeof(T).GetProperty(dc.ColumnName,
-                //     BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
-                PropertyInfo propInfo = null;
-                foreach (PropertyInfo p in properties)
-                {
-
-                    if (String.Equals(dc.ColumnName, p.Name, StringComparison.OrdinalIgnoreCase))
-                    {
-                        propInfo = p;
-                        break;
-                    }
-
-                }
-
-                if (propInfo != null && propInfo.CanWrite)
-                {
-                    object objVal = null;
-                    if (!dr.IsNull(dc.ColumnName))
-                    {
-                        var tp = Nullable.GetUnderlyingType(propInfo.PropertyType) ?? propInfo.PropertyType;
-                        var columnAttribute = propInfo.GetCustomAttribute<DatabaseColumnAttribute>();
-                        if (!columnAttribute.IsEncrypted)
-
-                        {
-                            objVal = Convert.ChangeType(dr[dc], tp);
-                        }
-                        else
-                        {
-                            objVal = Convert.ChangeType(dr[dc], tp);
-                            objVal = ByteArrayToString((byte[])objVal);
-                        }
-                    }
-                    propInfo.SetValue(t, objVal, null);
-                }
-            }
-            return t;
-        }
-
 
         public static List<T> GetListFromDataTable<T>(DataTable table) where T : class, new()
         {
@@ -466,10 +380,10 @@ namespace ClassLibrary1
             return list;
         }
 
-        public static T GetObjectFromDataRow2<T>(DataRow row) where T : class, new()
+        public static T GetObjectFromDataRow<T>(DataRow row) where T : class, new()
         {
-
             T obj = new T();
+
             foreach (var prop in obj.GetType().GetProperties())
             {
                 PropertyInfo propertyInfo = obj.GetType().GetProperty(prop.Name);
@@ -533,7 +447,7 @@ namespace ClassLibrary1
                                 propertyInfo.SetValue(obj, ChangeType<DateTime>(value), null);
                             }
                         }
-                        else// If the type is not nullable
+                        else
                         {
                             if (propType == typeof(int)) { value = Utils.GetInt(value, 0); }
                             else if (propType == typeof(long)) { value = Utils.GetLong(value, 0); }
@@ -542,71 +456,42 @@ namespace ClassLibrary1
                             else if (propType == typeof(decimal)) { value = Utils.GetDecimal(value, 0); }
                             else if (propType == typeof(bool)) { value = Utils.GetBool(value, false); }
                             else if (propType == typeof(DateTime)) { value = Utils.GetDate(value, new DateTime(1700, 1, 1)); }
-                            else if (propType == typeof(byte))
+                            else if (propType == typeof(string))
                             {
-
-                                propertyInfo.SetValue(obj, value, null);
-                            }
-
-                            propertyInfo.SetValue(obj, Convert.ChangeType(value, propType), null);
-                        }
-                    }
-                }
-            }
-            return obj;
-        }
-
-        public static T GetObjectFromDataRow<T>(DataRow row) where T : class, new()
-        {
-            T obj = new T();
-
-            foreach (var prop in obj.GetType().GetProperties())
-            {
-                PropertyInfo propertyInfo = obj.GetType().GetProperty(prop.Name);
-                Type propType = propertyInfo.PropertyType;
-
-                // If there is no setter for this property
-                if (propertyInfo.SetMethod == null)
-                    continue;
-
-                string ColumnName = prop.Name;
-
-                if (row.Table.Columns.Contains(ColumnName))
-                {
-                    object value = row[ColumnName];
-
-                    if (value == null || value == DBNull.Value)
-                    {
-                        if (propertyInfo.PropertyType == typeof(string))
-                            propertyInfo.SetValue(obj, string.Empty, null);
-                        else
-                            propertyInfo.SetValue(obj, null, null);
-                    }
-                    else
-                    {
-                        // Handle encrypted string columns
-                        if (propType == typeof(string) && propertyInfo.IsDefined(typeof(DatabaseColumnAttribute), false))
-                        {
-                            var columnAttribute = propertyInfo.GetCustomAttribute<DatabaseColumnAttribute>();
-                            if (columnAttribute.IsEncrypted)
-                            {
-                                // Decrypt the encrypted string and set it to the property
-                                string decryptedValue = ByteArrayToString((byte[])value);
-                                propertyInfo.SetValue(obj, decryptedValue, null);
-                            }
-                            else
-                            {
-                                // Non-encrypted string column, set it as is
                                 propertyInfo.SetValue(obj, value.ToString(), null);
+                                #region Use encryption SQL command and Property of models
+                                //if (propertyInfo.IsDefined(typeof(DatabaseColumnAttribute), false))
+                                //{
+                                //    var columnAttribute = propertyInfo.GetCustomAttribute<DatabaseColumnAttribute>();
+                                //    if (columnAttribute.IsEncrypted)
+                                //    {
+                                //        // Decrypt the encrypted string and set it to the property
+                                //        string decryptedValue = ByteArrayToString((byte[])value);
+                                //        propertyInfo.SetValue(obj, decryptedValue, null);
+                                //        continue;
+                                //    }
+                                //    else
+                                //    {
+                                //        // Non-encrypted string column, set it as is
+                                //        propertyInfo.SetValue(obj, value.ToString(), null);
+                                //        continue;
+                                //    }
+                                //}
+                                //else
+                                //{
+                                //    // Non-encrypted string column, set it as is
+                                //    propertyInfo.SetValue(obj, value.ToString(), null);
+                                //    continue;
+                                //}
+                                #endregion
+
                             }
-                        }
-                        else
-                        {
-                            // Handle other data types here or add custom logic
-                            // for conversions that are not straightforward.
-                            // You may need to adapt this part based on your data model.
+
                             propertyInfo.SetValue(obj, Convert.ChangeType(value, propType), null);
+
                         }
+                        
+                       
                     }
                 }
             }
@@ -624,8 +509,6 @@ namespace ClassLibrary1
             string result = Encoding.UTF8.GetString(byteArray);
             return result;
         }
-
-
 
         public static T ChangeType<T>(object value)
         {
@@ -648,8 +531,4 @@ namespace ClassLibrary1
         #endregion
     }
 
-    public class CalculatedFieldAttribute : Attribute
-    {
-
-    }
 }

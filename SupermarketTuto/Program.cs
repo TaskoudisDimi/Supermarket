@@ -14,7 +14,6 @@ namespace SupermarketTuto
     {
 
         // TODO: Upload / Download files 
-        // TODO: Autorefresh  
         // TODO: Build API 
 
         [STAThread]

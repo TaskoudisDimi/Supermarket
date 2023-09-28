@@ -45,7 +45,7 @@ namespace SupermarketTuto.Forms
             checkboxColumn.Name = "Select";
             CatDGV.Columns.Add(checkboxColumn);
             CatDGV.Columns["Select"].DisplayIndex = 0;
-
+            
             MenuStrip.Instance.Menu(CatDGV, categoryTable, null, categoryType, true);
 
             exportCombobox.Items.Add("Csv");
@@ -68,8 +68,8 @@ namespace SupermarketTuto.Forms
             try
             {
                 fromDateTimePicker.Value = DateTime.Now.AddMonths(-2);
-                var categories = DataModel.Select<CategoryTbl>();
-                //categoryTable = Utils.Utils.ToDataTable(categories);
+                List<CategoryTbl> categories = DataModel.Select<CategoryTbl>();
+                categoryTable = Utils.Utils.ToDataTable(categories);
                 categoryTable.PrimaryKey = new DataColumn[] { categoryTable.Columns["CatId"] };
                 originalCategoryTable = categoryTable.Copy();
                 
@@ -78,6 +78,7 @@ namespace SupermarketTuto.Forms
                 bindingSource.DataSource = categoryTable;
                 CatDGV.DataSource = bindingSource;
                 CatDGV.RowHeadersVisible = false;
+                CatDGV.ReadOnly = false;
 
                 // Attach the CurrentChanged event handler to the BindingSource
                 bindingSource.CurrentChanged += bindingSource_CurrentChanged;

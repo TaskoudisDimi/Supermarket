@@ -105,15 +105,22 @@ namespace SupermarketTuto.Forms
             {
                 fromDateTimePicker.Value = DateTime.Now.AddMonths(-2);
 
-                var products = DataModel.Select<ProductTbl>();
-                //productTable = Utils.Utils.ToDataTable(products);
+                List<ProductTbl> products = DataModel.Select<ProductTbl>();
+                productTable = Utils.Utils.ToDataTable(products);
                 productTable.PrimaryKey = new DataColumn[] { productTable.Columns["ProdId"] };
+
+                //Create column Select
+                DataGridViewCheckBoxColumn checkboxColumn = new DataGridViewCheckBoxColumn();
+                checkboxColumn.Name = "Select";
+                ProdDGV.Columns.Add(checkboxColumn);
+                ProdDGV.Columns["Select"].DisplayIndex = 0;
+
                 bindingSource.DataSource = productTable;
                 ProdDGV.DataSource = bindingSource;
 
                 ProdDGV.RowHeadersVisible = false;
                 ProdDGV.AllowUserToAddRows = false;
-                ProdDGV.ReadOnly = true;
+                ProdDGV.ReadOnly = false;
                 totalLabel.Text = $"Total: {ProdDGV.RowCount}";
                 ProdDGV.Columns[6].HeaderText = "Date";
 
@@ -132,8 +139,8 @@ namespace SupermarketTuto.Forms
         private void fillCombo()
         {
             List<string> catNames = new List<string>();
-            var categories = DataModel.Select<CategoryTbl>();
-            //categoryTable = Utils.Utils.ToDataTable(categories);
+            List<CategoryTbl> categories = DataModel.Select<CategoryTbl>();
+            categoryTable = Utils.Utils.ToDataTable(categories);
             foreach (DataRow row in categoryTable.Rows)
             {
                 catNames.Add(row["CatName"].ToString());

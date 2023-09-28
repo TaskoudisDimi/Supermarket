@@ -37,11 +37,10 @@ namespace SupermarketTuto.Forms
             try
             {
                 
-                var sellers = DataModel.Select<SellersTbl>();
-                //sellerTable = Utils.Utils.ToDataTable(sellers);
+                List<SellersTbl> sellers = DataModel.Select<SellersTbl>();
+                sellerTable = Utils.Utils.ToDataTable(sellers);
 
                 filterTable = sellerTable.Copy();
-                filterTable.Columns.Remove("SellerPass");
                 filterTable.Columns.Remove("Image");
                 tableWithoutColumns = filterTable.Clone();
                 DataRow[] filterRow = filterTable.Select("Active = 1");
@@ -247,10 +246,10 @@ namespace SupermarketTuto.Forms
             //    }
 
             //}
-            //if (e.ColumnIndex == 2 && e.Value != null)
-            //{
-            //    e.Value = new string('*', e.Value.ToString().Length);
-            //}
+            if (e.ColumnIndex == 2 && e.Value != null)
+            {
+                e.Value = new string('*', e.Value.ToString().Length);
+            }
 
         }
 

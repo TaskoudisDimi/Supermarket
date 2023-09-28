@@ -72,14 +72,24 @@ namespace SupermarketTuto
                     {
                         if (selectRoleCombobox.SelectedItem == "Admin")
                         {
-                            Admins admin = DataModel.Select<Admins>(where: $"UserName = {UserNameTextBox.Text} and Password = CONVERT(varbinary, '{PasswordTextBox.Text}'").FirstOrDefault();
-                            if (admin != null)
+                            bool findUserAdmin = false;
+                            List<Admins> admins = DataModel.Select<Admins>(where: $"UserName = '{UserNameTextBox.Text}'");
+                            foreach (Admins item in admins)
                             {
-                                MainAdmin adminForms = new MainAdmin();
-                                adminForms.Show();
-                                this.Close();
+                                if (Utils.Utils.VerifyPassword(PasswordTextBox.Text, item.Password))
+                                {
+                                    findUserAdmin = true;
+                                    MainAdmin adminForms = new MainAdmin();
+                                    adminForms.Show();
+                                    this.Close();
+                                    break;
+                                }
+                                else
+                                {
+                                    continue;
+                                }
                             }
-                            else
+                            if (!findUserAdmin)
                             {
                                 MessageBox.Show("Opps! Wrong Credentials!");
                             }

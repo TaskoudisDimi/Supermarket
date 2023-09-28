@@ -87,7 +87,7 @@ namespace SupermarketTuto.Forms.General
                 else
                 {
                     category.CatId = Convert.ToInt32(CatIdTb.Text);
-                    category.CatDesc = CatNameTb.Text;
+                    category.CatDesc = CatDescTb.Text;
                     category.CatName = CatNameTb.Text;
                     category.Date = (DateTime)dateTimePicker.Value.Date;
                     DataModel.Update<CategoryTbl>(category);

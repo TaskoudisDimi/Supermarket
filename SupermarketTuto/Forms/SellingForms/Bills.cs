@@ -47,8 +47,8 @@ namespace SupermarketTuto.Forms.SellingForms
             BillsDGV.Columns["Select"].DisplayIndex = 0;
 
 
-            var billsData = DataModel.Select<BillTbl>();
-            //billTable = Utils.Utils.ToDataTable(billsData);
+            List<BillTbl> billsData = DataModel.Select<BillTbl>();
+            billTable = Utils.Utils.ToDataTable(billsData);
             billTable.PrimaryKey = new DataColumn[] { billTable.Columns[name: "BillId"] };
             billBindingSource.DataSource = billTable;
 
