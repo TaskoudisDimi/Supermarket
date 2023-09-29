@@ -19,9 +19,6 @@ namespace SupermarketTuto
     public partial class Register : Form
     {
 
-        //SqlConnect loaddata = new SqlConnect();
-
-
         public Register()
         {
             InitializeComponent();
@@ -97,19 +94,20 @@ namespace SupermarketTuto
             }
         }
 
+
+        #region ChechDatabase
+
+        #endregion
+
         private void Register_FormClosing(object sender, FormClosingEventArgs e)
         {
+            Application.Exit();
             DialogResult confirm = MessageBox.Show("Confirm to close", "Exit", MessageBoxButtons.YesNo);
             if (confirm == DialogResult.No)
             {
                 e.Cancel = true;
             }
         }
-
-        #region ChechDatabase
-       
-        #endregion
-
     }
 }
 

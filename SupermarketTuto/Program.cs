@@ -13,8 +13,16 @@ namespace SupermarketTuto
     internal static class Program
     {
 
-        // TODO: Upload / Download files 
-        // TODO: Build API 
+        //TODO: Upload / Download files 
+        //TODO: Build API 
+        //TODO: Image on seller
+        //TODO: Import Export excel/csv
+        //TODO: Selected Products from Categories
+        //TODO: Fixes on Seller Form
+        //TODO: Fixes on Admins Form
+        //TODO: Check Database, Restore,Backup etc.
+        //TODO: Updates
+
 
         [STAThread]
         static void Main()
@@ -22,8 +30,14 @@ namespace SupermarketTuto
 
             Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
             Application.ThreadException += Application_ThreadException;
-
-            Application.Run(new MainAdmin());
+            if (!Utils.Utils.IsConnectedToInternet())
+            {
+                MessageBox.Show("There is no internet connection", Constants.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                Application.Run(new MainAdmin());   
+            }
         }
 
         private static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)

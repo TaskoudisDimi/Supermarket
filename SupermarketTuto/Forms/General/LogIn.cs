@@ -25,7 +25,7 @@ namespace SupermarketTuto
 {
     public partial class LogIn : Form
     {
-        //SqlConnect loaddata = new SqlConnect();
+        private bool logInSuccess = false;
         public LogIn()
         {
             InitializeComponent();
@@ -78,10 +78,14 @@ namespace SupermarketTuto
                             {
                                 if (Utils.Utils.VerifyPassword(PasswordTextBox.Text, item.Password))
                                 {
+                                    logInSuccess = true;
                                     findUserAdmin = true;
-                                    MainAdmin adminForms = new MainAdmin();
+
+                                    MainAdmin adminForms = new MainAdmin(item);
                                     adminForms.Show();
-                                    this.Close();
+
+                                    // Close the LoginForm
+                                    this.Hide();
                                     break;
                                 }
                                 else
@@ -114,7 +118,7 @@ namespace SupermarketTuto
                     {
                         MessageBox.Show("Select Role!");
                     }
-
+                    
                 }
             }
             catch (Exception ex)
@@ -142,15 +146,6 @@ namespace SupermarketTuto
             }
         }
 
-        private void LogIn_FormClosing_1(object sender, FormClosingEventArgs e)
-        {
-            DialogResult confirm = MessageBox.Show("Confirm to close", Constants.Exit, MessageBoxButtons.YesNo);
-            if (confirm == DialogResult.No)
-            {
-                e.Cancel = true;
-            }
-        }
-
         private void updateButton_Click(object sender, EventArgs e)
         {
 
@@ -158,6 +153,21 @@ namespace SupermarketTuto
 
         public void changeDB()
         {
+
+        }
+
+        private void LogIn_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
+            if (!logInSuccess)
+            {
+                DialogResult confirm = MessageBox.Show("Confirm to close", Constants.Exit, MessageBoxButtons.YesNo);
+                if (confirm == DialogResult.No)
+                {
+                    e.Cancel = true;
+                }
+            }
+
 
         }
     }

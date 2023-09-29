@@ -109,14 +109,12 @@ namespace SupermarketTuto.Forms
                 {
                     pageDataTable.ImportRow(categoryTable.Rows[i]);
                 }
-
                 CatDGV.DataSource = pageDataTable;
             }
             catch
             {
 
             }
-            
         }
 
         private void bindingSource_CurrentChanged(object sender, EventArgs e)

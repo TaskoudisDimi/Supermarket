@@ -36,7 +36,6 @@ namespace SupermarketTuto.Forms
         {
             try
             {
-                
                 List<SellersTbl> sellers = DataModel.Select<SellersTbl>();
                 sellerTable = Utils.Utils.ToDataTable(sellers);
 
@@ -61,10 +60,10 @@ namespace SupermarketTuto.Forms
 
                 MenuStrip.Instance.Menu(SellDGV, sellerTable, null, null, false);
                 //Fill combo Active
-                string[] test2 = { "Not Set", "Active", "Inactive" };
-                activeComboBox.DataSource = test2;
-
+                string[] data = { "Not Set", "Active", "Inactive" };
+                activeComboBox.DataSource = data;
                 activeComboBox.SelectedIndex = 1;
+
             }
             catch (Exception ex)
             {

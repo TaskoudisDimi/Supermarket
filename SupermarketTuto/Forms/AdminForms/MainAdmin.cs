@@ -1,4 +1,5 @@
 ﻿using ClassLibrary1;
+using ClassLibrary1.Models;
 using DataClass;
 using MenuStrip = System.Windows.Forms.MenuStrip;
 
@@ -6,16 +7,21 @@ namespace SupermarketTuto.Forms.AdminForms
 {
     public partial class MainAdmin : Form
     {
+
         TCPClient ClientTCP = new TCPClient();
-        public MainAdmin()
+        Admins admin = new Admins();
+
+        public MainAdmin(Admins admin_ = null)
         {
             InitializeComponent();
+            admin = admin_;
         }
 
         private void MainAdmin_Load(object sender, EventArgs e)
         {
             MainMenu();
-            
+            if(admin != null)
+                adminLabel.Text = admin.UserName;
             //ClientTCP.ConnectClient();
         }
         
@@ -107,7 +113,7 @@ namespace SupermarketTuto.Forms.AdminForms
 
         private void MnuStripAdmins_Click(object sender, EventArgs e)
         {
-            Admin admins = new Admin();
+            Admin admins = new Admin(admin);
             admins.Show();
         }
 
@@ -116,12 +122,6 @@ namespace SupermarketTuto.Forms.AdminForms
             this.Hide();
             LogIn login = new LogIn();
             login.Show();
-        }
-
-        private void MnuStripUsers_Click(object sender, EventArgs e)
-        {
-            Admin users = new Admin();
-            users.Show();
         }
 
         private void MnuStripExit_Click(object sender, EventArgs e)
@@ -167,12 +167,15 @@ namespace SupermarketTuto.Forms.AdminForms
 
         public void MainAdmin_FormClosing(object sender, FormClosingEventArgs e)
         {
+            Application.Exit();
             DialogResult confirm = MessageBox.Show("Confirm to close", Constants.Exit, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (confirm == DialogResult.No)
             {
                 //ClientTCP.StopClient();
-                e.Cancel = true;
+                e.Cancel = true; 
             }
+            
+
         }
 
         private void ShowFormOnPanel(Form newForm)

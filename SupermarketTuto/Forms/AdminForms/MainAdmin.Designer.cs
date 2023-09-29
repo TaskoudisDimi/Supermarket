@@ -35,6 +35,7 @@
             this.categoriesButton = new System.Windows.Forms.Button();
             this.sellersButton = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.adminLabel = new System.Windows.Forms.Label();
             this.sidePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.SuspendLayout();
@@ -43,6 +44,7 @@
             // sidePanel
             // 
             this.sidePanel.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.sidePanel.Controls.Add(this.adminLabel);
             this.sidePanel.Controls.Add(this.udpRadioButton);
             this.sidePanel.Controls.Add(this.productsButton);
             this.sidePanel.Controls.Add(this.tcpRadioButton);
@@ -59,7 +61,7 @@
             // 
             this.udpRadioButton.AutoSize = true;
             this.udpRadioButton.Location = new System.Drawing.Point(29, 329);
-            this.udpRadioButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.udpRadioButton.Margin = new System.Windows.Forms.Padding(2);
             this.udpRadioButton.Name = "udpRadioButton";
             this.udpRadioButton.Size = new System.Drawing.Size(48, 17);
             this.udpRadioButton.TabIndex = 1;
@@ -84,7 +86,7 @@
             // 
             this.tcpRadioButton.AutoSize = true;
             this.tcpRadioButton.Location = new System.Drawing.Point(29, 298);
-            this.tcpRadioButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tcpRadioButton.Margin = new System.Windows.Forms.Padding(2);
             this.tcpRadioButton.Name = "tcpRadioButton";
             this.tcpRadioButton.Size = new System.Drawing.Size(46, 17);
             this.tcpRadioButton.TabIndex = 0;
@@ -134,6 +136,16 @@
             this.splitContainer1.SplitterDistance = 546;
             this.splitContainer1.TabIndex = 3;
             // 
+            // adminLabel
+            // 
+            this.adminLabel.AutoSize = true;
+            this.adminLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.adminLabel.Location = new System.Drawing.Point(25, 27);
+            this.adminLabel.Name = "adminLabel";
+            this.adminLabel.Size = new System.Drawing.Size(110, 20);
+            this.adminLabel.TabIndex = 4;
+            this.adminLabel.Text = "Admin Name";
+            // 
             // MainAdmin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -142,7 +154,7 @@
             this.ClientSize = new System.Drawing.Size(1323, 690);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.sidePanel);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MainAdmin";
             this.Text = "MainAdmin";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
@@ -165,5 +177,6 @@
         public SplitContainer splitContainer1;
         private RadioButton udpRadioButton;
         private RadioButton tcpRadioButton;
+        private Label adminLabel;
     }
 }
