@@ -130,11 +130,8 @@ namespace SupermarketTuto.Forms
             add.editButton.Visible = false;
             add.CatIdTb.Visible = false;
             add.idlabel.Visible = false;
-
             add.ItemCreated += Add_ItemCreated;
             add.ShowDialog();
-
-  
         }
 
         private void Add_ItemCreated(object sender, CategoryEventArgs e)

@@ -30,15 +30,21 @@ namespace SupermarketTuto.Forms.General
     public partial class addEditSeller : Form
     {
         DataTable sellersTable = new DataTable();
-        DataRow selected;
+        DataGridViewRow selected = new DataGridViewRow();
         SellersTbl seller = new SellersTbl();
+        public event EventHandler<SellerEventArgs> ItemCreated;
+        public event EventHandler<SellerEventArgs> ItemEdited;
+
+
         GMapControl map = new GMapControl();
         HttpClient client = new HttpClient();
         Northeast coor = new Northeast();
         string address = string.Empty;
         string url = "https://maps.googleapis.com/maps/api/geocode/json?address={0}&key=AIzaSyA6xRZPHBhRuVErZgLtseHnB6heQFiyo3g";
         string imageName = "";
-        public addEditSeller(DataTable sellersTable_, DataRow selected_, bool add)
+        byte[] imageData;
+
+        public addEditSeller(DataTable sellersTable_, DataGridViewRow selected_, bool add)
         {
             InitializeComponent();
             sellersTable = sellersTable_;
@@ -51,81 +57,89 @@ namespace SupermarketTuto.Forms.General
             }
             else
             {
-                SellId.Text = selected["SellerId"].ToString();
-                usernameTextBox.Text = selected["SellerUserName"].ToString();
-                passwordTextBox.Text = selected["SellerPass"].ToString();
-                SellName.Text = selected["SellerName"].ToString();
-                SellAge.Text = selected["SellerAge"].ToString();
-                SellPhone.Text = selected["SellerPhone"].ToString();
-                addressTextBox.Text = selected["Address"].ToString();
-                checkBox.Checked = (bool)selected["Active"];
+                SellId.Text = selected.Cells["SellerId"].Value.ToString();
+                usernameTextBox.Text = selected.Cells["SellerUserName"].Value.ToString();
+                passwordTextBox.Text = selected.Cells["SellerPass"].Value.ToString();
+                SellName.Text = selected.Cells["SellerName"].Value.ToString();
+                SellAge.Text = selected.Cells["SellerAge"].Value.ToString();
+                SellPhone.Text = selected.Cells["SellerPhone"].Value.ToString();
+                addressTextBox.Text = selected.Cells["Address"].Value.ToString();
+                checkBox.Checked = (bool)selected.Cells["Active"].Value;
+                dateTimePicker.Value = (DateTime)selected.Cells["Date"].Value;
 
-                if (!selected.IsNull("Image"))
-                {
-                    byte[] imageData = (byte[])selected["Image"];
-                    MemoryStream ms = new MemoryStream(imageData);
-                    Image image = Image.FromStream(ms);
-                    pictureBox.Image = image;
-                }
 
-                dateTimePicker.Value = (DateTime)selected["Date"];
+                //if (!selected.IsNull("Image"))
+                //{
+                //    byte[] imageData = (byte[])selected["Image"];
+                //    MemoryStream ms = new MemoryStream(imageData);
+                //    Image image = Image.FromStream(ms);
+                //    pictureBox.Image = image;
+                //}
+
+
                 addButton.Visible = false;
             }
         }
+
         private void editButton_Click(object sender, EventArgs e)
         {
-            try
-            {
-                if (SellName.Text == "" || SellAge.Text == "" || SellPhone.Text == "" || passwordTextBox.Text == "" || addressTextBox.Text == "")
-                {
-                    MessageBox.Show("Missing Information");
-                }
-                else
-                {
-                    //byte[] imageBytes = Utils.Utils.ImageToByteArray(pictureBox.Image);
-                    byte[] imageData = File.ReadAllBytes(imageName);
-                    //seller.SellerName = SellName.Text;
-                    //byte[] asciiBytes = Encoding.ASCII.GetBytes(passwordTextBox.Text);
-                    seller.SellerPass = Utils.Utils.GetMD5Hash(passwordTextBox.Text);
-                    seller.SellerAge = Convert.ToInt32(SellAge.Text);
-                    seller.SellerUserName = usernameTextBox.Text;
-                    seller.SellerPhone = Convert.ToInt32(SellPhone.Text);
-                    seller.Address = addressTextBox.Text;
-                    seller.Active = checkBox.Checked;
-                    seller.Date = dateTimePicker.Value;
-                    seller.image = imageData;
-                    DataModel.Update<SellersTbl>(seller);
-                    MessageBox.Show("Seller Successfully Updated");
-                    this.Close();
-                }
+            //try
+            //{
+            //    if (SellName.Text == "" || SellAge.Text == "" || SellPhone.Text == "" || passwordTextBox.Text == "" || addressTextBox.Text == "")
+            //    {
+            //        MessageBox.Show("Missing Information");
+            //    }
+            //    else
+            //    {
+            //        //byte[] imageBytes = Utils.Utils.ImageToByteArray(pictureBox.Image);
+            //        byte[] imageData = File.ReadAllBytes(imageName);
+            //        //seller.SellerName = SellName.Text;
+            //        //byte[] asciiBytes = Encoding.ASCII.GetBytes(passwordTextBox.Text);
+            //        seller.SellerPass = Utils.Utils.GetMD5Hash(passwordTextBox.Text);
+            //        seller.SellerAge = Convert.ToInt32(SellAge.Text);
+            //        seller.SellerUserName = usernameTextBox.Text;
+            //        seller.SellerPhone = Convert.ToInt32(SellPhone.Text);
+            //        seller.Address = addressTextBox.Text;
+            //        seller.Active = checkBox.Checked;
+            //        seller.Date = dateTimePicker.Value;
+            //        seller.image = imageData;
+            //        DataModel.Update<SellersTbl>(seller);
+            //        MessageBox.Show("Seller Successfully Updated");
+            //        this.Close();
+            //    }
                
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message);
+            //}
         }
+
         private void addButton_Click(object sender, EventArgs e)
         {
             try
             {
-                sellersTable.Columns["SellerId"].AutoIncrement = true;
-                DataRow row = sellersTable.NewRow();
-                row["SellerUserName"] = usernameTextBox.Text;
-                byte[] asciiBytes = Encoding.ASCII.GetBytes(passwordTextBox.Text);
-                row["SellerPass"] = asciiBytes;
-                row["SellerName"] = SellName.Text;
-                row["SellerAge"] = SellAge.Text;
-                row["SellerPhone"] = SellPhone.Text;
-                row["Address"] = addressTextBox.Text;
-                row["Active"] = checkBox.Checked;
-                //row["image"] = usernameTextBox.Text;
-                row["Date"] = dateTimePicker.Value.ToString("yyyy-MM-dd");
-                sellersTable.Rows.Add(row);
-                if (sellersTable.Rows.Cast<DataRow>().Any(r => r.RowState == DataRowState.Added))
+                seller.SellerAge = Convert.ToInt32(SellAge.Text);
+                seller.SellerName = SellName.Text;
+                seller.SellerUserName = usernameTextBox.Text;
+                seller.SellerPass = passwordTextBox.Text;
+                seller.SellerPhone = Convert.ToInt32(SellPhone.Text);
+                seller.Date = (DateTime)dateTimePicker.Value.Date;
+                if (checkBox.Checked)
                 {
-                    //DataAccess.Instance.InsertData(sellersTable);
+                    seller.Active = true;
                 }
+                else
+                {
+                    seller.Active = false;
+                }
+                if(imageName != "")
+                {
+                    imageData = File.ReadAllBytes(imageName);
+                }
+                seller.image = imageData;
+                DataModel.Create<SellersTbl>(seller);
+                
                 MessageBox.Show("Seller added successfuly");
                 this.Close();
             }
@@ -260,4 +274,17 @@ namespace SupermarketTuto.Forms.General
 
 
     }
+
+    public class SellerEventArgs : EventArgs
+    {
+        public SellersTbl CreatedSeller { get; private set; }
+        public int PrimaryKeyValue { get; private set; }
+
+        public SellerEventArgs(SellersTbl seller, int primaryKeyValue)
+        {
+            CreatedSeller = seller;
+            PrimaryKeyValue = primaryKeyValue;
+        }
+    }
+
 }

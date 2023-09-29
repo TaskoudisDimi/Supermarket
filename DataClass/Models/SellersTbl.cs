@@ -20,9 +20,10 @@ namespace ClassLibrary1.Models
         public string SellerName { get; set; }
         public int SellerAge { get; set; }
         public int SellerPhone { get; set; }
+        public DateTime Date { get; set; }
         public string Address { get; set; }
         public bool Active { get; set; }
         public byte[] image { get; set; }
-        public DateTime Date { get; set; }
+        
     }
 }

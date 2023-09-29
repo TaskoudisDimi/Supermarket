@@ -125,24 +125,24 @@ namespace ClassLibrary1
                     {
                         continue; // Skip primary key columns
                     }
+                    Value = p.GetValue(item, null);
                     // Check if the property has the IsEncrypted attribute set to true
                     var databaseColumnAttribute = p.GetCustomAttribute<DatabaseColumnAttribute>();
                     if (databaseColumnAttribute != null && databaseColumnAttribute.IsEncrypted)
                     {
-                        Value = p.GetValue(item, null);
                         ValuesCMD = GetValueFromItem(p, Value, true);
                     }
                     else
                     {
-                        Value = p.GetValue(item, null);
                         ValuesCMD = GetValueFromItem(p, Value);
                     }
+                    
                     values.Add(ValuesCMD);
                 }
 
                 string cmd = $@"SET ANSI_WARNINGS OFF;
                                 Insert Into [{tableName}]
-                                VALUES ({string.Join(",", values)})
+                                VALUES ({JoinWithNullHandling(", ", values)})
                                 SET ANSI_WARNINGS ON;";
 
                 int result = DataContext.Instance.ExecuteNQ(cmd);
@@ -160,6 +160,35 @@ namespace ClassLibrary1
             {
                 return -1;
             }
+        }
+        public static string JoinWithNullHandling(string delimiter, IEnumerable<object> values)
+        {
+            if (values == null)
+                throw new ArgumentNullException(nameof(values));
+
+            var stringBuilder = new StringBuilder();
+            bool isFirst = true;
+
+            foreach (var value in values)
+            {
+                if (!isFirst)
+                {
+                    stringBuilder.Append(delimiter);
+                }
+
+                if (value == null)
+                {
+                    stringBuilder.Append("null");
+                }
+                else
+                {
+                    stringBuilder.Append(value);
+                }
+
+                isFirst = false;
+            }
+
+            return stringBuilder.ToString();
         }
 
         public static int? Update<T>(this T item, string[] updateOnly = null, string error = "") where T : class, new()
@@ -183,7 +212,7 @@ namespace ClassLibrary1
                 sb.Append($"Update {table} set ");
                 foreach (PropertyInfo p in properties)
                 {
-                    
+
                     // Check if the property has the IsPrimaryKey attribute set to true
                     var primaryKeyAttribute = p.GetCustomAttribute<DatabaseColumnAttribute>();
                     if (primaryKeyAttribute != null && primaryKeyAttribute.IsPrimaryKey)
@@ -490,8 +519,8 @@ namespace ClassLibrary1
                             propertyInfo.SetValue(obj, Convert.ChangeType(value, propType), null);
 
                         }
-                        
-                       
+
+
                     }
                 }
             }

@@ -55,6 +55,9 @@ namespace SupermarketTuto.Forms
                 SellDGV.RowHeadersVisible = false;
                 SellDGV.ReadOnly = true;
 
+                // Attach the CurrentChanged event handler to the BindingSource
+                bindingSource.CurrentChanged += bindingSource_CurrentChanged;
+
                 // Initialize the originalCategoryTable field with the same data as categoryTable
                 originalProductTable = sellerTable.Copy();
 
@@ -71,6 +74,31 @@ namespace SupermarketTuto.Forms
             }
         }
 
+        private void UpdateDataGridView()
+        {
+            try
+            {
+                int currentPage = bindingSource.Position / 5 + 1;
+                int startIndex = (currentPage - 1) * 5;
+
+                DataTable pageDataTable = sellerTable.Clone();
+                for (int i = startIndex; i < startIndex + 5 && i < bindingSource.Count; i++)
+                {
+                    pageDataTable.ImportRow(sellerTable.Rows[i]);
+                }
+                SellDGV.DataSource = pageDataTable;
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void bindingSource_CurrentChanged(object sender, EventArgs e)
+        {
+            UpdateDataGridView();
+        }
+
         #region buttons
         private void addButton_Click(object sender, EventArgs e)
         {
@@ -79,29 +107,20 @@ namespace SupermarketTuto.Forms
             add.SellId.Visible = false;
             add.idlabel.Visible = false;
             add.Show();
+
+            //add.ItemCreated += Add_ItemCreated;
+         
+
         }
 
         private void editButton_Click(object sender, EventArgs e)
         {
-            try
-            {
-                DataGridViewRow currentRow = SellDGV.CurrentRow;
-                if (currentRow != null)
-                {
-                    DataRow rowOfSellDGV = ((DataRowView)currentRow.DataBoundItem).Row;
-                    string filterData = "SellerId = " + rowOfSellDGV["SellerId"];
-                    DataRow filterRow = sellerTable.Select(filterData).FirstOrDefault();
-                    addEditSeller edit = new addEditSeller(sellerTable, filterRow, false);
-                    edit.addButton.Visible = false;
-                    edit.SellId.ReadOnly = true;
-                    edit.Show();
-                }
+            DataGridViewRow currentRow = SellDGV.CurrentRow;
+            addEditSeller edit = new addEditSeller(sellerTable, currentRow, false);
+            edit.SellId.ReadOnly = true;
+            //edit.ItemEdited += Edit_ItemEdited;
 
-            }
-            catch (Exception ex)
-            {
-                //Utlis.Log(string.Format("Message : {0}", ex.Message), "ErrorDisplayData.txt");
-            }
+            edit.Show();
 
         }
 

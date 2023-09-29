@@ -13,14 +13,14 @@ namespace SupermarketTuto
     internal static class Program
     {
 
-        //TODO: Upload / Download files 
-        //TODO: Build API 
+        //TODO: Fixes on Seller Form
+        //TODO: Fixes on Admins Form
         //TODO: Image on seller
         //TODO: Import Export excel/csv
         //TODO: Selected Products from Categories
-        //TODO: Fixes on Seller Form
-        //TODO: Fixes on Admins Form
         //TODO: Check Database, Restore,Backup etc.
+        //TODO: Build API 
+        //TODO: Upload / Download files 
         //TODO: Updates
 
 
