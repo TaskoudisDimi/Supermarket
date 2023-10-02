@@ -18,7 +18,7 @@ namespace ClassLibrary1.Models
         public string Password { get; set; }
 
         public bool Active { get; set; }
-        public bool? isSuperAdmin { get; set; }
+        public bool isSuperAdmin { get; set; }
 
     }
 }

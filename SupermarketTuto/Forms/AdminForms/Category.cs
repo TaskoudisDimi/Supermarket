@@ -24,9 +24,9 @@ namespace SupermarketTuto.Forms
         Type categoryType = typeof(CategoryTbl);
         private List<DataGridViewCellChange> changedCells = new List<DataGridViewCellChange>();
         //TCPClient ClientTCP = new TCPClient();
-        
+
         public DataTable tableTest;
-        
+
         public Category()
         {
             InitializeComponent();
@@ -45,7 +45,7 @@ namespace SupermarketTuto.Forms
             checkboxColumn.Name = "Select";
             CatDGV.Columns.Add(checkboxColumn);
             CatDGV.Columns["Select"].DisplayIndex = 0;
-            
+
             MenuStrip.Instance.Menu(CatDGV, categoryTable, null, categoryType, true);
 
             exportCombobox.Items.Add("Csv");
@@ -72,7 +72,7 @@ namespace SupermarketTuto.Forms
                 categoryTable = Utils.Utils.ToDataTable(categories);
                 categoryTable.PrimaryKey = new DataColumn[] { categoryTable.Columns["CatId"] };
                 originalCategoryTable = categoryTable.Copy();
-                
+
                 // Bind the data to the UI controls using the BindingSource
                 bindingSource = new BindingSource();
                 bindingSource.DataSource = categoryTable;
@@ -228,30 +228,18 @@ namespace SupermarketTuto.Forms
         {
             try
             {
-                WaitBar Form_ProgressBar = new WaitBar();
-                System.ComponentModel.BackgroundWorker BackgroundWorker = new System.ComponentModel.BackgroundWorker
+                List<string> rowsCategories = new List<string>();
+                foreach(DataGridViewRow rowCat in CatDGV.Rows)
                 {
-                    WorkerReportsProgress = true
-                };
-                BackgroundWorker.DoWork += Import_DoWork;
-                BackgroundWorker.ProgressChanged += (s, e2) =>
-                {
-                    Form_ProgressBar.waitProgressBar.Value = e2.ProgressPercentage;
-                };
-                BackgroundWorker.RunWorkerCompleted += (s, e3) =>
-                {
-                    Thread.Sleep(5000);
-                    if (e3.Error != null)
-                        throw e3.Error;
-                    Form_ProgressBar.Close();
-                    if (selectedProd.Count != 0)
+                    DataGridViewCheckBoxCell checkBoxCell = rowCat.Cells[0] as DataGridViewCheckBoxCell;
+                    if (checkBoxCell.Value != null && (bool)checkBoxCell.Value)
                     {
-                        SelectedProducts frm = new SelectedProducts(selectedProd);
-                        frm.Show();
+                        string CatId = rowCat.Cells["CatId"].Value?.ToString();
+                        rowsCategories.Add(CatId);
                     }
-                };
-                BackgroundWorker.RunWorkerAsync();
-                Form_ProgressBar.Show();
+                }
+                SelectedProducts formSelectedProd = new SelectedProducts(rowsCategories);
+                formSelectedProd.Show();
             }
             catch
             {
@@ -259,20 +247,7 @@ namespace SupermarketTuto.Forms
             }
 
         }
-        List<int> selectedProd = new List<int>();
-        private void Import_DoWork(object sender, DoWorkEventArgs e)
-        {
-
-            for (int i = 0; i < CatDGV.Rows.Count; i++)
-            {
-                if (Convert.ToBoolean(CatDGV.Rows[i].Cells[0].Value))
-                {
-                    selectedProd.Add((int)CatDGV.Rows[i].Cells[1].Value);
-                    (sender as BackgroundWorker).ReportProgress(i);
-                }
-            }
-
-        }
+        
 
         #endregion
 
@@ -370,7 +345,7 @@ namespace SupermarketTuto.Forms
 
         private void exportCombobox_SelectedValueChanged(object sender, EventArgs e)
         {
-            
+
             var item = ((ComboBox)sender).SelectedItem.ToString();
             if (item.Contains("Csv"))
             {
@@ -428,7 +403,7 @@ namespace SupermarketTuto.Forms
         #endregion
 
         #region paging
-        
+
         private void prevButton_Click(object sender, EventArgs e)
         {
             if (bindingSource.Position > 0)
@@ -439,7 +414,7 @@ namespace SupermarketTuto.Forms
 
         private void nextButton_Click(object sender, EventArgs e)
         {
-            if(bindingSource.Position + 5 < bindingSource.Count)
+            if (bindingSource.Position + 5 < bindingSource.Count)
             {
                 bindingSource.Position += 5;
             }
@@ -466,16 +441,16 @@ namespace SupermarketTuto.Forms
 
         #endregion
 
-        
+
         private void Edit_DataChanged(object sender, DataGridViewCellChange e)
         {
-            
+
             var cellValue = e;
             changedCells.Add(cellValue);
-            
+
             //ClientTCP.SendData(changedCells);
             //ClientTCP.StopClient();
-           
+
         }
         DataTable dataTable = null;
         private void UpdateDataFromServer(object sender, List<DataGridViewCellChange> e)

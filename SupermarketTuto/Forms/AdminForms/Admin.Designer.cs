@@ -36,11 +36,13 @@
             this.addButton = new System.Windows.Forms.Button();
             this.activeLabel = new System.Windows.Forms.Label();
             this.activeComboBox = new System.Windows.Forms.ComboBox();
+            this.totalLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.usersDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // usersDataGridView
             // 
+            this.usersDataGridView.AllowUserToAddRows = false;
             this.usersDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.usersDataGridView.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
             this.usersDataGridView.BorderStyle = System.Windows.Forms.BorderStyle.None;
@@ -49,6 +51,7 @@
             this.usersDataGridView.Name = "usersDataGridView";
             this.usersDataGridView.RowHeadersWidth = 62;
             this.usersDataGridView.RowTemplate.Height = 25;
+            this.usersDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.usersDataGridView.Size = new System.Drawing.Size(750, 329);
             this.usersDataGridView.TabIndex = 0;
             this.usersDataGridView.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.usersDataGridView_CellFormatting);
@@ -63,6 +66,7 @@
             this.searchButton.TabIndex = 85;
             this.searchButton.Text = "Search";
             this.searchButton.UseVisualStyleBackColor = true;
+            this.searchButton.Click += new System.EventHandler(this.searchButton_Click);
             // 
             // searchTextBox
             // 
@@ -72,11 +76,13 @@
             this.searchTextBox.Name = "searchTextBox";
             this.searchTextBox.Size = new System.Drawing.Size(222, 26);
             this.searchTextBox.TabIndex = 84;
+            this.searchTextBox.TextChanged += new System.EventHandler(this.searchTextBox_TextChanged);
+            this.searchTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.searchTextBox_KeyPress);
             // 
             // deleteButton
             // 
             this.deleteButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.deleteButton.Location = new System.Drawing.Point(238, 391);
+            this.deleteButton.Location = new System.Drawing.Point(670, 391);
             this.deleteButton.Name = "deleteButton";
             this.deleteButton.Size = new System.Drawing.Size(102, 34);
             this.deleteButton.TabIndex = 100;
@@ -87,7 +93,7 @@
             // editButton
             // 
             this.editButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.editButton.Location = new System.Drawing.Point(130, 391);
+            this.editButton.Location = new System.Drawing.Point(562, 391);
             this.editButton.Name = "editButton";
             this.editButton.Size = new System.Drawing.Size(102, 34);
             this.editButton.TabIndex = 99;
@@ -98,7 +104,7 @@
             // addButton
             // 
             this.addButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.addButton.Location = new System.Drawing.Point(22, 391);
+            this.addButton.Location = new System.Drawing.Point(454, 391);
             this.addButton.Name = "addButton";
             this.addButton.Size = new System.Drawing.Size(102, 34);
             this.addButton.TabIndex = 98;
@@ -125,11 +131,22 @@
             this.activeComboBox.TabIndex = 127;
             this.activeComboBox.SelectedIndexChanged += new System.EventHandler(this.activeComboBox_SelectedIndexChanged);
             // 
+            // totalLabel
+            // 
+            this.totalLabel.AutoSize = true;
+            this.totalLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.totalLabel.Location = new System.Drawing.Point(18, 391);
+            this.totalLabel.Name = "totalLabel";
+            this.totalLabel.Size = new System.Drawing.Size(48, 20);
+            this.totalLabel.TabIndex = 129;
+            this.totalLabel.Text = "Total:";
+            // 
             // Admin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(813, 448);
+            this.Controls.Add(this.totalLabel);
             this.Controls.Add(this.activeLabel);
             this.Controls.Add(this.activeComboBox);
             this.Controls.Add(this.deleteButton);
@@ -157,5 +174,6 @@
         private Button addButton;
         public Label activeLabel;
         private ComboBox activeComboBox;
+        private Label totalLabel;
     }
 }

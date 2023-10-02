@@ -1,4 +1,5 @@
-﻿using DataClass;
+﻿using ClassLibrary1.Models;
+using ClassLibrary1;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,20 +14,28 @@ namespace SupermarketTuto.Forms.AdminForms
 {
     public partial class SelectedProducts : Form
     {
-        public string selectedCatIDs;
-        public SelectedProducts(List<int> CatIds)
+        private List<string> catIDs = new List<string>();
+        public SelectedProducts(List<string> catIDs)
         {
             InitializeComponent();
-            List<string> strings = CatIds.ConvertAll<string>(x => x.ToString());
-            selectedCatIDs = String.Join(", ", strings);
+            this.catIDs = catIDs;
         }
-
+        StringBuilder sb = new StringBuilder();
         private void SelectedProducts_Load(object sender, EventArgs e)
         {
-            //SqlConnect loaddata2 = new SqlConnect();
-            //loaddata2.getData("Select * From ProductTbl where ProdCatID in (" + selectedCatIDs + ")");
-            //selectedDGV.DataSource = loaddata2.table;
-            //selectedDGV.RowHeadersVisible = false;
+            if(catIDs.Count > 0)
+            {
+                foreach(string item in catIDs)
+                {
+                    sb.Append($"ProdCatID = {item} or ");
+                }
+                string cmd = sb.ToString();
+                cmd = cmd.ToString().TrimEnd(' ', 'o', 'r');
+                List<ProductTbl> products = DataModel.Select<ProductTbl>(where: cmd);
+                SelectedProdDGV.DataSource = products;
+                SelectedProdDGV.RowHeadersVisible = false;
+                SelectedProdDGV.ReadOnly = false;
+            }
 
         }
     }

@@ -21,7 +21,7 @@ namespace SupermarketTuto.Forms.General
         Admins admin = new Admins();
         public event EventHandler<AdminsEventArgs> ItemCreated;
         public event EventHandler<AdminsEventArgs> ItemEdited;
-
+        
 
         public addEditAdmin(DataTable adminTable_, DataGridViewRow selected_, bool add)
         {
@@ -35,12 +35,12 @@ namespace SupermarketTuto.Forms.General
             }
             else
             {
-                //AdminIdTb.Text = selected.Cells["CatId"].Value.ToString();
-                //AdminNameTb.Text = selected.Cells["CatName"].Value.ToString();
-                //AdminPassTb.Text = selected.Cells["CatDesc"].Value.ToString();
-                //activeCheckBox.Checked = (bool)selected["Active"];
-                //superAdminCheckBox.Checked = (bool)selected["Active"];
-                //addButton.Visible = false;
+                AdminIdTb.Text = selected.Cells["Id"].Value.ToString();
+                AdminNameTb.Text = selected.Cells["UserName"].Value.ToString();
+                AdminPassTb.Text = selected.Cells["Password"].Value.ToString();
+                activeCheckBox.Checked = (bool)selected.Cells["Active"].Value;
+                superAdminCheckBox.Checked = (bool)selected.Cells["isSuperAdmin"].Value;
+                addButton.Visible = false;
             }
 
         }
@@ -59,7 +59,7 @@ namespace SupermarketTuto.Forms.General
                 {
                     admin.Active = false;
                 }
-                admin.isSuperAdmin = null;
+                admin.isSuperAdmin = false;
 
                 DataModel.Create<Admins>(admin);
                 OnItemCreated(new AdminsEventArgs(admin, admin.Id));
@@ -80,34 +80,41 @@ namespace SupermarketTuto.Forms.General
 
         private void editButton_Click(object sender, EventArgs e)
         {
-            //try
-            //{
-            //    if (AdminIdTb.Text == "" || AdminNameTb.Text == "" || AdminPassTb.Text == "")
-            //    {
-            //        MessageBox.Show("Missing Information", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            //    }
-            //    else
-            //    {
-            //        category.CatId = Convert.ToInt32(AdminIdTb.Text);
-            //        category.CatDesc = AdminPassTb.Text;
-            //        category.CatName = AdminNameTb.Text;
-            //        category.Date = (DateTime)dateTimePicker.Value.Date;
-            //        DataModel.Update<CategoryTbl>(category);
-            //        OnItemEdited(new CategoryEventArgs(category, category.CatId));
-            //        //GetChanges(table, row);
-            //        MessageBox.Show($"Successfully inserted Category {category.CatName}", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //        this.Close();
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message);
-            //}
+            try
+            {
+                if (AdminIdTb.Text == "" || AdminNameTb.Text == "" || AdminPassTb.Text == "")
+                {
+                    MessageBox.Show("Missing Information", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else
+                {
+                    admin.Id = Convert.ToInt32(AdminIdTb.Text);
+                    admin.UserName = AdminNameTb.Text;
+                    admin.Password = AdminPassTb.Text;
+                    if (activeCheckBox.Checked)
+                        admin.Active = true;
+                    else
+                        admin.Active = false;
+                    if (superAdminCheckBox.Checked)
+                        admin.isSuperAdmin = true;
+                    else
+                        admin.isSuperAdmin = false;
+
+                    DataModel.Update<Admins>(admin);
+                    OnItemEdited(new AdminsEventArgs(admin, admin.Id));
+
+                    MessageBox.Show($"Successfully inserted Category {admin.UserName}", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
         protected virtual void OnItemEdited(AdminsEventArgs e)
         {
             ItemEdited?.Invoke(this, e);
-
         }
 
 

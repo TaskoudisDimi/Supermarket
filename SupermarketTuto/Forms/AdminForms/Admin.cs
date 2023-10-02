@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MenuStrip = ClassLibrary1.MenuStrip;
 
 namespace SupermarketTuto.Forms
 {
@@ -19,6 +20,9 @@ namespace SupermarketTuto.Forms
         DataTable adminTable = new DataTable();
         DataTable filterTable = new DataTable();
         Admins admins = new Admins();
+        BindingSource bindingSource = new BindingSource();
+        private DataTable originalAdminTable;
+
         public Admin(Admins admins_ = null)
         {
             InitializeComponent();
@@ -36,15 +40,26 @@ namespace SupermarketTuto.Forms
 
                 List<Admins> data = DataModel.Select<Admins>();
                 adminTable = Utils.Utils.ToDataTable(data);
-                
+                adminTable.PrimaryKey = new DataColumn[] { adminTable.Columns[name: "Id"] };
+                filterTable = adminTable.Clone();
                 DataRow[] filterRow = adminTable.Select("Active = 1");
                 foreach (DataRow row in filterRow)
                 {
                     filterTable.ImportRow(row);
                 }
-
-                usersDataGridView.DataSource = filterTable;
+                bindingSource.DataSource = filterTable;
+                usersDataGridView.DataSource = bindingSource;
                 usersDataGridView.RowHeadersVisible = false;
+
+                // Attach the CurrentChanged event handler to the BindingSource
+                bindingSource.CurrentChanged += bindingSource_CurrentChanged;
+
+                totalLabel.Text = $"Total: {usersDataGridView.RowCount}";
+
+                MenuStrip.Instance.Menu(usersDataGridView, adminTable, null, null, false);
+
+                // Initialize the originalCategoryTable field with the same data as categoryTable
+                originalAdminTable = adminTable.Copy();
 
                 //if(admins != null)
                 //{
@@ -61,6 +76,32 @@ namespace SupermarketTuto.Forms
 
             } 
         }
+
+        private void UpdateDataGridView()
+        {
+            try
+            {
+                int currentPage = bindingSource.Position / 5 + 1;
+                int startIndex = (currentPage - 1) * 5;
+
+                DataTable pageDataTable = adminTable.Clone();
+                for (int i = startIndex; i < startIndex + 5 && i < bindingSource.Count; i++)
+                {
+                    pageDataTable.ImportRow(adminTable.Rows[i]);
+                }
+                usersDataGridView.DataSource = pageDataTable;
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void bindingSource_CurrentChanged(object sender, EventArgs e)
+        {
+            UpdateDataGridView();
+        }
+
 
         private void usersDataGridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
@@ -82,71 +123,142 @@ namespace SupermarketTuto.Forms
         }
         private void Add_ItemCreated(object sender, AdminsEventArgs e)
         {
-            adminTable.Rows.Add(e.CreatedAdmin.UserName,e.CreatedAdmin.Password ,e.CreatedAdmin.Active, e.CreatedAdmin.isSuperAdmin);
+            adminTable.Rows.Add(e.CreatedAdmin.Id, e.CreatedAdmin.UserName,e.CreatedAdmin.Password ,e.CreatedAdmin.Active, e.CreatedAdmin.isSuperAdmin);
             usersDataGridView.Refresh();
         }
 
         private void editButton_Click(object sender, EventArgs e)
         {
-            //DataGridViewRow currentRow = CatDGV.CurrentRow;
-            //addEditCategory edit = new addEditCategory(categoryTable, currentRow, false);
-            //edit.CatIdTb.ReadOnly = true;
-            //edit.ItemEdited += Edit_ItemEdited;
+            DataGridViewRow currentRow = usersDataGridView.CurrentRow;
+            addEditAdmin edit = new addEditAdmin(adminTable, currentRow, false);
+            edit.AdminIdTb.ReadOnly = true;
+            edit.ItemEdited += Edit_ItemEdited;
 
-            ////edit.DataChanged += Edit_DataChanged;
-
-            //edit.Show();
+            edit.Show();
         }
 
-        //private void Edit_ItemEdited(object sender, AdminsEventArgs e)
-        //{
-        //    // Update the edited category in the DataTable in form
+        private void Edit_ItemEdited(object sender, AdminsEventArgs e)
+        {
+            // Update the edited category in the DataTable in form
 
-        //    DataRow editedRow = categoryTable.Rows.Find(e.PrimaryKeyValue);
-        //    if (editedRow != null)
-        //    {
-        //        editedRow["CatName"] = e.CreatedCategory.CatName;
-        //        editedRow["CatDesc"] = e.CreatedCategory.CatDesc;
-        //        editedRow["Date"] = e.CreatedCategory.Date;
-        //    }
-        //    CatDGV.Refresh();
-        //}
+            DataRow editedRow = adminTable.Rows.Find(e.PrimaryKeyValue);
+            if (editedRow != null)
+            {
+                editedRow["UserName"] = e.CreatedAdmin.UserName;
+                editedRow["Password"] = e.CreatedAdmin.Password;
+                editedRow["Active"] = e.CreatedAdmin.Active;
+                editedRow["isSuperAdmin"] = e.CreatedAdmin.isSuperAdmin;
+            }
+            usersDataGridView.Refresh();
+        }
 
 
         private void deleteButton_Click(object sender, EventArgs e)
         {
-            //try
-            //{
-            //    List<DataRow> rowsToDelete = new List<DataRow>();
-            //    DataRow row = null;
-            //    // loop over the selected rows and add them to the list
-            //    foreach (DataGridViewRow selectedRow in CatDGV.SelectedRows)
-            //    {
-            //        //Convert DataGridViewRow -> DataRow
-            //        row = ((DataRowView)selectedRow.DataBoundItem).Row;
-            //        string CatId = Convert.ToInt32(row["CatId"]).ToString();
-            //        CategoryTbl category = DataModel.Select<CategoryTbl>(where: $"CatId = '{CatId}' ").FirstOrDefault();
-            //        DataModel.Delete<CategoryTbl>(category);
-            //        rowsToDelete.Add(row);
-            //    }
+            try
+            {
+                List<DataRow> rowsToDelete = new List<DataRow>();
+                DataRow row = null;
+                // loop over the selected rows and add them to the list
+                foreach (DataGridViewRow selectedRow in usersDataGridView.SelectedRows)
+                {
+                    //Convert DataGridViewRow -> DataRow
+                    row = ((DataRowView)selectedRow.DataBoundItem).Row;
+                    string CatId = Convert.ToInt32(row["Id"]).ToString();
+                    Admins adminToDelete = DataModel.Select<Admins>(where: $"Id = '{CatId}' ").FirstOrDefault();
+                    DataModel.Delete<Admins>(adminToDelete);
+                    rowsToDelete.Add(row);
+                }
 
-            //    foreach (DataRow rowToDelete in rowsToDelete)
-            //    {
-            //        categoryTable.Rows.Remove(rowToDelete);
-            //    }
-            //    CatDGV.DataSource = categoryTable;
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message);
-            //    Utils.Utils.Log(string.Format("Message : {0}", ex.Message), "ErrorDeleteCategory.txt");
-            //}
+                foreach (DataRow rowToDelete in rowsToDelete)
+                {
+                    filterTable.Rows.Remove(rowToDelete);
+                }
+                usersDataGridView.DataSource = filterTable;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                Utils.Utils.Log(string.Format("Message : {0}", ex.Message), "ErrorDeleteCategory.txt");
+            }
         }
 
 
         private void activeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            try
+            {
+                if (filterTable.Rows.Count > 0)
+                {
+                    if (activeComboBox.Text == "Not Set")
+                    {
+                        usersDataGridView.DataSource = filterTable;
+                        usersDataGridView.RowHeadersVisible = false;
+                        totalLabel.Text = $"Total: {usersDataGridView.RowCount}";
+                    }
+                    else
+                    {
+                        bool active = activeComboBox.Text.Equals("Active") ? true : false;
+                        string filterData = "Active = " + active.ToString().ToLower();
+                        DataRow[] filterRow = filterTable.Select(filterData);
+                        DataTable comboTable = filterTable.Clone();
+                        foreach (DataRow row in filterRow)
+                        {
+                            comboTable.ImportRow(row);
+                        }
+                        usersDataGridView.DataSource = comboTable;
+                        usersDataGridView.RowHeadersVisible = false;
+                        totalLabel.Text = $"Total: {usersDataGridView.RowCount}";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
 
+            }
+        }
+
+        private void searchButton_Click(object sender, EventArgs e)
+        {
+            // If the search text is not empty, filter the originalCategoryTable and assign the filtered result to the categoryTable
+            if (!string.IsNullOrWhiteSpace(searchTextBox.Text))
+            {
+                var matchingRows = from row in originalAdminTable.AsEnumerable()
+                                   where row.ItemArray.Any(x =>
+                                         StringComparer.OrdinalIgnoreCase.Equals(x.ToString(), searchTextBox.Text))
+                                   select row;
+
+                if (matchingRows.Any())
+                {
+                    adminTable = matchingRows.CopyToDataTable();
+                }
+                else
+                {
+                    adminTable = adminTable.Clone();
+                }
+            }
+            // If the search text is empty, assign the originalCategoryTable to the categoryTable
+            else
+            {
+                adminTable = originalAdminTable.Copy();
+            }
+
+            // Bind the categoryTable to the CatDGV DataGridView control
+            usersDataGridView.DataSource = adminTable;
+        }
+
+        private void searchTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //Search with Enter 
+            if (e.KeyChar == (char)13)
+            {
+                searchButton.PerformClick();
+            }
+        }
+
+        private void searchTextBox_TextChanged(object sender, EventArgs e)
+        {
+            searchButton.PerformClick();
         }
     }
 }
