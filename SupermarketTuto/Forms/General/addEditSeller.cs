@@ -34,7 +34,7 @@ namespace SupermarketTuto.Forms.General
         SellersTbl seller = new SellersTbl();
         public event EventHandler<SellerEventArgs> ItemCreated;
         public event EventHandler<SellerEventArgs> ItemEdited;
-
+        
 
         GMapControl map = new GMapControl();
         HttpClient client = new HttpClient();
@@ -43,6 +43,7 @@ namespace SupermarketTuto.Forms.General
         string url = "https://maps.googleapis.com/maps/api/geocode/json?address={0}&key=AIzaSyA6xRZPHBhRuVErZgLtseHnB6heQFiyo3g";
         string imageName = "";
         byte[] imageData;
+        List<SqlParameter> para = new List<SqlParameter>();
 
         public addEditSeller(DataTable sellersTable_, DataGridViewRow selected_, bool add)
         {
@@ -119,6 +120,7 @@ namespace SupermarketTuto.Forms.General
         {
             try
             {
+                
                 seller.SellerAge = Convert.ToInt32(SellAge.Text);
                 seller.SellerName = SellName.Text;
                 seller.SellerUserName = usernameTextBox.Text;
@@ -138,7 +140,12 @@ namespace SupermarketTuto.Forms.General
                     imageData = File.ReadAllBytes(imageName);
                 }
                 seller.image = imageData;
-                DataModel.Create<SellersTbl>(seller);
+                
+                SqlParameter param = new SqlParameter("@Image", SqlDbType.VarBinary, -1);
+                param.Value = imageData;
+               
+                para.Add(param);
+                DataModel.Create<SellersTbl>(seller, queryparams: para);
                 
                 MessageBox.Show("Seller added successfuly");
                 this.Close();

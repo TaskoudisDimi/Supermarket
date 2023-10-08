@@ -200,7 +200,7 @@ namespace ClassLibrary1
             }
         }
 
-        public int ExecuteNQ(string sql)
+        public int ExecuteNQ(string sql, List<SqlParameter> parameters = null)
         {
             if (!CheckConnection())
             {
@@ -214,18 +214,28 @@ namespace ClassLibrary1
                     cmd.Connection = connection;
                     cmd.CommandType = CommandType.Text;
                     cmd.CommandText = sql;
-                    int obj = cmd.ExecuteNonQuery();
+                    int obj;
+                    if (parameters.Count > 0)
+                    {
+                        obj = cmd.ExecuteNonQuery();
+                    }
+                    else
+                    {
+                        cmd.Parameters.AddRange(parameters.ToArray());
+                        obj = cmd.ExecuteNonQuery();
+                    }
                     instances.Remove(currentInstanceId.Value);
                     return obj;
                 }
-
             }
             catch
             {
                 return 0;
             }
-
         }
+
+
+       
 
     }
 }

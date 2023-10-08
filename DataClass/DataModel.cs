@@ -144,8 +144,17 @@ namespace ClassLibrary1
                                 Insert Into [{tableName}]
                                 VALUES ({JoinWithNullHandling(", ", values)})
                                 SET ANSI_WARNINGS ON;";
-
-                int result = DataContext.Instance.ExecuteNQ(cmd);
+                int result;
+                if (para.Count > 0)
+                {
+                    // Prepare SQL command to insert the image data into the database
+                    //string sql = "INSERT INTO ImageData (ImageData) VALUES (@ImageData)";
+                    result = DataContext.Instance.ExecuteNQ(cmd, para);
+                }
+                else
+                {
+                    result = DataContext.Instance.ExecuteNQ(cmd);
+                }
 
                 if (result > 0)
                 {
@@ -161,6 +170,7 @@ namespace ClassLibrary1
                 return -1;
             }
         }
+        
         public static string JoinWithNullHandling(string delimiter, IEnumerable<object> values)
         {
             if (values == null)
@@ -294,6 +304,8 @@ namespace ClassLibrary1
             }
         }
 
+
+        
 
         #region Helpers
 
