@@ -67,86 +67,89 @@ namespace SupermarketTuto.Forms.General
                 addressTextBox.Text = selected.Cells["Address"].Value.ToString();
                 checkBox.Checked = (bool)selected.Cells["Active"].Value;
                 dateTimePicker.Value = (DateTime)selected.Cells["Date"].Value;
-
-
-                //if (!selected.IsNull("Image"))
-                //{
-                //    byte[] imageData = (byte[])selected["Image"];
-                //    MemoryStream ms = new MemoryStream(imageData);
-                //    Image image = Image.FromStream(ms);
-                //    pictureBox.Image = image;
-                //}
-
-
+                SellersTbl seller = DataModel.Select<SellersTbl>(where: $"SellerId = {selected.Cells["SellerId"].Value.ToString()}").FirstOrDefault();
+                
+                if (seller.image != null)
+                {
+                    MemoryStream ms = new MemoryStream(seller.image);
+                    Image image = Image.FromStream(ms);
+                    pictureBox.Image = image;
+                }
                 addButton.Visible = false;
             }
         }
 
         private void editButton_Click(object sender, EventArgs e)
         {
-            //try
-            //{
-            //    if (SellName.Text == "" || SellAge.Text == "" || SellPhone.Text == "" || passwordTextBox.Text == "" || addressTextBox.Text == "")
-            //    {
-            //        MessageBox.Show("Missing Information");
-            //    }
-            //    else
-            //    {
-            //        //byte[] imageBytes = Utils.Utils.ImageToByteArray(pictureBox.Image);
-            //        byte[] imageData = File.ReadAllBytes(imageName);
-            //        //seller.SellerName = SellName.Text;
-            //        //byte[] asciiBytes = Encoding.ASCII.GetBytes(passwordTextBox.Text);
-            //        seller.SellerPass = Utils.Utils.GetMD5Hash(passwordTextBox.Text);
-            //        seller.SellerAge = Convert.ToInt32(SellAge.Text);
-            //        seller.SellerUserName = usernameTextBox.Text;
-            //        seller.SellerPhone = Convert.ToInt32(SellPhone.Text);
-            //        seller.Address = addressTextBox.Text;
-            //        seller.Active = checkBox.Checked;
-            //        seller.Date = dateTimePicker.Value;
-            //        seller.image = imageData;
-            //        DataModel.Update<SellersTbl>(seller);
-            //        MessageBox.Show("Seller Successfully Updated");
-            //        this.Close();
-            //    }
-               
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message);
-            //}
+            try
+            {
+                if (SellName.Text == "" || SellAge.Text == "" || SellPhone.Text == "" || passwordTextBox.Text == "" || addressTextBox.Text == "")
+                {
+                    MessageBox.Show("Missing Information");
+                }
+                else
+                {
+                    
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void addButton_Click(object sender, EventArgs e)
         {
             try
             {
-                
-                seller.SellerAge = Convert.ToInt32(SellAge.Text);
-                seller.SellerName = SellName.Text;
-                seller.SellerUserName = usernameTextBox.Text;
-                seller.SellerPass = passwordTextBox.Text;
-                seller.SellerPhone = Convert.ToInt32(SellPhone.Text);
-                seller.Date = (DateTime)dateTimePicker.Value.Date;
-                if (checkBox.Checked)
-                {
-                    seller.Active = true;
-                }
-                else
-                {
-                    seller.Active = false;
-                }
-                if(imageName != "")
+
+                if (imageName != "")
                 {
                     imageData = File.ReadAllBytes(imageName);
                 }
                 seller.image = imageData;
-                
-                SqlParameter param = new SqlParameter("@Image", SqlDbType.VarBinary, -1);
-                param.Value = imageData;
-               
-                para.Add(param);
-                DataModel.Create<SellersTbl>(seller, queryparams: para);
-                
+                SqlParameter paramUsername = new SqlParameter("@SellerUserName", SqlDbType.NVarChar, -1);
+                SqlParameter paramPass = new SqlParameter("@SellerPass", SqlDbType.NVarChar, -1);
+                SqlParameter paramName = new SqlParameter("@SellerName", SqlDbType.NVarChar, -1);
+                SqlParameter paramAge = new SqlParameter("@SellerAge", SqlDbType.Int, -1);
+                SqlParameter paramPhone = new SqlParameter("@SellerPhone", SqlDbType.Int, -1);
+                SqlParameter paramDate = new SqlParameter("@Date", SqlDbType.DateTime, -1);
+                SqlParameter paramAddress = new SqlParameter("@Address", SqlDbType.NVarChar, -1);
+                SqlParameter paramActive = new SqlParameter("@Active", SqlDbType.Bit, -1);
+                SqlParameter paramImage = new SqlParameter("@Image", SqlDbType.VarBinary, -1);
+                paramImage.Value = imageData;
+                paramAge.Value = Convert.ToInt32(SellAge.Text);
+                paramName.Value = SellName.Text;
+                paramUsername.Value = usernameTextBox.Text;
+                // Hash password
+                string hashPass = Utils.Utils.HashPassword(passwordTextBox.Text);
+                paramPass.Value = hashPass;
+                paramPhone.Value = Convert.ToInt32(SellPhone.Text);
+                paramDate.Value = (DateTime)dateTimePicker.Value.Date;
+                paramAddress.Value = addressTextBox.Text;
+                if (checkBox.Checked)
+                {
+                    paramActive.Value = true;
+                }
+                else
+                {
+                    paramActive.Value = false;
+                }
+                para.Add(paramUsername);
+                para.Add(paramPass);
+                para.Add(paramName);
+                para.Add(paramAge);
+                para.Add(paramPhone);
+                para.Add(paramDate);
+                para.Add(paramAddress);
+                para.Add(paramActive);
+                para.Add(paramImage);
+                DataContext.Instance.ExecuteNQ("Insert Into SellersTbl (SellerUserName, SellerPass, SellerName, " +
+                    "SellerAge, SellerPhone, Date, Address, Active, Image) VALUES (@SellerUserName, @SellerPass, @SellerName," +
+                    "@SellerAge, @SellerPhone, @Date, @Address, @Active, @Image)", para);
+
+
                 MessageBox.Show("Seller added successfuly");
                 this.Close();
             }

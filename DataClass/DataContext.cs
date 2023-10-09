@@ -217,11 +217,11 @@ namespace ClassLibrary1
                     int obj;
                     if (parameters.Count > 0)
                     {
+                        cmd.Parameters.AddRange(parameters.ToArray());
                         obj = cmd.ExecuteNonQuery();
                     }
                     else
                     {
-                        cmd.Parameters.AddRange(parameters.ToArray());
                         obj = cmd.ExecuteNonQuery();
                     }
                     instances.Remove(currentInstanceId.Value);
