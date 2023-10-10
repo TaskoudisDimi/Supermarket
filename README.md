@@ -6,6 +6,7 @@ Includes two different types of forms. Those used by administrators and those us
 
 # Steps to run the application:
 * Restore the database on the SQL server with the backupfile.bak
+* Open the solution [file](SupermarketTuto.sln) with an editor (e.g. visual studio 2022). Build the project.
 * Run the ```SupermarketTuto.exe``` file.
 
 
