@@ -38,7 +38,7 @@ namespace SupermarketTuto.Forms.General
 
         GMapControl map = new GMapControl();
         HttpClient client = new HttpClient();
-        Northeast coor = new Northeast();
+        Map.Northeast coor = new Map.Northeast();
         string address = string.Empty;
         string url = "https://maps.googleapis.com/maps/api/geocode/json?address={0}&key=AIzaSyA6xRZPHBhRuVErZgLtseHnB6heQFiyo3g";
         string imageName = "";
@@ -67,7 +67,7 @@ namespace SupermarketTuto.Forms.General
                 addressTextBox.Text = selected.Cells["Address"].Value.ToString();
                 checkBox.Checked = (bool)selected.Cells["Active"].Value;
                 dateTimePicker.Value = (DateTime)selected.Cells["Date"].Value;
-                SellersTbl seller = DataModel.Select<SellersTbl>(where: $"SellerId = {selected.Cells["SellerId"].Value.ToString()}").FirstOrDefault();
+                seller = DataModel.Select<SellersTbl>(where: $"SellerId = {selected.Cells["SellerId"].Value.ToString()}").FirstOrDefault();
                 
                 if (seller.image != null)
                 {
@@ -77,6 +77,19 @@ namespace SupermarketTuto.Forms.General
                 }
                 addButton.Visible = false;
             }
+        }
+
+
+        private void addEditSeller_Load(object sender, EventArgs e)
+        {
+            this.Controls.Add(map);
+            map.Dock = DockStyle.Fill;
+            map.MapProvider = GoogleMapProvider.Instance;
+            panel1.Controls.Add(map);
+            map.Position = new PointLatLng(40.629269, 22.947412);
+            map.MinZoom = 0;
+            map.MaxZoom = 24;
+            map.Zoom = 12;
         }
 
         private void editButton_Click(object sender, EventArgs e)
@@ -89,7 +102,65 @@ namespace SupermarketTuto.Forms.General
                 }
                 else
                 {
+                    SqlParameter SellerId = new SqlParameter("@SellerId", SqlDbType.Int);
+                    SqlParameter paramUsername = new SqlParameter("@SellerUserName", SqlDbType.NVarChar, -1);
+                    SqlParameter paramPass = new SqlParameter("@SellerPass", SqlDbType.NVarChar, -1);
+                    SqlParameter paramName = new SqlParameter("@SellerName", SqlDbType.NVarChar, -1);
+                    SqlParameter paramAge = new SqlParameter("@SellerAge", SqlDbType.Int, -1);
+                    SqlParameter paramPhone = new SqlParameter("@SellerPhone", SqlDbType.Int, -1);
+                    SqlParameter paramDate = new SqlParameter("@Date", SqlDbType.DateTime, -1);
+                    SqlParameter paramAddress = new SqlParameter("@Address", SqlDbType.NVarChar, -1);
+                    SqlParameter paramActive = new SqlParameter("@Active", SqlDbType.Bit, -1);
+                    SqlParameter paramImage = new SqlParameter("@Image", SqlDbType.VarBinary, -1);
+                    paramImage.Value = seller.image;
+                    paramAge.Value = Convert.ToInt32(SellAge.Text);
+                    paramName.Value = SellName.Text;
+                    paramUsername.Value = usernameTextBox.Text;
+                    // Hash password
+                    string hashPass = Utils.Utils.HashPassword(passwordTextBox.Text);
+                    paramPass.Value = hashPass;
+                    paramPhone.Value = Convert.ToInt32(SellPhone.Text);
+                    paramDate.Value = (DateTime)dateTimePicker.Value.Date;
+                    paramAddress.Value = addressTextBox.Text;
+                    SellerId.Value = Convert.ToInt32(SellId.Text);
+
+                    if (checkBox.Checked)
+                    {
+                        paramActive.Value = true;
+                    }
+                    else
+                    {
+                        paramActive.Value = false;
+                    }
+                    para.Add(SellerId);
+                    para.Add(paramUsername);
+                    para.Add(paramPass);
+                    para.Add(paramName);
+                    para.Add(paramAge);
+                    para.Add(paramPhone);
+                    para.Add(paramDate);
+                    para.Add(paramAddress);
+                    para.Add(paramActive);
+                    para.Add(paramImage);
                     
+                    // Update the record using the SQL query
+                    DataContext.Instance.ExecuteNQ(
+                        "Update SellersTbl " +
+                        "set SellerUserName = @SellerUserName, " +
+                        "SellerPass = @SellerPass, " +
+                        "SellerName = @SellerName, " +
+                        "SellerAge = @SellerAge, " +
+                        "SellerPhone = @SellerPhone, " +
+                        "Date = @Date, " +
+                        "Address = @Address, " +
+                        "Active = @Active, " +
+                        "Image = @Image " +
+                        "where SellerId = @SellerId", para);
+
+                    OnItemEdited(new SellerEventArgs(seller, seller.SellerId));
+
+                    MessageBox.Show($"Seller {SellName.Text} edited successfuly", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.Close();
                 }
 
             }
@@ -108,7 +179,6 @@ namespace SupermarketTuto.Forms.General
                 {
                     imageData = File.ReadAllBytes(imageName);
                 }
-                seller.image = imageData;
                 SqlParameter paramUsername = new SqlParameter("@SellerUserName", SqlDbType.NVarChar, -1);
                 SqlParameter paramPass = new SqlParameter("@SellerPass", SqlDbType.NVarChar, -1);
                 SqlParameter paramName = new SqlParameter("@SellerName", SqlDbType.NVarChar, -1);
@@ -149,8 +219,9 @@ namespace SupermarketTuto.Forms.General
                     "SellerAge, SellerPhone, Date, Address, Active, Image) VALUES (@SellerUserName, @SellerPass, @SellerName," +
                     "@SellerAge, @SellerPhone, @Date, @Address, @Active, @Image)", para);
 
+                OnItemCreated(new SellerEventArgs(seller, seller.SellerId));
 
-                MessageBox.Show("Seller added successfuly");
+                MessageBox.Show($"Seller {SellName.Text} added successfuly", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
             }
 
@@ -172,7 +243,6 @@ namespace SupermarketTuto.Forms.General
             }
         }
 
-        
         private void browseButton_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
@@ -183,27 +253,13 @@ namespace SupermarketTuto.Forms.General
             }
         }
 
-
-
-        private void addEditSeller_Load(object sender, EventArgs e)
-        {
-            this.Controls.Add(map);
-            map.Dock = DockStyle.Fill;
-            map.MapProvider = GoogleMapProvider.Instance;
-            panel1.Controls.Add(map);
-            map.Position = new PointLatLng(40.629269, 22.947412);
-            map.MinZoom = 0;
-            map.MaxZoom = 24;
-            map.Zoom = 12;
-        }
-
         private async void addressTextBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyValue == (char)Keys.Enter)
             {
                 var response = await client.GetAsync(string.Format(url, addressTextBox.Text));
                 string result = await response.Content.ReadAsStringAsync();
-                Root root = JsonConvert.DeserializeObject<Root>(result);
+                Map.Root root = JsonConvert.DeserializeObject<Map.Root>(result);
                 foreach (var item in root.results)
                 {
                     coor.lat = item.geometry.location.lat;
@@ -220,70 +276,21 @@ namespace SupermarketTuto.Forms.General
             }
         }
 
-
-        public class AddressComponent
+        protected virtual void OnItemCreated(SellerEventArgs e)
         {
-            public string long_name { get; set; }
-            public string short_name { get; set; }
-            public List<string> types { get; set; }
-        }
+            ItemCreated?.Invoke(this, e);
 
-        public class Bounds
-        {
-            public Northeast northeast { get; set; }
-            public Southwest southwest { get; set; }
-        }
-
-        public class Geometry
-        {
-            public Bounds bounds { get; set; }
-            public Location location { get; set; }
-            public string location_type { get; set; }
-            public Viewport viewport { get; set; }
-        }
-
-        public class Location
-        {
-            public double lat { get; set; }
-            public double lng { get; set; }
-        }
-
-        public class Northeast
-        {
-            public double lat { get; set; }
-            public double lng { get; set; }
-        }
-
-        public class Result
-        {
-            public List<AddressComponent> address_components { get; set; }
-            public string formatted_address { get; set; }
-            public Geometry geometry { get; set; }
-            public string place_id { get; set; }
-            public List<string> types { get; set; }
-        }
-
-        public class Root
-        {
-            public List<Result> results { get; set; }
-            public string status { get; set; }
-        }
-
-        public class Southwest
-        {
-            public double lat { get; set; }
-            public double lng { get; set; }
-        }
-
-        public class Viewport
-        {
-            public Northeast northeast { get; set; }
-            public Southwest southwest { get; set; }
         }
 
 
+        protected virtual void OnItemEdited(SellerEventArgs e)
+        {
+            ItemEdited?.Invoke(this, e);
+
+        }
 
     }
+
 
     public class SellerEventArgs : EventArgs
     {

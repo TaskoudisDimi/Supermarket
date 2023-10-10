@@ -215,7 +215,7 @@ namespace ClassLibrary1
                     cmd.CommandType = CommandType.Text;
                     cmd.CommandText = sql;
                     int obj;
-                    if (parameters.Count > 0)
+                    if (parameters != null && parameters.Count > 0)
                     {
                         cmd.Parameters.AddRange(parameters.ToArray());
                         obj = cmd.ExecuteNonQuery();

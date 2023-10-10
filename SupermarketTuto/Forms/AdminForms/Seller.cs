@@ -38,7 +38,7 @@ namespace SupermarketTuto.Forms
             {
                 List<SellersTbl> sellers = DataModel.Select<SellersTbl>();
                 sellerTable = Utils.Utils.ToDataTable(sellers);
-
+                sellerTable.PrimaryKey = new DataColumn[] { sellerTable.Columns["SellerId"] };
                 filterTable = sellerTable.Copy();
                 filterTable.Columns.Remove("Image");
                 tableWithoutColumns = filterTable.Clone();
@@ -70,7 +70,7 @@ namespace SupermarketTuto.Forms
             }
             catch (Exception ex)
             {
-                //Utils.Log(string.Format("Message : {0}", ex.Message), "ErrorDisplayData.txt");
+                Utils.Utils.Log(string.Format("Message : {0}", ex.Message), "ErrorDisplayData.txt");
             }
         }
 
@@ -107,10 +107,15 @@ namespace SupermarketTuto.Forms
             add.SellId.Visible = false;
             add.idlabel.Visible = false;
             add.Show();
+            add.ItemCreated += Add_ItemCreated;
+        }
 
-            //add.ItemCreated += Add_ItemCreated;
-         
-
+        private void Add_ItemCreated(object sender, SellerEventArgs e)
+        {
+            sellerTable.Rows.Add(e.CreatedSeller.SellerId, e.CreatedSeller.SellerUserName, e.CreatedSeller.SellerPass,
+                e.CreatedSeller.SellerName, e.CreatedSeller.SellerAge, e.CreatedSeller.SellerPhone,
+                e.CreatedSeller.Address, e.CreatedSeller.Active, e.CreatedSeller.Date);
+            SellDGV.Refresh();
         }
 
         private void editButton_Click(object sender, EventArgs e)
@@ -118,38 +123,75 @@ namespace SupermarketTuto.Forms
             DataGridViewRow currentRow = SellDGV.CurrentRow;
             addEditSeller edit = new addEditSeller(sellerTable, currentRow, false);
             edit.SellId.ReadOnly = true;
-            //edit.ItemEdited += Edit_ItemEdited;
-
+            edit.ItemEdited += Edit_ItemEdited;
             edit.Show();
+        }
 
+        private void Edit_ItemEdited(object sender, SellerEventArgs e)
+        {
+            // Update the edited category in the DataTable in form
+            DataRow editedRow = sellerTable.Rows.Find(e.PrimaryKeyValue);
+            if (editedRow != null)
+            {
+                editedRow["SellerName"] = e.CreatedSeller.SellerName;
+                editedRow["SellerUserName"] = e.CreatedSeller.SellerUserName;
+                editedRow["SellerId"] = e.CreatedSeller.SellerId;
+                editedRow["SellerPhone"] = e.CreatedSeller.SellerPhone;
+                editedRow["SellerPass"] = e.CreatedSeller.SellerPass;
+                editedRow["SellerAge"] = e.CreatedSeller.SellerAge;
+                editedRow["Address"] = e.CreatedSeller.Address;
+                editedRow["Active"] = e.CreatedSeller.Active;
+                editedRow["Date"] = e.CreatedSeller.Date;
+            }
+            SellDGV.Refresh();
         }
 
         private void deleteButton_Click(object sender, EventArgs e)
         {
             try
             {
-                List<DataRow> rowsToDelete = new List<DataRow>();
-                DataRow row = null;
-                // loop over the selected rows and add them to the list
+                List<int> sellerIdsToDelete = new List<int>();
+
+                // Loop over the selected rows and add their SellerIds to the list
                 foreach (DataGridViewRow selectedRow in SellDGV.SelectedRows)
                 {
-                    //Convert DataGridViewRow -> DataRow
-                    row = ((DataRowView)selectedRow.DataBoundItem).Row;
-                    rowsToDelete.Add(row);
+                    // Retrieve the SellerId from the selected row
+                    if (selectedRow.Cells["SellerId"].Value != null)
+                    {
+                        int sellerId = Convert.ToInt32(selectedRow.Cells["SellerId"].Value);
+                        sellerIdsToDelete.Add(sellerId);
+                    }
                 }
-                //DataAccess.Instance.DeleteData(row, sellerType);
-                //// loop over the rows to delete and remove them from the DataTable
-                //foreach (DataRow rowDelete in rowsToDelete)
-                //{
-                //    tableWithoutColumns.Rows.Remove(rowDelete);
-                //}
-                SellDGV.DataSource = filterTable;
+
+                // Delete the sellers based on their SellerIds
+                foreach (int sellerIdToDelete in sellerIdsToDelete)
+                {
+                    SellersTbl seller = DataModel.Select<SellersTbl>(where: $"sellerId = '{sellerIdToDelete}'").FirstOrDefault();
+                    if (seller != null)
+                    {
+                        DataModel.Delete<SellersTbl>(seller);
+                    }
+                }
+
+                // Refresh the DataGridView
+                SellDGV.Refresh();
+
+                // Remove the selected rows from the DataGridView
+                foreach (DataGridViewRow selectedRow in SellDGV.SelectedRows)
+                {
+                    if (!selectedRow.IsNewRow)
+                    {
+                        SellDGV.Rows.Remove(selectedRow);
+                    }
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                Utils.Utils.Log(string.Format("Message : {0}", ex.Message), "ErrorDeleteCategory.txt");
             }
         }
+
         private void searchButton_Click(object sender, EventArgs e)
         {
             // If the search text is not empty, filter the originalCategoryTable and assign the filtered result to the categoryTable
@@ -179,72 +221,11 @@ namespace SupermarketTuto.Forms
             SellDGV.DataSource = sellerTable;
         }
 
-        #endregion
 
-        #region MenuStrip
-        private void menu()
-        {
-            ContextMenuStrip menu = new ContextMenuStrip();
-            ToolStripMenuItem mnuDelete = new ToolStripMenuItem("Delete");
-            ToolStripMenuItem mnuEdit = new ToolStripMenuItem("Edit");
-            mnuDelete.Click += new EventHandler(mnuDelete_Click);
-            mnuEdit.Click += new EventHandler(mnuEdit_Click);
-            menu.Items.AddRange(new ToolStripItem[] { mnuEdit, mnuDelete });
-            SellDGV.ContextMenuStrip = menu;
-            SellDGV.AllowUserToAddRows = false;
-        }
-
-        private void mnuEdit_Click(object? sender, EventArgs e)
-        {
-            try
-            {
-                //SqlConnect loaddata50 = new SqlConnect();
-                //addEditSeller edit = new addEditSeller();
-                //edit.SellId.Text = SellDGV.CurrentRow.Cells[0].Value.ToString();
-                //string query = $"Select * From SellersTbl where SellerId = {edit.SellId.Text}";
-                //loaddata50.getData(query);
-                //DataTable sellers = loaddata50.table;
-                //foreach (DataRow row in sellers.Rows)
-                //{
-                //    edit.usernameTextBox.Text = row["SellerUserName"].ToString();
-                //    byte[] imageData = (byte[])row["Image"];
-                //    MemoryStream ms = new MemoryStream(imageData);
-                //    edit.pictureBox.Image = Image.FromStream(ms);
-                //    edit.passwordTextBox.Text = row["SellerPass"].ToString();
-                //    edit.SellName.Text = row["SellerName"].ToString();
-                //    edit.SellAge.Text = row["SellerAge"].ToString();
-                //    edit.SellPhone.Text = row["SellerPhone"].ToString();
-                //    edit.addressTextBox.Text = row["Address"].ToString();
-                //    edit.dateTimePicker.Text = row["Date"].ToString();
-                //    edit.checkBox.Checked = (bool)row["Active"];
-                //}
-                //edit.addButton.Visible = false;
-                //edit.SellId.ReadOnly = true;
-                //edit.Show();
-            }
-            catch (Exception ex)
-            {
-                //Utlis.Log(string.Format("Message : {0}", ex.Message), "ErrorDisplayData.txt");
-            }
-        }
-        private void mnuDelete_Click(object? sender, EventArgs e)
-        {
-            //SqlConnect loaddata2 = new SqlConnect();
-            //loaddata2.execCom("Delete From SellerTbl Where SellerId = " + SellDGV.CurrentRow.Cells[0].Value.ToString());
-            //foreach (DataGridViewRow row in SellDGV.SelectedRows)
-            //{
-            //    SellDGV.Rows.RemoveAt(row.Index);
-
-            //}
-        }
         #endregion
 
         #region Events
 
-        private void SellDGV_MouseDown(object sender, MouseEventArgs e)
-        {
-            menu();
-        }
         private void searchTextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             //Search with Enter 
@@ -305,17 +286,19 @@ namespace SupermarketTuto.Forms
             }
 
         }
-        #endregion
-
-        #region ChechDatabase
-       
-
-        #endregion
 
         private void searchTextBox_TextChanged(object sender, EventArgs e)
         {
             searchButton.PerformClick();
         }
+
+        #endregion
+
+        #region ChechDatabase
+
+
+        #endregion
+
 
     }
 }

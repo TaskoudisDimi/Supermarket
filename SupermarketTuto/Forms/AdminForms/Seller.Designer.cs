@@ -92,7 +92,6 @@
             this.SellDGV.Size = new System.Drawing.Size(2443, 598);
             this.SellDGV.TabIndex = 105;
             this.SellDGV.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.SellDGV_CellFormatting);
-            this.SellDGV.MouseDown += new System.Windows.Forms.MouseEventHandler(this.SellDGV_MouseDown);
             // 
             // delete2Button
             // 
