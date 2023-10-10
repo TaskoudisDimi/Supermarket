@@ -161,7 +161,7 @@ namespace SupermarketTuto.Forms
             edit.CatIdTb.ReadOnly = true;
             edit.ItemEdited += Edit_ItemEdited;
 
-            //edit.DataChanged += Edit_DataChanged;
+            edit.DataChanged += Edit_DataChanged;
 
             edit.Show();
         }

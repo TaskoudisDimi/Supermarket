@@ -93,7 +93,7 @@ namespace ClassLibrary1
                                 dt.Columns.Add(new DataColumn(headerWord));
                             }
                         }
-                        if (type.Name.Equals("Products"))
+                        if (type.Name.Equals("ProductTbl"))
                         {
                             dt.Columns["ProdId"].DataType = typeof(int);
                             dt.Columns["ProdQty"].DataType = typeof(int);
@@ -101,12 +101,12 @@ namespace ClassLibrary1
                             dt.Columns["ProdCatID"].DataType = typeof(int);
                             dt.Columns["Date"].DataType = typeof(DateTime);
                         }
-                        else if (type.Name.Equals("Categories"))
+                        else if (type.Name.Equals("CategoryTbl"))
                         {
                             dt.Columns["CatId"].DataType = typeof(int);
                             dt.Columns["Date"].DataType = typeof(DateTime);
                         }
-                        else if (type.Name.Equals("Bills"))
+                        else if (type.Name.Equals("BillTbl"))
                         {
                             dt.Columns["BillId"].DataType = typeof(int);
                             dt.Columns["TotAmt"].DataType = typeof(int);
@@ -268,7 +268,7 @@ namespace ClassLibrary1
                         
                         var ws = package.Workbook.Worksheets[0]; // assuming your data is in the first worksheet 
 
-                        if (typeOfClass.Name.Equals("Products"))
+                        if (typeOfClass.Name.Equals("ProductTbl"))
                         {
                             dataTable.Columns.Add("ProdId", typeof(int));
                             dataTable.Columns.Add("ProdName");
@@ -295,7 +295,7 @@ namespace ClassLibrary1
                             }
 
                         }
-                        else if (typeOfClass.Name.Equals("Categories"))
+                        else if (typeOfClass.Name.Equals("BillTbl"))
                         {
                             dataTable.Columns.Add("CatId", typeof(int));
                             dataTable.Columns.Add("CatName");
@@ -365,17 +365,17 @@ namespace ClassLibrary1
                 {
                     path = dialog.FileName;
                     var file = new FileInfo(path);
-                    if (typeOfClass.Name.Equals("Products"))
+                    if (typeOfClass.Name.Equals("ProductTbl"))
                     {
                         var products = GetSetupDataProd(dataGridView, typeOfClass);
                         await SaveExcelFile(products, file, typeOfClass);
                     }
-                    else if (typeOfClass.Equals("Categories"))
+                    else if (typeOfClass.Name.Equals("CategoryTbl"))
                     {
                         var categories = GetSetupDataProd(dataGridView, typeOfClass);
                         await SaveExcelFile(categories, file, typeOfClass);
                     }
-                    else if (typeOfClass.Name.Equals("Bills"))
+                    else if (typeOfClass.Name.Equals("BillTbl"))
                     {
                         var bills = GetSetupDataProd(dataGridView, typeOfClass);
                         await SaveExcelFile(bills, file, typeOfClass);
@@ -400,7 +400,7 @@ namespace ClassLibrary1
             {
                 foreach (DataGridViewRow row in dataGridView.Rows)
                 {
-                    if (type.Name.Equals("Products"))
+                    if (type.Name.Equals("ProductTbl"))
                     {
                         ProductTbl prod = new ProductTbl();
                         prod.ProdId = Convert.ToInt32(row.Cells["ProdId"].Value);
@@ -412,7 +412,7 @@ namespace ClassLibrary1
                         prod.Date = DateTime.Parse(row.Cells["Date"].Value.ToString());
                         data.Add(prod);
                     }
-                    else if (type.Name.Equals("Categories"))
+                    else if (type.Name.Equals("CategoryTbl"))
                     {
                         CategoryTbl cat = new CategoryTbl();
                         cat.CatId = Convert.ToInt32(row.Cells["CatId"].Value);
@@ -421,7 +421,7 @@ namespace ClassLibrary1
                         cat.Date = DateTime.Parse(row.Cells["Date"].Value.ToString());
                         data.Add(cat);
                     }
-                    else if (type.Name.Equals("Bills"))
+                    else if (type.Name.Equals("BillTbl"))
                     {
                         BillTbl bills = new BillTbl();
                         bills.BillId = Convert.ToInt32(row.Cells["BillId"].Value);
@@ -447,15 +447,15 @@ namespace ClassLibrary1
                 List<ProductTbl> products = new List<ProductTbl>();
                 List<CategoryTbl> categories = new List<CategoryTbl>();
                 List<BillTbl> bills = new List<BillTbl>();
-                if (type.Name.Equals("Products"))
+                if (type.Name.Equals("ProductTbl"))
                 {
                     products = data.Cast<ProductTbl>().ToList();
                 }
-                else if (type.Name.Equals("Categories"))
+                else if (type.Name.Equals("CategoryTbl"))
                 {
                     categories = data.Cast<CategoryTbl>().ToList();
                 }
-                else if (type.Name.Equals("Bills"))
+                else if (type.Name.Equals("BillTbl"))
                 {
                     bills = data.Cast<BillTbl>().ToList();
                 }
@@ -467,19 +467,19 @@ namespace ClassLibrary1
 
                     
                     // Formats the header
-                    if (type.Name.Equals("Products"))
+                    if (type.Name.Equals("ProductTbl"))
                     {
                         var range = ws.Cells["A3"].LoadFromCollection(products, true);
                         range.AutoFitColumns();
                         ws.Cells["A1"].Value = "Report Products";
                     }
-                    else if (type.Name.Equals("Categories"))
+                    else if (type.Name.Equals("CategoryTbl"))
                     {
                         var range = ws.Cells["A3"].LoadFromCollection(categories, true);
                         range.AutoFitColumns();
                         ws.Cells["A1"].Value = "Report Categories";
                     }
-                    else if (type.Name.Equals("Bills"))
+                    else if (type.Name.Equals("BillTbl"))
                     {
                         var range = ws.Cells["A3"].LoadFromCollection(bills, true);
                         range.AutoFitColumns();

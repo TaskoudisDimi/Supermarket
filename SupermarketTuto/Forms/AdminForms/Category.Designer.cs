@@ -45,6 +45,8 @@
             this.selectAllCheckBox = new System.Windows.Forms.CheckBox();
             this.importCombobox = new System.Windows.Forms.ComboBox();
             this.exportCombobox = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.CatDGV)).BeginInit();
             this.SuspendLayout();
             // 
@@ -227,29 +229,47 @@
             // importCombobox
             // 
             this.importCombobox.FormattingEnabled = true;
-            this.importCombobox.Location = new System.Drawing.Point(899, 407);
+            this.importCombobox.Location = new System.Drawing.Point(899, 448);
             this.importCombobox.Name = "importCombobox";
             this.importCombobox.Size = new System.Drawing.Size(99, 28);
             this.importCombobox.TabIndex = 140;
-            this.importCombobox.Text = "Import";
             this.importCombobox.SelectedValueChanged += new System.EventHandler(this.importCombobox_SelectedValueChanged);
             // 
             // exportCombobox
             // 
             this.exportCombobox.FormattingEnabled = true;
-            this.exportCombobox.Location = new System.Drawing.Point(1004, 406);
+            this.exportCombobox.Location = new System.Drawing.Point(1004, 448);
             this.exportCombobox.Name = "exportCombobox";
             this.exportCombobox.Size = new System.Drawing.Size(99, 28);
             this.exportCombobox.TabIndex = 139;
-            this.exportCombobox.Text = "Export";
             this.exportCombobox.SelectedValueChanged += new System.EventHandler(this.exportCombobox_SelectedValueChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(918, 414);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(55, 20);
+            this.label1.TabIndex = 141;
+            this.label1.Text = "Import";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(1024, 414);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(55, 20);
+            this.label2.TabIndex = 142;
+            this.label2.Text = "Export";
             // 
             // Category
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1158, 460);
+            this.ClientSize = new System.Drawing.Size(1158, 515);
             this.ControlBox = false;
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.importCombobox);
             this.Controls.Add(this.exportCombobox);
             this.Controls.Add(this.selectAllCheckBox);
@@ -296,5 +316,7 @@
         private CheckBox selectAllCheckBox;
         private ComboBox importCombobox;
         private ComboBox exportCombobox;
+        private Label label1;
+        private Label label2;
     }
 }

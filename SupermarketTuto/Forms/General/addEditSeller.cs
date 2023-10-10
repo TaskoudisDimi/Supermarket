@@ -121,6 +121,13 @@ namespace SupermarketTuto.Forms.General
                     paramPass.Value = hashPass;
                     paramPhone.Value = Convert.ToInt32(SellPhone.Text);
                     paramDate.Value = (DateTime)dateTimePicker.Value.Date;
+                    seller.Date = (DateTime)dateTimePicker.Value.Date;
+                    seller.SellerAge = Convert.ToInt32(SellAge.Text);
+                    seller.SellerName = SellName.Text;
+                    seller.SellerUserName = usernameTextBox.Text;
+                    seller.SellerPass = hashPass;
+                    seller.Address = addressTextBox.Text;
+                    seller.SellerPhone = Convert.ToInt32(SellPhone.Text);
                     paramAddress.Value = addressTextBox.Text;
                     SellerId.Value = Convert.ToInt32(SellId.Text);
 
@@ -198,13 +205,23 @@ namespace SupermarketTuto.Forms.General
                 paramPhone.Value = Convert.ToInt32(SellPhone.Text);
                 paramDate.Value = (DateTime)dateTimePicker.Value.Date;
                 paramAddress.Value = addressTextBox.Text;
+                seller.image = imageData;
+                seller.Date = (DateTime)dateTimePicker.Value.Date;
+                seller.SellerAge = Convert.ToInt32(SellAge.Text);
+                seller.SellerName = SellName.Text;
+                seller.SellerUserName = usernameTextBox.Text;
+                seller.SellerPass = hashPass;
+                seller.Address = addressTextBox.Text;
+                seller.SellerPhone = Convert.ToInt32(SellPhone.Text);
                 if (checkBox.Checked)
                 {
                     paramActive.Value = true;
+                    seller.Active = true;
                 }
                 else
                 {
                     paramActive.Value = false;
+                    seller.Active = false;
                 }
                 para.Add(paramUsername);
                 para.Add(paramPass);

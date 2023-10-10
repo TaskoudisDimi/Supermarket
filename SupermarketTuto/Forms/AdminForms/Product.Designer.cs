@@ -46,6 +46,8 @@
             this.exportCombobox = new System.Windows.Forms.ComboBox();
             this.importCombobox = new System.Windows.Forms.ComboBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.ProdDGV)).BeginInit();
             this.SuspendLayout();
             // 
@@ -220,23 +222,21 @@
             // exportCombobox
             // 
             this.exportCombobox.FormattingEnabled = true;
-            this.exportCombobox.Location = new System.Drawing.Point(997, 436);
+            this.exportCombobox.Location = new System.Drawing.Point(964, 470);
             this.exportCombobox.Margin = new System.Windows.Forms.Padding(2);
             this.exportCombobox.Name = "exportCombobox";
             this.exportCombobox.Size = new System.Drawing.Size(99, 21);
             this.exportCombobox.TabIndex = 132;
-            this.exportCombobox.Text = "Export";
             this.exportCombobox.SelectedIndexChanged += new System.EventHandler(this.exportCombobox_SelectedIndexChanged);
             // 
             // importCombobox
             // 
             this.importCombobox.FormattingEnabled = true;
-            this.importCombobox.Location = new System.Drawing.Point(894, 436);
+            this.importCombobox.Location = new System.Drawing.Point(861, 470);
             this.importCombobox.Margin = new System.Windows.Forms.Padding(2);
             this.importCombobox.Name = "importCombobox";
             this.importCombobox.Size = new System.Drawing.Size(99, 21);
             this.importCombobox.TabIndex = 133;
-            this.importCombobox.Text = "Import";
             this.importCombobox.SelectedValueChanged += new System.EventHandler(this.importCombobox_SelectedValueChanged);
             // 
             // button1
@@ -249,12 +249,32 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(993, 439);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(37, 13);
+            this.label2.TabIndex = 144;
+            this.label2.Text = "Export";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(884, 439);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(36, 13);
+            this.label1.TabIndex = 143;
+            this.label1.Text = "Import";
+            // 
             // Product
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1125, 502);
             this.ControlBox = false;
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.importCombobox);
             this.Controls.Add(this.exportCombobox);
@@ -302,5 +322,7 @@
         private ComboBox exportCombobox;
         private ComboBox importCombobox;
         private Button button1;
+        private Label label2;
+        private Label label1;
     }
 }

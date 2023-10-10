@@ -28,40 +28,27 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(About));
-            this.label1 = new System.Windows.Forms.Label();
-            this.aboutlabel = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
-            // label1
+            // textBox1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(36, 25);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(93, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Super Market App";
-            // 
-            // aboutlabel
-            // 
-            this.aboutlabel.AutoSize = true;
-            this.aboutlabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.aboutlabel.Location = new System.Drawing.Point(33, 111);
-            this.aboutlabel.Name = "aboutlabel";
-            this.aboutlabel.Size = new System.Drawing.Size(1055, 32);
-            this.aboutlabel.TabIndex = 1;
-            this.aboutlabel.Text = "This is an application for the management of people and products of a supermarket" +
-    "";
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.textBox1.Location = new System.Drawing.Point(12, 12);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(899, 120);
+            this.textBox1.TabIndex = 0;
             // 
             // About
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1157, 489);
-            this.Controls.Add(this.aboutlabel);
-            this.Controls.Add(this.label1);
+            this.ClientSize = new System.Drawing.Size(961, 146);
+            this.Controls.Add(this.textBox1);
             this.Name = "About";
             this.Text = "About";
+            this.Load += new System.EventHandler(this.About_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -69,7 +56,6 @@
 
         #endregion
 
-        private Label label1;
-        private Label aboutlabel;
+        private TextBox textBox1;
     }
 }

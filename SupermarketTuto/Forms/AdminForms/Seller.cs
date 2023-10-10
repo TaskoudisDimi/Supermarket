@@ -112,10 +112,10 @@ namespace SupermarketTuto.Forms
 
         private void Add_ItemCreated(object sender, SellerEventArgs e)
         {
-            sellerTable.Rows.Add(e.CreatedSeller.SellerId, e.CreatedSeller.SellerUserName, e.CreatedSeller.SellerPass,
-                e.CreatedSeller.SellerName, e.CreatedSeller.SellerAge, e.CreatedSeller.SellerPhone,
-                e.CreatedSeller.Address, e.CreatedSeller.Active, e.CreatedSeller.Date);
-            SellDGV.Refresh();
+            tableWithoutColumns.Rows.Add(e.CreatedSeller.SellerId, e.CreatedSeller.SellerUserName, e.CreatedSeller.SellerPass,
+                e.CreatedSeller.SellerName, e.CreatedSeller.SellerAge, e.CreatedSeller.SellerPhone, e.CreatedSeller.Date,
+                e.CreatedSeller.Address, e.CreatedSeller.Active );
+            SellDGV.DataSource = tableWithoutColumns;
         }
 
         private void editButton_Click(object sender, EventArgs e)
@@ -143,6 +143,7 @@ namespace SupermarketTuto.Forms
                 editedRow["Active"] = e.CreatedSeller.Active;
                 editedRow["Date"] = e.CreatedSeller.Date;
             }
+            SellDGV.DataSource = tableWithoutColumns;
             SellDGV.Refresh();
         }
 
