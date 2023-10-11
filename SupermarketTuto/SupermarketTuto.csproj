@@ -29,6 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CallSuperMarketAPI\CallSuperMarketAPI.csproj" />
     <ProjectReference Include="..\DataClass\DataClass.csproj" />
   </ItemGroup>
 

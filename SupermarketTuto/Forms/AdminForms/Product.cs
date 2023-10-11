@@ -1,4 +1,5 @@
-﻿using ClassLibrary1;
+﻿using CallSuperMarketAPI;
+using ClassLibrary1;
 using ClassLibrary1.Models;
 using DataClass;
 using Microsoft.Office.Interop.Excel;
@@ -586,9 +587,13 @@ namespace SupermarketTuto.Forms
 
         #endregion
 
-        private void button1_Click(object sender, EventArgs e)
+        private void callAPIButton_Click(object sender, EventArgs e)
         {
-            //DataAccess.Instance.UpdateTable("ProductTbl");
+            //Call API in order to save the incoming products
+            GetFromExternalAPI callAPI = new GetFromExternalAPI();
+            callAPI.Show();
+
+
         }
     }
 

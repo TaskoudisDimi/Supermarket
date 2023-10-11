@@ -1,7 +1,6 @@
 ﻿using ClassLibrary1;
 using ClassLibrary1.Models;
 using Newtonsoft.Json;
-using SupermarketTuto.Forms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -34,7 +33,7 @@ namespace CallSuperMarketAPI
             InitializeComponent();
         }
 
-        private async void startButton_Click(object sender, EventArgs e)
+        private async void getButton_Click(object sender, EventArgs e)
         {
             try
             {
@@ -94,12 +93,7 @@ namespace CallSuperMarketAPI
                 productsTable.Rows.Add(row);
             }
             DataAccess.Instance.GetTable("ProductTbl");
-            DataAccess.Instance.InsertData(productsTable);
-        }
-
-        private void categoryButton_Click(object sender, EventArgs e)
-        {
-
+            
         }
 
         private void saveButton_Click(object sender, EventArgs e)
@@ -125,14 +119,9 @@ namespace CallSuperMarketAPI
                 categoriesTable.Rows.Add(row);
             }
             DataAccess.Instance.GetTable("CategoryTbl");
-            DataAccess.Instance.InsertData(categoriesTable);
+            
         }
     }
-
-
-
-
-
 
 
 }

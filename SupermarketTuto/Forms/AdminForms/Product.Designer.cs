@@ -45,7 +45,7 @@
             this.pagingCheckBox = new System.Windows.Forms.CheckBox();
             this.exportCombobox = new System.Windows.Forms.ComboBox();
             this.importCombobox = new System.Windows.Forms.ComboBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.callAPIButton = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.ProdDGV)).BeginInit();
@@ -239,15 +239,15 @@
             this.importCombobox.TabIndex = 133;
             this.importCombobox.SelectedValueChanged += new System.EventHandler(this.importCombobox_SelectedValueChanged);
             // 
-            // button1
+            // callAPIButton
             // 
-            this.button1.Location = new System.Drawing.Point(12, 23);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 134;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.callAPIButton.Location = new System.Drawing.Point(12, 23);
+            this.callAPIButton.Name = "callAPIButton";
+            this.callAPIButton.Size = new System.Drawing.Size(75, 23);
+            this.callAPIButton.TabIndex = 134;
+            this.callAPIButton.Text = "Call API";
+            this.callAPIButton.UseVisualStyleBackColor = true;
+            this.callAPIButton.Click += new System.EventHandler(this.callAPIButton_Click);
             // 
             // label2
             // 
@@ -275,7 +275,7 @@
             this.ControlBox = false;
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.callAPIButton);
             this.Controls.Add(this.importCombobox);
             this.Controls.Add(this.exportCombobox);
             this.Controls.Add(this.pagingCheckBox);
@@ -321,7 +321,7 @@
         private CheckBox pagingCheckBox;
         private ComboBox exportCombobox;
         private ComboBox importCombobox;
-        private Button button1;
+        private Button callAPIButton;
         private Label label2;
         private Label label1;
     }
