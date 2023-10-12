@@ -123,7 +123,6 @@ namespace SupermarketTuto.Forms
                 ProdDGV.AllowUserToAddRows = false;
                 ProdDGV.ReadOnly = false;
                 totalLabel.Text = $"Total: {ProdDGV.RowCount}";
-                ProdDGV.Columns[6].HeaderText = "Date";
 
                 // Attach the CurrentChanged event handler to the BindingSource
                 bindingSource.CurrentChanged += bindingSource_CurrentChanged;
@@ -532,7 +531,7 @@ namespace SupermarketTuto.Forms
             var item = ((ComboBox)sender).SelectedItem.ToString();
             if (item.Contains("Csv"))
             {
-                excel.export(ProdDGV);
+                excel.export(ProdDGV, true);
             }
             else if (item.Contains("Xlsx"))
             {
