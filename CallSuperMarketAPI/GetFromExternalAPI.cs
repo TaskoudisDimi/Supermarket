@@ -124,9 +124,43 @@ namespace CallSuperMarketAPI
                 MessageBox.Show("There are no data to sate", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+
+            //using (var transaction = new TransactionScope())
+            //{
+            //    if (products.Count > 0)
+            //    {
+            //        foreach (ProductTbl product in products)
+            //        {
+            //            // First, insert the category (if it doesn't exist) and get its CatID
+            //            CategoryTbl existingCategory = DataModel.GetCategoryByName(product.ProdCat);
+            //            if (existingCategory == null)
+            //            {
+            //                existingCategory = new CategoryTbl
+            //                {
+            //                    CatName = product.ProdCat,
+            //                    CatDesc = "Category Description", // Provide a description
+            //                    Date = DateTime.Now
+            //                };
+            //                DataModel.Create<CategoryTbl>(existingCategory);
+            //            }
+
+            //            // Set the ProdCatID in the product based on the CatID
+            //            product.ProdCatID = existingCategory.CatId;
+
+            //            // Insert the product
+            //            DataModel.Create<ProductTbl>(product);
+            //        }
+
+            //        transaction.Complete(); // Commit the transaction
+            //    }
+            //    else
+            //    {
+            //        MessageBox.Show("There is no data to save.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //    }
+            //}
         }
 
-      
+
     }
 
 
