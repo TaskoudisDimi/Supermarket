@@ -31,8 +31,10 @@
             this.getButton = new System.Windows.Forms.Button();
             this.saveButton = new System.Windows.Forms.Button();
             this.statusLabel = new System.Windows.Forms.Label();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.productsCheckBox = new System.Windows.Forms.CheckBox();
+            this.categoriesCheckBox = new System.Windows.Forms.CheckBox();
+            this.productsLabel = new System.Windows.Forms.Label();
+            this.categoriesLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // getButton
@@ -58,39 +60,59 @@
             // statusLabel
             // 
             this.statusLabel.AutoSize = true;
-            this.statusLabel.Location = new System.Drawing.Point(12, 99);
+            this.statusLabel.Location = new System.Drawing.Point(12, 84);
             this.statusLabel.Name = "statusLabel";
             this.statusLabel.Size = new System.Drawing.Size(37, 13);
             this.statusLabel.TabIndex = 4;
             this.statusLabel.Text = "Status";
             // 
-            // checkBox1
+            // productsCheckBox
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(12, 12);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(80, 17);
-            this.checkBox1.TabIndex = 5;
-            this.checkBox1.Text = "checkBox1";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.productsCheckBox.AutoSize = true;
+            this.productsCheckBox.Location = new System.Drawing.Point(12, 12);
+            this.productsCheckBox.Name = "productsCheckBox";
+            this.productsCheckBox.Size = new System.Drawing.Size(68, 17);
+            this.productsCheckBox.TabIndex = 5;
+            this.productsCheckBox.Text = "Products";
+            this.productsCheckBox.UseVisualStyleBackColor = true;
             // 
-            // checkBox2
+            // categoriesCheckBox
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(12, 33);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(80, 17);
-            this.checkBox2.TabIndex = 6;
-            this.checkBox2.Text = "checkBox2";
-            this.checkBox2.UseVisualStyleBackColor = true;
+            this.categoriesCheckBox.AutoSize = true;
+            this.categoriesCheckBox.Location = new System.Drawing.Point(12, 33);
+            this.categoriesCheckBox.Name = "categoriesCheckBox";
+            this.categoriesCheckBox.Size = new System.Drawing.Size(76, 17);
+            this.categoriesCheckBox.TabIndex = 6;
+            this.categoriesCheckBox.Text = "Categories";
+            this.categoriesCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // productsLabel
+            // 
+            this.productsLabel.AutoSize = true;
+            this.productsLabel.Location = new System.Drawing.Point(12, 115);
+            this.productsLabel.Name = "productsLabel";
+            this.productsLabel.Size = new System.Drawing.Size(49, 13);
+            this.productsLabel.TabIndex = 7;
+            this.productsLabel.Text = "Products";
+            // 
+            // categoriesLabel
+            // 
+            this.categoriesLabel.AutoSize = true;
+            this.categoriesLabel.Location = new System.Drawing.Point(12, 146);
+            this.categoriesLabel.Name = "categoriesLabel";
+            this.categoriesLabel.Size = new System.Drawing.Size(57, 13);
+            this.categoriesLabel.TabIndex = 8;
+            this.categoriesLabel.Text = "Categories";
             // 
             // GetFromExternalAPI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(324, 131);
-            this.Controls.Add(this.checkBox2);
-            this.Controls.Add(this.checkBox1);
+            this.ClientSize = new System.Drawing.Size(442, 183);
+            this.Controls.Add(this.categoriesLabel);
+            this.Controls.Add(this.productsLabel);
+            this.Controls.Add(this.categoriesCheckBox);
+            this.Controls.Add(this.productsCheckBox);
             this.Controls.Add(this.statusLabel);
             this.Controls.Add(this.saveButton);
             this.Controls.Add(this.getButton);
@@ -106,7 +128,9 @@
         private System.Windows.Forms.Button getButton;
         private System.Windows.Forms.Button saveButton;
         private System.Windows.Forms.Label statusLabel;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.CheckBox productsCheckBox;
+        private System.Windows.Forms.CheckBox categoriesCheckBox;
+        private System.Windows.Forms.Label productsLabel;
+        private System.Windows.Forms.Label categoriesLabel;
     }
 }

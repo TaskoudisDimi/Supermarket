@@ -10,11 +10,13 @@ namespace ClassLibrary1
     public class DatabaseColumnAttribute : Attribute
     {
         public bool IsPrimaryKey { get; set; }
+        public bool IsForeignKey { get; set; }
         public bool IsEncrypted { get; set; }
 
-        public DatabaseColumnAttribute(bool isPrimaryKey = true, bool isEncrypted = false)
+        public DatabaseColumnAttribute(bool isPrimaryKey = true, bool isForeignKey = true, bool isEncrypted = false)
         {
             IsPrimaryKey = isPrimaryKey;
+            IsForeignKey = isForeignKey;
             IsEncrypted = isEncrypted;
         }
 
