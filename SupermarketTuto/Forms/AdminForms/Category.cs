@@ -1,4 +1,5 @@
-﻿using ClassLibrary1;
+﻿using CallSuperMarketAPI;
+using ClassLibrary1;
 using ClassLibrary1.Models;
 using DataClass;
 using Microsoft.Office.Interop.Excel;
@@ -161,7 +162,8 @@ namespace SupermarketTuto.Forms
             edit.CatIdTb.ReadOnly = true;
             edit.ItemEdited += Edit_ItemEdited;
 
-            edit.DataChanged += Edit_DataChanged;
+            //TCP
+            //edit.DataChanged += Edit_DataChanged;
 
             edit.Show();
         }
@@ -247,7 +249,13 @@ namespace SupermarketTuto.Forms
             }
 
         }
-        
+
+        private void callAPIButton_Click(object sender, EventArgs e)
+        {
+            //Call API in order to save the incoming products
+            GetFromExternalAPI callAPI = new GetFromExternalAPI();
+            callAPI.Show();
+        }
 
         #endregion
 
@@ -442,6 +450,8 @@ namespace SupermarketTuto.Forms
         #endregion
 
 
+        #region TCP connection
+        
         private void Edit_DataChanged(object sender, DataGridViewCellChange e)
         {
 
@@ -479,5 +489,7 @@ namespace SupermarketTuto.Forms
             tableTest = dataTable;
             tableTest.AcceptChanges();
         }
+        #endregion
+
     }
 }

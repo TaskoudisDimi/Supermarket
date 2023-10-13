@@ -8,6 +8,8 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -18,6 +20,7 @@ namespace ClassLibrary1
     {
 
         #region Csv files
+
         public DataTable import(Type type)
         {
             try
@@ -41,9 +44,9 @@ namespace ClassLibrary1
                     if (dialog.FileName.EndsWith(".csv"))
                     {
                         DataTable table = new DataTable();
-                        table = GetData(dialog.FileName, type);
+                        table = GetData<ProductTbl>(dialog.FileName);
                         SourceURl = dialog.FileName;
-                        if (table.Rows != null && table.Rows.ToString() != String.Empty)
+                        if (table.Rows != null && table.Rows.Count > 0)
                         {
                             return table;
                         }
@@ -51,7 +54,6 @@ namespace ClassLibrary1
                         {
                             return null;
                         }
-
                     }
                 }
                 return null;
@@ -63,8 +65,10 @@ namespace ClassLibrary1
             }
         }
 
-        private DataTable GetData(string path, Type type)
+        private DataTable GetData<T>(string path) where T : class
         {
+            PropertyInfo[] properties = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+
             DataTable dt = new DataTable();
             try
             {
@@ -78,12 +82,12 @@ namespace ClassLibrary1
                         string[] headerLabels = firstLine.Split(',');
                         foreach (string headerWord in headerLabels)
                         {
-                            if(headerWord == "ProdId")
+                            if (headerWord == "ProdId")
                             {
                                 dt.Columns.Add(new DataColumn(headerWord));
                                 dt.PrimaryKey = new DataColumn[] { dt.Columns["ProdId"] };
                             }
-                            else if(headerWord == "CatId")
+                            else if (headerWord == "CatId")
                             {
                                 dt.Columns.Add(new DataColumn(headerWord));
                                 dt.PrimaryKey = new DataColumn[] { dt.Columns["CatId"] };
@@ -93,28 +97,21 @@ namespace ClassLibrary1
                                 dt.Columns.Add(new DataColumn(headerWord));
                             }
                         }
-                        if (type.Name.Equals("ProductTbl"))
+                        //Set the data types of the columns
+                        foreach (PropertyInfo p in properties)
                         {
-                            dt.Columns["ProdId"].DataType = typeof(int);
-                            dt.Columns["ProdQty"].DataType = typeof(int);
-                            dt.Columns["ProdPrice"].DataType = typeof(int);
-                            dt.Columns["ProdCatID"].DataType = typeof(int);
-                            dt.Columns["Date"].DataType = typeof(DateTime);
-                        }
-                        else if (type.Name.Equals("CategoryTbl"))
-                        {
-                            dt.Columns["CatId"].DataType = typeof(int);
-                            dt.Columns["Date"].DataType = typeof(DateTime);
-                        }
-                        else if (type.Name.Equals("BillTbl"))
-                        {
-                            dt.Columns["BillId"].DataType = typeof(int);
-                            dt.Columns["TotAmt"].DataType = typeof(int);
+                            Type getType = GetProperties(p, dt.Columns[$"{p.Name}"].DataType);
+                            dt.Columns[$"{p.Name}"].DataType = getType;
                         }
                         //For Data
                         for (int i = 1; i < lines.Length; i++)
                         {
                             string[] dataWords = lines[i].Split(',');
+                            if (dataWords.Length > 0 && string.IsNullOrEmpty(dataWords[dataWords.Length - 1]))
+                            {
+                                // Remove the last element from the array
+                                Array.Resize(ref dataWords, dataWords.Length - 1);
+                            }
                             DataRow dr = dt.NewRow();
                             int columnIndex = 0;
                             foreach (string headerWord in headerLabels)
@@ -168,7 +165,7 @@ namespace ClassLibrary1
                             {
                                 if (i == colCount - 1)
                                 {
-                                    if(table.Columns[i].HeaderText.ToString() != "Select")
+                                    if (table.Columns[i].HeaderText.ToString() != "Select")
                                         colNames += table.Columns[i].HeaderText.ToString();
                                 }
                                 else
@@ -178,7 +175,7 @@ namespace ClassLibrary1
                                 }
                             }
                             outputCSV[0] += colNames;
-                            
+
                             for (int i = 1; (i - 1) < table.Rows.Count; i++)
                             {
                                 if (useSelected)
@@ -195,10 +192,9 @@ namespace ClassLibrary1
                                         outputCSV[i] += table.Rows[i - 1].Cells[j].Value.ToString() + ",";
                                     }
                                 }
-                                
                             }
                             File.WriteAllLines(dialog.FileName, outputCSV, Encoding.UTF8);
-                            MessageBox.Show("Successfully export","Success",MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            MessageBox.Show("Successfully export", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         catch (Exception ex)
                         {
@@ -210,6 +206,7 @@ namespace ClassLibrary1
         }
 
         #endregion
+
 
         public void SaveToDB(DataTable table, Type type)
         {
@@ -265,7 +262,7 @@ namespace ClassLibrary1
                     {
                         ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
                         package.LoadAsync(path);
-                        
+
                         var ws = package.Workbook.Worksheets[0]; // assuming your data is in the first worksheet 
 
                         if (typeOfClass.Name.Equals("ProductTbl"))
@@ -465,7 +462,7 @@ namespace ClassLibrary1
                 {
                     var ws = package.Workbook.Worksheets.Add("MainReport");
 
-                    
+
                     // Formats the header
                     if (type.Name.Equals("ProductTbl"))
                     {
@@ -485,7 +482,7 @@ namespace ClassLibrary1
                         range.AutoFitColumns();
                         ws.Cells["A1"].Value = "Report Bills";
                     }
-                    
+
                     ws.Cells["A1:C1"].Merge = true;
                     ws.Column(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                     ws.Row(1).Style.Font.Size = 24;
@@ -519,7 +516,39 @@ namespace ClassLibrary1
         #endregion
 
 
-       
+        #region Helpers
+
+        private Type GetProperties(PropertyInfo prop, Type type)
+        {
+
+            if (prop.PropertyType == typeof(int))
+            {
+                return typeof(System.Int32);
+            }
+            else if (prop.PropertyType == typeof(string))
+            {
+                return typeof(System.String);
+            }
+            else if (prop.PropertyType == typeof(double))
+            {
+                return typeof(System.Double);
+            }
+            else if (prop.PropertyType == typeof(decimal))
+            {
+                return typeof(System.Decimal);
+            }
+            else if (prop.PropertyType == typeof(bool))
+            {
+                return typeof(System.Boolean);
+            }
+            else if (prop.PropertyType == typeof(DateTime))
+            {
+                return typeof(System.DateTime);
+            }
+            return null;
+        }
+
+        #endregion
 
     }
 }

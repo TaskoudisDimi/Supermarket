@@ -559,13 +559,13 @@ namespace SupermarketTuto.Forms
                 }
                 //DataTable table3 = loaddata1.table.Clone();
                 //var differenceQuery = tableNew.AsEnumerable().Except(loaddata1.table.AsEnumerable(), DataRowComparer.Default);
-                
+
                 //foreach (DataRow row in differenceQuery)
                 //{
                 //    table3.Rows.Add(row.ItemArray);
                 //}
                 //loaddata1.table.Merge(tableNew);
-                //ProdDGV.DataSource = loaddata1.table;
+                ProdDGV.DataSource = tableNew;
                 //ProdDGV.RowHeadersVisible = false;
                 //ProdDGV.AllowUserToAddRows = false;
                 //DialogResult result = MessageBox.Show("Do you want to save the extra data to Database?", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -591,8 +591,6 @@ namespace SupermarketTuto.Forms
             //Call API in order to save the incoming products
             GetFromExternalAPI callAPI = new GetFromExternalAPI();
             callAPI.Show();
-
-
         }
     }
 

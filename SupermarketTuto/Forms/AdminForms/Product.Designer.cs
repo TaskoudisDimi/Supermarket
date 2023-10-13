@@ -55,7 +55,7 @@
             // 
             this.totalLabel.AutoSize = true;
             this.totalLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.totalLabel.Location = new System.Drawing.Point(8, 437);
+            this.totalLabel.Location = new System.Drawing.Point(7, 415);
             this.totalLabel.Name = "totalLabel";
             this.totalLabel.Size = new System.Drawing.Size(48, 20);
             this.totalLabel.TabIndex = 106;
@@ -64,7 +64,7 @@
             // searchButton
             // 
             this.searchButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.searchButton.Location = new System.Drawing.Point(254, 64);
+            this.searchButton.Location = new System.Drawing.Point(253, 42);
             this.searchButton.Name = "searchButton";
             this.searchButton.Size = new System.Drawing.Size(68, 29);
             this.searchButton.TabIndex = 105;
@@ -75,7 +75,7 @@
             // searchTextBox
             // 
             this.searchTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.searchTextBox.Location = new System.Drawing.Point(9, 64);
+            this.searchTextBox.Location = new System.Drawing.Point(8, 42);
             this.searchTextBox.Name = "searchTextBox";
             this.searchTextBox.Size = new System.Drawing.Size(222, 26);
             this.searchTextBox.TabIndex = 104;
@@ -88,7 +88,7 @@
             this.ProdDGV.BackgroundColor = System.Drawing.Color.WhiteSmoke;
             this.ProdDGV.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.ProdDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.ProdDGV.Location = new System.Drawing.Point(9, 102);
+            this.ProdDGV.Location = new System.Drawing.Point(8, 80);
             this.ProdDGV.Name = "ProdDGV";
             this.ProdDGV.RowHeadersWidth = 62;
             this.ProdDGV.RowTemplate.Height = 30;
@@ -100,7 +100,7 @@
             // deleteButton
             // 
             this.deleteButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.deleteButton.Location = new System.Drawing.Point(722, 437);
+            this.deleteButton.Location = new System.Drawing.Point(721, 415);
             this.deleteButton.Name = "deleteButton";
             this.deleteButton.Size = new System.Drawing.Size(102, 34);
             this.deleteButton.TabIndex = 97;
@@ -111,7 +111,7 @@
             // editButton
             // 
             this.editButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.editButton.Location = new System.Drawing.Point(614, 437);
+            this.editButton.Location = new System.Drawing.Point(613, 415);
             this.editButton.Name = "editButton";
             this.editButton.Size = new System.Drawing.Size(102, 34);
             this.editButton.TabIndex = 96;
@@ -122,7 +122,7 @@
             // addButton
             // 
             this.addButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.addButton.Location = new System.Drawing.Point(506, 437);
+            this.addButton.Location = new System.Drawing.Point(505, 415);
             this.addButton.Name = "addButton";
             this.addButton.Size = new System.Drawing.Size(102, 34);
             this.addButton.TabIndex = 95;
@@ -134,7 +134,7 @@
             // 
             this.catComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.catComboBox.FormattingEnabled = true;
-            this.catComboBox.Location = new System.Drawing.Point(347, 63);
+            this.catComboBox.Location = new System.Drawing.Point(346, 41);
             this.catComboBox.Name = "catComboBox";
             this.catComboBox.Size = new System.Drawing.Size(207, 28);
             this.catComboBox.TabIndex = 107;
@@ -145,7 +145,7 @@
             // 
             this.toDateTimePicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.toDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.toDateTimePicker.Location = new System.Drawing.Point(781, 62);
+            this.toDateTimePicker.Location = new System.Drawing.Point(780, 40);
             this.toDateTimePicker.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.toDateTimePicker.Name = "toDateTimePicker";
             this.toDateTimePicker.Size = new System.Drawing.Size(179, 26);
@@ -156,7 +156,7 @@
             // 
             this.fromDateTimePicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.fromDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.fromDateTimePicker.Location = new System.Drawing.Point(603, 62);
+            this.fromDateTimePicker.Location = new System.Drawing.Point(602, 40);
             this.fromDateTimePicker.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.fromDateTimePicker.Name = "fromDateTimePicker";
             this.fromDateTimePicker.Size = new System.Drawing.Size(169, 26);
@@ -167,7 +167,7 @@
             // 
             this.catLabel.AutoSize = true;
             this.catLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.catLabel.Location = new System.Drawing.Point(384, 31);
+            this.catLabel.Location = new System.Drawing.Point(383, 9);
             this.catLabel.Name = "catLabel";
             this.catLabel.Size = new System.Drawing.Size(86, 20);
             this.catLabel.TabIndex = 121;
@@ -176,7 +176,7 @@
             // nextButton
             // 
             this.nextButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.nextButton.Location = new System.Drawing.Point(374, 435);
+            this.nextButton.Location = new System.Drawing.Point(373, 413);
             this.nextButton.Name = "nextButton";
             this.nextButton.Size = new System.Drawing.Size(102, 34);
             this.nextButton.TabIndex = 124;
@@ -188,7 +188,7 @@
             // prevButton
             // 
             this.prevButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.prevButton.Location = new System.Drawing.Point(266, 436);
+            this.prevButton.Location = new System.Drawing.Point(265, 414);
             this.prevButton.Name = "prevButton";
             this.prevButton.Size = new System.Drawing.Size(102, 34);
             this.prevButton.TabIndex = 123;
@@ -200,7 +200,7 @@
             // pagingComboBox
             // 
             this.pagingComboBox.FormattingEnabled = true;
-            this.pagingComboBox.Location = new System.Drawing.Point(179, 439);
+            this.pagingComboBox.Location = new System.Drawing.Point(178, 417);
             this.pagingComboBox.Margin = new System.Windows.Forms.Padding(2);
             this.pagingComboBox.Name = "pagingComboBox";
             this.pagingComboBox.Size = new System.Drawing.Size(82, 21);
@@ -210,7 +210,7 @@
             // pagingCheckBox
             // 
             this.pagingCheckBox.AutoSize = true;
-            this.pagingCheckBox.Location = new System.Drawing.Point(116, 441);
+            this.pagingCheckBox.Location = new System.Drawing.Point(115, 419);
             this.pagingCheckBox.Margin = new System.Windows.Forms.Padding(2);
             this.pagingCheckBox.Name = "pagingCheckBox";
             this.pagingCheckBox.Size = new System.Drawing.Size(59, 17);
@@ -222,7 +222,7 @@
             // exportCombobox
             // 
             this.exportCombobox.FormattingEnabled = true;
-            this.exportCombobox.Location = new System.Drawing.Point(964, 470);
+            this.exportCombobox.Location = new System.Drawing.Point(961, 432);
             this.exportCombobox.Margin = new System.Windows.Forms.Padding(2);
             this.exportCombobox.Name = "exportCombobox";
             this.exportCombobox.Size = new System.Drawing.Size(99, 21);
@@ -232,7 +232,7 @@
             // importCombobox
             // 
             this.importCombobox.FormattingEnabled = true;
-            this.importCombobox.Location = new System.Drawing.Point(861, 470);
+            this.importCombobox.Location = new System.Drawing.Point(848, 432);
             this.importCombobox.Margin = new System.Windows.Forms.Padding(2);
             this.importCombobox.Name = "importCombobox";
             this.importCombobox.Size = new System.Drawing.Size(99, 21);
@@ -241,18 +241,19 @@
             // 
             // callAPIButton
             // 
-            this.callAPIButton.Location = new System.Drawing.Point(12, 23);
+            this.callAPIButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.callAPIButton.Location = new System.Drawing.Point(505, 455);
             this.callAPIButton.Name = "callAPIButton";
-            this.callAPIButton.Size = new System.Drawing.Size(75, 23);
+            this.callAPIButton.Size = new System.Drawing.Size(153, 35);
             this.callAPIButton.TabIndex = 134;
-            this.callAPIButton.Text = "Call API";
+            this.callAPIButton.Text = "Get External Data";
             this.callAPIButton.UseVisualStyleBackColor = true;
             this.callAPIButton.Click += new System.EventHandler(this.callAPIButton_Click);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(993, 439);
+            this.label2.Location = new System.Drawing.Point(992, 417);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(37, 13);
             this.label2.TabIndex = 144;
@@ -261,7 +262,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(884, 439);
+            this.label1.Location = new System.Drawing.Point(883, 417);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(36, 13);
             this.label1.TabIndex = 143;

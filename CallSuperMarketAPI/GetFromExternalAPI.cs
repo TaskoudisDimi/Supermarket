@@ -18,7 +18,8 @@ namespace CallSuperMarketAPI
 {
     public partial class GetFromExternalAPI : Form
     {
-        //TODO: Check if existing products and categories thought ID
+        //TODO: Set ProdQty when find the same product from API data
+
         //https://world.openfoodfacts.org/category/cheeses.json
         static readonly HttpClient client = new HttpClient();
         string url_food = "https://api.edamam.com/api/food-database/v2/parser?app_id=713fa9ba&app_key=045b112511bb6b714c5c10328c5f5aba&nutrition-type=cooking&health=alcohol-free&category=generic-foods";
@@ -36,13 +37,11 @@ namespace CallSuperMarketAPI
             try
             {
                 statusLabel.Text = "Start getting the data";
-                ProductTbl product = new ProductTbl();
-                CategoryTbl category = new CategoryTbl();
                 HttpResponseMessage response = await client.GetAsync(url_food);
                 var ProductsResponse = await response.Content.ReadAsStringAsync();
                 if (response.IsSuccessStatusCode)
                 {
-                    Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(ProductsResponse);   
+                    Data myDeserializedClass = JsonConvert.DeserializeObject<Data>(ProductsResponse);
                     if (myDeserializedClass.hints.Count > 0)
                     {
                         foreach (var pair in myDeserializedClass.hints)
@@ -50,28 +49,101 @@ namespace CallSuperMarketAPI
                             string[] parts = pair.food.knownAs.Split(',');
                             if (productsCheckBox.Checked && categoriesCheckBox.Checked)
                             {
-                                product.ProdName = parts[1];
-                                product.ProdCat = parts[0];
-                                product.Date = DateTime.Now;
-                                category.CatName = parts[0];
-                                category.CatDesc = pair.food.category;
-                                category.Date = DateTime.Now;
-                                categories.Add(category);
-                                products.Add(product);
+                                ProductTbl existingProducts = DataModel.Select<ProductTbl>(where: $"ProdName = '{parts[1]}'").FirstOrDefault();
+                                if (existingProducts == null)
+                                {
+                                    string productName = parts[1].Trim();
+                                    bool existInTheList = products.Any(prod => prod.ProdName == productName);
+                                    if (!existInTheList)
+                                    {
+                                        ProductTbl product = new ProductTbl
+                                        {
+                                            ProdName = productName,
+                                            ProdCat = parts[0].Trim(),
+                                            Date = DateTime.Now
+                                        };
+                                        products.Add(product);
+                                    }
+                                }
+                                else
+                                {
+                                    string productName = existingProducts.ProdName;
+                                    bool existInTheList = products.Any(prod => prod.ProdName == productName);
+                                    if (!existInTheList)
+                                        products.Add(existingProducts);
+                                }
+
+                                CategoryTbl existingCategories = DataModel.Select<CategoryTbl>(where: $"CatName = '{parts[0]}'").FirstOrDefault();
+                                if (existingCategories == null)
+                                {
+                                    string categoryName = parts[0].Trim();
+                                    bool existInTheList = categories.Any(cat => cat.CatName == categoryName);
+                                    if (!existInTheList)
+                                    {
+                                        // The category doesn't exist, so you can create a new one and add it to the list
+                                        CategoryTbl category = new CategoryTbl
+                                        {
+                                            CatName = categoryName,
+                                            CatDesc = pair.food.category,
+                                            Date = DateTime.Now
+                                        };
+                                        categories.Add(category);
+                                    }
+                                }
+                                else
+                                {
+                                    string categoryName = existingCategories.CatName;
+                                    bool existInTheList = categories.Any(cat => cat.CatName == categoryName);
+                                    if (!existInTheList)
+                                        categories.Add(existingCategories);
+                                }
                             }
-                            else if(productsCheckBox.Checked && !categoriesCheckBox.Checked)
+                            else if (productsCheckBox.Checked && !categoriesCheckBox.Checked)
                             {
-                                product.ProdName = parts[1];
-                                product.ProdCat = parts[0];
-                                product.Date = DateTime.Now;
-                                products.Add(product);
+                                ProductTbl existingProducts = DataModel.Select<ProductTbl>(where: $"ProdName = '{parts[1]}'").FirstOrDefault();
+                                if (existingProducts != null)
+                                {
+                                    string productName = parts[1].Trim();
+                                    bool existInTheList = products.Any(prod => prod.ProdName == productName);
+                                    if (!existInTheList)
+                                    {
+                                        ProductTbl product = new ProductTbl
+                                        {
+                                            ProdName = productName,
+                                            ProdCat = parts[0].Trim(),
+                                            Date = DateTime.Now
+                                        };
+                                        products.Add(product);
+                                    }
+                                }
+                                else
+                                {
+                                    products.Add(existingProducts);
+                                }
                             }
-                            else if(!productsCheckBox.Checked && categoriesCheckBox.Checked)
+                            else if (!productsCheckBox.Checked && categoriesCheckBox.Checked)
                             {
-                                category.CatName = parts[0];
-                                category.CatDesc = pair.food.category;
-                                category.Date = DateTime.Now;
-                                categories.Add(category);
+                                CategoryTbl existingCategories = DataModel.Select<CategoryTbl>(where: $"CatName = '{parts[0]}'").FirstOrDefault();
+                                if (existingCategories != null)
+                                {
+                                    string categoryName = parts[0].Trim();
+                                    bool existInTheList = categories.Any(cat => cat.CatName == categoryName);
+                                    if (!existInTheList)
+                                    {
+                                        // The category doesn't exist, so you can create a new one and add it to the list
+                                        CategoryTbl category = new CategoryTbl
+                                        {
+                                            CatName = categoryName,
+                                            CatDesc = pair.food.category,
+                                            Date = DateTime.Now
+                                        };
+                                        categories.Add(category);
+                                    }
+                                }
+                                else
+                                {
+                                    categories.Add(existingCategories);
+                                }
                             }
                             else
                             {
@@ -94,29 +166,55 @@ namespace CallSuperMarketAPI
 
         private void saveButton_Click(object sender, EventArgs e)
         {
-            if(products.Count > 0 && categories.Count > 0)
+            if (products.Count > 0 && categories.Count > 0)
             {
-                foreach(ProductTbl item in products)
-                {
-                    DataModel.Create<ProductTbl>(item);
-                }
                 foreach (CategoryTbl item in categories)
                 {
-                    DataModel.Create<CategoryTbl>(item);
+                    CategoryTbl cat = DataModel.Select<CategoryTbl>(where: $"CatName = '{item.CatName}'").FirstOrDefault();
+                    if (cat == null)
+                        DataModel.Create<CategoryTbl>(item);
+                }
+                foreach (ProductTbl item in products)
+                {
+                    ProductTbl prod = DataModel.Select<ProductTbl>(where: $"ProdName = '{item.ProdName}'").FirstOrDefault();
+                    if (prod == null)
+                    {
+                        CategoryTbl catId = DataModel.Select<CategoryTbl>(where: $"CatName = '{item.ProdCat}'").FirstOrDefault();
+                        if (catId != null)
+                        {
+                            item.ProdCatID = catId.CatId;
+                            DataModel.Create<ProductTbl>(item);
+                        }
+                        else
+                        {
+                            continue;
+                        }
+                    }
                 }
             }
-            else if(products.Count > 0 && !(categories.Count > 0))
+            else if (products.Count > 0 && !(categories.Count > 0))
             {
                 foreach (ProductTbl item in products)
                 {
-                    DataModel.Create<ProductTbl>(item);
+                    CategoryTbl catId = DataModel.Select<CategoryTbl>(where: $"CatName = '{item.ProdCat}'").FirstOrDefault();
+                    if (catId != null)
+                    {
+                        item.ProdCatID = catId.CatId;
+                        DataModel.Create<ProductTbl>(item);
+                    }
+                    else
+                    {
+                        continue;
+                    }
                 }
             }
             else if (categories.Count > 0 && !(products.Count > 0))
             {
                 foreach (CategoryTbl item in categories)
                 {
-                    DataModel.Create<CategoryTbl>(item);
+                    CategoryTbl cat = DataModel.Select<CategoryTbl>(where: $"CatName = '{item.CatName}'").FirstOrDefault();
+                    if (cat == null)
+                        DataModel.Create<CategoryTbl>(item);
                 }
             }
             else
@@ -124,40 +222,6 @@ namespace CallSuperMarketAPI
                 MessageBox.Show("There are no data to sate", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-
-            //using (var transaction = new TransactionScope())
-            //{
-            //    if (products.Count > 0)
-            //    {
-            //        foreach (ProductTbl product in products)
-            //        {
-            //            // First, insert the category (if it doesn't exist) and get its CatID
-            //            CategoryTbl existingCategory = DataModel.GetCategoryByName(product.ProdCat);
-            //            if (existingCategory == null)
-            //            {
-            //                existingCategory = new CategoryTbl
-            //                {
-            //                    CatName = product.ProdCat,
-            //                    CatDesc = "Category Description", // Provide a description
-            //                    Date = DateTime.Now
-            //                };
-            //                DataModel.Create<CategoryTbl>(existingCategory);
-            //            }
-
-            //            // Set the ProdCatID in the product based on the CatID
-            //            product.ProdCatID = existingCategory.CatId;
-
-            //            // Insert the product
-            //            DataModel.Create<ProductTbl>(product);
-            //        }
-
-            //        transaction.Complete(); // Commit the transaction
-            //    }
-            //    else
-            //    {
-            //        MessageBox.Show("There is no data to save.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            //    }
-            //}
         }
 
 

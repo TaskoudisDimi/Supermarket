@@ -406,7 +406,6 @@ namespace ClassLibrary1
             return false;
         }
 
-
         public static List<T> GetListFromDataTable<T>(DataTable table) where T : class, new()
         {
             List<T> list = new List<T>();

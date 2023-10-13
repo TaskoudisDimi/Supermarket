@@ -64,7 +64,7 @@ namespace ClassLibrary1.Models
         public string label { get; set; }
     }
 
-    public class Root
+    public class Data
     {
         public string text { get; set; }
         public List<object> parsed { get; set; }

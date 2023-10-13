@@ -47,6 +47,7 @@
             this.exportCombobox = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.callAPIButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.CatDGV)).BeginInit();
             this.SuspendLayout();
             // 
@@ -229,7 +230,7 @@
             // importCombobox
             // 
             this.importCombobox.FormattingEnabled = true;
-            this.importCombobox.Location = new System.Drawing.Point(899, 448);
+            this.importCombobox.Location = new System.Drawing.Point(899, 437);
             this.importCombobox.Name = "importCombobox";
             this.importCombobox.Size = new System.Drawing.Size(99, 28);
             this.importCombobox.TabIndex = 140;
@@ -238,7 +239,7 @@
             // exportCombobox
             // 
             this.exportCombobox.FormattingEnabled = true;
-            this.exportCombobox.Location = new System.Drawing.Point(1004, 448);
+            this.exportCombobox.Location = new System.Drawing.Point(1004, 437);
             this.exportCombobox.Name = "exportCombobox";
             this.exportCombobox.Size = new System.Drawing.Size(99, 28);
             this.exportCombobox.TabIndex = 139;
@@ -262,12 +263,23 @@
             this.label2.TabIndex = 142;
             this.label2.Text = "Export";
             // 
+            // callAPIButton
+            // 
+            this.callAPIButton.Location = new System.Drawing.Point(567, 446);
+            this.callAPIButton.Name = "callAPIButton";
+            this.callAPIButton.Size = new System.Drawing.Size(148, 35);
+            this.callAPIButton.TabIndex = 143;
+            this.callAPIButton.Text = "Get External Data";
+            this.callAPIButton.UseVisualStyleBackColor = true;
+            this.callAPIButton.Click += new System.EventHandler(this.callAPIButton_Click);
+            // 
             // Category
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1158, 515);
             this.ControlBox = false;
+            this.Controls.Add(this.callAPIButton);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.importCombobox);
@@ -318,5 +330,6 @@
         private ComboBox exportCombobox;
         private Label label1;
         private Label label2;
+        private Button callAPIButton;
     }
 }
