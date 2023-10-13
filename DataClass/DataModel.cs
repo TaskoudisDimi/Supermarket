@@ -499,32 +499,6 @@ namespace ClassLibrary1
                             else if (propType == typeof(string))
                             {
                                 propertyInfo.SetValue(obj, value.ToString(), null);
-                                #region Use encryption SQL command and Property of models
-                                //if (propertyInfo.IsDefined(typeof(DatabaseColumnAttribute), false))
-                                //{
-                                //    var columnAttribute = propertyInfo.GetCustomAttribute<DatabaseColumnAttribute>();
-                                //    if (columnAttribute.IsEncrypted)
-                                //    {
-                                //        // Decrypt the encrypted string and set it to the property
-                                //        string decryptedValue = ByteArrayToString((byte[])value);
-                                //        propertyInfo.SetValue(obj, decryptedValue, null);
-                                //        continue;
-                                //    }
-                                //    else
-                                //    {
-                                //        // Non-encrypted string column, set it as is
-                                //        propertyInfo.SetValue(obj, value.ToString(), null);
-                                //        continue;
-                                //    }
-                                //}
-                                //else
-                                //{
-                                //    // Non-encrypted string column, set it as is
-                                //    propertyInfo.SetValue(obj, value.ToString(), null);
-                                //    continue;
-                                //}
-                                #endregion
-
                             }
 
                             propertyInfo.SetValue(obj, Convert.ChangeType(value, propType), null);

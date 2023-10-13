@@ -551,28 +551,23 @@ namespace SupermarketTuto.Forms
                 if (item.Contains("Csv"))
                 {
                     tableNew = excel.import(product);
-
                 }
                 else if (item.Contains("Xlsx"))
                 {
                     tableNew = excel.ImportExcelAsync(ProdDGV, product);
                 }
-                //DataTable table3 = loaddata1.table.Clone();
-                //var differenceQuery = tableNew.AsEnumerable().Except(loaddata1.table.AsEnumerable(), DataRowComparer.Default);
-
-                //foreach (DataRow row in differenceQuery)
-                //{
-                //    table3.Rows.Add(row.ItemArray);
-                //}
-                //loaddata1.table.Merge(tableNew);
+                List<ProductTbl> listProducts = DataModel.GetListFromDataTable<ProductTbl>(tableNew);
+                foreach(ProductTbl prod in listProducts)
+                {
+                    DataModel.Create(prod);
+                }
                 ProdDGV.DataSource = tableNew;
-                //ProdDGV.RowHeadersVisible = false;
-                //ProdDGV.AllowUserToAddRows = false;
-                //DialogResult result = MessageBox.Show("Do you want to save the extra data to Database?", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                //if (result == DialogResult.Yes)
-                //{
-                //    excel.SaveToDB(table3, product);
-                //}
+
+                DialogResult result = MessageBox.Show("Do you want to save the extra data to Database?", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes)
+                {
+                    excel.SaveToDB(tableNew, product);
+                }
             }
             catch
             {
