@@ -13,11 +13,10 @@ namespace SupermarketTuto
     internal static class Program
     {
 
-        //TODO: Import Export excel/csv
-        //TODO: Check Database, Restore,Backup etc.
+        //TODO: Check Database.
         //TODO: Build API 
         //TODO: Upload / Download files 
-        //TODO: Updates
+        //TODO: Updates with version
 
 
         [STAThread]
@@ -32,6 +31,7 @@ namespace SupermarketTuto
             }
             else
             {
+
                 Application.Run(new MainAdmin());   
             }
         }

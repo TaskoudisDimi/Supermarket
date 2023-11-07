@@ -2,6 +2,7 @@
 using DataClass;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
+using SupermarketTuto.Utils;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -21,7 +22,7 @@ namespace ClassLibrary1
 
         #region Csv files
 
-        public DataTable import(Type type)
+        public DataTable import<T>(Type type) where T : class
         {
             try
             {
@@ -44,7 +45,8 @@ namespace ClassLibrary1
                     if (dialog.FileName.EndsWith(".csv"))
                     {
                         DataTable table = new DataTable();
-                        table = GetData<ProductTbl>(dialog.FileName);
+
+                        table = GetData<T>(dialog.FileName);
                         SourceURl = dialog.FileName;
                         if (table.Rows != null && table.Rows.Count > 0)
                         {
@@ -131,7 +133,7 @@ namespace ClassLibrary1
             return dt;
         }
 
-        public void export(DataGridView table, bool useSelected = false)
+        public void exportCsv(DataGridView table, bool useSelected = false)
         {
             if (table.Rows.Count > 0)
             {
@@ -207,311 +209,248 @@ namespace ClassLibrary1
 
         #endregion
 
-
-        public void SaveToDB(DataTable table, Type type)
+        public bool SaveToDB(DataTable table, Type type)
         {
-            //SqlConnect loaddata20 = new SqlConnect();
+            //Save the table
 
-            //foreach (DataRow row in table.Rows)
-            //{
-            //    if (type.Name == "Products")
-            //    {
-            //        DateTime DateTime = (DateTime)row["Date"];
-            //        string Date = DateTime.ToString("yyyy-MM-dd");
-            //        loaddata20.execCom("Insert Into ProductTbl values('" + row["ProdName"] + "','" + row["ProdQty"] + "','" + row["ProdPrice"] + "','" + row["ProdCatID"] + "','" + row["ProdCat"] + "','" + Date + "')");
-            //    }
-            //    else if (type.Name.Equals("Categories"))
-            //    {
-            //        DateTime DateTime = (DateTime)row["Date"];
-            //        string Date = DateTime.ToString("yyyy-MM-dd");
-            //        loaddata20.execCom("Insert Into CategoryTbl values('" + row["CatName"] + "','" + row["CatDesc"] + "','" + Date + "')");
-            //    }
-            //    else if (type.Name.Equals("Bills"))
-            //    {
-            //        loaddata20.execCom("Insert Into BillTbl values('" + row["Comments"] + "','" + row["SellerName"] + "','" + row["BillDate"] + "'," + row["TotAmt"] + ")");
-            //    }
-            //}
+            if (type.Name == "CategoryTbl")
+            {
+                List<CategoryTbl> list = Utils.ToList<CategoryTbl>(table);
+                foreach (CategoryTbl item in list)
+                {
+                    CategoryTbl cat = DataModel.Select<CategoryTbl>(where: $"CatName = '{item.CatName}'").FirstOrDefault();
+                    if (cat == null)
+                        DataModel.Create<CategoryTbl>(item);
+                }
+            }
+            else if (type.Name == "ProductTbl")
+            {
+                List<ProductTbl> list = Utils.ToList<ProductTbl>(table);
+                foreach (ProductTbl item in list)
+                {
+                    ProductTbl prod = DataModel.Select<ProductTbl>(where: $"ProdName = '{item.ProdName}'").FirstOrDefault();
+                    if (prod == null)
+                    {
+                        CategoryTbl catId = DataModel.Select<CategoryTbl>(where: $"CatName = '{item.ProdCat}'").FirstOrDefault();
+                        if (catId != null)
+                        {
+                            item.ProdCatID = catId.CatId;
+                            DataModel.Create<ProductTbl>(item);
+                        }
+                        else
+                        {
+                            continue;
+                        }
+                    }
+                }
+            }
+
+            return false;
         }
-
 
         #region Xlsx files
 
-        List<object> data = new List<object>();
 
         //Import
-        public DataTable ImportExcelAsync(DataGridView dataGridView, Type typeOfClass)
+        public List<T> ImportExcel<T>() where T : new()
         {
             try
             {
-                string path = null;
-                int rowAdd = 5;
-                int col = 1;
-                double date;
-                DataTable dataTable = new DataTable();
                 OpenFileDialog dialog = new OpenFileDialog()
                 {
-                    Filter = "xlsx (*.xlsx)|*.xlsx",
-                    Title = "xlsx Files",
-                    RestoreDirectory = true
+                    Title = "Browse Text File",
+                    CheckFileExists = true,
+                    CheckPathExists = true,
+                    Filter = "xlsx files (*.xlsx)|*.xlsx",
+                    FilterIndex = 2,
+                    RestoreDirectory = true,
+                    ReadOnlyChecked = true,
+                    ShowReadOnly = true
                 };
+
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    path = dialog.FileName;
-
-                    using (var package = new ExcelPackage(new FileInfo(path)))
+                    if (dialog.FileName.EndsWith(".xlsx"))
                     {
                         ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
-                        package.LoadAsync(path);
 
-                        var ws = package.Workbook.Worksheets[0]; // assuming your data is in the first worksheet 
+                        var modelType = typeof(T);
+                        var properties = modelType.GetProperties();
+                        var propertyNames = properties.Select(prop => prop.Name).ToList();
 
-                        if (typeOfClass.Name.Equals("ProductTbl"))
+                        List<T> resultList = new List<T>();
+
+                        using (var package = new ExcelPackage(new FileInfo(dialog.FileName)))
                         {
-                            dataTable.Columns.Add("ProdId", typeof(int));
-                            dataTable.Columns.Add("ProdName");
-                            dataTable.Columns.Add("ProdQty", typeof(int));
-                            dataTable.Columns.Add("ProdPrice", typeof(int));
-                            dataTable.Columns.Add("ProdCatID", typeof(int));
-                            dataTable.Columns.Add("ProdCat");
-                            dataTable.Columns.Add("Date", typeof(DateTime));
+                            ExcelWorksheet worksheet = package.Workbook.Worksheets[0]; // Assuming the first worksheet
 
-                            // Loop through the rows in the worksheet and add them to the DataTable
-                            while (string.IsNullOrWhiteSpace(ws.Cells[rowAdd, col].Value?.ToString()) == false)
+                            // Find the actual used range of the worksheet
+                            var start = worksheet.Dimension.Start;
+                            var end = worksheet.Dimension.End;
+
+                            for (int row = start.Row + 2; row <= end.Row; row++)
                             {
-                                DataRow row = dataTable.Rows.Add();
-                                row["ProdId"] = int.Parse(ws.Cells[rowAdd, col].Value.ToString());
-                                row["ProdName"] = ws.Cells[rowAdd, col + 1].Value.ToString();
-                                row["ProdQty"] = int.Parse(ws.Cells[rowAdd, col + 2].Value.ToString());
-                                row["ProdPrice"] = int.Parse(ws.Cells[rowAdd, col + 3].Value.ToString());
-                                row["ProdCatID"] = int.Parse(ws.Cells[rowAdd, col + 4].Value.ToString());
-                                row["ProdCat"] = ws.Cells[rowAdd, col + 5].Value.ToString();
-                                ExcelRange range = ws.Cells[rowAdd, col + 6];
-                                date = Convert.ToDouble(range.Value);
-                                row["Date"] = DateTime.FromOADate(date);
-                                rowAdd += 1;
-                            }
+                                T modelObject = new T();
 
-                        }
-                        else if (typeOfClass.Name.Equals("BillTbl"))
-                        {
-                            dataTable.Columns.Add("CatId", typeof(int));
-                            dataTable.Columns.Add("CatName");
-                            dataTable.Columns.Add("CatDesc");
-                            dataTable.Columns.Add("Date", typeof(DateTime));
+                                for (int col = 1; col <= propertyNames.Count; col++)
+                                {
+                                    var propertyName = propertyNames[col - 1];
+                                    var property = properties.First(p => p.Name == propertyName);
 
-                            // Loop through the rows in the worksheet and add them to the DataTable
-                            while (string.IsNullOrWhiteSpace(ws.Cells[rowAdd, col].Value?.ToString()) == false)
-                            {
-                                DataRow row = dataTable.Rows.Add();
-                                row["CatId"] = int.Parse(ws.Cells[rowAdd, col].Value.ToString());
-                                row["CatName"] = ws.Cells[rowAdd, col + 1].Value.ToString();
-                                row["CatDesc"] = ws.Cells[rowAdd, col + 5].Value.ToString();
-                                ExcelRange range = ws.Cells[rowAdd, col + 6];
-                                date = Convert.ToDouble(range.Value);
-                                row["Date"] = DateTime.FromOADate(date);
-                                rowAdd += 1;
-                            }
-                        }
-                        else if (typeOfClass.Name.Equals("Bills"))
-                        {
-                            dataTable.Columns.Add("BillId", typeof(int));
-                            dataTable.Columns.Add("Comments");
-                            dataTable.Columns.Add("SellerName");
-                            dataTable.Columns.Add("BillDate", typeof(DateTime));
-                            dataTable.Columns.Add("TotAmt", typeof(int));
+                                    // Assuming the column names in Excel match the property names in your model
+                                    var cellValue = worksheet.Cells[row, col].Text;
 
-                            // Loop through the rows in the worksheet and add them to the DataTable
-                            while (string.IsNullOrWhiteSpace(ws.Cells[rowAdd, col].Value?.ToString()) == false)
-                            {
-                                DataRow row = dataTable.Rows.Add();
-                                row["BillId"] = int.Parse(ws.Cells[rowAdd, col].Value.ToString());
-                                row["Comments"] = ws.Cells[rowAdd, col + 1].Value.ToString();
-                                row["SellerName"] = ws.Cells[rowAdd, col + 1].Value.ToString();
-                                ExcelRange range = ws.Cells[rowAdd, col + 6];
-                                date = Convert.ToDouble(range.Value);
-                                row["BillDate"] = DateTime.FromOADate(date);
-                                row["TotAmt"] = int.Parse(ws.Cells[rowAdd, col].Value.ToString());
-                                rowAdd += 1;
+                                    // Convert cell value to the property's type with error handling
+                                    if (property.PropertyType == typeof(DateTime))
+                                    {
+                                        DateTime value = ConvertExcelDateToDateTime(Convert.ToDouble(cellValue));
+                                        property.SetValue(modelObject, value);
+                                    }
+                                    else if (IsNumericType(property.PropertyType))
+                                    {
+                                        if (Int32.TryParse(cellValue, out Int32 numericValue))
+                                        {
+                                            property.SetValue(modelObject, numericValue);
+                                        }
+                                        else
+                                        {
+                                            // Handle invalid numeric format (e.g., set a default value)
+                                            property.SetValue(modelObject, 0);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        // Handle other property types as needed
+                                        property.SetValue(modelObject, cellValue);
+                                    }
+                                }
+                                resultList.Add(modelObject);
                             }
                         }
-                        return dataTable;
+                        return resultList;
                     }
                 }
                 return null;
             }
-            catch
+            catch (Exception ex)
             {
+                // Handle exceptions here
                 return null;
             }
         }
 
-        //Save
-        public async void Save(DataGridView dataGridView, Type typeOfClass)
+        private bool IsNumericType(Type type)
         {
-            string path = "";
-            ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+            return type == typeof(int) || type == typeof(double) || type == typeof(float) || type == typeof(decimal);
+        }
+
+        public static DateTime ConvertExcelDateToDateTime(double excelDate)
+        {
+            return DateTime.FromOADate(excelDate);
+        }
+
+
+
+        //Export
+        public async Task ExportExcel<T>(DataGridView dataGridView, string title) where T : new()
+        {
             try
             {
+                ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+                string path = "";
+
                 SaveFileDialog dialog = new SaveFileDialog()
                 {
                     Filter = "xlsx (*.xlsx)|*.xlsx",
                     Title = "xlsx Files",
                     RestoreDirectory = true
                 };
+
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
                     path = dialog.FileName;
-                    var file = new FileInfo(path);
-                    if (typeOfClass.Name.Equals("ProductTbl"))
-                    {
-                        var products = GetSetupDataProd(dataGridView, typeOfClass);
-                        await SaveExcelFile(products, file, typeOfClass);
-                    }
-                    else if (typeOfClass.Name.Equals("CategoryTbl"))
-                    {
-                        var categories = GetSetupDataProd(dataGridView, typeOfClass);
-                        await SaveExcelFile(categories, file, typeOfClass);
-                    }
-                    else if (typeOfClass.Name.Equals("BillTbl"))
-                    {
-                        var bills = GetSetupDataProd(dataGridView, typeOfClass);
-                        await SaveExcelFile(bills, file, typeOfClass);
-                    }
-                }
-                else
-                {
-                    return;
+                    FileInfo file = new FileInfo(path);
+                    List<T> data = GetSetupDataProd<T>(dataGridView);
+
+                    await SaveExcelFile<T>(data, file, title);
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                return;
+                // Handle exceptions here
             }
-
-
         }
 
-        private List<object> GetSetupDataProd(DataGridView dataGridView, Type type)
+        private List<T> GetSetupDataProd<T>(DataGridView dataGridView) where T : new()
         {
-            try
+            List<T> data = new List<T>();
+
+            foreach (DataGridViewRow row in dataGridView.Rows)
             {
-                foreach (DataGridViewRow row in dataGridView.Rows)
+                T model = new T();
+
+                foreach (PropertyInfo property in typeof(T).GetProperties())
                 {
-                    if (type.Name.Equals("ProductTbl"))
+                    string propertyName = property.Name;
+                    if (dataGridView.Columns.Contains(propertyName))
                     {
-                        ProductTbl prod = new ProductTbl();
-                        prod.ProdId = Convert.ToInt32(row.Cells["ProdId"].Value);
-                        prod.ProdCat = row.Cells["ProdCat"].Value.ToString();
-                        prod.ProdName = row.Cells["ProdName"].Value.ToString();
-                        prod.ProdPrice = Convert.ToInt32(row.Cells["ProdPrice"].Value);
-                        prod.ProdQty = Convert.ToInt32(row.Cells["ProdQty"].Value);
-                        prod.ProdCatID = Convert.ToInt32(row.Cells["ProdCatID"].Value);
-                        prod.Date = DateTime.Parse(row.Cells["Date"].Value.ToString());
-                        data.Add(prod);
-                    }
-                    else if (type.Name.Equals("CategoryTbl"))
-                    {
-                        CategoryTbl cat = new CategoryTbl();
-                        cat.CatId = Convert.ToInt32(row.Cells["CatId"].Value);
-                        cat.CatName = row.Cells["CatName"].Value.ToString();
-                        cat.CatDesc = row.Cells["CatDesc"].Value.ToString();
-                        cat.Date = DateTime.Parse(row.Cells["Date"].Value.ToString());
-                        data.Add(cat);
-                    }
-                    else if (type.Name.Equals("BillTbl"))
-                    {
-                        BillTbl bills = new BillTbl();
-                        bills.BillId = Convert.ToInt32(row.Cells["BillId"].Value);
-                        bills.Comments = row.Cells["Comments"].Value.ToString();
-                        bills.SellerName = row.Cells["SellerName"].Value.ToString();
-                        bills.Date = DateTime.Parse(row.Cells["BillDate"].Value.ToString());
-                        bills.TotAmt = Convert.ToInt32(row.Cells["TotAmt"].Value);
-                        data.Add(bills);
+                        object cellValue = row.Cells[propertyName].Value;
+                        if (cellValue != null)
+                        {
+                            // Convert cell value to the property's type
+                            if (property.PropertyType == typeof(DateTime))
+                            {
+                                property.SetValue(model, DateTime.Parse(cellValue.ToString()));
+                            }
+                            else
+                            {
+                                property.SetValue(model, Convert.ChangeType(cellValue, property.PropertyType));
+                            }
+                        }
                     }
                 }
-                return data;
+
+                data.Add(model);
             }
-            catch
-            {
-                return null;
-            }
+
+            return data;
         }
 
-        private static async Task SaveExcelFile(List<object> data, FileInfo file, Type type)
+        private async Task SaveExcelFile<T>(List<T> data, FileInfo file, string title)
         {
-            try
+            DeleteIfExists(file);
+
+            using (var package = new ExcelPackage(file))
             {
-                List<ProductTbl> products = new List<ProductTbl>();
-                List<CategoryTbl> categories = new List<CategoryTbl>();
-                List<BillTbl> bills = new List<BillTbl>();
-                if (type.Name.Equals("ProductTbl"))
-                {
-                    products = data.Cast<ProductTbl>().ToList();
-                }
-                else if (type.Name.Equals("CategoryTbl"))
-                {
-                    categories = data.Cast<CategoryTbl>().ToList();
-                }
-                else if (type.Name.Equals("BillTbl"))
-                {
-                    bills = data.Cast<BillTbl>().ToList();
-                }
+                ExcelWorksheet ws = package.Workbook.Worksheets.Add("MainReport");
 
-                DeleteIfExists(file);
-                using (var package = new ExcelPackage(file))
-                {
-                    var ws = package.Workbook.Worksheets.Add("MainReport");
+                var range = ws.Cells["A2"].LoadFromCollection(data, true);
+                range.AutoFitColumns();
+                ws.Cells["A1"].Value = "Report " + title;
 
+                ws.Cells["A1:C1"].Merge = true;
+                ws.Column(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                ws.Row(1).Style.Font.Size = 24;
+                ws.Row(1).Style.Border.BorderAround(ExcelBorderStyle.Dashed);
+                ws.Row(1).Style.Font.Color.SetColor(Color.Black);
+                ws.Row(1).Style.Font.Bold = true;
 
-                    // Formats the header
-                    if (type.Name.Equals("ProductTbl"))
-                    {
-                        var range = ws.Cells["A3"].LoadFromCollection(products, true);
-                        range.AutoFitColumns();
-                        ws.Cells["A1"].Value = "Report Products";
-                    }
-                    else if (type.Name.Equals("CategoryTbl"))
-                    {
-                        var range = ws.Cells["A3"].LoadFromCollection(categories, true);
-                        range.AutoFitColumns();
-                        ws.Cells["A1"].Value = "Report Categories";
-                    }
-                    else if (type.Name.Equals("BillTbl"))
-                    {
-                        var range = ws.Cells["A3"].LoadFromCollection(bills, true);
-                        range.AutoFitColumns();
-                        ws.Cells["A1"].Value = "Report Bills";
-                    }
+                ws.Row(2).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                ws.Row(2).Style.Font.Bold = true;
+                ws.Column(3).Width = 20;
 
-                    ws.Cells["A1:C1"].Merge = true;
-                    ws.Column(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-                    ws.Row(1).Style.Font.Size = 24;
-                    ws.Row(1).Style.Border.BorderAround(ExcelBorderStyle.Dashed);
-                    ws.Row(1).Style.Font.Color.SetColor(Color.Black);
-                    ws.Row(1).Style.Font.Bold = true;
-
-                    ws.Row(2).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-                    ws.Row(2).Style.Font.Bold = true;
-                    ws.Column(3).Width = 20;
-
-                    await package.SaveAsync();
-                };
-
+                await package.SaveAsync();
             }
-            catch
-            {
-
-            }
-
         }
 
-        private static void DeleteIfExists(FileInfo file)
+        private void DeleteIfExists(FileInfo file)
         {
             if (file.Exists)
             {
                 file.Delete();
             }
         }
+
 
         #endregion
 

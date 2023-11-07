@@ -334,7 +334,10 @@ namespace SupermarketTuto.Forms
                 foreach (DataGridViewRow row in CatDGV.Rows)
                 {
                     DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)row.Cells[0];
-                    chk.Value = !(chk.Value == null ? false : (bool)chk.Value);
+                    if (Convert.ToBoolean(chk.Value) == true)
+                        break;
+                    else
+                        chk.Value = true;
                 }
             }
             else
@@ -342,7 +345,10 @@ namespace SupermarketTuto.Forms
                 foreach (DataGridViewRow row in CatDGV.Rows)
                 {
                     DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)row.Cells[0];
-                    chk.Value = !(chk.Value == null ? true : (bool)chk.Value);
+                    if (Convert.ToBoolean(chk.Value) == false)
+                        break;
+                    else
+                        chk.Value = false;
                 }
 
             }
@@ -357,11 +363,11 @@ namespace SupermarketTuto.Forms
             var item = ((ComboBox)sender).SelectedItem.ToString();
             if (item.Contains("Csv"))
             {
-                excel.export(CatDGV, true);
+                excel.exportCsv(CatDGV, true);
             }
             else if (item.Contains("Xlsx"))
             {
-                excel.Save(CatDGV, categoryType);
+                excel.ExportExcel<CategoryTbl>(CatDGV, categoryType.Name);
             }
         }
 
@@ -376,12 +382,13 @@ namespace SupermarketTuto.Forms
 
                 if (item.Contains("Csv"))
                 {
-                    tableNew = excel.import(category);
+                    tableNew = excel.import<CategoryTbl>(category);
 
                 }
                 else if (item.Contains("Xlsx"))
                 {
-                    tableNew = excel.ImportExcelAsync(CatDGV, category);
+                    List<CategoryTbl> list = excel.ImportExcel<CategoryTbl>();
+                    tableNew = Utils.Utils.ToDataTable(list);
                 }
                 DataTable table3 = categoryTable.Clone();
                 var differenceQuery = tableNew.AsEnumerable().Except(categoryTable.AsEnumerable(), DataRowComparer.Default);

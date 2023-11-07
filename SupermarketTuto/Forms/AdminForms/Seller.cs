@@ -205,21 +205,23 @@ namespace SupermarketTuto.Forms
 
                 if (matchingRows.Any())
                 {
-                    sellerTable = matchingRows.CopyToDataTable();
+                    tableWithoutColumns = matchingRows.CopyToDataTable();
+                    tableWithoutColumns.Columns.Remove("Image");
                 }
                 else
                 {
-                    sellerTable = sellerTable.Clone();
+                    tableWithoutColumns = tableWithoutColumns.Clone();
                 }
             }
             // If the search text is empty, assign the originalCategoryTable to the categoryTable
             else
             {
-                sellerTable = originalProductTable.Copy();
+                tableWithoutColumns = originalProductTable.Copy();
+                tableWithoutColumns.Columns.Remove("Image");
             }
 
             // Bind the categoryTable to the CatDGV DataGridView control
-            SellDGV.DataSource = sellerTable;
+            SellDGV.DataSource = tableWithoutColumns;
         }
 
 

@@ -78,7 +78,7 @@ namespace SupermarketTuto.Forms.AdminForms
 
         private void SubSubMenu(ToolStripMenuItem items)
         {
-            string[] subSubItem = new string[] { "Backup", "Restore", "CleanDatabase" };
+            string[] subSubItem = new string[] { "Backup", "Restore", "Clean Database" };
             foreach(string Row in subSubItem)
             {
                 ToolStripMenuItem subSubMenuItem = new ToolStripMenuItem(Row, null);
@@ -92,9 +92,13 @@ namespace SupermarketTuto.Forms.AdminForms
                 {
                     subSubMenuItem.Click += new EventHandler(MnuStripRestoreDB_Click);
                 }
-                else if(subSubMenuItem.Text == "CleanDatabase")
+                else if(subSubMenuItem.Text == "Clean Database")
                 {
                     subSubMenuItem.Click += new EventHandler(MnuStripCleanDB_Click);
+                }
+                else if (subSubMenuItem.Text == "Check Database")
+                {
+                    subSubMenuItem.Click += new EventHandler(MnuStripCheckDB_Click);
                 }
             }
         }
@@ -109,6 +113,11 @@ namespace SupermarketTuto.Forms.AdminForms
         private void MnuStripCleanDB_Click(object sender, EventArgs e)
         {
             DataAccess.Instance.CleanDB();
+        }
+
+        private void MnuStripCheckDB_Click(object sender, EventArgs e)
+        {
+            return;
         }
 
         private void MnuStripAdmins_Click(object sender, EventArgs e)

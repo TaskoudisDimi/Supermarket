@@ -531,12 +531,11 @@ namespace SupermarketTuto.Forms
             var item = ((ComboBox)sender).SelectedItem.ToString();
             if (item.Contains("Csv"))
             {
-                excel.export(ProdDGV, true);
+                excel.exportCsv(ProdDGV, true);
             }
             else if (item.Contains("Xlsx"))
             {
-
-                excel.Save(ProdDGV, product);
+                excel.ExportExcel<ProductTbl>(ProdDGV, productType.Name);
             }
         }
 
@@ -550,11 +549,12 @@ namespace SupermarketTuto.Forms
 
                 if (item.Contains("Csv"))
                 {
-                    tableNew = excel.import(product);
+                    tableNew = excel.import<ProductTbl>(product);
                 }
                 else if (item.Contains("Xlsx"))
                 {
-                    tableNew = excel.ImportExcelAsync(ProdDGV, product);
+                    List<ProductTbl> list = excel.ImportExcel<ProductTbl>();
+                    tableNew = Utils.Utils.ToDataTable(list);
                 }
                 List<ProductTbl> listProducts = DataModel.GetListFromDataTable<ProductTbl>(tableNew);
                 foreach(ProductTbl prod in listProducts)
@@ -577,8 +577,6 @@ namespace SupermarketTuto.Forms
         }
 
 
-
-
         #endregion
 
         private void callAPIButton_Click(object sender, EventArgs e)
@@ -586,6 +584,33 @@ namespace SupermarketTuto.Forms
             //Call API in order to save the incoming products
             GetFromExternalAPI callAPI = new GetFromExternalAPI();
             callAPI.Show();
+        }
+
+        private void selectAllCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (selectAllCheckBox.Checked)
+            {
+                foreach (DataGridViewRow row in ProdDGV.Rows)
+                {
+                    DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)row.Cells[0];
+                    if (Convert.ToBoolean(chk.Value) == true)
+                        break;
+                    else
+                        chk.Value = true;
+                }
+            }
+            else
+            {
+                foreach (DataGridViewRow row in ProdDGV.Rows)
+                {
+                    DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)row.Cells[0];
+                    if (Convert.ToBoolean(chk.Value) == false)
+                        break;
+                    else
+                        chk.Value = false;
+                }
+
+            }
         }
     }
 

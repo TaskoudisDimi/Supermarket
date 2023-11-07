@@ -25,6 +25,7 @@ namespace SupermarketTuto.Forms.SellingForms
         DataTable billTable = new DataTable();
         BindingSource billBindingSource = new BindingSource();
         private DataTable originalBillTable;
+        Type billType = typeof(BillTbl);
 
         public Bills()
         {
@@ -118,13 +119,63 @@ namespace SupermarketTuto.Forms.SellingForms
 
         private void importCombobox_SelectedValueChanged(object sender, EventArgs e)
         {
-            
+            try
+            {
+                Type product = typeof(BillTbl);
+                DataTable tableNew = new DataTable();
+                var item = ((ComboBox)sender).SelectedItem.ToString();
+
+                if (item.Contains("Csv"))
+                {
+                    tableNew = excel.import<BillTbl>(product);
+                }
+                else if (item.Contains("Xlsx"))
+                {
+                    List<BillTbl> list = excel.ImportExcel<BillTbl>();
+                    tableNew = Utils.Utils.ToDataTable(list);
+                }
+                List<BillTbl> listProducts = DataModel.GetListFromDataTable<BillTbl>(tableNew);
+                foreach (BillTbl prod in listProducts)
+                {
+                    DataModel.Create(prod);
+                }
+                BillsDGV.DataSource = tableNew;
+
+                DialogResult result = MessageBox.Show("Do you want to save the extra data to Database?", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes)
+                {
+                    excel.SaveToDB(tableNew, product);
+                }
+            }
+            catch
+            {
+
+            }
         }
 
         private void exportCombobox_SelectedValueChanged(object sender, EventArgs e)
         {
-           
+            Type product = typeof(BillTbl);
+            var item = ((ComboBox)sender).SelectedItem.ToString();
+            if (item.Contains("Csv"))
+            {
+                excel.exportCsv(BillsDGV, true);
+            }
+            else if (item.Contains("Xlsx"))
+            {
+                excel.ExportExcel<BillTbl>(BillsDGV, billType.Name);
+            }
         }
+
+        #region Excel (csv && xlsx)
+
+        
+
+       
+
+        #endregion
+
+
 
         private void editButton_Click(object sender, EventArgs e)
         {

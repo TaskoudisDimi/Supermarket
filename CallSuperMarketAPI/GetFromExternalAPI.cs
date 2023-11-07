@@ -164,6 +164,7 @@ namespace CallSuperMarketAPI
 
         }
 
+        //TODO: Add BackgroundWorkder
         private void saveButton_Click(object sender, EventArgs e)
         {
             if (products.Count > 0 && categories.Count > 0)

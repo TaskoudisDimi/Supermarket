@@ -643,6 +643,40 @@ namespace SupermarketTuto.Utils
             return dataTable;
         }
 
+        public static List<T> ToList<T>(this DataTable dataTable) where T : new()
+        {
+            List<T> list = new List<T>();
+
+            if (dataTable == null || dataTable.Rows.Count == 0)
+            {
+                return list;
+            }
+
+            // Get the properties of the custom class
+            var properties = typeof(T).GetProperties();
+
+            foreach (DataRow row in dataTable.Rows)
+            {
+                T item = new T();
+
+                foreach (var property in properties)
+                {
+                    if (dataTable.Columns.Contains(property.Name))
+                    {
+                        object value = row[property.Name];
+
+                        if (value != DBNull.Value)
+                        {
+                            property.SetValue(item, value);
+                        }
+                    }
+                }
+
+                list.Add(item);
+            }
+
+            return list;
+        }
 
         // Hash and store the user's password
         public static string HashPassword(string password)
