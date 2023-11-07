@@ -116,6 +116,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CheckDatabase.cs" />
     <Compile Include="CustomObjects.cs" />
     <Compile Include="DataAccess.cs" />
     <Compile Include="DatabaseColumnAttribute.cs" />
