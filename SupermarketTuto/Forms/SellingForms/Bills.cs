@@ -37,7 +37,6 @@ namespace SupermarketTuto.Forms.SellingForms
             displayBills();
         }
 
-
         private void displayBills()
         {
             DataGridViewCheckBoxColumn Select = new DataGridViewCheckBoxColumn();
@@ -117,34 +116,44 @@ namespace SupermarketTuto.Forms.SellingForms
 
         }
 
+
+
+        #region Excel (csv && xlsx)
+
+
         private void importCombobox_SelectedValueChanged(object sender, EventArgs e)
         {
             try
             {
-                Type product = typeof(BillTbl);
+                Type bill = typeof(BillTbl);
                 DataTable tableNew = new DataTable();
                 var item = ((ComboBox)sender).SelectedItem.ToString();
 
                 if (item.Contains("Csv"))
                 {
-                    tableNew = excel.import<BillTbl>(product);
+                    tableNew = excel.import<BillTbl>(bill);
+
                 }
                 else if (item.Contains("Xlsx"))
                 {
                     List<BillTbl> list = excel.ImportExcel<BillTbl>();
                     tableNew = Utils.Utils.ToDataTable(list);
                 }
-                List<BillTbl> listProducts = DataModel.GetListFromDataTable<BillTbl>(tableNew);
-                foreach (BillTbl prod in listProducts)
-                {
-                    DataModel.Create(prod);
-                }
-                BillsDGV.DataSource = tableNew;
+                DataTable table3 = billTable.Clone();
+                var differenceQuery = tableNew.AsEnumerable().Except(billTable.AsEnumerable(), DataRowComparer.Default);
 
+                foreach (DataRow row in differenceQuery)
+                {
+                    table3.Rows.Add(row.ItemArray);
+                }
+                billTable.Merge(tableNew);
+                BillsDGV.DataSource = billTable;
+                BillsDGV.RowHeadersVisible = false;
+                BillsDGV.AllowUserToAddRows = false;
                 DialogResult result = MessageBox.Show("Do you want to save the extra data to Database?", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                 {
-                    excel.SaveToDB(tableNew, product);
+                    excel.SaveToDB(table3, bill);
                 }
             }
             catch
@@ -155,7 +164,6 @@ namespace SupermarketTuto.Forms.SellingForms
 
         private void exportCombobox_SelectedValueChanged(object sender, EventArgs e)
         {
-            Type product = typeof(BillTbl);
             var item = ((ComboBox)sender).SelectedItem.ToString();
             if (item.Contains("Csv"))
             {
@@ -167,26 +175,20 @@ namespace SupermarketTuto.Forms.SellingForms
             }
         }
 
-        #region Excel (csv && xlsx)
 
-        
-
-       
 
         #endregion
 
 
-
         private void editButton_Click(object sender, EventArgs e)
         {
-            //DataGridViewRow currentRow = BillsDGV.CurrentRow;
-            //addEditCategory edit = new addEditCategory(billTable, currentRow, false);
-            //edit.CatIdTb.ReadOnly = true;
+            DataGridViewRow currentRow = BillsDGV.CurrentRow;
+            AddEditBill edit = new AddEditBill(billTable, currentRow, false, null, null, null);
             //edit.ItemEdited += Edit_ItemEdited;
 
-            ////edit.DataChanged += Edit_DataChanged;
+            //edit.DataChanged += Edit_DataChanged;
 
-            //edit.Show();
+            edit.Show();
         }
 
 
@@ -194,17 +196,17 @@ namespace SupermarketTuto.Forms.SellingForms
         {
             // Update the edited category in the DataTable in form
 
-            DataRow editedRow = billTable.Rows.Find(e.PrimaryKeyValue);
-            if (editedRow != null)
-            {
-                editedRow["Comments"] = e.CreatedCategory.CatName;
-                editedRow["SellerName"] = e.CreatedCategory.CatDesc;
-                editedRow["TotAmt"] = e.CreatedCategory.CatDesc;
-                editedRow["ProductIDs"] = e.CreatedCategory.CatDesc;
-                editedRow["CategoryIDs"] = e.CreatedCategory.CatDesc;
-                editedRow["Date"] = e.CreatedCategory.Date;
-            }
-            BillsDGV.Refresh();
+            //DataRow editedRow = billTable.Rows.Find(e.PrimaryKeyValue);
+            //if (editedRow != null)
+            //{
+            //    editedRow["Comments"] = e.CreatedCategory.CatName;
+            //    editedRow["SellerName"] = e.CreatedCategory.CatDesc;
+            //    editedRow["TotAmt"] = e.CreatedCategory.CatDesc;
+            //    editedRow["ProductIDs"] = e.CreatedCategory.CatDesc;
+            //    editedRow["CategoryIDs"] = e.CreatedCategory.CatDesc;
+            //    editedRow["Date"] = e.CreatedCategory.Date;
+            //}
+            //BillsDGV.Refresh();
         }
 
 
@@ -223,8 +225,8 @@ namespace SupermarketTuto.Forms.SellingForms
                         //Convert DataGridViewRow -> DataRow
                         row = ((DataRowView)selectedRow.DataBoundItem).Row;
                         string BillId = Convert.ToInt32(row["BillId"]).ToString();
-                        BillTbl category = DataModel.Select<BillTbl>(where: $"BillId = '{BillId}' ").FirstOrDefault();
-                        DataModel.Delete<BillTbl>(category);
+                        BillTbl bill = DataModel.Select<BillTbl>(where: $"BillId = '{BillId}' ").FirstOrDefault();
+                        DataModel.Delete<BillTbl>(bill);
                         rowsToDelete.Add(row);
                     }
 
@@ -238,13 +240,13 @@ namespace SupermarketTuto.Forms.SellingForms
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                Utils.Utils.Log(string.Format("Message : {0}", ex.Message), "ErrorDeleteCategory.txt");
+                Utils.Utils.Log(string.Format("Message : {0}", ex.Message), "ErrorDeleteBill.txt");
             }
         }
 
         private void searchButton_Click(object sender, EventArgs e)
         {
-            // If the search text is not empty, filter the originalCategoryTable and assign the filtered result to the categoryTable
+            // If the search text is not empty, filter the originalBillTable and assign the filtered result to the BillTable
             if (!string.IsNullOrWhiteSpace(searchTextBox.Text))
             {
                 var matchingRows = from row in originalBillTable.AsEnumerable()
@@ -261,13 +263,13 @@ namespace SupermarketTuto.Forms.SellingForms
                     billTable = billTable.Clone();
                 }
             }
-            // If the search text is empty, assign the originalCategoryTable to the categoryTable
+            // If the search text is empty, assign the originalBillTable to the BillTable
             else
             {
                 billTable = originalBillTable.Copy();
             }
 
-            // Bind the categoryTable to the CatDGV DataGridView control
+            // Bind the BillTable to the CatDGV DataGridView control
             BillsDGV.DataSource = billTable;
         }
 
@@ -325,7 +327,10 @@ namespace SupermarketTuto.Forms.SellingForms
                 foreach (DataGridViewRow row in BillsDGV.Rows)
                 {
                     DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)row.Cells[0];
-                    chk.Value = !(chk.Value == null ? false : (bool)chk.Value);
+                    if (Convert.ToBoolean(chk.Value) == true)
+                        break;
+                    else
+                        chk.Value = true;
                 }
             }
             else
@@ -333,10 +338,15 @@ namespace SupermarketTuto.Forms.SellingForms
                 foreach (DataGridViewRow row in BillsDGV.Rows)
                 {
                     DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)row.Cells[0];
-                    chk.Value = !(chk.Value == null ? true : (bool)chk.Value);
+                    if (Convert.ToBoolean(chk.Value) == false)
+                        break;
+                    else
+                        chk.Value = false;
                 }
 
             }
         }
+
+
     }
 }

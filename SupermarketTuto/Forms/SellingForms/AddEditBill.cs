@@ -17,9 +17,7 @@ namespace SupermarketTuto.Forms
 {
     public partial class AddEditBill : Form
     {
-        string TotalAmount = "";
-        DataTable billTable = new DataTable();
-        BindingSource billBindingSource = new BindingSource();
+
         Type BillType = typeof(BillTbl);
         string SellerName = "";
         List<ProductTbl> productsList = new List<ProductTbl>();
@@ -27,16 +25,33 @@ namespace SupermarketTuto.Forms
         BillTbl bill = new BillTbl();
         StringBuilder productIDs = new StringBuilder();
         StringBuilder categoryIDs = new StringBuilder();
-        bool isFirstItem = true;
-        public AddEditBill(string TotalAmount_, string SellerName_, List<ProductTbl> productsList_)
+        bool isFirstItemProd = true;
+        bool isFirstItemCat = true;
+        DataTable billTable = new DataTable();
+        DataGridViewRow selected = new DataGridViewRow();
+
+        public AddEditBill(DataTable billTable_, DataGridViewRow selected_, bool add, string TotalAmount_, string SellerName_, List<ProductTbl> productsList_)
         {
             InitializeComponent();
-            TotalAmount = TotalAmount_;
-            SellerName = SellerName_;
-            totalAmountTextBox.Text = TotalAmount_;
-            dateTextBox.Text = DateTime.Now.Date.ToString("dd-MM-yyyy");
-            nameTextBox.Text = SellerName_;
+            billTable = billTable_;
+            selected = selected_;
             productsList = productsList_;
+
+            if (add)
+            {
+                totalAmountTextBox.Text = TotalAmount_;
+                dateTextBox.Text = DateTime.Now.Date.ToString("dd-MM-yyyy");
+                nameTextBox.Text = SellerName_;
+            }
+            else
+            {
+                totalAmountTextBox.Text = selected.Cells["TotAmt"].Value.ToString();
+                dateTextBox.Text = selected.Cells["Date"].Value.ToString();
+                nameTextBox.Text = selected.Cells["SellerName"].Value.ToString();
+                commentsTextBox.Text = selected.Cells["Comments"].Value.ToString();
+                catListBox.Items.Add(selected.Cells["CategoryIDs"].Value.ToString());
+                prodListBox.Items.Add(selected.Cells["ProductIDs"].Value.ToString());
+            }
         }
 
         private void addProduct_Load(object sender, EventArgs e)
@@ -47,7 +62,7 @@ namespace SupermarketTuto.Forms
                 {
                     prodListBox.DisplayMember = "ProdName";
                     prodListBox.Items.Add(prod);
-                    if (!isFirstItem)
+                    if (!isFirstItemProd)
                     {
                         productIDs.Append(", ");
                     }
@@ -59,12 +74,17 @@ namespace SupermarketTuto.Forms
                         categoriesList.Add(category);
                     }
                    
-                    if (category != null && !isFirstItem)
+                    if (category != null && !isFirstItemCat)
+                    {
+                        categoryIDs.Append(", ");
                         categoryIDs.Append(category.CatId);
+                    }     
                     else if (category != null)
+                    {
                         categoryIDs.Append(category.CatId);
-
-                    isFirstItem = false;
+                    }
+                    isFirstItemProd = false;
+                    isFirstItemCat = false;
                 }
 
                 if (categoriesList != null)

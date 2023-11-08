@@ -144,7 +144,7 @@ namespace SupermarketTuto.Forms.SellingForms
         {
             string SellerName = "Test";
             FindProducts();
-            AddEditBill bill = new AddEditBill(totalAmountTextBox.Text, SellerName, selectedProd);
+            AddEditBill bill = new AddEditBill(null, null, true, totalAmountTextBox.Text, SellerName, selectedProd);
             bill.Show();
         }
 
@@ -249,7 +249,10 @@ namespace SupermarketTuto.Forms.SellingForms
                 foreach (DataGridViewRow row in ProdDGV.Rows)
                 {
                     DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)row.Cells[0];
-                    chk.Value = !(chk.Value == null ? false : (bool)chk.Value);
+                    if (Convert.ToBoolean(chk.Value) == true)
+                        break;
+                    else
+                        chk.Value = true;
                 }
             }
             else
@@ -257,7 +260,10 @@ namespace SupermarketTuto.Forms.SellingForms
                 foreach (DataGridViewRow row in ProdDGV.Rows)
                 {
                     DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)row.Cells[0];
-                    chk.Value = !(chk.Value == null ? true : (bool)chk.Value);
+                    if (Convert.ToBoolean(chk.Value) == false)
+                        break;
+                    else
+                        chk.Value = false;
                 }
 
             }

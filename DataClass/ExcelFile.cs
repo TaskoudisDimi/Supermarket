@@ -94,6 +94,11 @@ namespace ClassLibrary1
                                 dt.Columns.Add(new DataColumn(headerWord));
                                 dt.PrimaryKey = new DataColumn[] { dt.Columns["CatId"] };
                             }
+                            else if (headerWord == "BillId")
+                            {
+                                dt.Columns.Add(new DataColumn(headerWord));
+                                dt.PrimaryKey = new DataColumn[] { dt.Columns["BillId"] };
+                            }
                             else
                             {
                                 dt.Columns.Add(new DataColumn(headerWord));
@@ -242,6 +247,16 @@ namespace ClassLibrary1
                             continue;
                         }
                     }
+                }
+            }
+            else if(type.Name == "BillTbl")
+            {
+                List<BillTbl> list = Utils.ToList<BillTbl>(table);
+                foreach (BillTbl item in list)
+                {
+                    BillTbl bill = DataModel.Select<BillTbl>(where: $"BillId = '{item.BillId}'").FirstOrDefault();
+                    if (bill == null)
+                        DataModel.Create<BillTbl>(item);
                 }
             }
 
