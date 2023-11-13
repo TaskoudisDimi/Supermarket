@@ -117,4 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="label1.Text" xml:space="preserve">
+    <value>This is an application for the management of people and products, categories,and bills of a Supermarket.
+Includes two different types of forms.Those used by administrators and those used by sellers: 
+Administrators can do some operations in the database (cleaning, restoring, etc.), create/update/delete sellers, and monitor products and categories.
+Sellers can manage products, categories, and bill products.
+Also, most forms have the ability to export and import files (csv, xlsx). 
+For data entry an API is called so that some products are entered automatically.
+Finally, the API has been created so that it can receive or send information to some third party software.</value>
+  </data>
 </root>
