@@ -184,7 +184,6 @@
             this.Controls.Add(this.AdminPassTb);
             this.Controls.Add(this.AdminNameTb);
             this.Controls.Add(this.AdminIdTb);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "addEditAdmin";
             this.Text = "addEditAdmin";
             this.ResumeLayout(false);

@@ -161,7 +161,6 @@
             this.Controls.Add(this.CatDescTb);
             this.Controls.Add(this.CatNameTb);
             this.Controls.Add(this.CatIdTb);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "addEditCategory";
             this.Text = "addCategory";
             this.ResumeLayout(false);

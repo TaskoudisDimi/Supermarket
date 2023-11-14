@@ -223,7 +223,6 @@
             this.Controls.Add(this.ProdQty);
             this.Controls.Add(this.ProdName);
             this.Controls.Add(this.ProdId);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "addEditProduct";
             this.Text = "addProduct";
             this.ResumeLayout(false);

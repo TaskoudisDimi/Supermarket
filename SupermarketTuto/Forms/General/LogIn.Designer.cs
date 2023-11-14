@@ -174,7 +174,7 @@
             // versionLabel
             // 
             this.versionLabel.AutoSize = true;
-            this.versionLabel.Location = new System.Drawing.Point(56, 574);
+            this.versionLabel.Location = new System.Drawing.Point(147, 583);
             this.versionLabel.Name = "versionLabel";
             this.versionLabel.Size = new System.Drawing.Size(42, 13);
             this.versionLabel.TabIndex = 12;
@@ -184,7 +184,7 @@
             // 
             this.updateButton.BackColor = System.Drawing.SystemColors.Info;
             this.updateButton.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.updateButton.Location = new System.Drawing.Point(47, 598);
+            this.updateButton.Location = new System.Drawing.Point(104, 608);
             this.updateButton.Margin = new System.Windows.Forms.Padding(2);
             this.updateButton.Name = "updateButton";
             this.updateButton.Size = new System.Drawing.Size(123, 29);
@@ -213,7 +213,6 @@
             this.Controls.Add(this.PasswordTextBox);
             this.Controls.Add(this.UserNameTextBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            //this.Icon = ((System.Drawing.Icon)(resources.GetObject("supermarket.ico")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "LogIn";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

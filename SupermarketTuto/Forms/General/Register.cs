@@ -22,6 +22,7 @@ namespace SupermarketTuto
         public Register()
         {
             InitializeComponent();
+            this.Icon = new System.Drawing.Icon("C:/Users/chris/Desktop/Dimitris/Tutorials/Supermarket/SupermarketTuto/Resources/supermarket.ico");
         }
 
         private void RegisterButton_Click(object sender, EventArgs e)

@@ -26,6 +26,7 @@ namespace SupermarketTuto.Forms.General
         public addEditAdmin(DataTable adminTable_, DataGridViewRow selected_, bool add)
         {
             InitializeComponent();
+            this.Icon = new System.Drawing.Icon("C:/Users/chris/Desktop/Dimitris/Tutorials/Supermarket/SupermarketTuto/Resources/supermarket.ico");
             adminTable = adminTable_;
             selected = selected_;
 

@@ -179,7 +179,6 @@
             this.Controls.Add(this.billButton);
             this.Controls.Add(this.commentsLabel);
             this.Controls.Add(this.commentsTextBox);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "AddEditBill";
             this.Text = "Add Bill";

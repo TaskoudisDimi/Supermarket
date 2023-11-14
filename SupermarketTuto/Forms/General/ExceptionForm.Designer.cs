@@ -124,7 +124,6 @@
             this.Controls.Add(this.continueButton);
             this.Controls.Add(this.stachTraceTextBox);
             this.Controls.Add(this.messageTextBox);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "ExceptionForm";
             this.Text = "ExceptionForm";

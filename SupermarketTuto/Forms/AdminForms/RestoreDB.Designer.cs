@@ -79,7 +79,6 @@
             this.Controls.Add(this.restoreButton);
             this.Controls.Add(this.bakupLabel);
             this.Controls.Add(this.backupFileTextBox);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "RestoreDB";
             this.Text = "RestoreDB";
             this.ResumeLayout(false);

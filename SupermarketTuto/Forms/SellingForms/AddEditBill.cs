@@ -33,6 +33,7 @@ namespace SupermarketTuto.Forms
         public AddEditBill(DataTable billTable_, DataGridViewRow selected_, bool add, string TotalAmount_, string SellerName_, List<ProductTbl> productsList_)
         {
             InitializeComponent();
+            this.Icon = new System.Drawing.Icon("C:/Users/chris/Desktop/Dimitris/Tutorials/Supermarket/SupermarketTuto/Resources/supermarket.ico");
             billTable = billTable_;
             selected = selected_;
             productsList = productsList_;

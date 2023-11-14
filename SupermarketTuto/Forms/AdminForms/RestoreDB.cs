@@ -16,6 +16,7 @@ namespace SupermarketTuto.Forms.AdminForms
         public RestoreDB()
         {
             InitializeComponent();
+            this.Icon = new System.Drawing.Icon("C:/Users/chris/Desktop/Dimitris/Tutorials/Supermarket/SupermarketTuto/Resources/supermarket.ico");
         }
 
         private void restoreButton_Click(object sender, EventArgs e)

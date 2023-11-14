@@ -65,7 +65,6 @@
             this.ClientSize = new System.Drawing.Size(1134, 401);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.SelectedProdDGV);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SelectedProducts";
             this.Text = "Selected Products";
             this.Load += new System.EventHandler(this.SelectedProducts_Load);

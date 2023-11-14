@@ -14,6 +14,7 @@ namespace SupermarketTuto.Forms.AdminForms
         public MainAdmin(Admins admin_ = null)
         {
             InitializeComponent();
+            this.Icon = new System.Drawing.Icon("C:/Users/chris/Desktop/Dimitris/Tutorials/Supermarket/SupermarketTuto/Resources/supermarket.ico");
             admin = admin_;
         }
 

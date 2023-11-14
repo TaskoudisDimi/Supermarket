@@ -17,7 +17,7 @@ namespace SupermarketTuto
         public About()
         {
             InitializeComponent();
-            
+            this.Icon = new System.Drawing.Icon("C:/Users/chris/Desktop/Dimitris/Tutorials/Supermarket/SupermarketTuto/Resources/supermarket.ico");
         }
 
         private void About_Load(object sender, EventArgs e)

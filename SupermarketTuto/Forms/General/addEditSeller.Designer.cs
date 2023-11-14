@@ -316,7 +316,6 @@
             this.Controls.Add(this.SellAge);
             this.Controls.Add(this.SellName);
             this.Controls.Add(this.SellId);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "addEditSeller";
             this.Text = "addSeller";
             this.Load += new System.EventHandler(this.addEditSeller_Load);

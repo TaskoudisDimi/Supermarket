@@ -32,7 +32,7 @@ namespace SupermarketTuto.Forms.General
         public addEditCategory(DataTable categoryTable_, DataGridViewRow selected_, bool add)
         {
             InitializeComponent();
-
+            this.Icon = new System.Drawing.Icon("C:/Users/chris/Desktop/Dimitris/Tutorials/Supermarket/SupermarketTuto/Resources/supermarket.ico");
             categoryTable = categoryTable_;
             selected = selected_;
 
