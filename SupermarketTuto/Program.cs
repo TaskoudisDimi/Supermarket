@@ -32,7 +32,7 @@ namespace SupermarketTuto
             else
             {
 
-                Application.Run(new MainSelling());   
+                Application.Run(new LogIn());   
             }
         }
 
@@ -55,6 +55,7 @@ namespace SupermarketTuto
             ExceptionForm form = new ExceptionForm(ex.Message, ex.StackTrace);
             form.Show();
         }
+
     }
 }
 

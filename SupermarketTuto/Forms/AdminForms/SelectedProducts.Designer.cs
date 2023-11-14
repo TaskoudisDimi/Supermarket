@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SelectedProducts));
             this.SelectedProdDGV = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.SelectedProdDGV)).BeginInit();
@@ -64,6 +65,7 @@
             this.ClientSize = new System.Drawing.Size(1134, 401);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.SelectedProdDGV);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SelectedProducts";
             this.Text = "Selected Products";
             this.Load += new System.EventHandler(this.SelectedProducts_Load);

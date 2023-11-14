@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddEditBill));
             this.commentsLabel = new System.Windows.Forms.Label();
             this.commentsTextBox = new System.Windows.Forms.RichTextBox();
             this.billButton = new System.Windows.Forms.Button();
@@ -160,7 +161,7 @@
             this.prodLabel.TabIndex = 121;
             this.prodLabel.Text = "Products";
             // 
-            // AddBill
+            // AddEditBill
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -178,8 +179,9 @@
             this.Controls.Add(this.billButton);
             this.Controls.Add(this.commentsLabel);
             this.Controls.Add(this.commentsTextBox);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
-            this.Name = "AddBill";
+            this.Name = "AddEditBill";
             this.Text = "Add Bill";
             this.Load += new System.EventHandler(this.addProduct_Load);
             this.ResumeLayout(false);

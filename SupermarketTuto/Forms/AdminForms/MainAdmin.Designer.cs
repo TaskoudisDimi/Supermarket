@@ -28,14 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainAdmin));
             this.sidePanel = new System.Windows.Forms.Panel();
+            this.adminLabel = new System.Windows.Forms.Label();
             this.udpRadioButton = new System.Windows.Forms.RadioButton();
             this.productsButton = new System.Windows.Forms.Button();
             this.tcpRadioButton = new System.Windows.Forms.RadioButton();
             this.categoriesButton = new System.Windows.Forms.Button();
             this.sellersButton = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.adminLabel = new System.Windows.Forms.Label();
             this.sidePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.SuspendLayout();
@@ -56,6 +57,16 @@
             this.sidePanel.Name = "sidePanel";
             this.sidePanel.Size = new System.Drawing.Size(180, 690);
             this.sidePanel.TabIndex = 2;
+            // 
+            // adminLabel
+            // 
+            this.adminLabel.AutoSize = true;
+            this.adminLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.adminLabel.Location = new System.Drawing.Point(25, 27);
+            this.adminLabel.Name = "adminLabel";
+            this.adminLabel.Size = new System.Drawing.Size(110, 20);
+            this.adminLabel.TabIndex = 4;
+            this.adminLabel.Text = "Admin Name";
             // 
             // udpRadioButton
             // 
@@ -136,16 +147,6 @@
             this.splitContainer1.SplitterDistance = 546;
             this.splitContainer1.TabIndex = 3;
             // 
-            // adminLabel
-            // 
-            this.adminLabel.AutoSize = true;
-            this.adminLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.adminLabel.Location = new System.Drawing.Point(25, 27);
-            this.adminLabel.Name = "adminLabel";
-            this.adminLabel.Size = new System.Drawing.Size(110, 20);
-            this.adminLabel.TabIndex = 4;
-            this.adminLabel.Text = "Admin Name";
-            // 
             // MainAdmin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -154,6 +155,7 @@
             this.ClientSize = new System.Drawing.Size(1323, 690);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.sidePanel);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MainAdmin";
             this.Text = "MainAdmin";

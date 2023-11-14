@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RestoreDB));
             this.backupFileTextBox = new System.Windows.Forms.TextBox();
             this.bakupLabel = new System.Windows.Forms.Label();
             this.restoreButton = new System.Windows.Forms.Button();
@@ -78,6 +79,7 @@
             this.Controls.Add(this.restoreButton);
             this.Controls.Add(this.bakupLabel);
             this.Controls.Add(this.backupFileTextBox);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "RestoreDB";
             this.Text = "RestoreDB";
             this.ResumeLayout(false);

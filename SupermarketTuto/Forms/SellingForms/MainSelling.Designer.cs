@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainSelling));
             this.sidePanel = new System.Windows.Forms.Panel();
             this.categoriesProductsButton = new System.Windows.Forms.Button();
             this.billButton = new System.Windows.Forms.Button();
@@ -130,6 +131,7 @@
             this.ClientSize = new System.Drawing.Size(1224, 690);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.sidePanel);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MainSelling";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

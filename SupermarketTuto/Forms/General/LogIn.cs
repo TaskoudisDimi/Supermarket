@@ -64,7 +64,7 @@ namespace SupermarketTuto
             {
                 if (UserNameTextBox.Text == String.Empty && PasswordTextBox.Text == String.Empty)
                 {
-                    MessageBox.Show("Misiing Data!");
+                    MessageBox.Show("Misiing Data!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
                 else
                 {
@@ -95,35 +95,47 @@ namespace SupermarketTuto
                             }
                             if (!findUserAdmin)
                             {
-                                MessageBox.Show("Opps! Wrong Credentials!");
+                                MessageBox.Show("Opps! Wrong Credentials!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             }
                         }
                         if (selectRoleCombobox.SelectedItem == "Seller")
                         {
-                            SellersTbl seller = DataModel.Select<SellersTbl>(where: $"SellerUserName = {UserNameTextBox.Text} and SellerPass = CONVERT(varbinary,'{PasswordTextBox.Text}'").FirstOrDefault();
-                            if (seller != null)
+                            bool findUser = false;
+                            List<SellersTbl> sellers = DataModel.Select<SellersTbl>(where: $"SellerUserName = '{UserNameTextBox.Text}'");
+                            foreach(SellersTbl item in sellers)
                             {
-                                Globals.NameOfSeller = seller.SellerName;
-                                MainSelling sellingForms = new MainSelling();
-                                sellingForms.Show();
-                                this.Close();
+                                if (Utils.Utils.VerifyPassword(PasswordTextBox.Text, item.SellerPass))
+                                {
+                                    logInSuccess = true;
+                                    Globals.NameOfSeller = item.SellerName;
+                                    findUser = true;
+                                    MainSelling sellingForms = new MainSelling();
+                                    sellingForms.Show();
+                                    // Close the LoginForm
+                                    this.Hide();
+                                    break;
+                                }
+                                else
+                                {
+                                    continue;
+                                }
                             }
-                            else
+                            if (!findUser)
                             {
-                                MessageBox.Show("Opps! Wrong Credentials!");
+                                MessageBox.Show("Opps! Wrong Credentials!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             }
                         }
                     }
                     else if (selectRoleCombobox.SelectedItem == "Select Role")
                     {
-                        MessageBox.Show("Select Role!");
+                        MessageBox.Show("Select Role!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
-                    
+
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error", Constants.Error, MessageBoxButtons.OK);
+                MessageBox.Show("Something went wrong", Constants.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -161,7 +173,7 @@ namespace SupermarketTuto
             Application.Exit();
             if (!logInSuccess)
             {
-                DialogResult confirm = MessageBox.Show("Confirm to close", Constants.Exit, MessageBoxButtons.YesNo);
+                DialogResult confirm = MessageBox.Show("Confirm to close", Constants.Exit, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (confirm == DialogResult.No)
                 {
                     e.Cancel = true;

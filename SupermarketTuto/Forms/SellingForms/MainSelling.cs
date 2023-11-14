@@ -38,15 +38,15 @@ namespace SupermarketTuto.Forms.SellingForms
         {
             if (var == "File")
             {
-                string[] subItem = new string[] { "Users", "BackUp", "Log out", "Exit" };
+                string[] subItem = new string[] { "Admins", "BackUp", "Log out", "Exit" };
                 foreach (string Row in subItem)
                 {
                     ToolStripMenuItem subMenuItem = new ToolStripMenuItem(Row, null);
                     SubMenu(subMenuItem, Row);
                     items.DropDownItems.Add(subMenuItem);
-                    if (subMenuItem.Text == "Users")
+                    if (subMenuItem.Text == "Admins")
                     {
-                        subMenuItem.Click += new EventHandler(MnuStripUsers_Click);
+                        subMenuItem.Click += new EventHandler(MnuStripAdmins_Click);
                     }
                     else if (subMenuItem.Text == "BackUp")
                     {
@@ -75,10 +75,11 @@ namespace SupermarketTuto.Forms.SellingForms
             LogIn login = new LogIn();
             login.Show();
         }
-        private void MnuStripUsers_Click(object sender, EventArgs e)
+        private void MnuStripAdmins_Click(object sender, EventArgs e)
         {
-            Admin users = new Admin();
-            users.Show();
+            Admin admins = new Admin(null, true);
+            admins.Show();
+
         }
 
         private void MnuStripAbout_Click(object sender, EventArgs e)

@@ -30,7 +30,7 @@ namespace SupermarketTuto
             {
                 if (UsernameTextBox.Text == "" || PasswordTextBox.Text == String.Empty || ConfirmPasswordTextBox.Text == String.Empty)
                 {
-                    MessageBox.Show("Username and/or Password fields are empty", "Registration Failed", MessageBoxButtons.OK);
+                    MessageBox.Show("Username and/or Password fields are empty", "Registration Failed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                 }
                 else if (PasswordTextBox.Text == ConfirmPasswordTextBox.Text)
@@ -44,7 +44,7 @@ namespace SupermarketTuto
 
                     DataModel.Create<Admins>(admin);
 
-                    MessageBox.Show("Your Account has been Successfully Created", "Registration Success", MessageBoxButtons.OK);
+                    MessageBox.Show("Your Account has been Successfully Created", "Registration Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     UsernameTextBox.Clear();
                     PasswordTextBox.Clear();
                     ConfirmPasswordTextBox.Clear();
@@ -53,12 +53,13 @@ namespace SupermarketTuto
                 }
                 else
                 {
-                    MessageBox.Show("Credentials does not match, please re-enter", "Registration Failed", MessageBoxButtons.OK);
+                    MessageBox.Show("Credentials does not match, please re-enter", "Registration Failed", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     UsernameTextBox.Clear();
                     PasswordTextBox.Clear();
                     ConfirmPasswordTextBox.Clear();
                     UsernameTextBox.Focus();
                 }
+                this.Hide();
             }
             catch
             {
@@ -102,7 +103,7 @@ namespace SupermarketTuto
         private void Register_FormClosing(object sender, FormClosingEventArgs e)
         {
             Application.Exit();
-            DialogResult confirm = MessageBox.Show("Confirm to close", "Exit", MessageBoxButtons.YesNo);
+            DialogResult confirm = MessageBox.Show("Confirm to close", "Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (confirm == DialogResult.No)
             {
                 e.Cancel = true;

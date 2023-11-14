@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(addEditCategory));
             this.dateLabel = new System.Windows.Forms.Label();
             this.dateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.descriptionLabel = new System.Windows.Forms.Label();
@@ -160,6 +161,7 @@
             this.Controls.Add(this.CatDescTb);
             this.Controls.Add(this.CatNameTb);
             this.Controls.Add(this.CatIdTb);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "addEditCategory";
             this.Text = "addCategory";
             this.ResumeLayout(false);

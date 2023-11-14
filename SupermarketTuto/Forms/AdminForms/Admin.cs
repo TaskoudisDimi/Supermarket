@@ -23,10 +23,16 @@ namespace SupermarketTuto.Forms
         BindingSource bindingSource = new BindingSource();
         private DataTable originalAdminTable;
 
-        public Admin(Admins admins_ = null)
+        public Admin(Admins admins_ = null, bool displayFromMainSelling = false)
         {
             InitializeComponent();
             admins = admins_;
+            if (displayFromMainSelling)
+            {
+                addButton.Enabled = false;
+                editButton.Enabled = false;
+                deleteButton.Enabled = false;
+            }
         }
 
         private void Admin_Load(object sender, EventArgs e)
@@ -61,15 +67,6 @@ namespace SupermarketTuto.Forms
                 // Initialize the originalCategoryTable field with the same data as categoryTable
                 originalAdminTable = adminTable.Copy();
 
-                //if(admins != null)
-                //{
-                //    if (admins.isSuperAdmin)
-                //    {
-                //        addButton.Enabled = true;
-                //        editButton.Enabled = true;
-                //        deleteButton.Enabled = true;
-                //    }
-                //}
             }
             catch
             {
@@ -102,7 +99,6 @@ namespace SupermarketTuto.Forms
             UpdateDataGridView();
         }
 
-
         private void usersDataGridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             if (e.ColumnIndex == 2 && e.Value != null)
@@ -121,6 +117,7 @@ namespace SupermarketTuto.Forms
             add.ItemCreated += Add_ItemCreated;
             add.ShowDialog();
         }
+
         private void Add_ItemCreated(object sender, AdminsEventArgs e)
         {
             adminTable.Rows.Add(e.CreatedAdmin.Id, e.CreatedAdmin.UserName,e.CreatedAdmin.Password ,e.CreatedAdmin.Active, e.CreatedAdmin.isSuperAdmin);
@@ -152,7 +149,6 @@ namespace SupermarketTuto.Forms
             usersDataGridView.Refresh();
         }
 
-
         private void deleteButton_Click(object sender, EventArgs e)
         {
             try
@@ -182,7 +178,6 @@ namespace SupermarketTuto.Forms
                 Utils.Utils.Log(string.Format("Message : {0}", ex.Message), "ErrorDeleteCategory.txt");
             }
         }
-
 
         private void activeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -260,5 +255,6 @@ namespace SupermarketTuto.Forms
         {
             searchButton.PerformClick();
         }
+
     }
 }
