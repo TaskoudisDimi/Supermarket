@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(addEditAdmin));
             this.editButton = new System.Windows.Forms.Button();
             this.addButton = new System.Windows.Forms.Button();
             this.descriptionLabel = new System.Windows.Forms.Label();
@@ -45,6 +44,7 @@
             // 
             // editButton
             // 
+            this.editButton.BackColor = System.Drawing.Color.LightBlue;
             this.editButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.editButton.Location = new System.Drawing.Point(230, 316);
             this.editButton.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
@@ -52,11 +52,12 @@
             this.editButton.Size = new System.Drawing.Size(73, 40);
             this.editButton.TabIndex = 109;
             this.editButton.Text = "Edit";
-            this.editButton.UseVisualStyleBackColor = true;
+            this.editButton.UseVisualStyleBackColor = false;
             this.editButton.Click += new System.EventHandler(this.editButton_Click);
             // 
             // addButton
             // 
+            this.addButton.BackColor = System.Drawing.Color.LightBlue;
             this.addButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.addButton.Location = new System.Drawing.Point(60, 316);
             this.addButton.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
@@ -64,7 +65,7 @@
             this.addButton.Size = new System.Drawing.Size(107, 40);
             this.addButton.TabIndex = 108;
             this.addButton.Text = "Create New";
-            this.addButton.UseVisualStyleBackColor = true;
+            this.addButton.UseVisualStyleBackColor = false;
             this.addButton.Click += new System.EventHandler(this.addButton_Click);
             // 
             // descriptionLabel

@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RestoreDB));
             this.backupFileTextBox = new System.Windows.Forms.TextBox();
             this.bakupLabel = new System.Windows.Forms.Label();
             this.restoreButton = new System.Windows.Forms.Button();
@@ -53,12 +52,13 @@
             // 
             // restoreButton
             // 
+            this.restoreButton.BackColor = System.Drawing.Color.LightBlue;
             this.restoreButton.Location = new System.Drawing.Point(172, 66);
             this.restoreButton.Name = "restoreButton";
             this.restoreButton.Size = new System.Drawing.Size(75, 23);
             this.restoreButton.TabIndex = 6;
             this.restoreButton.Text = "Restore";
-            this.restoreButton.UseVisualStyleBackColor = true;
+            this.restoreButton.UseVisualStyleBackColor = false;
             this.restoreButton.Click += new System.EventHandler(this.restoreButton_Click);
             // 
             // backupFileButton

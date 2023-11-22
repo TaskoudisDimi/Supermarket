@@ -75,12 +75,13 @@
             // 
             // PrintButton
             // 
+            this.PrintButton.BackColor = System.Drawing.Color.LightBlue;
             this.PrintButton.Location = new System.Drawing.Point(490, 290);
             this.PrintButton.Name = "PrintButton";
             this.PrintButton.Size = new System.Drawing.Size(64, 23);
             this.PrintButton.TabIndex = 68;
             this.PrintButton.Text = "Print";
-            this.PrintButton.UseVisualStyleBackColor = true;
+            this.PrintButton.UseVisualStyleBackColor = false;
             this.PrintButton.Click += new System.EventHandler(this.PrintButton_Click);
             // 
             // printDocument1
@@ -117,13 +118,14 @@
             // 
             // searchButton
             // 
+            this.searchButton.BackColor = System.Drawing.Color.LightBlue;
             this.searchButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.searchButton.Location = new System.Drawing.Point(257, 6);
             this.searchButton.Name = "searchButton";
             this.searchButton.Size = new System.Drawing.Size(68, 29);
             this.searchButton.TabIndex = 146;
             this.searchButton.Text = "Search";
-            this.searchButton.UseVisualStyleBackColor = true;
+            this.searchButton.UseVisualStyleBackColor = false;
             this.searchButton.Click += new System.EventHandler(this.searchButton_Click);
             // 
             // searchTextBox
@@ -171,22 +173,24 @@
             // 
             // editButton
             // 
+            this.editButton.BackColor = System.Drawing.Color.LightBlue;
             this.editButton.Location = new System.Drawing.Point(192, 290);
             this.editButton.Name = "editButton";
             this.editButton.Size = new System.Drawing.Size(64, 23);
             this.editButton.TabIndex = 150;
             this.editButton.Text = "Edit";
-            this.editButton.UseVisualStyleBackColor = true;
+            this.editButton.UseVisualStyleBackColor = false;
             this.editButton.Click += new System.EventHandler(this.editButton_Click);
             // 
             // deleteButton
             // 
+            this.deleteButton.BackColor = System.Drawing.Color.Tomato;
             this.deleteButton.Location = new System.Drawing.Point(262, 290);
             this.deleteButton.Name = "deleteButton";
             this.deleteButton.Size = new System.Drawing.Size(64, 23);
             this.deleteButton.TabIndex = 151;
             this.deleteButton.Text = "Delete";
-            this.deleteButton.UseVisualStyleBackColor = true;
+            this.deleteButton.UseVisualStyleBackColor = false;
             this.deleteButton.Click += new System.EventHandler(this.deleteButton_Click);
             // 
             // label2

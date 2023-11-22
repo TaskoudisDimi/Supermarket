@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainAdmin));
             this.sidePanel = new System.Windows.Forms.Panel();
             this.adminLabel = new System.Windows.Forms.Label();
             this.udpRadioButton = new System.Windows.Forms.RadioButton();

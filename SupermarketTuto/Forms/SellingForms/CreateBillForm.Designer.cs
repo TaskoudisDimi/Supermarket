@@ -83,12 +83,13 @@
             // 
             // addButton
             // 
+            this.addButton.BackColor = System.Drawing.Color.LightBlue;
             this.addButton.Location = new System.Drawing.Point(467, 389);
             this.addButton.Name = "addButton";
             this.addButton.Size = new System.Drawing.Size(109, 25);
             this.addButton.TabIndex = 67;
             this.addButton.Text = "Bill";
-            this.addButton.UseVisualStyleBackColor = true;
+            this.addButton.UseVisualStyleBackColor = false;
             this.addButton.Click += new System.EventHandler(this.addButton_Click);
             // 
             // totalAmountTextBox
@@ -143,13 +144,14 @@
             // 
             // searchButton
             // 
+            this.searchButton.BackColor = System.Drawing.Color.LightBlue;
             this.searchButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.searchButton.Location = new System.Drawing.Point(284, 61);
             this.searchButton.Name = "searchButton";
             this.searchButton.Size = new System.Drawing.Size(68, 29);
             this.searchButton.TabIndex = 123;
             this.searchButton.Text = "Search";
-            this.searchButton.UseVisualStyleBackColor = true;
+            this.searchButton.UseVisualStyleBackColor = false;
             this.searchButton.Click += new System.EventHandler(this.searchButton_Click);
             // 
             // searchTextBox
@@ -175,12 +177,13 @@
             // 
             // recalculateButton
             // 
+            this.recalculateButton.BackColor = System.Drawing.Color.LightBlue;
             this.recalculateButton.Location = new System.Drawing.Point(767, 389);
             this.recalculateButton.Name = "recalculateButton";
             this.recalculateButton.Size = new System.Drawing.Size(109, 25);
             this.recalculateButton.TabIndex = 140;
             this.recalculateButton.Text = "Recalculate";
-            this.recalculateButton.UseVisualStyleBackColor = true;
+            this.recalculateButton.UseVisualStyleBackColor = false;
             this.recalculateButton.Click += new System.EventHandler(this.recalculateButton_Click);
             // 
             // CreateBillForm

@@ -53,6 +53,7 @@
             // 
             // deleteButton
             // 
+            this.deleteButton.BackColor = System.Drawing.Color.Tomato;
             this.deleteButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.deleteButton.Location = new System.Drawing.Point(791, 406);
             this.deleteButton.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
@@ -60,11 +61,12 @@
             this.deleteButton.Size = new System.Drawing.Size(102, 34);
             this.deleteButton.TabIndex = 87;
             this.deleteButton.Text = "Delete";
-            this.deleteButton.UseVisualStyleBackColor = true;
+            this.deleteButton.UseVisualStyleBackColor = false;
             this.deleteButton.Click += new System.EventHandler(this.deleteButton_Click);
             // 
             // editButton
             // 
+            this.editButton.BackColor = System.Drawing.Color.LightBlue;
             this.editButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.editButton.Location = new System.Drawing.Point(679, 406);
             this.editButton.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
@@ -72,11 +74,12 @@
             this.editButton.Size = new System.Drawing.Size(102, 34);
             this.editButton.TabIndex = 86;
             this.editButton.Text = "Edit";
-            this.editButton.UseVisualStyleBackColor = true;
+            this.editButton.UseVisualStyleBackColor = false;
             this.editButton.Click += new System.EventHandler(this.editButton_Click);
             // 
             // addButton
             // 
+            this.addButton.BackColor = System.Drawing.Color.LightBlue;
             this.addButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.addButton.Location = new System.Drawing.Point(567, 406);
             this.addButton.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
@@ -84,7 +87,7 @@
             this.addButton.Size = new System.Drawing.Size(102, 34);
             this.addButton.TabIndex = 85;
             this.addButton.Text = "Create New";
-            this.addButton.UseVisualStyleBackColor = true;
+            this.addButton.UseVisualStyleBackColor = false;
             this.addButton.Click += new System.EventHandler(this.addButton_Click);
             // 
             // totalLabel
@@ -100,6 +103,7 @@
             // 
             // searchButton
             // 
+            this.searchButton.BackColor = System.Drawing.Color.LightBlue;
             this.searchButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.searchButton.Location = new System.Drawing.Point(263, 26);
             this.searchButton.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
@@ -107,7 +111,7 @@
             this.searchButton.Size = new System.Drawing.Size(68, 29);
             this.searchButton.TabIndex = 83;
             this.searchButton.Text = "Search";
-            this.searchButton.UseVisualStyleBackColor = true;
+            this.searchButton.UseVisualStyleBackColor = false;
             this.searchButton.Click += new System.EventHandler(this.searchButton_Click);
             // 
             // searchTextBox
@@ -162,12 +166,13 @@
             // 
             // showSelectedProductsButton
             // 
+            this.showSelectedProductsButton.BackColor = System.Drawing.Color.LightBlue;
             this.showSelectedProductsButton.Location = new System.Drawing.Point(476, 22);
             this.showSelectedProductsButton.Name = "showSelectedProductsButton";
             this.showSelectedProductsButton.Size = new System.Drawing.Size(221, 36);
             this.showSelectedProductsButton.TabIndex = 118;
             this.showSelectedProductsButton.Text = "Show Selected Products";
-            this.showSelectedProductsButton.UseVisualStyleBackColor = true;
+            this.showSelectedProductsButton.UseVisualStyleBackColor = false;
             this.showSelectedProductsButton.Click += new System.EventHandler(this.showSelectedProductsButton_Click);
             // 
             // pagingCheckBox
@@ -192,6 +197,7 @@
             // 
             // nextButton
             // 
+            this.nextButton.BackColor = System.Drawing.Color.LightBlue;
             this.nextButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.nextButton.Location = new System.Drawing.Point(419, 410);
             this.nextButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -199,12 +205,13 @@
             this.nextButton.Size = new System.Drawing.Size(102, 34);
             this.nextButton.TabIndex = 132;
             this.nextButton.Text = "Next";
-            this.nextButton.UseVisualStyleBackColor = true;
+            this.nextButton.UseVisualStyleBackColor = false;
             this.nextButton.Visible = false;
             this.nextButton.Click += new System.EventHandler(this.nextButton_Click);
             // 
             // prevButton
             // 
+            this.prevButton.BackColor = System.Drawing.Color.LightBlue;
             this.prevButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.prevButton.Location = new System.Drawing.Point(309, 410);
             this.prevButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -212,7 +219,7 @@
             this.prevButton.Size = new System.Drawing.Size(102, 34);
             this.prevButton.TabIndex = 131;
             this.prevButton.Text = "Previous";
-            this.prevButton.UseVisualStyleBackColor = true;
+            this.prevButton.UseVisualStyleBackColor = false;
             this.prevButton.Visible = false;
             this.prevButton.Click += new System.EventHandler(this.prevButton_Click);
             // 
@@ -265,12 +272,13 @@
             // 
             // callAPIButton
             // 
+            this.callAPIButton.BackColor = System.Drawing.Color.LightBlue;
             this.callAPIButton.Location = new System.Drawing.Point(567, 446);
             this.callAPIButton.Name = "callAPIButton";
             this.callAPIButton.Size = new System.Drawing.Size(148, 35);
             this.callAPIButton.TabIndex = 143;
             this.callAPIButton.Text = "Get External Data";
-            this.callAPIButton.UseVisualStyleBackColor = true;
+            this.callAPIButton.UseVisualStyleBackColor = false;
             this.callAPIButton.Click += new System.EventHandler(this.callAPIButton_Click);
             // 
             // Category

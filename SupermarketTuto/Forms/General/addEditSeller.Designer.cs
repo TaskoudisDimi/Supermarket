@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(addEditSeller));
             this.panel1 = new System.Windows.Forms.Panel();
             this.adressLabel = new System.Windows.Forms.Label();
             this.addressTextBox = new System.Windows.Forms.TextBox();
@@ -196,24 +195,26 @@
             // 
             // editButton
             // 
+            this.editButton.BackColor = System.Drawing.Color.LightBlue;
             this.editButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.editButton.Location = new System.Drawing.Point(162, 468);
             this.editButton.Name = "editButton";
             this.editButton.Size = new System.Drawing.Size(64, 31);
             this.editButton.TabIndex = 138;
             this.editButton.Text = "Edit";
-            this.editButton.UseVisualStyleBackColor = true;
+            this.editButton.UseVisualStyleBackColor = false;
             this.editButton.Click += new System.EventHandler(this.editButton_Click);
             // 
             // addButton
             // 
+            this.addButton.BackColor = System.Drawing.Color.LightBlue;
             this.addButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.addButton.Location = new System.Drawing.Point(25, 468);
             this.addButton.Name = "addButton";
             this.addButton.Size = new System.Drawing.Size(117, 31);
             this.addButton.TabIndex = 137;
             this.addButton.Text = "Create New";
-            this.addButton.UseVisualStyleBackColor = true;
+            this.addButton.UseVisualStyleBackColor = false;
             this.addButton.Click += new System.EventHandler(this.addButton_Click);
             // 
             // label1
@@ -278,13 +279,14 @@
             // 
             // browseButton
             // 
+            this.browseButton.BackColor = System.Drawing.Color.LightBlue;
             this.browseButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.browseButton.Location = new System.Drawing.Point(369, 210);
             this.browseButton.Name = "browseButton";
             this.browseButton.Size = new System.Drawing.Size(117, 31);
             this.browseButton.TabIndex = 146;
             this.browseButton.Text = "Browse";
-            this.browseButton.UseVisualStyleBackColor = true;
+            this.browseButton.UseVisualStyleBackColor = false;
             this.browseButton.Click += new System.EventHandler(this.browseButton_Click);
             // 
             // addEditSeller

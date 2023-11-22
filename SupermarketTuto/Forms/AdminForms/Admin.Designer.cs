@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Admin));
             this.usersDataGridView = new System.Windows.Forms.DataGridView();
             this.searchButton = new System.Windows.Forms.Button();
             this.searchTextBox = new System.Windows.Forms.TextBox();
@@ -83,7 +82,7 @@
             // 
             // deleteButton
             // 
-            this.deleteButton.BackColor = System.Drawing.Color.Coral;
+            this.deleteButton.BackColor = System.Drawing.Color.Tomato;
             this.deleteButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.deleteButton.Location = new System.Drawing.Point(670, 391);
             this.deleteButton.Name = "deleteButton";

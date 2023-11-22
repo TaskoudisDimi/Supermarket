@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(addEditProduct));
             this.categoriesLabel = new System.Windows.Forms.Label();
             this.priceLabel = new System.Windows.Forms.Label();
             this.quantityLabel = new System.Windows.Forms.Label();
@@ -143,24 +142,26 @@
             // 
             // editButton
             // 
+            this.editButton.BackColor = System.Drawing.Color.LightBlue;
             this.editButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.editButton.Location = new System.Drawing.Point(266, 496);
             this.editButton.Name = "editButton";
             this.editButton.Size = new System.Drawing.Size(64, 40);
             this.editButton.TabIndex = 113;
             this.editButton.Text = "Edit";
-            this.editButton.UseVisualStyleBackColor = true;
+            this.editButton.UseVisualStyleBackColor = false;
             this.editButton.Click += new System.EventHandler(this.editButton_Click);
             // 
             // addButton
             // 
+            this.addButton.BackColor = System.Drawing.Color.LightBlue;
             this.addButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.addButton.Location = new System.Drawing.Point(123, 496);
             this.addButton.Name = "addButton";
             this.addButton.Size = new System.Drawing.Size(101, 40);
             this.addButton.TabIndex = 112;
             this.addButton.Text = "Create New";
-            this.addButton.UseVisualStyleBackColor = true;
+            this.addButton.UseVisualStyleBackColor = false;
             this.addButton.Click += new System.EventHandler(this.addButton_Click);
             // 
             // DateTimePicker

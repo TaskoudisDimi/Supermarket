@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddEditBill));
             this.commentsLabel = new System.Windows.Forms.Label();
             this.commentsTextBox = new System.Windows.Forms.RichTextBox();
             this.billButton = new System.Windows.Forms.Button();
@@ -64,12 +63,13 @@
             // 
             // billButton
             // 
+            this.billButton.BackColor = System.Drawing.Color.LightBlue;
             this.billButton.Location = new System.Drawing.Point(40, 310);
             this.billButton.Name = "billButton";
             this.billButton.Size = new System.Drawing.Size(82, 33);
             this.billButton.TabIndex = 67;
             this.billButton.Text = "Bill";
-            this.billButton.UseVisualStyleBackColor = true;
+            this.billButton.UseVisualStyleBackColor = false;
             this.billButton.Click += new System.EventHandler(this.billButton_Click);
             // 
             // LabelDate

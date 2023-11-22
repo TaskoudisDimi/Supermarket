@@ -64,13 +64,14 @@
             // 
             // searchButton
             // 
+            this.searchButton.BackColor = System.Drawing.Color.LightBlue;
             this.searchButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.searchButton.Location = new System.Drawing.Point(253, 42);
             this.searchButton.Name = "searchButton";
             this.searchButton.Size = new System.Drawing.Size(68, 29);
             this.searchButton.TabIndex = 105;
             this.searchButton.Text = "Search";
-            this.searchButton.UseVisualStyleBackColor = true;
+            this.searchButton.UseVisualStyleBackColor = false;
             this.searchButton.Click += new System.EventHandler(this.searchButton_Click);
             // 
             // searchTextBox
@@ -100,35 +101,38 @@
             // 
             // deleteButton
             // 
+            this.deleteButton.BackColor = System.Drawing.Color.Tomato;
             this.deleteButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.deleteButton.Location = new System.Drawing.Point(721, 415);
             this.deleteButton.Name = "deleteButton";
             this.deleteButton.Size = new System.Drawing.Size(102, 34);
             this.deleteButton.TabIndex = 97;
             this.deleteButton.Text = "Delete";
-            this.deleteButton.UseVisualStyleBackColor = true;
+            this.deleteButton.UseVisualStyleBackColor = false;
             this.deleteButton.Click += new System.EventHandler(this.deleteButton_Click);
             // 
             // editButton
             // 
+            this.editButton.BackColor = System.Drawing.Color.LightBlue;
             this.editButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.editButton.Location = new System.Drawing.Point(613, 415);
             this.editButton.Name = "editButton";
             this.editButton.Size = new System.Drawing.Size(102, 34);
             this.editButton.TabIndex = 96;
             this.editButton.Text = "Edit";
-            this.editButton.UseVisualStyleBackColor = true;
+            this.editButton.UseVisualStyleBackColor = false;
             this.editButton.Click += new System.EventHandler(this.editButton_Click);
             // 
             // addButton
             // 
+            this.addButton.BackColor = System.Drawing.Color.LightBlue;
             this.addButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.addButton.Location = new System.Drawing.Point(505, 415);
             this.addButton.Name = "addButton";
             this.addButton.Size = new System.Drawing.Size(102, 34);
             this.addButton.TabIndex = 95;
             this.addButton.Text = "Create New";
-            this.addButton.UseVisualStyleBackColor = true;
+            this.addButton.UseVisualStyleBackColor = false;
             this.addButton.Click += new System.EventHandler(this.addButton_Click);
             // 
             // catComboBox
@@ -176,25 +180,27 @@
             // 
             // nextButton
             // 
+            this.nextButton.BackColor = System.Drawing.Color.LightBlue;
             this.nextButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.nextButton.Location = new System.Drawing.Point(373, 413);
             this.nextButton.Name = "nextButton";
             this.nextButton.Size = new System.Drawing.Size(102, 34);
             this.nextButton.TabIndex = 124;
             this.nextButton.Text = "Next";
-            this.nextButton.UseVisualStyleBackColor = true;
+            this.nextButton.UseVisualStyleBackColor = false;
             this.nextButton.Visible = false;
             this.nextButton.Click += new System.EventHandler(this.nextButton_Click);
             // 
             // prevButton
             // 
+            this.prevButton.BackColor = System.Drawing.Color.LightBlue;
             this.prevButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.prevButton.Location = new System.Drawing.Point(265, 414);
             this.prevButton.Name = "prevButton";
             this.prevButton.Size = new System.Drawing.Size(102, 34);
             this.prevButton.TabIndex = 123;
             this.prevButton.Text = "Previous";
-            this.prevButton.UseVisualStyleBackColor = true;
+            this.prevButton.UseVisualStyleBackColor = false;
             this.prevButton.Visible = false;
             this.prevButton.Click += new System.EventHandler(this.prevButton_Click);
             // 
@@ -242,13 +248,14 @@
             // 
             // callAPIButton
             // 
+            this.callAPIButton.BackColor = System.Drawing.Color.LightBlue;
             this.callAPIButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.callAPIButton.Location = new System.Drawing.Point(505, 455);
             this.callAPIButton.Name = "callAPIButton";
             this.callAPIButton.Size = new System.Drawing.Size(153, 35);
             this.callAPIButton.TabIndex = 134;
             this.callAPIButton.Text = "Get External Data";
-            this.callAPIButton.UseVisualStyleBackColor = true;
+            this.callAPIButton.UseVisualStyleBackColor = false;
             this.callAPIButton.Click += new System.EventHandler(this.callAPIButton_Click);
             // 
             // label2

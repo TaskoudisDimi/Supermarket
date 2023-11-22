@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ExceptionForm));
             this.messageTextBox = new System.Windows.Forms.TextBox();
             this.stachTraceTextBox = new System.Windows.Forms.TextBox();
             this.continueButton = new System.Windows.Forms.Button();
@@ -42,7 +41,7 @@
             // messageTextBox
             // 
             this.messageTextBox.Location = new System.Drawing.Point(8, 41);
-            this.messageTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.messageTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.messageTextBox.Multiline = true;
             this.messageTextBox.Name = "messageTextBox";
             this.messageTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
@@ -52,7 +51,7 @@
             // stachTraceTextBox
             // 
             this.stachTraceTextBox.Location = new System.Drawing.Point(8, 112);
-            this.stachTraceTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.stachTraceTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.stachTraceTextBox.Multiline = true;
             this.stachTraceTextBox.Name = "stachTraceTextBox";
             this.stachTraceTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
@@ -61,35 +60,38 @@
             // 
             // continueButton
             // 
+            this.continueButton.BackColor = System.Drawing.Color.LightBlue;
             this.continueButton.Location = new System.Drawing.Point(8, 382);
-            this.continueButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.continueButton.Margin = new System.Windows.Forms.Padding(2);
             this.continueButton.Name = "continueButton";
             this.continueButton.Size = new System.Drawing.Size(73, 37);
             this.continueButton.TabIndex = 2;
             this.continueButton.Text = "Continue";
-            this.continueButton.UseVisualStyleBackColor = true;
+            this.continueButton.UseVisualStyleBackColor = false;
             this.continueButton.Click += new System.EventHandler(this.continueButton_Click);
             // 
             // exitButton
             // 
+            this.exitButton.BackColor = System.Drawing.Color.Tomato;
             this.exitButton.Location = new System.Drawing.Point(110, 382);
-            this.exitButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.exitButton.Margin = new System.Windows.Forms.Padding(2);
             this.exitButton.Name = "exitButton";
             this.exitButton.Size = new System.Drawing.Size(73, 37);
             this.exitButton.TabIndex = 3;
             this.exitButton.Text = "Exit";
-            this.exitButton.UseVisualStyleBackColor = true;
+            this.exitButton.UseVisualStyleBackColor = false;
             this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
             // 
             // sendEmailButton
             // 
+            this.sendEmailButton.BackColor = System.Drawing.Color.LightBlue;
             this.sendEmailButton.Location = new System.Drawing.Point(212, 382);
-            this.sendEmailButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.sendEmailButton.Margin = new System.Windows.Forms.Padding(2);
             this.sendEmailButton.Name = "sendEmailButton";
             this.sendEmailButton.Size = new System.Drawing.Size(73, 37);
             this.sendEmailButton.TabIndex = 4;
             this.sendEmailButton.Text = "Send Email";
-            this.sendEmailButton.UseVisualStyleBackColor = true;
+            this.sendEmailButton.UseVisualStyleBackColor = false;
             this.sendEmailButton.Click += new System.EventHandler(this.sendEmailButton_Click);
             // 
             // messageLabel
@@ -124,7 +126,7 @@
             this.Controls.Add(this.continueButton);
             this.Controls.Add(this.stachTraceTextBox);
             this.Controls.Add(this.messageTextBox);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "ExceptionForm";
             this.Text = "ExceptionForm";
             this.ResumeLayout(false);

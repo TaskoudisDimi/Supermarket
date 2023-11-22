@@ -26,24 +26,6 @@ namespace SupermarketTuto.Utils
         private extern static bool InternetGetConnectedState(out int Description, int ReservedValue);
 
         private const int MAX_FILE_SIZE = 4194304; // 4 MBytes
-        public static string HashCode(string pass)
-        {
-            return Convert.ToBase64String(System.Text.Encoding.ASCII.GetBytes($"{pass}"));
-        }
-
-        public static string HashCode2(string pass2)
-        {
-            using (SHA1Managed sha = new SHA1Managed())
-            {
-                var hash = sha.ComputeHash(Encoding.UTF8.GetBytes(pass2));
-                var sb = new StringBuilder(hash.Length * 2);
-                foreach (byte b in hash)
-                {
-                    sb.Append(b.ToString("X2"));
-                }
-                return sb.ToString();
-            };
-        }
 
         public static void Log(string msg, string fileName = null)
         {
@@ -431,7 +413,6 @@ namespace SupermarketTuto.Utils
             return epoch;
         }
 
-
         public static string GetMD5Hash(string input)
         {
             System.Security.Cryptography.MD5CryptoServiceProvider x = new System.Security.Cryptography.MD5CryptoServiceProvider();
@@ -684,7 +665,6 @@ namespace SupermarketTuto.Utils
             // Generate a random salt with 16 characters
             string salt = BCrypt.Net.BCrypt.GenerateSalt(12);
             string hashedPassword = BCrypt.Net.BCrypt.HashPassword(password, salt);
-
             return hashedPassword;
         }
 
@@ -693,6 +673,19 @@ namespace SupermarketTuto.Utils
         {
             return BCrypt.Net.BCrypt.Verify(enteredPassword, storedHashedPassword);
         }
+
+        public static string HashCodeWithSha(string pass)
+        {
+            using (SHA1 sha1Hash = SHA1.Create())
+            {
+                //From String to byte array
+                byte[] sourceBytes = Encoding.UTF8.GetBytes(pass);
+                byte[] hashBytes = sha1Hash.ComputeHash(sourceBytes);
+                string hash = BitConverter.ToString(hashBytes).Replace("-", String.Empty);
+                return hash;
+            }
+        }
+
     }
 
     public class LinuxTime
