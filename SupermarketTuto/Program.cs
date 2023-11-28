@@ -32,7 +32,7 @@ namespace SupermarketTuto
             else
             {
 
-                Application.Run(new LogIn());   
+                Application.Run(new MainAdmin());   
             }
         }
 

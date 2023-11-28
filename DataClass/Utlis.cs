@@ -11,6 +11,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Forms;
@@ -685,6 +686,7 @@ namespace SupermarketTuto.Utils
                 return hash;
             }
         }
+
 
     }
 
