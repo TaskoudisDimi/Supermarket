@@ -17,7 +17,6 @@ namespace SupermarketTuto.Forms.General
     {
         DataTable adminTable = new DataTable();
         DataGridViewRow selected = new DataGridViewRow();
-        public event EventHandler<DataGridViewCellChange> DataChanged;
         Admins admin = new Admins();
         public event EventHandler<AdminsEventArgs> ItemCreated;
         public event EventHandler<AdminsEventArgs> ItemEdited;

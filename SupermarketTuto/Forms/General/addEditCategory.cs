@@ -12,7 +12,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using System.Data;
 using System.Linq;
 using DataTable = System.Data.DataTable;
 using ClassLibrary1;
@@ -24,7 +23,6 @@ namespace SupermarketTuto.Forms.General
     {
         DataTable categoryTable = new DataTable();
         DataGridViewRow selected = new DataGridViewRow();
-        public event EventHandler<DataGridViewCellChange> DataChanged;
         CategoryTbl category = new CategoryTbl();
         public event EventHandler<CategoryEventArgs> ItemCreated;
         public event EventHandler<CategoryEventArgs> ItemEdited;
@@ -137,15 +135,7 @@ namespace SupermarketTuto.Forms.General
             }
             object cellValue = table.Rows[0].ItemArray[columnIndex];
 
-            var change = new DataGridViewCellChange()
-            {
-                RowIndex = rowIndex,
-                ColumnIndex = columnIndex,
-                NewValue = cellValue.ToString()
-            };
 
-            // Raise the DataChanged event in order to send to the Client through TCP/UDP
-            DataChanged?.Invoke(this, change);
         }
     }
 

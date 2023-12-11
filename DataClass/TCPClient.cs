@@ -16,14 +16,15 @@ namespace ClassLibrary1
         public Socket client;
         private Thread clientThread;
         public event EventHandler<string> DataReceived;
+        private bool isConnected = false;
 
-        public void ConnectClient()
+        public void ConnectTCPClient()
         {
             string ipAddress = "127.0.0.1";
             int port = 8080;
             client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             client.Connect(ipAddress, port);
-
+            isConnected = true;
             clientThread = new Thread(ReceiveData);
             clientThread.Start();
 
@@ -43,9 +44,7 @@ namespace ClassLibrary1
             }
         }
 
-        
-
-        public void SendData<T>(List<T> data)where T: class
+        public void SendDataTCP<T>(List<T> data)where T: class
         {
             try
             {
@@ -68,5 +67,7 @@ namespace ClassLibrary1
             client.Shutdown(SocketShutdown.Both);
            
         }
+
+
     }
 }

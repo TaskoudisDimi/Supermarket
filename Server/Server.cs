@@ -10,20 +10,22 @@ namespace Server
     public partial class Server : Form
     {
 
-        private Dictionary<string, IPEndPoint> udpClients = new Dictionary<string, IPEndPoint>();
 
         public Server()
         {
             InitializeComponent();
         }
         private TCPServer tcpServer;
-
+        private UDPServer udpServer;
         private void startButton_Click(object sender, EventArgs e)
         {
             #region UDP
-            //serverUDP = new UdpClient(8080);
-            //endPoint = new IPEndPoint(IPAddress.Any, 0);
-            //serverUDP.BeginReceive(ReceiveCallback, null);
+
+            udpServer = new UDPServer();
+            udpServer.StartUDP();
+            startButton.Enabled = false;
+            logListBox.Items.Add("Server UDP started listening on port 8080." + Environment.NewLine);
+
             #endregion
 
             #region TCP
@@ -31,7 +33,7 @@ namespace Server
             tcpServer = new TCPServer();
             tcpServer.StartTCP();
             startButton.Enabled = false;
-            logListBox.Items.Add("Server started listening on port 8080." + Environment.NewLine);
+            logListBox.Items.Add("Server TCP started listening on port 8080." + Environment.NewLine);
             
             #endregion
 

@@ -13,17 +13,18 @@ namespace Server
         private UdpClient udpServer;
         private bool isRunning;
         private IPEndPoint clientEndpoint;
-
+        private List<IPEndPoint> clients = new List<IPEndPoint>();
         public UDPServer()
         {
             udpServer = new UdpClient(9999);
         }
 
-        public void Start()
+        public void StartUDP()
         {
             isRunning = true;
             Thread receiveThread = new Thread(ReceiveData);
             receiveThread.Start();
+
         }
 
         private void ReceiveData(object? obj)
@@ -33,27 +34,23 @@ namespace Server
             {
                 byte[] receiveBytes = udpServer.Receive(ref clientEndpoint);
                 string receivedData = Encoding.ASCII.GetString(receiveBytes);
-
+                clients.Add(clientEndpoint);
                 BroadcastToClients(receivedData);
             }
-
-
 
         }
 
         private void BroadcastToClients(string receivedData)
         {
             byte[] bytes = Encoding.ASCII.GetBytes(receivedData);
-            List<IPEndPoint> connectedClients = new List<IPEndPoint>();
 
-            foreach (IPEndPoint client in connectedClients)
+            foreach (IPEndPoint client in clients)
             {
                 if (!client.Equals(clientEndpoint))
                 {
                     udpServer.Send(bytes, bytes.Length, client);
                 }
             }
-
         }
 
         public void Stop()

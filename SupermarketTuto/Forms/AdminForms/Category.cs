@@ -24,18 +24,20 @@ namespace SupermarketTuto.Forms
         public DataTable originalCategoryTable;
         BindingSource bindingSource = new BindingSource();
         Type categoryType = typeof(CategoryTbl);
-        private List<DataGridViewCellChange> changedCells = new List<DataGridViewCellChange>();
         TCPClient ClientTCP = new TCPClient();
+        UDPClient ClientUDP = new UDPClient();
         List<CategoryTbl> categories;
 
         public Category()
         {
             InitializeComponent();
-            ClientTCP.ConnectClient();
-            ClientTCP.DataReceived += HandleReceivedData;
+            //ClientTCP.ConnectTCPClient();
+            //ClientTCP.DataReceived += HandleReceivedDataTCP;
+            ClientUDP.ConnectUDPClient();
+            ClientUDP.DataReceived += HandleReceivedDataUDP;
         }
 
-        private void HandleReceivedData(object sender, string jsonData)
+        private void HandleReceivedDataTCP(object sender, string jsonData)
         {
             try
             {
@@ -51,6 +53,24 @@ namespace SupermarketTuto.Forms
 
             }
         }
+
+        private void HandleReceivedDataUDP(object sender, string jsonData)
+        {
+            try
+            {
+                List<CategoryTbl> Newcategories = JsonConvert.DeserializeObject<List<CategoryTbl>>(jsonData);
+                // Add received categories to the existing list
+                categories.AddRange(Newcategories);
+
+                // Update DataGridView with the merged list of categories
+                UpdateDataGridView(categories);
+            }
+            catch
+            {
+
+            }
+        }
+
 
         // Method to update DataGridView with a list of categories
         private void UpdateDataGridView(List<CategoryTbl> categories)
@@ -187,7 +207,8 @@ namespace SupermarketTuto.Forms
             item.Date = e.CreatedCategory.Date;
             List<CategoryTbl> data = new List<CategoryTbl>();
             data.Add(item);
-            ClientTCP.SendData<CategoryTbl>(data);
+            //ClientTCP.SendDataTCP<CategoryTbl>(data);
+            ClientUDP.SendDataUDP<CategoryTbl>(data);
             CatDGV.Refresh();
         }
 
@@ -284,12 +305,17 @@ namespace SupermarketTuto.Forms
                 List<string> rowsCategories = new List<string>();
                 foreach(DataGridViewRow rowCat in CatDGV.Rows)
                 {
-                    DataGridViewCheckBoxCell checkBoxCell = rowCat.Cells[0] as DataGridViewCheckBoxCell;
-                    if (checkBoxCell.Value != null && (bool)checkBoxCell.Value)
+                    if(rowCat != null)
                     {
-                        string CatId = rowCat.Cells["CatId"].Value?.ToString();
-                        rowsCategories.Add(CatId);
+                        DataGridViewCheckBoxCell checkBoxCell = rowCat.Cells[0] as DataGridViewCheckBoxCell;
+                        if (checkBoxCell.Value != null && (bool)checkBoxCell.Value)
+                        {
+                            string CatId = rowCat.Cells["CatId"].Value?.ToString();
+                            if (CatId != null)
+                                rowsCategories.Add(CatId);
+                        }
                     }
+                    
                 }
                 SelectedProducts formSelectedProd = new SelectedProducts(rowsCategories);
                 formSelectedProd.Show();
@@ -507,47 +533,16 @@ namespace SupermarketTuto.Forms
 
         #endregion
 
+        #region Communication
 
-        #region TCP connection
+        #region TCP
 
-        //DataTable tableTest;
-        //private void Edit_DataChanged(object sender, DataGridViewCellChange e)
-        //{
+        #endregion
 
-        //    var cellValue = e;
-        //    changedCells.Add(cellValue);
+        #region UDP
 
-        //    //ClientTCP.SendData(changedCells);
-        //    //ClientTCP.StopClient();
+        #endregion
 
-        //}
-        //DataTable dataTable = null;
-        //private void UpdateDataFromServer(object sender, List<DataGridViewCellChange> e)
-        //{
-        //    CatDGV.Invoke((MethodInvoker)(() =>
-        //    {
-        //        if (CatDGV.DataSource is BindingSource bindingSource)
-        //            dataTable = (bindingSource.DataSource as DataTable)?.Copy();
-        //    }));
-
-        //    foreach (DataGridViewCellChange item in e)
-        //    {
-        //        dataTable.Rows[item.RowIndex][item.ColumnIndex] = item.NewValue;
-        //    }
-        //    // Reassign the updated DataTable to the BindingSource
-        //    CatDGV.Invoke((MethodInvoker)(() =>
-        //    {
-        //        if (CatDGV.DataSource is BindingSource bindingSource)
-        //        {
-        //            bindingSource.DataSource = dataTable;
-        //            CatDGV.DataSource = bindingSource;
-        //        }
-        //    }));
-        //    tableTest = new DataTable();
-        //    tableTest = dataTable.Copy();
-        //    tableTest = dataTable;
-        //    tableTest.AcceptChanges();
-        //}
 
         #endregion
 

@@ -56,22 +56,6 @@ namespace Server
                 {
                     byte[] receivedData = new byte[bytesRead];
                     Array.Copy(buffer, receivedData, bytesRead);
-
-                    //string jsonData = Encoding.UTF8.GetString(receivedData);
-
-                    //// Parse the JSON string into a JsonDocument
-                    //JsonDocument jsonDocument = JsonDocument.Parse(jsonData);
-
-                    //// Access the root element of the JSON array
-                    //JsonElement root = jsonDocument.RootElement;
-                    //string newValue = "";
-                    //foreach (JsonElement element in root.EnumerateArray())
-                    //{
-                    //    // Access the properties dynamically
-                    //    int rowIndex = element.GetProperty("RowIndex").GetInt32();
-                    //    int columnIndex = element.GetProperty("ColumnIndex").GetInt32();
-                    //    newValue = element.GetProperty("NewValue").GetString();
-                    //}
                     BroadcastToClients(clientSocket, receivedData);
                 }
             }
