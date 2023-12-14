@@ -305,7 +305,77 @@ namespace ClassLibrary1
         }
 
 
-        
+        #region Database
+
+        public static void CleanDB()
+        {
+            
+            //using (connection = new SqlConnection(connectionString))
+            //{
+            //    using (command = new SqlCommand("SP_CleanDatabaseTables", connection))
+            //    {
+            //        connection.Open();
+            //        command.CommandType = CommandType.StoredProcedure;
+            //        command.ExecuteNonQuery();
+            //        connection.Close();
+            //    }
+            //}
+        }
+
+        public static void RestoreDB(string pathDB)
+        {
+            //try
+            //{
+            //    using (connection = new SqlConnection(connectionString))
+            //    {
+            //        connection.Open();
+            //        using (SqlCommand useMaster = new SqlCommand("USE master", connection))
+            //        {
+            //            useMaster.ExecuteNonQuery();
+            //        }
+            //        string restoreDB = $"RESTORE DATABASE smarketdb FROM DISK = '{pathDB}' WITH REPLACE, RECOVERY";
+            //        using (SqlCommand command = new SqlCommand(restoreDB, connection))
+            //        {
+            //            command.ExecuteNonQuery();
+            //        }
+            //        connection.Close();
+            //    }
+            //}
+            //catch
+            //{
+
+            //}
+        }
+
+        public static void backup(string path)
+        {
+            //try
+            //{
+            //    using (connection = new SqlConnection(connectionString))
+            //    {
+            //        connection.Open();
+            //        using (SqlCommand useMaster = new SqlCommand("USE master", connection))
+            //        {
+            //            useMaster.ExecuteNonQuery();
+            //        }
+            //        string query = "BACKUP DATABASE smarketdb TO DISK = '" + path + "\\backupfile.bak' WITH FORMAT,MEDIANAME = 'Z_SQLServerBackups',NAME = 'Full Backup of Testdb';";
+            //        using (SqlCommand command = new SqlCommand(query, connection))
+            //        {
+            //            command.ExecuteNonQuery();
+            //        }
+            //        connection.Close();
+            //    }
+            //}
+            //catch
+            //{
+
+            //}
+        }
+
+
+        #endregion
+
+
 
         #region Helpers
 

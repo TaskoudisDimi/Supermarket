@@ -18,7 +18,7 @@ namespace ClassLibrary1.Models
             DataType = dataType;
         }
 
-        public SchemaColumn(string columnName, SqlDbType dataType, int size)
+        public SchemaColumn(string columnName, SqlDbType dataType, int size, bool nullable)
         {
             ColumnName = columnName;
             DataType = dataType;
@@ -28,8 +28,11 @@ namespace ClassLibrary1.Models
                 DataType = SqlDbType.NVarChar;
                 Size = size;
             }
+            Nullable = nullable;
         }
 
         public int Size { get; }
+
+        public bool Nullable { get; }
     }
 }

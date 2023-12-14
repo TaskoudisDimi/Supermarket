@@ -9,7 +9,7 @@ namespace ClassLibrary1.Models
     [TableName("CategoryTbl")]
     public class CategoryTbl : Excel
     {
-        [DatabaseColumn(IsPrimaryKey = true, IsEncrypted = false)]
+        [PrimaryKey]
         public int CatId { get; set; }
         public string CatName { get; set; }
         public string CatDesc { get; set; }

@@ -687,6 +687,16 @@ namespace SupermarketTuto.Utils
             }
         }
 
+        static public string GetStringFromRow(DataRow row, string field, string defval)
+        {
+            if (!row.Table.Columns.Contains(field))
+                return defval;
+            if (row.IsNull(field))
+                return defval;
+            return row[field].ToString();
+        }
+
+
 
     }
 

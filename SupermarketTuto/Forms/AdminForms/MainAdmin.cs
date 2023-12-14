@@ -113,7 +113,7 @@ namespace SupermarketTuto.Forms.AdminForms
 
         private void MnuStripCleanDB_Click(object sender, EventArgs e)
         {
-            DataAccess.Instance.CleanDB();
+            DataModel.CleanDB();
         }
 
         private void MnuStripCheckDB_Click(object sender, EventArgs e)
@@ -153,7 +153,7 @@ namespace SupermarketTuto.Forms.AdminForms
             if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(dialog.SelectedPath))
             {
                 path = dialog.SelectedPath;
-                DataAccess.Instance.backup(path);
+                DataModel.backup(path);
             }
         }
 

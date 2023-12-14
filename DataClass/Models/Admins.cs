@@ -7,17 +7,22 @@ using System.Threading.Tasks;
 namespace ClassLibrary1.Models
 {
     [TableName("Admins")]
-    public class Admins
+    public class Admins : CheckDatabase
     {
-        [DatabaseColumn(IsPrimaryKey = true, IsEncrypted = false)]
+        [PrimaryKey]
+        [DatabaseColumn(isPrimaryKey:true)]
         public int Id { get; set; }
 
+        [FieldSize(Size:50)]
         public string UserName { get; set; }
 
-        [DatabaseColumn(IsPrimaryKey = false, IsEncrypted = true)]
+        [DatabaseColumn(isEncrypted:true)]
+        [FieldSize(Size: 200)]
         public string Password { get; set; }
 
         public bool Active { get; set; }
+
+        [NullableField(true)]
         public bool isSuperAdmin { get; set; }
 
     }

@@ -35,6 +35,7 @@ namespace SupermarketTuto.Forms
             //ClientTCP.DataReceived += HandleReceivedDataTCP;
             ClientUDP.ConnectUDPClient();
             ClientUDP.DataReceived += HandleReceivedDataUDP;
+
         }
 
         private void HandleReceivedDataTCP(object sender, string jsonData)

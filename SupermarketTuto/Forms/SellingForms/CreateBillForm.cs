@@ -124,7 +124,8 @@ namespace SupermarketTuto.Forms.SellingForms
         private void fillCombo()
         {
             List<string> catNames = new List<string>();
-            categoryTable = DataAccess.Instance.GetTable("CategoryTbl");
+            List<CategoryTbl> categories = DataModel.Select<CategoryTbl>();
+            DataTable categoryTable = Utils.Utils.ToDataTable(categories);
             foreach (DataRow row in categoryTable.Rows)
             {
                 catNames.Add(row["CatName"].ToString());

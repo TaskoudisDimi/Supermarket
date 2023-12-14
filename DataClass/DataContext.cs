@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using ClassLibrary1.Models;
 
 namespace ClassLibrary1
 {
@@ -17,7 +18,6 @@ namespace ClassLibrary1
         private static readonly object padlock = new object();
         public static int queryTimeOut = 20;
         static Dictionary<int, DataContext> instances = new Dictionary<int, DataContext>();
-        private static int instanceID;
         private static readonly ThreadLocal<int> currentInstanceId = new ThreadLocal<int>();
         public static string connectionString;
         public SqlDataReader reader = null;
@@ -151,7 +151,15 @@ namespace ClassLibrary1
             {
                 try
                 {
-                    reader = SelectDataReader(sql, parameters);
+                    if(parameters != null && parameters.Count > 0)
+                    {
+                        reader = SelectDataReader(sql, parameters);
+                        
+                    }
+                    else
+                    {
+                        reader = SelectDataReader(sql);
+                    }
                     dt.Load(reader);
                 }
                 catch

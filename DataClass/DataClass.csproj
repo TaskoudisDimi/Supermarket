@@ -116,17 +116,14 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attributes.cs" />
     <Compile Include="CheckDatabase.cs" />
-    <Compile Include="ClassConverter.cs" />
     <Compile Include="CustomObjects.cs" />
-    <Compile Include="DataAccess.cs" />
-    <Compile Include="DatabaseColumnAttribute.cs" />
     <Compile Include="DataContext.cs" />
     <Compile Include="DataModel.cs" />
     <Compile Include="ExcelFile.cs" />
     <Compile Include="Locker.cs" />
     <Compile Include="Models\Admins.cs" />
-    <Compile Include="Models\DataGridViewCellChange.cs" />
     <Compile Include="Models\Food.cs" />
     <Compile Include="Models\BillTbl.cs" />
     <Compile Include="Models\CategoryTbl.cs" />
@@ -136,7 +133,6 @@
     <Compile Include="Models\SchemaColumn.cs" />
     <Compile Include="Models\SchemaTable.cs" />
     <Compile Include="Models\SellersTbl.cs" />
-    <Compile Include="TableNameAttribute.cs" />
     <Compile Include="TCPClient.cs" />
     <Compile Include="UDPClient.cs" />
     <Compile Include="Utils\Constants.cs" />
