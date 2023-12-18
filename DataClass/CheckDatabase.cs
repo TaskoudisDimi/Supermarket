@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.Reflection;
 using SupermarketTuto.Utils;
+using System.Data.SqlTypes;
 
 namespace ClassLibrary1
 {
@@ -44,7 +45,7 @@ namespace ClassLibrary1
             }
             else
             {
-                CheckExistingAndUpdateTable(TableName);
+                CheckExistingAndUpdateTable(TableName, properties);
             }
             CheckedTabledStates.Add(TableName);
         }
@@ -95,32 +96,6 @@ namespace ClassLibrary1
         }
 
 
-        // Method to convert C# type to SqlDbType (Modify based on your requirements)
-        private SqlDbType ConvertToSqlDbType(Type type)
-        {
-            // Implement conversion logic from C# type to SqlDbType
-            // This is a simple example, you may need to handle various types appropriately
-            if (type == typeof(int))
-            {
-                return SqlDbType.Int;
-            }
-            else if (type == typeof(string))
-            {
-                return SqlDbType.NVarChar; // Modify according to your needs
-            }
-            else if (type == typeof(bool))
-            {
-                return SqlDbType.Bit; // Modify according to your needs
-            }
-            else if (type == typeof(byte))
-            {
-                return SqlDbType.Binary; // Modify according to your needs
-            }
-
-            // Return a default SqlDbType for unsupported types
-            return SqlDbType.VarChar; // For example
-        }
-
         private SchemaTable GetSqlSchemaTable(string tableName)
         {
             List<SchemaColumn> columns = new List<SchemaColumn>();
@@ -154,63 +129,81 @@ namespace ClassLibrary1
             return sqlSchemaTable;
         }
 
-        private void CheckExistingAndUpdateTable(string tableName)
+        private void CheckExistingAndUpdateTable(string tableName, PropertyInfo[] properties)
         {
-
             SchemaTable sqlSchemaTable = GetSqlSchemaTable(tableName);
-
             SchemaTable modelSchemaTable = GetModelSchemaTable();
-
             // Compare the columns between existingSchemaTable and modelSchemaTable
-            if (CompareAndUpdateSchemaTables(sqlSchemaTable, modelSchemaTable))
-            {
-                //The tables are the same 
-            }
-            else
-            {
-                //The tables are different 
-
-            }
-
+            CompareAndUpdateSchemaTables(sqlSchemaTable, modelSchemaTable);
         }
 
-        private bool CompareAndUpdateSchemaTables(SchemaTable sqlSchemaTable, SchemaTable modelSchemaTable)
+        private void CompareAndUpdateSchemaTables(SchemaTable sqlSchemaTable, SchemaTable modelSchemaTable)
         {
 
-            // Compare Columns count
-            if (modelSchemaTable.Columns.Count != sqlSchemaTable.Columns.Count)
-            {
-                // Number of columns are different
-                // Find the difference and add the column
-                return false;
-            }
-
+            string sql = "";
+            string nullableColumn = "";
+            int size = -1;
             // Compare each column
-            foreach (var column1 in sqlSchemaTable.Columns)
+            foreach (var column in modelSchemaTable.Columns)
             {
-                // Find matching column in schemaTable2 by ColumnName
-                var matchingColumn = modelSchemaTable.Columns.FirstOrDefault(c => c.ColumnName == column1.ColumnName);
-
+                // Find matching column in schemaTable by ColumnName
+                var matchingColumn = sqlSchemaTable.Columns.FirstOrDefault(c => c.ColumnName == column.ColumnName);
                 if (matchingColumn == null)
                 {
-                    return false; // Column not found in the other schema
-                }
-                // Compare individual column properties (DataType, Size, IsNullable)
-                if (matchingColumn.DataType != column1.DataType ||
-                    matchingColumn.Size != column1.Size ||
-                    matchingColumn.Nullable != column1.Nullable)
-                {
-                    string sql = $"ALTER TABLE smarketdb.dbo.{modelSchemaTable.TableName} " +
-                        $"ALTER COLUMN {matchingColumn.ColumnName}  {matchingColumn.DataType} {matchingColumn.Nullable}";
+                    //Model column not found in the sql schema
+                    if (column.Nullable)
+                    {
+                        nullableColumn = "NULL";
+                    }
+                    else
+                    {
+                        nullableColumn = "NOT NULL";
+                    }
+                    if (column.DataType == SqlDbType.Bit || column.DataType == SqlDbType.Binary
+                            || column.DataType == SqlDbType.VarBinary || column.Size == 0 || column.Size == -1)
+                    {
+                        sql = $"ALTER TABLE smarketdb.dbo.{modelSchemaTable.TableName} " +
+                                    $"ADD {column.ColumnName}  {column.DataType} {nullableColumn}";
+                    }
+                    else
+                    {
+                        sql = $"ALTER TABLE smarketdb.dbo.{modelSchemaTable.TableName} " +
+                                    $"ADD {column.ColumnName}  {column.DataType}" + $"({column.Size}) {nullableColumn}";
+                    }
                     DataContext.Instance.ExecuteNQ(sql);
-                    return false; // Column properties are different
+                }
+                else
+                {
+                    // Compare individual column properties (DataType, Size, IsNullable)
+                    if (matchingColumn.DataType != column.DataType ||
+                        matchingColumn.Size != column.Size ||
+                        matchingColumn.Nullable != column.Nullable)
+                    {
+                        if (matchingColumn.Nullable)
+                        {
+                            nullableColumn = "NULL";
+                        }
+                        else
+                        {
+                            nullableColumn = "NOT NULL";
+                        }
+                        
+                        if (column.DataType == SqlDbType.Bit || column.DataType == SqlDbType.Binary
+                            || column.DataType == SqlDbType.VarBinary && column.Size == 0 || column.Size == -1)
+                        {
+                            sql = $"ALTER TABLE smarketdb.dbo.{modelSchemaTable.TableName} " +
+                                        $"ALTER COLUMN {column.ColumnName}  {column.DataType} {nullableColumn}";
+                        }
+                        else
+                        {
+                            sql = $"ALTER TABLE smarketdb.dbo.{modelSchemaTable.TableName} " +
+                                        $"ALTER COLUMN {column.ColumnName}  {column.DataType}" + $"({column.Size}) {nullableColumn}";
+                        }
+                        DataContext.Instance.ExecuteNQ(sql);
+                    }    
                 }
             }
-
-            // All columns match
-            return true;
         }
-
 
         private bool TableExists(string tableName)
         {
@@ -228,106 +221,79 @@ namespace ClassLibrary1
 
         private void CreateTable(string tableName, PropertyInfo[] properties)
         {
-            //            StringBuilder sb = new StringBuilder($"CREATE TABLE [dbo].[{tableName}](\r\n");
-            //            string identityField = "";
-            //            string TEXTIMAGE_ON = "";
-            //            foreach (PropertyInfo p in properties)
-            //            {
+            StringBuilder sb = new StringBuilder($"CREATE TABLE [dbo].[{tableName}](\r\n");
+            string primaryKeyField = "";
+            string TEXTIMAGE_ON = "";
+            foreach (PropertyInfo p in properties)
+            {
+                string type = p.PropertyType.ToString();
+                string identityText = "";
+                string fieldName = p.Name;
+                if (Attribute.IsDefined(p, typeof(PrimaryKeyAttribute)))
+                {
+                    identityText = "IDENTITY(1,1)";
+                    primaryKeyField = fieldName;
+                }
+                bool isNullable = type.IndexOf("System.Nullable`1") > -1 || Attribute.IsDefined(p, typeof(NullableFieldAttribute));
+                string nullText = isNullable ? "NULL" : "NOT NULL";
+                int size = -1;
+                if (Attribute.IsDefined(p, typeof(FieldSizeAttribute)))
+                {
+                    FieldSizeAttribute sizeAttr = p.GetCustomAttribute<FieldSizeAttribute>();
+                    size = sizeAttr.Size;
 
-            //                string type = p.PropertyType.ToString();
-            //                string identityText = "";
-            //                string fieldName = p.Name;
-            //                if (Attribute.IsDefined(p, typeof(JsonPropertyAttribute)))
-            //                {
-            //                    JsonPropertyAttribute attr = p.GetCustomAttribute<JsonPropertyAttribute>();
-            //                    fieldName = attr.PropertyName;
-            //                }
-            //                if (Attribute.IsDefined(p, typeof(IdentityAttribute)))
-            //                {
-            //                    identityText = "IDENTITY(1,1)";
-            //                    identityField = fieldName;
-            //                }
-            //                bool isNullable = type.IndexOf("System.Nullable`1") > -1 || Attribute.IsDefined(p, typeof(NullableFieldAttribute));
-            //                string nullText = isNullable ? "NULL" : "NOT NULL";
-            //                int size = -1;
-            //                if (Attribute.IsDefined(p, typeof(FieldSizeAttribute)))
-            //                {
-            //                    FieldSizeAttribute sizeAttr = p.GetCustomAttribute<FieldSizeAttribute>();
-            //                    size = sizeAttr.Size;
-            //                }
-            //                bool isBinary = Attribute.IsDefined(p, typeof(BinaryFieldAttribute));
-            //                string dbType = getDBColumnTypeSize(type, size, isBinary);
-            //                if (TEXTIMAGE_ON.Length == 0 && (isBinary || (dbType.StartsWith("[nvarchar]") && size == -1)))
-            //                {
-            //                    TEXTIMAGE_ON = "TEXTIMAGE_ON[PRIMARY]";
-            //                }
-            //                System.Diagnostics.Debug.WriteLine($"{type} -> {dbType}");
-
-            //                sb.AppendLine($"[{fieldName}] {dbType} {identityText} {nullText},");
-            //            }
-
-            //            if (identityField.Length > 0)
-            //            {
-            //                sb.AppendLine($@"CONSTRAINT [PKA_{tableName}] PRIMARY KEY CLUSTERED 
-            //(
-
-            //    [{identityField}] ASC
-            //)WITH(PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON[PRIMARY]
-            //) ON[PRIMARY] {TEXTIMAGE_ON}");
-            //            }
-            //            System.Diagnostics.Debug.WriteLine(sb.ToString());
-            //            DBHelper.ExecuteQuery(sb.ToString());
+                }
+                bool isBinary = Attribute.IsDefined(p, typeof(BinaryFieldAttribute));
+                string dbType = getDBColumnType(type, isBinary);
+                if (TEXTIMAGE_ON.Length == 0 && (isBinary || (dbType.StartsWith("[nvarchar]") && size == -1)))
+                {
+                    TEXTIMAGE_ON = "TEXTIMAGE_ON[PRIMARY]";
+                }
+                if(size != -1)
+                {
+                    sb.AppendLine($"[{fieldName}] {dbType}" + $"({size})" + $"{identityText} {nullText},");
+                }
+                else
+                {
+                    sb.AppendLine($"[{fieldName}] {dbType} {identityText} {nullText},");
+                }
+                
+            }
+            if (primaryKeyField.Length > 0)
+            {
+                sb.AppendLine($@"CONSTRAINT [PKA_{tableName}] PRIMARY KEY CLUSTERED 
+                                        ([{primaryKeyField}] ASC)
+                                        WITH(PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON[PRIMARY]
+                                        ) ON[PRIMARY] {TEXTIMAGE_ON}");
+            }
+            DataContext.Instance.ExecuteNQ(sb.ToString());
         }
 
-        private void UpdateTable(string tableName, PropertyInfo[] properties)
+
+        // Method to convert C# type to SqlDbType (Modify based on your requirements)
+        private SqlDbType ConvertToSqlDbType(Type type)
         {
-            //            DataTable schemaDt = DBHelper.GetDataTable($@"SELECT ORDINAL_POSITION, COLUMN_NAME, DATA_TYPE, CHARACTER_MAXIMUM_LENGTH
-            //       , IS_NULLABLE
-            //FROM INFORMATION_SCHEMA.COLUMNS
-            //WHERE TABLE_NAME = '{tableName}'");
-            //            Dictionary<string, DataRow> rowsDict = new Dictionary<string, DataRow>();
-            //            foreach (DataRow dr in schemaDt.Rows)
-            //            {
-            //                rowsDict[DBHelper.GetStringFromRow(dr, "COLUMN_NAME", "").ToLower()] = dr;
-            //            }
-            //            foreach (PropertyInfo p in properties)
-            //            {
+            // Implement conversion logic from C# type to SqlDbType
+            // This is a simple example, you may need to handle various types appropriately
+            if (type == typeof(int))
+            {
+                return SqlDbType.Int;
+            }
+            else if (type == typeof(string))
+            {
+                return SqlDbType.NVarChar; // Modify according to your needs
+            }
+            else if (type == typeof(bool))
+            {
+                return SqlDbType.Bit; // Modify according to your needs
+            }
+            else if (type == typeof(byte))
+            {
+                return SqlDbType.Binary; // Modify according to your needs
+            }
 
-
-            //                string type = p.PropertyType.ToString();
-            //                bool isIdentity = Attribute.IsDefined(p, typeof(IdentityAttribute));
-            //                bool isBinary = Attribute.IsDefined(p, typeof(BinaryFieldAttribute));
-            //                bool isNullable = type.IndexOf("System.Nullable`1") > -1 || Attribute.IsDefined(p, typeof(NullableFieldAttribute));
-            //                string nullText = isNullable ? "NULL" : "NOT NULL";
-            //                string fieldName = p.Name;
-            //                int size = -1;
-            //                if (Attribute.IsDefined(p, typeof(JsonPropertyAttribute)))
-            //                {
-            //                    JsonPropertyAttribute attr = p.GetCustomAttribute<JsonPropertyAttribute>();
-            //                    fieldName = attr.PropertyName;
-            //                }
-            //                if (Attribute.IsDefined(p, typeof(FieldSizeAttribute)))
-            //                {
-            //                    FieldSizeAttribute sizeAttr = p.GetCustomAttribute<FieldSizeAttribute>();
-            //                    size = sizeAttr.Size;
-            //                }
-            //                string dbType = getDBColumnTypeSize(type, size, isBinary);
-            //                if (rowsDict.ContainsKey(fieldName.ToLower()))
-            //                {
-            //                    int sizeDB = DBHelper.GetIntFromRow(rowsDict[fieldName.ToLower()], "CHARACTER_MAXIMUM_LENGTH", -1);
-            //                    if (sizeDB < size)
-            //                    {
-            //                        DBHelper.ExecuteQuery($"ALTER TABLE dbo.{tableName} ALTER COLUMN {fieldName}  {dbType} {nullText}");
-            //                    }
-            //                }
-            //                else
-            //                {
-            //                    DBHelper.ExecuteQuery($"ALTER TABLE dbo.{tableName} ADD {fieldName} {dbType} {nullText}");
-            //                }
-            //            }
-
-            //            schemaDt.Dispose();
-
+            // Return a default SqlDbType for unsupported types
+            return SqlDbType.VarChar; // For example
         }
 
         private string getDBColumnType(string type, bool isEncrypted)
@@ -362,11 +328,11 @@ namespace ClassLibrary1
                     {
                         if (isEncrypted)
                         {
-                            dbType = $"[varbinary](max)";
+                            dbType = $"[varbinary]";
                         }
                         else
                         {
-                            dbType = $"[nvarchar](max)";
+                            dbType = $"[nvarchar]";
                         }
                     }
                     break;

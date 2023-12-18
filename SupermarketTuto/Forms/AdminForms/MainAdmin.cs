@@ -10,11 +10,9 @@ namespace SupermarketTuto.Forms.AdminForms
 
         TCPClient ClientTCP = new TCPClient();
         Admins admin = new Admins();
-
         public MainAdmin(Admins admin_ = null)
         {
             InitializeComponent();
-            this.Icon = new System.Drawing.Icon("C:/Users/chris/Desktop/Dimitris/Tutorials/Supermarket/SupermarketTuto/Resources/supermarket.ico");
             admin = admin_;
         }
 

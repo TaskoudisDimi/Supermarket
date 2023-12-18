@@ -13,7 +13,7 @@ namespace ClassLibrary1.Models
         [DatabaseColumn(isPrimaryKey:true)]
         public int Id { get; set; }
 
-        [FieldSize(Size:50)]
+        [FieldSize(Size:200)]
         public string UserName { get; set; }
 
         [DatabaseColumn(isEncrypted:true)]
@@ -25,5 +25,7 @@ namespace ClassLibrary1.Models
         [NullableField(true)]
         public bool isSuperAdmin { get; set; }
 
+        [NullableField(true)]
+        public string Test { get; set; }
     }
 }

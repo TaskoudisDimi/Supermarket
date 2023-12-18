@@ -18,7 +18,6 @@ namespace SupermarketTuto.Forms.AdminForms
         public SelectedProducts(List<string> catIDs)
         {
             InitializeComponent();
-            this.Icon = new System.Drawing.Icon("C:/Users/chris/Desktop/Dimitris/Tutorials/Supermarket/SupermarketTuto/Resources/supermarket.ico");
             this.catIDs = catIDs;
         }
         StringBuilder sb = new StringBuilder();

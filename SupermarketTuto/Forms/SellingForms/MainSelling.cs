@@ -9,7 +9,6 @@ namespace SupermarketTuto.Forms.SellingForms
         public MainSelling()
         {
             InitializeComponent();
-            this.Icon = new System.Drawing.Icon("C:/Users/chris/Desktop/Dimitris/Tutorials/Supermarket/SupermarketTuto/Resources/supermarket.ico");
             seller_Name_Label.Text = Globals.NameOfSeller;
         }
 
