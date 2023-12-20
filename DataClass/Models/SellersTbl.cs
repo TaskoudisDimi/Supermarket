@@ -11,18 +11,27 @@ namespace ClassLibrary1.Models
     [TableName("SellersTbl")]
     public class SellersTbl
     {
-        [DatabaseColumn(IsPrimaryKey = true, IsEncrypted = false)]
+        [PrimaryKey]
         public int SellerId { get; set; }
+
+        [FieldSize(Size: 200)]
         public string SellerUserName { get; set; }
 
-        [DatabaseColumn(IsPrimaryKey = false, IsEncrypted = true)]
+        [Encrypted]
+        [FieldSize(Size: 200)]
         public string SellerPass { get; set; }
+
+        [FieldSize(Size: 200)]
         public string SellerName { get; set; }
         public int SellerAge { get; set; }
         public int SellerPhone { get; set; }
         public DateTime Date { get; set; }
+
+        [FieldSize(Size: 200)]
         public string Address { get; set; }
         public bool Active { get; set; }
+
+        [Image]
         public byte[] image { get; set; }
         
     }

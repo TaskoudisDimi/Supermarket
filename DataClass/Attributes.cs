@@ -64,7 +64,12 @@ namespace ClassLibrary1
 
     }
 
-    public class IdentityAttribute : PrimaryKeyAttribute
+    public class EncryptedAttribute : Attribute
+    {
+
+    }
+
+    public class ImageAttribute : Attribute
     {
 
     }

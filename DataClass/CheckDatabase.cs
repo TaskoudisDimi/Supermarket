@@ -95,13 +95,12 @@ namespace ClassLibrary1
             return modelSchemaTable;
         }
 
-
         private SchemaTable GetSqlSchemaTable(string tableName)
         {
             List<SchemaColumn> columns = new List<SchemaColumn>();
             //Find the table from SQL server
             string sql = $@"SELECT ORDINAL_POSITION, COLUMN_NAME, DATA_TYPE, CHARACTER_MAXIMUM_LENGTH, " +
-                $@" IS_NULLABLE FROM smarketdb.INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '{tableName}'";
+                $@" IS_NULLABLE FROM smarket.INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '{tableName}'";
             DataTable existingSQLTable = DataContext.Instance.SelectDataTable(sql);
             if (existingSQLTable != null)
             {
@@ -120,7 +119,7 @@ namespace ClassLibrary1
                     }
                     else
                     {
-                        column = new SchemaColumn(columnName, dataType);
+                        column = new SchemaColumn(columnName, dataType, 0, isNullable);
                     }
                     columns.Add(column);
                 }
@@ -139,70 +138,57 @@ namespace ClassLibrary1
 
         private void CompareAndUpdateSchemaTables(SchemaTable sqlSchemaTable, SchemaTable modelSchemaTable)
         {
-
             string sql = "";
             string nullableColumn = "";
-            int size = -1;
-            // Compare each column
-            foreach (var column in modelSchemaTable.Columns)
+            string defaultSize = "MAX";
+
+            // Step 1: Compare and drop columns that exist in SQL Schema but not in the model
+            foreach (var sqlColumn in sqlSchemaTable.Columns)
             {
-                // Find matching column in schemaTable by ColumnName
-                var matchingColumn = sqlSchemaTable.Columns.FirstOrDefault(c => c.ColumnName == column.ColumnName);
+                var matchingColumn = modelSchemaTable.Columns.FirstOrDefault(c => c.ColumnName == sqlColumn.ColumnName);
                 if (matchingColumn == null)
                 {
-                    //Model column not found in the sql schema
-                    if (column.Nullable)
-                    {
-                        nullableColumn = "NULL";
-                    }
-                    else
-                    {
-                        nullableColumn = "NOT NULL";
-                    }
-                    if (column.DataType == SqlDbType.Bit || column.DataType == SqlDbType.Binary
-                            || column.DataType == SqlDbType.VarBinary || column.Size == 0 || column.Size == -1)
-                    {
-                        sql = $"ALTER TABLE smarketdb.dbo.{modelSchemaTable.TableName} " +
-                                    $"ADD {column.ColumnName}  {column.DataType} {nullableColumn}";
-                    }
-                    else
-                    {
-                        sql = $"ALTER TABLE smarketdb.dbo.{modelSchemaTable.TableName} " +
-                                    $"ADD {column.ColumnName}  {column.DataType}" + $"({column.Size}) {nullableColumn}";
-                    }
+                    sql = $"ALTER TABLE smarket.dbo.{sqlSchemaTable.TableName} " +
+                                $"DROP COLUMN {sqlColumn.ColumnName}";
                     DataContext.Instance.ExecuteNQ(sql);
                 }
-                else
+            }
+
+            // Step 2: Compare and update columns based on the model schema
+            foreach (var column in modelSchemaTable.Columns)
+            {
+                var matchingColumn = sqlSchemaTable.Columns.FirstOrDefault(c => c.ColumnName == column.ColumnName);
+
+                if (matchingColumn == null)
                 {
-                    // Compare individual column properties (DataType, Size, IsNullable)
-                    if (matchingColumn.DataType != column.DataType ||
+                    // Column not found in SQL Schema, add the column based on model definition
+                    nullableColumn = column.Nullable ? "NULL" : "NOT NULL";
+                    string sizePart = (column.Size != null && column.Size != 0 && column.Size != -1) ?
+                        $"({column.Size})" : $"({defaultSize})";
+
+                    sql = $"ALTER TABLE smarket.dbo.{modelSchemaTable.TableName} " +
+                                $"ADD {column.ColumnName} {column.DataType}{sizePart} {nullableColumn}";
+                    DataContext.Instance.ExecuteNQ(sql);
+                }
+                else if (matchingColumn.DataType != column.DataType ||
                         matchingColumn.Size != column.Size ||
                         matchingColumn.Nullable != column.Nullable)
-                    {
-                        if (matchingColumn.Nullable)
-                        {
-                            nullableColumn = "NULL";
-                        }
-                        else
-                        {
-                            nullableColumn = "NOT NULL";
-                        }
-                        
-                        if (column.DataType == SqlDbType.Bit || column.DataType == SqlDbType.Binary
-                            || column.DataType == SqlDbType.VarBinary && column.Size == 0 || column.Size == -1)
-                        {
-                            sql = $"ALTER TABLE smarketdb.dbo.{modelSchemaTable.TableName} " +
-                                        $"ALTER COLUMN {column.ColumnName}  {column.DataType} {nullableColumn}";
-                        }
-                        else
-                        {
-                            sql = $"ALTER TABLE smarketdb.dbo.{modelSchemaTable.TableName} " +
-                                        $"ALTER COLUMN {column.ColumnName}  {column.DataType}" + $"({column.Size}) {nullableColumn}";
-                        }
-                        DataContext.Instance.ExecuteNQ(sql);
-                    }    
+                {
+                    // Column properties differ, alter the column in SQL Schema to match the model
+                    nullableColumn = column.Nullable ? "NULL" : "NOT NULL";
+                    string sizePart = (column.DataType == SqlDbType.Bit ||
+                                       (column.DataType == SqlDbType.Binary ||
+                                        column.DataType == SqlDbType.VarBinary) &&
+                                       (column.Size == 0 || column.Size == -1)) ?
+                        "" : $"({column.Size})";
+
+                    sql = $"ALTER TABLE smarket.dbo.{modelSchemaTable.TableName} " +
+                                $"ALTER COLUMN {column.ColumnName} {column.DataType}{sizePart} {nullableColumn}";
+                    DataContext.Instance.ExecuteNQ(sql);
                 }
+
             }
+            
         }
 
         private bool TableExists(string tableName)
@@ -229,6 +215,7 @@ namespace ClassLibrary1
                 string type = p.PropertyType.ToString();
                 string identityText = "";
                 string fieldName = p.Name;
+                string defaultSize = "MAX";
                 if (Attribute.IsDefined(p, typeof(PrimaryKeyAttribute)))
                 {
                     identityText = "IDENTITY(1,1)";
@@ -237,19 +224,19 @@ namespace ClassLibrary1
                 bool isNullable = type.IndexOf("System.Nullable`1") > -1 || Attribute.IsDefined(p, typeof(NullableFieldAttribute));
                 string nullText = isNullable ? "NULL" : "NOT NULL";
                 int size = -1;
+
                 if (Attribute.IsDefined(p, typeof(FieldSizeAttribute)))
                 {
                     FieldSizeAttribute sizeAttr = p.GetCustomAttribute<FieldSizeAttribute>();
                     size = sizeAttr.Size;
-
                 }
                 bool isBinary = Attribute.IsDefined(p, typeof(BinaryFieldAttribute));
                 string dbType = getDBColumnType(type, isBinary);
-                if (TEXTIMAGE_ON.Length == 0 && (isBinary || (dbType.StartsWith("[nvarchar]") && size == -1)))
-                {
-                    TEXTIMAGE_ON = "TEXTIMAGE_ON[PRIMARY]";
-                }
-                if(size != -1)
+                //if (TEXTIMAGE_ON.Length == 0 && (isBinary || (dbType.StartsWith("[nvarchar]") && size == -1)))
+                //{
+                //    TEXTIMAGE_ON = "TEXTIMAGE_ON[PRIMARY]";
+                //}
+                if(size != -1 && size != null && size != 0)
                 {
                     sb.AppendLine($"[{fieldName}] {dbType}" + $"({size})" + $"{identityText} {nullText},");
                 }
@@ -257,7 +244,6 @@ namespace ClassLibrary1
                 {
                     sb.AppendLine($"[{fieldName}] {dbType} {identityText} {nullText},");
                 }
-                
             }
             if (primaryKeyField.Length > 0)
             {
@@ -268,7 +254,6 @@ namespace ClassLibrary1
             }
             DataContext.Instance.ExecuteNQ(sb.ToString());
         }
-
 
         // Method to convert C# type to SqlDbType (Modify based on your requirements)
         private SqlDbType ConvertToSqlDbType(Type type)
@@ -296,7 +281,7 @@ namespace ClassLibrary1
             return SqlDbType.VarChar; // For example
         }
 
-        private string getDBColumnType(string type, bool isEncrypted)
+        private string getDBColumnType(string type, bool isBinary)
         {
             string dbType = "";
             switch (type)
@@ -326,7 +311,7 @@ namespace ClassLibrary1
                 case "System.String":
                 case "System.Nullable`1[System.String]":
                     {
-                        if (isEncrypted)
+                        if (isBinary)
                         {
                             dbType = $"[varbinary]";
                         }

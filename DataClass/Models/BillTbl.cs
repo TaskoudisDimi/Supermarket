@@ -9,13 +9,22 @@ namespace ClassLibrary1.Models
     [TableName("BillTbl")]
     public class BillTbl
     {
-        [DatabaseColumn(IsPrimaryKey = true, IsEncrypted = false)]
+        [PrimaryKey]
         public int BillId { get; set; }
+
+        [FieldSize(Size: 200)]
         public string Comments { get; set; }
+
+        [FieldSize(Size: 200)]
         public string SellerName { get; set; }
+
         public DateTime Date { get; set; }
         public int TotAmt { get; set; }
+
+        [FieldSize(Size: 200)]
         public string ProductIDs { get; set; }
+
+        [FieldSize(Size: 200)]
         public string CategoryIDs { get; set; }
 
     }

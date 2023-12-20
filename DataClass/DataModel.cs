@@ -120,15 +120,15 @@ namespace ClassLibrary1
 
                 foreach (PropertyInfo p in properties)
                 {
-                    var primaryKeyAttribute = p.GetCustomAttribute<DatabaseColumnAttribute>();
-                    if (primaryKeyAttribute != null && primaryKeyAttribute.IsPrimaryKey)
+                    var primaryKeyAttribute = p.GetCustomAttribute<PrimaryKeyAttribute>();
+                    if (primaryKeyAttribute != null)
                     {
                         continue; // Skip primary key columns
                     }
                     Value = p.GetValue(item, null);
                     // Check if the property has the IsEncrypted attribute set to true
-                    var databaseColumnAttribute = p.GetCustomAttribute<DatabaseColumnAttribute>();
-                    if (databaseColumnAttribute != null && databaseColumnAttribute.IsEncrypted)
+                    var databaseColumnAttribute = p.GetCustomAttribute<EncryptedAttribute>();
+                    if (databaseColumnAttribute != null)
                     {
                         ValuesCMD = GetValueFromItem(p, Value, true);
                     }

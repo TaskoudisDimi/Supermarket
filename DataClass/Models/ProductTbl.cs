@@ -10,15 +10,18 @@ namespace ClassLibrary1.Models
     [TableName("ProductTbl")]
     public class ProductTbl : Excel
     {
-        [DatabaseColumn(IsPrimaryKey = true, IsEncrypted = false)]
+        [PrimaryKey]
         public int ProdId { get; set; }
+
+        [FieldSize(Size: 200)]
         public string ProdName { get; set; }
         public int ProdQty { get; set; }
         public int ProdPrice { get; set; }
         public int ProdCatID { get; set; }
+
+        [FieldSize(Size: 200)]
         public string ProdCat { get; set; }
         public DateTime Date { get; set; }
-
 
     }
 }

@@ -10,13 +10,13 @@ namespace ClassLibrary1.Models
     public class Admins : CheckDatabase
     {
         [PrimaryKey]
-        [DatabaseColumn(isPrimaryKey:true)]
         public int Id { get; set; }
 
         [FieldSize(Size:200)]
         public string UserName { get; set; }
 
-        [DatabaseColumn(isEncrypted:true)]
+        [Encrypted]
+
         [FieldSize(Size: 200)]
         public string Password { get; set; }
 
@@ -25,7 +25,5 @@ namespace ClassLibrary1.Models
         [NullableField(true)]
         public bool isSuperAdmin { get; set; }
 
-        [NullableField(true)]
-        public string Test { get; set; }
     }
 }
