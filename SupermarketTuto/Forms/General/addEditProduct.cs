@@ -25,7 +25,6 @@ namespace SupermarketTuto.Forms.General
         public addEditProduct(DataTable productTable_, DataGridViewRow selected_, DataTable categoryTable_ ,bool add)
         {
             InitializeComponent();
-            this.Icon = new System.Drawing.Icon("C:/Users/chris/Desktop/Dimitris/Tutorials/Supermarket/SupermarketTuto/Resources/supermarket.ico");
             productTable = productTable_;
             selected = selected_;
             categoryTable = categoryTable_ ;

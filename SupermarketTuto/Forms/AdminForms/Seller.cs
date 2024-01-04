@@ -114,7 +114,7 @@ namespace SupermarketTuto.Forms
         {
             tableWithoutColumns.Rows.Add(e.CreatedSeller.SellerId, e.CreatedSeller.SellerUserName, e.CreatedSeller.SellerPass,
                 e.CreatedSeller.SellerName, e.CreatedSeller.SellerAge, e.CreatedSeller.SellerPhone, e.CreatedSeller.Date,
-                e.CreatedSeller.Address, e.CreatedSeller.Active );
+                e.CreatedSeller.Address, e.CreatedSeller.Active);
             SellDGV.DataSource = tableWithoutColumns;
         }
 
@@ -151,38 +151,39 @@ namespace SupermarketTuto.Forms
         {
             try
             {
-                List<int> sellerIdsToDelete = new List<int>();
-
-                // Loop over the selected rows and add their SellerIds to the list
-                foreach (DataGridViewRow selectedRow in SellDGV.SelectedRows)
+                DialogResult result = MessageBox.Show("Do you want to delete this item?", "Warning", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes)
                 {
-                    // Retrieve the SellerId from the selected row
-                    if (selectedRow.Cells["SellerId"].Value != null)
+                    List<int> sellerIdsToDelete = new List<int>();
+                    // Loop over the selected rows and add their SellerIds to the list
+                    foreach (DataGridViewRow selectedRow in SellDGV.SelectedRows)
                     {
-                        int sellerId = Convert.ToInt32(selectedRow.Cells["SellerId"].Value);
-                        sellerIdsToDelete.Add(sellerId);
+                        // Retrieve the SellerId from the selected row
+                        if (selectedRow.Cells["SellerId"].Value != null)
+                        {
+                            int sellerId = Convert.ToInt32(selectedRow.Cells["SellerId"].Value);
+                            sellerIdsToDelete.Add(sellerId);
+                        }
                     }
-                }
-
-                // Delete the sellers based on their SellerIds
-                foreach (int sellerIdToDelete in sellerIdsToDelete)
-                {
-                    SellersTbl seller = DataModel.Select<SellersTbl>(where: $"sellerId = '{sellerIdToDelete}'").FirstOrDefault();
-                    if (seller != null)
+                    // Delete the sellers based on their SellerIds
+                    foreach (int sellerIdToDelete in sellerIdsToDelete)
                     {
-                        DataModel.Delete<SellersTbl>(seller);
+                        SellersTbl seller = DataModel.Select<SellersTbl>(where: $"sellerId = '{sellerIdToDelete}'").FirstOrDefault();
+                        if (seller != null)
+                        {
+                            DataModel.Delete<SellersTbl>(seller);
+                        }
                     }
-                }
+                    // Refresh the DataGridView
+                    SellDGV.Refresh();
 
-                // Refresh the DataGridView
-                SellDGV.Refresh();
-
-                // Remove the selected rows from the DataGridView
-                foreach (DataGridViewRow selectedRow in SellDGV.SelectedRows)
-                {
-                    if (!selectedRow.IsNewRow)
+                    // Remove the selected rows from the DataGridView
+                    foreach (DataGridViewRow selectedRow in SellDGV.SelectedRows)
                     {
-                        SellDGV.Rows.Remove(selectedRow);
+                        if (!selectedRow.IsNewRow)
+                        {
+                            SellDGV.Rows.Remove(selectedRow);
+                        }
                     }
                 }
             }
@@ -259,9 +260,9 @@ namespace SupermarketTuto.Forms
         {
             try
             {
-                if(filterTable.Rows.Count > 0)
+                if (filterTable.Rows.Count > 0)
                 {
-                    if(activeComboBox.Text == "Not Set")
+                    if (activeComboBox.Text == "Not Set")
                     {
                         SellDGV.DataSource = filterTable;
                         SellDGV.RowHeadersVisible = false;

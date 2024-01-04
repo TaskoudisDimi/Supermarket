@@ -92,7 +92,7 @@ namespace SupermarketTuto.Forms
 
             MenuStrip.Instance.Menu(ProdDGV, productTable, categoryTable, productType, false);
 
-        }       
+        }
 
         private void MyDataGridView_UpdateData(object sender, EventArgs e)
         {
@@ -152,7 +152,7 @@ namespace SupermarketTuto.Forms
         }
 
         #region BackgroundWorker
-  
+
 
         #endregion
 
@@ -176,7 +176,7 @@ namespace SupermarketTuto.Forms
             edit.ItemEdited += Edit_ItemEdited;
             edit.Show();
 
-            
+
         }
 
         private void Add_ItemCreated(object sender, ProductEventArgs e)
@@ -208,25 +208,28 @@ namespace SupermarketTuto.Forms
         {
             try
             {
-                List<DataRow> rowsToDelete = new List<DataRow>();
-                DataRow row = null;
-                // loop over the selected rows and add them to the list
-                foreach (DataGridViewRow selectedRow in ProdDGV.SelectedRows)
+                DialogResult result = MessageBox.Show("Do you want to delete this item?", "Warning", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes)
                 {
-                    //Convert DataGridViewRow -> DataRow
-                    row = ((DataRowView)selectedRow.DataBoundItem).Row;
-                    string ProdId = Convert.ToInt32(row["ProdId"]).ToString();
-                    ProductTbl products = DataModel.Select<ProductTbl>(where: $"ProdId = '{ProdId}' ").FirstOrDefault();
-                    DataModel.Delete<ProductTbl>(products);
-                    rowsToDelete.Add(row);
+                    List<DataRow> rowsToDelete = new List<DataRow>();
+                    DataRow row = null;
+                    // loop over the selected rows and add them to the list
+                    foreach (DataGridViewRow selectedRow in ProdDGV.SelectedRows)
+                    {
+                        //Convert DataGridViewRow -> DataRow
+                        row = ((DataRowView)selectedRow.DataBoundItem).Row;
+                        string ProdId = Convert.ToInt32(row["ProdId"]).ToString();
+                        ProductTbl products = DataModel.Select<ProductTbl>(where: $"ProdId = '{ProdId}' ").FirstOrDefault();
+                        DataModel.Delete<ProductTbl>(products);
+                        rowsToDelete.Add(row);
+                    }
+                    // loop over the rows to delete and remove them from the DataTable
+                    foreach (DataRow rowToDelete in rowsToDelete)
+                    {
+                        productTable.Rows.Remove(rowToDelete);
+                    }
+                    ProdDGV.DataSource = productTable;
                 }
-
-                // loop over the rows to delete and remove them from the DataTable
-                foreach (DataRow rowToDelete in rowsToDelete)
-                {
-                    productTable.Rows.Remove(rowToDelete);
-                }
-                ProdDGV.DataSource = productTable;
             }
             catch (Exception ex)
             {
@@ -557,7 +560,7 @@ namespace SupermarketTuto.Forms
                     tableNew = Utils.Utils.ToDataTable(list);
                 }
                 List<ProductTbl> listProducts = DataModel.GetListFromDataTable<ProductTbl>(tableNew);
-                foreach(ProductTbl prod in listProducts)
+                foreach (ProductTbl prod in listProducts)
                 {
                     DataModel.Create(prod);
                 }

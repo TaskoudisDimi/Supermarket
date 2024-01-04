@@ -48,7 +48,6 @@ namespace SupermarketTuto.Forms.General
         public addEditSeller(DataTable sellersTable_, DataGridViewRow selected_, bool add)
         {
             InitializeComponent();
-            this.Icon = new System.Drawing.Icon("C:/Users/chris/Desktop/Dimitris/Tutorials/Supermarket/SupermarketTuto/Resources/supermarket.ico");
             sellersTable = sellersTable_;
             selected = selected_;
             BinaryFormatter formatter = new BinaryFormatter();

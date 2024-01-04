@@ -22,7 +22,6 @@ namespace SupermarketTuto
         public Register()
         {
             InitializeComponent();
-            this.Icon = new System.Drawing.Icon("C:/Users/chris/Desktop/Dimitris/Tutorials/Supermarket/SupermarketTuto/Resources/supermarket.ico");
         }
 
         private void RegisterButton_Click(object sender, EventArgs e)
@@ -42,9 +41,7 @@ namespace SupermarketTuto
                     admin.UserName = UsernameTextBox.Text;
                     admin.Password = PasswordTextBox.Text;
                     admin.Active = true;
-
                     DataModel.Create<Admins>(admin);
-
                     MessageBox.Show("Your Account has been Successfully Created", "Registration Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     UsernameTextBox.Clear();
                     PasswordTextBox.Clear();
@@ -110,6 +107,7 @@ namespace SupermarketTuto
                 e.Cancel = true;
             }
         }
+
     }
 }
 

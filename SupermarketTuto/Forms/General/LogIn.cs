@@ -29,7 +29,6 @@ namespace SupermarketTuto
         public LogIn()
         {
             InitializeComponent();
-            this.Icon = new System.Drawing.Icon("C:/Users/chris/Desktop/Dimitris/Tutorials/Supermarket/SupermarketTuto/Resources/supermarket.ico");
             selectRoleCombobox.Items.AddRange(new string[] { "Admin", "Seller" });
             selectRoleCombobox.Items.Insert(0, "Select Role");
             selectRoleCombobox.SelectedIndex = 0;

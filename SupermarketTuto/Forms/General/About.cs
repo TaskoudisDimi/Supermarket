@@ -17,14 +17,10 @@ namespace SupermarketTuto
         public About()
         {
             InitializeComponent();
-            this.Icon = new System.Drawing.Icon("C:/Users/chris/Desktop/Dimitris/Tutorials/Supermarket/SupermarketTuto/Resources/supermarket.ico");
         }
 
         private void About_Load(object sender, EventArgs e)
         {
-
-
-            // Set the text property of the label
             label1.Text = "This is an application for the management of people and products, categories, " +
                 "and bills of a Supermarket.\r\nIncludes two different types of forms. " +
                 "Those used by administrators and those used by sellers:\r\nAdministrators can do some operations " +
@@ -33,15 +29,6 @@ namespace SupermarketTuto
                 "the ability to export and import files (csv, xlsx). For data entry an API is called so that some products are " +
                 "entered automatically.\r\nFinally, the API has been created so that it can receive or " +
                 "send information to some third party software.";
-
-            //textBox1.Text = "This is an application for the management of people and products, categories, " +
-            //    "and bills of a Supermarket.\r\nIncludes two different types of forms. " +
-            //    "Those used by administrators and those used by sellers:\r\nAdministrators can do some operations " +
-            //    "in the database (cleaning, restoring, etc.), create/update/delete sellers, and monitor products " +
-            //    "and categories.\r\nSellers can manage products, categories, and bill products.\r\nAlso, most forms have " +
-            //    "the ability to export and import files (csv, xlsx). For data entry an API is called so that some products are " +
-            //    "entered automatically.\r\nFinally, the API has been created so that it can receive or " +
-            //    "send information to some third party software.";
         }
     }
 }

@@ -154,24 +154,28 @@ namespace SupermarketTuto.Forms
         {
             try
             {
-                List<DataRow> rowsToDelete = new List<DataRow>();
-                DataRow row = null;
-                // loop over the selected rows and add them to the list
-                foreach (DataGridViewRow selectedRow in usersDataGridView.SelectedRows)
+                DialogResult result = MessageBox.Show("Do you want to delete this item?", "Warning", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes)
                 {
-                    //Convert DataGridViewRow -> DataRow
-                    row = ((DataRowView)selectedRow.DataBoundItem).Row;
-                    string CatId = Convert.ToInt32(row["Id"]).ToString();
-                    Admins adminToDelete = DataModel.Select<Admins>(where: $"Id = '{CatId}' ").FirstOrDefault();
-                    DataModel.Delete<Admins>(adminToDelete);
-                    rowsToDelete.Add(row);
-                }
+                    List<DataRow> rowsToDelete = new List<DataRow>();
+                    DataRow row = null;
+                    // loop over the selected rows and add them to the list
+                    foreach (DataGridViewRow selectedRow in usersDataGridView.SelectedRows)
+                    {
+                        //Convert DataGridViewRow -> DataRow
+                        row = ((DataRowView)selectedRow.DataBoundItem).Row;
+                        string CatId = Convert.ToInt32(row["Id"]).ToString();
+                        Admins adminToDelete = DataModel.Select<Admins>(where: $"Id = '{CatId}' ").FirstOrDefault();
+                        DataModel.Delete<Admins>(adminToDelete);
+                        rowsToDelete.Add(row);
+                    }
 
-                foreach (DataRow rowToDelete in rowsToDelete)
-                {
-                    filterTable.Rows.Remove(rowToDelete);
-                }
-                usersDataGridView.DataSource = filterTable;
+                    foreach (DataRow rowToDelete in rowsToDelete)
+                    {
+                        filterTable.Rows.Remove(rowToDelete);
+                    }
+                    usersDataGridView.DataSource = filterTable;
+                } 
             }
             catch (Exception ex)
             {

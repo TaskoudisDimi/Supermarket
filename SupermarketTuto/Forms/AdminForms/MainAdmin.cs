@@ -10,6 +10,7 @@ namespace SupermarketTuto.Forms.AdminForms
 
         TCPClient ClientTCP = new TCPClient();
         Admins admin = new Admins();
+
         public MainAdmin(Admins admin_ = null)
         {
             InitializeComponent();

@@ -25,7 +25,6 @@ namespace SupermarketTuto.Forms.General
         public addEditAdmin(DataTable adminTable_, DataGridViewRow selected_, bool add)
         {
             InitializeComponent();
-            this.Icon = new System.Drawing.Icon("C:/Users/chris/Desktop/Dimitris/Tutorials/Supermarket/SupermarketTuto/Resources/supermarket.ico");
             adminTable = adminTable_;
             selected = selected_;
 
@@ -78,7 +77,7 @@ namespace SupermarketTuto.Forms.General
 
         }
 
-        private void editButton_Click(object sender, EventArgs e)
+        private void editButton_Click(object senr, EventArgs e)
         {
             try
             {

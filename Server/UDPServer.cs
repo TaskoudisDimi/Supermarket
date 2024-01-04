@@ -14,6 +14,8 @@ namespace Server
         private bool isRunning;
         private IPEndPoint clientEndpoint;
         private List<IPEndPoint> clients = new List<IPEndPoint>();
+        public int countUDPClients = 0;
+
         public UDPServer()
         {
             udpServer = new UdpClient(9999);

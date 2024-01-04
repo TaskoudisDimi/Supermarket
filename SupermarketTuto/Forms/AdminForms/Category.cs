@@ -10,6 +10,7 @@ using SupermarketTuto.Interfaces;
 using SupermarketTuto.Utils;
 using System.ComponentModel;
 using System.Data;
+using System.Net.Sockets;
 using System.Text;
 using System.Windows.Forms;
 using DataTable = System.Data.DataTable;
@@ -31,10 +32,32 @@ namespace SupermarketTuto.Forms
         public Category()
         {
             InitializeComponent();
-            //ClientTCP.ConnectTCPClient();
-            //ClientTCP.DataReceived += HandleReceivedDataTCP;
-            ClientUDP.ConnectUDPClient();
-            ClientUDP.DataReceived += HandleReceivedDataUDP;
+            // You might obtain local IP addresses using System.Net.NetworkInformation.NetworkInterface
+            // For demonstration, here's a sample code to get the first IPv4 address associated with an interface
+            string clientIpAddress = "";
+            foreach (var networkInterface in System.Net.NetworkInformation.NetworkInterface.GetAllNetworkInterfaces())
+            {
+                var properties = networkInterface.GetIPProperties();
+                foreach (var ipAddress in properties.UnicastAddresses)
+                {
+                    if (ipAddress.Address.AddressFamily == AddressFamily.InterNetwork)
+                    {
+                        clientIpAddress = ipAddress.Address.ToString();
+                        break;
+                    }
+                }
+                if (!string.IsNullOrEmpty(clientIpAddress))
+                {
+                    break;
+                }
+            }
+
+            // Use clientIpAddress and a specified clientPort (or '0' to allow the OS to select a port)
+            int clientPort = 0; // Set to '0' to allow OS to select an available port
+            ClientTCP.ConnectTCPClient(clientIpAddress, clientPort);
+            ClientTCP.DataReceived += HandleReceivedDataTCP;
+            //ClientUDP.ConnectUDPClient();
+            //ClientUDP.DataReceived += HandleReceivedDataUDP;
 
         }
 
@@ -208,15 +231,14 @@ namespace SupermarketTuto.Forms
             item.Date = e.CreatedCategory.Date;
             List<CategoryTbl> data = new List<CategoryTbl>();
             data.Add(item);
-            //ClientTCP.SendDataTCP<CategoryTbl>(data);
-            ClientUDP.SendDataUDP<CategoryTbl>(data);
+            ClientTCP.SendDataTCP<CategoryTbl>(data);
+            //ClientUDP.SendDataUDP<CategoryTbl>(data);
             CatDGV.Refresh();
         }
 
         private void Edit_ItemEdited(object sender, CategoryEventArgs e)
         {
             // Update the edited category in the DataTable in form
-
             DataRow editedRow = categoryTable.Rows.Find(e.PrimaryKeyValue);
             if (editedRow != null)
             {
@@ -233,10 +255,6 @@ namespace SupermarketTuto.Forms
             addEditCategory edit = new addEditCategory(categoryTable, currentRow, false);
             edit.CatIdTb.ReadOnly = true;
             edit.ItemEdited += Edit_ItemEdited;
-
-            //TCP
-            //edit.DataChanged += Edit_DataChanged;
-
             edit.Show();
         }
 
@@ -244,24 +262,28 @@ namespace SupermarketTuto.Forms
         {
             try
             {
-                List<DataRow> rowsToDelete = new List<DataRow>();
-                DataRow row = null;
-                // loop over the selected rows and add them to the list
-                foreach (DataGridViewRow selectedRow in CatDGV.SelectedRows)
+                DialogResult result = MessageBox.Show("Do you want to delete this item?", "Warning", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes)
                 {
-                    //Convert DataGridViewRow -> DataRow
-                    row = ((DataRowView)selectedRow.DataBoundItem).Row;
-                    string CatId = Convert.ToInt32(row["CatId"]).ToString();
-                    CategoryTbl category = DataModel.Select<CategoryTbl>(where: $"CatId = '{CatId}' ").FirstOrDefault();
-                    DataModel.Delete<CategoryTbl>(category);
-                    rowsToDelete.Add(row);
-                }
+                    List<DataRow> rowsToDelete = new List<DataRow>();
+                    DataRow row = null;
+                    // loop over the selected rows and add them to the list
+                    foreach (DataGridViewRow selectedRow in CatDGV.SelectedRows)
+                    {
+                        //Convert DataGridViewRow -> DataRow
+                        row = ((DataRowView)selectedRow.DataBoundItem).Row;
+                        string CatId = Convert.ToInt32(row["CatId"]).ToString();
+                        CategoryTbl category = DataModel.Select<CategoryTbl>(where: $"CatId = '{CatId}' ").FirstOrDefault();
+                        DataModel.Delete<CategoryTbl>(category);
+                        rowsToDelete.Add(row);
+                    }
 
-                foreach (DataRow rowToDelete in rowsToDelete)
-                {
-                    categoryTable.Rows.Remove(rowToDelete);
+                    foreach (DataRow rowToDelete in rowsToDelete)
+                    {
+                        categoryTable.Rows.Remove(rowToDelete);
+                    }
+                    CatDGV.DataSource = categoryTable;
                 }
-                CatDGV.DataSource = categoryTable;
             }
             catch (Exception ex)
             {
@@ -304,9 +326,9 @@ namespace SupermarketTuto.Forms
             try
             {
                 List<string> rowsCategories = new List<string>();
-                foreach(DataGridViewRow rowCat in CatDGV.Rows)
+                foreach (DataGridViewRow rowCat in CatDGV.Rows)
                 {
-                    if(rowCat != null)
+                    if (rowCat != null)
                     {
                         DataGridViewCheckBoxCell checkBoxCell = rowCat.Cells[0] as DataGridViewCheckBoxCell;
                         if (checkBoxCell.Value != null && (bool)checkBoxCell.Value)
@@ -316,7 +338,7 @@ namespace SupermarketTuto.Forms
                                 rowsCategories.Add(CatId);
                         }
                     }
-                    
+
                 }
                 SelectedProducts formSelectedProd = new SelectedProducts(rowsCategories);
                 formSelectedProd.Show();

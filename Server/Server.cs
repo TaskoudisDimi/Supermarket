@@ -25,7 +25,6 @@ namespace Server
             udpServer.StartUDP();
             startButton.Enabled = false;
             logListBox.Items.Add("Server UDP started listening on port 8080." + Environment.NewLine);
-
             #endregion
 
             #region TCP
@@ -34,10 +33,28 @@ namespace Server
             tcpServer.StartTCP();
             startButton.Enabled = false;
             logListBox.Items.Add("Server TCP started listening on port 8080." + Environment.NewLine);
-            
+
+            tcpServer.ClientConnected += UpdateNumberOfClientsLabel;
+
             #endregion
 
 
+        }
+
+        // Method to update the label with the count of connected clients
+        private void UpdateNumberOfClientsLabel(int numberOfClients)
+        {
+            if (labelNumberOfClients.InvokeRequired)
+            {
+                labelNumberOfClients.BeginInvoke((MethodInvoker)delegate ()
+                {
+                    labelNumberOfClients.Text = numberOfClients.ToString();
+                });
+            }
+            else
+            {
+                labelNumberOfClients.Text = numberOfClients.ToString();
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)

@@ -15,7 +15,6 @@ namespace SupermarketTuto.Forms.General
         public ExceptionForm(string message, string stackTrace)
         {
             InitializeComponent();
-            this.Icon = new System.Drawing.Icon("C:/Users/chris/Desktop/Dimitris/Tutorials/Supermarket/SupermarketTuto/Resources/supermarket.ico");
             messageTextBox.Text = message;
             stachTraceTextBox.Text = stackTrace;
         }

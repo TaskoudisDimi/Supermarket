@@ -30,7 +30,6 @@ namespace SupermarketTuto.Forms.General
         public addEditCategory(DataTable categoryTable_, DataGridViewRow selected_, bool add)
         {
             InitializeComponent();
-            this.Icon = new System.Drawing.Icon("C:/Users/chris/Desktop/Dimitris/Tutorials/Supermarket/SupermarketTuto/Resources/supermarket.ico");
             categoryTable = categoryTable_;
             selected = selected_;
 
@@ -90,7 +89,6 @@ namespace SupermarketTuto.Forms.General
                     category.Date = (DateTime)dateTimePicker.Value.Date;
                     DataModel.Update<CategoryTbl>(category);
                     OnItemEdited(new CategoryEventArgs(category, category.CatId));
-                    //GetChanges(table, row);
                     MessageBox.Show($"Successfully inserted Category {category.CatName}", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information); 
                     this.Close();
                 }
@@ -108,35 +106,7 @@ namespace SupermarketTuto.Forms.General
         }
 
 
-        int columnIndex;
-        int rowIndex;
-        private void GetChanges(DataTable table, DataRow row)
-        {
-            if (table != null)
-            {
-                foreach (DataRow changedRow in table.Rows)
-                {
-                    if (changedRow.RowState == DataRowState.Modified)
-                    {
-                        foreach (DataColumn column in changedRow.Table.Columns)
-                        {
-                            if (!Equals(changedRow[column, DataRowVersion.Original], changedRow[column, DataRowVersion.Current]))
-                            {
-                                columnIndex = table.Columns.IndexOf(column.ColumnName);
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
-            if (selected != null)
-            {
-                rowIndex = selected.Index;
-            }
-            object cellValue = table.Rows[0].ItemArray[columnIndex];
-
-
-        }
+       
     }
 
     public class CategoryEventArgs : EventArgs

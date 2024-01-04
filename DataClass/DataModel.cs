@@ -224,8 +224,8 @@ namespace ClassLibrary1
                 {
 
                     // Check if the property has the IsPrimaryKey attribute set to true
-                    var primaryKeyAttribute = p.GetCustomAttribute<DatabaseColumnAttribute>();
-                    if (primaryKeyAttribute != null && primaryKeyAttribute.IsPrimaryKey)
+                    var primaryKeyAttribute = p.GetCustomAttribute<PrimaryKeyAttribute>();
+                    if (primaryKeyAttribute != null)
                     {
                         idOfTable = p.Name;
                         valueOfIdOfTable = p.GetValue(item, null);
@@ -278,8 +278,8 @@ namespace ClassLibrary1
                 foreach (PropertyInfo p in properties)
                 {
                     // Check if the property has the IsPrimaryKey attribute set to true
-                    var primaryKeyAttribute = p.GetCustomAttribute<DatabaseColumnAttribute>();
-                    if (primaryKeyAttribute != null && primaryKeyAttribute.IsPrimaryKey)
+                    var primaryKeyAttribute = p.GetCustomAttribute<PrimaryKeyAttribute>();
+                    if (primaryKeyAttribute != null)
                     {
                         idOfTable = p.Name;
                         valueOfIdOfTable = p.GetValue(item, null);

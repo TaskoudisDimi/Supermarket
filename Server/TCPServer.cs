@@ -1,35 +1,29 @@
-﻿using ClassLibrary1;
-using ClassLibrary1.Models;
-using Microsoft.VisualBasic.Devices;
-using SupermarketTuto.Utils;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
+using System.Threading;
 
 namespace Server
 {
     public class TCPServer
     {
-
         private Socket serverTCP;
         private Thread serverThread;
         private readonly object _lock = new object();
-        private List<Socket> _clients = new List<Socket>();
+        private HashSet<EndPoint> _clientEndPoints = new HashSet<EndPoint>(); // Use HashSet for unique client endpoints
+        public int countTCPClients = 0;
+
+        public delegate void ClientConnectedHandler(int numberOfClients);
+        public event ClientConnectedHandler ClientConnected;
 
         public void StartTCP()
         {
             serverTCP = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             serverTCP.Bind(new IPEndPoint(IPAddress.Any, 8080));
             serverTCP.Listen(10);
-
             serverThread = new Thread(StartServer);
             serverThread.Start();
-
         }
 
         public void StartServer(object? obj)
@@ -37,10 +31,6 @@ namespace Server
             while (true)
             {
                 Socket clientSocket = serverTCP.Accept();
-                lock (_lock)
-                {
-                    _clients.Add(clientSocket);
-                }
                 Thread clientThread = new Thread(() => HandleClient(clientSocket));
                 clientThread.Start();
             }
@@ -48,6 +38,20 @@ namespace Server
 
         public void HandleClient(Socket clientSocket)
         {
+            EndPoint clientEndPoint = clientSocket.RemoteEndPoint;
+
+            lock (_lock)
+            {
+                // Check if the client's endpoint already exists in the set
+                if (!_clientEndPoints.Contains(clientEndPoint))
+                {
+                    _clientEndPoints.Add(clientEndPoint); // Add the unique client endpoint to the set
+                    countTCPClients = _clientEndPoints.Count; // Update the count of unique clients
+                }
+            }
+
+            ClientConnected?.Invoke(countTCPClients); // Fire the event with the count of unique clients
+
             byte[] buffer = new byte[1024];
             int bytesRead;
             try
@@ -63,8 +67,10 @@ namespace Server
             {
                 lock (_lock)
                 {
-                    _clients.Remove(clientSocket);
+                    _clientEndPoints.Remove(clientEndPoint); // Remove client endpoint on disconnection
+                    countTCPClients = _clientEndPoints.Count; // Update the count of unique clients
                 }
+                ClientConnected?.Invoke(countTCPClients); // Fire the event with the updated count
             }
         }
 
@@ -72,10 +78,15 @@ namespace Server
         {
             lock (_lock)
             {
-                foreach (Socket client in _clients)
+                foreach (EndPoint endPoint in _clientEndPoints)
                 {
-                    if (client != senderSocket)
+                    if (!endPoint.Equals(senderSocket.RemoteEndPoint))
+                    {
+                        Socket client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                        client.Connect(endPoint);
                         client.Send(data);
+                        client.Close();
+                    }
                 }
             }
         }
@@ -84,8 +95,5 @@ namespace Server
         {
             serverTCP.Close();
         }
-
-
-
     }
 }

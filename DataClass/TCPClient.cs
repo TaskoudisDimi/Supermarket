@@ -1,33 +1,32 @@
-﻿using ClassLibrary1.Models;
+﻿
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace ClassLibrary1
 {
     public class TCPClient
     {
-        public Socket client;
+        private Socket client;
         private Thread clientThread;
         public event EventHandler<string> DataReceived;
         private bool isConnected = false;
 
-        public void ConnectTCPClient()
+        public void ConnectTCPClient(string clientIpAddress, int clientPort)
         {
-            string ipAddress = "127.0.0.1";
-            int port = 8080;
+            string serverIpAddress = "127.0.0.1";
+            int serverPort = 8080;
             client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            client.Connect(ipAddress, port);
+            // Explicitly bind the client socket to a specific local endpoint
+            client.Bind(new IPEndPoint(IPAddress.Parse(clientIpAddress), clientPort));
+            client.Connect(serverIpAddress, serverPort);
             isConnected = true;
             clientThread = new Thread(ReceiveData);
             clientThread.Start();
-
         }
 
         private void ReceiveData(object obj)
@@ -44,7 +43,7 @@ namespace ClassLibrary1
             }
         }
 
-        public void SendDataTCP<T>(List<T> data)where T: class
+        public void SendDataTCP<T>(List<T> data) where T : class
         {
             try
             {
@@ -54,20 +53,19 @@ namespace ClassLibrary1
             }
             catch
             {
-
+                // Handle exception
             }
-
-
         }
-
 
         public void StopClient()
         {
-            // Close the connection
-            client.Shutdown(SocketShutdown.Both);
-           
+            if (isConnected)
+            {
+                // Close the connection
+                client.Shutdown(SocketShutdown.Both);
+                client.Close();
+                isConnected = false;
+            }
         }
-
-
     }
 }

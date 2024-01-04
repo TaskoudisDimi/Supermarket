@@ -13,10 +13,12 @@ namespace SupermarketTuto
     internal static class Program
     {
 
-        //TODO: Check Database.
         //TODO: Build API 
         //TODO: Upload / Download files 
         //TODO: Updates with version
+        //TODO: TCP/UDP packets
+        //TODO: Resources
+        //TODO: Backgroundworker, Threads
 
 
         [STAThread]

@@ -40,6 +40,7 @@
             tcpLabel = new Label();
             udpLabel = new Label();
             stopButton = new Button();
+            labelNumberOfClients = new Label();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             SuspendLayout();
@@ -59,7 +60,7 @@
             tabPage1.Controls.Add(logListBox);
             tabPage1.Location = new Point(4, 24);
             tabPage1.Name = "tabPage1";
-            tabPage1.Padding = new Padding(3, 3, 3, 3);
+            tabPage1.Padding = new Padding(3);
             tabPage1.Size = new Size(789, 271);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "tabPage1";
@@ -78,7 +79,7 @@
             // 
             tabPage2.Location = new Point(4, 24);
             tabPage2.Name = "tabPage2";
-            tabPage2.Padding = new Padding(3, 3, 3, 3);
+            tabPage2.Padding = new Padding(3);
             tabPage2.Size = new Size(789, 271);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "tabPage2";
@@ -155,11 +156,21 @@
             stopButton.UseVisualStyleBackColor = true;
             stopButton.Click += stopButton_Click;
             // 
+            // labelNumberOfClients
+            // 
+            labelNumberOfClients.AutoSize = true;
+            labelNumberOfClients.Location = new Point(69, 46);
+            labelNumberOfClients.Name = "labelNumberOfClients";
+            labelNumberOfClients.Size = new Size(13, 15);
+            labelNumberOfClients.TabIndex = 19;
+            labelNumberOfClients.Text = "0";
+            // 
             // Server
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(868, 476);
+            Controls.Add(labelNumberOfClients);
             Controls.Add(stopButton);
             Controls.Add(udpLabel);
             Controls.Add(tcpLabel);
@@ -169,7 +180,7 @@
             Controls.Add(connectedClientsLabel);
             Controls.Add(buferSizeLabel);
             Controls.Add(bufferSizeTextBox);
-            Margin = new Padding(2, 2, 2, 2);
+            Margin = new Padding(2);
             Name = "Server";
             Text = "Form1";
             FormClosing += Server_FormClosing;
@@ -194,5 +205,6 @@
         private Label tcpLabel;
         private Label udpLabel;
         private Button stopButton;
+        private Label labelNumberOfClients;
     }
 }
