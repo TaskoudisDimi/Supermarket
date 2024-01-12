@@ -13,7 +13,6 @@ namespace SupermarketTuto
     internal static class Program
     {
 
-        //TODO: Build API 
         //TODO: Upload / Download files 
         //TODO: Updates with version
         //TODO: TCP/UDP packets

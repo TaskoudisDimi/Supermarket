@@ -54,8 +54,8 @@ namespace SupermarketTuto.Forms
 
             // Use clientIpAddress and a specified clientPort (or '0' to allow the OS to select a port)
             int clientPort = 0; // Set to '0' to allow OS to select an available port
-            ClientTCP.ConnectTCPClient(clientIpAddress, clientPort);
-            ClientTCP.DataReceived += HandleReceivedDataTCP;
+            //ClientTCP.ConnectTCPClient(clientIpAddress, clientPort);
+            //ClientTCP.DataReceived += HandleReceivedDataTCP;
             //ClientUDP.ConnectUDPClient();
             //ClientUDP.DataReceived += HandleReceivedDataUDP;
 
@@ -231,7 +231,7 @@ namespace SupermarketTuto.Forms
             item.Date = e.CreatedCategory.Date;
             List<CategoryTbl> data = new List<CategoryTbl>();
             data.Add(item);
-            ClientTCP.SendDataTCP<CategoryTbl>(data);
+            //ClientTCP.SendDataTCP<CategoryTbl>(data);
             //ClientUDP.SendDataUDP<CategoryTbl>(data);
             CatDGV.Refresh();
         }

@@ -2,6 +2,7 @@
 using Org.BouncyCastle.Crypto.Generators;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Data;
 using System.Drawing;
 using System.Globalization;
@@ -414,6 +415,10 @@ namespace SupermarketTuto.Utils
             return epoch;
         }
 
+        //MD5 (Message-Digest Algorithm 5) is a hash function that is currently advised not to be used due to its extensive vulnerabilities.
+        //It is still used as a checksum to verify data integrity.
+        //The hash size for the MD5 algorithm is 128 bits. The ComputeHash methods of the MD5 class return the hash as an array of 16 bytes.
+        //Note that some MD5 implementations produce a 32-character, hexadecimal-formatted hash.
         public static string GetMD5Hash(string input)
         {
             System.Security.Cryptography.MD5CryptoServiceProvider x = new System.Security.Cryptography.MD5CryptoServiceProvider();
@@ -656,10 +661,16 @@ namespace SupermarketTuto.Utils
 
                 list.Add(item);
             }
-
             return list;
         }
 
+
+        //Scrypt(pronounced “ess crypt”) is a password hashing function(like bcrypt).
+        //It is designed to use a lot of hardware, which makes brute-force attacks more difficult.
+        //Scrypt is mainly used as a proof-of-work algorithm for cryptocurrencies.
+        
+        //bcrypt is a password hashing function, that has been proven reliable and secure since it’s release in 1999.
+        //It has been implemented into most commonly-used programming languages.
         // Hash and store the user's password
         public static string HashPassword(string password)
         {
