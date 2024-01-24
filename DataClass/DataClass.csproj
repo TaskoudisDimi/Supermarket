@@ -121,6 +121,7 @@
     <Compile Include="CustomObjects.cs" />
     <Compile Include="DataContext.cs" />
     <Compile Include="DataModel.cs" />
+    <Compile Include="EmailService.cs" />
     <Compile Include="ExcelFile.cs" />
     <Compile Include="Locker.cs" />
     <Compile Include="Models\Admins.cs" />

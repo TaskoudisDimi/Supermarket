@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ClassLibrary1;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -39,7 +40,8 @@ namespace SupermarketTuto.Forms.General
 
         private void sendEmailButton_Click(object sender, EventArgs e)
         {
-            //TO DO: send email
+            EmailService emailService = new EmailService();
+            emailService.SendEmail(emailTextBox.Text, messageTextBox.Text, stachTraceTextBox.Text);
         }
     }
 }

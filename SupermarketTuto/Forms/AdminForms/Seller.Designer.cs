@@ -83,10 +83,11 @@
             this.SellDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.SellDGV.Location = new System.Drawing.Point(12, 92);
             this.SellDGV.Name = "SellDGV";
+            this.SellDGV.RowHeadersVisible = false;
             this.SellDGV.RowHeadersWidth = 62;
             this.SellDGV.RowTemplate.Height = 30;
             this.SellDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.SellDGV.Size = new System.Drawing.Size(1629, 389);
+            this.SellDGV.Size = new System.Drawing.Size(1322, 389);
             this.SellDGV.TabIndex = 105;
             this.SellDGV.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.SellDGV_CellFormatting);
             // 
@@ -94,7 +95,7 @@
             // 
             this.delete2Button.BackColor = System.Drawing.Color.Tomato;
             this.delete2Button.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.delete2Button.Location = new System.Drawing.Point(1237, 493);
+            this.delete2Button.Location = new System.Drawing.Point(802, 487);
             this.delete2Button.Name = "delete2Button";
             this.delete2Button.Size = new System.Drawing.Size(107, 43);
             this.delete2Button.TabIndex = 102;
@@ -106,7 +107,7 @@
             // 
             this.editButton.BackColor = System.Drawing.Color.LightBlue;
             this.editButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.editButton.Location = new System.Drawing.Point(1148, 493);
+            this.editButton.Location = new System.Drawing.Point(713, 487);
             this.editButton.Name = "editButton";
             this.editButton.Size = new System.Drawing.Size(83, 43);
             this.editButton.TabIndex = 101;
@@ -118,7 +119,7 @@
             // 
             this.addButton.BackColor = System.Drawing.Color.LightBlue;
             this.addButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.addButton.Location = new System.Drawing.Point(977, 493);
+            this.addButton.Location = new System.Drawing.Point(542, 487);
             this.addButton.Name = "addButton";
             this.addButton.Size = new System.Drawing.Size(165, 43);
             this.addButton.TabIndex = 100;
@@ -153,9 +154,11 @@
             // 
             // Seller
             // 
+            this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1695, 705);
+            this.AutoScroll = true;
+            this.ClientSize = new System.Drawing.Size(1397, 705);
             this.ControlBox = false;
             this.Controls.Add(this.SellDGV);
             this.Controls.Add(this.activeLabel);
@@ -166,7 +169,7 @@
             this.Controls.Add(this.delete2Button);
             this.Controls.Add(this.editButton);
             this.Controls.Add(this.addButton);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Seller";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Seller_Load);

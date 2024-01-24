@@ -27,7 +27,7 @@ namespace SupermarketTuto.Forms.General
             InitializeComponent();
             adminTable = adminTable_;
             selected = selected_;
-
+            superAdminCheckBox.Enabled = false;
             if (add)
             {
                 editButton.Enabled = false;
@@ -94,10 +94,10 @@ namespace SupermarketTuto.Forms.General
                         admin.Active = true;
                     else
                         admin.Active = false;
-                    if (superAdminCheckBox.Checked)
-                        admin.isSuperAdmin = true;
-                    else
-                        admin.isSuperAdmin = false;
+                    //if (superAdminCheckBox.Checked)
+                    //    admin.isSuperAdmin = true;
+                    //else
+                    //    admin.isSuperAdmin = false;
 
                     DataModel.Update<Admins>(admin);
                     OnItemEdited(new AdminsEventArgs(admin, admin.Id));

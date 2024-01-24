@@ -21,6 +21,7 @@ namespace SupermarketTuto.Forms
         DataTable filterTable = new DataTable();
         Admins admins = new Admins();
         BindingSource bindingSource = new BindingSource();
+
         private DataTable originalAdminTable;
 
         public Admin(Admins admins_ = null, bool displayFromMainSelling = false)
@@ -57,17 +58,13 @@ namespace SupermarketTuto.Forms
                 bindingSource.DataSource = filterTable;
                 usersDataGridView.DataSource = bindingSource;
                 usersDataGridView.RowHeadersVisible = false;
-
+                usersDataGridView.ReadOnly = true;
                 // Attach the CurrentChanged event handler to the BindingSource
                 bindingSource.CurrentChanged += bindingSource_CurrentChanged;
-
                 totalLabel.Text = $"Total: {usersDataGridView.RowCount}";
-
                 MenuStrip.Instance.Menu(usersDataGridView, adminTable, null, null, false);
-
                 // Initialize the originalCategoryTable field with the same data as categoryTable
                 originalAdminTable = adminTable.Copy();
-
             }
             catch
             {

@@ -49,11 +49,12 @@ namespace SupermarketTuto.Forms
                 }
 
                 bindingSource.DataSource = tableWithoutColumns;
-
-                SellDGV.DataSource = bindingSource;
-                totalLabel.Text = $"Total: {SellDGV.RowCount}";
+                SellDGV.AutoGenerateColumns = true;
                 SellDGV.RowHeadersVisible = false;
                 SellDGV.ReadOnly = true;
+                SellDGV.DataSource = bindingSource;
+                totalLabel.Text = $"Total: {SellDGV.RowCount}";
+                
 
                 // Attach the CurrentChanged event handler to the BindingSource
                 bindingSource.CurrentChanged += bindingSource_CurrentChanged;

@@ -708,7 +708,6 @@ namespace SupermarketTuto.Utils
         }
 
 
-
     }
 
     public class LinuxTime
