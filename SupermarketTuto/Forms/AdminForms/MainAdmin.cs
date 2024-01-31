@@ -112,7 +112,14 @@ namespace SupermarketTuto.Forms.AdminForms
 
         private void MnuStripCleanDB_Click(object sender, EventArgs e)
         {
-            DataModel.CleanDB();
+            if (DataModel.CleanDB())
+            {
+                MessageBox.Show("Sucessfully clean the db");
+            }
+            else
+            {
+                MessageBox.Show("Something went wrong");
+            }
         }
 
         private void MnuStripCheckDB_Click(object sender, EventArgs e)

@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using ClassLibrary1.Models;
+using System.Data.Common;
+using SupermarketTuto.Utils;
 
 namespace ClassLibrary1
 {
@@ -104,38 +106,45 @@ namespace ClassLibrary1
 
         public SqlDataReader SelectDataReader(string sql, List<SqlParameter> parameters = null)
         {
-
-            if (!CheckConnection())
+            try
             {
-                return null;
+                if (!CheckConnection())
+                {
+                    return null;
+                }
+                using (Locker.Lock(instances))
+                {
+                    DateTime dtStart = DateTime.Now;
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.CommandTimeout = queryTimeOut;
+                    cmd.Connection = connection;
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = sql;
+                    if (parameters != null && parameters.Count > 0)
+                    {
+                        cmd.Parameters.AddRange(parameters.ToArray());
+                    }
+                    try
+                    {
+                        reader = cmd.ExecuteReader();
+                        instances.Remove(currentInstanceId.Value);
+                    }
+                    catch
+                    {
+
+                    }
+                    long dt = (long)((DateTime.Now - dtStart).TotalMilliseconds);
+                    if (dt > 100)
+                    {
+
+                    }
+                }
             }
-            using (Locker.Lock(instances))
+            catch
             {
-                DateTime dtStart = DateTime.Now;
-                SqlCommand cmd = new SqlCommand();
-                cmd.CommandTimeout = queryTimeOut;
-                cmd.Connection = connection;
-                cmd.CommandType = CommandType.Text;
-                cmd.CommandText = sql;
-                if (parameters != null && parameters.Count > 0)
-                {
-                    cmd.Parameters.AddRange(parameters.ToArray());
-                }
-                try
-                {
-                    reader = cmd.ExecuteReader();
-                    instances.Remove(currentInstanceId.Value);
-                }
-                catch
-                {
-
-                }
-                long dt = (long)((DateTime.Now - dtStart).TotalMilliseconds);
-                if (dt > 100)
-                {
-
-                }
+                reader = null;
             }
+            
             return reader;
         }
 
@@ -241,6 +250,74 @@ namespace ClassLibrary1
                 return 0;
             }
         }
+
+        public int ExecuteStoredProcedureNoData(string sql, List<SqlParameter> parameters, int retries)
+        {
+            if (!CheckConnection())
+                return -1;
+            DateTime dtStart = DateTime.Now;
+            
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandTimeout = queryTimeOut;
+            cmd.Connection = connection;
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = sql;
+            List<SqlParameter> backParams = null;
+            bool retry = false;
+
+            if (parameters != null)
+            {
+                cmd.Parameters.AddRange(parameters.ToArray());
+                backParams = new List<SqlParameter>();
+                foreach (SqlParameter p in parameters)
+                {
+                    backParams.Add(new SqlParameter(p.ParameterName, p.SqlDbType, p.Size, p.Direction, p.IsNullable, p.Precision, p.Scale, p.SourceColumn, p.SourceVersion, p.Value));
+                }
+            }
+            int res = 0;
+            try
+            {
+                cmd.ExecuteNonQuery();
+            }
+            catch (SqlException sqlex)
+            {
+                if (sqlex.Number == 1205 || sqlex.Number == -2)
+                {
+                    if (retries < 3)
+                    {
+                        retry = true;
+                        if (sqlex.Number == -2)
+                        {
+                            queryTimeOut *= 2;
+                        }
+                    }
+                    else
+                        Utils.Log(string.Format("Retrying DBHelper:ExecuteStoredProcedureNoData : {0}, Exception {1}", sql, sqlex), "StoreProcedureException.Log");
+                }
+                else
+                {
+                    Utils.Log(string.Format("DBHelper:ExecuteUpdate : {0}, Exception {1}", sql, sqlex), "StoreProcedureException.Log");
+                    throw sqlex;
+                }
+            }
+            catch (Exception ex)
+            {
+                res = -1;
+                Utils.Log("DBHelper:ExecuteStoredProcedureNoData : {ex}", "StoreProcedureException.Log");
+            }
+            finally
+            {
+                cmd.Dispose();
+            }
+            if (retry)
+                return ExecuteStoredProcedureNoData(sql, backParams, retries + 1);
+            long dt = (long)((DateTime.Now - dtStart).TotalMilliseconds);
+            Utils.Log($"SQL SPND\t{dt}\t{sql.Replace("\r", "[$r]").Replace("\n", "[$n]").Replace("\t", "[$t]")}", "StoreProcedureException.Log");
+            return res;
+        }
+
+
+
 
     }
 }
