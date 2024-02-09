@@ -114,11 +114,11 @@ namespace SupermarketTuto.Forms.AdminForms
         {
             if (DataModel.CleanDB())
             {
-                MessageBox.Show("Sucessfully clean the db");
+                MessageBox.Show("Sucessfully clean the db","Info",MessageBoxButtons.OK,MessageBoxIcon.Information);
             }
             else
             {
-                MessageBox.Show("Something went wrong");
+                MessageBox.Show("Something went wrong", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

@@ -165,7 +165,12 @@ namespace CallSuperMarketAPI
         }
 
         //TODO: Add BackgroundWorkder
-        private void saveButton_Click(object sender, EventArgs e)
+        private async void saveButton_Click(object sender, EventArgs e)
+        {
+            await Task.Run(() => SaveData());
+        }
+
+        private void SaveData()
         {
             if (products.Count > 0 && categories.Count > 0)
             {
@@ -192,6 +197,7 @@ namespace CallSuperMarketAPI
                         }
                     }
                 }
+                MessageBox.Show($"{categories.Count} Categories and {products.Count} Products saved successfully.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else if (products.Count > 0 && !(categories.Count > 0))
             {
@@ -208,6 +214,7 @@ namespace CallSuperMarketAPI
                         continue;
                     }
                 }
+                MessageBox.Show($"{products.Count} Products saved successfully.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else if (categories.Count > 0 && !(products.Count > 0))
             {
@@ -217,6 +224,7 @@ namespace CallSuperMarketAPI
                     if (cat == null)
                         DataModel.Create<CategoryTbl>(item);
                 }
+                MessageBox.Show($"{categories.Count} Categories saved successfully.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
@@ -224,8 +232,6 @@ namespace CallSuperMarketAPI
                 return;
             }
         }
-
-
     }
 
 

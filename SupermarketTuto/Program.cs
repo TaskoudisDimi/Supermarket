@@ -16,9 +16,7 @@ namespace SupermarketTuto
         //TODO: Updates with version, Create zip, find the version, download and extract the zip, update the files of app
         //TODO: TCP/UDP packets
         //TODO: Resources
-        //TODO: Backgroundworker, Threads
-        //TODO: Rightclick Events
-        //TODO: Restore/Backup the database
+        //TODO: Backgroundworker
 
         [STAThread]
         static void Main()

@@ -314,7 +314,7 @@ namespace ClassLibrary1
             {
                 string sqlBackUp = "SP_CleanDatabaseTables";
                 int res = DataContext.Instance.ExecuteStoredProcedureNoData(sqlBackUp, null, 5);
-                if (res > 0)
+                if (res >= 0)
                 {
                     return true;
                 }
@@ -331,7 +331,7 @@ namespace ClassLibrary1
         {
             try
             {
-                string restoreDB = $"RESTORE DATABASE smarketdb FROM DISK = '{pathDB}' WITH REPLACE, RECOVERY";
+                string restoreDB = $"RESTORE DATABASE smarket FROM DISK = '{pathDB}' WITH REPLACE, RECOVERY";
                 DataContext.Instance.ExecuteNQ(restoreDB);
             }
             catch
@@ -344,7 +344,7 @@ namespace ClassLibrary1
         {
             try
             {
-                string query = "BACKUP DATABASE smarketdb TO DISK = '" + path + "\\backupfile.bak' WITH FORMAT,MEDIANAME = 'Z_SQLServerBackups',NAME = 'Full Backup of SupermarketDB';";
+                string query = "BACKUP DATABASE smarket TO DISK = '" + path + "\\backupfile.bak' WITH FORMAT,MEDIANAME = 'Z_SQLServerBackups',NAME = 'Full Backup of SupermarketDB';";
                 DataContext.Instance.ExecuteNQ(query);
             }
             catch

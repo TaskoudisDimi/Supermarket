@@ -1,4 +1,6 @@
-﻿using SupermarketTuto.Forms.General;
+﻿using ClassLibrary1.Models;
+using SupermarketTuto.Forms;
+using SupermarketTuto.Forms.General;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -17,6 +19,7 @@ namespace ClassLibrary1
         private DataTable table = new DataTable();
         private DataTable tableSecond = new DataTable();
         private Type type;
+
         public static MenuStrip Instance
         {
             get
@@ -31,7 +34,6 @@ namespace ClassLibrary1
                 return instance;
             }
         }
-
 
         public void Menu(DataGridView data, DataTable table_, DataTable tableSecond_, Type type_, bool haveSelected)
         {
@@ -60,25 +62,90 @@ namespace ClassLibrary1
             }
         }
 
-
-
         private void deleteMenu_Click(object sender, EventArgs e)
         {
             List<DataRow> rowsToDelete = new List<DataRow>();
-            // loop over the selected rows and add them to the list
             foreach (DataGridViewRow selectedRow in dataGridView.SelectedRows)
             {
-                //Convert DataGridViewRow -> DataRow
                 DataRow row = ((DataRowView)selectedRow.DataBoundItem).Row;
                 rowsToDelete.Add(row);
             }
-            // loop over the rows to delete and remove them from the DataTable
             foreach (DataRow row in rowsToDelete)
             {
-                table.Rows.Remove(row);
+                if (type.Name == "CategoryTbl")
+                {
+                    CategoryTbl item = new CategoryTbl();
+                    item.CatId = Convert.ToInt32(row["CatId"]);
+                    if (DataModel.Delete(item) > 0)
+                    {
+                        MessageBox.Show("Sucessfully deleted", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        table.Rows.Remove(row);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Something went wrong", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else if (type.Name == "ProductTbl")
+                {
+                    ProductTbl item = new ProductTbl();
+                    item.ProdId = Convert.ToInt32(row["ProdId"]);
+                    if (DataModel.Delete(item) > 0)
+                    {
+                        MessageBox.Show("Sucessfully deleted", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        table.Rows.Remove(row);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Something went wrong", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else if (type.Name == "SellersTbl")
+                {
+                    SellersTbl item = new SellersTbl();
+                    item.SellerId = Convert.ToInt32(row["SellerId"]);
+                    if (DataModel.Delete(item) > 0)
+                    {
+                        MessageBox.Show("Sucessfully deleted", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        table.Rows.Remove(row);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Something went wrong", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
+                }
+                else if (type.Name == "BillTbl")
+                {
+                    BillTbl item = new BillTbl();
+                    item.BillId = Convert.ToInt32(row["BillId"]);
+                    if (DataModel.Delete(item) > 0)
+                    {
+                        MessageBox.Show("Sucessfully deleted", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        table.Rows.Remove(row);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Something went wrong", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else if (type.Name == "Admins")
+                {
+                    Admins item = new Admins();
+                    item.Id = Convert.ToInt32(row["Id"]);
+                    if (DataModel.Delete(item) > 0)
+                    {
+                        MessageBox.Show("Sucessfully deleted", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        table.Rows.Remove(row);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Something went wrong", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                
             }
-            //DataAccess.Instance.DeleteData(table);
-            
+
         }
 
         private void mnuEdit_Click(object sender, EventArgs e)
@@ -99,44 +166,38 @@ namespace ClassLibrary1
             }
             else if (type.Name == "SellersTbl")
             {
+                DataGridViewRow currentRow = dataGridView.CurrentRow;
+                addEditSeller edit = new addEditSeller(table, currentRow, false);
+                edit.SellId.ReadOnly = true;
+                edit.Show();
 
             }
             else if (type.Name == "BillTbl")
             {
-
+                DataGridViewRow currentRow = dataGridView.CurrentRow;
+                AddEditBill edit = new AddEditBill(table, currentRow, false, null, null, null);
+                edit.Show();
             }
             else if (type.Name == "Admins")
             {
-
-
+                DataGridViewRow currentRow = dataGridView.CurrentRow;
+                addEditAdmin edit = new addEditAdmin(table, currentRow, false);
+                edit.AdminIdTb.ReadOnly = true;
+                edit.Show();
             }
         }
-
 
         private void selectedProdctsMenu_Click(object sender, EventArgs e)
         {
             try
             {
-                //List<int> cats = new List<int>();
-                //for (int i = 0; i < CatDGV.Rows.Count; i++)
-                //{
-                //    if (Convert.ToBoolean(CatDGV.Rows[i].Cells[0].Value))
-                //    {
-                //        cats.Add((int)CatDGV.Rows[i].Cells[1].Value);
-                //    }
-                //}
-                //if (cats.Count != 0)
-                //{
-                //    SelectedProducts frm = new SelectedProducts(cats);
-                //    frm.Show();
-                //}
+                
             }
             catch
             {
 
             }
         }
-
 
     }
 }
