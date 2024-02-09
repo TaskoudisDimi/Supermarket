@@ -8,7 +8,7 @@ Also, most forms have the ability to export and import files (CSV, xlsx). For da
 Finally, the API is built in a different repository [https://github.com/TaskoudisDimi/APIs.git], to be able to receive or send information to some third-party software.
 
 # Steps to run the application:
-* Restore the database on the SQL server with the backupfile.bak
+* Run the script smarket.sql or Create a new Database from SQL Server Management Studio and Restore the database with the backupfile.bak
 * Open the solution [file](SupermarketTuto.sln) with an editor (e.g. visual studio 2022). Build the project.
 * Run the ```SupermarketTuto.exe``` file.
 
