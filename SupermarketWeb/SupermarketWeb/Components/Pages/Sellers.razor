@@ -1,5 +1,4 @@
 @page "/sellers"
-@rendermode @(new InteractiveServerRenderMode(prerender: false))
 @inject AuthService Auth
 @inject NavigationManager Nav
 @inject SellerService SellerSvc
@@ -170,7 +169,13 @@
     private void Load() => _sellers = SellerSvc.GetAll(_search);
     private void OnSearch(ChangeEventArgs e) { _search = e.Value?.ToString() ?? string.Empty; Load(); }
 
-    private void ShowCreate() { _editItem = new SellersTbl { Date = DateTime.Now, Active = true }; _showModal = true; _message = ""; StateHasChanged(); }
+    private void ShowCreate()
+    {
+        _editItem = new SellersTbl { Date = DateTime.Now, Active = true };
+        _showModal = true;
+        _message = "";
+        StateHasChanged();
+    }
 
     private void ShowEdit(SellersTbl s)
     {

@@ -84,6 +84,8 @@ body {
     padding: .6rem 1rem; color: #94a3b8; text-decoration: none;
     border-radius: 6px; margin: 1px .5rem; font-size: .875rem;
     transition: background .15s, color .15s;
+    background: transparent; border: none; cursor: pointer;
+    width: calc(100% - 1rem); text-align: left;
 }
 .nav-link:hover { background: #334155; color: #f1f5f9; }
 .nav-link.active { background: var(--primary); color: white; }

@@ -4,6 +4,10 @@
     <ProjectReference Include="..\SupermarketWeb.Data\SupermarketWeb.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="10.0.8" />
+  </ItemGroup>
+
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>

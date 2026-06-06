@@ -1,36 +1,37 @@
 @inject AuthService Auth
+@inject NavigationManager Nav
 
 <nav class="nav-menu">
-    <NavLink class="nav-link" href="/" Match="NavLinkMatch.All">
+    <button type="button" class="nav-link @(IsActive("/") ? "active" : "")" @onclick='() => Nav.NavigateTo("/")'>
         <span class="nav-icon">📊</span> Dashboard
-    </NavLink>
+    </button>
 
     @if (Auth.CurrentRole == AuthService.Role.Admin || Auth.CurrentRole == AuthService.Role.SuperAdmin)
     {
         <div class="nav-section-label">Διαχείριση</div>
 
-        <NavLink class="nav-link" href="/products">
+        <button type="button" class="nav-link @(IsActive("/products") ? "active" : "")" @onclick='() => Nav.NavigateTo("/products")'>
             <span class="nav-icon">📦</span> Προϊόντα
-        </NavLink>
+        </button>
 
-        <NavLink class="nav-link" href="/categories">
+        <button type="button" class="nav-link @(IsActive("/categories") ? "active" : "")" @onclick='() => Nav.NavigateTo("/categories")'>
             <span class="nav-icon">🗂️</span> Κατηγορίες
-        </NavLink>
+        </button>
 
-        <NavLink class="nav-link" href="/sellers">
+        <button type="button" class="nav-link @(IsActive("/sellers") ? "active" : "")" @onclick='() => Nav.NavigateTo("/sellers")'>
             <span class="nav-icon">👤</span> Πωλητές
-        </NavLink>
+        </button>
 
-        <NavLink class="nav-link" href="/bills">
+        <button type="button" class="nav-link @(IsActive("/bills") ? "active" : "")" @onclick='() => Nav.NavigateTo("/bills")'>
             <span class="nav-icon">🧾</span> Παραστατικά
-        </NavLink>
+        </button>
 
         @if (Auth.CurrentRole == AuthService.Role.SuperAdmin)
         {
             <div class="nav-section-label">Σύστημα</div>
-            <NavLink class="nav-link" href="/database">
+            <button type="button" class="nav-link @(IsActive("/database") ? "active" : "")" @onclick='() => Nav.NavigateTo("/database")'>
                 <span class="nav-icon">🗄️</span> Βάση Δεδομένων
-            </NavLink>
+            </button>
         }
     }
 
@@ -38,16 +39,22 @@
     {
         <div class="nav-section-label">Πωλήσεις</div>
 
-        <NavLink class="nav-link" href="/products">
+        <button type="button" class="nav-link @(IsActive("/products") ? "active" : "")" @onclick='() => Nav.NavigateTo("/products")'>
             <span class="nav-icon">📦</span> Προϊόντα
-        </NavLink>
+        </button>
 
-        <NavLink class="nav-link" href="/bills">
+        <button type="button" class="nav-link @(IsActive("/bills") ? "active" : "")" @onclick='() => Nav.NavigateTo("/bills")'>
             <span class="nav-icon">🧾</span> Παραστατικά
-        </NavLink>
+        </button>
 
-        <NavLink class="nav-link" href="/create-bill">
+        <button type="button" class="nav-link @(IsActive("/create-bill") ? "active" : "")" @onclick='() => Nav.NavigateTo("/create-bill")'>
             <span class="nav-icon">➕</span> Νέο Παραστατικό
-        </NavLink>
+        </button>
     }
 </nav>
+
+@code {
+    private bool IsActive(string path) =>
+        Nav.Uri.EndsWith(path, StringComparison.OrdinalIgnoreCase) ||
+        (path == "/" && Nav.Uri.TrimEnd('/').Equals(Nav.BaseUri.TrimEnd('/')));
+}
