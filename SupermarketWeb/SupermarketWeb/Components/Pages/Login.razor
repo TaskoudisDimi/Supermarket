@@ -1,4 +1,5 @@
 @page "/login"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
 @inject AuthService Auth
 @inject NavigationManager Nav
 
@@ -18,8 +19,8 @@
         }
 
         <div class="tab-switch">
-            <button class="@(_isAdmin ? "tab-active" : "")" @onclick="() => _isAdmin = true">Διαχειριστής</button>
-            <button class="@(!_isAdmin ? "tab-active" : "")" @onclick="() => _isAdmin = false">Πωλητής</button>
+            <button type="button" class="@(_isAdmin ? "tab-active" : "")" @onclick="() => _isAdmin = true">Διαχειριστής</button>
+            <button type="button" class="@(!_isAdmin ? "tab-active" : "")" @onclick="() => _isAdmin = false">Πωλητής</button>
         </div>
 
         <EditForm Model="_model" OnValidSubmit="DoLogin">

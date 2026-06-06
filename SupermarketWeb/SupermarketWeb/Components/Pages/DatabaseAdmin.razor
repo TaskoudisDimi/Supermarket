@@ -1,4 +1,5 @@
 @page "/database"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
 @inject AuthService Auth
 @inject NavigationManager Nav
 
@@ -18,7 +19,7 @@
     <div class="db-card">
         <h3>🧹 Καθαρισμός Δεδομένων</h3>
         <p>Διαγραφή όλων των εγγραφών από τους πίνακες (εκτός χρηστών).</p>
-        <button class="btn-danger" @onclick="() => _showClean = true">Καθαρισμός Βάσης</button>
+        <button type="button" class="btn-danger" @onclick="() => _showClean = true">Καθαρισμός Βάσης</button>
     </div>
 
     <div class="db-card">
@@ -27,7 +28,7 @@
         <div class="form-group">
             <input class="form-input" placeholder="π.χ. /tmp/backup.bak" @bind="_backupPath" />
         </div>
-        <button class="btn-primary" @onclick="DoBackup">Backup</button>
+        <button type="button" class="btn-primary" @onclick="DoBackup">Backup</button>
     </div>
 
     <div class="db-card">
@@ -36,13 +37,13 @@
         <div class="form-group">
             <input class="form-input" placeholder="π.χ. /tmp/backup.bak" @bind="_restorePath" />
         </div>
-        <button class="btn-warning" @onclick="() => _showRestore = true">Επαναφορά</button>
+        <button type="button" class="btn-warning" @onclick="() => _showRestore = true">Επαναφορά</button>
     </div>
 
     <div class="db-card">
         <h3>📊 Κατάσταση Σύνδεσης</h3>
         <p>Έλεγχος σύνδεσης με τη βάση δεδομένων.</p>
-        <button class="btn-secondary" @onclick="CheckConnection">Έλεγχος</button>
+        <button type="button" class="btn-secondary" @onclick="CheckConnection">Έλεγχος</button>
         @if (_connStatus != "")
         {
             <div class="conn-status @(_connOk ? "conn-ok" : "conn-fail")">@_connStatus</div>
@@ -59,8 +60,8 @@
                 <p>Αυτή η ενέργεια θα διαγράψει <strong>όλα</strong> τα δεδομένα από τους πίνακες. Είστε σίγουροι;</p>
             </div>
             <div class="modal-footer">
-                <button class="btn-secondary" @onclick="() => _showClean = false">Άκυρο</button>
-                <button class="btn-danger" @onclick="DoClean">Ναι, Καθαρισμός</button>
+                <button type="button" class="btn-secondary" @onclick="() => _showClean = false">Άκυρο</button>
+                <button type="button" class="btn-danger" @onclick="DoClean">Ναι, Καθαρισμός</button>
             </div>
         </div>
     </div>
@@ -75,8 +76,8 @@
                 <p>Η επαναφορά θα αντικαταστήσει τα τρέχοντα δεδομένα. Συνέχεια;</p>
             </div>
             <div class="modal-footer">
-                <button class="btn-secondary" @onclick="() => _showRestore = false">Άκυρο</button>
-                <button class="btn-danger" @onclick="DoRestore">Ναι, Επαναφορά</button>
+                <button type="button" class="btn-secondary" @onclick="() => _showRestore = false">Άκυρο</button>
+                <button type="button" class="btn-danger" @onclick="DoRestore">Ναι, Επαναφορά</button>
             </div>
         </div>
     </div>

@@ -1,4 +1,5 @@
 @page "/products"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
 @inject AuthService Auth
 @inject NavigationManager Nav
 @inject ProductService ProductSvc
@@ -11,7 +12,7 @@
     <h1>📦 Προϊόντα</h1>
     @if (Auth.CurrentRole != AuthService.Role.Seller)
     {
-        <button class="btn-primary" @onclick="ShowCreate">+ Νέο Προϊόν</button>
+        <button type="button" class="btn-primary" @onclick="ShowCreate">+ Νέο Προϊόν</button>
     }
 </div>
 
@@ -55,8 +56,8 @@
                     @if (Auth.CurrentRole != AuthService.Role.Seller)
                     {
                         <td>
-                            <button class="btn-icon" title="Επεξεργασία" @onclick="() => ShowEdit(p)">✏️</button>
-                            <button class="btn-icon btn-danger" title="Διαγραφή" @onclick="() => ConfirmDelete(p)">🗑️</button>
+                            <button type="button" class="btn-icon" title="Επεξεργασία" @onclick="() => ShowEdit(p)">✏️</button>
+                            <button type="button" class="btn-icon btn-danger" title="Διαγραφή" @onclick="() => ConfirmDelete(p)">🗑️</button>
                         </td>
                     }
                 </tr>
@@ -75,7 +76,7 @@
         <div class="modal" @onclick:stopPropagation>
             <div class="modal-header">
                 <h3>@(_editItem?.ProdId > 0 ? "Επεξεργασία Προϊόντος" : "Νέο Προϊόν")</h3>
-                <button class="modal-close" @onclick="CloseModal">✕</button>
+                <button type="button" class="modal-close" @onclick="CloseModal">✕</button>
             </div>
             <div class="modal-body">
                 @if (_editItem != null)
@@ -105,8 +106,8 @@
                 }
             </div>
             <div class="modal-footer">
-                <button class="btn-secondary" @onclick="CloseModal">Άκυρο</button>
-                <button class="btn-primary" @onclick="SaveProduct">Αποθήκευση</button>
+                <button type="button" class="btn-secondary" @onclick="CloseModal">Άκυρο</button>
+                <button type="button" class="btn-primary" @onclick="SaveProduct">Αποθήκευση</button>
             </div>
         </div>
     </div>
@@ -123,8 +124,8 @@
                 <p>Διαγραφή προϊόντος <strong>@_deleteItem?.ProdName</strong>;</p>
             </div>
             <div class="modal-footer">
-                <button class="btn-secondary" @onclick="CloseModal">Άκυρο</button>
-                <button class="btn-danger" @onclick="DeleteProduct">Διαγραφή</button>
+                <button type="button" class="btn-secondary" @onclick="CloseModal">Άκυρο</button>
+                <button type="button" class="btn-danger" @onclick="DeleteProduct">Διαγραφή</button>
             </div>
         </div>
     </div>
@@ -157,6 +158,7 @@
         _editItem = new ProductTbl { Date = DateTime.Now };
         _showModal = true;
         _message = "";
+        StateHasChanged();
     }
 
     private void ShowEdit(ProductTbl p)
@@ -168,6 +170,7 @@
         };
         _showModal = true;
         _message = "";
+        StateHasChanged();
     }
 
     private void ConfirmDelete(ProductTbl p)
@@ -175,6 +178,7 @@
         _deleteItem = p;
         _showDeleteConfirm = true;
         _message = "";
+        StateHasChanged();
     }
 
     private void UpdateCatName()

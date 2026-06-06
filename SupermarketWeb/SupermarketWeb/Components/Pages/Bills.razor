@@ -1,4 +1,5 @@
 @page "/bills"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
 @inject AuthService Auth
 @inject NavigationManager Nav
 @inject BillService BillSvc
@@ -15,7 +16,7 @@
     <input class="form-input" placeholder="Αναζήτηση..." value="@_search" @oninput="OnSearch" />
     <input class="form-input" type="date" value="@_from?.ToString("yyyy-MM-dd")" @onchange="OnFromChanged" />
     <input class="form-input" type="date" value="@_to?.ToString("yyyy-MM-dd")" @onchange="OnToChanged" />
-    <button class="btn-secondary" @onclick="ClearFilters">Καθαρισμός</button>
+    <button type="button" class="btn-secondary" @onclick="ClearFilters">Καθαρισμός</button>
 </div>
 
 @if (_message != "")
@@ -46,10 +47,10 @@
                     <td>@b.Comments</td>
                     <td>€@b.TotAmt.ToString("N2")</td>
                     <td>
-                        <button class="btn-icon" title="Λεπτομέρειες" @onclick="() => ShowDetails(b)">🔍</button>
+                        <button type="button" class="btn-icon" title="Λεπτομέρειες" @onclick="() => ShowDetails(b)">🔍</button>
                         @if (Auth.CurrentRole != AuthService.Role.Seller)
                         {
-                            <button class="btn-icon btn-danger" title="Διαγραφή" @onclick="() => ConfirmDelete(b)">🗑️</button>
+                            <button type="button" class="btn-icon btn-danger" title="Διαγραφή" @onclick="() => ConfirmDelete(b)">🗑️</button>
                         }
                     </td>
                 </tr>
@@ -68,7 +69,7 @@
         <div class="modal" @onclick:stopPropagation>
             <div class="modal-header">
                 <h3>Παραστατικό #@_detailItem.BillId</h3>
-                <button class="modal-close" @onclick="() => _detailItem = null">✕</button>
+                <button type="button" class="modal-close" @onclick="() => _detailItem = null">✕</button>
             </div>
             <div class="modal-body">
                 <div class="detail-grid">
@@ -91,8 +92,8 @@
             <div class="modal-header"><h3>Επιβεβαίωση Διαγραφής</h3></div>
             <div class="modal-body"><p>Διαγραφή παραστατικού <strong>#@_deleteItem?.BillId</strong>;</p></div>
             <div class="modal-footer">
-                <button class="btn-secondary" @onclick="CloseDelete">Άκυρο</button>
-                <button class="btn-danger" @onclick="DeleteBill">Διαγραφή</button>
+                <button type="button" class="btn-secondary" @onclick="CloseDelete">Άκυρο</button>
+                <button type="button" class="btn-danger" @onclick="DeleteBill">Διαγραφή</button>
             </div>
         </div>
     </div>

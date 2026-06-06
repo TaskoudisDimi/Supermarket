@@ -1,4 +1,5 @@
 @page "/sellers"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
 @inject AuthService Auth
 @inject NavigationManager Nav
 @inject SellerService SellerSvc
@@ -8,7 +9,7 @@
 
 <div class="page-header">
     <h1>👤 Πωλητές</h1>
-    <button class="btn-primary" @onclick="ShowCreate">+ Νέος Πωλητής</button>
+    <button type="button" class="btn-primary" @onclick="ShowCreate">+ Νέος Πωλητής</button>
 </div>
 
 <div class="search-bar">
@@ -40,9 +41,9 @@
                     <td>@s.Address</td>
                     <td><span class="badge @(s.Active ? "badge-green" : "badge-red")">@(s.Active ? "Ναι" : "Όχι")</span></td>
                     <td>
-                        <button class="btn-icon" title="Επεξεργασία" @onclick="() => ShowEdit(s)">✏️</button>
-                        <button class="btn-icon" title="Αλλαγή Κωδικού" @onclick="() => ShowChangePass(s)">🔑</button>
-                        <button class="btn-icon btn-danger" title="Διαγραφή" @onclick="() => ConfirmDelete(s)">🗑️</button>
+                        <button type="button" class="btn-icon" title="Επεξεργασία" @onclick="() => ShowEdit(s)">✏️</button>
+                        <button type="button" class="btn-icon" title="Αλλαγή Κωδικού" @onclick="() => ShowChangePass(s)">🔑</button>
+                        <button type="button" class="btn-icon btn-danger" title="Διαγραφή" @onclick="() => ConfirmDelete(s)">🗑️</button>
                     </td>
                 </tr>
             }
@@ -60,7 +61,7 @@
         <div class="modal" @onclick:stopPropagation>
             <div class="modal-header">
                 <h3>@(_editItem?.SellerId > 0 ? "Επεξεργασία Πωλητή" : "Νέος Πωλητής")</h3>
-                <button class="modal-close" @onclick="CloseModal">✕</button>
+                <button type="button" class="modal-close" @onclick="CloseModal">✕</button>
             </div>
             <div class="modal-body">
                 @if (_editItem != null)
@@ -108,8 +109,8 @@
                 }
             </div>
             <div class="modal-footer">
-                <button class="btn-secondary" @onclick="CloseModal">Άκυρο</button>
-                <button class="btn-primary" @onclick="SaveSeller">Αποθήκευση</button>
+                <button type="button" class="btn-secondary" @onclick="CloseModal">Άκυρο</button>
+                <button type="button" class="btn-primary" @onclick="SaveSeller">Αποθήκευση</button>
             </div>
         </div>
     </div>
@@ -121,7 +122,7 @@
         <div class="modal modal-sm" @onclick:stopPropagation>
             <div class="modal-header">
                 <h3>Αλλαγή Κωδικού - @_passTarget?.SellerName</h3>
-                <button class="modal-close" @onclick="CloseModal">✕</button>
+                <button type="button" class="modal-close" @onclick="CloseModal">✕</button>
             </div>
             <div class="modal-body">
                 <div class="form-group">
@@ -135,8 +136,8 @@
                 @if (_passError != "") { <div class="alert-error">@_passError</div> }
             </div>
             <div class="modal-footer">
-                <button class="btn-secondary" @onclick="CloseModal">Άκυρο</button>
-                <button class="btn-primary" @onclick="ChangePassword">Αποθήκευση</button>
+                <button type="button" class="btn-secondary" @onclick="CloseModal">Άκυρο</button>
+                <button type="button" class="btn-primary" @onclick="ChangePassword">Αποθήκευση</button>
             </div>
         </div>
     </div>
@@ -149,8 +150,8 @@
             <div class="modal-header"><h3>Επιβεβαίωση Διαγραφής</h3></div>
             <div class="modal-body"><p>Διαγραφή πωλητή <strong>@_deleteItem?.SellerName</strong>;</p></div>
             <div class="modal-footer">
-                <button class="btn-secondary" @onclick="CloseModal">Άκυρο</button>
-                <button class="btn-danger" @onclick="DeleteSeller">Διαγραφή</button>
+                <button type="button" class="btn-secondary" @onclick="CloseModal">Άκυρο</button>
+                <button type="button" class="btn-danger" @onclick="DeleteSeller">Διαγραφή</button>
             </div>
         </div>
     </div>
@@ -169,7 +170,7 @@
     private void Load() => _sellers = SellerSvc.GetAll(_search);
     private void OnSearch(ChangeEventArgs e) { _search = e.Value?.ToString() ?? string.Empty; Load(); }
 
-    private void ShowCreate() { _editItem = new SellersTbl { Date = DateTime.Now, Active = true }; _showModal = true; _message = ""; }
+    private void ShowCreate() { _editItem = new SellersTbl { Date = DateTime.Now, Active = true }; _showModal = true; _message = ""; StateHasChanged(); }
 
     private void ShowEdit(SellersTbl s)
     {
@@ -182,9 +183,9 @@
         _showModal = true; _message = "";
     }
 
-    private void ShowChangePass(SellersTbl s) { _passTarget = s; _newPassword = ""; _confirmPassword = ""; _passError = ""; _showPassModal = true; }
+    private void ShowChangePass(SellersTbl s) { _passTarget = s; _newPassword = ""; _confirmPassword = ""; _passError = ""; _showPassModal = true; StateHasChanged(); }
 
-    private void ConfirmDelete(SellersTbl s) { _deleteItem = s; _showDeleteConfirm = true; _message = ""; }
+    private void ConfirmDelete(SellersTbl s) { _deleteItem = s; _showDeleteConfirm = true; _message = ""; StateHasChanged(); }
 
     private void SaveSeller()
     {

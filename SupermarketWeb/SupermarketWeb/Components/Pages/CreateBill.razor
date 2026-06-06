@@ -1,4 +1,5 @@
 @page "/create-bill"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
 @inject AuthService Auth
 @inject NavigationManager Nav
 @inject BillService BillSvc
@@ -56,12 +57,12 @@
                 <div class="selected-row">
                     <span>@item.Product.ProdName</span>
                     <div class="qty-control">
-                        <button @onclick="() => DecrQty(item)">-</button>
+                        <button type="button" @onclick="() => DecrQty(item)">-</button>
                         <span>@item.Quantity</span>
-                        <button @onclick="() => IncrQty(item)">+</button>
+                        <button type="button" @onclick="() => IncrQty(item)">+</button>
                     </div>
                     <span>€@((item.Product.ProdPrice * item.Quantity).ToString("N2"))</span>
-                    <button class="btn-icon btn-danger" @onclick="() => RemoveItem(item)">✕</button>
+                    <button type="button" class="btn-icon btn-danger" @onclick="() => RemoveItem(item)">✕</button>
                 </div>
             }
         </div>
@@ -75,7 +76,7 @@
             <textarea class="form-input" rows="3" @bind="_comments"></textarea>
         </div>
 
-        <button class="btn-primary btn-full" @onclick="SubmitBill" disabled="@(_selectedItems.Count == 0)">
+        <button type="button" class="btn-primary btn-full" @onclick="SubmitBill" disabled="@(_selectedItems.Count == 0)">
             💾 Αποθήκευση Παραστατικού
         </button>
     </div>

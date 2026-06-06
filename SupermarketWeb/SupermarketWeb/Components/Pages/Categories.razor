@@ -1,4 +1,5 @@
 @page "/categories"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
 @inject AuthService Auth
 @inject NavigationManager Nav
 @inject CategoryService CategorySvc
@@ -8,7 +9,7 @@
 
 <div class="page-header">
     <h1>🗂️ Κατηγορίες</h1>
-    <button class="btn-primary" @onclick="ShowCreate">+ Νέα Κατηγορία</button>
+    <button type="button" class="btn-primary" @onclick="ShowCreate">+ Νέα Κατηγορία</button>
 </div>
 
 <div class="search-bar">
@@ -34,8 +35,8 @@
                     <td>@c.CatDesc</td>
                     <td>@c.Date.ToString("dd/MM/yyyy")</td>
                     <td>
-                        <button class="btn-icon" @onclick="() => ShowEdit(c)">✏️</button>
-                        <button class="btn-icon btn-danger" @onclick="() => ConfirmDelete(c)">🗑️</button>
+                        <button type="button" class="btn-icon" @onclick="() => ShowEdit(c)">✏️</button>
+                        <button type="button" class="btn-icon btn-danger" @onclick="() => ConfirmDelete(c)">🗑️</button>
                     </td>
                 </tr>
             }
@@ -53,7 +54,7 @@
         <div class="modal" @onclick:stopPropagation>
             <div class="modal-header">
                 <h3>@(_editItem?.CatId > 0 ? "Επεξεργασία Κατηγορίας" : "Νέα Κατηγορία")</h3>
-                <button class="modal-close" @onclick="CloseModal">✕</button>
+                <button type="button" class="modal-close" @onclick="CloseModal">✕</button>
             </div>
             <div class="modal-body">
                 @if (_editItem != null)
@@ -69,8 +70,8 @@
                 }
             </div>
             <div class="modal-footer">
-                <button class="btn-secondary" @onclick="CloseModal">Άκυρο</button>
-                <button class="btn-primary" @onclick="SaveCategory">Αποθήκευση</button>
+                <button type="button" class="btn-secondary" @onclick="CloseModal">Άκυρο</button>
+                <button type="button" class="btn-primary" @onclick="SaveCategory">Αποθήκευση</button>
             </div>
         </div>
     </div>
@@ -83,8 +84,8 @@
             <div class="modal-header"><h3>Επιβεβαίωση Διαγραφής</h3></div>
             <div class="modal-body"><p>Διαγραφή κατηγορίας <strong>@_deleteItem?.CatName</strong>;</p></div>
             <div class="modal-footer">
-                <button class="btn-secondary" @onclick="CloseModal">Άκυρο</button>
-                <button class="btn-danger" @onclick="DeleteCategory">Διαγραφή</button>
+                <button type="button" class="btn-secondary" @onclick="CloseModal">Άκυρο</button>
+                <button type="button" class="btn-danger" @onclick="DeleteCategory">Διαγραφή</button>
             </div>
         </div>
     </div>
@@ -104,7 +105,7 @@
     private void Load() => _categories = CategorySvc.GetAll(_search);
     private void OnSearch(ChangeEventArgs e) { _search = e.Value?.ToString() ?? string.Empty; Load(); }
 
-    private void ShowCreate() { _editItem = new CategoryTbl { Date = DateTime.Now }; _showModal = true; _message = ""; }
+    private void ShowCreate() { _editItem = new CategoryTbl { Date = DateTime.Now }; _showModal = true; _message = ""; StateHasChanged(); }
 
     private void ShowEdit(CategoryTbl c)
     {
@@ -113,7 +114,7 @@
         _message = "";
     }
 
-    private void ConfirmDelete(CategoryTbl c) { _deleteItem = c; _showDeleteConfirm = true; _message = ""; }
+    private void ConfirmDelete(CategoryTbl c) { _deleteItem = c; _showDeleteConfirm = true; _message = ""; StateHasChanged(); }
 
     private void SaveCategory()
     {
