@@ -5,16 +5,15 @@
 @inject CategoryService CategorySvc
 @inject SellerService SellerSvc
 @inject BillService BillSvc
-@rendermode InteractiveServer
 
 <PageTitle>Dashboard - Supermarket</PageTitle>
 
 @if (!Auth.IsAuthenticated)
 {
-    Nav.NavigateTo("/login");
-    return;
+    <div style="display:none">Redirecting...</div>
 }
-
+else
+{
 <div class="page-header">
     <h1>Dashboard</h1>
     <p>Καλώς ήρθατε, @Auth.DisplayName</p>
@@ -98,6 +97,7 @@
         <span>Νέο Παραστατικό</span>
     </a>
 </div>
+}
 
 @code {
     private int _totalProducts, _totalCategories, _totalSellers, _totalBills, _lowStock;
@@ -105,7 +105,11 @@
 
     protected override void OnInitialized()
     {
-        if (!Auth.IsAuthenticated) return;
+        if (!Auth.IsAuthenticated)
+        {
+            Nav.NavigateTo("/login");
+            return;
+        }
         LoadStats();
     }
 

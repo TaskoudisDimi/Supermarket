@@ -1,7 +1,6 @@
 @page "/login"
 @inject AuthService Auth
 @inject NavigationManager Nav
-@rendermode InteractiveServer
 
 <PageTitle>Σύνδεση - Supermarket</PageTitle>
 
@@ -62,7 +61,7 @@
         _loading = false;
 
         if (ok)
-            Nav.NavigateTo("/", forceLoad: true);
+            Nav.NavigateTo("/");
         else
             _error = "Λανθασμένα στοιχεία σύνδεσης.";
     }

@@ -2,12 +2,9 @@
 @inject AuthService Auth
 @inject NavigationManager Nav
 @inject SellerService SellerSvc
-@rendermode InteractiveServer
 
 <PageTitle>Πωλητές - Supermarket</PageTitle>
 
-@if (!Auth.IsAuthenticated) { Nav.NavigateTo("/login"); return; }
-@if (Auth.CurrentRole == AuthService.Role.Seller) { Nav.NavigateTo("/"); return; }
 
 <div class="page-header">
     <h1>👤 Πωλητές</h1>
@@ -168,7 +165,7 @@
     private SellersTbl? _editItem, _deleteItem, _passTarget;
     private string _newPassword = "", _confirmPassword = "", _passError = "";
 
-    protected override void OnInitialized() { if (Auth.IsAuthenticated) Load(); }
+    protected override void OnInitialized() { if (!Auth.IsAuthenticated) { Nav.NavigateTo("/login"); return; } if (Auth.CurrentRole == AuthService.Role.Seller) { Nav.NavigateTo("/"); return; } Load(); }
     private void Load() => _sellers = SellerSvc.GetAll(_search);
     private void OnSearch(ChangeEventArgs e) { _search = e.Value?.ToString() ?? string.Empty; Load(); }
 

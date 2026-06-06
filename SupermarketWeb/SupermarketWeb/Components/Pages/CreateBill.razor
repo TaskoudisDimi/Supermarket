@@ -4,11 +4,9 @@
 @inject BillService BillSvc
 @inject ProductService ProductSvc
 @inject CategoryService CategorySvc
-@rendermode InteractiveServer
 
 <PageTitle>Νέο Παραστατικό - Supermarket</PageTitle>
 
-@if (!Auth.IsAuthenticated) { Nav.NavigateTo("/login"); return; }
 
 <div class="page-header">
     <h1>➕ Νέο Παραστατικό</h1>
@@ -96,7 +94,7 @@
 
     protected override void OnInitialized()
     {
-        if (!Auth.IsAuthenticated) return;
+        if (!Auth.IsAuthenticated) { Nav.NavigateTo("/login"); return; }
         _allProducts = ProductSvc.GetAll();
         _filteredProducts = _allProducts;
     }

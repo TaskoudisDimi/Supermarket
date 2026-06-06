@@ -2,12 +2,9 @@
 @inject AuthService Auth
 @inject NavigationManager Nav
 @inject CategoryService CategorySvc
-@rendermode InteractiveServer
 
 <PageTitle>Κατηγορίες - Supermarket</PageTitle>
 
-@if (!Auth.IsAuthenticated) { Nav.NavigateTo("/login"); return; }
-@if (Auth.CurrentRole == AuthService.Role.Seller) { Nav.NavigateTo("/"); return; }
 
 <div class="page-header">
     <h1>🗂️ Κατηγορίες</h1>
@@ -103,7 +100,7 @@
     private CategoryTbl? _editItem;
     private CategoryTbl? _deleteItem;
 
-    protected override void OnInitialized() { if (Auth.IsAuthenticated) Load(); }
+    protected override void OnInitialized() { if (!Auth.IsAuthenticated) { Nav.NavigateTo("/login"); return; } if (Auth.CurrentRole == AuthService.Role.Seller) { Nav.NavigateTo("/"); return; } Load(); }
     private void Load() => _categories = CategorySvc.GetAll(_search);
     private void OnSearch(ChangeEventArgs e) { _search = e.Value?.ToString() ?? string.Empty; Load(); }
 

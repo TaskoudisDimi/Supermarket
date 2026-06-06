@@ -2,11 +2,9 @@
 @inject AuthService Auth
 @inject NavigationManager Nav
 @inject BillService BillSvc
-@rendermode InteractiveServer
 
 <PageTitle>Παραστατικά - Supermarket</PageTitle>
 
-@if (!Auth.IsAuthenticated) { Nav.NavigateTo("/login"); return; }
 
 <div class="page-header">
     <h1>🧾 Παραστατικά</h1>
@@ -109,7 +107,7 @@
     private bool _showDeleteConfirm;
     private BillTbl? _detailItem, _deleteItem;
 
-    protected override void OnInitialized() { if (Auth.IsAuthenticated) Load(); }
+    protected override void OnInitialized() { if (!Auth.IsAuthenticated) { Nav.NavigateTo("/login"); return; } Load(); }
 
     private void Load() => _bills = BillSvc.GetAll(_search, _from, _to);
     private void OnSearch(ChangeEventArgs e) { _search = e.Value?.ToString() ?? string.Empty; Load(); }
