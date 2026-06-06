@@ -1,0 +1,121 @@
+@page "/"
+@inject AuthService Auth
+@inject NavigationManager Nav
+@inject ProductService ProductSvc
+@inject CategoryService CategorySvc
+@inject SellerService SellerSvc
+@inject BillService BillSvc
+@rendermode InteractiveServer
+
+<PageTitle>Dashboard - Supermarket</PageTitle>
+
+@if (!Auth.IsAuthenticated)
+{
+    Nav.NavigateTo("/login");
+    return;
+}
+
+<div class="page-header">
+    <h1>Dashboard</h1>
+    <p>Καλώς ήρθατε, @Auth.DisplayName</p>
+</div>
+
+<div class="stats-grid">
+    <div class="stat-card stat-blue">
+        <div class="stat-icon">📦</div>
+        <div class="stat-info">
+            <div class="stat-value">@_totalProducts</div>
+            <div class="stat-label">Προϊόντα</div>
+        </div>
+    </div>
+
+    <div class="stat-card stat-green">
+        <div class="stat-icon">🗂️</div>
+        <div class="stat-info">
+            <div class="stat-value">@_totalCategories</div>
+            <div class="stat-label">Κατηγορίες</div>
+        </div>
+    </div>
+
+    @if (Auth.CurrentRole != AuthService.Role.Seller)
+    {
+        <div class="stat-card stat-purple">
+            <div class="stat-icon">👤</div>
+            <div class="stat-info">
+                <div class="stat-value">@_totalSellers</div>
+                <div class="stat-label">Πωλητές</div>
+            </div>
+        </div>
+    }
+
+    <div class="stat-card stat-orange">
+        <div class="stat-icon">🧾</div>
+        <div class="stat-info">
+            <div class="stat-value">@_totalBills</div>
+            <div class="stat-label">Παραστατικά</div>
+        </div>
+    </div>
+
+    <div class="stat-card stat-teal">
+        <div class="stat-icon">💶</div>
+        <div class="stat-info">
+            <div class="stat-value">€@_todayRevenue.ToString("N2")</div>
+            <div class="stat-label">Έσοδα Σήμερα</div>
+        </div>
+    </div>
+
+    <div class="stat-card stat-red">
+        <div class="stat-icon">⚠️</div>
+        <div class="stat-info">
+            <div class="stat-value">@_lowStock</div>
+            <div class="stat-label">Χαμηλό Απόθεμα</div>
+        </div>
+    </div>
+</div>
+
+<div class="dashboard-actions">
+    @if (Auth.CurrentRole != AuthService.Role.Seller)
+    {
+        <a href="/products" class="action-card">
+            <span>📦</span>
+            <span>Διαχείριση Προϊόντων</span>
+        </a>
+        <a href="/categories" class="action-card">
+            <span>🗂️</span>
+            <span>Κατηγορίες</span>
+        </a>
+        <a href="/sellers" class="action-card">
+            <span>👤</span>
+            <span>Πωλητές</span>
+        </a>
+    }
+    <a href="/bills" class="action-card">
+        <span>🧾</span>
+        <span>Παραστατικά</span>
+    </a>
+    <a href="/create-bill" class="action-card">
+        <span>➕</span>
+        <span>Νέο Παραστατικό</span>
+    </a>
+</div>
+
+@code {
+    private int _totalProducts, _totalCategories, _totalSellers, _totalBills, _lowStock;
+    private decimal _todayRevenue;
+
+    protected override void OnInitialized()
+    {
+        if (!Auth.IsAuthenticated) return;
+        LoadStats();
+    }
+
+    private void LoadStats()
+    {
+        _totalProducts = ProductSvc.TotalProducts();
+        _totalCategories = CategorySvc.TotalCategories();
+        _totalSellers = SellerSvc.TotalSellers();
+        _totalBills = BillSvc.TotalBills();
+        _todayRevenue = BillSvc.TodayRevenue();
+        _lowStock = ProductSvc.LowStockCount();
+    }
+}

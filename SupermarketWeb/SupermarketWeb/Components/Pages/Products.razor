@@ -1,0 +1,218 @@
+@page "/products"
+@inject AuthService Auth
+@inject NavigationManager Nav
+@inject ProductService ProductSvc
+@inject CategoryService CategorySvc
+@rendermode InteractiveServer
+
+<PageTitle>Προϊόντα - Supermarket</PageTitle>
+
+@if (!Auth.IsAuthenticated) { Nav.NavigateTo("/login"); return; }
+
+<div class="page-header">
+    <h1>📦 Προϊόντα</h1>
+    @if (Auth.CurrentRole != AuthService.Role.Seller)
+    {
+        <button class="btn-primary" @onclick="ShowCreate">+ Νέο Προϊόν</button>
+    }
+</div>
+
+<div class="search-bar">
+    <input class="form-input" placeholder="Αναζήτηση προϊόντος..." value="@_search" @oninput="OnSearch" />
+</div>
+
+@if (_message != "")
+{
+    <div class="@(_isError ? "alert-error" : "alert-success")">@_message</div>
+}
+
+<div class="table-container">
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Όνομα</th>
+                <th>Κατηγορία</th>
+                <th>Τιμή (€)</th>
+                <th>Απόθεμα</th>
+                <th>Ημερομηνία</th>
+                @if (Auth.CurrentRole != AuthService.Role.Seller)
+                {
+                    <th>Ενέργειες</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var p in _products)
+            {
+                <tr class="@(p.ProdQty <= 5 ? "row-warning" : "")">
+                    <td>@p.ProdId</td>
+                    <td>@p.ProdName</td>
+                    <td>@p.ProdCat</td>
+                    <td>€@p.ProdPrice.ToString("N2")</td>
+                    <td>
+                        <span class="badge @(p.ProdQty <= 5 ? "badge-red" : "badge-green")">@p.ProdQty</span>
+                    </td>
+                    <td>@p.Date.ToString("dd/MM/yyyy")</td>
+                    @if (Auth.CurrentRole != AuthService.Role.Seller)
+                    {
+                        <td>
+                            <button class="btn-icon" title="Επεξεργασία" @onclick="() => ShowEdit(p)">✏️</button>
+                            <button class="btn-icon btn-danger" title="Διαγραφή" @onclick="() => ConfirmDelete(p)">🗑️</button>
+                        </td>
+                    }
+                </tr>
+            }
+            @if (_products.Count == 0)
+            {
+                <tr><td colspan="7" class="empty-row">Δεν βρέθηκαν προϊόντα.</td></tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@if (_showModal)
+{
+    <div class="modal-overlay" @onclick="CloseModal">
+        <div class="modal" @onclick:stopPropagation>
+            <div class="modal-header">
+                <h3>@(_editItem?.ProdId > 0 ? "Επεξεργασία Προϊόντος" : "Νέο Προϊόν")</h3>
+                <button class="modal-close" @onclick="CloseModal">✕</button>
+            </div>
+            <div class="modal-body">
+                @if (_editItem != null)
+                {
+                    <div class="form-group">
+                        <label>Όνομα *</label>
+                        <input class="form-input" @bind="_editItem.ProdName" />
+                    </div>
+                    <div class="form-group">
+                        <label>Κατηγορία *</label>
+                        <select class="form-input" @bind="_editItem.ProdCatID" @bind:after="UpdateCatName">
+                            <option value="0">-- Επιλέξτε --</option>
+                            @foreach (var c in _categories)
+                            {
+                                <option value="@c.CatId">@c.CatName</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Τιμή (€) *</label>
+                        <input class="form-input" type="number" step="0.01" @bind="_editItem.ProdPrice" />
+                    </div>
+                    <div class="form-group">
+                        <label>Απόθεμα *</label>
+                        <input class="form-input" type="number" @bind="_editItem.ProdQty" />
+                    </div>
+                }
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" @onclick="CloseModal">Άκυρο</button>
+                <button class="btn-primary" @onclick="SaveProduct">Αποθήκευση</button>
+            </div>
+        </div>
+    </div>
+}
+
+@if (_showDeleteConfirm)
+{
+    <div class="modal-overlay" @onclick="CloseModal">
+        <div class="modal modal-sm" @onclick:stopPropagation>
+            <div class="modal-header">
+                <h3>Επιβεβαίωση Διαγραφής</h3>
+            </div>
+            <div class="modal-body">
+                <p>Διαγραφή προϊόντος <strong>@_deleteItem?.ProdName</strong>;</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" @onclick="CloseModal">Άκυρο</button>
+                <button class="btn-danger" @onclick="DeleteProduct">Διαγραφή</button>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    private List<ProductTbl> _products = [];
+    private List<CategoryTbl> _categories = [];
+    private string _search = "";
+    private string _message = "";
+    private bool _isError;
+    private bool _showModal;
+    private bool _showDeleteConfirm;
+    private ProductTbl? _editItem;
+    private ProductTbl? _deleteItem;
+
+    protected override void OnInitialized()
+    {
+        if (!Auth.IsAuthenticated) return;
+        _categories = CategorySvc.GetAll();
+        Load();
+    }
+
+    private void Load() => _products = ProductSvc.GetAll(_search);
+    private void DoSearch() => Load();
+    private void OnSearch(ChangeEventArgs e) { _search = e.Value?.ToString() ?? string.Empty; DoSearch(); }
+
+    private void ShowCreate()
+    {
+        _editItem = new ProductTbl { Date = DateTime.Now };
+        _showModal = true;
+        _message = "";
+    }
+
+    private void ShowEdit(ProductTbl p)
+    {
+        _editItem = new ProductTbl
+        {
+            ProdId = p.ProdId, ProdName = p.ProdName, ProdCatID = p.ProdCatID,
+            ProdCat = p.ProdCat, ProdPrice = p.ProdPrice, ProdQty = p.ProdQty, Date = p.Date
+        };
+        _showModal = true;
+        _message = "";
+    }
+
+    private void ConfirmDelete(ProductTbl p)
+    {
+        _deleteItem = p;
+        _showDeleteConfirm = true;
+        _message = "";
+    }
+
+    private void UpdateCatName()
+    {
+        if (_editItem == null) return;
+        _editItem.ProdCat = _categories.FirstOrDefault(c => c.CatId == _editItem.ProdCatID)?.CatName ?? "";
+    }
+
+    private void SaveProduct()
+    {
+        if (_editItem == null) return;
+        int? result = _editItem.ProdId > 0
+            ? ProductSvc.Update(_editItem)
+            : ProductSvc.Create(_editItem);
+
+        _isError = result != 1;
+        _message = result == 1 ? "Αποθηκεύτηκε επιτυχώς!" : "Σφάλμα αποθήκευσης.";
+        CloseModal();
+        Load();
+    }
+
+    private void DeleteProduct()
+    {
+        if (_deleteItem == null) return;
+        int? result = ProductSvc.Delete(_deleteItem);
+        _isError = result != 1;
+        _message = result == 1 ? "Διαγράφηκε επιτυχώς!" : "Σφάλμα διαγραφής.";
+        CloseModal();
+        Load();
+    }
+
+    private void CloseModal()
+    {
+        _showModal = false;
+        _showDeleteConfirm = false;
+        _editItem = null;
+        _deleteItem = null;
+    }
+}

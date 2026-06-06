@@ -1,0 +1,55 @@
+@inherits LayoutComponentBase
+@inject AuthService Auth
+@inject NavigationManager Nav
+
+@if (!Auth.IsAuthenticated)
+{
+    @Body
+}
+else
+{
+    <div class="app-layout">
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <span class="brand-icon">🛒</span>
+                <span class="brand-text">Supermarket</span>
+            </div>
+
+            <div class="sidebar-user">
+                <div class="user-avatar">@(Auth.DisplayName.Length > 0 ? char.ToUpper(Auth.DisplayName[0]).ToString() : "?")</div>
+                <div class="user-info">
+                    <div class="user-name">@Auth.DisplayName</div>
+                    <div class="user-role">@Auth.CurrentRole</div>
+                </div>
+            </div>
+
+            <NavMenu />
+
+            <div class="sidebar-footer">
+                <button class="btn-logout" @onclick="Logout">
+                    <span>⏻</span> Αποσύνδεση
+                </button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="content-wrapper">
+                @Body
+            </div>
+        </main>
+    </div>
+}
+
+<div id="blazor-error-ui" data-nosnippet>
+    Προέκυψε σφάλμα.
+    <a href="." class="reload">Ανανέωση</a>
+    <span class="dismiss">✕</span>
+</div>
+
+@code {
+    private void Logout()
+    {
+        Auth.Logout();
+        Nav.NavigateTo("/login", forceLoad: true);
+    }
+}

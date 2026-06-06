@@ -1,0 +1,180 @@
+@page "/create-bill"
+@inject AuthService Auth
+@inject NavigationManager Nav
+@inject BillService BillSvc
+@inject ProductService ProductSvc
+@inject CategoryService CategorySvc
+@rendermode InteractiveServer
+
+<PageTitle>Νέο Παραστατικό - Supermarket</PageTitle>
+
+@if (!Auth.IsAuthenticated) { Nav.NavigateTo("/login"); return; }
+
+<div class="page-header">
+    <h1>➕ Νέο Παραστατικό</h1>
+</div>
+
+@if (_message != "")
+{
+    <div class="@(_isError ? "alert-error" : "alert-success")">@_message</div>
+}
+
+<div class="bill-layout">
+    <div class="bill-products">
+        <h3>Επιλογή Προϊόντων</h3>
+        <input class="form-input" placeholder="Αναζήτηση..." value="@_search" @oninput="OnSearch" />
+
+        <div class="product-list">
+            @foreach (var p in _filteredProducts)
+            {
+                <div class="product-item @(IsSelected(p) ? "selected" : "")"
+                     @onclick="() => ToggleProduct(p)">
+                    <div class="product-info">
+                        <div class="product-name">@p.ProdName</div>
+                        <div class="product-meta">@p.ProdCat • €@p.ProdPrice.ToString("N2")</div>
+                        <div class="product-stock">Απόθεμα: @p.ProdQty</div>
+                    </div>
+                    <div class="product-select">
+                        @if (IsSelected(p))
+                        {
+                            <span class="check-icon">✓</span>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="bill-summary">
+        <h3>Σύνοψη Παραστατικού</h3>
+
+        <div class="selected-items">
+            @if (_selectedItems.Count == 0)
+            {
+                <p class="empty-msg">Δεν επιλέχτηκαν προϊόντα.</p>
+            }
+            @foreach (var item in _selectedItems)
+            {
+                <div class="selected-row">
+                    <span>@item.Product.ProdName</span>
+                    <div class="qty-control">
+                        <button @onclick="() => DecrQty(item)">-</button>
+                        <span>@item.Quantity</span>
+                        <button @onclick="() => IncrQty(item)">+</button>
+                    </div>
+                    <span>€@((item.Product.ProdPrice * item.Quantity).ToString("N2"))</span>
+                    <button class="btn-icon btn-danger" @onclick="() => RemoveItem(item)">✕</button>
+                </div>
+            }
+        </div>
+
+        <div class="bill-total">
+            <strong>Σύνολο: €@_total.ToString("N2")</strong>
+        </div>
+
+        <div class="form-group">
+            <label>Σχόλια</label>
+            <textarea class="form-input" rows="3" @bind="_comments"></textarea>
+        </div>
+
+        <button class="btn-primary btn-full" @onclick="SubmitBill" disabled="@(_selectedItems.Count == 0)">
+            💾 Αποθήκευση Παραστατικού
+        </button>
+    </div>
+</div>
+
+@code {
+    private List<ProductTbl> _allProducts = [];
+    private List<ProductTbl> _filteredProducts = [];
+    private List<BillItem> _selectedItems = [];
+    private string _search = "";
+    private string _comments = "";
+    private string _message = "";
+    private bool _isError;
+
+    private decimal _total => _selectedItems.Sum(i => i.Product.ProdPrice * i.Quantity);
+
+    protected override void OnInitialized()
+    {
+        if (!Auth.IsAuthenticated) return;
+        _allProducts = ProductSvc.GetAll();
+        _filteredProducts = _allProducts;
+    }
+
+    private void OnSearch(ChangeEventArgs e) { _search = e.Value?.ToString() ?? string.Empty; FilterProducts(); }
+
+    private void FilterProducts()
+    {
+        if (string.IsNullOrWhiteSpace(_search))
+            _filteredProducts = _allProducts;
+        else
+            _filteredProducts = _allProducts
+                .Where(p => p.ProdName.Contains(_search, StringComparison.OrdinalIgnoreCase))
+                .ToList();
+    }
+
+    private bool IsSelected(ProductTbl p) => _selectedItems.Any(i => i.Product.ProdId == p.ProdId);
+
+    private void ToggleProduct(ProductTbl p)
+    {
+        var existing = _selectedItems.FirstOrDefault(i => i.Product.ProdId == p.ProdId);
+        if (existing != null)
+            _selectedItems.Remove(existing);
+        else
+            _selectedItems.Add(new BillItem { Product = p, Quantity = 1 });
+    }
+
+    private void IncrQty(BillItem item)
+    {
+        if (item.Quantity < item.Product.ProdQty)
+            item.Quantity++;
+    }
+
+    private void DecrQty(BillItem item)
+    {
+        if (item.Quantity > 1) item.Quantity--;
+        else _selectedItems.Remove(item);
+    }
+
+    private void RemoveItem(BillItem item) => _selectedItems.Remove(item);
+
+    private void SubmitBill()
+    {
+        if (_selectedItems.Count == 0) return;
+
+        string productIds = string.Join(",", _selectedItems.Select(i => i.Product.ProdId));
+        string categoryIds = string.Join(",", _selectedItems.Select(i => i.Product.ProdCatID).Distinct());
+
+        var bill = new BillTbl
+        {
+            SellerName = Auth.DisplayName,
+            Comments = _comments,
+            TotAmt = _total,
+            ProductIDs = productIds,
+            CategoryIDs = categoryIds,
+            Date = DateTime.Now
+        };
+
+        int? result = BillSvc.Create(bill);
+
+        if (result == 1)
+        {
+            // Reduce stock for each selected product
+            foreach (var item in _selectedItems)
+                ProductSvc.UpdateStock(item.Product.ProdId, item.Product.ProdQty - item.Quantity);
+
+            Nav.NavigateTo("/bills");
+        }
+        else
+        {
+            _isError = true;
+            _message = "Σφάλμα αποθήκευσης παραστατικού.";
+        }
+    }
+
+    private class BillItem
+    {
+        public ProductTbl Product { get; set; } = new();
+        public int Quantity { get; set; } = 1;
+    }
+}

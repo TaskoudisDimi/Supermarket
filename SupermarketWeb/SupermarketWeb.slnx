@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="SupermarketWeb.Data/SupermarketWeb.Data.csproj" />
+  <Project Path="SupermarketWeb/SupermarketWeb.csproj" />
+</Solution>

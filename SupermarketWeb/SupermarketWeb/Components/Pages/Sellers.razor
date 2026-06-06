@@ -1,0 +1,226 @@
+@page "/sellers"
+@inject AuthService Auth
+@inject NavigationManager Nav
+@inject SellerService SellerSvc
+@rendermode InteractiveServer
+
+<PageTitle>Πωλητές - Supermarket</PageTitle>
+
+@if (!Auth.IsAuthenticated) { Nav.NavigateTo("/login"); return; }
+@if (Auth.CurrentRole == AuthService.Role.Seller) { Nav.NavigateTo("/"); return; }
+
+<div class="page-header">
+    <h1>👤 Πωλητές</h1>
+    <button class="btn-primary" @onclick="ShowCreate">+ Νέος Πωλητής</button>
+</div>
+
+<div class="search-bar">
+    <input class="form-input" placeholder="Αναζήτηση πωλητή..." value="@_search" @oninput="OnSearch" />
+</div>
+
+@if (_message != "")
+{
+    <div class="@(_isError ? "alert-error" : "alert-success")">@_message</div>
+}
+
+<div class="table-container">
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>#</th><th>Username</th><th>Ονοματεπώνυμο</th><th>Ηλικία</th>
+                <th>Τηλέφωνο</th><th>Διεύθυνση</th><th>Ενεργός</th><th>Ενέργειες</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var s in _sellers)
+            {
+                <tr>
+                    <td>@s.SellerId</td>
+                    <td>@s.SellerUserName</td>
+                    <td>@s.SellerName</td>
+                    <td>@s.SellerAge</td>
+                    <td>@s.SellerPhone</td>
+                    <td>@s.Address</td>
+                    <td><span class="badge @(s.Active ? "badge-green" : "badge-red")">@(s.Active ? "Ναι" : "Όχι")</span></td>
+                    <td>
+                        <button class="btn-icon" title="Επεξεργασία" @onclick="() => ShowEdit(s)">✏️</button>
+                        <button class="btn-icon" title="Αλλαγή Κωδικού" @onclick="() => ShowChangePass(s)">🔑</button>
+                        <button class="btn-icon btn-danger" title="Διαγραφή" @onclick="() => ConfirmDelete(s)">🗑️</button>
+                    </td>
+                </tr>
+            }
+            @if (_sellers.Count == 0)
+            {
+                <tr><td colspan="8" class="empty-row">Δεν βρέθηκαν πωλητές.</td></tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@if (_showModal)
+{
+    <div class="modal-overlay" @onclick="CloseModal">
+        <div class="modal" @onclick:stopPropagation>
+            <div class="modal-header">
+                <h3>@(_editItem?.SellerId > 0 ? "Επεξεργασία Πωλητή" : "Νέος Πωλητής")</h3>
+                <button class="modal-close" @onclick="CloseModal">✕</button>
+            </div>
+            <div class="modal-body">
+                @if (_editItem != null)
+                {
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Username *</label>
+                            <input class="form-input" @bind="_editItem.SellerUserName" />
+                        </div>
+                        @if (_editItem.SellerId == 0)
+                        {
+                            <div class="form-group">
+                                <label>Κωδικός *</label>
+                                <input class="form-input" type="password" @bind="_editItem.SellerPass" />
+                            </div>
+                        }
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Ονοματεπώνυμο *</label>
+                            <input class="form-input" @bind="_editItem.SellerName" />
+                        </div>
+                        <div class="form-group">
+                            <label>Ηλικία</label>
+                            <input class="form-input" type="number" @bind="_editItem.SellerAge" />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Τηλέφωνο</label>
+                            <input class="form-input" type="number" @bind="_editItem.SellerPhone" />
+                        </div>
+                        <div class="form-group">
+                            <label>Ενεργός</label>
+                            <select class="form-input" @bind="_editItem.Active">
+                                <option value="true">Ναι</option>
+                                <option value="false">Όχι</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Διεύθυνση</label>
+                        <input class="form-input" @bind="_editItem.Address" />
+                    </div>
+                }
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" @onclick="CloseModal">Άκυρο</button>
+                <button class="btn-primary" @onclick="SaveSeller">Αποθήκευση</button>
+            </div>
+        </div>
+    </div>
+}
+
+@if (_showPassModal)
+{
+    <div class="modal-overlay" @onclick="CloseModal">
+        <div class="modal modal-sm" @onclick:stopPropagation>
+            <div class="modal-header">
+                <h3>Αλλαγή Κωδικού - @_passTarget?.SellerName</h3>
+                <button class="modal-close" @onclick="CloseModal">✕</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Νέος Κωδικός *</label>
+                    <input class="form-input" type="password" @bind="_newPassword" />
+                </div>
+                <div class="form-group">
+                    <label>Επιβεβαίωση *</label>
+                    <input class="form-input" type="password" @bind="_confirmPassword" />
+                </div>
+                @if (_passError != "") { <div class="alert-error">@_passError</div> }
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" @onclick="CloseModal">Άκυρο</button>
+                <button class="btn-primary" @onclick="ChangePassword">Αποθήκευση</button>
+            </div>
+        </div>
+    </div>
+}
+
+@if (_showDeleteConfirm)
+{
+    <div class="modal-overlay" @onclick="CloseModal">
+        <div class="modal modal-sm" @onclick:stopPropagation>
+            <div class="modal-header"><h3>Επιβεβαίωση Διαγραφής</h3></div>
+            <div class="modal-body"><p>Διαγραφή πωλητή <strong>@_deleteItem?.SellerName</strong>;</p></div>
+            <div class="modal-footer">
+                <button class="btn-secondary" @onclick="CloseModal">Άκυρο</button>
+                <button class="btn-danger" @onclick="DeleteSeller">Διαγραφή</button>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    private List<SellersTbl> _sellers = [];
+    private string _search = "";
+    private string _message = "";
+    private bool _isError;
+    private bool _showModal, _showDeleteConfirm, _showPassModal;
+    private SellersTbl? _editItem, _deleteItem, _passTarget;
+    private string _newPassword = "", _confirmPassword = "", _passError = "";
+
+    protected override void OnInitialized() { if (Auth.IsAuthenticated) Load(); }
+    private void Load() => _sellers = SellerSvc.GetAll(_search);
+    private void OnSearch(ChangeEventArgs e) { _search = e.Value?.ToString() ?? string.Empty; Load(); }
+
+    private void ShowCreate() { _editItem = new SellersTbl { Date = DateTime.Now, Active = true }; _showModal = true; _message = ""; }
+
+    private void ShowEdit(SellersTbl s)
+    {
+        _editItem = new SellersTbl
+        {
+            SellerId = s.SellerId, SellerUserName = s.SellerUserName, SellerName = s.SellerName,
+            SellerAge = s.SellerAge, SellerPhone = s.SellerPhone, Address = s.Address,
+            Active = s.Active, Date = s.Date
+        };
+        _showModal = true; _message = "";
+    }
+
+    private void ShowChangePass(SellersTbl s) { _passTarget = s; _newPassword = ""; _confirmPassword = ""; _passError = ""; _showPassModal = true; }
+
+    private void ConfirmDelete(SellersTbl s) { _deleteItem = s; _showDeleteConfirm = true; _message = ""; }
+
+    private void SaveSeller()
+    {
+        if (_editItem == null) return;
+        int? result = _editItem.SellerId > 0 ? SellerSvc.Update(_editItem) : SellerSvc.Create(_editItem);
+        _isError = result != 1;
+        _message = result == 1 ? "Αποθηκεύτηκε!" : "Σφάλμα αποθήκευσης.";
+        CloseModal(); Load();
+    }
+
+    private void ChangePassword()
+    {
+        if (_passTarget == null) return;
+        if (_newPassword != _confirmPassword) { _passError = "Οι κωδικοί δεν ταιριάζουν."; return; }
+        if (_newPassword.Length < 4) { _passError = "Ο κωδικός πρέπει να έχει τουλάχιστον 4 χαρακτήρες."; return; }
+        int? result = SellerSvc.ChangePassword(_passTarget.SellerId, _newPassword);
+        _isError = result != 1;
+        _message = result == 1 ? "Κωδικός αλλάχτηκε!" : "Σφάλμα.";
+        CloseModal();
+    }
+
+    private void DeleteSeller()
+    {
+        if (_deleteItem == null) return;
+        int? result = SellerSvc.Delete(_deleteItem);
+        _isError = result != 1;
+        _message = result == 1 ? "Διαγράφηκε!" : "Σφάλμα.";
+        CloseModal(); Load();
+    }
+
+    private void CloseModal()
+    {
+        _showModal = false; _showDeleteConfirm = false; _showPassModal = false;
+        _editItem = null; _deleteItem = null; _passTarget = null;
+    }
+}

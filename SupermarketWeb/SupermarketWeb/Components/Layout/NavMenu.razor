@@ -1,0 +1,53 @@
+@inject AuthService Auth
+
+<nav class="nav-menu">
+    <NavLink class="nav-link" href="/" Match="NavLinkMatch.All">
+        <span class="nav-icon">📊</span> Dashboard
+    </NavLink>
+
+    @if (Auth.CurrentRole == AuthService.Role.Admin || Auth.CurrentRole == AuthService.Role.SuperAdmin)
+    {
+        <div class="nav-section-label">Διαχείριση</div>
+
+        <NavLink class="nav-link" href="/products">
+            <span class="nav-icon">📦</span> Προϊόντα
+        </NavLink>
+
+        <NavLink class="nav-link" href="/categories">
+            <span class="nav-icon">🗂️</span> Κατηγορίες
+        </NavLink>
+
+        <NavLink class="nav-link" href="/sellers">
+            <span class="nav-icon">👤</span> Πωλητές
+        </NavLink>
+
+        <NavLink class="nav-link" href="/bills">
+            <span class="nav-icon">🧾</span> Παραστατικά
+        </NavLink>
+
+        @if (Auth.CurrentRole == AuthService.Role.SuperAdmin)
+        {
+            <div class="nav-section-label">Σύστημα</div>
+            <NavLink class="nav-link" href="/database">
+                <span class="nav-icon">🗄️</span> Βάση Δεδομένων
+            </NavLink>
+        }
+    }
+
+    @if (Auth.CurrentRole == AuthService.Role.Seller)
+    {
+        <div class="nav-section-label">Πωλήσεις</div>
+
+        <NavLink class="nav-link" href="/products">
+            <span class="nav-icon">📦</span> Προϊόντα
+        </NavLink>
+
+        <NavLink class="nav-link" href="/bills">
+            <span class="nav-icon">🧾</span> Παραστατικά
+        </NavLink>
+
+        <NavLink class="nav-link" href="/create-bill">
+            <span class="nav-icon">➕</span> Νέο Παραστατικό
+        </NavLink>
+    }
+</nav>

@@ -1,0 +1,75 @@
+@page "/login"
+@inject AuthService Auth
+@inject NavigationManager Nav
+@rendermode InteractiveServer
+
+<PageTitle>Σύνδεση - Supermarket</PageTitle>
+
+<div class="login-page">
+    <div class="login-card">
+        <div class="login-header">
+            <div class="login-logo">🛒</div>
+            <h1>Supermarket Manager</h1>
+            <p>Συνδεθείτε για να συνεχίσετε</p>
+        </div>
+
+        @if (!string.IsNullOrEmpty(_error))
+        {
+            <div class="alert-error">@_error</div>
+        }
+
+        <div class="tab-switch">
+            <button class="@(_isAdmin ? "tab-active" : "")" @onclick="() => _isAdmin = true">Διαχειριστής</button>
+            <button class="@(!_isAdmin ? "tab-active" : "")" @onclick="() => _isAdmin = false">Πωλητής</button>
+        </div>
+
+        <EditForm Model="_model" OnValidSubmit="DoLogin">
+            <DataAnnotationsValidator />
+            <div class="form-group">
+                <label>Όνομα χρήστη</label>
+                <InputText class="form-input" @bind-Value="_model.Username" placeholder="Username" />
+            </div>
+            <div class="form-group">
+                <label>Κωδικός</label>
+                <InputText class="form-input" @bind-Value="_model.Password" type="password" placeholder="Password" />
+            </div>
+            <button type="submit" class="btn-login" disabled="@_loading">
+                @(_loading ? "Σύνδεση..." : "Είσοδος")
+            </button>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    private LoginModel _model = new();
+    private bool _isAdmin = true;
+    private bool _loading;
+    private string _error = "";
+
+    protected override void OnInitialized()
+    {
+        if (Auth.IsAuthenticated)
+            Nav.NavigateTo("/");
+    }
+
+    private void DoLogin()
+    {
+        _loading = true;
+        _error = "";
+        bool ok = _isAdmin
+            ? Auth.LoginAdmin(_model.Username, _model.Password)
+            : Auth.LoginSeller(_model.Username, _model.Password);
+        _loading = false;
+
+        if (ok)
+            Nav.NavigateTo("/", forceLoad: true);
+        else
+            _error = "Λανθασμένα στοιχεία σύνδεσης.";
+    }
+
+    private class LoginModel
+    {
+        public string Username { get; set; } = "";
+        public string Password { get; set; } = "";
+    }
+}

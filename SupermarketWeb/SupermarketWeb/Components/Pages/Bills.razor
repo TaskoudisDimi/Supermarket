@@ -1,0 +1,135 @@
+@page "/bills"
+@inject AuthService Auth
+@inject NavigationManager Nav
+@inject BillService BillSvc
+@rendermode InteractiveServer
+
+<PageTitle>Παραστατικά - Supermarket</PageTitle>
+
+@if (!Auth.IsAuthenticated) { Nav.NavigateTo("/login"); return; }
+
+<div class="page-header">
+    <h1>🧾 Παραστατικά</h1>
+    <a href="/create-bill" class="btn-primary">+ Νέο Παραστατικό</a>
+</div>
+
+<div class="filter-bar">
+    <input class="form-input" placeholder="Αναζήτηση..." value="@_search" @oninput="OnSearch" />
+    <input class="form-input" type="date" value="@_from?.ToString("yyyy-MM-dd")" @onchange="OnFromChanged" />
+    <input class="form-input" type="date" value="@_to?.ToString("yyyy-MM-dd")" @onchange="OnToChanged" />
+    <button class="btn-secondary" @onclick="ClearFilters">Καθαρισμός</button>
+</div>
+
+@if (_message != "")
+{
+    <div class="@(_isError ? "alert-error" : "alert-success")">@_message</div>
+}
+
+<div class="stats-mini">
+    <span>Σύνολο: <strong>@_bills.Count</strong> παραστατικά</span>
+    <span>Ποσό: <strong>€@_bills.Sum(b => b.TotAmt).ToString("N2")</strong></span>
+</div>
+
+<div class="table-container">
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>#</th><th>Ημερομηνία</th><th>Πωλητής</th><th>Σχόλια</th>
+                <th>Ποσό (€)</th><th>Ενέργειες</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var b in _bills)
+            {
+                <tr>
+                    <td>@b.BillId</td>
+                    <td>@b.Date.ToString("dd/MM/yyyy HH:mm")</td>
+                    <td>@b.SellerName</td>
+                    <td>@b.Comments</td>
+                    <td>€@b.TotAmt.ToString("N2")</td>
+                    <td>
+                        <button class="btn-icon" title="Λεπτομέρειες" @onclick="() => ShowDetails(b)">🔍</button>
+                        @if (Auth.CurrentRole != AuthService.Role.Seller)
+                        {
+                            <button class="btn-icon btn-danger" title="Διαγραφή" @onclick="() => ConfirmDelete(b)">🗑️</button>
+                        }
+                    </td>
+                </tr>
+            }
+            @if (_bills.Count == 0)
+            {
+                <tr><td colspan="6" class="empty-row">Δεν βρέθηκαν παραστατικά.</td></tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@if (_detailItem != null)
+{
+    <div class="modal-overlay" @onclick="() => _detailItem = null">
+        <div class="modal" @onclick:stopPropagation>
+            <div class="modal-header">
+                <h3>Παραστατικό #@_detailItem.BillId</h3>
+                <button class="modal-close" @onclick="() => _detailItem = null">✕</button>
+            </div>
+            <div class="modal-body">
+                <div class="detail-grid">
+                    <div><strong>Ημερομηνία:</strong> @_detailItem.Date.ToString("dd/MM/yyyy HH:mm")</div>
+                    <div><strong>Πωλητής:</strong> @_detailItem.SellerName</div>
+                    <div><strong>Ποσό:</strong> €@_detailItem.TotAmt.ToString("N2")</div>
+                    <div><strong>Σχόλια:</strong> @_detailItem.Comments</div>
+                    <div><strong>Προϊόντα (IDs):</strong> @_detailItem.ProductIDs</div>
+                    <div><strong>Κατηγορίες (IDs):</strong> @_detailItem.CategoryIDs</div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@if (_showDeleteConfirm)
+{
+    <div class="modal-overlay" @onclick="CloseDelete">
+        <div class="modal modal-sm" @onclick:stopPropagation>
+            <div class="modal-header"><h3>Επιβεβαίωση Διαγραφής</h3></div>
+            <div class="modal-body"><p>Διαγραφή παραστατικού <strong>#@_deleteItem?.BillId</strong>;</p></div>
+            <div class="modal-footer">
+                <button class="btn-secondary" @onclick="CloseDelete">Άκυρο</button>
+                <button class="btn-danger" @onclick="DeleteBill">Διαγραφή</button>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    private List<BillTbl> _bills = [];
+    private string _search = "";
+    private DateTime? _from, _to;
+    private string _message = "";
+    private bool _isError;
+    private bool _showDeleteConfirm;
+    private BillTbl? _detailItem, _deleteItem;
+
+    protected override void OnInitialized() { if (Auth.IsAuthenticated) Load(); }
+
+    private void Load() => _bills = BillSvc.GetAll(_search, _from, _to);
+    private void OnSearch(ChangeEventArgs e) { _search = e.Value?.ToString() ?? string.Empty; Load(); }
+    private void OnFromChanged(ChangeEventArgs e) { _from = e.Value is string s && !string.IsNullOrEmpty(s) ? DateTime.Parse(s) : null; Load(); }
+    private void OnToChanged(ChangeEventArgs e) { _to = e.Value is string s && !string.IsNullOrEmpty(s) ? DateTime.Parse(s) : null; Load(); }
+
+    private void ClearFilters() { _search = ""; _from = null; _to = null; Load(); }
+
+    private void ShowDetails(BillTbl b) => _detailItem = b;
+
+    private void ConfirmDelete(BillTbl b) { _deleteItem = b; _showDeleteConfirm = true; _message = ""; }
+
+    private void DeleteBill()
+    {
+        if (_deleteItem == null) return;
+        int? result = BillSvc.Delete(_deleteItem);
+        _isError = result != 1;
+        _message = result == 1 ? "Διαγράφηκε!" : "Σφάλμα.";
+        CloseDelete(); Load();
+    }
+
+    private void CloseDelete() { _showDeleteConfirm = false; _deleteItem = null; }
+}

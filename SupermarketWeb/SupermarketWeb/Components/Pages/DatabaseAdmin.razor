@@ -1,0 +1,126 @@
+@page "/database"
+@inject AuthService Auth
+@inject NavigationManager Nav
+@rendermode InteractiveServer
+
+<PageTitle>Βάση Δεδομένων - Supermarket</PageTitle>
+
+@if (!Auth.IsAuthenticated) { Nav.NavigateTo("/login"); return; }
+@if (Auth.CurrentRole != AuthService.Role.SuperAdmin) { Nav.NavigateTo("/"); return; }
+
+<div class="page-header">
+    <h1>🗄️ Διαχείριση Βάσης Δεδομένων</h1>
+</div>
+
+@if (_message != "")
+{
+    <div class="@(_isError ? "alert-error" : "alert-success")">@_message</div>
+}
+
+<div class="db-grid">
+    <div class="db-card">
+        <h3>🧹 Καθαρισμός Δεδομένων</h3>
+        <p>Διαγραφή όλων των εγγραφών από τους πίνακες (εκτός χρηστών).</p>
+        <button class="btn-danger" @onclick="() => _showClean = true">Καθαρισμός Βάσης</button>
+    </div>
+
+    <div class="db-card">
+        <h3>💾 Αντίγραφο Ασφαλείας</h3>
+        <p>Δημιουργία backup αρχείου .bak</p>
+        <div class="form-group">
+            <input class="form-input" placeholder="π.χ. /tmp/backup.bak" @bind="_backupPath" />
+        </div>
+        <button class="btn-primary" @onclick="DoBackup">Backup</button>
+    </div>
+
+    <div class="db-card">
+        <h3>♻️ Επαναφορά</h3>
+        <p>Επαναφορά βάσης από αρχείο .bak</p>
+        <div class="form-group">
+            <input class="form-input" placeholder="π.χ. /tmp/backup.bak" @bind="_restorePath" />
+        </div>
+        <button class="btn-warning" @onclick="() => _showRestore = true">Επαναφορά</button>
+    </div>
+
+    <div class="db-card">
+        <h3>📊 Κατάσταση Σύνδεσης</h3>
+        <p>Έλεγχος σύνδεσης με τη βάση δεδομένων.</p>
+        <button class="btn-secondary" @onclick="CheckConnection">Έλεγχος</button>
+        @if (_connStatus != "")
+        {
+            <div class="conn-status @(_connOk ? "conn-ok" : "conn-fail")">@_connStatus</div>
+        }
+    </div>
+</div>
+
+@if (_showClean)
+{
+    <div class="modal-overlay" @onclick="() => _showClean = false">
+        <div class="modal modal-sm" @onclick:stopPropagation>
+            <div class="modal-header"><h3>⚠️ Επιβεβαίωση Καθαρισμού</h3></div>
+            <div class="modal-body">
+                <p>Αυτή η ενέργεια θα διαγράψει <strong>όλα</strong> τα δεδομένα από τους πίνακες. Είστε σίγουροι;</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" @onclick="() => _showClean = false">Άκυρο</button>
+                <button class="btn-danger" @onclick="DoClean">Ναι, Καθαρισμός</button>
+            </div>
+        </div>
+    </div>
+}
+
+@if (_showRestore)
+{
+    <div class="modal-overlay" @onclick="() => _showRestore = false">
+        <div class="modal modal-sm" @onclick:stopPropagation>
+            <div class="modal-header"><h3>⚠️ Επιβεβαίωση Επαναφοράς</h3></div>
+            <div class="modal-body">
+                <p>Η επαναφορά θα αντικαταστήσει τα τρέχοντα δεδομένα. Συνέχεια;</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" @onclick="() => _showRestore = false">Άκυρο</button>
+                <button class="btn-danger" @onclick="DoRestore">Ναι, Επαναφορά</button>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    private string _message = "";
+    private bool _isError;
+    private bool _showClean, _showRestore;
+    private string _backupPath = "/tmp/smarket_backup.bak";
+    private string _restorePath = "/tmp/smarket_backup.bak";
+    private string _connStatus = "";
+    private bool _connOk;
+
+    private void DoClean()
+    {
+        _showClean = false;
+        bool ok = DataModel.CleanDB();
+        _isError = !ok;
+        _message = ok ? "Καθαρισμός ολοκληρώθηκε!" : "Σφάλμα καθαρισμού. Βεβαιωθείτε ότι υπάρχει το stored procedure SP_CleanDatabaseTables.";
+    }
+
+    private void DoBackup()
+    {
+        if (string.IsNullOrWhiteSpace(_backupPath)) { _isError = true; _message = "Εισάγετε path αποθήκευσης."; return; }
+        try { DataModel.Backup(_backupPath); _isError = false; _message = $"Backup αποθηκεύτηκε: {_backupPath}"; }
+        catch (Exception ex) { _isError = true; _message = $"Σφάλμα: {ex.Message}"; }
+    }
+
+    private void DoRestore()
+    {
+        _showRestore = false;
+        if (string.IsNullOrWhiteSpace(_restorePath)) { _isError = true; _message = "Εισάγετε path αρχείου."; return; }
+        try { DataModel.RestoreDB(_restorePath); _isError = false; _message = "Επαναφορά ολοκληρώθηκε!"; }
+        catch (Exception ex) { _isError = true; _message = $"Σφάλμα: {ex.Message}"; }
+    }
+
+    private void CheckConnection()
+    {
+        bool ok = DataContext.Instance.CheckConnection();
+        _connOk = ok;
+        _connStatus = ok ? "✓ Σύνδεση επιτυχής" : "✗ Αποτυχία σύνδεσης";
+    }
+}
