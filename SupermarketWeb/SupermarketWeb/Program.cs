@@ -11,7 +11,8 @@ DataContext.Configure(connStr);
 
 // Add services
 builder.Services.AddRazorComponents()
-    .AddInteractiveServerComponents();
+    .AddInteractiveServerComponents()
+    .AddHubOptions(o => o.EnableDetailedErrors = true);
 
 // Register app services as Scoped (per Blazor circuit)
 builder.Services.AddScoped<AuthService>();

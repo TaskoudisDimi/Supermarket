@@ -8,7 +8,13 @@
 
 <div class="page-header">
     <h1>👤 Πωλητές</h1>
-    <button type="button" class="btn-primary" @onclick="ShowCreate">+ Νέος Πωλητής</button>
+    <div style="display:flex;gap:.5rem;align-items:center">
+        <span style="background:#e0f2fe;padding:.3rem .7rem;border-radius:6px;font-size:.8rem">
+            Clicks: @_testCount
+        </span>
+        <button type="button" class="btn-secondary" @onclick="() => _testCount++">TEST</button>
+        <button type="button" class="btn-primary" @onclick="ShowCreate">+ Νέος Πωλητής</button>
+    </div>
 </div>
 
 <div class="search-bar">
@@ -95,10 +101,7 @@
                         </div>
                         <div class="form-group">
                             <label>Ενεργός</label>
-                            <select class="form-input" @bind="_editItem.Active">
-                                <option value="true">Ναι</option>
-                                <option value="false">Όχι</option>
-                            </select>
+                            <input type="checkbox" @bind="_editItem.Active" /> Ναι
                         </div>
                     </div>
                     <div class="form-group">
@@ -157,6 +160,7 @@
 }
 
 @code {
+    private int _testCount = 0;
     private List<SellersTbl> _sellers = [];
     private string _search = "";
     private string _message = "";
@@ -165,8 +169,30 @@
     private SellersTbl? _editItem, _deleteItem, _passTarget;
     private string _newPassword = "", _confirmPassword = "", _passError = "";
 
-    protected override void OnInitialized() { if (!Auth.IsAuthenticated) { Nav.NavigateTo("/login"); return; } if (Auth.CurrentRole == AuthService.Role.Seller) { Nav.NavigateTo("/"); return; } Load(); }
-    private void Load() => _sellers = SellerSvc.GetAll(_search);
+    protected override void OnInitialized()
+    {
+        try
+        {
+            if (!Auth.IsAuthenticated) { Nav.NavigateTo("/login"); return; }
+            if (Auth.CurrentRole == AuthService.Role.Seller) { Nav.NavigateTo("/"); return; }
+            Load();
+        }
+        catch (Exception ex)
+        {
+            Console.Error.WriteLine($"[SELLERS OnInitialized ERROR] {ex.GetType().Name}: {ex.Message}");
+            Console.Error.WriteLine(ex.StackTrace);
+        }
+    }
+
+    private void Load()
+    {
+        try { _sellers = SellerSvc.GetAll(_search); }
+        catch (Exception ex)
+        {
+            Console.Error.WriteLine($"[SELLERS Load ERROR] {ex.GetType().Name}: {ex.Message}");
+            _sellers = [];
+        }
+    }
     private void OnSearch(ChangeEventArgs e) { _search = e.Value?.ToString() ?? string.Empty; Load(); }
 
     private void ShowCreate()
