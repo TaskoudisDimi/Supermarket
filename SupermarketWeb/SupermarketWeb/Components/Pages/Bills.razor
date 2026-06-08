@@ -62,10 +62,11 @@
     </table>
 </div>
 
-@if (_detailItem != null)
-{
-    <div class="modal-overlay" @onclick="() => _detailItem = null">
-        <div class="modal" @onclick:stopPropagation>
+<!-- Detail modal -->
+<div class="modal-overlay @(_detailItem != null ? "" : "modal-hidden")" @onclick="() => _detailItem = null">
+    <div class="modal" @onclick:stopPropagation>
+        @if (_detailItem != null)
+        {
             <div class="modal-header">
                 <h3>Παραστατικό #@_detailItem.BillId</h3>
                 <button type="button" class="modal-close" @onclick="() => _detailItem = null">✕</button>
@@ -80,23 +81,21 @@
                     <div><strong>Κατηγορίες (IDs):</strong> @_detailItem.CategoryIDs</div>
                 </div>
             </div>
-        </div>
+        }
     </div>
-}
+</div>
 
-@if (_showDeleteConfirm)
-{
-    <div class="modal-overlay" @onclick="CloseDelete">
-        <div class="modal modal-sm" @onclick:stopPropagation>
-            <div class="modal-header"><h3>Επιβεβαίωση Διαγραφής</h3></div>
-            <div class="modal-body"><p>Διαγραφή παραστατικού <strong>#@_deleteItem?.BillId</strong>;</p></div>
-            <div class="modal-footer">
-                <button type="button" class="btn-secondary" @onclick="CloseDelete">Άκυρο</button>
-                <button type="button" class="btn-danger" @onclick="DeleteBill">Διαγραφή</button>
-            </div>
+<!-- Delete confirm modal -->
+<div class="modal-overlay @(_showDeleteConfirm ? "" : "modal-hidden")" @onclick="CloseDelete">
+    <div class="modal modal-sm" @onclick:stopPropagation>
+        <div class="modal-header"><h3>Επιβεβαίωση Διαγραφής</h3></div>
+        <div class="modal-body"><p>Διαγραφή παραστατικού <strong>#@_deleteItem?.BillId</strong>;</p></div>
+        <div class="modal-footer">
+            <button type="button" class="btn-secondary" @onclick="CloseDelete">Άκυρο</button>
+            <button type="button" class="btn-danger" @onclick="DeleteBill">Διαγραφή</button>
         </div>
     </div>
-}
+</div>
 
 @code {
     private List<BillTbl> _bills = [];

@@ -50,37 +50,33 @@
     </div>
 </div>
 
-@if (_showClean)
-{
-    <div class="modal-overlay" @onclick="() => _showClean = false">
-        <div class="modal modal-sm" @onclick:stopPropagation>
-            <div class="modal-header"><h3>⚠️ Επιβεβαίωση Καθαρισμού</h3></div>
-            <div class="modal-body">
-                <p>Αυτή η ενέργεια θα διαγράψει <strong>όλα</strong> τα δεδομένα από τους πίνακες. Είστε σίγουροι;</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn-secondary" @onclick="() => _showClean = false">Άκυρο</button>
-                <button type="button" class="btn-danger" @onclick="DoClean">Ναι, Καθαρισμός</button>
-            </div>
+<!-- Clean confirm modal -->
+<div class="modal-overlay @(_showClean ? "" : "modal-hidden")" @onclick="() => _showClean = false">
+    <div class="modal modal-sm" @onclick:stopPropagation>
+        <div class="modal-header"><h3>⚠️ Επιβεβαίωση Καθαρισμού</h3></div>
+        <div class="modal-body">
+            <p>Αυτή η ενέργεια θα διαγράψει <strong>όλα</strong> τα δεδομένα από τους πίνακες. Είστε σίγουροι;</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn-secondary" @onclick="() => _showClean = false">Άκυρο</button>
+            <button type="button" class="btn-danger" @onclick="DoClean">Ναι, Καθαρισμός</button>
         </div>
     </div>
-}
+</div>
 
-@if (_showRestore)
-{
-    <div class="modal-overlay" @onclick="() => _showRestore = false">
-        <div class="modal modal-sm" @onclick:stopPropagation>
-            <div class="modal-header"><h3>⚠️ Επιβεβαίωση Επαναφοράς</h3></div>
-            <div class="modal-body">
-                <p>Η επαναφορά θα αντικαταστήσει τα τρέχοντα δεδομένα. Συνέχεια;</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn-secondary" @onclick="() => _showRestore = false">Άκυρο</button>
-                <button type="button" class="btn-danger" @onclick="DoRestore">Ναι, Επαναφορά</button>
-            </div>
+<!-- Restore confirm modal -->
+<div class="modal-overlay @(_showRestore ? "" : "modal-hidden")" @onclick="() => _showRestore = false">
+    <div class="modal modal-sm" @onclick:stopPropagation>
+        <div class="modal-header"><h3>⚠️ Επιβεβαίωση Επαναφοράς</h3></div>
+        <div class="modal-body">
+            <p>Η επαναφορά θα αντικαταστήσει τα τρέχοντα δεδομένα. Συνέχεια;</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn-secondary" @onclick="() => _showRestore = false">Άκυρο</button>
+            <button type="button" class="btn-danger" @onclick="DoRestore">Ναι, Επαναφορά</button>
         </div>
     </div>
-}
+</div>
 
 @code {
     private string _message = "";

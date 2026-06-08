@@ -69,66 +69,58 @@
     </table>
 </div>
 
-@if (_showModal)
-{
-    <div class="modal-overlay" @onclick="CloseModal">
-        <div class="modal" @onclick:stopPropagation>
-            <div class="modal-header">
-                <h3>@(_editItem?.ProdId > 0 ? "Επεξεργασία Προϊόντος" : "Νέο Προϊόν")</h3>
-                <button type="button" class="modal-close" @onclick="CloseModal">✕</button>
-            </div>
-            <div class="modal-body">
-                @if (_editItem != null)
-                {
-                    <div class="form-group">
-                        <label>Όνομα *</label>
-                        <input class="form-input" @bind="_editItem.ProdName" />
-                    </div>
-                    <div class="form-group">
-                        <label>Κατηγορία *</label>
-                        <select class="form-input" @bind="_editItem.ProdCatID" @bind:after="UpdateCatName">
-                            <option value="0">-- Επιλέξτε --</option>
-                            @foreach (var c in _categories)
-                            {
-                                <option value="@c.CatId">@c.CatName</option>
-                            }
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Τιμή (€) *</label>
-                        <input class="form-input" type="number" step="0.01" @bind="_editItem.ProdPrice" />
-                    </div>
-                    <div class="form-group">
-                        <label>Απόθεμα *</label>
-                        <input class="form-input" type="number" @bind="_editItem.ProdQty" />
-                    </div>
-                }
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn-secondary" @onclick="CloseModal">Άκυρο</button>
-                <button type="button" class="btn-primary" @onclick="SaveProduct">Αποθήκευση</button>
-            </div>
+<!-- Create / Edit modal -->
+<div class="modal-overlay @(_showModal ? "" : "modal-hidden")" @onclick="CloseModal">
+    <div class="modal" @onclick:stopPropagation>
+        <div class="modal-header">
+            <h3>@(_editItem?.ProdId > 0 ? "Επεξεργασία Προϊόντος" : "Νέο Προϊόν")</h3>
+            <button type="button" class="modal-close" @onclick="CloseModal">✕</button>
+        </div>
+        <div class="modal-body">
+            @if (_editItem != null)
+            {
+                <div class="form-group">
+                    <label>Όνομα *</label>
+                    <input class="form-input" @bind="_editItem.ProdName" />
+                </div>
+                <div class="form-group">
+                    <label>Κατηγορία *</label>
+                    <select class="form-input" @bind="_editItem.ProdCatID" @bind:after="UpdateCatName">
+                        <option value="0">-- Επιλέξτε --</option>
+                        @foreach (var c in _categories)
+                        {
+                            <option value="@c.CatId">@c.CatName</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Τιμή (€) *</label>
+                    <input class="form-input" type="number" step="0.01" @bind="_editItem.ProdPrice" />
+                </div>
+                <div class="form-group">
+                    <label>Απόθεμα *</label>
+                    <input class="form-input" type="number" @bind="_editItem.ProdQty" />
+                </div>
+            }
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn-secondary" @onclick="CloseModal">Άκυρο</button>
+            <button type="button" class="btn-primary" @onclick="SaveProduct">Αποθήκευση</button>
         </div>
     </div>
-}
+</div>
 
-@if (_showDeleteConfirm)
-{
-    <div class="modal-overlay" @onclick="CloseModal">
-        <div class="modal modal-sm" @onclick:stopPropagation>
-            <div class="modal-header">
-                <h3>Επιβεβαίωση Διαγραφής</h3>
-            </div>
-            <div class="modal-body">
-                <p>Διαγραφή προϊόντος <strong>@_deleteItem?.ProdName</strong>;</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn-secondary" @onclick="CloseModal">Άκυρο</button>
-                <button type="button" class="btn-danger" @onclick="DeleteProduct">Διαγραφή</button>
-            </div>
+<!-- Delete confirm modal -->
+<div class="modal-overlay @(_showDeleteConfirm ? "" : "modal-hidden")" @onclick="CloseModal">
+    <div class="modal modal-sm" @onclick:stopPropagation>
+        <div class="modal-header"><h3>Επιβεβαίωση Διαγραφής</h3></div>
+        <div class="modal-body"><p>Διαγραφή προϊόντος <strong>@_deleteItem?.ProdName</strong>;</p></div>
+        <div class="modal-footer">
+            <button type="button" class="btn-secondary" @onclick="CloseModal">Άκυρο</button>
+            <button type="button" class="btn-danger" @onclick="DeleteProduct">Διαγραφή</button>
         </div>
     </div>
-}
+</div>
 
 @code {
     private List<ProductTbl> _products = [];
@@ -157,7 +149,6 @@
         _editItem = new ProductTbl { Date = DateTime.Now };
         _showModal = true;
         _message = "";
-        StateHasChanged();
     }
 
     private void ShowEdit(ProductTbl p)
@@ -169,7 +160,6 @@
         };
         _showModal = true;
         _message = "";
-        StateHasChanged();
     }
 
     private void ConfirmDelete(ProductTbl p)
@@ -177,7 +167,6 @@
         _deleteItem = p;
         _showDeleteConfirm = true;
         _message = "";
-        StateHasChanged();
     }
 
     private void UpdateCatName()

@@ -283,6 +283,8 @@ body {
 .action-card:hover { border-color: var(--primary); color: var(--primary); transform: translateY(-2px); box-shadow: var(--shadow-md); }
 
 /* ── Modal ─────────────────────────────────────── */
+.modal-hidden { display: none !important; }
+
 .modal-overlay {
     position: fixed;
     top: 0; right: 0; bottom: 0; left: 0;

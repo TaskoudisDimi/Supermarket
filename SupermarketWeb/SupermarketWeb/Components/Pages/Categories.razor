@@ -47,48 +47,44 @@
     </table>
 </div>
 
-@if (_showModal)
-{
-    <div class="modal-overlay" @onclick="CloseModal">
-        <div class="modal" @onclick:stopPropagation>
-            <div class="modal-header">
-                <h3>@(_editItem?.CatId > 0 ? "Επεξεργασία Κατηγορίας" : "Νέα Κατηγορία")</h3>
-                <button type="button" class="modal-close" @onclick="CloseModal">✕</button>
-            </div>
-            <div class="modal-body">
-                @if (_editItem != null)
-                {
-                    <div class="form-group">
-                        <label>Όνομα *</label>
-                        <input class="form-input" @bind="_editItem.CatName" />
-                    </div>
-                    <div class="form-group">
-                        <label>Περιγραφή</label>
-                        <textarea class="form-input" rows="3" @bind="_editItem.CatDesc"></textarea>
-                    </div>
-                }
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn-secondary" @onclick="CloseModal">Άκυρο</button>
-                <button type="button" class="btn-primary" @onclick="SaveCategory">Αποθήκευση</button>
-            </div>
+<!-- Create / Edit modal -->
+<div class="modal-overlay @(_showModal ? "" : "modal-hidden")" @onclick="CloseModal">
+    <div class="modal" @onclick:stopPropagation>
+        <div class="modal-header">
+            <h3>@(_editItem?.CatId > 0 ? "Επεξεργασία Κατηγορίας" : "Νέα Κατηγορία")</h3>
+            <button type="button" class="modal-close" @onclick="CloseModal">✕</button>
+        </div>
+        <div class="modal-body">
+            @if (_editItem != null)
+            {
+                <div class="form-group">
+                    <label>Όνομα *</label>
+                    <input class="form-input" @bind="_editItem.CatName" />
+                </div>
+                <div class="form-group">
+                    <label>Περιγραφή</label>
+                    <textarea class="form-input" rows="3" @bind="_editItem.CatDesc"></textarea>
+                </div>
+            }
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn-secondary" @onclick="CloseModal">Άκυρο</button>
+            <button type="button" class="btn-primary" @onclick="SaveCategory">Αποθήκευση</button>
         </div>
     </div>
-}
+</div>
 
-@if (_showDeleteConfirm)
-{
-    <div class="modal-overlay" @onclick="CloseModal">
-        <div class="modal modal-sm" @onclick:stopPropagation>
-            <div class="modal-header"><h3>Επιβεβαίωση Διαγραφής</h3></div>
-            <div class="modal-body"><p>Διαγραφή κατηγορίας <strong>@_deleteItem?.CatName</strong>;</p></div>
-            <div class="modal-footer">
-                <button type="button" class="btn-secondary" @onclick="CloseModal">Άκυρο</button>
-                <button type="button" class="btn-danger" @onclick="DeleteCategory">Διαγραφή</button>
-            </div>
+<!-- Delete confirm modal -->
+<div class="modal-overlay @(_showDeleteConfirm ? "" : "modal-hidden")" @onclick="CloseModal">
+    <div class="modal modal-sm" @onclick:stopPropagation>
+        <div class="modal-header"><h3>Επιβεβαίωση Διαγραφής</h3></div>
+        <div class="modal-body"><p>Διαγραφή κατηγορίας <strong>@_deleteItem?.CatName</strong>;</p></div>
+        <div class="modal-footer">
+            <button type="button" class="btn-secondary" @onclick="CloseModal">Άκυρο</button>
+            <button type="button" class="btn-danger" @onclick="DeleteCategory">Διαγραφή</button>
         </div>
     </div>
-}
+</div>
 
 @code {
     private List<CategoryTbl> _categories = [];
@@ -104,7 +100,7 @@
     private void Load() => _categories = CategorySvc.GetAll(_search);
     private void OnSearch(ChangeEventArgs e) { _search = e.Value?.ToString() ?? string.Empty; Load(); }
 
-    private void ShowCreate() { _editItem = new CategoryTbl { Date = DateTime.Now }; _showModal = true; _message = ""; StateHasChanged(); }
+    private void ShowCreate() { _editItem = new CategoryTbl { Date = DateTime.Now }; _showModal = true; _message = ""; }
 
     private void ShowEdit(CategoryTbl c)
     {
@@ -113,7 +109,7 @@
         _message = "";
     }
 
-    private void ConfirmDelete(CategoryTbl c) { _deleteItem = c; _showDeleteConfirm = true; _message = ""; StateHasChanged(); }
+    private void ConfirmDelete(CategoryTbl c) { _deleteItem = c; _showDeleteConfirm = true; _message = ""; }
 
     private void SaveCategory()
     {
